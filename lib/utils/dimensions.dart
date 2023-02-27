@@ -7,6 +7,7 @@ class Dimensions{
   static double fontSizeMid=18.0;
   static double fontSizeLarge=20.0;
   static double fontSizeExtraLarge=24.0;
+  static double fontSizeDoubleLarge=28.0;
 
 //padding
   static double paddingExtraSmall=2.0;

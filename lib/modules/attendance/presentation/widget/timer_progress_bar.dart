@@ -4,6 +4,8 @@ import 'dart:math' as math;
 
 import 'package:pay_day_mobile/utils/app_layout.dart';
 
+import '../../../../utils/app_style.dart';
+
 class TimerProgressBar extends StatefulWidget {
   const TimerProgressBar({Key? key}) : super(key: key);
 
@@ -36,7 +38,7 @@ class _TimerProgressBarState extends State<TimerProgressBar>
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: AppLayout.getHeight(160),
+      height: AppLayout.getHeight(100),
       width: AppLayout.getWidth(160),
       child: Stack(
         children: [
@@ -67,7 +69,8 @@ class ProgressArc extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    const rect = Rect.fromLTRB(0, 0, 160, 160);
+    var  rect =
+        Rect.fromLTRB(0, 0, AppLayout.getWidth(160), AppLayout.getHeight(160));
     const startAngle = -math.pi;
     final sweepAngle = arc ?? math.pi;
     const useCenter = false;

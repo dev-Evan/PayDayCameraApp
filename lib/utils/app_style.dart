@@ -10,6 +10,11 @@ class AppStyle {
       color: Colors.white,
       fontWeight: FontWeight.w600,
       fontFamily: "Poppins");
+  static TextStyle timer_text = TextStyle(
+      fontSize: AppLayout.getWidth(Dimensions.fontSizeDoubleLarge),
+      color: Colors.white,
+      fontWeight: FontWeight.w600,
+      fontFamily: "Poppins");
 
   static TextStyle small_text = TextStyle(
       fontSize: AppLayout.getWidth(Dimensions.fontSizeSmall),
@@ -25,6 +30,16 @@ class AppStyle {
 
   static TextStyle large_text = TextStyle(
       fontSize: AppLayout.getWidth(Dimensions.fontSizeExtraDefault),
+      color: Colors.white,
+      fontWeight: FontWeight.w500,
+      fontFamily: "Poppins");
+  static TextStyle mid_large_text = TextStyle(
+      fontSize: AppLayout.getWidth(Dimensions.fontSizeMid),
+      color: Colors.white,
+      fontWeight: FontWeight.w500,
+      fontFamily: "Poppins");
+  static TextStyle extra_large_text = TextStyle(
+      fontSize: AppLayout.getWidth(Dimensions.fontSizeLarge),
       color: Colors.white,
       fontWeight: FontWeight.w500,
       fontFamily: "Poppins");
