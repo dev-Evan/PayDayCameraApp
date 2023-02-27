@@ -6,6 +6,8 @@ import '../../../../utils/app_style.dart';
 
 Widget infoLayout() {
   return Row(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -14,7 +16,7 @@ Widget infoLayout() {
           _getCurrentDate()
         ],
       ),
-      CustomStatusButton(bgColor: Colors.green, text: 'Regular')
+      const CustomStatusButton(bgColor: Colors.white, text: 'Regular',textColor: Colors.green,)
     ],
   );
 }
