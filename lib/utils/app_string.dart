@@ -1,7 +1,6 @@
 class AppString {
   AppString._();
 
-  static String exampleText = "";
   static String text_in = "In";
   static String text_out = "Out";
   static String text_total = "Total";
