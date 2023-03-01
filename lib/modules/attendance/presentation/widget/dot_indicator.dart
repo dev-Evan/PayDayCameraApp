@@ -13,7 +13,7 @@ Widget dotIndicator() {
             horizontal: AppLayout.getWidth(Dimensions.paddingExtraSmall)),
         height: AppLayout.getHeight(6),
         width: currentIndex == index
-            ? AppLayout.getWidth(12)
+            ? AppLayout.getWidth(16)
             : AppLayout.getWidth(6),
         decoration: BoxDecoration(
             color: Colors.white,

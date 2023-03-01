@@ -6,29 +6,37 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 
 import '../widget/dot_indicator.dart';
 import '../widget/info_layout.dart';
+import '../widget/log_list.dart';
+import '../widget/no_log_layout.dart';
 import '../widget/punch_button.dart';
 import '../widget/timer_layout.dart';
 import '../widget/timer_overview_layout.dart';
+import '../widget/todays_log_text.dart';
+import 'log_entry_bottomsheet.dart';
 
 class Attendance extends StatelessWidget {
-  const Attendance({Key? key}) : super(key: key);
+  bool loggedIn = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _body(),
+      body: _body(context),
     );
   }
 
-  Widget _body() {
+  Widget _body(BuildContext context) {
     return SafeArea(
         child: SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: double.infinity,
             decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(16),
+                  bottomRight: Radius.circular(16)),
               gradient: LinearGradient(
                   colors: [AppColor.gradient_blue1, AppColor.gradient_blue2]),
             ),
@@ -49,7 +57,7 @@ class Attendance extends StatelessWidget {
                     timerOverviewLayout(),
                     SizedBox(
                         height: AppLayout.getHeight(Dimensions.paddingDefault)),
-                    punchButton(() {}),
+                    punchButton(() => _openBottomSheet(context: context)),
                     SizedBox(
                         height: AppLayout.getHeight(Dimensions.paddingMid)),
                     dotIndicator(),
@@ -57,8 +65,34 @@ class Attendance extends StatelessWidget {
                   ]),
             ),
           ),
+          loggedIn
+              ? Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: AppLayout.getHeight(Dimensions.paddingLarge),
+                      horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        todaysLogIntroText(),
+                        SizedBox(
+                            height:
+                                AppLayout.getHeight(Dimensions.paddingLarge)),
+                        logList(),
+                      ]),
+                )
+              : noLogLayout(),
         ],
       ),
     ));
+  }
+
+  Future _openBottomSheet({required BuildContext context}) {
+    return showModalBottomSheet(
+      enableDrag: false,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) => logEntryBottomSheet(),
+    );
   }
 }

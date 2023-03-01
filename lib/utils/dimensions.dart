@@ -1,4 +1,5 @@
 class Dimensions{
+  Dimensions._();
 //App Size
   static double fontSizeExtraSmall=10.0;
   static double fontSizeSmall=12.0;

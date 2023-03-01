@@ -18,7 +18,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int currentIndex = 0;
 
-  final _screens = const <Widget>[Attendance(), Leave(), PaySlip(), More()];
+  final _screens = <Widget>[Attendance(), Leave(), PaySlip(), More()];
 
   final _items = <BottomNavigationBarItem>[
     const BottomNavigationBarItem(

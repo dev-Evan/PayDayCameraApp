@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widget/vertical_divider.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
@@ -16,11 +17,11 @@ Widget timerOverviewLayout() {
             children: [
               inTimeLog(),
               const Spacer(),
-              _verticalDivider(),
+              verticalDivider(),
               const Spacer(),
               outTimeLog(),
               const Spacer(),
-              _verticalDivider(),
+              verticalDivider(),
               const Spacer(),
               balanceTimeLog(),
             ]),
@@ -30,11 +31,11 @@ Widget timerOverviewLayout() {
             children: [
               scheduledTimeLog(),
               const Spacer(),
-              _verticalDivider(),
+              verticalDivider(),
               const Spacer(),
               remainingTimeLog(),
               const Spacer(),
-              _verticalDivider(),
+              verticalDivider(),
               const Spacer(),
               overtimeTimeLog(),
             ]),
@@ -67,17 +68,22 @@ inTimeLog() {
   return logInfo(title: AppString.text_in, time: DateTime.now().toString());
 }
 
-logInfo({required String title, required String time}) {
+logInfo({required String title, required String time, Color? fontColor}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(title, style: AppStyle.small_text),
+      Text(title,
+          style: fontColor != null
+              ? AppStyle.small_text.copyWith(color: fontColor)
+              : AppStyle.small_text),
       RichText(
           text: TextSpan(children: [
         TextSpan(
           text: "11",
-          style:
-              AppStyle.extra_large_text.copyWith(fontWeight: FontWeight.bold),
+          style: fontColor != null
+              ? AppStyle.extra_large_text
+                  .copyWith(fontWeight: FontWeight.bold, color: fontColor)
+              : AppStyle.extra_large_text.copyWith(fontWeight: FontWeight.bold),
         ),
         TextSpan(
           text: " am ",
@@ -85,13 +91,5 @@ logInfo({required String title, required String time}) {
         ),
       ]))
     ],
-  );
-}
-
-_verticalDivider() {
-  return Container(
-    height: AppLayout.getHeight(30),
-    padding: const EdgeInsets.all(1),
-    color: Colors.white,
   );
 }

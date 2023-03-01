@@ -21,6 +21,11 @@ class AppStyle {
       color: Colors.white,
       fontWeight: FontWeight.w500,
       fontFamily: "Poppins");
+  static TextStyle small_text_black = TextStyle(
+      fontSize: AppLayout.getWidth(Dimensions.fontSizeSmall),
+      color: Colors.black,
+      fontWeight: FontWeight.w500,
+      fontFamily: "Poppins");
 
   static TextStyle normal_text = TextStyle(
       fontSize: AppLayout.getWidth(Dimensions.fontSizeDefault),
@@ -31,6 +36,12 @@ class AppStyle {
   static TextStyle large_text = TextStyle(
       fontSize: AppLayout.getWidth(Dimensions.fontSizeExtraDefault),
       color: Colors.white,
+      fontWeight: FontWeight.w500,
+      fontFamily: "Poppins");
+
+  static TextStyle large_text_black = TextStyle(
+      fontSize: AppLayout.getWidth(Dimensions.fontSizeExtraDefault),
+      color: Colors.black,
       fontWeight: FontWeight.w500,
       fontFamily: "Poppins");
   static TextStyle mid_large_text = TextStyle(
