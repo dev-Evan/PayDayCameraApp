@@ -62,7 +62,7 @@ class _forgotScreenState extends State<forgotScreen> {
                             alignment: isleft
                                 ? Alignment.topCenter
                                 : Alignment.topRight,
-                            child: Image.asset(Images.payday),
+                            child: Image.asset(Images.app_logo),
                             curve: Curves.easeInOut,
                           ),
                         ),

@@ -15,8 +15,12 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
+
       initialRoute: splash,
       getPages: getPage,
+
+
+
     );
   }
 }

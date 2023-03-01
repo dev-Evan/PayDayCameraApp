@@ -76,7 +76,7 @@ class _onboardingScreenState extends State<onboardingScreen> {
                           duration: Duration(milliseconds: 400),
                           alignment:
                               isleft ? Alignment.topCenter : Alignment.topRight,
-                          child: Image.asset(Images.payday),
+                          child: Image.asset(Images.app_logo),
                           curve: Curves.easeInOut,
                         ),
                       ),
