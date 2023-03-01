@@ -26,12 +26,22 @@ class _CustomTextFeildState extends State<CustomTextFeild> {
           controller: widget.controller,
           decoration: InputDecoration(
               hintText: widget.hintText,
+              focusColor: AppColor.primaryColor,
+
               hintStyle: GoogleFonts.poppins(color: AppColor.hintColor),
               filled: false,
+              fillColor: AppColor.backgroundColor,
+              focusedBorder:OutlineInputBorder(
+                borderSide:
+                BorderSide(width: 0.0, color: AppColor.primaryColor),
+                borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+              ),
               enabledBorder: const OutlineInputBorder(
                 borderSide:
                     const BorderSide(color: AppColor.disableColor, width: 0.0),
+
               ),
+
               border: OutlineInputBorder(
                 borderSide:
                     BorderSide(width: 0.0, color: AppColor.primaryColor),
@@ -67,6 +77,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
         obscureText: value,
         decoration: InputDecoration(
             hintText: widget.hintText,
+            focusColor: AppColor.primaryColor,
             hintStyle: GoogleFonts.poppins(color: AppColor.hintColor),
             suffixIcon: IconButton(
                 onPressed: () {
@@ -83,6 +94,11 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
                     : FaIcon(FontAwesomeIcons.eye,
                         size: 15, color: Colors.grey)),
             filled: false,
+            focusedBorder:OutlineInputBorder(
+              borderSide:
+              BorderSide(width: 0.0, color: AppColor.primaryColor),
+              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+            ),
             enabledBorder: const OutlineInputBorder(
               borderSide:
                   const BorderSide(color: AppColor.disableColor, width: 0.0),

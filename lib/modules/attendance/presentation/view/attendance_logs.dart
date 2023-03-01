@@ -159,7 +159,6 @@
 //   }
 // }
 
-
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -169,6 +168,7 @@ import 'package:pay_day_mobile/modules/attendance/presentation/widget/timer_over
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
+import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class attendanceLogsScreen extends StatefulWidget {
@@ -195,7 +195,7 @@ class _attendanceLogsScreenState extends State<attendanceLogsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.backgroundColor,
+        backgroundColor: AppColor.backgroundColor,
         appBar: CustomAppbar(),
 
         // body: GridView.builder(
@@ -232,16 +232,36 @@ class _attendanceLogsScreenState extends State<attendanceLogsScreen> {
         // ),
 
         body: Container(
-          height: AppLayout.getHeight(500),
-          color: AppColor.primaryColor,
+          height: AppLayout.getHeight(350),
+          decoration: BoxDecoration(
+              color: AppColor.primaryColor,
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(Dimensions.radiusMid),
+                  bottomRight: Radius.circular(Dimensions.radiusMid))),
           child: Column(
             children: [
+              backlogs(),
               attendanceLogsOverviewLayout(context),
               dotIndicator()
             ],
           ),
-        )
-
-    );
+        ));
   }
+}
+
+Widget backlogs() {
+  return AppBar(
+    elevation: 0,
+    centerTitle: true,
+    backgroundColor: AppColor.primaryColor,
+    leading: IconButton(
+      onPressed: () {},
+      icon: Icon(Icons.arrow_back),
+    ),
+    title: Text(
+      AppString.text_attendance_log,
+      style: AppStyle.mid_large_text.copyWith(
+          fontWeight: FontWeight.bold, fontSize: Dimensions.fontSizeDefault),
+    ),
+  );
 }

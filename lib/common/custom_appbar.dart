@@ -53,7 +53,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {},
           icon: FaIcon(
             FontAwesomeIcons.bell,
-            color: AppColor.primaryColor,
+
           ),
         )
       ],

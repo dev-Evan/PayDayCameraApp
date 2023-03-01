@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/utils/app_color.dart';
 // <<<<<<< HEAD
 // import 'app_color.dart';
 //
@@ -45,9 +46,10 @@ class AppStyle {
 
   static TextStyle large_text = TextStyle(
       fontSize: AppLayout.getWidth(Dimensions.fontSizeExtraDefault),
-      color: Colors.white,
+      color: AppColor.cardColor,
       fontWeight: FontWeight.w500,
       fontFamily: "Poppins");
+
 
   static TextStyle large_text_black = TextStyle(
       fontSize: AppLayout.getWidth(Dimensions.fontSizeExtraDefault),

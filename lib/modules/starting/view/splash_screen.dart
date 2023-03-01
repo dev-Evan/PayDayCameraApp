@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pay_day_mobile/modules/example/presentation/auth/sign_in.dart';
-import 'package:pay_day_mobile/modules/example/presentation/view/attendance_logs.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_logs.dart';
+import 'package:pay_day_mobile/modules/auth/presentation/view/sign_in.dart';
 import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -26,7 +26,7 @@ class _splashScreenState extends State<splashScreen> {
     if (userId == null) {
       Get.toNamed(onboard);
     } else {
-      Navigator.push(context, CupertinoPageRoute(builder: (context) => attendanceLogsScreen(),));//signInscreen
+      Navigator.push(context, CupertinoPageRoute(builder: (context) => signInScreen(),));//signInscreen
     }
   }
 

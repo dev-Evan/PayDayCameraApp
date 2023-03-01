@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pay_day_mobile/common/button.dart';
+import 'package:pay_day_mobile/common/custom_button.dart';
 import 'package:pay_day_mobile/common/text_field.dart';
-import 'package:pay_day_mobile/modules/example/presentation/auth/sign_in.dart';
+import 'package:pay_day_mobile/modules/auth/presentation/view/sign_in.dart';
 import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';

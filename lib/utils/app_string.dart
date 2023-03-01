@@ -11,6 +11,8 @@ class AppString {
   static String text_in = "In";
   static String text_out = "Out";
   static String text_total = "Total";
+  static String text_month = "Month";
+  static String text_year = "Year";
   static String text_balance = "Balance";
   static String text_scheduled = "Scheduled";
   static String text_remaining = "Remaining";

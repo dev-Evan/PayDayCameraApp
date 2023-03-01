@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pay_day_mobile/common/button.dart';
+import 'package:pay_day_mobile/common/custom_button.dart';
 import 'package:pay_day_mobile/common/text_field.dart';
-import 'package:pay_day_mobile/modules/example/presentation/auth/received_screen.dart';
-import 'package:pay_day_mobile/modules/example/presentation/view/onboarding_screen.dart';
-import 'package:pay_day_mobile/network/auth_controller.dart';
+import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_controller.dart';
 import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -161,7 +159,7 @@ class _signInScreenState extends State<signInScreen> {
                         Text(
                           'Remember me',
                           style: GoogleFonts.poppins(
-                              fontSize: Dimensions.fontSizeMid),
+                              fontSize: Dimensions.fontSizeDefault),
                         ),
                       ],
                     ),
@@ -169,7 +167,7 @@ class _signInScreenState extends State<signInScreen> {
                         onPressed: () => Get.toNamed(forgot),
                         child: Text('Forgot password?',
                             style: GoogleFonts.poppins(
-                                fontSize: Dimensions.fontSizeMid,
+                                fontSize: Dimensions.fontSizeDefault,
                                 color: AppColor.primaryColor)))
                   ],
                 ),

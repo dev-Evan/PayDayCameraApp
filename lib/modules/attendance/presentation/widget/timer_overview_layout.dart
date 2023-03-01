@@ -102,106 +102,149 @@ logInfo({required String title, required String time, Color? fontColor}) {
 Widget attendanceLogsOverviewLayout(context) {
   return SizedBox(
     width: double.infinity,
-    height: AppLayout.getHeight(270),
+    height: AppLayout.getHeight(260),
     child: PageView(
       children: [
-        GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              childAspectRatio: 3 / 2.5,
-              crossAxisSpacing: 0,
-              mainAxisSpacing: 0),
-          itemCount: 6,
-          itemBuilder: (context, index) {
-            return Container(
-              child: Card(
-                elevation: 0,
-                color: AppColor.cardColor.withOpacity(0.1),
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                    BorderRadius.circular(Dimensions.radiusDefault),
-                    side: BorderSide(
-                        width: 2,
-                        color: AppColor.cardColor.withOpacity(0.2))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            '148',
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
-                                fontSize: Dimensions.fontSizeLarge,
-                                color: AppColor.cardColor.withOpacity(0.8)),
-                          ),
-                          Text(
-                            'Worked',
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
-                                fontSize: Dimensions.fontSizeMid,
-                                color: AppColor.cardColor.withOpacity(0.8)),
-                          ),
-                        ],
+
+
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            logsText(AppString.text_month),
+            Container(
+              height:AppLayout.getHeight(240),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: 3 / 2.5,
+                      crossAxisSpacing: 0,
+                      mainAxisSpacing: 0),
+                  itemCount: 6,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      child: Card(
+                        elevation: 0,
+                        color: AppColor.cardColor.withOpacity(0.1),
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                            BorderRadius.circular(Dimensions.radiusDefault),
+                            side: BorderSide(
+                                width: 2,
+                                color: AppColor.cardColor.withOpacity(0.2))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '148',
+                                    style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: Dimensions.fontSizeLarge,
+                                        color: AppColor.cardColor.withOpacity(0.8)),
+                                  ),
+                                  Text(
+                                    'Worked',
+                                    style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: Dimensions.fontSizeMid,
+                                        color: AppColor.cardColor.withOpacity(0.8)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ),
-            );
-          },
+            ),
+          ],
         ),
-        GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              childAspectRatio: 3 / 2.5,
-              crossAxisSpacing: 0,
-              mainAxisSpacing: 0),
-          itemCount: 6,
-          itemBuilder: (context, index) {
-            return Container(
-              child: Card(
-                elevation: 0,
-                color: AppColor.cardColor.withOpacity(0.1),
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                    BorderRadius.circular(Dimensions.radiusDefault),
-                    side: BorderSide(
-                        width: 2,
-                        color: AppColor.cardColor.withOpacity(0.2))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            '148',
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
-                                fontSize: Dimensions.fontSizeLarge,
-                                color: AppColor.cardColor.withOpacity(0.8)),
-                          ),
-                          Text(
-                            'Worked',
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
-                                fontSize: Dimensions.fontSizeMid,
-                                color: AppColor.cardColor.withOpacity(0.8)),
-                          ),
-                        ],
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            logsText(AppString.text_year),
+            Container(
+              height:AppLayout.getHeight(240),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: 3 / 2.5,
+                      crossAxisSpacing: 0,
+                      mainAxisSpacing: 0),
+                  itemCount: 6,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      child: Card(
+                        elevation: 0,
+                        color: AppColor.cardColor.withOpacity(0.1),
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                            BorderRadius.circular(Dimensions.radiusDefault),
+                            side: BorderSide(
+                                width: 2,
+                                color: AppColor.cardColor.withOpacity(0.2))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+
+                                children: [
+                                  Text(
+                                    '148',
+                                    style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: Dimensions.fontSizeLarge,
+                                        color: AppColor.cardColor.withOpacity(0.8)),
+                                  ),
+                                  Text(
+                                    'Worked',
+                                    style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: Dimensions.fontSizeMid,
+                                        color: AppColor.cardColor.withOpacity(0.8)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ),
-            );
-          },
+            ),
+          ],
         ),
+
+
       ],
     ),
   );
 }
+
+Widget logsText(text){
+  return Container(
+    height: AppLayout.getHeight(20),
+    width: AppLayout.getWidth(150),
+    child: Padding(
+      padding: const EdgeInsets.only(left: 24.0),
+      child: Text(text,style: AppStyle.large_text.copyWith(fontSize: Dimensions.fontSizeMid),),
+    ),
+  );
+}
+
