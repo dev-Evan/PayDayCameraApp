@@ -1,7 +1,4 @@
 
-
-
-
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/auth/presentation/view/forgot_password.dart';
 import 'package:pay_day_mobile/modules/auth/presentation/view/received_screen.dart';

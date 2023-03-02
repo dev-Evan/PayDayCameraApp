@@ -16,11 +16,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appTheme,
 
-      initialRoute: splash,
+      initialRoute: attendLog,
       getPages: getPage,
-
-
-
     );
   }
 }
