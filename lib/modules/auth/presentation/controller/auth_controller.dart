@@ -9,15 +9,14 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
 class AuthHelper {
+
   final box = GetStorage();
+
+
 
   Future logIn(email, password, context) async {
     String _url = AppString.BASE_URL;
     var Url = _url + "/login";
-
-
-
-
     try {
       http.Response response = await http.post(Uri.parse(Url), body: {
         'email': email,

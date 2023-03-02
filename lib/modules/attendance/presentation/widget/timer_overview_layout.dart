@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/widget/dot_indicator.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../widget/vertical_divider.dart';
@@ -102,23 +103,21 @@ logInfo({required String title, required String time, Color? fontColor}) {
 Widget attendanceLogsOverviewLayout(context) {
   return SizedBox(
     width: double.infinity,
-    height: AppLayout.getHeight(260),
+    height: AppLayout.getHeight(250),
     child: PageView(
       children: [
-
-
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             logsText(AppString.text_month),
             Container(
-              height:AppLayout.getHeight(240),
+              height:AppLayout.getHeight(220),
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.only(left: 20.0,right: 20.0,top: 10.0),
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      childAspectRatio: 3 / 2.5,
+                      childAspectRatio: 3 / 2.3,
                       crossAxisSpacing: 0,
                       mainAxisSpacing: 0),
                   itemCount: 6,
@@ -168,18 +167,20 @@ Widget attendanceLogsOverviewLayout(context) {
             ),
           ],
         ),
+
+
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             logsText(AppString.text_year),
             Container(
-              height:AppLayout.getHeight(240),
+              height:AppLayout.getHeight(220),
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.only(left: 20.0,right: 20.0,top: 10.0),
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      childAspectRatio: 3 / 2.5,
+                      childAspectRatio: 3 / 2.3,
                       crossAxisSpacing: 0,
                       mainAxisSpacing: 0),
                   itemCount: 6,
@@ -201,7 +202,6 @@ Widget attendanceLogsOverviewLayout(context) {
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-
                                 children: [
                                   Text(
                                     '148',
@@ -230,7 +230,6 @@ Widget attendanceLogsOverviewLayout(context) {
             ),
           ],
         ),
-
 
       ],
     ),

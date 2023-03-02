@@ -4,6 +4,9 @@ class AppColor {
   AppColor._();
   static const Color primaryColor = Color(0xFF019AFF);
   static const Color backgroundColor = Color(0xFFFFFFFF);
+  static const Color secondaryColor = Color(0xFF4D4D4D);
+  static const Color pendingBgColor = Color(0xFFF3C568);
+  static const Color pendingTextColor = Colors.orange;
   static const Color hintColor = Color(0xFF9397A0);
   static const Color cardColor = Color(0xFFFFFFFF);
   static const Color errorColor = Color(0xFFFF0000);

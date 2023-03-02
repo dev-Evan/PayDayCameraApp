@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
-// <<<<<<< HEAD
-// import 'app_color.dart';
-//
-// class AppStyle {
-//   static const title_text = TextStyle(
-//     fontSize: 24,
-//     color: Colors.black,
-//     fontWeight: FontWeight.w500,
-//   );
-// =======
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
@@ -27,11 +18,11 @@ class AppStyle {
       fontWeight: FontWeight.w600,
       fontFamily: "Poppins");
 
-  static TextStyle small_text = TextStyle(
+  static TextStyle small_text = GoogleFonts.poppins(
       fontSize: AppLayout.getWidth(Dimensions.fontSizeSmall),
       color: Colors.white,
       fontWeight: FontWeight.w500,
-      fontFamily: "Poppins");
+   );
   static TextStyle small_text_black = TextStyle(
       fontSize: AppLayout.getWidth(Dimensions.fontSizeSmall),
       color: Colors.black,
@@ -49,7 +40,6 @@ class AppStyle {
       color: AppColor.cardColor,
       fontWeight: FontWeight.w500,
       fontFamily: "Poppins");
-
 
   static TextStyle large_text_black = TextStyle(
       fontSize: AppLayout.getWidth(Dimensions.fontSizeExtraDefault),

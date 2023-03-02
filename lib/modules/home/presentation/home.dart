@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
 
   final _items = <BottomNavigationBarItem>[
     const BottomNavigationBarItem(
-        icon: Icon(Icons.watch_later), label: "Attendance"),
+        icon: Icon(Icons.watch_later_outlined), label: "Attendance"),
     const BottomNavigationBarItem(
         icon: Icon(Icons.calendar_today_outlined), label: "Leave"),
     const BottomNavigationBarItem(
