@@ -19,7 +19,7 @@ class _CustomButtonState extends State<CustomButton> {
     return Container(
       width: double.infinity,
       // width: MediaQuery.of(context).size.width / 1,
-      // height: MediaQuery.of(context).size.height / 18,
+       height: MediaQuery.of(context).size.height / 18,
       child: ElevatedButton(
           onPressed: () {
             setState(() {

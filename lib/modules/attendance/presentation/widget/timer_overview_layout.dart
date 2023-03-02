@@ -103,7 +103,7 @@ logInfo({required String title, required String time, Color? fontColor}) {
 Widget attendanceLogsOverviewLayout(context) {
   return SizedBox(
     width: double.infinity,
-    height: AppLayout.getHeight(250),
+    height: AppLayout.getHeight(230),
     child: PageView(
       children: [
         Column(
@@ -111,7 +111,7 @@ Widget attendanceLogsOverviewLayout(context) {
           children: [
             logsText(AppString.text_month),
             Container(
-              height:AppLayout.getHeight(220),
+              height:AppLayout.getHeight(210),
               child: Padding(
                 padding: const EdgeInsets.only(left: 20.0,right: 20.0,top: 10.0),
                 child: GridView.builder(

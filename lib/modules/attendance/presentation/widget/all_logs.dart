@@ -121,7 +121,7 @@ Widget logsList() {
                   children: [
                     Icon(
                       Icons.lock_clock,
-                      color: AppColor.hintColor,
+                      color: AppColor.hintColor.withOpacity(0.6),
                     ),
                     SizedBox(
                       width: AppLayout.getWidth(3),
@@ -129,7 +129,7 @@ Widget logsList() {
                     Text(
                       "9h",
                       style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
+                          color: AppColor.hintColor.withOpacity(0.7),
                           fontSize: Dimensions.fontSizeDefault+2),
                     ),
                     SizedBox(
@@ -137,7 +137,7 @@ Widget logsList() {
                     ),
                     Icon(
                       Icons.sticky_note_2_outlined,
-                      color: AppColor.hintColor,
+                      color: AppColor.hintColor.withOpacity(0.6),
                     ),
                     SizedBox(
                       width: AppLayout.getWidth(3),
@@ -174,7 +174,7 @@ Widget logsList() {
               ],
             ),
             CircleAvatar(
-              backgroundColor: AppColor.disableColor,
+              backgroundColor: AppColor.disableColor.withOpacity(0.3),
                 radius: 14,
                 child: Icon(Icons.arrow_forward_ios_rounded,color: AppColor.primaryColor,size: 16,))
 

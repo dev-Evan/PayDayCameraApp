@@ -177,22 +177,17 @@ class attendanceLogsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColor.backgroundColor,
-
-
         floatingActionButton:Padding(
-          padding: const EdgeInsets.only(left: 25.0),
+          padding: const EdgeInsets.only(left: 30.0),
           child: CustomButton(AppString.text_requstAttendance, (){}),
         ),
-
-
-
         appBar: CustomAppbar(),
         body: Stack(
        children: [
          Column(
            children: [
              Container(
-               height: AppLayout.getHeight(350),
+               height: AppLayout.getHeight(310),
                decoration: BoxDecoration(
                    color: AppColor.primaryColor,
                    borderRadius: BorderRadius.only(
@@ -207,7 +202,7 @@ class attendanceLogsScreen extends StatelessWidget {
                ),
              ),
              SizedBox(
-               height: AppLayout.getHeight(14),
+               height: AppLayout.getHeight(2),
              ),
              Expanded(
                child: tabBar(),
