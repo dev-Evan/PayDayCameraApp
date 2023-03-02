@@ -74,8 +74,8 @@ logInfo({required String title, required String time, Color? fontColor}) {
     children: [
       Text(title,
           style: fontColor != null
-              ? AppStyle.small_text.copyWith(color: fontColor)
-              : AppStyle.small_text),
+              ? AppStyle.small_text.copyWith(color: Colors.grey)
+              : AppStyle.small_text ),
       RichText(
           text: TextSpan(children: [
         TextSpan(
@@ -87,7 +87,9 @@ logInfo({required String title, required String time, Color? fontColor}) {
         ),
         TextSpan(
           text: " am ",
-          style: AppStyle.small_text,
+          style: fontColor != null
+              ? AppStyle.small_text.copyWith(color: fontColor)
+              : AppStyle.small_text,
         ),
       ]))
     ],

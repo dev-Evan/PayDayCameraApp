@@ -11,4 +11,6 @@ class AppString {
   static String text_attendance_log = "Attendance Logs";
   static String todays_log = "Today’s logs";
   static String start_out_day = "Ready to start your day?";
+  static String note_text = "Note (optional)";
+  static String text_cancel = "Cancel";
 }
