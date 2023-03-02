@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/common/custom_button.dart';
 import 'package:pay_day_mobile/common/text_field.dart';
-import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_controller.dart';
+import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_helper.dart';
 import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';

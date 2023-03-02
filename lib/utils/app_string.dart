@@ -3,7 +3,7 @@ class AppString {
 
   // Apps url here
   static const String BASE_URL="https://payday.php8.gainhq.com/api";
-  static const String logIn="login";
+  static const String logIn="/login";
 
 
   // Apps string here
