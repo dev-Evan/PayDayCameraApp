@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/users_current_info_layout.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/map_layout.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -16,17 +17,29 @@ Widget logEntryBottomSheet() {
   return DraggableScrollableSheet(
     initialChildSize: .8,
     maxChildSize: .8,
+    minChildSize: .5,
     builder: (BuildContext context, ScrollController scrollController) =>
         Container(
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-      child: ListView(
-        controller: scrollController,
+      child: Stack(
         children: [
-          bottomSheetAppbar(context),
-          Divider(color: Colors.grey.shade200, thickness: 1),
-          _contentLayout(),
+          ListView(
+            controller: scrollController,
+            children: [
+              bottomSheetAppbar(context: context),
+              Divider(color: Colors.grey.shade200, thickness: 1),
+              _contentLayout(),
+              SizedBox(
+                height: AppLayout.getHeight(60),
+              )
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: _buttonLayout(context),
+          ),
         ],
       ),
     ),
@@ -38,19 +51,22 @@ _contentLayout() {
     padding: EdgeInsets.symmetric(
         vertical: AppLayout.getHeight(Dimensions.paddingLarge),
         horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
-    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      _timeLayout(),
-      SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-      _noteLayout(),
-      SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-      _mapLayout(),
-      SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-      _currentLocation(),
-      SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-      _deviceIP(),
-      SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-      _buttonLayout(Get.context!),
-    ]),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _timeLayout(),
+        SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
+        _noteLayout(),
+        SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
+        _mapLayout(),
+        SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
+        UsersCurrentInfoLayout(
+            title: AppString.text_my_location, data: "Pallabi,Dhaka"),
+        SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
+        UsersCurrentInfoLayout(
+            title: AppString.text_ip_address, data: "10.233.12.244"),
+      ],
+    ),
   );
 }
 
@@ -128,89 +144,22 @@ _totalTimeLog() {
       title: AppString.text_total, time: "", fontColor: Colors.black);
 }
 
-_currentLocation() {
-  return Row(
-    children: [
-      Container(
-        decoration: BoxDecoration(
-            color: Colors.blue.withOpacity(.1),
-            borderRadius: const BorderRadius.all(Radius.circular(4))),
-        padding: EdgeInsets.symmetric(
-            horizontal: AppLayout.getWidth(4),
-            vertical: AppLayout.getHeight(4)),
-        child: const Icon(
-          Icons.my_location,
-          color: Colors.blueAccent,
-        ),
-      ),
-      SizedBox(
-        width: AppLayout.getWidth(8),
-      ),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Data",
-            style: AppStyle.normal_text_black
-                .copyWith(fontWeight: FontWeight.w400),
-            overflow: TextOverflow.ellipsis,
-          ),
-          Text(
-            'My Location',
-            style: AppStyle.small_text
-                .copyWith(fontWeight: FontWeight.w400, color: Colors.grey),
-          ),
-        ],
-      ),
-    ],
-  );
-}
-
-_deviceIP() {
-  return Row(
-    children: [
-      Container(
-        decoration: BoxDecoration(
-            color: Colors.blue.withOpacity(.1),
-            borderRadius: const BorderRadius.all(Radius.circular(4))),
-        padding: EdgeInsets.symmetric(
-            horizontal: AppLayout.getWidth(4),
-            vertical: AppLayout.getHeight(4)),
-        child: const Icon(
-          Icons.location_on_outlined,
-          color: Colors.blueAccent,
-        ),
-      ),
-      SizedBox(
-        width: AppLayout.getWidth(8),
-      ),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Data",
-            style: AppStyle.normal_text_black
-                .copyWith(fontWeight: FontWeight.w400),
-          ),
-          Text(
-            'IP Address',
-            style: AppStyle.small_text
-                .copyWith(fontWeight: FontWeight.w400, color: Colors.grey),
-          ),
-        ],
-      ),
-    ],
-  );
-}
-
 _buttonLayout(BuildContext context) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      _cancelButton(),
-      SizedBox(width: AppLayout.getWidth(10)),
-      _punchButton(),
-    ],
+  return Container(
+    color: Colors.white,
+    padding: EdgeInsets.only(
+      left: AppLayout.getWidth(Dimensions.paddingLarge),
+      right: AppLayout.getWidth(Dimensions.paddingLarge),
+      bottom: AppLayout.getHeight(Dimensions.paddingLarge),
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _cancelButton(),
+        SizedBox(width: AppLayout.getWidth(10)),
+        _punchButton(),
+      ],
+    ),
   );
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/view/log_details_bottomsheet.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -15,7 +16,7 @@ import '../widget/todays_log_text.dart';
 import 'log_entry_bottomsheet.dart';
 
 class Attendance extends StatelessWidget {
-  bool loggedIn = false;
+  bool loggedIn = true;
 
   @override
   Widget build(BuildContext context) {
@@ -88,11 +89,11 @@ class Attendance extends StatelessWidget {
 
   Future _openBottomSheet({required BuildContext context}) {
     return showModalBottomSheet(
-      enableDrag: false,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       context: context,
       builder: (context) => logEntryBottomSheet(),
     );
   }
+
 }

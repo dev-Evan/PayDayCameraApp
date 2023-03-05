@@ -13,4 +13,10 @@ class AppString {
   static String start_out_day = "Ready to start your day?";
   static String note_text = "Note (optional)";
   static String text_cancel = "Cancel";
+  static String text_log_details = "Log Degtails";
+  static String text_punch_in = "Punch In";
+  static String text_punch_out = "Punch Out";
+  static String text_my_location = "My Location";
+  static String text_ip_address = "IP Address";
+  static String text_edit = "Edit";
 }

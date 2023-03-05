@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_style.dart';
+import '../view/log_details_bottomsheet.dart';
 
 Widget logList() {
   return ListView.builder(
     physics: const NeverScrollableScrollPhysics(),
     shrinkWrap: true,
-    itemBuilder: (context, index) => _logDetails(),
+    itemBuilder: (context, index) => InkWell(child: _logDetails(),onTap: () => _openLogDetailsBottomSheet(),),
     itemCount: 10,
   );
 }
+
 
 Widget _logDetails() {
   return Column(
@@ -67,5 +70,15 @@ Widget _logDetails() {
       ),
       const Divider(),
     ],
+  );
+}
+
+Future _openLogDetailsBottomSheet() {
+  return showModalBottomSheet(
+    enableDrag: false,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    context: Get.context!,
+    builder: (context) => const LogDetailsBottomSheet(),
   );
 }
