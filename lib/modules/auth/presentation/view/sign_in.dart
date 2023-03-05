@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/common/custom_button.dart';
 import 'package:pay_day_mobile/common/text_field.dart';
+import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_controller.dart';
 import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_helper.dart';
 import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -55,7 +56,6 @@ class _signInScreenState extends State<signInScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: AppLayout.getHeight(30)),
-
                 Container(
                     height: _height,
                     width: _width,
@@ -134,12 +134,10 @@ class _signInScreenState extends State<signInScreen> {
                     ),
                   ],
                 ),
-
                 SizedBox(
                     height: AppLayout.getHeight(
                   Dimensions.fontSizeLarge,
                 )),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -175,11 +173,13 @@ class _signInScreenState extends State<signInScreen> {
                     height: AppLayout.getHeight(
                   Dimensions.fontSizeExtraLarge,
                 )),
-
                 CustomButton('Log In', () {
-                  final email = _emailController.text.toString();
-                  final password = _passwordController.text;
-                  AuthHelper().logIn(email, password, context);
+                  Get.find<AuthController>().login(
+                      _emailController.text.toString(),
+                      _passwordController.text);
+                  // final email = _emailController.text.toString();
+                  // final password = _passwordController.text;
+                  // AuthHelper().logIn(email, password, context);
                 })
               ],
             ),
