@@ -20,7 +20,7 @@ Widget logEntryBottomSheet() {
       child: ListView(
         controller: scrollController,
         children: [
-          bottomSheetAppbar(context),
+          bottomSheetAppbar(context,'Punch In'),
           Divider(color: Colors.grey.shade200, thickness: 1),
           _contentLayout(),
           // _noteLayout(),

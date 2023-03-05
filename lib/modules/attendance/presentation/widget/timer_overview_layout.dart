@@ -109,7 +109,7 @@ Widget attendanceLogsOverviewLayout(context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            logsText(AppString.text_month),
+            logsText(AppString.textMonth),
             Container(
               height:AppLayout.getHeight(210),
               child: Padding(
@@ -167,14 +167,12 @@ Widget attendanceLogsOverviewLayout(context) {
             ),
           ],
         ),
-
-
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            logsText(AppString.text_year),
+            logsText(AppString.textYear),
             Container(
-              height:AppLayout.getHeight(220),
+              height:AppLayout.getHeight(210),
               child: Padding(
                 padding: const EdgeInsets.only(left: 20.0,right: 20.0,top: 10.0),
                 child: GridView.builder(

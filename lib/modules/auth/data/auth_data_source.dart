@@ -23,7 +23,9 @@ class AuthDataSource implements AuthDataInterface {
       },
     );
     if (response.statusCode != 200) throw Exception("Server Error");
-    Login login = json.decode(response.body);
+    Login login= Login.fromJson(response.body);
+    print(login.message);
+    print(response.body);
     return login;
   }
 }

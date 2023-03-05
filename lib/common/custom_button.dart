@@ -33,29 +33,10 @@ class _CustomButtonState extends State<CustomButton> {
               ),
               primary: AppColor.primaryColor,
               elevation: 0),
-          child: value
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Transform.scale(
-                        scale: 0.4,
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
-                        )),
-                    SizedBox(
-                      width: AppLayout.getWidth(4),
-                    ),
-                    Text(
-                      'Please wait',
-                      style:
-                          GoogleFonts.poppins(fontSize: Dimensions.fontSizeMid),
-                    )
-                  ],
-                )
-              : Text(
-                  widget.text,
-                  style: GoogleFonts.poppins(fontSize: Dimensions.fontSizeMid),
-                )),
+          child: Text(
+            widget.text,
+            style: GoogleFonts.poppins(fontSize: Dimensions.fontSizeMid),
+          )),
     );
   }
 }

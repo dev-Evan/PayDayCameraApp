@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/all_logs.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/widget/tabbar_summary.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -62,7 +63,7 @@ Widget tabBar() {
               child:  TabBarView(
                   children: [
                 allLogsScreen(),
-                tabBarAllSummary()
+                summaryScreen(),
               ]),
             ),
           ],

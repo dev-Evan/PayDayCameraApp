@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/utils/app_style.dart';
 
 import '../../../../utils/app_layout.dart';
 
-Widget bottomSheetAppbar(BuildContext context) {
+Widget bottomSheetAppbar( BuildContext context ,text) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: AppLayout.getWidth(20)),
     child: Row(
@@ -11,7 +12,7 @@ Widget bottomSheetAppbar(BuildContext context) {
         const Spacer(
           flex: 4,
         ),
-        Text("Punch In"),
+        Text(text,),
         const Spacer(
           flex: 3,
         ),

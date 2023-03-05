@@ -16,7 +16,10 @@ class AppString {
   static String text_summary = "Summary";
   static String text_balance = "Balance";
   static String textCustom = "Custom";
-  static String textMonth = "This month";
+  static String textMonth = "This Month";
+  static String textYear= "This Year";
+  static String text_filter= "Filter";
+
 
 
 

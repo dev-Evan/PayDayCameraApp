@@ -21,7 +21,7 @@ ThemeData _themeData = ThemeData(
   scaffoldBackgroundColor: Colors.white,
   //primary color for the application
   colorScheme: ColorScheme.fromSwatch().copyWith(
-    primary: AppColor.bgColor,
+    primary: AppColor.cardColor                                                ,
 
   ),
 );

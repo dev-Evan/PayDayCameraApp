@@ -8,5 +8,5 @@ import 'network/network_client.dart';
 Future<void> initApp() async {
   Get.lazyPut<AuthDataInterface>(() => AuthDataSource(NetworkClient()),
       fenix: true);
-  Get.lazyPut(() => AuthController(), fenix: true);
+  Get.put(AuthController());
 }
