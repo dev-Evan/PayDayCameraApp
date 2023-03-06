@@ -29,7 +29,6 @@ Widget logEntryBottomSheet() {
             controller: scrollController,
             children: [
               bottomSheetAppbar(context: context),
-              Divider(color: Colors.grey.shade200, thickness: 1),
               _contentLayout(),
               SizedBox(
                 height: AppLayout.getHeight(60),
@@ -155,7 +154,7 @@ _buttonLayout(BuildContext context) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _cancelButton(),
+        _cancelButton(context),
         SizedBox(width: AppLayout.getWidth(10)),
         _punchButton(),
       ],
@@ -171,10 +170,10 @@ _punchButton() {
   );
 }
 
-_cancelButton() {
+_cancelButton(BuildContext context) {
   return AppButton(
+    onPressed: ()=>Navigator.of(context).pop(),
     buttonText: AppString.text_cancel,
-    onPressed: () {},
     buttonColor: Colors.transparent,
     hasOutline: true,
     borderColor: Colors.black,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_eidt_bottomsheet.dart';
 import 'package:pay_day_mobile/common/custom_status_button.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
@@ -29,8 +30,8 @@ class LogDetailsBottomSheet extends StatelessWidget {
             ListView(
               controller: scrollController,
               children: [
-                bottomSheetAppbar(context: context,appbarTitle: AppString.text_log_details),
-                Divider(color: Colors.grey.shade200, thickness: 1),
+                bottomSheetAppbar(
+                    context: context, appbarTitle: AppString.text_log_details),
                 contentLayout(),
                 SizedBox(
                   height: AppLayout.getHeight(60),
@@ -58,30 +59,39 @@ class LogDetailsBottomSheet extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _cancelButton(),
+          _cancelButton(context),
           SizedBox(width: AppLayout.getWidth(10)),
-          _editButton(),
+          _editButton(context),
         ],
       ),
     );
   }
 
-  _editButton() {
+  _editButton(BuildContext context) {
     return AppButton(
       buttonColor: AppColor.primary_blue,
       buttonText: AppString.text_edit,
-      onPressed: () {},
+      onPressed: ()=>_openEditBottomSheet(context: context),
     );
   }
 
-  _cancelButton() {
+  _cancelButton(BuildContext context) {
     return AppButton(
       buttonText: AppString.text_cancel,
-      onPressed: () {},
+      onPressed: ()=>Navigator.of(context).pop(),
       buttonColor: Colors.transparent,
       hasOutline: true,
       borderColor: Colors.black,
       textColor: Colors.black,
     );
   }
+}
+
+Future _openEditBottomSheet({required BuildContext context}) {
+  return showModalBottomSheet(
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    context: context,
+    builder: (context) => const EditAttendanceBottomSheet(),
+  );
 }

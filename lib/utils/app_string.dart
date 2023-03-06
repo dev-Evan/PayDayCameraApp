@@ -19,4 +19,9 @@ class AppString {
   static String text_my_location = "My Location";
   static String text_ip_address = "IP Address";
   static String text_edit = "Edit";
+  static String text_edit_attendance = "Edit Attendance";
+  static String text_save = "Save";
+  static String text_in_time = "In Time";
+  static String text_out_time = "Out Time";
+  static String text_select_time = "Select Time";
 }

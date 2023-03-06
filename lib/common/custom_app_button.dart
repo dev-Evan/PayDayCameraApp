@@ -29,7 +29,7 @@ class AppButton extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             side: BorderSide(width: 1, color: borderColor!)),
         onPressed: () async {
-          Navigator.of(context).pop();
+          onPressed();
         },
         child: Text(
           buttonText,
