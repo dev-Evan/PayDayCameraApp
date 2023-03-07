@@ -116,9 +116,6 @@ class EditAttendanceBottomSheet extends StatelessWidget {
   }
 
   _timeLayout() {
-
-    //todo
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [

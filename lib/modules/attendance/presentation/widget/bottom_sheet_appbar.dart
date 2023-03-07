@@ -19,15 +19,16 @@ Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle}) {
             offset: const Offset(0, 3),
           )
         ]),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          appbarTitle ?? "Punch In",
-          style:
-              AppStyle.normal_text_black.copyWith(fontWeight: FontWeight.w600),
-        ),
-        IconButton(
+    child: AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      automaticallyImplyLeading: false,
+      title: Text(
+        appbarTitle ?? "Punch In",
+        style: AppStyle.normal_text_black.copyWith(fontWeight: FontWeight.w600),
+      ),
+      actions: [
+      IconButton(
           onPressed: () => Navigator.of(context).pop(),
           icon: const Icon(
             Icons.close,
