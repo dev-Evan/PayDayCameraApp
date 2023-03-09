@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Example extends StatelessWidget {
-  const Example({super.key});
 
+class CommonWidget extends StatelessWidget {
+  const CommonWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const Placeholder();
   }
 }
+

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/users_current_info_layout.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/map_layout.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -39,6 +38,11 @@ Widget logEntryBottomSheet() {
             alignment: Alignment.bottomCenter,
             child: _buttonLayout(context),
           ),
+          bottomSheetAppbar(appbarTitle: 'Punch In', context: context),
+          Divider(color: Colors.grey.shade200, thickness: 1),
+          _contentLayout(),
+          // _noteLayout(),
+          // _positionInfoLayout(context),
         ],
       ),
     ),

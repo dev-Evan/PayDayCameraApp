@@ -14,8 +14,6 @@ class CustomStatusButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //todo
-      //change it to box decoration
       decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.all(

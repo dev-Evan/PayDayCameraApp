@@ -1,11 +1,21 @@
 import 'package:get/get.dart';
 
-const String baseUrl = "base_url/api";
+import '../utils/app_string.dart';
+// <<<<<<< HEAD
+// import 'package:pay_day_mobile/utils/app_string.dart';
+//
+// // const String baseUrl = "base_url/api";
+// const String baseUrl = AppString.BASE_URL;
+// =======
+
+var baseUrl = AppString.BASE_URL;
+
 
 class NetworkClient extends GetConnect {
 
   Future<Response> getRequest(String apiEndPoint) async {
     return await get(_getRequestUrl(apiEndPoint), headers: {
+
       "Content-Type": "application/json",
       "Accept": "application/json"
     }).timeout(const Duration(seconds: 20));
