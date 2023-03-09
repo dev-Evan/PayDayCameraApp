@@ -1,32 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
-import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-class CustomButton extends StatefulWidget {
+class CustomButton extends StatelessWidget {
   String text;
   final onAction;
-  CustomButton(this.text, this.onAction);
-  @override
-  State<CustomButton> createState() => _CustomButtonState();
-}
 
-class _CustomButtonState extends State<CustomButton> {
-  bool value = false;
+  CustomButton(this.text, this.onAction);
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       // width: MediaQuery.of(context).size.width / 1,
-       height: MediaQuery.of(context).size.height / 18,
+      height: MediaQuery.of(context).size.height / 18,
       child: ElevatedButton(
-          onPressed: () {
-            setState(() {
-              value = !value;
-              widget.onAction();
-            });
-          },
+          onPressed: () => onAction(),
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -34,7 +24,7 @@ class _CustomButtonState extends State<CustomButton> {
               primary: AppColor.primaryColor,
               elevation: 0),
           child: Text(
-            widget.text,
+            text,
             style: GoogleFonts.poppins(fontSize: Dimensions.fontSizeMid),
           )),
     );
@@ -62,7 +52,7 @@ class CustomSmallButton extends StatelessWidget {
             elevation: 0),
         child: Text(
           text,
-          style:GoogleFonts.poppins(
+          style: GoogleFonts.poppins(
               fontSize: Dimensions.fontSizeMid, fontWeight: FontWeight.w600),
         ),
       ),

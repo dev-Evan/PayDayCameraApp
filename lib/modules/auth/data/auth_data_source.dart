@@ -1,7 +1,5 @@
 // interface implementation will be here
 
-import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/auth/data/auth_data_interface.dart';
 import 'package:pay_day_mobile/modules/auth/domain/login_res.dart';
@@ -22,10 +20,8 @@ class AuthDataSource implements AuthDataInterface {
         "password": password,
       },
     );
-    if (response.statusCode != 200) throw Exception("Server Error");
     Login login= Login.fromJson(response.body);
     print(login.message);
-    print(response.body);
     return login;
   }
 }

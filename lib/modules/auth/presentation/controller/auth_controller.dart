@@ -15,15 +15,10 @@ class AuthController extends GetxController {
   login(String email,String password) async {
     Login _login =
         await _authDataInterface.login(email: email, password: password);
-    if(_login.status==200){
-
-      print(_login.message.toString());
 
       if (_login.status == true) {
         print(_login.status.toString());
         print(_login.message.toString());
-
-
         var storeId=_login.data!.id.toString();
         box.write("store", storeId);
        // Get.toNamed(attendLog);
@@ -35,17 +30,16 @@ class AuthController extends GetxController {
             backgroundColor: AppColor.hintColor,
             textColor: Colors.white,
             fontSize: 16.0);
+      }else {
+        Fluttertoast.showToast(
+            msg: "${_login.message}",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: AppColor.errorColor,
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
-    } else {
-      Fluttertoast.showToast(
-          msg: "${_login.message}",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: AppColor.errorColor,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    }
 
     }
 

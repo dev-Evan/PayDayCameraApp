@@ -4,9 +4,12 @@ import 'package:pay_day_mobile/modules/auth/presentation/view/forgot_password.da
 import 'package:pay_day_mobile/modules/auth/presentation/view/received_screen.dart';
 import 'package:pay_day_mobile/modules/auth/presentation/view/sign_in.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_logs.dart';
+import 'package:pay_day_mobile/modules/home/presentation/home.dart';
 import 'package:pay_day_mobile/modules/starting/view/onboarding_screen.dart';
 import 'package:pay_day_mobile/modules/starting/view/splash_screen.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
+
+import '../modules/attendance/presentation/view/attendance.dart';
 
 const String splash = AppString.splashScreen;
 const String signIn = AppString.signInScreen;
@@ -36,5 +39,9 @@ List<GetPage> getPage = [
   GetPage(
     name: attendLog,
     page: () => attendanceLogsScreen(),
+  ),
+  GetPage(
+    name: AppString.HOME,
+    page: () => const Home(),
   ),
 ];

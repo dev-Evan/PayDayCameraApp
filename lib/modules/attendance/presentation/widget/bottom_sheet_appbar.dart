@@ -23,6 +23,7 @@ Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle}) {
       backgroundColor: Colors.transparent,
       elevation: 0,
       automaticallyImplyLeading: false,
+      centerTitle: true,
       title: Text(
         appbarTitle ?? "Punch In",
         style: AppStyle.normal_text_black.copyWith(fontWeight: FontWeight.w600),
@@ -33,6 +34,7 @@ Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle}) {
           icon: const Icon(
             Icons.close,
             size: 16,
+            color: Colors.black,
           ),
         ),
       ],

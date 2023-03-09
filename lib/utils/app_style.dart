@@ -39,6 +39,11 @@ class AppStyle {
       color: Colors.black,
       fontWeight: FontWeight.w500,
       fontFamily: "Poppins");
+  static TextStyle normal_text_grey = TextStyle(
+      fontSize: AppLayout.getWidth(Dimensions.fontSizeDefault),
+      color: Colors.grey,
+      fontWeight: FontWeight.w600,
+      fontFamily: "Poppins");
 
   static TextStyle large_text = TextStyle(
       fontSize: AppLayout.getWidth(Dimensions.fontSizeExtraDefault),

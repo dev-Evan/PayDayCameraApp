@@ -1,21 +1,11 @@
 import 'package:get/get.dart';
 
-import '../utils/app_string.dart';
-// <<<<<<< HEAD
-// import 'package:pay_day_mobile/utils/app_string.dart';
-//
-// // const String baseUrl = "base_url/api";
-// const String baseUrl = AppString.BASE_URL;
-// =======
-
-var baseUrl = AppString.BASE_URL;
-
+const String BASE_URL="https://payday.php8.gainhq.com/api";
 
 class NetworkClient extends GetConnect {
 
   Future<Response> getRequest(String apiEndPoint) async {
     return await get(_getRequestUrl(apiEndPoint), headers: {
-
       "Content-Type": "application/json",
       "Accept": "application/json"
     }).timeout(const Duration(seconds: 20));
@@ -30,5 +20,5 @@ class NetworkClient extends GetConnect {
     return response;
   }
 
-  String _getRequestUrl(String apiEndPoint) => baseUrl + apiEndPoint;
+  String _getRequestUrl(String apiEndPoint) => BASE_URL + apiEndPoint;
 }
