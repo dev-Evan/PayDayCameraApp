@@ -18,6 +18,16 @@ class AppString {
   static String textMonth = "This Month";
   static String textYear= "This Year";
   static String text_filter= "Filter";
+  static String text_leave_status= "Leave Status";
+  static String text_leave_duration= "Leave Duration";
+  static String text_approved= "Approved";
+  static String text_pending= "Pending";
+  static String text_rejection= "Rejection";
+  static String text_hours= "Hours";
+  static String text_single_day= "Single Day";
+  static String text_multi_day= "Multi Day";
+  static String text_first_half= "First Half";
+  static String text_last_half= "Last Half";
 
 
 
@@ -25,7 +35,6 @@ class AppString {
   static String text_scheduled = "Scheduled";
   static String text_remaining = "Remaining";
   static String text_overtime = "Overtime";
-  static String text_pending = "Pending";
   static String text_requstAttendance = "Request Attendance";
 
   static String text_attendance_log = "Attendance Logs";

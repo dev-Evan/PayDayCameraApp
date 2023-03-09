@@ -184,31 +184,45 @@ class attendanceLogsScreen extends StatelessWidget {
         appBar: CustomAppbar(),
         body: Stack(
        children: [
-         Column(
-           children: [
-             Container(
-               height: AppLayout.getHeight(310),
-               decoration: BoxDecoration(
-                   color: AppColor.primaryColor,
-                   borderRadius: BorderRadius.only(
-                       bottomLeft: Radius.circular(Dimensions.radiusMid),
-                       bottomRight: Radius.circular(Dimensions.radiusMid))),
-               child: Column(
-                 children: [
-                   backlogs(),
-                   attendanceLogsOverviewLayout(context),
-                   dotIndicator()
-                 ],
-               ),
-             ),
-             SizedBox(
-               height: AppLayout.getHeight(2),
-             ),
-             Expanded(
-               child: tabBar(),
-             ),
+         CustomScrollView(
+          slivers: [
 
-           ],
+            SliverFillRemaining(
+              hasScrollBody: false,
+
+              child: Column(
+                children: [
+                  Container(
+                    height: AppLayout.getHeight(310),
+                    decoration: BoxDecoration(
+                        color: AppColor.primaryColor,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(Dimensions.radiusMid),
+                            bottomRight: Radius.circular(Dimensions.radiusMid))),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          backlogs(),
+                          attendanceLogsOverviewLayout(context),
+                          dotIndicator()
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: AppLayout.getHeight(2),
+                  ),
+                  SingleChildScrollView(
+                    child: Container(
+                      height: MediaQuery.of(context).size.height,
+                      child: tabBar(),
+                    ),
+                  ),
+
+                ],
+              ),
+            )
+          ],
          ),
 
 

@@ -24,8 +24,8 @@ class _signInScreenState extends State<signInScreen> {
 
   bool isleft = false;
   bool? rememberMe = false;
-  bool value = false;
-  bool _value1 = false;
+
+
 
   leftRight() {
     setState(() {

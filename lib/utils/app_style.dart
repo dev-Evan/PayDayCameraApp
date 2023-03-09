@@ -35,7 +35,7 @@ class AppStyle {
       fontWeight: FontWeight.w500,
       fontFamily: "Poppins");
   static TextStyle normal_text_black = TextStyle(
-      fontSize: AppLayout.getWidth(Dimensions.fontSizeDefault),
+      fontSize: Dimensions.fontSizeDefault,
       color: Colors.black,
       fontWeight: FontWeight.w500,
       fontFamily: "Poppins");

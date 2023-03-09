@@ -4,6 +4,8 @@ import 'package:pay_day_mobile/common/custom_divider.dart';
 import 'package:pay_day_mobile/common/custom_status_button.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/date_picaker.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/widget/date_pickar.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/widget/filter_view.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -72,7 +74,7 @@ class _allLogsScreenState extends State<allLogsScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          // _show();
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CustomCalender(),));
                         },
                         child: Icon(
                           Icons.keyboard_arrow_down,
@@ -98,17 +100,12 @@ class _allLogsScreenState extends State<allLogsScreen> {
                           InkWell(
                               onTap: () => customButtomSheet(
                                   context,
-                                  0.8,
+                                  0.9,
                                   Container(
-                                    child: Column(
-                                      children: [
-                                        bottomSheetAppbar(
-                                            appbarTitle: 'Filter',
-                                            context: context),
-                                        filterView(context),
-                                      ],
-                                    ),
-                                  )),
+                                    child: filterView()
+                                  )
+
+                              ),
                               child: const Icon(Icons.filter_alt,
                                   color: AppColor.hintColor)),
                           SizedBox(
@@ -147,7 +144,9 @@ class _allLogsScreenState extends State<allLogsScreen> {
 Widget logsList() {
   return ListView.builder(
     itemCount: 5,
-    itemBuilder: (context, index) {
+      physics: const NeverScrollableScrollPhysics(),
+
+      itemBuilder: (context, index) {
       return Padding(
         padding: const EdgeInsets.only(top: 8.0),
         child: Column(
@@ -257,21 +256,4 @@ Widget logsList() {
   );
 }
 
-Widget filterView(context) {
-  return Container(
-    child: Column(
-      children: [
-        // Row(
-        //
-        //   children: [
-        //
-        //     Spacer(),
-        //     Center(child: Text(AppString.text_filter,style: AppStyle.mid_large_text.copyWith(color: AppColor.normalTextColor,fontWeight: FontWeight.bold),)),
-        //     Spacer(),
-        //     IconButton(onPressed: ()=>Navigator.pop(context), icon: Icon(Icons.close))
-        //   ],
-        // )
-      ],
-    ),
-  );
-}
+

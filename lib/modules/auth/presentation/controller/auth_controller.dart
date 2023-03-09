@@ -23,7 +23,6 @@ class AuthController extends GetxController {
         print(_login.status.toString());
         print(_login.message.toString());
 
-
         var storeId=_login.data!.id.toString();
         box.write("store", storeId);
        // Get.toNamed(attendLog);

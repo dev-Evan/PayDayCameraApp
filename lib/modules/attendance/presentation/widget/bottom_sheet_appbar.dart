@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 import '../../../../utils/app_layout.dart';
 
-Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle}) {
+Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle,}) {
   return Container(
     padding: EdgeInsets.symmetric(
         horizontal: AppLayout.getWidth(Dimensions.paddingLarge),
@@ -22,17 +23,20 @@ Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle}) {
     child: AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
+      centerTitle: true,
       automaticallyImplyLeading: false,
-      title: Text(
-        appbarTitle ?? "Punch In",
-        style: AppStyle.normal_text_black.copyWith(fontWeight: FontWeight.w600),
+      title: Center(
+        child: Text(
+          appbarTitle ?? "Punch In",
+          style: AppStyle.normal_text_black.copyWith(fontWeight: FontWeight.w600,fontSize: Dimensions.fontSizeDefault+4),
+        ),
       ),
       actions: [
       IconButton(
           onPressed: () => Navigator.of(context).pop(),
           icon: const Icon(
             Icons.close,
-            size: 16,
+            size: 24,color: AppColor.secondaryColor,
           ),
         ),
       ],

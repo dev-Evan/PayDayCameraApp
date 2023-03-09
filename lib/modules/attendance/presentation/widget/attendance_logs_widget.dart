@@ -27,57 +27,55 @@ Widget backlogs() {
 Widget tabBar() {
   return Padding(
     padding: const EdgeInsets.all(20.0),
-    child: Container(
-      child: DefaultTabController(
-        length: 2,
-        child: Column(
-          children: [
-            Container(
-              height: AppLayout.getHeight(53),
-              decoration: BoxDecoration(
-                color: AppColor.disableColor.withOpacity(0.6),
-                borderRadius: BorderRadius.circular(Dimensions.radiusDefault+4),
+    child:  Container(
+    child: DefaultTabController(
+    length: 2,
+    child: Column(
+      children: [
+        Container(
+          height: AppLayout.getHeight(53),
+          decoration: BoxDecoration(
+            color: AppColor.disableColor.withOpacity(0.6),
+            borderRadius:
+            BorderRadius.circular(Dimensions.radiusDefault + 4),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: TabBar(
+              indicator: BoxDecoration(
+                color: AppColor.cardColor,
+                borderRadius:
+                BorderRadius.circular(Dimensions.radiusDefault),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: TabBar(
-                  indicator: BoxDecoration(
-                    color: AppColor.cardColor,
-                    borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                  ),
-                  labelColor: AppColor.normalTextColor,
-                  unselectedLabelColor: AppColor.hintColor,
-                  labelStyle: AppStyle.mid_large_text.copyWith(fontWeight: FontWeight.w700,fontSize: 14),
-                  tabs: [
-                    Tab(
-                      text: AppString.text_all_logs,
-                    ),
-                    Tab(
-                      text: AppString.text_summary,
-                    ),
-                  ],
+              labelColor: AppColor.normalTextColor,
+              unselectedLabelColor: AppColor.hintColor,
+              labelStyle: AppStyle.mid_large_text
+                  .copyWith(fontWeight: FontWeight.w700, fontSize: 14),
+              tabs: [
+                Tab(
+                  text: AppString.text_all_logs,
                 ),
-              ),
+                Tab(
+                  text: AppString.text_summary,
+                ),
+              ],
             ),
-            Expanded(
-              child:  TabBarView(
-                  children: [
-                allLogsScreen(),
-                summaryScreen(),
-              ]),
-            ),
-          ],
+          ),
         ),
-      ),
+        Expanded(
+          child: TabBarView(children: [
+            allLogsScreen(),
+            summaryScreen(),
+          ]),
+        ),
+      ],
     ),
+  ),
+  ),
   );
 }
 
-
-
-
-
-Widget tabBarAllSummary(){
+Widget tabBarAllSummary() {
   return Padding(
     padding: const EdgeInsets.all(20.0),
     child: Container(
