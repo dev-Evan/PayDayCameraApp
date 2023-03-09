@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/common/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/common/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/custom_divider.dart';
 import 'package:pay_day_mobile/common/custom_status_button.dart';
@@ -74,7 +75,11 @@ class _allLogsScreenState extends State<allLogsScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CustomCalender(),));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CustomCalender(),
+                              ));
                         },
                         child: Icon(
                           Icons.keyboard_arrow_down,
@@ -99,21 +104,27 @@ class _allLogsScreenState extends State<allLogsScreen> {
                         children: [
                           InkWell(
                               onTap: () => customButtomSheet(
-                                  context,
-                                  0.9,
-                                  Container(
-                                    child: filterView()
-                                  )
-
-                              ),
-                              child: const Icon(Icons.filter_alt,
-                                  color: AppColor.hintColor)),
+                                  context, 0.9, Container(child: filterView())),
+                              child: const Icon(
+                                Icons.filter_alt,
+                                color: AppColor.hintColor,
+                              )),
                           SizedBox(
                             width: AppLayout.getWidth(24),
                           ),
-                          const Icon(
-                            Icons.file_upload_outlined,
-                            color: AppColor.hintColor,
+                          InkWell(
+                            onTap: () => CustomAlertDialog().openDialog(
+                                context: context,
+                                yesText: AppString.text_yes,
+                                contentText: AppString.text_dialog_dec,
+                                icon: Icons.delete,
+                                yesAction: () {},
+                                iconBgColor:
+                                    AppColor.pendingBgColor.withOpacity(0.1)),
+                            child: const Icon(
+                              Icons.file_upload_outlined,
+                              color: AppColor.hintColor,
+                            ),
                           )
                         ],
                       ),
@@ -144,9 +155,8 @@ class _allLogsScreenState extends State<allLogsScreen> {
 Widget logsList() {
   return ListView.builder(
     itemCount: 5,
-      physics: const NeverScrollableScrollPhysics(),
-
-      itemBuilder: (context, index) {
+    physics: const NeverScrollableScrollPhysics(),
+    itemBuilder: (context, index) {
       return Padding(
         padding: const EdgeInsets.only(top: 8.0),
         child: Column(
@@ -255,5 +265,3 @@ Widget logsList() {
     },
   );
 }
-
-

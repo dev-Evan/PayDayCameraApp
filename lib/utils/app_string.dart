@@ -11,6 +11,9 @@ class AppString {
   static String text_total = "Total";
   static String text_month = "Month";
   static String text_year = "Year";
+  static String text_yes = "Yes";
+  static String text_no = "No";
+  static String text_log_out = "Log Out";
   static String text_all_logs = "All Logs";
   static String text_summary = "Summary";
   static String text_balance = "Balance";
@@ -28,6 +31,9 @@ class AppString {
   static String text_multi_day= "Multi Day";
   static String text_first_half= "First Half";
   static String text_last_half= "Last Half";
+  static String text_are_you_sure= "Are you sure?";
+  static String text_dialog_dec= "If you do this, you cannot turn back";
+
 
 
 

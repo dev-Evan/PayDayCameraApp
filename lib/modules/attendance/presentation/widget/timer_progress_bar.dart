@@ -4,7 +4,6 @@ import 'dart:math' as math;
 
 import 'package:pay_day_mobile/utils/app_layout.dart';
 
-import '../../../../utils/app_style.dart';
 
 class TimerProgressBar extends StatefulWidget {
   const TimerProgressBar({Key? key}) : super(key: key);

@@ -17,7 +17,6 @@ class summaryScreen extends StatefulWidget {
 
 class _summaryScreenState extends State<summaryScreen> {
 
-  DateTimeRange? _selectedDateRange;
 
   @override
   Widget build(BuildContext context) {

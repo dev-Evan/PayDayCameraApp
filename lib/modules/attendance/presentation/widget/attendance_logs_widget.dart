@@ -75,11 +75,3 @@ Widget tabBar() {
   );
 }
 
-Widget tabBarAllSummary() {
-  return Padding(
-    padding: const EdgeInsets.all(20.0),
-    child: Container(
-      color: Colors.red,
-    ),
-  );
-}
