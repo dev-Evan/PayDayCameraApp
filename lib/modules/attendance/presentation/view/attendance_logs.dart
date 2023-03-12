@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/common/custom_appbar.dart';
 import 'package:pay_day_mobile/common/custom_button.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/view/request_attendance_bottomsheet.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_logs_widget.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/dot_indicator.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/timer_overview_layout.dart';
@@ -19,10 +20,12 @@ class attendanceLogsScreen extends StatelessWidget {
     return Scaffold(
         backgroundColor: AppColor.backgroundColor,
         floatingActionButton: Padding(
-          padding: const EdgeInsets.only(left: 30.0),
-          child: CustomButton(AppString.text_requstAttendance, (){}),
+          padding: EdgeInsets.only(left: AppLayout.getWidth(30)),
+          child: CustomButton(AppString.text_requstAttendance, () {
+            _openRequestAttendanceBottomSheet(context: context);
+          }),
         ),
-        appBar: CustomAppbar(),
+        appBar: const CustomAppbar(),
         body: Stack(
           children: [
             CustomScrollView(
@@ -67,4 +70,13 @@ class attendanceLogsScreen extends StatelessWidget {
           ],
         ));
   }
+}
+
+Future _openRequestAttendanceBottomSheet({required BuildContext context}) {
+  return showModalBottomSheet(
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    context: context,
+    builder: (context) => const RequestAttendanceBottomSheet(),
+  );
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/common/input_note.dart';
 
 import '../../../../common/custom_time_picker.dart';
 import '../widget/bottom_sheet_appbar.dart';
@@ -55,6 +56,8 @@ class EditAttendanceBottomSheet extends StatelessWidget {
           _topLayout(),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
           _timeLayout(),
+          SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
+          _noteLayout(),
         ],
       ),
     );
@@ -135,7 +138,7 @@ class EditAttendanceBottomSheet extends StatelessWidget {
               style: AppStyle.normal_text
                   .copyWith(color: Colors.grey, fontWeight: FontWeight.w600)),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
-          CustomTimePicker(),
+          const CustomTimePicker(),
         ],
       ),
     );
@@ -150,9 +153,32 @@ class EditAttendanceBottomSheet extends StatelessWidget {
               style: AppStyle.normal_text
                   .copyWith(color: Colors.grey, fontWeight: FontWeight.w600)),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
-          CustomTimePicker(),
+          const CustomTimePicker(),
         ],
       ),
+    );
+  }
+
+  _noteLayout() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start   ,
+      children: [
+        Text(
+          AppString.text_punch_in_note,
+          style: AppStyle.normal_text_black
+              .copyWith(color: Colors.grey, fontWeight: FontWeight.w600),
+        ),
+        SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
+        inputNote(),
+        SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
+        Text(
+          AppString.text_punch_out_note,
+          style: AppStyle.normal_text_black
+              .copyWith(color: Colors.grey, fontWeight: FontWeight.w600),
+        ),
+        SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
+        inputNote(),
+      ],
     );
   }
 }

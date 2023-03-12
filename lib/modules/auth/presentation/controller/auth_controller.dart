@@ -8,13 +8,12 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
 class AuthController extends GetxController {
-
   AuthDataInterface _authDataInterface = Get.find<AuthDataInterface>();
 
   final box = GetStorage();
-  final _idStore= AppString.idStore;
+  final _idStore = AppString.idStore;
 
-  login(String email,String password) async {
+  login(String email, String password) async {
     Login _login =
         await _authDataInterface.login(email: email, password: password);
     print(_login.message.toString());
@@ -23,7 +22,7 @@ class AuthController extends GetxController {
       print(_login.status.toString());
       print(_login.message.toString());
 
-      var storeId=_login.data!.id.toString();
+      var storeId = _login.data!.id.toString();
       box.write(_idStore, storeId);
       // Get.toNamed(attendLog);
       Fluttertoast.showToast(
@@ -34,7 +33,7 @@ class AuthController extends GetxController {
           backgroundColor: AppColor.hintColor,
           textColor: Colors.white,
           fontSize: 16.0);
-    }else {
+    } else {
       Fluttertoast.showToast(
           msg: "${_login.message}",
           toastLength: Toast.LENGTH_SHORT,
@@ -44,8 +43,5 @@ class AuthController extends GetxController {
           textColor: Colors.white,
           fontSize: 16.0);
     }
-
-    }
-
   }
-
+}

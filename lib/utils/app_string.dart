@@ -1,8 +1,9 @@
 class AppString {
   AppString._();
+
   // Apps url here
-  static const String BASE_URL="https://payday.php8.gainhq.com/api";
-  static const String logIn="/login";
+  // static String BASE_URL="https://payday.php8.gainhq.com/api";
+  static String logIn = "/login";
 
   // Apps string here
   static String exampleText = "";
@@ -44,16 +45,10 @@ class AppString {
   static const String text_multi = "Multi";
   static const String text_enrly = "Early";
   static const String text_regular = "Regular";
-
-
-
-
-
   static String text_scheduled = "Scheduled";
   static String text_remaining = "Remaining";
   static String text_overtime = "Overtime";
   static String text_requstAttendance = "Request Attendance";
-
   static String text_attendance_log = "Attendance Logs";
   static String todays_log = "Today’s logs";
   static String start_out_day = "Ready to start your day?";
@@ -79,6 +74,12 @@ class AppString {
       'Apply leave at ease, keep track of the leave records and stay updated on the paid and unpaid leave balance.';
   static const String onboardTileReceivePayDes =
       'Receive your payslips, keep track of the payment data and stay updated on the payday details.';
+  static String text_punch_in_note = 'Punch In Note';
+  static String text_punch_out_note = 'Punch Out Note';
+  static String text_request_attendance = 'Request Attendance';
+  static String text_request = 'Request';
+  static String text_date = 'Date';
+  static String text_select_date = 'Select Date';
 
   // Local store string here
   static const String idStore = "store";
@@ -92,4 +93,5 @@ class AppString {
   static const String onboardScreen = "/onboard_screen'";
   static const String attendLogScreen = "/attendLog_screen'";
   static const String moreScreen = "/more_screen'";
+  static const String HOME = "/home'";
 }

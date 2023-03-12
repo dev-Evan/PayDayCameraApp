@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
-import '../utils/app_string.dart';
-
-var baseUrl = AppString.BASE_URL;
+const String BASE_URL = "https://payday.php8.gainhq.com/api";
 
 class NetworkClient extends GetConnect {
   Future<Response> getRequest(String apiEndPoint) async {
@@ -21,5 +19,5 @@ class NetworkClient extends GetConnect {
     return response;
   }
 
-  String _getRequestUrl(String apiEndPoint) => baseUrl + apiEndPoint;
+  String _getRequestUrl(String apiEndPoint) => BASE_URL + apiEndPoint;
 }

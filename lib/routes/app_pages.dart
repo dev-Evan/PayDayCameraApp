@@ -7,7 +7,7 @@ import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_l
 import 'package:pay_day_mobile/modules/starting/view/onboarding_screen.dart';
 import 'package:pay_day_mobile/modules/starting/view/splash_screen.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-
+import '../modules/home/presentation/home.dart';
 import '../modules/more/presentation/view/more.dart';
 
 const String splash = AppString.splashScreen;
@@ -43,5 +43,9 @@ List<GetPage> getPage = [
   GetPage(
     name: more,
     page: () => MoreScreen(),
+  ),
+  GetPage(
+    name: AppString.HOME,
+    page: () => const Home(),
   ),
 ];

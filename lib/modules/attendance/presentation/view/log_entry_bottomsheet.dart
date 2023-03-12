@@ -5,6 +5,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import '../../../../common/custom_app_button.dart';
+import '../../../../common/input_note.dart';
 import '../../../../utils/dimensions.dart';
 import '../widget/timer_overview_layout.dart';
 
@@ -38,9 +39,6 @@ Widget logEntryBottomSheet() {
             alignment: Alignment.bottomCenter,
             child: _buttonLayout(context),
           ),
-          bottomSheetAppbar(appbarTitle: 'Punch In', context: context),
-          Divider(color: Colors.grey.shade200, thickness: 1),
-          _contentLayout(),
           // _noteLayout(),
           // _positionInfoLayout(context),
         ],
@@ -89,7 +87,7 @@ _noteLayout() {
     children: [
       _noteText(),
       SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
-      _inputNote()
+      inputNote()
     ],
   );
 }
@@ -102,20 +100,6 @@ _noteText() {
   );
 }
 
-_inputNote() {
-  return TextField(
-    keyboardType: TextInputType.multiline,
-    decoration: InputDecoration(
-        hintText: "Add Note Here",
-        hintStyle: AppStyle.normal_text
-            .copyWith(color: Colors.grey, fontWeight: FontWeight.w400),
-        isDense: true,
-        border: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey))),
-    maxLines: 5,
-    minLines: 3,
-  );
-}
 
 _timeLayout() {
   return Row(
@@ -176,7 +160,7 @@ _punchButton() {
 
 _cancelButton(BuildContext context) {
   return AppButton(
-    onPressed: ()=>Navigator.of(context).pop(),
+    onPressed: () => Navigator.of(context).pop(),
     buttonText: AppString.text_cancel,
     buttonColor: Colors.transparent,
     hasOutline: true,
