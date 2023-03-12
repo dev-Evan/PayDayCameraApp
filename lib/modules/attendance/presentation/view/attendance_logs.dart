@@ -16,56 +16,53 @@ class attendanceLogsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColor.backgroundColor,
-        floatingActionButton:Padding(
+        floatingActionButton: Padding(
           padding: const EdgeInsets.only(left: 30.0),
-          child: CustomButton(AppString.text_requstAttendance, (){}),
+          child: CustomButton(AppString.text_requstAttendance, () {}),
         ),
         appBar: CustomAppbar(),
         body: Stack(
-       children: [
-         CustomScrollView(
-          slivers: [
-
-            SliverFillRemaining(
-              hasScrollBody: false,
-
-              child: Column(
-                children: [
-                  Container(
-                    height: AppLayout.getHeight(310),
-                    decoration: BoxDecoration(
-                        color: AppColor.primaryColor,
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(Dimensions.radiusMid),
-                            bottomRight: Radius.circular(Dimensions.radiusMid))),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          backlogs(),
-                          attendanceLogsOverviewLayout(context),
-                          dotIndicator()
-                        ],
+          children: [
+            CustomScrollView(
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: AppLayout.getHeight(305),
+                        decoration: BoxDecoration(
+                            color: AppColor.primaryColor,
+                            borderRadius: BorderRadius.only(
+                                bottomLeft:
+                                    Radius.circular(Dimensions.radiusMid),
+                                bottomRight:
+                                    Radius.circular(Dimensions.radiusMid))),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              backlogs(),
+                              attendanceLogsOverviewLayout(context),
+                              dotIndicator()
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
+                      SizedBox(
+                        height: AppLayout.getHeight(2),
+                      ),
+                      SingleChildScrollView(
+                        child: Container(
+                          height: MediaQuery.of(context).size.height,
+                          child: tabBar(),
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: AppLayout.getHeight(2),
-                  ),
-                  SingleChildScrollView(
-                    child: Container(
-                      height: MediaQuery.of(context).size.height,
-                      child: tabBar(),
-                    ),
-                  ),
-
-                ],
-              ),
-            )
+                )
+              ],
+            ),
           ],
-         ),
-
-
-       ],
         ));
   }
 }

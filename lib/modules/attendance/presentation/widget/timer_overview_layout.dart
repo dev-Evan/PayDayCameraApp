@@ -117,7 +117,7 @@ Widget attendanceLogsOverviewLayout(context) {
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      childAspectRatio: 3 / 2.3,
+                      childAspectRatio: 3.8 / 3,
                       crossAxisSpacing: 0,
                       mainAxisSpacing: 0),
                   physics: const NeverScrollableScrollPhysics(),
@@ -145,7 +145,7 @@ Widget attendanceLogsOverviewLayout(context) {
                                     '148',
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w600,
-                                        fontSize: Dimensions.fontSizeLarge,
+                                        fontSize: Dimensions.fontSizeLarge-3,
                                         color: AppColor.cardColor
                                             .withOpacity(0.8)),
                                   ),
@@ -153,7 +153,7 @@ Widget attendanceLogsOverviewLayout(context) {
                                     'Worked',
                                     style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w600,
-                                        fontSize: Dimensions.fontSizeMid,
+                                        fontSize: Dimensions.fontSizeMid-3,
                                         color: AppColor.cardColor
                                             .withOpacity(0.8)),
                                   ),

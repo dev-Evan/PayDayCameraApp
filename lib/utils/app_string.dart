@@ -69,6 +69,10 @@ class AppString {
   static const String onboardTileReceivePayDes =
       'Receive your payslips, keep track of the payment data and stay updated on the payday details.';
 
+  // Local store string store
+  static const String idStore = "store";
+
+
   // Route string here
   static const String splashScreen = "/splash_screen";
   static const String signInScreen = "/signIn_screen'";

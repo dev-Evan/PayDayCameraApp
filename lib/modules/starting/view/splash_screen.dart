@@ -8,6 +8,7 @@ import 'package:pay_day_mobile/modules/auth/presentation/view/sign_in.dart';
 import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
+import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
 class splashScreen extends StatefulWidget {
@@ -22,14 +23,23 @@ class _splashScreenState extends State<splashScreen> {
 
   final box = GetStorage();
   Future chooseScreen() async {
-    var userId = box.read('store');
+    var _idStore = AppString.idStore;
+
+    var userId = box.read(_idStore);
     print(userId);
     if (userId == null) {
       //Get.toNamed(onboard);
-      Navigator.push(context, CupertinoPageRoute(builder: (context) => datePickarScreen(),));//signInscreen
-
+      Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (context) => datePickarScreen(),
+          )); //signInscreen
     } else {
-      Navigator.push(context, CupertinoPageRoute(builder: (context) => datePickarScreen(),));//signInscreen
+      Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (context) => datePickarScreen(),
+          )); //signInscreen
     }
   }
 
@@ -53,8 +63,8 @@ class _splashScreenState extends State<splashScreen> {
 
     Future.delayed(Duration(seconds: 1), () {
       setState(() {
-        _width1 = AppLayout.getWidth(28.0) ;
-        _height1 = AppLayout.getHeight(45.0)  ;
+        _width1 = AppLayout.getWidth(28.0);
+        _height1 = AppLayout.getHeight(45.0);
       });
     });
 
