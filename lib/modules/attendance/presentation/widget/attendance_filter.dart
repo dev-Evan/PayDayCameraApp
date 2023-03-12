@@ -1,31 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/common/custom_button.dart';
-import 'package:pay_day_mobile/common/custom_double_button.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import 'package:get/get.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+
+import '../../../../common/custom_double_button.dart';
 import 'bottom_sheet_appbar.dart';
 
-class filterView extends StatefulWidget {
+class AttendanceFilter extends StatefulWidget {
+  const AttendanceFilter({Key? key}) : super(key: key);
+
   @override
-  State<filterView> createState() => _filterViewState();
+  State<AttendanceFilter> createState() => _AttendanceFilterState();
 }
 
-class _filterViewState extends State<filterView> {
+class _AttendanceFilterState extends State<AttendanceFilter> {
   bool? approve = false;
   bool? pending = false;
   bool? rejection = false;
-  bool? hours = false;
-  bool? singleDay = false;
-  bool? multiDay = false;
-  bool? firstHalf = false;
-  bool? lastHalf = false;
-
-
-
+  bool? single = false;
+  bool? multi = false;
+  bool? early = false;
+  bool? regular = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +35,7 @@ class _filterViewState extends State<filterView> {
                 appbarTitle: AppString.text_filter, context: context),
             ExpansionTile(
               title: Text(
-                AppString.text_leave_status,
+                AppString.text_attendance_status,
                 style: AppStyle.extra_large_text.copyWith(
                     color: AppColor.normalTextColor,
                     fontSize: Dimensions.fontSizeMid),
@@ -123,7 +121,7 @@ class _filterViewState extends State<filterView> {
             ),
             ExpansionTile(
               title: Text(
-                AppString.text_leave_duration,
+                AppString.text_entry_type,
                 style: AppStyle.extra_large_text.copyWith(
                     color: AppColor.normalTextColor,
                     fontSize: Dimensions.fontSizeMid),
@@ -139,7 +137,7 @@ class _filterViewState extends State<filterView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            AppString.text_hours,
+                            AppString.text_single,
                             style: AppStyle.extra_large_text.copyWith(
                                 color: AppColor.normalTextColor,
                                 fontSize: Dimensions.fontSizeDefault),
@@ -148,10 +146,10 @@ class _filterViewState extends State<filterView> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
                                     Dimensions.radiusSmall)),
-                            value: this.hours,
-                            onChanged: (bool? hours) {
+                            value: this.single,
+                            onChanged: (bool? single) {
                               setState(() {
-                                this.hours = hours;
+                                this.single = single;
                               });
                             },
                           ),
@@ -161,7 +159,7 @@ class _filterViewState extends State<filterView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            AppString.text_single_day,
+                            AppString.text_multi,
                             style: AppStyle.extra_large_text.copyWith(
                                 color: AppColor.normalTextColor,
                                 fontSize: Dimensions.fontSizeDefault),
@@ -170,76 +168,10 @@ class _filterViewState extends State<filterView> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
                                     Dimensions.radiusSmall)),
-                            value: this.singleDay,
-                            onChanged: (bool? singleDay) {
+                            value: this.multi,
+                            onChanged: (bool? multi) {
                               setState(() {
-                                this.singleDay = singleDay;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            AppString.text_multi_day,
-                            style: AppStyle.extra_large_text.copyWith(
-                                color: AppColor.normalTextColor,
-                                fontSize: Dimensions.fontSizeDefault),
-                          ),
-                          Checkbox(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    Dimensions.radiusSmall)),
-                            value: this.multiDay,
-                            onChanged: (bool? multiDay) {
-                              setState(() {
-                                this.multiDay = multiDay;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            AppString.text_first_half,
-                            style: AppStyle.extra_large_text.copyWith(
-                                color: AppColor.normalTextColor,
-                                fontSize: Dimensions.fontSizeDefault),
-                          ),
-                          Checkbox(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    Dimensions.radiusSmall)),
-                            value: this.firstHalf,
-                            onChanged: (bool? firstHalf) {
-                              setState(() {
-                                this.firstHalf = firstHalf;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            AppString.text_last_half,
-                            style: AppStyle.extra_large_text.copyWith(
-                                color: AppColor.normalTextColor,
-                                fontSize: Dimensions.fontSizeDefault),
-                          ),
-                          Checkbox(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    Dimensions.radiusSmall)),
-                            value: this.lastHalf,
-                            onChanged: (bool? lastHalf) {
-                              setState(() {
-                                this.lastHalf = lastHalf;
+                                this.multi = multi;
                               });
                             },
                           ),
@@ -250,14 +182,78 @@ class _filterViewState extends State<filterView> {
                 ),
               ],
             ),
-            customDoubleButton(context: context,textBtnText: 'Clear',textButtonAction: (){},elevatedBtnText: 'Apply',elevatedButtonAction: (){})
-
-
+            ExpansionTile(
+              title: Text(
+                AppString.text_attendance_behavior,
+                style: AppStyle.extra_large_text.copyWith(
+                    color: AppColor.normalTextColor,
+                    fontSize: Dimensions.fontSizeMid),
+              ),
+              initiallyExpanded: true,
+              iconColor: AppColor.normalTextColor,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            AppString.text_enrly,
+                            style: AppStyle.extra_large_text.copyWith(
+                                color: AppColor.normalTextColor,
+                                fontSize: Dimensions.fontSizeDefault),
+                          ),
+                          Checkbox(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    Dimensions.radiusSmall)),
+                            value: this.early,
+                            onChanged: (bool? early) {
+                              setState(() {
+                                this.early = early;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            AppString.text_regular,
+                            style: AppStyle.extra_large_text.copyWith(
+                                color: AppColor.normalTextColor,
+                                fontSize: Dimensions.fontSizeDefault),
+                          ),
+                          Checkbox(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    Dimensions.radiusSmall)),
+                            value: this.regular,
+                            onChanged: (bool? regular) {
+                              setState(() {
+                                this.regular = regular;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            customDoubleButton(
+                context: context,
+                textBtnText: 'Clear',
+                textButtonAction: () {},
+                elevatedBtnText: 'Apply',
+                elevatedButtonAction: () {})
           ],
         ),
       ),
     );
   }
 }
-
-

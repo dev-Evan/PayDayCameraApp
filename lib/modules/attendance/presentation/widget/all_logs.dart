@@ -5,13 +5,15 @@ import 'package:pay_day_mobile/common/custom_divider.dart';
 import 'package:pay_day_mobile/common/custom_status_button.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/date_picaker.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/widget/date_pickar.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/widget/selected_range_calender.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/filter_view.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+
+import 'attendance_filter.dart';
 
 class allLogsScreen extends StatefulWidget {
   const allLogsScreen({Key? key}) : super(key: key);
@@ -62,31 +64,26 @@ class _allLogsScreenState extends State<allLogsScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        AppString.textCustom,
-                        style: AppStyle.mid_large_text.copyWith(
-                            color: AppColor.secondaryColor,
-                            fontWeight: FontWeight.w700),
-                      ),
-                      SizedBox(
-                        width: AppLayout.getWidth(12),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CustomCalender(),
-                              ));
-                        },
-                        child: Icon(
+                  InkWell(
+                    onTap: () => customButtomSheet(
+                        context, 0.9, Container(child: SelectRangeCalender())),
+                    child: Row(
+                      children: [
+                        Text(
+                          AppString.textCustom,
+                          style: AppStyle.mid_large_text.copyWith(
+                              color: AppColor.secondaryColor,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          width: AppLayout.getWidth(12),
+                        ),
+                        Icon(
                           Icons.keyboard_arrow_down,
                           color: AppColor.hintColor,
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                   Text(
                     '14 Dec 2022 - 30 Dec 2022',
@@ -103,8 +100,8 @@ class _allLogsScreenState extends State<allLogsScreen> {
                       Row(
                         children: [
                           InkWell(
-                              onTap: () => customButtomSheet(
-                                  context, 0.9, Container(child: filterView())),
+                              onTap: () => customButtomSheet(context, 0.9,
+                                  Container(child: AttendanceFilter())),
                               child: const Icon(
                                 Icons.filter_alt,
                                 color: AppColor.hintColor,
@@ -113,14 +110,18 @@ class _allLogsScreenState extends State<allLogsScreen> {
                             width: AppLayout.getWidth(24),
                           ),
                           InkWell(
-                            onTap: () => CustomAlertDialog().openDialog(
+                            onTap: () => CustomAlertDialog(
                                 context: context,
                                 yesText: AppString.text_yes,
-                                contentText: AppString.text_dialog_dec,
-                                icon: Icons.delete,
+                                decIcon: Icons.sticky_note_2_outlined,
+                                contentText: AppString.text_dialog_dec_pdf,
+                                titleText: AppString.text_export_attendance,
+                                icon: Icons.file_upload_outlined,
                                 yesAction: () {},
+                                iconColor: AppColor.primaryColor,
+                                buttonColor: AppColor.primaryColor,
                                 iconBgColor:
-                                    AppColor.pendingBgColor.withOpacity(0.1)),
+                                    AppColor.primaryColor.withOpacity(0.1)),
                             child: const Icon(
                               Icons.file_upload_outlined,
                               color: AppColor.hintColor,

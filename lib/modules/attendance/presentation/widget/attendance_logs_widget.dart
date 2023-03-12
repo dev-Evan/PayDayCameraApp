@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/all_logs.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/tabbar_summary.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -7,13 +9,13 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-Widget backlogs() {
+Widget backlogs(context) {
   return AppBar(
     elevation: 0,
     centerTitle: true,
     backgroundColor: AppColor.primaryColor,
     leading: IconButton(
-      onPressed: () {},
+      onPressed: ()=>Navigator.pop(context),
       icon: Icon(Icons.arrow_back),
     ),
     title: Text(

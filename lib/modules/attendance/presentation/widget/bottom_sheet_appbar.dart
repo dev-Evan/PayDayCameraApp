@@ -25,11 +25,9 @@ Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle,}) 
       elevation: 0,
       centerTitle: true,
       automaticallyImplyLeading: false,
-      title: Center(
-        child: Text(
-          appbarTitle ?? "Punch In",
-          style: AppStyle.normal_text_black.copyWith(fontWeight: FontWeight.w600,fontSize: Dimensions.fontSizeDefault+4),
-        ),
+      title: Text(
+        appbarTitle ?? "Punch In",
+        style: AppStyle.normal_text_black.copyWith(fontWeight: FontWeight.w600,fontSize: Dimensions.fontSizeDefault+4),
       ),
       actions: [
       IconButton(

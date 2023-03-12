@@ -11,7 +11,7 @@ class AppString {
   static String text_total = "Total";
   static String text_month = "Month";
   static String text_year = "Year";
-  static String text_yes = "Yes";
+  static const String text_yes = "Yes";
   static String text_no = "No";
   static String text_log_out = "Log Out";
   static String text_all_logs = "All Logs";
@@ -21,6 +21,7 @@ class AppString {
   static String textMonth = "This Month";
   static String textYear= "This Year";
   static String text_filter= "Filter";
+  static const String text_select_time_range= "Select Time Range";
   static String text_leave_status= "Leave Status";
   static String text_leave_duration= "Leave Duration";
   static String text_approved= "Approved";
@@ -30,9 +31,19 @@ class AppString {
   static String text_single_day= "Single Day";
   static String text_multi_day= "Multi Day";
   static String text_first_half= "First Half";
-  static String text_last_half= "Last Half";
-  static String text_are_you_sure= "Are you sure?";
-  static String text_dialog_dec= "If you do this, you cannot turn back";
+  static  String text_last_half= "Last Half";
+  static const String text_are_you_sure= "Are you sure?";
+  static const String text_export_attendance= "Export Attendance?";
+  static const String text_dialog_dec= "If you do this, you cannot turn back";
+  static const String text_dialog_dec_pdf = "December Attendance.pdf";
+
+  static const String text_attendance_status = "Attendance Status";
+  static const String text_entry_type = "Entry Type";
+  static const String text_attendance_behavior = "Attendance Behavior";
+  static const String text_single = "Single";
+  static const String text_multi = "Multi";
+  static const String text_enrly = "Early";
+  static const String text_regular = "Regular";
 
 
 
@@ -69,7 +80,7 @@ class AppString {
   static const String onboardTileReceivePayDes =
       'Receive your payslips, keep track of the payment data and stay updated on the payday details.';
 
-  // Local store string store
+  // Local store string here
   static const String idStore = "store";
 
 
@@ -80,4 +91,5 @@ class AppString {
   static const String receiveScreen = "/receive_screen'";
   static const String onboardScreen = "/onboard_screen'";
   static const String attendLogScreen = "/attendLog_screen'";
+  static const String moreScreen = "/more_screen'";
 }

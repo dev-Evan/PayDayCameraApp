@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/common/custom_appbar.dart';
 import 'package:pay_day_mobile/common/custom_button.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_logs_widget.dart';
@@ -18,7 +20,7 @@ class attendanceLogsScreen extends StatelessWidget {
         backgroundColor: AppColor.backgroundColor,
         floatingActionButton: Padding(
           padding: const EdgeInsets.only(left: 30.0),
-          child: CustomButton(AppString.text_requstAttendance, () {}),
+          child: CustomButton(AppString.text_requstAttendance, (){}),
         ),
         appBar: CustomAppbar(),
         body: Stack(
@@ -41,7 +43,7 @@ class attendanceLogsScreen extends StatelessWidget {
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              backlogs(),
+                              backlogs(context),
                               attendanceLogsOverviewLayout(context),
                               dotIndicator()
                             ],
