@@ -93,25 +93,25 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                       _focusedDay = focusedDay;
                     },
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     children: [
                       Flexible(
                           child: CustomTextFeild(
-                              'Form', TextInputType.text, _formController)),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                              hintText: 'Form',inputType:  TextInputType.text,controller:  _formController)),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 8.0, right: 8.0),
                         child: Icon(Icons.minimize_outlined),
                       ),
                       Flexible(
                           child: CustomTextFeild(
-                              'To', TextInputType.text, _toController)),
+                             hintText:  'To', inputType: TextInputType.text,controller:  _toController)),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   customDiveider(0.7, MediaQuery.of(context).size.width),
-                  Spacer(),
-                  Container(
+                  const Spacer(),
+                  SizedBox(
                     height: AppLayout.getHeight(56),
                     child: ListView.builder(
                       itemCount: dateTime.length,

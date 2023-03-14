@@ -10,38 +10,38 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import '../modules/home/presentation/home.dart';
 import '../modules/more/presentation/view/more.dart';
 
-const String splash = AppString.splashScreen;
-const String signIn = AppString.signInScreen;
-const String forgot = AppString.forgotScreen;
-const String receive = AppString.receiveScreen;
-const String onboard = AppString.onboardScreen;
-const String attendLog = AppString.attendLogScreen;
-const String more = AppString.moreScreen;
+// const String splash = AppString.splashScreen;
+// const String signIn = AppString.signInScreen;
+// const String forgot = AppString.forgotScreen;
+// const String receive = AppString.receiveScreen;
+// const String onboard = AppString.onboardScreen;
+// const String attendLog = AppString.attendLogScreen;
+// const String more = AppString.moreScreen;
 
 List<GetPage> getPage = [
   GetPage(
-    name: splash,
+    name: AppString.splashScreen,
     page: () => splashScreen(),
   ),
-  GetPage(name: signIn, page: () => signInScreen()),
+  GetPage(name: AppString.signInScreen, page: () => signInScreen()),
   GetPage(
-    name: forgot,
+    name: AppString.forgotScreen,
     page: () => forgotScreen(),
   ),
   GetPage(
-    name: receive,
+    name: AppString.receiveScreen,
     page: () => receiveScreen(),
   ),
   GetPage(
-    name: onboard,
+    name: AppString.onboardScreen,
     page: () => onboardingScreen(),
   ),
   GetPage(
-    name: attendLog,
+    name: AppString.attendLogScreen,
     page: () => attendanceLogsScreen(),
   ),
   GetPage(
-    name: more,
+    name: AppString.moreScreen,
     page: () => MoreScreen(),
   ),
   GetPage(

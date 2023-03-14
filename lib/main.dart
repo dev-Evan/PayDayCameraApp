@@ -5,6 +5,10 @@ import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/theme.dart';
 
+import 'modules/more/presentation/view/more.dart';
+import 'modules/more/presentation/view/view_profile.dart';
+import 'modules/more/presentation/widget/document_view.dart';
+
 void main() async {
   await initApp();
   runApp(const MyApp());
@@ -18,8 +22,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      initialRoute: AppString.HOME,
-      getPages: getPage,
+      // initialRoute: AppString.moreScreen,
+      // getPages: getPage,
+      home: const ViewProfile(),
     );
   }
 }

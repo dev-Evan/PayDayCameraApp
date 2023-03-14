@@ -7,6 +7,7 @@ import 'package:pay_day_mobile/modules/auth/presentation/view/sign_in.dart';
 import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
+import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -120,9 +121,9 @@ class _receiveScreenState extends State<receiveScreen> {
                           color: AppColor.hintColor),
                     ),
                     CustomTextFeild(
-                      'Enter email',
-                      TextInputType.emailAddress,
-                      _emailController,
+                     hintText:  'Enter email',
+                    inputType:   TextInputType.emailAddress,
+                     controller:  _emailController,
                     ),
                   ],
                 ),
@@ -131,7 +132,7 @@ class _receiveScreenState extends State<receiveScreen> {
                   height: AppLayout.getHeight(Dimensions.fontSizeExtraLarge) ,
                 ),
                 CustomButton('Request', () {
-                  Get.toNamed(receive);
+                  Get.toNamed(AppString.receiveScreen);
                 }),
               ],
             ),

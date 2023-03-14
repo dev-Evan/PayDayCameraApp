@@ -11,6 +11,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leadingWidth: AppLayout.getWidth(150),
       toolbarHeight: AppLayout.getHeight(35),
+
       leading: Padding(
         padding: const EdgeInsets.only(left: 12.0),
         child: Image.asset(
@@ -23,7 +24,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {},
           icon: const Icon(
             Icons.notifications_none,
-            color: AppColor.primaryColor,
+            color: AppColor.primaryColor,size: 30,
           ),
         )
       ],

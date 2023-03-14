@@ -122,3 +122,47 @@ Future CustomAlertDialog({
     },
   );
 }
+
+Future CustomSuccessAlertDialog({
+  context,
+  yesAction,
+  IconData? icon,
+  IconData? decIcon,
+  String? titleText = AppString.text_are_you_sure,
+  String? contentText = AppString.text_dialog_dec,
+  String? yesText = AppString.text_yes,
+  Color? buttonColor = Colors.orange,
+  Color? iconBgColor = Colors.orange,
+  Color? iconColor = Colors.orange,
+}) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text(titleText!,style: AppStyle.mid_large_text.copyWith(color: AppColor.normalTextColor,fontWeight: FontWeight.w800),),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimensions.radiusMid - 2),
+        ),
+        icon: Center(
+          child: Container(
+              width: AppLayout.getWidth(48),
+              height: AppLayout.getHeight(46),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: iconBgColor,
+              ),
+              child: Icon(
+                icon,
+                color: iconColor,
+              )),
+        ),
+        content: Text(
+          contentText!,
+          style: AppStyle.mid_large_text.copyWith(
+              color: AppColor.hintColor, fontSize: Dimensions.fontSizeDefault),
+        ),
+        actionsAlignment: MainAxisAlignment.center,
+      );
+    },
+  );
+}

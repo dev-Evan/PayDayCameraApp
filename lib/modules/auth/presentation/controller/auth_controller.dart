@@ -13,10 +13,24 @@ class AuthController extends GetxController {
   final box = GetStorage();
   final _idStore = AppString.idStore;
 
+
+
+
+
+
   login(String email, String password) async {
     Login _login =
         await _authDataInterface.login(email: email, password: password);
     print(_login.message.toString());
+
+
+
+
+
+
+
+
+
 
     if (_login.status == true) {
       print(_login.status.toString());

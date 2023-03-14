@@ -2,40 +2,40 @@ class AppString {
   AppString._();
 
   // Apps url here
-  // static String BASE_URL="https://payday.php8.gainhq.com/api";
+  static String BASE_URL = "https://payday.php8.gainhq.com/api";
   static String logIn = "/login";
 
   // Apps string here
-  static String exampleText = "";
-  static String text_in = "In";
-  static String text_out = "Out";
-  static String text_total = "Total";
-  static String text_month = "Month";
-  static String text_year = "Year";
+  static const String exampleText = "";
+  static const String text_in = "In";
+  static const String text_out = "Out";
+  static const String text_total = "Total";
+  static const String text_month = "Month";
+  static const String text_year = "Year";
   static const String text_yes = "Yes";
-  static String text_no = "No";
-  static String text_log_out = "Log Out";
-  static String text_all_logs = "All Logs";
-  static String text_summary = "Summary";
-  static String text_balance = "Balance";
-  static String textCustom = "Custom";
-  static String textMonth = "This Month";
-  static String textYear= "This Year";
-  static String text_filter= "Filter";
-  static const String text_select_time_range= "Select Time Range";
-  static String text_leave_status= "Leave Status";
-  static String text_leave_duration= "Leave Duration";
-  static String text_approved= "Approved";
-  static String text_pending= "Pending";
-  static String text_rejection= "Rejection";
-  static String text_hours= "Hours";
-  static String text_single_day= "Single Day";
-  static String text_multi_day= "Multi Day";
-  static String text_first_half= "First Half";
-  static  String text_last_half= "Last Half";
-  static const String text_are_you_sure= "Are you sure?";
-  static const String text_export_attendance= "Export Attendance?";
-  static const String text_dialog_dec= "If you do this, you cannot turn back";
+  static const String text_no = "No";
+  static const String text_log_out = "Log Out";
+  static const String text_all_logs = "All Logs";
+  static const String text_summary = "Summary";
+  static const String text_balance = "Balance";
+  static const String textCustom = "Custom";
+  static const String textMonth = "This Month";
+  static const String textYear = "This Year";
+  static const String text_filter = "Filter";
+  static const String text_select_time_range = "Select Time Range";
+  static const String text_leave_status = "Leave Status";
+  static const String text_leave_duration = "Leave Duration";
+  static const String text_approved = "Approved";
+  static const String text_pending = "Pending";
+  static const String text_rejection = "Rejection";
+  static const String text_hours = "Hours";
+  static const String text_single_day = "Single Day";
+  static const String text_multi_day = "Multi Day";
+  static const String text_first_half = "First Half";
+  static const String text_last_half = "Last Half";
+  static const String text_are_you_sure = "Are you sure?";
+  static const String text_export_attendance = "Export Attendance?";
+  static const String text_dialog_dec = "If you do this, you cannot turn back";
   static const String text_dialog_dec_pdf = "December Attendance.pdf";
 
   static const String text_attendance_status = "Attendance Status";
@@ -81,8 +81,60 @@ class AppString {
   static String text_date = 'Date';
   static String text_select_date = 'Select Date';
 
+  // More modules
+  static const String text_user_name = "Steve Roggers";
+  static const String text_user_email = "steave@gain.media";
+  static const String text_active = "Active";
+  static const String text_view_profile = "View Profile";
+  static const String text_job_desk = "Job Desk";
+  static const String text_documents = "Documents";
+  static const String text_total_file = "Total Files";
+  static const String text_doctor_slips = "Doctor's Slips";
+  static const String text_doctor_prescription = "Doctor Prescription.pdf";
+  static const String text_medical_certificated = "Total Files";
+  static const String text_add_documents = "Add Documents";
+  static const String text_calender= "Calender";
+  static const String text_job_history = "Job History";
+  static const String text_salary_overview = "Salary Overview";
+  static const String text_address_details = "Address Details";
+  static const String text_other = "Other";
+  static const String text_enter_document_name = "Enter document name";
+  static const String text_name = "Name";
+  static const String text_click = "Click";
+  static const String text_to_add_fils = "to add files";
+  static const String text_jpeg_jpg_png_etc = "jpeg, jpg, png, pdf, txt, doc, docx, csv. (Max file size is 5MB)";
+  static const String text_change_password = "Change Password";
+  static String text_language = "Language";
+  static String text_english = "English";
+  static String text_ux_deginer= "UX Designer";
+  static String text_permanent = "Permanent";
+  static String text_about_me = "About me";
+  static String text_general= "General";
+  static String text_laravel = "Laravel";
+ // static String text_regular = "About me";
+  static String text_email = "Email";
+  static String text_department = "Department";
+  static String text_shift = "Shift";
+  static String text_phone_number = "+8801234567890";
+  static String text_address = "Address";
+  static String text_birthday = "Birthday";
+  static String text_phone = "Phone";
+  static String text_personal = "Personal";
+  static String text_ca_usa = "CA, USA";
+  static String text_01_jan_1998 = "01-Jan-1998";
+  static String text_gender = "Male";
+  static String text_edit_profile = "Edit Profile";
+  static String text_old_password = "Old Password";
+  static String text_new_password = "New Password";
+  static String text_confirm_password = "Confirm Password";
+  static String text_male = "Male";
+  static String text_about_me_dec = "Hello. I am an UX/UI designer. I am in love with designing since my childhood. It gives me the freedom of my mind and helps me to express myself and my personality ";
   // Local store string here
   static const String idStore = "store";
+
+
+
+
 
 
   // Route string here

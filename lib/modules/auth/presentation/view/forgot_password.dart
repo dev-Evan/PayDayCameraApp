@@ -120,9 +120,9 @@ class _forgotScreenState extends State<forgotScreen> {
                           color: AppColor.hintColor),
                     ),
                     CustomTextFeild(
-                      'Enter email',
-                      TextInputType.emailAddress,
-                      _emailController,
+                     hintText:  'Enter email',
+                    inputType:   TextInputType.emailAddress,
+                    controller:   _emailController,
                     ),
                   ],
                 ),

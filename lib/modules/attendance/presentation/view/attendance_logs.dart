@@ -57,7 +57,7 @@ class attendanceLogsScreen extends StatelessWidget {
                         height: AppLayout.getHeight(2),
                       ),
                       SingleChildScrollView(
-                        child: Container(
+                        child: SizedBox(
                           height: MediaQuery.of(context).size.height,
                           child: tabBar(),
                         ),

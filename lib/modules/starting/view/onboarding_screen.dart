@@ -135,7 +135,7 @@ class _onboardingScreenState extends State<onboardingScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
-                    onPressed: () => Get.toNamed(signIn),
+                    onPressed: () => Get.toNamed(AppString.signInScreen),
                     child: Text(
                       'Skip',
                       style: GoogleFonts.poppins(
@@ -146,7 +146,7 @@ class _onboardingScreenState extends State<onboardingScreen> {
                   ),
                   CustomSmallButton(" Next ", () {
                     if (_currentIndex == _title.length - 1) {
-                      Get.toNamed(signIn);
+                      Get.toNamed(AppString.signInScreen);
                     } else {
                       _currentIndex + 1;
                     }

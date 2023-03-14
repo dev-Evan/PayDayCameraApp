@@ -5,6 +5,7 @@ import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_control
 import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
+import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -105,9 +106,9 @@ class _signInScreenState extends State<signInScreen> {
                           color: AppColor.hintColor),
                     ),
                     CustomTextFeild(
-                      'Enter email',
-                      TextInputType.emailAddress,
-                      _emailController,
+                    hintText:   'Enter email',
+                     inputType:  TextInputType.emailAddress,
+                     controller:  _emailController,
                     ),
                   ],
                 ),
@@ -126,9 +127,9 @@ class _signInScreenState extends State<signInScreen> {
                           color: AppColor.hintColor),
                     ),
                     CustomPasswordTextField(
-                      'Enter your password',
-                      TextInputType.emailAddress,
-                      _passwordController,
+                      hintText: 'Enter your password',
+                     inputType: TextInputType.emailAddress,
+                     controller: _passwordController,
                     ),
                   ],
                 ),
@@ -160,7 +161,7 @@ class _signInScreenState extends State<signInScreen> {
                       ],
                     ),
                     TextButton(
-                        onPressed: () => Get.toNamed(forgot),
+                        onPressed: () => Get.toNamed(AppString.forgotScreen),
                         child: Text('Forgot password?',
                             style: GoogleFonts.poppins(
                                 fontSize: Dimensions.fontSizeDefault,

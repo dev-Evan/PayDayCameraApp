@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -12,10 +10,11 @@ class CustomTextFeild extends StatefulWidget {
   final inputType;
   final controller;
 
-
-
-
-  CustomTextFeild(this.hintText, this.inputType, this.controller, );
+  CustomTextFeild({
+    required this.hintText,
+    this.inputType,
+    this.controller,
+  });
 
   @override
   State<CustomTextFeild> createState() => _CustomTextFeildState();
@@ -33,9 +32,7 @@ class _CustomTextFeildState extends State<CustomTextFeild> {
           keyboardType: widget.inputType,
           controller: widget.controller,
           decoration: InputDecoration(
-contentPadding: EdgeInsets.all(16),
-
-
+              contentPadding: const EdgeInsets.all(16),
               hintText: widget.hintText,
               focusColor: AppColor.primaryColor,
               hintStyle: GoogleFonts.poppins(color: AppColor.hintColor),
@@ -46,16 +43,16 @@ contentPadding: EdgeInsets.all(16),
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide:
-                    BorderSide(width: 0.0, color: AppColor.primaryColor),
+                    const BorderSide(width: 0.0, color: AppColor.primaryColor),
                 borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
               ),
               enabledBorder: const OutlineInputBorder(
                 borderSide:
-                    const BorderSide(color: AppColor.disableColor, width: 0.0),
+                    BorderSide(color: AppColor.disableColor, width: 0.0),
               ),
               border: OutlineInputBorder(
                 borderSide:
-                    BorderSide(width: 0.0, color: AppColor.primaryColor),
+                    const BorderSide(width: 0.0, color: AppColor.primaryColor),
                 borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
               )),
         ),
@@ -69,7 +66,8 @@ class CustomPasswordTextField extends StatefulWidget {
   final inputType;
   final controller;
 
-  CustomPasswordTextField(this.hintText, this.inputType, this.controller);
+  CustomPasswordTextField(
+      {required this.hintText, this.inputType, this.controller});
 
   @override
   State<CustomPasswordTextField> createState() =>
@@ -87,7 +85,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
         controller: widget.controller,
         obscureText: value,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(16),
+            contentPadding: const EdgeInsets.all(16),
             hintText: widget.hintText,
             focusColor: AppColor.primaryColor,
             hintStyle: GoogleFonts.poppins(color: AppColor.hintColor),
@@ -98,21 +96,28 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
                   });
                 },
                 icon: value
-                    ? Icon(Icons.remove_red_eye_rounded,size: 20,
-                  color: Colors.grey,)
-                    : Icon(Icons.remove_red_eye_outlined,size: 20,
-                  color: Colors.grey,)),
+                    ? const Icon(
+                        Icons.visibility_off_outlined,
+                        size: 20,
+                        color: Colors.grey,
+                      )
+                    : const Icon(
+                        Icons.remove_red_eye_outlined,
+                        size: 20,
+                        color: Colors.grey,
+                      )),
             filled: false,
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 0.0, color: AppColor.primaryColor),
+              borderSide:
+                  const BorderSide(width: 0.0, color: AppColor.primaryColor),
               borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
             ),
             enabledBorder: const OutlineInputBorder(
-              borderSide:
-                  const BorderSide(color: AppColor.disableColor, width: 0.0),
+              borderSide: BorderSide(color: AppColor.disableColor, width: 0.0),
             ),
             border: OutlineInputBorder(
-              borderSide: BorderSide(width: 0.0, color: AppColor.primaryColor),
+              borderSide:
+                  const BorderSide(width: 0.0, color: AppColor.primaryColor),
               borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
             )),
       ),
