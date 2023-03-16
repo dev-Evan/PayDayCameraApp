@@ -6,6 +6,7 @@ class AppColor {
   static const Color backgroundColor = Color(0xFFFFFFFF);
   static const Color secondaryColor = Color(0xFF4D4D4D);
   static const Color pendingBgColor = Color(0xFFF3C568);
+  static const Color alertDgIconBgColor = Color(0xFFfed8b1);
   static const Color successColor = Color(0xFF3EAC55);
   static const Color pendingTextColor = Colors.orange;
   static const Color hintColor = Color(0xFF9397A0);

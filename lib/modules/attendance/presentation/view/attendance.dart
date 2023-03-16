@@ -62,7 +62,7 @@ class Attendance extends StatelessWidget {
                     SizedBox(
                         height: AppLayout.getHeight(Dimensions.paddingMid)),
                     dotIndicator(),
-                    attendanceLogText(),
+                    attendanceLogText(context),
                   ]),
             ),
           ),

@@ -25,8 +25,6 @@ class _signInScreenState extends State<signInScreen> {
   bool isleft = false;
   bool? rememberMe = false;
 
-
-
   leftRight() {
     setState(() {
       isleft = !isleft;
@@ -55,7 +53,7 @@ class _signInScreenState extends State<signInScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: AppLayout.getHeight(30)),
-                Container(
+                SizedBox(
                     height: _height,
                     width: _width,
                     child: Stack(
@@ -63,12 +61,12 @@ class _signInScreenState extends State<signInScreen> {
                         Padding(
                           padding: const EdgeInsets.all(20.0),
                           child: AnimatedContainer(
-                            duration: Duration(milliseconds: 400),
+                            duration: const Duration(milliseconds: 400),
                             alignment: isleft
                                 ? Alignment.topCenter
                                 : Alignment.topRight,
-                            child: Image.asset(Images.app_logo),
                             curve: Curves.easeInOut,
+                            child: Image.asset(Images.app_logo),
                           ),
                         ),
                       ],
@@ -106,9 +104,9 @@ class _signInScreenState extends State<signInScreen> {
                           color: AppColor.hintColor),
                     ),
                     CustomTextFeild(
-                    hintText:   'Enter email',
-                     inputType:  TextInputType.emailAddress,
-                     controller:  _emailController,
+                      hintText: 'Enter email',
+                      inputType: TextInputType.emailAddress,
+                      controller: _emailController,
                     ),
                   ],
                 ),
@@ -128,8 +126,8 @@ class _signInScreenState extends State<signInScreen> {
                     ),
                     CustomPasswordTextField(
                       hintText: 'Enter your password',
-                     inputType: TextInputType.emailAddress,
-                     controller: _passwordController,
+                      inputType: TextInputType.emailAddress,
+                      controller: _passwordController,
                     ),
                   ],
                 ),
@@ -137,35 +135,45 @@ class _signInScreenState extends State<signInScreen> {
                     height: AppLayout.getHeight(
                   Dimensions.fontSizeLarge,
                 )),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Wrap(
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Checkbox(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  Dimensions.radiusSmall)),
-                          value: this.rememberMe,
-                          onChanged: (bool? rememberMe) {
-                            setState(() {
-                              this.rememberMe = rememberMe;
-                            });
-                          },
+                        Row(
+                          children: [
+                            Checkbox(
+                              visualDensity: const VisualDensity(
+                                  horizontal: -4, vertical: -4),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      Dimensions.radiusSmall)),
+                              value: rememberMe,
+                              onChanged: (bool? rememberMe) {
+                                setState(() {
+                                  this.rememberMe = rememberMe;
+                                });
+                              },
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 2.0),
+                              child: Text(
+                                'Remember me',
+                                style: GoogleFonts.poppins(
+                                    fontSize: Dimensions.fontSizeDefault),
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          'Remember me',
-                          style: GoogleFonts.poppins(
-                              fontSize: Dimensions.fontSizeDefault),
-                        ),
+                        TextButton(
+                            onPressed: () =>
+                                Get.toNamed(AppString.forgotScreen),
+                            child: Text('Forgot password?',
+                                style: GoogleFonts.poppins(
+                                    fontSize: Dimensions.fontSizeDefault,
+                                    color: AppColor.primaryColor)))
                       ],
                     ),
-                    TextButton(
-                        onPressed: () => Get.toNamed(AppString.forgotScreen),
-                        child: Text('Forgot password?',
-                            style: GoogleFonts.poppins(
-                                fontSize: Dimensions.fontSizeDefault,
-                                color: AppColor.primaryColor)))
                   ],
                 ),
                 SizedBox(
@@ -176,9 +184,6 @@ class _signInScreenState extends State<signInScreen> {
                   Get.find<AuthController>().login(
                       _emailController.text.toString(),
                       _passwordController.text);
-                  // final email = _emailController.text.toString();
-                  // final password = _passwordController.text;
-                  // AuthHelper().logIn(email, password, context);
                 })
               ],
             ),

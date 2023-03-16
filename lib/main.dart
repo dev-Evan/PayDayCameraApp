@@ -5,6 +5,10 @@ import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/theme.dart';
 
+import 'modules/home/presentation/home.dart';
+import 'modules/more/presentation/view/calender.dart';
+import 'modules/more/presentation/view/edit_profile.dart';
+import 'modules/more/presentation/view/jod_history.dart';
 import 'modules/more/presentation/view/more.dart';
 import 'modules/more/presentation/view/view_profile.dart';
 import 'modules/more/presentation/widget/document_view.dart';
@@ -24,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: appTheme,
       // initialRoute: AppString.moreScreen,
       // getPages: getPage,
-      home: const ViewProfile(),
+      home:  const JodHistory(),
     );
   }
 }

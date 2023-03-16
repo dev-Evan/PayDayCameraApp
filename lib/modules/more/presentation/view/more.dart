@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:pay_day_mobile/common/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/common/custom_appbar.dart';
+import 'package:pay_day_mobile/common/custom_navigator.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/about_this_app.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/calender.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/documents.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/jod_history.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -16,7 +22,7 @@ class MoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppbar(),
+
       body: CustomScrollView(
         slivers: [
           SliverFillRemaining(
@@ -94,23 +100,26 @@ class MoreScreen extends StatelessWidget {
                             ),
                             const Spacer(),
                             Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    AppString.text_view_profile,
-                                    style: AppStyle.small_text.copyWith(
-                                        fontSize: Dimensions.fontSizeDefault),
-                                  ),
-                                  SizedBox(
-                                    width: AppLayout.getWidth(8),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward,
-                                    color: AppColor.cardColor,
-                                    size: Dimensions.fontSizeDefault + 3,
-                                  )
-                                ],
+                              child: InkWell(
+                                onTap: ()=>CustomNavigator(context: context,pageName:const ViewProfile() ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      AppString.text_view_profile,
+                                      style: AppStyle.small_text.copyWith(
+                                          fontSize: Dimensions.fontSizeDefault),
+                                    ),
+                                    SizedBox(
+                                      width: AppLayout.getWidth(8),
+                                    ),
+                                    Icon(
+                                      Icons.arrow_forward,
+                                      color: AppColor.cardColor,
+                                      size: Dimensions.fontSizeDefault + 3,
+                                    )
+                                  ],
+                                ),
                               ),
                             )
                           ],
@@ -136,7 +145,7 @@ class MoreScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 20.0),
                               child: InkWell(
-                                onTap: () => Get.to(Documents()),
+                                onTap: () => CustomNavigator(context: context,pageName:const Documents() ),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -198,41 +207,44 @@ class MoreScreen extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Card(
-                                          elevation: 0,
-                                          color: AppColor.primaryColor
-                                              .withOpacity(0.1),
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      Dimensions
-                                                          .radiusDefault)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(6.0),
-                                            child: Center(
-                                              child: Icon(
-                                                Icons.calendar_month,
-                                                color: AppColor.primaryColor
-                                                    .withOpacity(0.8),
+                                  InkWell(
+                                    onTap: ()=>CustomNavigator(context: context,pageName:const CalendarScreen() ),
+                                    child: Row(
+                                      children: [
+                                        Card(
+                                            elevation: 0,
+                                            color: AppColor.primaryColor
+                                                .withOpacity(0.1),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        Dimensions
+                                                            .radiusDefault)),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(6.0),
+                                              child: Center(
+                                                child: Icon(
+                                                  Icons.calendar_month,
+                                                  color: AppColor.primaryColor
+                                                      .withOpacity(0.8),
+                                                ),
                                               ),
-                                            ),
-                                          )),
-                                      SizedBox(
-                                        width: AppLayout.getWidth(12),
-                                      ),
-                                      Text(
-                                        AppString.text_calender,
-                                        style: AppStyle.small_text_black
-                                            .copyWith(
-                                                fontSize:
-                                                    Dimensions.fontSizeSmall +
-                                                        2,
-                                                color:
-                                                    AppColor.normalTextColor),
-                                      )
-                                    ],
+                                            )),
+                                        SizedBox(
+                                          width: AppLayout.getWidth(12),
+                                        ),
+                                        Text(
+                                          AppString.text_calender,
+                                          style: AppStyle.small_text_black
+                                              .copyWith(
+                                                  fontSize:
+                                                      Dimensions.fontSizeSmall +
+                                                          2,
+                                                  color:
+                                                      AppColor.normalTextColor),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                   CircleAvatar(
                                       radius: 14,
@@ -253,41 +265,44 @@ class MoreScreen extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Card(
-                                          elevation: 0,
-                                          color: AppColor.primaryColor
-                                              .withOpacity(0.1),
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      Dimensions
-                                                          .radiusDefault)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(6.0),
-                                            child: Center(
-                                              child: Icon(
-                                                Icons.access_time_outlined,
-                                                color: AppColor.primaryColor
-                                                    .withOpacity(0.8),
+                                  InkWell(
+                                    onTap: ()=>CustomNavigator(context: context,pageName: const JodHistory()),
+                                    child: Row(
+                                      children: [
+                                        Card(
+                                            elevation: 0,
+                                            color: AppColor.primaryColor
+                                                .withOpacity(0.1),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        Dimensions
+                                                            .radiusDefault)),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(6.0),
+                                              child: Center(
+                                                child: Icon(
+                                                  Icons.access_time_outlined,
+                                                  color: AppColor.primaryColor
+                                                      .withOpacity(0.8),
+                                                ),
                                               ),
-                                            ),
-                                          )),
-                                      SizedBox(
-                                        width: AppLayout.getWidth(12),
-                                      ),
-                                      Text(
-                                        AppString.text_job_history,
-                                        style: AppStyle.small_text_black
-                                            .copyWith(
-                                                fontSize:
-                                                    Dimensions.fontSizeSmall +
-                                                        2,
-                                                color:
-                                                    AppColor.normalTextColor),
-                                      )
-                                    ],
+                                            )),
+                                        SizedBox(
+                                          width: AppLayout.getWidth(12),
+                                        ),
+                                        Text(
+                                          AppString.text_job_history,
+                                          style: AppStyle.small_text_black
+                                              .copyWith(
+                                                  fontSize:
+                                                      Dimensions.fontSizeSmall +
+                                                          2,
+                                                  color:
+                                                      AppColor.normalTextColor),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                   CircleAvatar(
                                       radius: 14,
@@ -424,114 +439,130 @@ class MoreScreen extends StatelessWidget {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 20.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Card(
-                                          elevation: 0,
-                                          color: AppColor.primaryColor
-                                              .withOpacity(0.1),
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      Dimensions
-                                                          .radiusDefault)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(6.0),
-                                            child: Center(
-                                              child: Icon(
-                                                Icons.calendar_month,
-                                                color: AppColor.primaryColor
-                                                    .withOpacity(0.8),
+                              child: InkWell(
+                                onTap: ()=>CustomNavigator(context: context,pageName: const AboutThisApp()),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Card(
+                                            elevation: 0,
+                                            color: AppColor.primaryColor
+                                                .withOpacity(0.1),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        Dimensions
+                                                            .radiusDefault)),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(6.0),
+                                              child: Center(
+                                                child: Icon(
+                                                  Icons.text_snippet_outlined,
+                                                  color: AppColor.primaryColor
+                                                      .withOpacity(0.8),
+                                                ),
                                               ),
-                                            ),
-                                          )),
-                                      SizedBox(
-                                        width: AppLayout.getWidth(12),
-                                      ),
-                                      Text(
-                                        AppString.text_calender,
-                                        style: AppStyle.small_text_black
-                                            .copyWith(
-                                                fontSize:
-                                                    Dimensions.fontSizeSmall +
-                                                        2,
-                                                color:
-                                                    AppColor.normalTextColor),
-                                      )
-                                    ],
-                                  ),
-                                  CircleAvatar(
-                                      radius: 14,
-                                      backgroundColor:
-                                          AppColor.hintColor.withOpacity(0.1),
-                                      child: Icon(
-                                        Icons.arrow_forward_ios_rounded,
-                                        size: 16,
-                                        color: AppColor.primaryColor
-                                            .withOpacity(0.8),
-                                      )),
-                                ],
+                                            )),
+                                        SizedBox(
+                                          width: AppLayout.getWidth(12),
+                                        ),
+                                        Text(
+                                          AppString.text_about_this_app,
+                                          style: AppStyle.small_text_black
+                                              .copyWith(
+                                                  fontSize:
+                                                      Dimensions.fontSizeSmall +
+                                                          2,
+                                                  color:
+                                                      AppColor.normalTextColor),
+                                        )
+                                      ],
+                                    ),
+                                    CircleAvatar(
+                                        radius: 14,
+                                        backgroundColor:
+                                            AppColor.hintColor.withOpacity(0.1),
+                                        child: Icon(
+                                          Icons.arrow_forward_ios_rounded,
+                                          size: 16,
+                                          color: AppColor.primaryColor
+                                              .withOpacity(0.8),
+                                        )),
+                                  ],
+                                ),
                               ),
                             ),
+
+
                             Padding(
                               padding: const EdgeInsets.only(top: 20.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Card(
-                                          elevation: 0,
-                                          color: AppColor.primaryColor
-                                              .withOpacity(0.1),
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      Dimensions
-                                                          .radiusDefault)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(6.0),
-                                            child: Center(
-                                              child: Icon(
-                                                Icons.logout,
-                                                color: AppColor.primaryColor
-                                                    .withOpacity(0.8),
+                              child: InkWell(
+                                onTap: ()=>CustomAlertDialog(context: context,icon: Icons.logout,iconBgColor: Colors.orange.shade50,yesAction: (){}),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Card(
+                                            elevation: 0,
+                                            color: AppColor.primaryColor
+                                                .withOpacity(0.1),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        Dimensions
+                                                            .radiusDefault)),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(6.0),
+                                              child: Center(
+                                                child: Icon(
+                                                  Icons.logout,
+                                                  color: AppColor.primaryColor
+                                                      .withOpacity(0.8),
+                                                ),
                                               ),
-                                            ),
-                                          )),
-                                      SizedBox(
-                                        width: AppLayout.getWidth(12),
-                                      ),
-                                      Text(
-                                        AppString.text_log_out,
-                                        style: AppStyle.small_text_black
-                                            .copyWith(
-                                                fontSize:
-                                                    Dimensions.fontSizeSmall +
-                                                        2,
-                                                color:
-                                                    AppColor.normalTextColor),
-                                      )
-                                    ],
-                                  ),
-                                  CircleAvatar(
-                                      radius: 14,
-                                      backgroundColor:
-                                          AppColor.hintColor.withOpacity(0.1),
-                                      child: Icon(
-                                        Icons.arrow_forward_ios_rounded,
-                                        size: 16,
-                                        color: AppColor.primaryColor
-                                            .withOpacity(0.8),
-                                      )),
-                                ],
+                                            )),
+                                        SizedBox(
+                                          width: AppLayout.getWidth(12),
+                                        ),
+                                        Text(
+                                          AppString.text_log_out,
+                                          style: AppStyle.small_text_black
+                                              .copyWith(
+                                                  fontSize:
+                                                      Dimensions.fontSizeSmall +
+                                                          2,
+                                                  color:
+                                                      AppColor.normalTextColor),
+                                        )
+                                      ],
+                                    ),
+                                    CircleAvatar(
+                                        radius: 14,
+                                        backgroundColor:
+                                            AppColor.hintColor.withOpacity(0.1),
+                                        child: Icon(
+                                          Icons.arrow_forward_ios_rounded,
+                                          size: 16,
+                                          color: AppColor.primaryColor
+                                              .withOpacity(0.8),
+                                        )),
+                                  ],
+                                ),
                               ),
                             ),
+
+
+
+
+
+
+
+
                             Padding(
                               padding: const EdgeInsets.only(top: 20.0),
                               child: Container(

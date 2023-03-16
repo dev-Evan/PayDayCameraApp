@@ -4,6 +4,7 @@ import 'package:pay_day_mobile/modules/auth/presentation/view/forgot_password.da
 import 'package:pay_day_mobile/modules/auth/presentation/view/received_screen.dart';
 import 'package:pay_day_mobile/modules/auth/presentation/view/sign_in.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_logs.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/calender.dart';
 import 'package:pay_day_mobile/modules/starting/view/onboarding_screen.dart';
 import 'package:pay_day_mobile/modules/starting/view/splash_screen.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -20,6 +21,7 @@ import '../modules/more/presentation/view/more.dart';
 
 List<GetPage> getPage = [
   GetPage(
+
     name: AppString.splashScreen,
     page: () => splashScreen(),
   ),
@@ -33,19 +35,26 @@ List<GetPage> getPage = [
     page: () => receiveScreen(),
   ),
   GetPage(
+    transition: Transition.cupertino,
     name: AppString.onboardScreen,
     page: () => onboardingScreen(),
   ),
   GetPage(
     name: AppString.attendLogScreen,
-    page: () => attendanceLogsScreen(),
+    page: () => AttendanceLogsScreen(),
   ),
   GetPage(
+    transition: Transition.cupertino,
     name: AppString.moreScreen,
     page: () => MoreScreen(),
   ),
   GetPage(
-    name: AppString.HOME,
+    transition: Transition.cupertino,
+    name: AppString.home,
     page: () => const Home(),
+  ),
+  GetPage(
+    name: AppString.calender,
+    page: () => const CalendarScreen(),
   ),
 ];

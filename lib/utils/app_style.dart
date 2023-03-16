@@ -23,11 +23,11 @@ class AppStyle {
       color: Colors.white,
       fontWeight: FontWeight.w500,
    );
-  static TextStyle small_text_black = TextStyle(
+  static TextStyle small_text_black = GoogleFonts.poppins(
       fontSize: AppLayout.getWidth(Dimensions.fontSizeSmall),
       color: Colors.black,
       fontWeight: FontWeight.w500,
-      fontFamily: "Poppins");
+      );
 
   static TextStyle normal_text = TextStyle(
       fontSize: AppLayout.getWidth(Dimensions.fontSizeDefault),

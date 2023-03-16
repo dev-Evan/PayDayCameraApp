@@ -25,110 +25,109 @@ class allLogsScreen extends StatefulWidget {
 class _allLogsScreenState extends State<allLogsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Padding(
+    return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
+    children: [
+      SizedBox(
+        height: AppLayout.getHeight(12),
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            height: AppLayout.getHeight(12),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  InkWell(
-                    onTap: () => customButtomSheet(
-                        context: context,
-                        Height: 0.9,
-                        Child: Container(child: SelectRangeCalender())),
-                    child: Row(
-                      children: [
-                        Text(
-                          AppString.textCustom,
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.secondaryColor,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        SizedBox(
-                          width: AppLayout.getWidth(12),
-                        ),
-                        Icon(
-                          Icons.keyboard_arrow_down,
-                          color: AppColor.hintColor,
-                        )
-                      ],
+              InkWell(
+                onTap: () => customButtomSheet(
+                    context: context,
+                    Height: 0.9,
+                    Child: const SelectRangeCalender()),
+                child: Row(
+                  children: [
+                    Text(
+                      AppString.textCustom,
+                      style: AppStyle.mid_large_text.copyWith(
+                          color: AppColor.secondaryColor,
+                          fontWeight: FontWeight.w700),
                     ),
-                  ),
-                  Text(
-                    '14 Dec 2022 - 30 Dec 2022',
-                    style: AppStyle.small_text_black
-                        .copyWith(color: AppColor.hintColor),
-                  ),
-                ],
+                    SizedBox(
+                      width: AppLayout.getWidth(12),
+                    ),
+                    const Icon(
+                      Icons.keyboard_arrow_down,
+                      color: AppColor.hintColor,
+                    )
+                  ],
+                ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Text(
+                '14 Dec 2022 - 30 Dec 2022',
+                style: AppStyle.small_text_black
+                    .copyWith(color: AppColor.hintColor),
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
                 children: [
-                  Stack(
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          InkWell(
-                              onTap: () => customButtomSheet(
-                                  context: context,
-                                  Height: 0.9,
-                                  Child: const AttendanceFilter()),
-                              child: const Icon(
-                                Icons.filter_alt,
-                                color: AppColor.hintColor,
-                              )),
-                          SizedBox(
-                            width: AppLayout.getWidth(24),
-                          ),
-                          InkWell(
-                            onTap: () => CustomAlertDialog(
-                                context: context,
-                                yesText: AppString.text_yes,
-                                decIcon: Icons.sticky_note_2_outlined,
-                                contentText: AppString.text_dialog_dec_pdf,
-                                titleText: AppString.text_export_attendance,
-                                icon: Icons.file_upload_outlined,
-                                yesAction: () {},
-                                iconColor: AppColor.primaryColor,
-                                buttonColor: AppColor.primaryColor,
-                                iconBgColor:
-                                    AppColor.primaryColor.withOpacity(0.1)),
-                            child: const Icon(
-                              Icons.file_upload_outlined,
-                              color: AppColor.hintColor,
-                            ),
-                          )
-                        ],
+                      InkWell(
+                          onTap: () => customButtomSheet(
+                              context: context,
+                              Height: 0.9,
+                              Child: const AttendanceFilter()),
+                          child: const Icon(
+                            Icons.filter_alt,
+                            color: AppColor.hintColor,
+                          )),
+                      SizedBox(
+                        width: AppLayout.getWidth(24),
                       ),
-                      const Positioned(
-                          left: 28,
-                          top: -1,
-                          child: Icon(
-                            Icons.circle,
-                            size: 8,
-                            color: AppColor.primaryColor,
-                          ))
+                      InkWell(
+                        onTap: () => CustomAlertDialog(
+                            context: context,
+                            yesText: AppString.text_yes,
+                            decIcon: Icons.sticky_note_2_outlined,
+                            contentText: AppString.text_dialog_dec_pdf,
+                            titleText: AppString.text_export_attendance,
+                            icon: Icons.file_upload_outlined,
+                            yesAction: () {},
+                            iconColor: AppColor.primaryColor,
+                            buttonColor: AppColor.primaryColor,
+                            iconBgColor:
+                                AppColor.primaryColor.withOpacity(0.1)),
+                        child: const Icon(
+                          Icons.file_upload_outlined,
+                          color: AppColor.hintColor,
+                        ),
+                      )
                     ],
                   ),
+                  const Positioned(
+                      left: 28,
+                      top: -1,
+                      child: Icon(
+                        Icons.circle,
+                        size: 8,
+                        color: AppColor.primaryColor,
+                      ))
                 ],
               ),
             ],
           ),
-          SizedBox(
-            height: AppLayout.getHeight(12),
-          ),
-          Expanded(child: logsList())
         ],
       ),
-    ));
+      SizedBox(
+        height: AppLayout.getHeight(12),
+      ),
+      Expanded(child: logsList())
+    ],
+      ),
+    );
   }
 }
 
@@ -163,7 +162,7 @@ Widget logsList() {
                       ),
                     ],
                   ),
-                  customDiveider(25, 1),
+                  CustomDiveider(25, 1),
                   Column(
                     children: [
                       Text(
@@ -236,7 +235,7 @@ Widget logsList() {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 12.0),
-              child: customDiveider(
+              child: CustomDiveider(
                   AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
             )
           ],

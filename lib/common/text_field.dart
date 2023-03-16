@@ -10,11 +10,9 @@ class CustomTextFeild extends StatefulWidget {
   final inputType;
   final controller;
 
-  CustomTextFeild({
-    required this.hintText,
-    this.inputType,
-    this.controller,
-  });
+
+  CustomTextFeild(
+      {required this.hintText, this.inputType, this.controller,});
 
   @override
   State<CustomTextFeild> createState() => _CustomTextFeildState();
@@ -32,29 +30,34 @@ class _CustomTextFeildState extends State<CustomTextFeild> {
           keyboardType: widget.inputType,
           controller: widget.controller,
           decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(16),
-              hintText: widget.hintText,
-              focusColor: AppColor.primaryColor,
-              hintStyle: GoogleFonts.poppins(color: AppColor.hintColor),
-              filled: false,
-              fillColor: AppColor.backgroundColor,
-              disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide:
-                    const BorderSide(width: 0.0, color: AppColor.primaryColor),
-                borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-              ),
-              enabledBorder: const OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: AppColor.disableColor, width: 0.0),
-              ),
-              border: OutlineInputBorder(
-                borderSide:
-                    const BorderSide(width: 0.0, color: AppColor.primaryColor),
-                borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-              )),
+            contentPadding: const EdgeInsets.all(16),
+            hintText: widget.hintText,
+            focusColor: AppColor.primaryColor,
+            hintStyle: GoogleFonts.poppins(color: AppColor.hintColor),
+            filled: false,
+            fillColor: AppColor.backgroundColor,
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide:
+                  const BorderSide(width: 0.0, color: AppColor.primaryColor),
+              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: AppColor.disableColor, width: 0.0),
+            ),
+            border: OutlineInputBorder(
+              borderSide:
+                  const BorderSide(width: 0.0, color: AppColor.primaryColor),
+              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+            ),
+
+
+
+
+
+          ),
         ),
       ),
     );
@@ -124,3 +127,9 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
     );
   }
 }
+
+
+
+
+
+

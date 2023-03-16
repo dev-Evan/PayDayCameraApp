@@ -46,8 +46,8 @@ Widget profileViewAppbar(
       IconButton(
           onPressed: () => rightBtnAction(),
           icon:   Icon(
-            Icons.draw,
-            color: AppColor.normalTextColor.withOpacity(0.8),
+            Icons.edit_square,
+            color: AppColor.normalTextColor.withOpacity(0.6),
           ))
     ],
     title: Text(

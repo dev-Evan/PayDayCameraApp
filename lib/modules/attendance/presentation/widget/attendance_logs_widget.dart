@@ -16,7 +16,7 @@ Widget backlogs(context) {
     backgroundColor: AppColor.primaryColor,
     leading: IconButton(
       onPressed: ()=>Navigator.pop(context),
-      icon: Icon(Icons.arrow_back),
+      icon: const Icon(Icons.arrow_back),
     ),
     title: Text(
       AppString.text_attendance_log,
@@ -29,8 +29,7 @@ Widget backlogs(context) {
 Widget tabBar() {
   return Padding(
     padding: const EdgeInsets.all(20.0),
-    child:  Container(
-    child: DefaultTabController(
+    child:  DefaultTabController(
     length: 2,
     child: Column(
       children: [
@@ -53,7 +52,7 @@ Widget tabBar() {
               unselectedLabelColor: AppColor.hintColor,
               labelStyle: AppStyle.mid_large_text
                   .copyWith(fontWeight: FontWeight.w700, fontSize: 14),
-              tabs: [
+              tabs: const [
                 Tab(
                   text: AppString.text_all_logs,
                 ),
@@ -64,7 +63,7 @@ Widget tabBar() {
             ),
           ),
         ),
-        Expanded(
+        const Expanded(
           child: TabBarView(children: [
             allLogsScreen(),
             summaryScreen(),
@@ -72,7 +71,6 @@ Widget tabBar() {
         ),
       ],
     ),
-  ),
   ),
   );
 }

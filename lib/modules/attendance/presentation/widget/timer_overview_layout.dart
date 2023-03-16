@@ -115,7 +115,7 @@ Widget attendanceLogsOverviewLayout(context) {
                 padding:
                     const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
                 child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       childAspectRatio: 3.8 / 3,
                       crossAxisSpacing: 0,
@@ -174,58 +174,56 @@ Widget attendanceLogsOverviewLayout(context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             logsText(AppString.textYear),
-            Container(
+            SizedBox(
               height: AppLayout.getHeight(210),
               child: Padding(
                 padding:
                     const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
                 child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       childAspectRatio: 3 / 2.3,
                       crossAxisSpacing: 0,
                       mainAxisSpacing: 0),
                   itemCount: 6,
                   itemBuilder: (context, index) {
-                    return Container(
-                      child: Card(
-                        elevation: 0,
-                        color: AppColor.cardColor.withOpacity(0.1),
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.radiusDefault),
-                            side: BorderSide(
-                                width: 2,
-                                color: AppColor.cardColor.withOpacity(0.2))),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '148',
-                                    style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: Dimensions.fontSizeLarge,
-                                        color: AppColor.cardColor
-                                            .withOpacity(0.8)),
-                                  ),
-                                  Text(
-                                    'Worked',
-                                    style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: Dimensions.fontSizeMid,
-                                        color: AppColor.cardColor
-                                            .withOpacity(0.8)),
-                                  ),
-                                ],
-                              ),
+                    return Card(
+                      elevation: 0,
+                      color: AppColor.cardColor.withOpacity(0.1),
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radiusDefault),
+                          side: BorderSide(
+                              width: 2,
+                              color: AppColor.cardColor.withOpacity(0.2))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '148',
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: Dimensions.fontSizeLarge,
+                                      color: AppColor.cardColor
+                                          .withOpacity(0.8)),
+                                ),
+                                Text(
+                                  'Worked',
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: Dimensions.fontSizeMid,
+                                      color: AppColor.cardColor
+                                          .withOpacity(0.8)),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     );
                   },
@@ -240,7 +238,7 @@ Widget attendanceLogsOverviewLayout(context) {
 }
 
 Widget logsText(text) {
-  return Container(
+  return SizedBox(
     height: AppLayout.getHeight(20),
     width: AppLayout.getWidth(150),
     child: Padding(

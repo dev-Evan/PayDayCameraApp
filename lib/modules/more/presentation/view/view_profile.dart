@@ -27,7 +27,7 @@ class ViewProfile extends StatelessWidget {
         child: Column(
           children: [
             profileViewAppbar(
-                titleText: AppString.text_documents, rightBtnAction: ()=>CustomNavigator(context: context,pageName: const EditProfile())),
+                titleText: AppString.text_my_profile, rightBtnAction: ()=>CustomNavigator(context: context,pageName:  EditProfile())),
             SizedBox(
               height: AppLayout.getHeight(10),
             ),

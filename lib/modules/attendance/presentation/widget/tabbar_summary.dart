@@ -104,7 +104,7 @@ Widget logsList() {
                     ),
                   ],
                 ),
-                customDiveider(25, 1),
+                CustomDiveider(25, 1),
                 Column(
                   children: [
                     Row(

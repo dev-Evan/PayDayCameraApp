@@ -15,7 +15,7 @@ Future CustomAlertDialog({
   String? contentText = AppString.text_dialog_dec,
   String? yesText = AppString.text_yes,
   Color? buttonColor = Colors.orange,
-  Color? iconBgColor = Colors.orange,
+  Color? iconBgColor = AppColor.alertDgIconBgColor,
   Color? iconColor = Colors.orange,
 }) {
   return showDialog(
@@ -56,7 +56,7 @@ Future CustomAlertDialog({
                 contentText!,
                 style: AppStyle.mid_large_text.copyWith(
                     color: AppColor.hintColor,
-                    fontSize: Dimensions.fontSizeDefault + 2),
+                    fontSize: Dimensions.fontSizeDefault-2 ),
               ),
             ),
           ],
@@ -68,7 +68,7 @@ Future CustomAlertDialog({
             child: Row(
               children: [
                 Flexible(
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: AppLayout.getHeight(40),
                     child: TextButton(
@@ -79,7 +79,7 @@ Future CustomAlertDialog({
                             ),
                             primary: AppColor.backgroundColor,
                             elevation: 0,
-                            side: BorderSide(
+                            side: const BorderSide(
                                 width: 1, color: AppColor.normalTextColor)),
                         child: Text(
                           AppString.text_no,
@@ -93,7 +93,7 @@ Future CustomAlertDialog({
                   width: AppLayout.getWidth(12),
                 ),
                 Flexible(
-                  child: Container(
+                  child: SizedBox(
                     width: double.infinity,
                     // width: MediaQuery.of(context).size.width / 1,
                     height: AppLayout.getHeight(40),

@@ -88,6 +88,7 @@ class AppString {
   static const String text_view_profile = "View Profile";
   static const String text_job_desk = "Job Desk";
   static const String text_documents = "Documents";
+  static const String text_my_profile= "My profile";
   static const String text_total_file = "Total Files";
   static const String text_doctor_slips = "Doctor's Slips";
   static const String text_doctor_prescription = "Doctor Prescription.pdf";
@@ -109,9 +110,12 @@ class AppString {
   static String text_ux_deginer= "UX Designer";
   static String text_permanent = "Permanent";
   static String text_about_me = "About me";
+  static String text_about_this_app = "About This App";
+  static String text_version_2_1_0_1 = "Version: 2.1.0.1";
+  static String text_last_update_may_2023 = "last update May 2023";
+
   static String text_general= "General";
   static String text_laravel = "Laravel";
- // static String text_regular = "About me";
   static String text_email = "Email";
   static String text_department = "Department";
   static String text_shift = "Shift";
@@ -120,15 +124,40 @@ class AppString {
   static String text_birthday = "Birthday";
   static String text_phone = "Phone";
   static String text_personal = "Personal";
+  static String text_job_histroy = "Job History";
+  static String text_joining_date = "Joining Date";
+  static String text_designation = "Designation";
+  //static String text_department = "Department";
+  static String text_role = "Role";
+  static String text_work_shift = "Work Shift";
+  static String text_employment = "Employment Status";
   static String text_ca_usa = "CA, USA";
   static String text_01_jan_1998 = "01-Jan-1998";
   static String text_gender = "Male";
+  static String text_gender_text = "Gender";
+  static String text_county = "County";
+  static String text_address_setails = "Address Details";
   static String text_edit_profile = "Edit Profile";
+  static String text_select_gender = "Select gender";
   static String text_old_password = "Old Password";
   static String text_new_password = "New Password";
   static String text_confirm_password = "Confirm Password";
   static String text_male = "Male";
+  static String text_holiday = "Holidays";
+  static String text_2022 = "2022";
+  static String text_february_2022 = "February 2022";
+  static String text_this_year = "This Year";
+  static String text_caleder = "Calender";
+  static String text_this_month = "This month";
+  static String text_this_all_holiday = "All Holiday";
+  static String text_calender_text = "Calender";
   static String text_about_me_dec = "Hello. I am an UX/UI designer. I am in love with designing since my childhood. It gives me the freedom of my mind and helps me to express myself and my personality ";
+
+
+
+
+
+
   // Local store string here
   static const String idStore = "store";
 
@@ -145,5 +174,6 @@ class AppString {
   static const String onboardScreen = "/onboard_screen'";
   static const String attendLogScreen = "/attendLog_screen'";
   static const String moreScreen = "/more_screen'";
-  static const String HOME = "/home'";
+  static const String home = "/home'";
+  static const String calender = "/calender_screen";
 }

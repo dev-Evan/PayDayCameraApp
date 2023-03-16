@@ -16,25 +16,25 @@ class onboardingScreen extends StatefulWidget {
 }
 
 class _onboardingScreenState extends State<onboardingScreen> {
-  List _onboardingImage = [
+  final List _onboardingImage = [
     Images.calendar,
     Images.mobile,
     Images.mobile,
   ];
 
-  List _title = [
+  final List _title = [
     AppString.onboardTileMainAttend,
     AppString.onboardTileEasy,
     AppString.onboardTileReceivePay,
   ];
 
-  List _description = [
+  final List _description = [
     AppString.onboardTileMainAttendDes,
     AppString.onboardTileEasyDes,
     AppString.onboardTileReceivePayDes,
   ];
 
-  RxInt _currentIndex = 0.obs;
+  final RxInt _currentIndex = 0.obs;
 
   bool isleft = false;
 
@@ -46,7 +46,7 @@ class _onboardingScreenState extends State<onboardingScreen> {
 
   @override
   void initState() {
-    Future.delayed(Duration(milliseconds: 100), () {
+    Future.delayed(const Duration(milliseconds: 100), () {
       leftRight();
     });
     super.initState();
@@ -73,11 +73,11 @@ class _onboardingScreenState extends State<onboardingScreen> {
                       Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: AnimatedContainer(
-                          duration: Duration(milliseconds: 400),
+                          duration: const Duration(milliseconds: 400),
                           alignment:
                               isleft ? Alignment.topCenter : Alignment.topRight,
-                          child: Image.asset(Images.app_logo),
                           curve: Curves.easeInOut,
+                          child: Image.asset(Images.app_logo),
                         ),
                       ),
                     ],
@@ -121,7 +121,7 @@ class _onboardingScreenState extends State<onboardingScreen> {
                     () => DotsIndicator(
                       dotsCount: _onboardingImage.length,
                       position: _currentIndex.toDouble(),
-                      decorator: DotsDecorator(
+                      decorator: const DotsDecorator(
                         color: AppColor.disableColor,
                         activeColor: AppColor.primaryColor,
                       ),
