@@ -62,108 +62,106 @@ class _AddDocumentState extends State<AddDocument> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          bottomSheetAppbar(
-              context: context, appbarTitle: AppString.text_add_documents),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      AppString.text_name,
-                      style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontSize: Dimensions.fontSizeDefault + 1),
-                    ),
-                    CustomTextFeild(hintText: AppString.text_enter_document_name,
-                        inputType: TextInputType.text,controller:  _documetController),
-                  ],
-                ),
-                SizedBox(
-                  height: AppLayout.getHeight(20),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      AppString.text_documents,
-                      style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontSize: Dimensions.fontSizeDefault + 1),
-                    ),
-                    SizedBox(
-                      height: AppLayout.getHeight(20),
-                    ),
-                    DottedBorder(
-                      radius: Radius.circular(Dimensions.radiusMid),
-                      color: AppColor.disableColor,
-                      strokeCap: StrokeCap.square,
-                      dashPattern: [8, 6],
-                      strokeWidth: 2,
-                      child: InkWell(
-                        onTap: ()=>pickFile1(),
-                        child: Container(
-                          height: 100,
-                          color: AppColor.disableColor.withOpacity(0.4),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(CupertinoIcons.link),
-                              SizedBox(
-                                width: AppLayout.getWidth(6),
-                              ),
-                              Text(
-                                AppString.text_click,
-                                style: AppStyle.mid_large_text.copyWith(
-                                    color: AppColor.primaryColor,
-                                    fontSize: Dimensions.fontSizeDefault),
-                              ),
-                              SizedBox(
-                                width: AppLayout.getWidth(6),
-                              ),
-                              Text(
-                                AppString.text_to_add_fils,
-                                style: AppStyle.mid_large_text.copyWith(
-                                    color: AppColor.hintColor,
-                                    fontSize: Dimensions.fontSizeDefault + 2),
-                              ),
-                            ],
-                          ),
+    return Column(
+      children: [
+        bottomSheetAppbar(
+            context: context, appbarTitle: AppString.text_add_documents),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    AppString.text_name,
+                    style: AppStyle.small_text.copyWith(
+                        color: AppColor.hintColor,
+                        fontSize: Dimensions.fontSizeDefault + 1),
+                  ),
+                  CustomTextFeild(hintText: AppString.text_enter_document_name,
+                      inputType: TextInputType.text,controller:  _documetController),
+                ],
+              ),
+              SizedBox(
+                height: AppLayout.getHeight(20),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    AppString.text_documents,
+                    style: AppStyle.small_text.copyWith(
+                        color: AppColor.hintColor,
+                        fontSize: Dimensions.fontSizeDefault + 1),
+                  ),
+                  SizedBox(
+                    height: AppLayout.getHeight(20),
+                  ),
+                  DottedBorder(
+                    radius: Radius.circular(Dimensions.radiusMid),
+                    color: AppColor.disableColor,
+                    strokeCap: StrokeCap.square,
+                    dashPattern: [8, 6],
+                    strokeWidth: 2,
+                    child: InkWell(
+                      onTap: ()=>pickFile1(),
+                      child: Container(
+                        height: 100,
+                        color: AppColor.disableColor.withOpacity(0.4),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(CupertinoIcons.link),
+                            SizedBox(
+                              width: AppLayout.getWidth(6),
+                            ),
+                            Text(
+                              AppString.text_click,
+                              style: AppStyle.mid_large_text.copyWith(
+                                  color: AppColor.primaryColor,
+                                  fontSize: Dimensions.fontSizeDefault),
+                            ),
+                            SizedBox(
+                              width: AppLayout.getWidth(6),
+                            ),
+                            Text(
+                              AppString.text_to_add_fils,
+                              style: AppStyle.mid_large_text.copyWith(
+                                  color: AppColor.hintColor,
+                                  fontSize: Dimensions.fontSizeDefault + 2),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: AppLayout.getHeight(8),
-                    ),
-                    Text(
-                      AppString.text_jpeg_jpg_png_etc,
-                      style: AppStyle.mid_large_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontSize: Dimensions.fontSizeDefault - 2),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  SizedBox(
+                    height: AppLayout.getHeight(8),
+                  ),
+                  Text(
+                    AppString.text_jpeg_jpg_png_etc,
+                    style: AppStyle.mid_large_text.copyWith(
+                        color: AppColor.hintColor,
+                        fontSize: Dimensions.fontSizeDefault - 2),
+                  ),
+                ],
+              ),
+            ],
           ),
+        ),
 
-          const Spacer(),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: customDoubleButton(
-                textButtonAction: () =>Get.back(),
-                elevatedButtonAction: () {},
-                textBtnText: 'Cancel',
-                elevatedBtnText: 'Save',
-                context: context),
-          ),
-        ],
-      ),
+        const Spacer(),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: customDoubleButton(
+              textButtonAction: () =>Get.back(),
+              elevatedButtonAction: () {},
+              textBtnText: 'Cancel',
+              elevatedBtnText: 'Save',
+              context: context),
+        ),
+      ],
     );
   }
 }

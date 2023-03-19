@@ -43,63 +43,57 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
     return Scaffold(
       appBar: const CustomAppbar(),
-      body: Container(
-
-        child: ListView.builder(
-          itemCount: 1,
+      body: ListView.builder(
+        itemCount: 1,
 
 
-          itemBuilder: (context, index){
+        itemBuilder: (context, index){
 
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                customMoreAppbar(titleText: AppString.text_caleder),
-                TableCalendar(
-                  locale: "en_US",
-                  rowHeight: 43,
-                  rangeSelectionMode: RangeSelectionMode.toggledOn,
-                  headerStyle: const HeaderStyle(
-                    formatButtonVisible: false,
-                    titleCentered: true,
-                  ),
-                  availableGestures: AvailableGestures.all,
-                  firstDay: firstDate,
-                  lastDay: lastDate,
-                  focusedDay: today,
-                  onDaySelected: (selectedDay, focusedDay) {
-                    if (!isSameDay(_selectedDate, selectedDay)) {
-                      setState(() {
-                        _selectedDate = selectedDay;
-                        _focusedDay = focusedDay;
-                      });
-                    }
-                  },
-                  selectedDayPredicate: (day) {
-                    return isSameDay(_selectedDate, day);
-                  },
-                  onFormatChanged: (format) {
-                    if (_calendarFormat != format) {
-                      setState(() {
-                        _calendarFormat = format;
-                      });
-                    }
-                  },
-                  onPageChanged: (focusedDay) {
-                    _focusedDay = focusedDay;
-                  },
-                  calendarFormat: CalendarFormat.month,
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              customMoreAppbar(titleText: AppString.text_caleder),
+              TableCalendar(
+                locale: "en_US",
+                rowHeight: 43,
+                rangeSelectionMode: RangeSelectionMode.toggledOn,
+                headerStyle: const HeaderStyle(
+                  formatButtonVisible: false,
+                  titleCentered: true,
                 ),
-                holyDayTitle(AllHolidayAction: ()=>CustomNavigator(context: context,pageName: const ViewHoliday() )),
-                holidaysList()
-              ],
-            ),
-          );
-        },)
-
-
-
-      ),
+                availableGestures: AvailableGestures.all,
+                firstDay: firstDate,
+                lastDay: lastDate,
+                focusedDay: today,
+                onDaySelected: (selectedDay, focusedDay) {
+                  if (!isSameDay(_selectedDate, selectedDay)) {
+                    setState(() {
+                      _selectedDate = selectedDay;
+                      _focusedDay = focusedDay;
+                    });
+                  }
+                },
+                selectedDayPredicate: (day) {
+                  return isSameDay(_selectedDate, day);
+                },
+                onFormatChanged: (format) {
+                  if (_calendarFormat != format) {
+                    setState(() {
+                      _calendarFormat = format;
+                    });
+                  }
+                },
+                onPageChanged: (focusedDay) {
+                  _focusedDay = focusedDay;
+                },
+                calendarFormat: CalendarFormat.month,
+              ),
+              holyDayTitle(AllHolidayAction: ()=>CustomNavigator(context: context,pageName: const ViewHoliday() )),
+              holidaysList()
+            ],
+          ),
+        );
+      },),
 
 
 

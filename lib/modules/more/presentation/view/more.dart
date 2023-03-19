@@ -5,9 +5,11 @@ import 'package:pay_day_mobile/common/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/common/custom_appbar.dart';
 import 'package:pay_day_mobile/common/custom_navigator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/about_this_app.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/address_details.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/calender.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/documents.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/jod_history.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/salary_overview.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -319,112 +321,118 @@ class MoreScreen extends StatelessWidget {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 20.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Card(
-                                          elevation: 0,
-                                          color: AppColor.primaryColor
-                                              .withOpacity(0.1),
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      Dimensions
-                                                          .radiusDefault)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(6.0),
-                                            child: Center(
-                                              child: Icon(
-                                                Icons.monetization_on_outlined,
-                                                color: AppColor.primaryColor
-                                                    .withOpacity(0.8),
+                              child: InkWell(
+                                onTap: ()=>CustomNavigator(context: context,pageName: const SalaryOverView()),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Card(
+                                            elevation: 0,
+                                            color: AppColor.primaryColor
+                                                .withOpacity(0.1),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        Dimensions
+                                                            .radiusDefault)),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(6.0),
+                                              child: Center(
+                                                child: Icon(
+                                                  Icons.monetization_on_outlined,
+                                                  color: AppColor.primaryColor
+                                                      .withOpacity(0.8),
+                                                ),
                                               ),
-                                            ),
-                                          )),
-                                      SizedBox(
-                                        width: AppLayout.getWidth(12),
-                                      ),
-                                      Text(
-                                        AppString.text_salary_overview,
-                                        style: AppStyle.small_text_black
-                                            .copyWith(
-                                                fontSize:
-                                                    Dimensions.fontSizeSmall +
-                                                        2,
-                                                color:
-                                                    AppColor.normalTextColor),
-                                      )
-                                    ],
-                                  ),
-                                  CircleAvatar(
-                                      radius: 14,
-                                      backgroundColor:
-                                          AppColor.hintColor.withOpacity(0.1),
-                                      child: Icon(
-                                        Icons.arrow_forward_ios_rounded,
-                                        size: 16,
-                                        color: AppColor.primaryColor
-                                            .withOpacity(0.8),
-                                      )),
-                                ],
+                                            )),
+                                        SizedBox(
+                                          width: AppLayout.getWidth(12),
+                                        ),
+                                        Text(
+                                          AppString.text_salary_overview,
+                                          style: AppStyle.small_text_black
+                                              .copyWith(
+                                                  fontSize:
+                                                      Dimensions.fontSizeSmall +
+                                                          2,
+                                                  color:
+                                                      AppColor.normalTextColor),
+                                        )
+                                      ],
+                                    ),
+                                    CircleAvatar(
+                                        radius: 14,
+                                        backgroundColor:
+                                            AppColor.hintColor.withOpacity(0.1),
+                                        child: Icon(
+                                          Icons.arrow_forward_ios_rounded,
+                                          size: 16,
+                                          color: AppColor.primaryColor
+                                              .withOpacity(0.8),
+                                        )),
+                                  ],
+                                ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 20.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Card(
-                                          elevation: 0,
-                                          color: AppColor.primaryColor
-                                              .withOpacity(0.1),
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      Dimensions
-                                                          .radiusDefault)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(6.0),
-                                            child: Center(
-                                              child: Icon(
-                                                Icons.location_on_outlined,
-                                                color: AppColor.primaryColor
-                                                    .withOpacity(0.8),
+                              child: InkWell(
+                                onTap: ()=>CustomNavigator(context: context,pageName: const AddressDetails()),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Card(
+                                            elevation: 0,
+                                            color: AppColor.primaryColor
+                                                .withOpacity(0.1),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        Dimensions
+                                                            .radiusDefault)),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(6.0),
+                                              child: Center(
+                                                child: Icon(
+                                                  Icons.location_on_outlined,
+                                                  color: AppColor.primaryColor
+                                                      .withOpacity(0.8),
+                                                ),
                                               ),
-                                            ),
-                                          )),
-                                      SizedBox(
-                                        width: AppLayout.getWidth(12),
-                                      ),
-                                      Text(
-                                        AppString.text_address_details,
-                                        style: AppStyle.small_text_black
-                                            .copyWith(
-                                                fontSize:
-                                                    Dimensions.fontSizeSmall +
-                                                        2,
-                                                color:
-                                                    AppColor.normalTextColor),
-                                      )
-                                    ],
-                                  ),
-                                  CircleAvatar(
-                                      radius: 14,
-                                      backgroundColor:
-                                          AppColor.hintColor.withOpacity(0.1),
-                                      child: Icon(
-                                        Icons.arrow_forward_ios_rounded,
-                                        size: 16,
-                                        color: AppColor.primaryColor
-                                            .withOpacity(0.8),
-                                      )),
-                                ],
+                                            )),
+                                        SizedBox(
+                                          width: AppLayout.getWidth(12),
+                                        ),
+                                        Text(
+                                          AppString.text_address_details,
+                                          style: AppStyle.small_text_black
+                                              .copyWith(
+                                                  fontSize:
+                                                      Dimensions.fontSizeSmall +
+                                                          2,
+                                                  color:
+                                                      AppColor.normalTextColor),
+                                        )
+                                      ],
+                                    ),
+                                    CircleAvatar(
+                                        radius: 14,
+                                        backgroundColor:
+                                            AppColor.hintColor.withOpacity(0.1),
+                                        child: Icon(
+                                          Icons.arrow_forward_ios_rounded,
+                                          size: 16,
+                                          color: AppColor.primaryColor
+                                              .withOpacity(0.8),
+                                        )),
+                                  ],
+                                ),
                               ),
                             ),
                             SizedBox(

@@ -10,6 +10,7 @@ import 'modules/more/presentation/view/calender.dart';
 import 'modules/more/presentation/view/edit_profile.dart';
 import 'modules/more/presentation/view/jod_history.dart';
 import 'modules/more/presentation/view/more.dart';
+import 'modules/more/presentation/view/salary_overview.dart';
 import 'modules/more/presentation/view/view_profile.dart';
 import 'modules/more/presentation/widget/document_view.dart';
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: appTheme,
       // initialRoute: AppString.moreScreen,
       // getPages: getPage,
-      home:  const JodHistory(),
+      home:  Home(),
     );
   }
 }

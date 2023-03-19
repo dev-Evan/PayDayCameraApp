@@ -14,14 +14,14 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../widget/custom_text_field_dob.dart';
 
 class EditProfile extends StatefulWidget {
-  EditProfile({Key? key}) : super(key: key);
+  const EditProfile({Key? key}) : super(key: key);
 
   @override
   State<EditProfile> createState() => _EditProfileState();
 }
 
 class _EditProfileState extends State<EditProfile> {
-  List<String> _locations = ['A', 'B', 'C', 'D'];
+  final List<String> _locations = ['A', 'B', 'C', 'D'];
   String? dropdownValue;
 
   @override
@@ -151,36 +151,27 @@ class _EditProfileState extends State<EditProfile> {
                           fontSize: Dimensions.fontSizeDefault + 1),
                     ),
                   ),
-                  SizedBox(height: AppLayout.getHeight(8),),
+                  SizedBox(
+                    height: AppLayout.getHeight(8),
+                  ),
                   Container(
                     height: AppLayout.getHeight(120),
                     decoration: AppStyle.ContainerStyle.copyWith(
                         borderRadius: BorderRadius.circular(
                           Dimensions.radiusDefault,
                         ),
-
-
-
                         border: Border.all(
                             width: 0.0, color: AppColor.disableColor)),
-                    child:  const TextField(
-
+                    child: const TextField(
                       decoration: InputDecoration(
-                          hintText: 'Enter a message',
-                          contentPadding: EdgeInsets.all(8),
+                        hintText: 'Enter a message',
+                        contentPadding: EdgeInsets.all(8),
                         border: InputBorder.none,
-
-
-
-
-
-
                       ),
                       maxLines: null,
                       expands: true,
                     ),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Text(
@@ -191,8 +182,13 @@ class _EditProfileState extends State<EditProfile> {
                           fontSize: Dimensions.fontSizeDefault + 1),
                     ),
                   ),
-                  SizedBox(height: AppLayout.getHeight(8),),
-                  CustomTextFieldDob(hintText: '01-Jan-1996',dobIcon: Icons.calendar_month,dobIconAction: (){}),
+                  SizedBox(
+                    height: AppLayout.getHeight(8),
+                  ),
+                  CustomTextFieldDob(
+                      hintText: '01-Jan-1996',
+                      dobIcon: Icons.calendar_month,
+                      dobIconAction: () {}),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Text(
@@ -203,49 +199,34 @@ class _EditProfileState extends State<EditProfile> {
                           fontSize: Dimensions.fontSizeDefault + 1),
                     ),
                   ),
-                  SizedBox(height: AppLayout.getHeight(8),),
+                  SizedBox(
+                    height: AppLayout.getHeight(8),
+                  ),
                   Container(
                     height: AppLayout.getHeight(120),
                     decoration: AppStyle.ContainerStyle.copyWith(
                         borderRadius: BorderRadius.circular(
                           Dimensions.radiusDefault,
                         ),
-
-
-
                         border: Border.all(
                             width: 0.0, color: AppColor.disableColor)),
-                    child:  const TextField(
-
+                    child: const TextField(
                       decoration: InputDecoration(
                         hintText: 'Enter a message',
                         contentPadding: EdgeInsets.all(8),
                         border: InputBorder.none,
-
-
-
-
-
-
                       ),
                       maxLines: null,
                       expands: true,
                     ),
                   ),
-
-
                 ],
               ),
             ),
-
-
-
-
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: CustomButton('Save', (){}),
+              child: CustomButton('Save', () {}),
             )
-
           ],
         ),
       ),

@@ -106,9 +106,18 @@ class AppString {
   static const String text_jpeg_jpg_png_etc = "jpeg, jpg, png, pdf, txt, doc, docx, csv. (Max file size is 5MB)";
   static const String text_change_password = "Change Password";
   static String text_language = "Language";
+  static String text_11_jan_2023 = "11 Jan 2023 - Present";
   static String text_english = "English";
   static String text_ux_deginer= "UX Designer";
-  static String text_permanent = "Permanent";
+  static String text_basic_salary= "Basic Salary";
+  static String text_$30= "\$30,000";
+  static String text_salary_increment= "Salary Increment";
+  static String text_will_be_effective_from= "Will be effective from ";
+  // static String text_address_details = "Permanent";
+
+
+
+  static String text_permanent = "Permanent ";
   static String text_about_me = "About me";
   static String text_about_this_app = "About This App";
   static String text_version_2_1_0_1 = "Version: 2.1.0.1";
@@ -120,14 +129,26 @@ class AppString {
   static String text_department = "Department";
   static String text_shift = "Shift";
   static String text_phone_number = "+8801234567890";
-  static String text_address = "Address";
+  static String text_address = "Address ";
+  static String text_details = "Details";
   static String text_birthday = "Birthday";
   static String text_phone = "Phone";
   static String text_personal = "Personal";
   static String text_job_histroy = "Job History";
+  static String text_ui_designer = "UX Designer";
+  static String text_project_manager = "Project Manager";
+  static String text_hr_manager = "HR Manager";
   static String text_joining_date = "Joining Date";
   static String text_designation = "Designation";
-  //static String text_department = "Department";
+
+
+
+
+  static String text_address_dec = "465 Jayme Heights Suite 383 New Ninaburgh, ND 96195";
+
+
+
+
   static String text_role = "Role";
   static String text_work_shift = "Work Shift";
   static String text_employment = "Employment Status";
@@ -139,11 +160,26 @@ class AppString {
   static String text_address_setails = "Address Details";
   static String text_edit_profile = "Edit Profile";
   static String text_select_gender = "Select gender";
+  static String text_select_county = "Select County";
   static String text_old_password = "Old Password";
   static String text_new_password = "New Password";
   static String text_confirm_password = "Confirm Password";
   static String text_male = "Male";
   static String text_holiday = "Holidays";
+  static String text_area = "Area";
+  static String text_city = "City";
+  static String text_ca = "CA";
+  static String text_prosaccobury = "Prosaccobury";
+  static String text_state = "State";
+  static String text_zip_code = "Zip Code";
+   static String text_768 = "768";
+  static String text_usa = "USA";
+  static String text_add = "Add ";
+  static String text_texas = "Texas";
+  static String text_current_address = "Current Address";
+
+
+
   static String text_2022 = "2022";
   static String text_february_2022 = "February 2022";
   static String text_this_year = "This Year";
