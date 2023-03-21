@@ -23,7 +23,7 @@ List<GetPage> getPage = [
     name: splash,
     page: () => splashScreen(),
   ),
-  GetPage(name: signIn, page: () => signInScreen()),
+  GetPage(name: AppString.signInScreen, page: () => signInScreen()),
   GetPage(
     name: forgot,
     page: () => forgotScreen(),

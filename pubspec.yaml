@@ -32,26 +32,25 @@ dependencies:
     sdk: flutter
   get: ^4.6.5
   intl: ^0.18.0
-
+  get_storage: 2.0.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   table_calendar: ^3.0.9
   dartz: ^0.10.1
+  google_maps_flutter: ^2.2.4
+  google_fonts: ^4.0.3
+  fluttertoast: 8.1.2
+  dots_indicator: ^2.1.0
+  dart_ipify: ^1.1.1
+  geolocator: ^9.0.2
+  geocoding: ^2.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  google_maps_flutter: ^2.2.4
-  geocoding: ^2.0.5
-  geolocator: ^9.0.2
-  google_fonts: ^4.0.3
-  fluttertoast: 8.1.2
-  dots_indicator: ^2.1.0
-  get_storage: 2.0.3
-  table_calendar: any
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

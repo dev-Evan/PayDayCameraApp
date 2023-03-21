@@ -15,6 +15,9 @@ class AppColor {
   static const Color bgColor = Color(0xFFFFFFFF);
 
   static const Color primary_blue = Color(0xFF019AFF);
+  static const Color primary_green = Color(0xFF3EAC55);
+  static const Color primary_red = Color(0xFFFF6347);
+  static const Color primary_orange = Color(0xFFFF6347);
   static const Color gradient_blue1 = Color(0xFF008EEC);
   static const Color gradient_blue2 = Color(0xFF019AFF);
   static const Color light_grey = Color(0xFFDFDFDF);

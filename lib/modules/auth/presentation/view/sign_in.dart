@@ -54,7 +54,7 @@ class _signInScreenState extends State<signInScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: AppLayout.getHeight(30)),
-                Container(
+                SizedBox(
                     height: _height,
                     width: _width,
                     child: Stack(
@@ -62,12 +62,12 @@ class _signInScreenState extends State<signInScreen> {
                         Padding(
                           padding: const EdgeInsets.all(20.0),
                           child: AnimatedContainer(
-                            duration: Duration(milliseconds: 400),
+                            duration: const Duration(milliseconds: 400),
                             alignment: isleft
                                 ? Alignment.topCenter
                                 : Alignment.topRight,
-                            child: Image.asset(Images.app_logo),
                             curve: Curves.easeInOut,
+                            child: Image.asset(Images.app_logo),
                           ),
                         ),
                       ],
@@ -145,7 +145,7 @@ class _signInScreenState extends State<signInScreen> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                   Dimensions.radiusSmall)),
-                          value: this.rememberMe,
+                          value: rememberMe,
                           onChanged: (bool? rememberMe) {
                             setState(() {
                               this.rememberMe = rememberMe;
@@ -155,7 +155,7 @@ class _signInScreenState extends State<signInScreen> {
                         Text(
                           'Remember me',
                           style: GoogleFonts.poppins(
-                              fontSize: Dimensions.fontSizeDefault),
+                              fontSize: Dimensions.fontSizeSmall),
                         ),
                       ],
                     ),
@@ -163,7 +163,7 @@ class _signInScreenState extends State<signInScreen> {
                         onPressed: () => Get.toNamed(forgot),
                         child: Text('Forgot password?',
                             style: GoogleFonts.poppins(
-                                fontSize: Dimensions.fontSizeDefault,
+                                fontSize: Dimensions.fontSizeSmall,
                                 color: AppColor.primaryColor)))
                   ],
                 ),

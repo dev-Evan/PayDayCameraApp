@@ -4,10 +4,10 @@ class ErrorModel {
 
   ErrorModel({bool? status, String? message, List<Null>? data}) {
     if (status != null) {
-      this._status = status;
+     _status = status;
     }
     if (message != null) {
-      this._message = message;
+    _message = message;
     }
   }
 
@@ -17,5 +17,10 @@ class ErrorModel {
   ErrorModel.fromJson(Map<String, dynamic> json) {
     _status = json['status'];
     _message = json['message'];
+  }
+
+  @override
+  String toString() {
+    return 'ErrorModel{_status: $_status, _message: $_message}';
   }
 }
