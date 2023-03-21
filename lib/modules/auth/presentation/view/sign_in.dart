@@ -174,6 +174,12 @@ class _signInScreenState extends State<signInScreen> {
                                     color: AppColor.primaryColor)))
                       ],
                     ),
+                    TextButton(
+                        onPressed: () => Get.toNamed(AppString.forgotScreen),
+                        child: Text('Forgot password?',
+                            style: GoogleFonts.poppins(
+                                fontSize: Dimensions.fontSizeSmall,
+                                color: AppColor.primaryColor)))
                   ],
                 ),
                 SizedBox(

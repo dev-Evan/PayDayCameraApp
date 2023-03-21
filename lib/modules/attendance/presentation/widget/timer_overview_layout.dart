@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import 'package:pay_day_mobile/utils/time_counter_helper.dart';
 import '../widget/vertical_divider.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -26,11 +29,10 @@ Widget timerOverviewLayout() {
               const Spacer(),
               verticalDivider(),
               const Spacer(),
-              balanceTimeLog(),
+              balanceTimeLog()
             ]),
         Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               scheduledTimeLog(),
               const Spacer(),
@@ -48,53 +50,85 @@ Widget timerOverviewLayout() {
 }
 
 overtimeTimeLog() {
-  return logInfo(title: AppString.text_overtime, time: "");
+  return logInfo(title: AppString.text_overtime, time: TimeCounterHelper.getTimeStringFromDouble(
+      Get.find<AttendanceController>().logs.value.data!.todayOvertime.toDouble()));
 }
 
 remainingTimeLog() {
-  return logInfo(title: AppString.text_remaining, time: "");
+  return scheduledLogInfo(
+    title: AppString.text_remaining,
+    time: TimeCounterHelper.getTimeStringFromDouble(
+        Get.find<AttendanceController>().logs.value.data!.todayShortage.toDouble())
+  );
 }
 
 scheduledTimeLog() {
-  return logInfo(title: AppString.text_scheduled, time: "");
+  return scheduledLogInfo(
+      title: AppString.text_scheduled,
+      time: TimeCounterHelper.getTimeStringFromDouble(
+          Get.find<AttendanceController>().logs.value.data!.todayScheduled.toDouble()));
 }
 
 balanceTimeLog() {
-  return logInfo(title: AppString.text_balance, time: "");
+  Duration timerTime = Get.find<AttendanceController>().countdownDuration.value;
+  String hrs = timerTime.inHours.remainder(60).toString();
+  String mins = timerTime.inMinutes.remainder(60).toString();
+  if ((hrs.length < 2 && hrs.startsWith('0'))) {
+    hrs = '';
+  }
+  if ((mins.length < 2 && hrs.startsWith('0'))) {
+    hrs = '';
+  }
+  return logInfo(title: AppString.text_balance, time: "- $hrs h $mins m");
 }
 
 outTimeLog() {
-  return logInfo(title: AppString.text_out, time: "3.55");
+  return logInfo(title: AppString.text_out, time: Get.find<AttendanceController>().logs.value.data!.dailyLogs!.first.outTime.toString());
 }
 
 inTimeLog() {
-  return logInfo(title: AppString.text_in, time: DateTime.now().toString());
+  return logInfo(title: AppString.text_in, time:
+      Get.find<AttendanceController>().logs.value.data!.dailyLogs!.first.inTime.toString());
 }
 
 logInfo({required String title, required String time, Color? fontColor}) {
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Text(title,
           style: fontColor != null
               ? AppStyle.small_text.copyWith(color: Colors.grey)
               : AppStyle.small_text),
-      RichText(
-          text: TextSpan(children: [
-        TextSpan(
-          text: "11",
+      Text(
+        time.isNotEmpty
+            ? "${time.substring(0, time.length - 2)} ${time.substring(time.length - 2)}"
+            : time,
+        style: fontColor != null
+            ? AppStyle.normal_text
+                .copyWith(fontWeight: FontWeight.bold, color: fontColor)
+            : AppStyle.normal_text.copyWith(fontWeight: FontWeight.bold),
+      ),
+    ],
+  );
+}
+
+scheduledLogInfo({required String title, String time = "", Color? fontColor}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Text(title,
           style: fontColor != null
-              ? AppStyle.extra_large_text
-                  .copyWith(fontWeight: FontWeight.bold, color: fontColor)
-              : AppStyle.extra_large_text.copyWith(fontWeight: FontWeight.bold),
-        ),
-        TextSpan(
-          text: " am ",
-          style: fontColor != null
-              ? AppStyle.small_text.copyWith(color: fontColor)
-              : AppStyle.small_text,
-        ),
-      ]))
+              ? AppStyle.small_text.copyWith(color: Colors.grey)
+              : AppStyle.small_text),
+      Text(
+        time,
+        style: fontColor != null
+            ? AppStyle.normal_text
+                .copyWith(fontWeight: FontWeight.bold, color: fontColor)
+            : AppStyle.normal_text.copyWith(fontWeight: FontWeight.bold),
+      ),
     ],
   );
 }
@@ -123,45 +157,43 @@ Widget attendanceLogsOverviewLayout(context) {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: 6,
                   itemBuilder: (context, index) {
-                    return Container(
-                      child: Card(
-                        elevation: 0,
-                        color: AppColor.cardColor.withOpacity(0.1),
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.radiusDefault),
-                            side: BorderSide(
-                                width: 2,
-                                color: AppColor.cardColor.withOpacity(0.2))),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    '148',
-                                    style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: Dimensions.fontSizeLarge-3,
-                                        color: AppColor.cardColor
-                                            .withOpacity(0.8)),
-                                  ),
-                                  Text(
-                                    'Worked',
-                                    style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: Dimensions.fontSizeMid-3,
-                                        color: AppColor.cardColor
-                                            .withOpacity(0.8)),
-                                  ),
-                                ],
-                              ),
+                    return Card(
+                      elevation: 0,
+                      color: AppColor.cardColor.withOpacity(0.1),
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radiusDefault),
+                          side: BorderSide(
+                              width: 2,
+                              color: AppColor.cardColor.withOpacity(0.2))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '148',
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: Dimensions.fontSizeLarge - 3,
+                                      color: AppColor.cardColor
+                                          .withOpacity(0.8)),
+                                ),
+                                Text(
+                                  'Worked',
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: Dimensions.fontSizeMid - 3,
+                                      color: AppColor.cardColor
+                                          .withOpacity(0.8)),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     );
                   },

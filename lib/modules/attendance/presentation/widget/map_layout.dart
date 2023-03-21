@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:pay_day_mobile/utils/app_color.dart';
 
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/dimensions.dart';

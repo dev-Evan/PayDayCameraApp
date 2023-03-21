@@ -20,8 +20,8 @@ class CustomStatusButton extends StatelessWidget {
             Radius.circular(Dimensions.radiusMid),
           )),
       padding: EdgeInsets.symmetric(
-          horizontal: AppLayout.getHeight(Dimensions.paddingDefault),
-          vertical: AppLayout.getWidth(Dimensions.paddingExtraSmall)),
+          horizontal: AppLayout.getHeight(Dimensions.paddingLarge),
+          vertical: AppLayout.getWidth(Dimensions.paddingSmall)),
       child: Text(text, style: AppStyle.small_text.copyWith(color: textColor)),
     );
   }

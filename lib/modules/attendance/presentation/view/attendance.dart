@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/view/log_details_bottomsheet.dart';
+import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/loading_indicator.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -16,12 +18,14 @@ import '../widget/todays_log_text.dart';
 import 'log_entry_bottomsheet.dart';
 
 class Attendance extends StatelessWidget {
-  bool loggedIn = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _body(context),
+      body: Obx(
+        () => Get.find<AttendanceController>().isLoading.value == true
+            ? const LoadingIndicator()
+            : _body(context),
+      ),
     );
   }
 
@@ -52,13 +56,16 @@ class Attendance extends StatelessWidget {
                   children: [
                     infoLayout(),
                     SizedBox(
-                      height: AppLayout.getHeight(Dimensions.paddingExtraLarge),
-                    ),
+                        height:
+                            AppLayout.getHeight(Dimensions.paddingExtraLarge)),
                     timerLayout(),
                     timerOverviewLayout(),
                     SizedBox(
                         height: AppLayout.getHeight(Dimensions.paddingDefault)),
-                    punchButton(() => _openBottomSheet(context: context)),
+                    punchButton(() {
+                      Get.find<AttendanceController>().getLatLong();
+                      _openBottomSheet(context: context);
+                    }),
                     SizedBox(
                         height: AppLayout.getHeight(Dimensions.paddingMid)),
                     dotIndicator(),
@@ -66,22 +73,25 @@ class Attendance extends StatelessWidget {
                   ]),
             ),
           ),
-          loggedIn
-              ? Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: AppLayout.getHeight(Dimensions.paddingLarge),
-                      horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        todaysLogIntroText(),
-                        SizedBox(
-                            height:
-                                AppLayout.getHeight(Dimensions.paddingLarge)),
-                        logList(),
-                      ]),
-                )
-              : noLogLayout(),
+          Obx(
+            () => Get.find<AttendanceController>().logs.value.data!.dailyLogs!.isNotEmpty
+                ? Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: AppLayout.getHeight(Dimensions.paddingLarge),
+                        horizontal:
+                            AppLayout.getWidth(Dimensions.paddingLarge)),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          todaysLogIntroText(),
+                          SizedBox(
+                              height:
+                                  AppLayout.getHeight(Dimensions.paddingLarge)),
+                          logList(Get.find<AttendanceController>().logs.value.data!.dailyLogs!),
+                        ]),
+                  )
+                : noLogLayout(),
+          )
         ],
       ),
     ));
@@ -95,5 +105,4 @@ class Attendance extends StatelessWidget {
       builder: (context) => logEntryBottomSheet(),
     );
   }
-
 }

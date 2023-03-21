@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'dart:math' as math;
 
 import 'package:pay_day_mobile/utils/app_layout.dart';
-
 
 class TimerProgressBar extends StatefulWidget {
   const TimerProgressBar({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class _TimerProgressBarState extends State<TimerProgressBar>
     super.initState();
     animationController = AnimationController(
         // timer value will be set here
-        lowerBound: 0.3,
+        lowerBound: getWorkPercentage(),
         upperBound: 1,
         vsync: this);
     final curveAnimation = CurvedAnimation(
@@ -43,19 +44,34 @@ class _TimerProgressBarState extends State<TimerProgressBar>
         children: [
           CustomPaint(
             painter: ProgressArc(
-                arc: null, isBG: true, progressColor: AppColor.light_grey),
+                arc: null, isBG: true, progressColor: AppColor.primary_blue),
           ),
           CustomPaint(
             painter: ProgressArc(
                 arc: animation.value,
                 isBG: false,
-                progressColor: AppColor.primary_blue),
+                progressColor: Colors.white),
           ),
         ],
         // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }
+}
+
+double getWorkPercentage() {
+  double value =
+      Get.find<AttendanceController>().logs.value.data?.todayWorked.toDouble() /
+          Get.find<AttendanceController>()
+              .logs
+              .value
+              .data
+              ?.todayScheduled
+              .toDouble();
+  if (value >= 1) {
+    return value = 1.00;
+  }
+  return value;
 }
 
 class ProgressArc extends CustomPainter {
@@ -68,7 +84,7 @@ class ProgressArc extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    var  rect =
+    var rect =
         Rect.fromLTRB(0, 0, AppLayout.getWidth(160), AppLayout.getHeight(160));
     const startAngle = -math.pi;
     final sweepAngle = arc ?? math.pi;

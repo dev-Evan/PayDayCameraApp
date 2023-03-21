@@ -2,8 +2,16 @@ class AppString {
   AppString._();
 
   // Apps url here
-  static String BASE_URL = "https://payday.php8.gainhq.com/api";
+  static String BASE_URL="https://payday.php8.gainhq.com/api";
+
   static String logIn = "/login";
+  static String PUNCH_IN = "/attendance/punch-in";
+  static String PUNCH_OUT = "/attendance/punch-out";
+  static String CHECK_PUNCH_IN = "/attendance/check-is-punch-in";
+  static String DAILY_LOG = "/attendance/daily-log";
+  static String LOG_DETAILS = "/attendance/details";
+  static String ATTENDANCE_REQUEST = "/attendance/request";
+  static String CHANGE_LOG = "/attendance/log";
 
   // Apps string here
   static const String exampleText = "";
@@ -196,6 +204,8 @@ class AppString {
 
   // Local store string here
   static const String idStore = "store";
+  static  String ACCESS_TOKEN = "access_token";
+  static  String USERNAME = "full_name";
 
 
 
