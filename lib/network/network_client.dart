@@ -15,7 +15,7 @@ class NetworkClient extends GetConnect {
   }
 
   Future<Response> postRequest(String apiEndPoint, dynamic payload) async {
-    Response response =
+
         await post(_getRequestUrl(apiEndPoint), payload, headers: {
       "Content-Type": "application/json",
       "Accept": "application/json; charset=UTF-8",
@@ -23,6 +23,14 @@ class NetworkClient extends GetConnect {
           ? "Bearer ${GetStorage().read(AppString.ACCESS_TOKEN)}"
           : ""
     }).timeout(const Duration(seconds: 20));
+
+    Response response = await post(_getRequestUrl(apiEndPoint), payload,
+
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        }).timeout(const Duration(seconds: 20));
+
     return response;
   }
 

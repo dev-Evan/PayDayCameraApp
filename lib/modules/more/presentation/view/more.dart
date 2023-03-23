@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/common/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/common/custom_appbar.dart';
 import 'package:pay_day_mobile/common/custom_navigator.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/about_this_app.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/address_details.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/calender.dart';
@@ -19,10 +20,13 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
 class MoreScreen extends StatelessWidget {
-  const MoreScreen({Key? key}) : super(key: key);
+   MoreScreen({Key? key}) : super(key: key);
+
+  UserProfileController profileData=Get.put(UserProfileController());
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
 
       body: CustomScrollView(
@@ -64,13 +68,13 @@ class MoreScreen extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          AppString.text_user_name,
+                                         profileData.userProfile!.data!.fullName.toString(),
                                           style: AppStyle.mid_large_text
                                               .copyWith(
                                                   fontWeight: FontWeight.w800),
                                         ),
                                         Text(
-                                          AppString.text_user_email,
+                                         profileData.userProfile!.data!.email.toString(),
                                           style: AppStyle.small_text,
                                         ),
                                       ],
@@ -89,7 +93,7 @@ class MoreScreen extends StatelessWidget {
                                         top: 4,
                                         bottom: 4),
                                     child: Text(
-                                      AppString.text_active,
+                                        profileData.userProfile!.data!.userStatus.toString(),
                                       style: AppStyle.normal_text.copyWith(
                                           color: AppColor.primaryColor,
                                           fontWeight: FontWeight.w600,
@@ -103,7 +107,7 @@ class MoreScreen extends StatelessWidget {
                             const Spacer(),
                             Center(
                               child: InkWell(
-                                onTap: ()=>CustomNavigator(context: context,pageName:const ViewProfile() ),
+                                onTap: ()=>CustomNavigator(context: context,pageName: ViewProfile()),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [

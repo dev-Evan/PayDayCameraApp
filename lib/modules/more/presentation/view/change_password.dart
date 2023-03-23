@@ -14,6 +14,8 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
+import '../controller/change_password_controller.dart';
+
 class ChangePassword extends StatelessWidget {
   TextEditingController _oldPasswordController = TextEditingController();
   TextEditingController _newPasswordController = TextEditingController();
@@ -85,6 +87,15 @@ class ChangePassword extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: CustomButton('Save', () {
+              final oldPassword=_oldPasswordController.text.toString();
+              final newPassword=_newPasswordController.text.toString();
+              final confirmPassword=_confirmPasswordController.text.toString();
+
+              AuthController().signUp(oldPassword, newPassword, confirmPassword);
+              print(oldPassword);
+              print(newPassword);
+              print(confirmPassword);
+
               CustomSuccessAlertDialog(
                 titleText: 'Success',
                 context: context,
@@ -94,11 +105,11 @@ class ChangePassword extends StatelessWidget {
                 contentText: 'Password changed successfully',
               );
 
-              Future.delayed(
-                const Duration(seconds: 1),
-                () => CustomNavigator(
-                    context: context, pageName: const ViewProfile()),
-              );
+              // Future.delayed(
+              //   const Duration(seconds: 1),
+              //   () => CustomNavigator(
+              //       context: context, pageName:  ViewProfile()),
+              // );
             }),
           ),
           SizedBox(

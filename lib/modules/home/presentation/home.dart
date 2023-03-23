@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
     Attendance(),
     const Leave(),
     const PaySlip(),
-    const MoreScreen()
+     MoreScreen()
   ];
 
   final _items = <BottomNavigationBarItem>[

@@ -49,11 +49,11 @@ class Data {
 
   Data(
       {int? id,
-        String? firstName,
-        String? lastName,
-        String? email,
-        String? token,
-        String? fullName}) {
+      String? firstName,
+      String? lastName,
+      String? email,
+      String? token,
+      String? fullName}) {
     if (id != null) {
       this._id = id;
     }

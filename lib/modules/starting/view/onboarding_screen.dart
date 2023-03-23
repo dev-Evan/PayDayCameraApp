@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pay_day_mobile/common/custom_button.dart';
-import 'package:pay_day_mobile/routes/app_pages.dart';
+import 'package:pay_day_mobile/common/custom_navigator.dart';
+import 'package:pay_day_mobile/modules/auth/presentation/view/sign_in.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -52,6 +53,9 @@ class _onboardingScreenState extends State<onboardingScreen> {
     super.initState();
   }
 
+
+
+
   @override
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height / 5;
@@ -65,7 +69,7 @@ class _onboardingScreenState extends State<onboardingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: AppLayout.getHeight(50)),
-              Container(
+              SizedBox(
                   height: _height,
                   width: _width,
                   child: Stack(
@@ -122,9 +126,14 @@ class _onboardingScreenState extends State<onboardingScreen> {
                       dotsCount: _onboardingImage.length,
                       position: _currentIndex.toDouble(),
                       decorator: const DotsDecorator(
-                        color: AppColor.disableColor,
-                        activeColor: AppColor.primaryColor,
-                      ),
+                          color: AppColor.disableColor,
+                          activeColor: AppColor.primaryColor,
+                          size: Size.square(8.0),
+                          activeSize: Size(16.0, 7),
+                          activeShape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.horizontal(
+                                  right: Radius.circular(5.0),
+                                  left: Radius.circular(5.0)))),
                     ),
                   ),
                 ],
@@ -135,7 +144,8 @@ class _onboardingScreenState extends State<onboardingScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
-                    onPressed: () => Get.toNamed(AppString.signInScreen),
+                    onPressed: () => CustomNavigator(
+                        context: context, pageName: const signInScreen()),
                     child: Text(
                       'Skip',
                       style: GoogleFonts.poppins(
@@ -146,7 +156,8 @@ class _onboardingScreenState extends State<onboardingScreen> {
                   ),
                   CustomSmallButton(" Next ", () {
                     if (_currentIndex == _title.length - 1) {
-                      Get.toNamed(AppString.signInScreen);
+                      CustomNavigator(
+                          context: context, pageName: const signInScreen());
                     } else {
                       _currentIndex + 1;
                     }

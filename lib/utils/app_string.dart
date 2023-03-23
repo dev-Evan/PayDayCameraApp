@@ -5,6 +5,7 @@ class AppString {
   static String BASE_URL="https://payday.php8.gainhq.com/api";
 
   static String logIn = "/login";
+
   static String PUNCH_IN = "/attendance/punch-in";
   static String PUNCH_OUT = "/attendance/punch-out";
   static String CHECK_PUNCH_IN = "/attendance/check-is-punch-in";
@@ -12,6 +13,9 @@ class AppString {
   static String LOG_DETAILS = "/attendance/details";
   static String ATTENDANCE_REQUEST = "/attendance/request";
   static String CHANGE_LOG = "/attendance/log";
+
+  static String userProfile = "/user/profile";
+
 
   // Apps string here
   static const String exampleText = "";
@@ -96,13 +100,13 @@ class AppString {
   static const String text_view_profile = "View Profile";
   static const String text_job_desk = "Job Desk";
   static const String text_documents = "Documents";
-  static const String text_my_profile= "My profile";
+  static const String text_my_profile = "My profile";
   static const String text_total_file = "Total Files";
   static const String text_doctor_slips = "Doctor's Slips";
   static const String text_doctor_prescription = "Doctor Prescription.pdf";
   static const String text_medical_certificated = "Total Files";
   static const String text_add_documents = "Add Documents";
-  static const String text_calender= "Calender";
+  static const String text_calender = "Calender";
   static const String text_job_history = "Job History";
   static const String text_salary_overview = "Salary Overview";
   static const String text_address_details = "Address Details";
@@ -111,19 +115,18 @@ class AppString {
   static const String text_name = "Name";
   static const String text_click = "Click";
   static const String text_to_add_fils = "to add files";
-  static const String text_jpeg_jpg_png_etc = "jpeg, jpg, png, pdf, txt, doc, docx, csv. (Max file size is 5MB)";
+  static const String text_jpeg_jpg_png_etc =
+      "jpeg, jpg, png, pdf, txt, doc, docx, csv. (Max file size is 5MB)";
   static const String text_change_password = "Change Password";
   static String text_language = "Language";
   static String text_11_jan_2023 = "11 Jan 2023 - Present";
   static String text_english = "English";
-  static String text_ux_deginer= "UX Designer";
-  static String text_basic_salary= "Basic Salary";
-  static String text_$30= "\$30,000";
-  static String text_salary_increment= "Salary Increment";
-  static String text_will_be_effective_from= "Will be effective from ";
+  static String text_ux_deginer = "UX Designer";
+  static String text_basic_salary = "Basic Salary";
+  static String text_$30 = "\$30,000";
+  static String text_salary_increment = "Salary Increment";
+  static String text_will_be_effective_from = "Will be effective from ";
   // static String text_address_details = "Permanent";
-
-
 
   static String text_permanent = "Permanent ";
   static String text_about_me = "About me";
@@ -131,10 +134,11 @@ class AppString {
   static String text_version_2_1_0_1 = "Version: 2.1.0.1";
   static String text_last_update_may_2023 = "last update May 2023";
 
-  static String text_general= "General";
+  static String text_general = "General";
   static String text_laravel = "Laravel";
   static String text_email = "Email";
   static String text_department = "Department";
+  static String text_contact = "Contact";
   static String text_shift = "Shift";
   static String text_phone_number = "+8801234567890";
   static String text_address = "Address ";
@@ -149,13 +153,8 @@ class AppString {
   static String text_joining_date = "Joining Date";
   static String text_designation = "Designation";
 
-
-
-
-  static String text_address_dec = "465 Jayme Heights Suite 383 New Ninaburgh, ND 96195";
-
-
-
+  static String text_address_dec =
+      "465 Jayme Heights Suite 383 New Ninaburgh, ND 96195";
 
   static String text_role = "Role";
   static String text_work_shift = "Work Shift";
@@ -180,13 +179,11 @@ class AppString {
   static String text_prosaccobury = "Prosaccobury";
   static String text_state = "State";
   static String text_zip_code = "Zip Code";
-   static String text_768 = "768";
+  static String text_768 = "768";
   static String text_usa = "USA";
   static String text_add = "Add ";
   static String text_texas = "Texas";
   static String text_current_address = "Current Address";
-
-
 
   static String text_2022 = "2022";
   static String text_february_2022 = "February 2022";
@@ -195,21 +192,30 @@ class AppString {
   static String text_this_month = "This month";
   static String text_this_all_holiday = "All Holiday";
   static String text_calender_text = "Calender";
-  static String text_about_me_dec = "Hello. I am an UX/UI designer. I am in love with designing since my childhood. It gives me the freedom of my mind and helps me to express myself and my personality ";
-
-
-
-
-
+  static String text_about_me_dec =
+      "Hello. I am an UX/UI designer. I am in love with designing since my childhood. It gives me the freedom of my mind and helps me to express myself and my personality ";
 
   // Local store string here
   static const String idStore = "store";
   static  String ACCESS_TOKEN = "access_token";
   static  String USERNAME = "full_name";
+  static const String storeToken = "storeToken";
+  static const String loginCheckKey = "loginCheckValue";
+  static const String loginValue = "LogInValue";
+  static const String rememberValue = "rememberValue";
+  static const String rememberKey = "rememberKey";
 
+// Auth String
 
-
-
+  static const String forgotPassword = "Forgot password?";
+  static const String rememberMe = "Remember me";
+  static const String fieldIsRequired = "Field is required !";
+  static const String enterYourPassword = "Enter your password";
+  static const String enterYourEmail = "Enter your email";
+  static const String password = "Password";
+  static const String email = "Email";
+  static const String login = "Log In";
+  static const String hi_login_to_your_dashboard = "Hi, login to your dashboard ";
 
 
   // Route string here
