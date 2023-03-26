@@ -25,7 +25,7 @@ class CustomButton extends StatelessWidget {
               elevation: 0),
           child: Text(
             text,
-            style: GoogleFonts.poppins(fontSize: Dimensions.fontSizeMid),
+            style: GoogleFonts.poppins(fontSize: Dimensions.fontSizeMid-3),
           )),
     );
   }

@@ -16,7 +16,7 @@ class UserProfile {
     data['status'] = this.status;
     data['message'] = this.message;
     if (this.data != null) {
-      data['data'] = this.data!.toJson();
+      data['data'] = this.data?.toJson();
     }
     return data;
   }

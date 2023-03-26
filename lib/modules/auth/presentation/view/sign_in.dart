@@ -140,7 +140,7 @@ class _signInScreenState extends State<signInScreen> {
                         controller: _passwordController,
                         validator:(value){
                           if(value!.isEmpty){
-                            return AppString.fieldIsRequired;
+                          return AppString.fieldIsRequired;
                           }
                         } ,
 

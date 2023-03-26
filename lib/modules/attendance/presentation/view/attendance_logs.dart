@@ -48,7 +48,7 @@ class AttendanceLogsScreen extends StatelessWidget {
                             children: [
                               backlogs(context),
                               attendanceLogsOverviewLayout(context),
-                              dotIndicator()
+                              dotIndicator(),
                             ],
                           ),
                         ),
@@ -68,7 +68,10 @@ class AttendanceLogsScreen extends StatelessWidget {
               ],
             ),
           ],
-        ));
+        )
+
+
+    );
   }
 }
 

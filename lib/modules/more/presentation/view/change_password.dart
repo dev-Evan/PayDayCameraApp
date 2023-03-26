@@ -95,7 +95,6 @@ class ChangePassword extends StatelessWidget {
               print(oldPassword);
               print(newPassword);
               print(confirmPassword);
-
               CustomSuccessAlertDialog(
                 titleText: 'Success',
                 context: context,

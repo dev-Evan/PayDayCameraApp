@@ -6,7 +6,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 
 import '../../attendance/presentation/view/attendance.dart';
 import '../../leave/presentation/leave.dart';
-import '../../payslip/presentation/payslip.dart';
+import '../../payslip/presentation/view/payslip.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

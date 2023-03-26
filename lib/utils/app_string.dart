@@ -3,9 +3,7 @@ class AppString {
 
   // Apps url here
   static String BASE_URL="https://payday.php8.gainhq.com/api";
-
   static String logIn = "/login";
-
   static String PUNCH_IN = "/attendance/punch-in";
   static String PUNCH_OUT = "/attendance/punch-out";
   static String CHECK_PUNCH_IN = "/attendance/check-is-punch-in";
@@ -13,7 +11,6 @@ class AppString {
   static String LOG_DETAILS = "/attendance/details";
   static String ATTENDANCE_REQUEST = "/attendance/request";
   static String CHANGE_LOG = "/attendance/log";
-
   static String userProfile = "/user/profile";
 
 
@@ -49,7 +46,6 @@ class AppString {
   static const String text_export_attendance = "Export Attendance?";
   static const String text_dialog_dec = "If you do this, you cannot turn back";
   static const String text_dialog_dec_pdf = "December Attendance.pdf";
-
   static const String text_attendance_status = "Attendance Status";
   static const String text_entry_type = "Entry Type";
   static const String text_attendance_behavior = "Attendance Behavior";
@@ -93,6 +89,40 @@ class AppString {
   static String text_date = 'Date';
   static String text_select_date = 'Select Date';
 
+
+  //PaySlip modules
+  static const String text_paid = "Paid";
+  static const String text_unpaid = "Unpaid";
+  static const String text_payslip = "Payslip";
+  static const String text_payslip_for = "Payslip for";
+  static const String text_create_at = "Create at";
+  static const String text_beneficiary = "Beneficiary";
+  static const String text_allowances = "Allowances";
+  static const String text_bonus = "Bonus";
+  static const String text_medical = "Medical";
+  static const String text_food_ = "Food";
+  static const String text_percent= " 2\%";
+  static const String text_transport = "Transport";
+  static const String text_deductions = "Deductions";
+  static const String text_tax = "Tax";
+  static const String text_total_summary = "Total Summary";
+  static const String text_download_payslip = "Download Payslip";
+  static String text_payrun_details = "Payrun Details";
+  static String text_period = "Period";
+  static String text_consider_type = "Consider Type";
+  static String text_monthly = "Monthly";
+  static String text_hour = "Hour";
+  static String text_2 = "2";
+  static String text_included = "Included";
+
+
+
+
+
+
+
+
+
   // More modules
   static const String text_user_name = "Steve Roggers";
   static const String text_user_email = "steave@gain.media";
@@ -126,14 +156,11 @@ class AppString {
   static String text_$30 = "\$30,000";
   static String text_salary_increment = "Salary Increment";
   static String text_will_be_effective_from = "Will be effective from ";
-  // static String text_address_details = "Permanent";
-
   static String text_permanent = "Permanent ";
   static String text_about_me = "About me";
   static String text_about_this_app = "About This App";
   static String text_version_2_1_0_1 = "Version: 2.1.0.1";
   static String text_last_update_may_2023 = "last update May 2023";
-
   static String text_general = "General";
   static String text_laravel = "Laravel";
   static String text_email = "Email";
@@ -152,10 +179,8 @@ class AppString {
   static String text_hr_manager = "HR Manager";
   static String text_joining_date = "Joining Date";
   static String text_designation = "Designation";
-
   static String text_address_dec =
       "465 Jayme Heights Suite 383 New Ninaburgh, ND 96195";
-
   static String text_role = "Role";
   static String text_work_shift = "Work Shift";
   static String text_employment = "Employment Status";
@@ -184,8 +209,8 @@ class AppString {
   static String text_add = "Add ";
   static String text_texas = "Texas";
   static String text_current_address = "Current Address";
-
   static String text_2022 = "2022";
+  static String text_payrun_badge = "Payrun & Badge";
   static String text_february_2022 = "February 2022";
   static String text_this_year = "This Year";
   static String text_caleder = "Calender";
@@ -228,4 +253,5 @@ class AppString {
   static const String moreScreen = "/more_screen'";
   static const String home = "/home'";
   static const String calender = "/calender_screen";
+  static const String payslip = "/payslip_screen";
 }

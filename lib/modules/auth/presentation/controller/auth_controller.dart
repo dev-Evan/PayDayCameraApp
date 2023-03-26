@@ -32,7 +32,6 @@ class AuthController extends GetxController {
           fontSize: 16.0);
     }, (login) {
       _writeUserInfo(login);
-
       Fluttertoast.showToast(
           msg: "${login?.message}",
           toastLength: Toast.LENGTH_SHORT,
@@ -41,7 +40,6 @@ class AuthController extends GetxController {
           backgroundColor: AppColor.hintColor,
           textColor: Colors.white,
           fontSize: 16.0);
-
       Get.toNamed(AppString.home);
     });
   }

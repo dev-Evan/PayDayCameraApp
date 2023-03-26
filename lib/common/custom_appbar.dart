@@ -11,6 +11,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leadingWidth: AppLayout.getWidth(150),
       toolbarHeight: AppLayout.getHeight(35),
+      backgroundColor: AppColor.cardColor,
 
       leading: Padding(
         padding: const EdgeInsets.only(left: 12.0),

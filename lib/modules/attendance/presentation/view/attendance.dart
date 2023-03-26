@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/custom_navigator.dart';
 import 'package:pay_day_mobile/common/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_logs.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
+import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 import '../widget/dot_indicator.dart';
@@ -69,12 +72,23 @@ class Attendance extends StatelessWidget {
                     SizedBox(
                         height: AppLayout.getHeight(Dimensions.paddingMid)),
                     dotIndicator(),
-                    attendanceLogText(context),
+                    attendanceLogText(
+                      context: context,
+                      text: AppString.text_attendance_log,
+                      onAction: () => CustomNavigator(
+                          context: context,
+                          pageName: const AttendanceLogsScreen()),
+                    ),
                   ]),
             ),
           ),
           Obx(
-            () => Get.find<AttendanceController>().logs.value.data!.dailyLogs!.isNotEmpty
+            () => Get.find<AttendanceController>()
+                    .logs
+                    .value
+                    .data!
+                    .dailyLogs!
+                    .isNotEmpty
                 ? Container(
                     padding: EdgeInsets.symmetric(
                         vertical: AppLayout.getHeight(Dimensions.paddingLarge),
@@ -87,7 +101,11 @@ class Attendance extends StatelessWidget {
                           SizedBox(
                               height:
                                   AppLayout.getHeight(Dimensions.paddingLarge)),
-                          logList(Get.find<AttendanceController>().logs.value.data!.dailyLogs!),
+                          logList(Get.find<AttendanceController>()
+                              .logs
+                              .value
+                              .data!
+                              .dailyLogs!),
                         ]),
                   )
                 : noLogLayout(),

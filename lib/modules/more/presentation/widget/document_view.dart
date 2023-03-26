@@ -16,7 +16,7 @@ class DocumentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(),
+      appBar: const CustomAppbar(),
       body: Column(
         children: [
           Expanded(

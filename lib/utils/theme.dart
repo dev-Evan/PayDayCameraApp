@@ -8,8 +8,6 @@ ThemeData get appTheme => _themeData;
 
 ThemeData _themeData = ThemeData(
 
-
-
   appBarTheme: const AppBarTheme(
     systemOverlayStyle: SystemUiOverlayStyle(
       // Status bar color
@@ -18,10 +16,10 @@ ThemeData _themeData = ThemeData(
   ),
 
   // scaffoldBG, applicable for aLL PAGES
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: AppColor.cardColor,
   //primary color for the application
   colorScheme: ColorScheme.fromSwatch().copyWith(
-    primary: AppColor.cardColor                                                ,
+    primary: AppColor.primaryColor                                                ,
 
   ),
 );

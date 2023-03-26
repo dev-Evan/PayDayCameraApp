@@ -2,10 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pay_day_mobile/common/custom_navigator.dart';
-import 'package:pay_day_mobile/modules/auth/presentation/view/sign_in.dart';
-import 'package:pay_day_mobile/modules/home/presentation/home.dart';
-import 'package:pay_day_mobile/modules/starting/view/onboarding_screen.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -19,15 +15,16 @@ class splashScreen extends StatefulWidget {
 }
 
 class _splashScreenState extends State<splashScreen> {
+
   bool isLoad = false;
   final box = GetStorage();
   Future chooseScreen() async {
     final idStore = box.read(AppString.idStore);
     dynamic remValue = box.read(AppString.rememberKey);
-    dynamic test = box.read(AppString.loginCheckKey);
+    dynamic logValue = box.read(AppString.loginCheckKey);
     if (idStore == null) {
       Get.toNamed(AppString.onboardScreen);
-    } else if (test != null && remValue != null) {
+    } else if (logValue != null && remValue != null) {
       Get.toNamed(AppString.home);
     } else {
       Get.toNamed(AppString.signInScreen);

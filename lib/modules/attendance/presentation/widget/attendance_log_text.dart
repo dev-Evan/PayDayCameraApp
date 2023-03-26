@@ -7,12 +7,12 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 
 import '../../../../utils/app_style.dart';
 
-Widget attendanceLogText(context) {
+Widget attendanceLogText({context, text, onAction}) {
   return Center(
     child: TextButton.icon(
-      onPressed: ()=>CustomNavigator(context: context,pageName: const AttendanceLogsScreen()),
+      onPressed: () => onAction(),
       icon: Text(
-        AppString.text_attendance_log,
+        text,
         style: AppStyle.normal_text,
       ),
       label: Icon(Icons.arrow_forward_outlined,
