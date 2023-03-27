@@ -6,7 +6,7 @@ import 'package:pay_day_mobile/modules/more/domain/user_profile.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
 class UserProfileController extends GetxController {
-  var baseUrl = AppString.BASE_URL+AppString.userProfile;
+  var baseUrl = AppString.BASE_URL+AppString.USER_PROFILE;
   final storeToken=AppString.storeToken;
   final _connect = GetConnect();
   UserProfile? userProfile;
@@ -24,17 +24,21 @@ class UserProfileController extends GetxController {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Access-Control-Allow-Origin': "*",
-        'Authorization': 'Bearer 8|7nHfQDGfMZI02MIS5ATw97rGwI0hipRhmvlyXWRp',
+        'Authorization': 'Bearer 20|NCBmTPCCKgjnjRYnNnHvau84r9bBaDkEhnwnkwKD',
         // 'Authorization': 'Bearer $storeToken',
-
       },
-
     );
-    var json = response.body;
-    userProfile = UserProfile.fromJson(json);
+    var json1 = response.body ;
+    print(response.body);
+    userProfile =UserProfile.fromJson(json1);
+
+//     if(response.body==null) {
+// print('error');
+//     }else{
+//       userProfile = UserProfile.fromJson(json.decode(response.body));
+//
+//     }
     loading(false);
-    print(json);
-
-
+    print(json1);
   }
 }

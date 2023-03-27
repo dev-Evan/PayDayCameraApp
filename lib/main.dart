@@ -4,7 +4,7 @@ import 'package:pay_day_mobile/init_%20app.dart';
 import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/theme.dart';
-import 'modules/starting/view/splash_screen.dart';
+
 
 void main() async {
   await initApp();
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      initialRoute: AppString.splashScreen,
+      initialRoute: AppString.leave,
       getPages: getPage,
       //home:  const splashScreen(),
     );

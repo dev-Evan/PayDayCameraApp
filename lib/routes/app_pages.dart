@@ -3,6 +3,7 @@ import 'package:pay_day_mobile/modules/auth/presentation/view/forgot_password.da
 import 'package:pay_day_mobile/modules/auth/presentation/view/received_screen.dart';
 import 'package:pay_day_mobile/modules/auth/presentation/view/sign_in.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_logs.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/view/leave.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/calender.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/view/payslip.dart';
 import 'package:pay_day_mobile/modules/starting/view/onboarding_screen.dart';
@@ -47,8 +48,13 @@ List<GetPage> getPage = [
   GetPage(
     name: AppString.calender,
     page: () => const CalendarScreen(),
-  ), GetPage(
+  ),
+  GetPage(
     name: AppString.payslip,
     page: () => const PaySlip(),
+  ),
+  GetPage(
+    name: AppString.leave,
+    page: () => const Leave(),
   ),
 ];

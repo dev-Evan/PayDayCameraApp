@@ -17,7 +17,7 @@ Widget customDoubleButton(
     child: Row(
       children: [
         Flexible(
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 18,
             child: TextButton(
@@ -29,12 +29,12 @@ Widget customDoubleButton(
                     primary: AppColor.backgroundColor,
                     elevation: 0,
                     side:
-                        BorderSide(width: 1, color: AppColor.normalTextColor)),
+                        const BorderSide(width: 1, color: AppColor.normalTextColor)),
                 child: Text(
                   textBtnText,
                   style: AppStyle.mid_large_text.copyWith(
                       color: AppColor.normalTextColor,
-                      fontSize: Dimensions.fontSizeMid),
+                      fontSize: Dimensions.fontSizeMid-3),
                 )),
           ),
         ),
@@ -43,7 +43,7 @@ Widget customDoubleButton(
         ),
 
         Flexible(
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height / 18,
             child: TextButton(
@@ -55,12 +55,12 @@ Widget customDoubleButton(
                     primary: AppColor.primaryColor,
                     elevation: 0,
                     side:
-                    BorderSide(width: 1, color: AppColor.primaryColor)),
+                    const BorderSide(width: 1, color: AppColor.primaryColor)),
                 child: Text(
                   elevatedBtnText,
                   style: AppStyle.mid_large_text.copyWith(
                       color: AppColor.cardColor,
-                      fontSize: Dimensions.fontSizeMid),
+                      fontSize: Dimensions.fontSizeMid-3),
                 )),
           ),
         ),

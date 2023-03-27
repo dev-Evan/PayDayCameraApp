@@ -2,8 +2,8 @@ class AppString {
   AppString._();
 
   // Apps url here
-  static String BASE_URL="https://payday.php8.gainhq.com/api";
-  static String logIn = "/login";
+  static String BASE_URL = "https://payday.php8.gainhq.com/api";
+  static String LOG_IN = "/login";
   static String PUNCH_IN = "/attendance/punch-in";
   static String PUNCH_OUT = "/attendance/punch-out";
   static String CHECK_PUNCH_IN = "/attendance/check-is-punch-in";
@@ -11,8 +11,7 @@ class AppString {
   static String LOG_DETAILS = "/attendance/details";
   static String ATTENDANCE_REQUEST = "/attendance/request";
   static String CHANGE_LOG = "/attendance/log";
-  static String userProfile = "/user/profile";
-
+  static String USER_PROFILE = "/user/profile";
 
   // Apps string here
   static const String exampleText = "";
@@ -89,8 +88,29 @@ class AppString {
   static String text_date = 'Date';
   static String text_select_date = 'Select Date';
 
+  // Leave modules string here
+  static const String text_leve_records = "Leve Records";
+  static const String text_availability = "Availability";
+  static const String text_taken = "Taken";
+  static const String text_casual = "Casual";
+  static const String text_sick = "Sick";
+  static const String text_apply_leve = "Apply Leave";
+  static const String text_leave_records = "Leave Records";
+  static const String text_upcomming = "Upcoming";
+  static const String text_singleDay = "Single Day";
+  static const String text_multiday = "Multi Day";
+  static const String text_attendance_duration = "Attendance Duration";
+  static const String text_leave_details = "Leave Details";
+  static const String text_3_hour = "3 hours";
+  static const String text_two_attachments = "Two Attachments";
+   static const String text_paid_casual = "Paid Casual";
+   static const String text_two_attachment = "Two Attachments";
+   static const String text_cancel_leave = "Cancel Leave";
+   static const String text_log_response = "Log Response";
+   static const String text_leve_note = "Leave note";
+  // static const String text_3_hour = "3 hours";
 
-  //PaySlip modules
+  //PaySlip modules string here
   static const String text_paid = "Paid";
   static const String text_unpaid = "Unpaid";
   static const String text_payslip = "Payslip";
@@ -101,7 +121,7 @@ class AppString {
   static const String text_bonus = "Bonus";
   static const String text_medical = "Medical";
   static const String text_food_ = "Food";
-  static const String text_percent= " 2\%";
+  static const String text_percent = " 2\%";
   static const String text_transport = "Transport";
   static const String text_deductions = "Deductions";
   static const String text_tax = "Tax";
@@ -114,14 +134,6 @@ class AppString {
   static String text_hour = "Hour";
   static String text_2 = "2";
   static String text_included = "Included";
-
-
-
-
-
-
-
-
 
   // More modules
   static const String text_user_name = "Steve Roggers";
@@ -222,8 +234,8 @@ class AppString {
 
   // Local store string here
   static const String idStore = "store";
-  static  String ACCESS_TOKEN = "access_token";
-  static  String USERNAME = "full_name";
+  static String ACCESS_TOKEN = "access_token";
+  static String USERNAME = "full_name";
   static const String storeToken = "storeToken";
   static const String loginCheckKey = "loginCheckValue";
   static const String loginValue = "LogInValue";
@@ -240,8 +252,8 @@ class AppString {
   static const String password = "Password";
   static const String email = "Email";
   static const String login = "Log In";
-  static const String hi_login_to_your_dashboard = "Hi, login to your dashboard ";
-
+  static const String hi_login_to_your_dashboard =
+      "Hi, login to your dashboard ";
 
   // Route string here
   static const String splashScreen = "/splash_screen";
@@ -254,4 +266,5 @@ class AppString {
   static const String home = "/home'";
   static const String calender = "/calender_screen";
   static const String payslip = "/payslip_screen";
+  static const String leave = "/leave_screen";
 }

@@ -68,15 +68,16 @@ class MoreScreen extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                         profileData.userProfile!.data!.fullName.toString(),
+                                        // profileData.userProfile!.data!.fullName.toString(),
+                                          '',
                                           style: AppStyle.mid_large_text
                                               .copyWith(
                                                   fontWeight: FontWeight.w800),
                                         ),
-                                        Text(
-                                         profileData.userProfile!.data!.email.toString(),
-                                          style: AppStyle.small_text,
-                                        ),
+                                        // Text(
+                                        //  profileData.userProfile!.data.email.toString(),
+                                        //   style: AppStyle.small_text,
+                                        // ),
                                       ],
                                     ),
                                   ],
@@ -93,7 +94,8 @@ class MoreScreen extends StatelessWidget {
                                         top: 4,
                                         bottom: 4),
                                     child: Text(
-                                        profileData.userProfile!.data!.userStatus.toString(),
+                                     //   profileData.userProfile !.data!.userStatus.toString() ??
+                                            '',
                                       style: AppStyle.normal_text.copyWith(
                                           color: AppColor.primaryColor,
                                           fontWeight: FontWeight.w600,

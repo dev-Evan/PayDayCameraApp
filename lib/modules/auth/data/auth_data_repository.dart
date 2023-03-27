@@ -14,7 +14,7 @@ class AuthDataSource {
 
   Future<Either<ErrorModel, Login>> login({required String email, required String password}) async {
     Response response = await networkClient.postRequest(
-      AppString.logIn,
+      AppString.LOG_IN,
       {
         "email": email,
         "password": password,

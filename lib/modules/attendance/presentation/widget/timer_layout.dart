@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/timer_progress_bar.dart';
-import 'package:pay_day_mobile/utils/time_counter_helper.dart';
 
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_style.dart';

@@ -25,7 +25,7 @@ class AppStyle {
    );
   static TextStyle small_text_black = GoogleFonts.poppins(
       fontSize: AppLayout.getWidth(Dimensions.fontSizeSmall),
-      color: Colors.black,
+      color: AppColor.normalTextColor,
       fontWeight: FontWeight.w500,
       );
 

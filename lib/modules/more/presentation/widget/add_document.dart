@@ -112,7 +112,7 @@ class _AddDocumentState extends State<AddDocument> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(CupertinoIcons.link),
+                            const Icon(CupertinoIcons.link),
                             SizedBox(
                               width: AppLayout.getWidth(6),
                             ),
