@@ -1,5 +1,7 @@
 // interface implementation will be here
 
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/auth/domain/login_res.dart';
@@ -12,19 +14,22 @@ class AuthDataSource {
 
   AuthDataSource(this.networkClient);
 
-  Future<Either<ErrorModel, Login>> login(
-      {required String email, required String password}) async {
-    Response response = await networkClient.postRequest(
-      AppString.logIn,
-      {
-        "email": email,
-        "password": password,
-      },
-    );
-    if (response.statusCode == 200) {
-      return right(Login.fromJson(response.body));
-    } else {
-      return left(ErrorModel.fromJson(response.body));
+  Future<Login> loginIntoAccount(String email, String password) async {
+    try {
+      Response response = await networkClient.postRequest(
+        AppString.logIn,
+        {
+          "email": email,
+          "password": password,
+        },
+      );
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
+      } else {
+        return Login.fromJson(response.body);
+      }
+    } catch (ex) {
+      return Future.error(ex.toString());
     }
   }
 }

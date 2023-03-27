@@ -20,90 +20,105 @@ class AttendanceDataRepository {
 
   AttendanceDataRepository(this.networkClient);
 
-  Future<Either<ErrorModel, LogEntryResponse>> punchIn(
+  Future<LogEntryResponse> punchIn(
       {required LogEntryRequest punchInRequest}) async {
-    Response response = await networkClient.postRequest(
-        AppString.PUNCH_IN, jsonEncode(punchInRequest));
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(LogEntryResponse.fromJson(response.body));
-      return right(LogEntryResponse.fromJson(response.body));
-    } else {
-      print(ErrorModel.fromJson(response.body));
-      return left(ErrorModel.fromJson(response.body));
-    }
-  }
-
-  Future<Either<ErrorModel, LogEntryResponse>> punchOut(
-      {required LogEntryRequest punchOutRequest}) async {
-    Response response = await networkClient.postRequest(
-        AppString.PUNCH_OUT, jsonEncode(punchOutRequest));
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      print(LogEntryResponse.fromJson(response.body));
-      return right(LogEntryResponse.fromJson(response.body));
-    } else {
-      print(ErrorModel.fromJson(response.body));
-      return left(ErrorModel.fromJson(response.body));
-    }
-  }
-
-  Future<Either<ErrorModel, CheckEntryStatus>?> checkEntryStatus() async {
-    Response response =
-        await networkClient.getRequest(AppString.CHECK_PUNCH_IN);
-    print(response.statusCode);
-    if (response.body != null) {
-      if (response.statusCode == 200) {
-        print(CheckEntryStatus.fromJson(response.body));
-        return right(CheckEntryStatus.fromJson(response.body));
+    try {
+      Response response = await networkClient.postRequest(
+          AppString.PUNCH_IN, jsonEncode(punchInRequest));
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
       } else {
-        print(ErrorModel.fromJson(response.body));
-        return left(ErrorModel.fromJson(response.body));
+        return LogEntryResponse.fromJson(response.body);
       }
-    }
-    return null;
-  }
-
-  Future<Either<ErrorModel, DailyLog>> getDailyLog() async {
-    Response response =
-        await networkClient.getRequest(AppString.DAILY_LOG);
-    print("DailyLogs::: ${response.body.toString()}");
-    if (response.statusCode == 200) {
-      print(DailyLog.fromJson(response.body));
-      return right(DailyLog.fromJson(response.body));
-    } else {
-      print(ErrorModel.fromJson(response.body));
-      return left(ErrorModel.fromJson(response.body));
+    } catch (e) {
+      return Future.error(e.toString());
     }
   }
 
-  Future<Either<ErrorModel, LogDetails>> getLogDetails(int logId) async {
-    Response response = await networkClient.getRequest(AppString.LOG_DETAILS);
-    if (response.statusCode == 200) {
-      return right(LogDetails.fromJson(response.body));
-    } else {
-      return left(ErrorModel.fromJson(response.body));
+  Future<LogEntryResponse> punchOut(
+      {required LogEntryRequest punchOutRequest}) async {
+    try {
+      Response response = await networkClient.postRequest(
+          AppString.PUNCH_OUT, jsonEncode(punchOutRequest));
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
+      } else {
+        return LogEntryResponse.fromJson(response.body);
+      }
+    } catch (e) {
+      return Future.error(e.toString());
     }
   }
 
-  Future<Either<ErrorModel, ChangeLog>> changeLog(int logId) async {
-    Response response = await networkClient.getRequest(AppString.LOG_DETAILS);
-    if (response.statusCode == 200) {
-      return right(ChangeLog.fromJson(response.body));
-    } else {
-      return left(ErrorModel.fromJson(response.body));
+  Future<CheckEntryStatus> checkEntryStatus() async {
+    try {
+      Response response =
+          await networkClient.getRequest(AppString.CHECK_PUNCH_IN);
+
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
+      } else {
+        return CheckEntryStatus.fromJson(response.body);
+      }
+    } catch (ex) {
+      return Future.error(ex.toString());
     }
   }
 
-  Future<Either<ErrorModel, ChangeRequestResponseModel>>
-      changeAttendanceRequest(
-          int logId, ChangeRequestReqModel changeRequestReqModel) async {
-    Response response = await networkClient.postRequest(
-        AppString.ATTENDANCE_REQUEST, jsonEncode(changeRequestReqModel));
-    if (response.statusCode == 200) {
-      return right(ChangeRequestResponseModel.fromJson(response.body));
-    } else {
-      return left(ErrorModel.fromJson(response.body));
+  Future<DailyLog> getDailyLog() async {
+    try {
+      Response response = await networkClient.getRequest(
+          "${AppString.DAILY_LOG}?timezone=${DateTime.now().timeZoneName}");
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
+      } else {
+        return DailyLog.fromJson(response.body);
+      }
+    } catch (ex) {
+      return Future.error(ex.toString());
+    }
+  }
+
+  Future<LogDetails> getLogDetails(int logId) async {
+    try {
+      Response response = await networkClient.getRequest(
+          "${AppString.LOG_DETAILS}/$logId?timezone=${DateTime.now().timeZoneName}");
+      print('res:::: ${response.body.toString()}');
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
+      } else {
+        return LogDetails.fromJson(response.body);
+      }
+    } catch (ex) {
+      return Future.error(ex.toString());
+    }
+  }
+
+  Future<ChangeLog> changeLog(int logId) async {
+    try {
+      Response response = await networkClient.getRequest(AppString.LOG_DETAILS);
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
+      } else {
+        return ChangeLog.fromJson(response.body);
+      }
+    } catch (ex) {
+      return Future.error(ex.toString());
+    }
+  }
+
+  Future<ChangeRequestResponseModel> changeAttendanceRequest(
+      int logId, ChangeRequestReqModel changeRequestReqModel) async {
+    try {
+      Response response = await networkClient.postRequest(
+          AppString.ATTENDANCE_REQUEST, jsonEncode(changeRequestReqModel));
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
+      } else {
+        return ChangeRequestResponseModel.fromJson(response.body);
+      }
+    } catch (ex) {
+      return Future.error(ex.toString());
     }
   }
 }

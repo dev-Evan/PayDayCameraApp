@@ -9,7 +9,7 @@ class LoadingIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: AppLayout.getSize(context).height-AppLayout.getHeight(150),
+        height: AppLayout.getSize(context).height,
         color: Colors.white,
         child: Center(child: SizedBox(height: AppLayout.getHeight(40),width: AppLayout.getWidth(40),child: const CircularProgressIndicator(
           color: AppColor.primary_blue,

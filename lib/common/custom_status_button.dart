@@ -5,11 +5,11 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class CustomStatusButton extends StatelessWidget {
   final Color bgColor;
-  final String text;
+  final String? text;
   final Color textColor;
 
   const CustomStatusButton(
-      {super.key, required this.bgColor, required this.text,required this.textColor});
+      {super.key, required this.bgColor, this.text,required this.textColor});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class CustomStatusButton extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           horizontal: AppLayout.getHeight(Dimensions.paddingLarge),
           vertical: AppLayout.getWidth(Dimensions.paddingSmall)),
-      child: Text(text, style: AppStyle.small_text.copyWith(color: textColor)),
+      child: Text(text??"", style: AppStyle.small_text.copyWith(color: textColor)),
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:pay_day_mobile/utils/time_counter_helper.dart';
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_style.dart';
 import '../../domain/daily_log/daily_log.dart';
+import '../controller/attendance_controller.dart';
 import '../view/log_details_bottomsheet.dart';
 
 Widget logList(List<DailyLogs> dailyLogs) {
@@ -14,7 +15,10 @@ Widget logList(List<DailyLogs> dailyLogs) {
     shrinkWrap: true,
     itemBuilder: (context, index) => InkWell(
       child: _logDetails(dailyLogs[index]),
-      onTap: () => _openLogDetailsBottomSheet(),
+      onTap: () async{
+        await Get.find<AttendanceController>().logDetails(dailyLogs[index].id!);
+        _openLogDetailsBottomSheet();
+      },
     ),
     itemCount: dailyLogs.length,
   );
@@ -39,7 +43,7 @@ Widget _logDetails(DailyLogs dailyLog) {
                   SizedBox(width: AppLayout.getWidth(4)),
                   Text(
                     TimeCounterHelper.getTimeStringFromDouble(
-                        dailyLog.totalHours.toDouble()?? 0.0),
+                        dailyLog.totalHours.toDouble() ?? 0.0),
                     style: AppStyle.small_text.copyWith(color: Colors.grey),
                   ),
                   SizedBox(
@@ -57,13 +61,10 @@ Widget _logDetails(DailyLogs dailyLog) {
             ],
           ),
           const Spacer(),
-          IconButton(
-            icon: const Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.blueAccent,
-              size: 16,
-            ),
-            onPressed: () {},
+          const Icon(
+            Icons.arrow_forward_ios,
+            color: Colors.blueAccent,
+            size: 16,
           ),
         ],
       ),

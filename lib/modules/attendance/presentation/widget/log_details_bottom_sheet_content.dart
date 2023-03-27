@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/timer_overview_layout.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/vertical_divider.dart';
+import 'package:pay_day_mobile/utils/time_counter_helper.dart';
 
 import '../../../../common/custom_status_button.dart';
 import '../../../../common/users_current_info_layout.dart';
@@ -9,6 +13,7 @@ import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_string.dart';
 import '../../../../utils/app_style.dart';
 import '../../../../utils/dimensions.dart';
+import '../../../../utils/behaviour_color_picker_helper.dart';
 
 Widget contentLayout() {
   return Container(
@@ -45,11 +50,12 @@ _logDate() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text(
-        "20-01-23",
+        Get.find<AttendanceController>().logDetailsById.data?.logDate ?? '',
         style: AppStyle.large_text_black.copyWith(fontWeight: FontWeight.w600),
       ),
       Text(
-        "Auto",
+        Get.find<AttendanceController>().logDetailsById.data?.punchInStatus ??
+            "",
         style: AppStyle.normal_text_black
             .copyWith(fontWeight: FontWeight.w400, color: Colors.grey),
       ),
@@ -58,8 +64,14 @@ _logDate() {
 }
 
 _entryBehaviour() {
-  return const CustomStatusButton(
-      bgColor: Colors.green, text: "Regular", textColor: Colors.white);
+  return CustomStatusButton(
+      bgColor: Util.getBgColor(
+          Get.find<AttendanceController>().logDetailsById.data?.behavior ?? ""),
+      text:
+          Get.find<AttendanceController>().logDetailsById.data?.behavior ?? "",
+      textColor: Util.getTextColor(
+          Get.find<AttendanceController>().logDetailsById.data?.behavior ??
+              ""));
 }
 
 _logTimeLayout() {
@@ -80,48 +92,72 @@ _logTimeLayout() {
 }
 
 _inTimeLog() {
-  return logInfo(title: AppString.text_in, time: "", fontColor: Colors.black);
+  return scheduledLogInfo(
+      title: AppString.text_in,
+      time: Get.find<AttendanceController>().logDetailsById.data?.inTime ?? "",
+      fontColor: Colors.black);
 }
 
 _outTimeLog() {
-  return logInfo(title: AppString.text_out, time: "", fontColor: Colors.black);
+  return scheduledLogInfo(
+      title: AppString.text_out,
+      time: Get.find<AttendanceController>().logDetailsById.data?.outTime ?? "",
+      fontColor: Colors.black);
 }
 
 _totalTimeLog() {
-  return logInfo(
-      title: AppString.text_total, time: "", fontColor: Colors.black);
+  return scheduledLogInfo(
+      title: AppString.text_total,
+      time: TimeCounterHelper.getTimeStringFromDouble(
+          Get.find<AttendanceController>()
+                  .logDetailsById
+                  .data
+                  ?.totalHours
+                  ?.toDouble() ??
+              0.0),
+      fontColor: Colors.black);
 }
 
 _punchInDetails() {
+  LogDetails logDetails = Get.find<AttendanceController>().logDetailsById;
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       punchDetails(
           title: AppString.text_punch_in,
-          note: "Late entry because of heavy traffic jam"),
+          note: (logDetails.data?.comments != null &&
+              logDetails.data!.comments!.isNotEmpty)
+              ? logDetails.data?.comments?.first.comment
+              : ""),
       SizedBox(height: AppLayout.getHeight(Dimensions.paddingExtraLarge)),
       UsersCurrentInfoLayout(
-          title: AppString.text_my_location, data: "Pallabi,Dhaka"),
+          title: AppString.text_my_location, data: logDetails.data?.inIpData?.location??""),
       SizedBox(height: AppLayout.getHeight(Dimensions.paddingMid)),
       UsersCurrentInfoLayout(
-          title: AppString.text_ip_address, data: "10.233.12.244"),
+          title: AppString.text_ip_address, data: logDetails.data?.inIpData?.ip??""),
     ],
   );
 }
 
 _punchOutDetails() {
+  LogDetails logDetails = Get.find<AttendanceController>().logDetailsById;
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       punchDetails(
           title: AppString.text_punch_out,
-          note: "Late entry because of heavy traffic jam"),
+          note: (logDetails.data?.comments != null &&
+                  logDetails.data!.comments!.isNotEmpty)
+              ? (logDetails.data!.comments!.last.type!.startsWith("out-note")
+                  ? logDetails.data?.comments?.last.comment
+                  : "")
+              : ""),
       SizedBox(height: AppLayout.getHeight(Dimensions.paddingExtraLarge)),
       UsersCurrentInfoLayout(
-          title: AppString.text_my_location, data: "Pallabi,Dhaka"),
+          title: AppString.text_my_location, data: logDetails.data?.outIpData?.location??""),
       SizedBox(height: AppLayout.getHeight(Dimensions.paddingMid)),
       UsersCurrentInfoLayout(
-          title: AppString.text_ip_address, data: "10.233.12.244"),
+          title: AppString.text_ip_address, data: logDetails.data?.outIpData?.ip??""),
     ],
   );
 }
@@ -134,7 +170,9 @@ punchDetails({required String title, String? note}) {
         title,
         style: AppStyle.large_text_black,
       ),
-      Text(note ?? "", style: AppStyle.normal_text_black),
+      note!.isNotEmpty
+          ? Text(note, style: AppStyle.normal_text_black)
+          : Container(),
     ],
   );
 }

@@ -45,6 +45,9 @@ class AppString {
   static const String text_export_attendance = "Export Attendance?";
   static const String text_dialog_dec = "If you do this, you cannot turn back";
   static const String text_dialog_dec_pdf = "December Attendance.pdf";
+  static String error_text = "Something went wrong! Please try again";
+  static String text_reload = "Reload";
+
 
   static const String text_attendance_status = "Attendance Status";
   static const String text_entry_type = "Entry Type";
@@ -214,12 +217,12 @@ class AppString {
 
   // Route string here
   static const String splashScreen = "/splash_screen";
-  static const String signInScreen = "/signIn_screen'";
-  static const String forgotScreen = "/forgot_screen'";
-  static const String receiveScreen = "/receive_screen'";
-  static const String onboardScreen = "/onboard_screen'";
-  static const String attendLogScreen = "/attendLog_screen'";
-  static const String moreScreen = "/more_screen'";
-  static const String home = "/home'";
+  static const String signInScreen = "/signIn_screen";
+  static const String forgotScreen = "/forgot_screen";
+  static const String receiveScreen = "/receive_screen";
+  static const String onboardScreen = "/onboard_screen";
+  static const String attendLogScreen = "/attendLog_screen";
+  static const String moreScreen = "/more_screen";
+  static const String home = "/home";
   static const String calender = "/calender_screen";
 }

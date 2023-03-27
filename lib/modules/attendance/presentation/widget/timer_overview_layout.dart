@@ -16,6 +16,8 @@ Widget timerOverviewLayout() {
     width: double.infinity,
     height: AppLayout.getHeight(60),
     child: PageView(
+      onPageChanged: (currentIndex) =>
+          Get.find<AttendanceController>().currentIndex.value = currentIndex,
       children: [
         Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -31,19 +33,17 @@ Widget timerOverviewLayout() {
               const Spacer(),
               balanceTimeLog()
             ]),
-        Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              scheduledTimeLog(),
-              const Spacer(),
-              verticalDivider(),
-              const Spacer(),
-              remainingTimeLog(),
-              const Spacer(),
-              verticalDivider(),
-              const Spacer(),
-              overtimeTimeLog(),
-            ]),
+        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          scheduledTimeLog(),
+          const Spacer(),
+          verticalDivider(),
+          const Spacer(),
+          remainingTimeLog(),
+          const Spacer(),
+          verticalDivider(),
+          const Spacer(),
+          overtimeTimeLog(),
+        ]),
       ],
     ),
   );
@@ -51,22 +51,40 @@ Widget timerOverviewLayout() {
 
 overtimeTimeLog() {
   return logInfo(title: AppString.text_overtime, time: TimeCounterHelper.getTimeStringFromDouble(
-      Get.find<AttendanceController>().logs.value.data!.todayOvertime.toDouble()));
+      Get.find<AttendanceController>().logs.value.data != null
+          ? Get.find<AttendanceController>()
+          .logs
+          .value
+          .data!
+          .todayOvertime
+          .toDouble()
+          : 0.0));
 }
 
 remainingTimeLog() {
-  return scheduledLogInfo(
-    title: AppString.text_remaining,
-    time: TimeCounterHelper.getTimeStringFromDouble(
-        Get.find<AttendanceController>().logs.value.data!.todayShortage.toDouble())
-  );
+  return scheduledLogInfo(title: AppString.text_remaining, time: TimeCounterHelper.getTimeStringFromDouble(
+      Get.find<AttendanceController>().logs.value.data != null
+          ? Get.find<AttendanceController>()
+          .logs
+          .value
+          .data!
+          .todayShortage
+          .toDouble()
+          : 0.0));
 }
 
 scheduledTimeLog() {
   return scheduledLogInfo(
       title: AppString.text_scheduled,
       time: TimeCounterHelper.getTimeStringFromDouble(
-          Get.find<AttendanceController>().logs.value.data!.todayScheduled.toDouble()));
+          Get.find<AttendanceController>().logs.value.data != null
+              ? Get.find<AttendanceController>()
+                  .logs
+                  .value
+                  .data!
+                  .todayScheduled
+                  .toDouble()
+              : 0.0));
 }
 
 balanceTimeLog() {
@@ -83,12 +101,22 @@ balanceTimeLog() {
 }
 
 outTimeLog() {
-  return logInfo(title: AppString.text_out, time: Get.find<AttendanceController>().logs.value.data!.dailyLogs!.first.outTime.toString());
+  var controller = Get.find<AttendanceController>();
+  return scheduledLogInfo(
+      title: AppString.text_out,
+      time: (!controller.isPunchIn.value &&
+              controller.logs.value.data!.dailyLogs!.isNotEmpty)
+          ? controller.logs.value.data?.dailyLogs?.first.outTime
+          : '');
 }
 
 inTimeLog() {
-  return logInfo(title: AppString.text_in, time:
-      Get.find<AttendanceController>().logs.value.data!.dailyLogs!.first.inTime.toString());
+  var controller = Get.find<AttendanceController>();
+  return scheduledLogInfo(
+      title: AppString.text_in,
+      time: controller.logs.value.data!.dailyLogs!.isNotEmpty
+          ? controller.logs.value.data?.dailyLogs?.first.inTime
+          : '');
 }
 
 logInfo({required String title, required String time, Color? fontColor}) {
@@ -113,7 +141,7 @@ logInfo({required String title, required String time, Color? fontColor}) {
   );
 }
 
-scheduledLogInfo({required String title, String time = "", Color? fontColor}) {
+scheduledLogInfo({required String title, String? time, Color? fontColor}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisAlignment: MainAxisAlignment.center,
@@ -123,7 +151,7 @@ scheduledLogInfo({required String title, String time = "", Color? fontColor}) {
               ? AppStyle.small_text.copyWith(color: Colors.grey)
               : AppStyle.small_text),
       Text(
-        time,
+        time ?? "",
         style: fontColor != null
             ? AppStyle.normal_text
                 .copyWith(fontWeight: FontWeight.bold, color: fontColor)
@@ -179,16 +207,16 @@ Widget attendanceLogsOverviewLayout(context) {
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
                                       fontSize: Dimensions.fontSizeLarge - 3,
-                                      color: AppColor.cardColor
-                                          .withOpacity(0.8)),
+                                      color:
+                                          AppColor.cardColor.withOpacity(0.8)),
                                 ),
                                 Text(
                                   'Worked',
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
                                       fontSize: Dimensions.fontSizeMid - 3,
-                                      color: AppColor.cardColor
-                                          .withOpacity(0.8)),
+                                      color:
+                                          AppColor.cardColor.withOpacity(0.8)),
                                 ),
                               ],
                             ),
@@ -241,16 +269,16 @@ Widget attendanceLogsOverviewLayout(context) {
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
                                       fontSize: Dimensions.fontSizeLarge,
-                                      color: AppColor.cardColor
-                                          .withOpacity(0.8)),
+                                      color:
+                                          AppColor.cardColor.withOpacity(0.8)),
                                 ),
                                 Text(
                                   'Worked',
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
                                       fontSize: Dimensions.fontSizeMid,
-                                      color: AppColor.cardColor
-                                          .withOpacity(0.8)),
+                                      color:
+                                          AppColor.cardColor.withOpacity(0.8)),
                                 ),
                               ],
                             ),
