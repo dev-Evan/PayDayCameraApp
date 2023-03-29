@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
-
 import '../utils/dimensions.dart';
-import 'custom_button.dart';
 
 Widget customDoubleButton(
     {context,
@@ -28,20 +26,19 @@ Widget customDoubleButton(
                     ),
                     primary: AppColor.backgroundColor,
                     elevation: 0,
-                    side:
-                        const BorderSide(width: 1, color: AppColor.normalTextColor)),
+                    side: const BorderSide(
+                        width: 1, color: AppColor.normalTextColor)),
                 child: Text(
                   textBtnText,
                   style: AppStyle.mid_large_text.copyWith(
                       color: AppColor.normalTextColor,
-                      fontSize: Dimensions.fontSizeMid-3),
+                      fontSize: Dimensions.fontSizeDefault),
                 )),
           ),
         ),
         SizedBox(
           width: AppLayout.getWidth(12),
         ),
-
         Flexible(
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -54,17 +51,16 @@ Widget customDoubleButton(
                     ),
                     primary: AppColor.primaryColor,
                     elevation: 0,
-                    side:
-                    const BorderSide(width: 1, color: AppColor.primaryColor)),
+                    side: const BorderSide(
+                        width: 1, color: AppColor.primaryColor)),
                 child: Text(
                   elevatedBtnText,
                   style: AppStyle.mid_large_text.copyWith(
                       color: AppColor.cardColor,
-                      fontSize: Dimensions.fontSizeMid-3),
+                      fontSize: Dimensions.fontSizeMid - 3),
                 )),
           ),
         ),
-
       ],
     ),
   );

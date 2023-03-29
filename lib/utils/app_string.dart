@@ -55,6 +55,15 @@ class AppString {
   static String text_scheduled = "Scheduled";
   static String text_remaining = "Remaining";
   static String text_overtime = "Overtime";
+
+  static String text_today = "Today";
+  static String text_this_week = "This Week";
+  static String text_last_week = "Last Week";
+  static String text_last_month = "Last Month";
+
+
+
+
   static String text_requstAttendance = "Request Attendance";
   static String text_attendance_log = "Attendance Logs";
   static String todays_log = "Today’s logs";
@@ -108,7 +117,12 @@ class AppString {
    static const String text_cancel_leave = "Cancel Leave";
    static const String text_log_response = "Log Response";
    static const String text_leve_note = "Leave note";
-  // static const String text_3_hour = "3 hours";
+   static const String text_half_day = "Half Day";
+   static const String text_start_day = "Start Day";
+   static const String text_end_day = "End Day";
+   static const String text_interval = "Interval";
+   static const String text_last = "Last";
+   static const String text_first = "First";
 
   //PaySlip modules string here
   static const String text_paid = "Paid";
@@ -183,6 +197,7 @@ class AppString {
   static String text_address = "Address ";
   static String text_details = "Details";
   static String text_birthday = "Birthday";
+  static String text_date_of_birth = "Date of Birth";
   static String text_phone = "Phone";
   static String text_personal = "Personal";
   static String text_job_histroy = "Job History";

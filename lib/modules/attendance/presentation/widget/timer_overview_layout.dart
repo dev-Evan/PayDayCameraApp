@@ -156,7 +156,8 @@ Widget attendanceLogsOverviewLayout(context) {
                       crossAxisCount: 3,
                       childAspectRatio: 3.8 / 3,
                       crossAxisSpacing: 0,
-                      mainAxisSpacing: 0),
+                      mainAxisSpacing: 0
+                  ),
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: 6,
                   itemBuilder: (context, index) {
@@ -217,9 +218,11 @@ Widget attendanceLogsOverviewLayout(context) {
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      childAspectRatio: 3 / 2.3,
+                      childAspectRatio: 3.8 / 3,
                       crossAxisSpacing: 0,
-                      mainAxisSpacing: 0),
+                      mainAxisSpacing: 0
+                  ),
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: 6,
                   itemBuilder: (context, index) {
                     return Card(
@@ -227,9 +230,9 @@ Widget attendanceLogsOverviewLayout(context) {
                       color: AppColor.cardColor.withOpacity(0.1),
                       shape: RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius.circular(Dimensions.radiusDefault),
+                          BorderRadius.circular(Dimensions.radiusDefault+2),
                           side: BorderSide(
-                              width: 2,
+                              width: 1,
                               color: AppColor.cardColor.withOpacity(0.2))),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -243,7 +246,7 @@ Widget attendanceLogsOverviewLayout(context) {
                                   '148',
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
-                                      fontSize: Dimensions.fontSizeLarge,
+                                      fontSize: Dimensions.fontSizeLarge - 3,
                                       color: AppColor.cardColor
                                           .withOpacity(0.8)),
                                 ),
@@ -251,7 +254,7 @@ Widget attendanceLogsOverviewLayout(context) {
                                   'Worked',
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
-                                      fontSize: Dimensions.fontSizeMid,
+                                      fontSize: Dimensions.fontSizeMid - 3,
                                       color: AppColor.cardColor
                                           .withOpacity(0.8)),
                                 ),

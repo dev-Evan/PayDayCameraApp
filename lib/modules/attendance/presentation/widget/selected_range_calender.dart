@@ -40,10 +40,10 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
   }
 
   List dateTime = [
-    "Today",
-    "This Week",
-    "Last Week",
-    "Last Month",
+    AppString.text_today,
+    AppString.text_this_week,
+    AppString.text_last_week,
+    AppString.text_last_month,
   ];
 
   @override
@@ -55,101 +55,110 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(12.0),
-            child: Column(
-              children: [
-                TableCalendar(
-                  locale: "en_US",
-                  rowHeight: 43,
-                  rangeSelectionMode: RangeSelectionMode.toggledOn,
-                  rangeStartDay: today,
-                  rangeEndDay: _selectedDate,
-                  // onRangeSelected: (_selectedDate, end, focusedDay) {
-                  //
-                  // },
-                  headerStyle: const HeaderStyle(
-                      formatButtonVisible: false, titleCentered: true),
-                  availableGestures: AvailableGestures.all,
-                  firstDay: firstDate,
-                  lastDay: lastDate,
-                  focusedDay: today,
-                  onDaySelected: (selectedDay, focusedDay) {
-                    if (!isSameDay(_selectedDate, selectedDay)) {
-                      setState(() {
-                        _selectedDate = selectedDay;
-                        _focusedDay = focusedDay;
-                      });
-                    }
-                  },
-                  // selectedDayPredicate: (day) {
-                  //   return isSameDay(_selectedDate, day);
-                  // },
-                  onFormatChanged: (format) {
-                    if (_calendarFormat != format) {
-                      setState(() {
-                        _calendarFormat = format;
-                      });
-                    }
-                  },
-                  onPageChanged: (focusedDay) {
-                    _focusedDay = focusedDay;
-                  },
-                ),
-                const Spacer(),
-                Row(
-                  children: [
-                    Flexible(
-                        child: CustomTextFeild(
-                            hintText: 'Form',inputType:  TextInputType.text,controller:  _formController)),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 8.0, right: 8.0),
-                      child: Icon(Icons.minimize_outlined),
-                    ),
-                    Flexible(
-                        child: CustomTextFeild(
-                           hintText:  'To', inputType: TextInputType.text,controller:  _toController)),
-                  ],
-                ),
-                const Spacer(),
-                CustomDiveider(0.7, MediaQuery.of(context).size.width),
-                const Spacer(),
-                SizedBox(
-                  height: AppLayout.getHeight(56),
-                  child: ListView.builder(
-                    itemCount: dateTime.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        elevation: 0,
-                        color: Colors.grey.shade100,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                Dimensions.radiusDefault)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 12.0, right: 12, top: 8, bottom: 8),
-                          child: Center(
-                              child: Text(
-                            dateTime[index],
-                            style: AppStyle.mid_large_text.copyWith(
-                                color: AppColor.normalTextColor,
-                                fontSize: Dimensions.fontSizeDefault + 3),
-                          )),
-                        ),
-                      );
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  TableCalendar(
+                    locale: "en_US",
+                    rowHeight: 43,
+                    rangeSelectionMode: RangeSelectionMode.toggledOn,
+                    rangeStartDay: today,
+                    rangeEndDay: _selectedDate,
+                    // onRangeSelected: (_selectedDate, end, focusedDay) {
+                    //
+                    // },
+                    headerStyle: const HeaderStyle(
+                        formatButtonVisible: false, titleCentered: true),
+                    availableGestures: AvailableGestures.all,
+                    firstDay: firstDate,
+                    lastDay: lastDate,
+                    focusedDay: today,
+                    onDaySelected: (selectedDay, focusedDay) {
+                      if (!isSameDay(_selectedDate, selectedDay)) {
+                        setState(() {
+                          _selectedDate = selectedDay;
+                          _focusedDay = focusedDay;
+                        });
+                      }
+                    },
+                    // selectedDayPredicate: (day) {
+                    //   return isSameDay(_selectedDate, day);
+                    // },
+                    onFormatChanged: (format) {
+                      if (_calendarFormat != format) {
+                        setState(() {
+                          _calendarFormat = format;
+                        });
+                      }
+                    },
+                    onPageChanged: (focusedDay) {
+                      _focusedDay = focusedDay;
                     },
                   ),
-                ),
-                const Spacer(),
-                customDoubleButton(
-                    context: context,
-                    textBtnText: 'Clear',
-                    textButtonAction: () {},
-                    elevatedBtnText: 'Apply',
-                    elevatedButtonAction: () {})
-              ],
+                 // const Spacer(),
+                  Row(
+                    children: [
+                      Flexible(
+                          child: CustomTextFeild(
+                              hintText: 'Form',inputType:  TextInputType.text,controller:  _formController)),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                        child: Icon(Icons.minimize_outlined),
+                      ),
+                      Flexible(
+                          child: CustomTextFeild(
+                             hintText:  'To', inputType: TextInputType.text,controller:  _toController)),
+                    ],
+                  ),
+                  // const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0,bottom: 16),
+                    child: CustomDiveider(0.7, MediaQuery.of(context).size.width),
+                  ),
+
+                  SizedBox(
+                    height: AppLayout.getHeight(56),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics:  const AlwaysScrollableScrollPhysics(),
+                      itemCount: dateTime.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          elevation: 0,
+                          color: Colors.grey.shade100,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  Dimensions.radiusDefault)),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 12.0, right: 12, top: 8, bottom: 8),
+                            child: Center(
+                                child: Text(
+                              dateTime[index],
+                              style: AppStyle.mid_large_text.copyWith(
+                                  color: AppColor.normalTextColor,
+                                  fontSize: Dimensions.fontSizeDefault + 3),
+                            )),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+
+                ],
+              ),
             ),
           ),
-        )
+        ),
+        // const Spacer(),
+        customDoubleButton(
+            context: context,
+            textBtnText: 'Clear',
+            textButtonAction: () {},
+            elevatedBtnText: 'Apply',
+            elevatedButtonAction: () {})
+
       ],
     );
   }

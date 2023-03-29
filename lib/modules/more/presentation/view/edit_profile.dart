@@ -118,7 +118,7 @@ class _EditProfileState extends State<EditProfile> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Text(
-                      AppString.text_county,
+                      AppString.text_phone,
                       style: AppStyle.small_text.copyWith(
                           color: AppColor.hintColor,
                           fontWeight: FontWeight.w600,
@@ -175,7 +175,7 @@ class _EditProfileState extends State<EditProfile> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Text(
-                      AppString.text_address_details,
+                      AppString.text_date_of_birth,
                       style: AppStyle.small_text.copyWith(
                           color: AppColor.hintColor,
                           fontWeight: FontWeight.w600,

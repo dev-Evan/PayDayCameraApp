@@ -25,7 +25,7 @@ class CustomButton extends StatelessWidget {
               elevation: 0),
           child: Text(
             text,
-            style: GoogleFonts.poppins(fontSize: Dimensions.fontSizeMid-3),
+            style: GoogleFonts.poppins(fontSize: Dimensions.fontSizeDefault),
           )),
     );
   }
@@ -53,7 +53,7 @@ class CustomSmallButton extends StatelessWidget {
         child: Text(
           text,
           style: GoogleFonts.poppins(
-              fontSize: Dimensions.fontSizeMid, fontWeight: FontWeight.w600),
+              fontSize: Dimensions.fontSizeDefault, fontWeight: FontWeight.w600),
         ),
       ),
     );

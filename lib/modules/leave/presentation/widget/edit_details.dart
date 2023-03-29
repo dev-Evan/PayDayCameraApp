@@ -261,7 +261,7 @@ class EditDetails extends StatelessWidget {
           ),
 
 
-         // const Spacer(),
+
           customDoubleButton(textBtnText: AppString.text_cancel,elevatedBtnText: AppString.text_save,context: context,elevatedButtonAction: (){},textButtonAction: ()=>Get.back())
 
         ],

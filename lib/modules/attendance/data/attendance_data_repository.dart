@@ -54,7 +54,7 @@ class AttendanceDataRepository {
     print(response.statusCode);
     if (response.body != null) {
       if (response.statusCode == 200) {
-        print(CheckEntryStatus.fromJson(response.body));
+        print(CheckEntryStatus.fromJson(response.    body));
         return right(CheckEntryStatus.fromJson(response.body));
       } else {
         print(ErrorModel.fromJson(response.body));
