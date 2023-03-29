@@ -20,7 +20,7 @@ class AddressDetails extends StatelessWidget {
         children: [
           customMoreAppbar(titleText: AppString.text_address_details),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding:  const EdgeInsets.all(20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -218,8 +218,8 @@ class AddressDetails extends StatelessWidget {
                             TextButton(
                                 onPressed: () => customButtomSheet(
                                     context: context,
-                                    Height: 0.9,
-                                    Child: AddAddress()),
+                                    height: 0.9,
+                                    child: AddAddress()),
                                 child: Text(
                                   AppString.text_add,
                                   style: AppStyle.mid_large_text.copyWith(

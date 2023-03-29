@@ -12,6 +12,8 @@ class AppString {
   static String LOG_DETAILS = "/attendance/details";
   static String ATTENDANCE_REQUEST = "/attendance/request";
   static String CHANGE_LOG = "/attendance/log";
+  static String LOG_SUMMARY_BY_THIS_MONTH = "/attendance/summary?within=thisMonth";
+  static String LOG_SUMMARY_BY_THIS_YEAR = "/attendance/summary?within=thisYear";
 
   // Apps string here
   static const String exampleText = "";
@@ -124,6 +126,10 @@ class AppString {
   static String text_$30= "\$30,000";
   static String text_salary_increment= "Salary Increment";
   static String text_will_be_effective_from= "Will be effective from ";
+  static String text_worked= "Worked";
+  static String text_leave_hour= "Leave Hour";
+  static String text_behaviour= "Behaviour";
+  static String text_availablity= "Availability";
   // static String text_address_details = "Permanent";
 
 

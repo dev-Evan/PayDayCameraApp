@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/common/custom_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
+import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
@@ -16,8 +17,6 @@ class JodHistory extends StatefulWidget {
 }
 
 class _JodHistoryState extends State<JodHistory> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +30,10 @@ class _JodHistoryState extends State<JodHistory> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: EdgeInsets.symmetric(
+                      vertical: AppLayout.getHeight(Dimensions.paddingLarge),
+                      horizontal: AppLayout.getWidth(Dimensions.paddingLarge),
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

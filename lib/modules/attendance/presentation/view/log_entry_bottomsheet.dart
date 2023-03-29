@@ -210,7 +210,7 @@ class logEntryBottomSheet extends GetView<AttendanceController> {
     final controller = Get.find<AttendanceController>();
     return Obx(() => AppButton(
           buttonColor: controller.isPunchIn.value
-              ? AppColor.primary_red
+              ? AppColor.primary_orange
               : AppColor.primary_green,
           buttonText: controller.isPunchIn.value
               ? AppString.text_punch_out

@@ -1,34 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/common/custom_appbar.dart';
 import 'package:pay_day_mobile/common/custom_button.dart';
+import 'package:pay_day_mobile/common/loading_indicator.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/request_attendance_bottomsheet.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_logs_widget.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/widget/log_summary_tabbar.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/dot_indicator.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/widget/timer_overview_layout.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-class AttendanceLogsScreen extends StatelessWidget {
+import '../widget/attendace_log_overview.dart';
+
+class AttendanceLogsScreen extends GetView<AttendanceLogsController> {
   const AttendanceLogsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: AppColor.backgroundColor,
-        floatingActionButton: Padding(
-          padding: EdgeInsets.only(left: AppLayout.getWidth(30)),
-          child: CustomButton(AppString.text_requstAttendance, () {
-            _openRequestAttendanceBottomSheet(context: context);
-          }),
-        ),
-        appBar: const CustomAppbar(),
-        body: Stack(
-          children: [
-            CustomScrollView(
+    controller.getLogSummaryByMonth();
+    controller.getLogSummaryByYear();
+    return controller.obx(
+        (state) => Scaffold(
+            backgroundColor: AppColor.backgroundColor,
+            floatingActionButton: Padding(
+              padding: EdgeInsets.only(left: AppLayout.getWidth(30)),
+              child: CustomButton(AppString.text_requstAttendance, () {
+                _openRequestAttendanceBottomSheet(context: context);
+              }),
+            ),
+            appBar: const CustomAppbar(),
+            body: CustomScrollView(
               slivers: [
                 SliverFillRemaining(
                   hasScrollBody: false,
@@ -37,18 +41,21 @@ class AttendanceLogsScreen extends StatelessWidget {
                       Container(
                         height: AppLayout.getHeight(305),
                         decoration: BoxDecoration(
-                            color: AppColor.primaryColor,
-                            borderRadius: BorderRadius.only(
-                                bottomLeft:
-                                    Radius.circular(Dimensions.radiusMid),
-                                bottomRight:
-                                    Radius.circular(Dimensions.radiusMid))),
+                          color: AppColor.primaryColor,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(Dimensions.radiusMid),
+                            bottomRight: Radius.circular(Dimensions.radiusMid),
+                          ),
+                        ),
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              backlogs(context),
+                              customMoreAppbar(
+                                  titleText: AppString.text_attendance_log,
+                                  bgColor: AppColor.primaryColor,
+                                  textColor: Colors.white),
                               attendanceLogsOverviewLayout(context),
-                              dotIndicator()
+                              Obx(() => dotIndicator(controller.currentIndex.value)),
                             ],
                           ),
                         ),
@@ -59,16 +66,15 @@ class AttendanceLogsScreen extends StatelessWidget {
                       SingleChildScrollView(
                         child: SizedBox(
                           height: MediaQuery.of(context).size.height,
-                          child: tabBar(),
+                          child: logSummaryTabBar(),
                         ),
                       ),
                     ],
                   ),
                 )
               ],
-            ),
-          ],
-        ));
+            )),
+        onLoading: const LoadingIndicator());
   }
 }
 

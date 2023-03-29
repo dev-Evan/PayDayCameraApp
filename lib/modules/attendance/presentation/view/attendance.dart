@@ -75,7 +75,7 @@ class Attendance extends GetView<AttendanceController> {
                         }),
                         SizedBox(
                             height: AppLayout.getHeight(Dimensions.paddingMid)),
-                        Obx(() => dotIndicator()),
+                        Obx(() => dotIndicator(Get.find<AttendanceController>().currentIndex.value)),
                         attendanceLogText(context),
                       ]),
                 ),
