@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/common/text_field.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/widget/pop_up_dialog.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/custom_text_field_dob.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+
+import 'apply_lev_popup_calendar.dart';
+
 class ApplyLeaveDobHalfDay extends StatefulWidget {
   const ApplyLeaveDobHalfDay({Key? key}) : super(key: key);
 
@@ -14,8 +18,8 @@ class ApplyLeaveDobHalfDay extends StatefulWidget {
 }
 
 class _ApplyLeaveDobHalfDayState extends State<ApplyLeaveDobHalfDay> {
-  bool selectedFirst=false;
-  bool selectedLast=false;
+  bool selectedFirst = false;
+  bool selectedLast = false;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +39,10 @@ class _ApplyLeaveDobHalfDayState extends State<ApplyLeaveDobHalfDay> {
               CustomTextFieldDob(
                   hintText: '01-Jan-1996',
                   dobIcon: Icons.calendar_month,
-                  dobIconAction: () {}),
+                  dobIconAction: () => popUpDialog(
+                      context: context,
+                      Child: const ApplyLevPopUpCalendar(),
+                      DobSaveAction: () {})),
             ],
           ),
         ),
@@ -56,69 +63,76 @@ class _ApplyLeaveDobHalfDayState extends State<ApplyLeaveDobHalfDay> {
               Row(
                 children: [
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       setState(() {
-                        selectedFirst  =! selectedFirst;
-
+                        selectedFirst = !selectedFirst;
                       });
                     },
                     child: Card(
                       elevation: 0,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radiusDefault),
                           side: BorderSide(
                               color: selectedFirst
                                   ? AppColor.primaryColor
-                                  : AppColor.disableColor.withOpacity(0.4))
-                      ),
-                      color: selectedFirst?AppColor.primaryColor.withOpacity(0.2): AppColor.disableColor.withOpacity(0.4),
-                      child:  Padding(
-                        padding: const EdgeInsets.only(left: 22.0,right: 22,top: 16,bottom: 16),
-                        child: Text(AppString.text_first,style: AppStyle.small_text_black.copyWith(
-                            fontWeight: FontWeight.w600,
-                            fontSize: Dimensions.fontSizeDefault,
-                            letterSpacing: 0.2,
-                            color: selectedFirst
-                                ? AppColor.primaryColor
-                                : AppColor.normalTextColor),),
+                                  : AppColor.disableColor.withOpacity(0.4))),
+                      color: selectedFirst
+                          ? AppColor.primaryColor.withOpacity(0.2)
+                          : AppColor.disableColor.withOpacity(0.4),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 22.0, right: 22, top: 16, bottom: 16),
+                        child: Text(
+                          AppString.text_first,
+                          style: AppStyle.small_text_black.copyWith(
+                              fontWeight: FontWeight.w600,
+                              fontSize: Dimensions.fontSizeDefault,
+                              letterSpacing: 0.2,
+                              color: selectedFirst
+                                  ? AppColor.primaryColor
+                                  : AppColor.normalTextColor),
+                        ),
                       ),
                     ),
                   ),
-                  SizedBox(width: AppLayout.getWidth(12),),
+                  SizedBox(
+                    width: AppLayout.getWidth(12),
+                  ),
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       setState(() {
-                        selectedLast  =! selectedLast;
-
+                        selectedLast = !selectedLast;
                       });
                     },
                     child: Card(
                       elevation: 0,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radiusDefault),
                           side: BorderSide(
                               color: selectedLast
                                   ? AppColor.primaryColor
-                                  : AppColor.disableColor.withOpacity(0.4))
-                      ),
-                      color: selectedLast?AppColor.primaryColor.withOpacity(0.2): AppColor.disableColor.withOpacity(0.4),
-                      child:  Padding(
-                        padding: const EdgeInsets.only(left: 22.0,right: 22,top: 16,bottom: 16),
-                        child: Text(AppString.text_last,style: AppStyle.small_text_black.copyWith(
-                            fontWeight: FontWeight.w600,
-                            fontSize: Dimensions.fontSizeDefault,
-                            letterSpacing: 0.2,
-                            color: selectedLast
-                                ? AppColor.primaryColor
-                                : AppColor.normalTextColor),),
-
-
-
-
+                                  : AppColor.disableColor.withOpacity(0.4))),
+                      color: selectedLast
+                          ? AppColor.primaryColor.withOpacity(0.2)
+                          : AppColor.disableColor.withOpacity(0.4),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 22.0, right: 22, top: 16, bottom: 16),
+                        child: Text(
+                          AppString.text_last,
+                          style: AppStyle.small_text_black.copyWith(
+                              fontWeight: FontWeight.w600,
+                              fontSize: Dimensions.fontSizeDefault,
+                              letterSpacing: 0.2,
+                              color: selectedLast
+                                  ? AppColor.primaryColor
+                                  : AppColor.normalTextColor),
+                        ),
                       ),
                     ),
                   ),
-
                 ],
               )
             ],

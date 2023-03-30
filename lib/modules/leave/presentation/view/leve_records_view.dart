@@ -45,6 +45,8 @@ class LeaveRecordsView extends StatelessWidget {
                     customMoreAppbar(
                       titleText: AppString.text_leave_records,
                       bgColor: AppColor.primaryColor,
+                      textColor: AppColor.backgroundColor,
+
                     ),
                     leaveRecordsLayOut(),
                   ],

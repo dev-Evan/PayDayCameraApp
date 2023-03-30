@@ -13,11 +13,12 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import 'package:pay_day_mobile/utils/images.dart';
 
 
 
 class ViewProfile extends StatelessWidget {
-  UserProfileController profileData=Get.put(UserProfileController());
+  //UserProfileController profileData=Get.put(UserProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class ViewProfile extends StatelessWidget {
                   backgroundColor: AppColor.primaryColor,
                   child: CircleAvatar(
                     radius: 32,
-                    backgroundImage: NetworkImage(profileData.userProfile!.data!.profilePictureUrl.toString(),),
+                    backgroundImage: AssetImage(Images.user),
                   ),
                 ),
                 const Positioned(
@@ -63,7 +64,7 @@ class ViewProfile extends StatelessWidget {
               children: [
                 Center(
                   child: Text(
-            profileData.userProfile!.data!.fullName.toString(),
+            '',
                     style: AppStyle.mid_large_text.copyWith(
                         fontWeight: FontWeight.w800,
                         color: AppColor.normalTextColor),
@@ -76,7 +77,7 @@ class ViewProfile extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          profileData.userProfile!.data!.designationName.toString(),
+                          '',
                           style: AppStyle.small_text
                               .copyWith(color: AppColor.hintColor),
                         ),
@@ -94,7 +95,7 @@ class ViewProfile extends StatelessWidget {
                       width: AppLayout.getWidth(8),
                     ),
                     Text(
-                      profileData.userProfile!.data!.employmentStatus.toString(),
+                      '',
                       style: AppStyle.small_text
                           .copyWith(color: AppColor.hintColor),
                     ),
@@ -144,7 +145,7 @@ class ViewProfile extends StatelessWidget {
                         height: AppLayout.getHeight(8),
                       ),
                       Text(
-                        profileData.userProfile!.data!.aboutMe.toString(),
+                       '',
                         style: AppStyle.small_text.copyWith(
                             color: AppColor.normalTextColor,
                             fontSize: Dimensions.fontSizeDefault - 1),
@@ -185,7 +186,7 @@ class ViewProfile extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  profileData.userProfile!.data!.departmentName.toString(),
+                                 '',
                                   style: AppStyle.small_text_black.copyWith(
                                       fontSize: Dimensions.fontSizeSmall + 2,
                                       color: AppColor.normalTextColor),
@@ -229,7 +230,7 @@ class ViewProfile extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  profileData.userProfile!.data!.workingShiftName.toString(),
+                                 '',
                                   style: AppStyle.small_text_black.copyWith(
                                       fontSize: Dimensions.fontSizeSmall + 2,
                                       color: AppColor.normalTextColor),
@@ -273,7 +274,7 @@ class ViewProfile extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  profileData.userProfile!.data!.email.toString(),
+                                 '',
                                   style: AppStyle.small_text_black.copyWith(
                                       fontSize: Dimensions.fontSizeSmall + 2,
                                       color: AppColor.normalTextColor),
@@ -317,7 +318,7 @@ class ViewProfile extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  profileData.userProfile!.data!.contact.toString(),
+                                '',
                                   style: AppStyle.small_text_black.copyWith(
                                       fontSize: Dimensions.fontSizeSmall + 2,
                                       color: AppColor.normalTextColor),
@@ -370,7 +371,7 @@ class ViewProfile extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                            profileData.userProfile!.data!.address.toString(),
+                           '',
                                   style: AppStyle.small_text_black.copyWith(
                                       fontSize: Dimensions.fontSizeSmall + 2,
                                       color: AppColor.normalTextColor),
@@ -414,7 +415,7 @@ class ViewProfile extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                            profileData.userProfile!.data!.dateOfBirth.toString(),
+                            '',
                                   style: AppStyle.small_text_black.copyWith(
                                       fontSize: Dimensions.fontSizeSmall + 2,
                                       color: AppColor.normalTextColor),
@@ -458,7 +459,7 @@ class ViewProfile extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  profileData.userProfile!.data!.gender.toString(),
+                                 '',
                                   style: AppStyle.small_text_black.copyWith(
                                       fontSize: Dimensions.fontSizeSmall + 2,
                                       color: AppColor.normalTextColor),

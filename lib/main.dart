@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/init_%20app.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance.dart';
 import 'package:pay_day_mobile/modules/home/presentation/home.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/edit_profile.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/more.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/salary_overview.dart';
 import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/theme.dart';
+import 'modules/attendance/presentation/view/attendance_logs.dart';
 import 'modules/leave/presentation/view/leave.dart';
 import 'modules/more/presentation/view/address_details.dart';
 import 'modules/more/presentation/view/jod_history.dart';
@@ -25,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: appTheme,
        // initialRoute: AppString.home,
        // getPages: getPage,
-      home: const Leave(),
+      home:  MoreScreen(),
     );
   }
 }

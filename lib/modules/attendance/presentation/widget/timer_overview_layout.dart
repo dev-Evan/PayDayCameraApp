@@ -71,12 +71,18 @@ remainingTimeLog() {
           .todayShortage
           .toDouble()
           : 0.0));
+
 }
+
+
+
+
 
 scheduledTimeLog() {
   return scheduledLogInfo(
       title: AppString.text_scheduled,
       time: TimeCounterHelper.getTimeStringFromDouble(
+
           Get.find<AttendanceController>().logs.value.data != null
               ? Get.find<AttendanceController>()
                   .logs
@@ -85,6 +91,7 @@ scheduledTimeLog() {
                   .todayScheduled
                   .toDouble()
               : 0.0));
+
 }
 
 balanceTimeLog() {
@@ -101,6 +108,7 @@ balanceTimeLog() {
 }
 
 outTimeLog() {
+
   var controller = Get.find<AttendanceController>();
   return scheduledLogInfo(
       title: AppString.text_out,
@@ -117,7 +125,10 @@ inTimeLog() {
       time: controller.logs.value.data!.dailyLogs!.isNotEmpty
           ? controller.logs.value.data?.dailyLogs?.first.inTime
           : '');
+
 }
+
+
 
 logInfo({required String title, required String time, Color? fontColor}) {
   return Column(
@@ -162,9 +173,6 @@ scheduledLogInfo({required String title, String? time, Color? fontColor}) {
 }
 
 Widget attendanceLogsOverviewLayout(context) {
-
-
-
   return SizedBox(
     width: double.infinity,
     height: AppLayout.getHeight(230),
@@ -184,8 +192,7 @@ Widget attendanceLogsOverviewLayout(context) {
                       crossAxisCount: 3,
                       childAspectRatio: 3.8 / 3,
                       crossAxisSpacing: 0,
-                      mainAxisSpacing: 0
-                  ),
+                      mainAxisSpacing: 0),
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: 6,
                   itemBuilder: (context, index) {
@@ -193,8 +200,8 @@ Widget attendanceLogsOverviewLayout(context) {
                       elevation: 0,
                       color: AppColor.cardColor.withOpacity(0.1),
                       shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radiusDefault+2),
+                          borderRadius: BorderRadius.circular(
+                              Dimensions.radiusDefault + 2),
                           side: BorderSide(
                               width: 1,
                               color: AppColor.cardColor.withOpacity(0.2))),
@@ -211,16 +218,16 @@ Widget attendanceLogsOverviewLayout(context) {
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
                                       fontSize: Dimensions.fontSizeLarge - 3,
-                                      color: AppColor.cardColor
-                                          .withOpacity(0.8)),
+                                      color:
+                                          AppColor.cardColor.withOpacity(0.8)),
                                 ),
                                 Text(
                                   'Worked',
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
                                       fontSize: Dimensions.fontSizeMid - 3,
-                                      color: AppColor.cardColor
-                                          .withOpacity(0.8)),
+                                      color:
+                                          AppColor.cardColor.withOpacity(0.8)),
                                 ),
                               ],
                             ),
@@ -248,8 +255,7 @@ Widget attendanceLogsOverviewLayout(context) {
                       crossAxisCount: 3,
                       childAspectRatio: 3.8 / 3,
                       crossAxisSpacing: 0,
-                      mainAxisSpacing: 0
-                  ),
+                      mainAxisSpacing: 0),
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: 6,
                   itemBuilder: (context, index) {
@@ -257,8 +263,8 @@ Widget attendanceLogsOverviewLayout(context) {
                       elevation: 0,
                       color: AppColor.cardColor.withOpacity(0.1),
                       shape: RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius.circular(Dimensions.radiusDefault+2),
+                          borderRadius: BorderRadius.circular(
+                              Dimensions.radiusDefault + 2),
                           side: BorderSide(
                               width: 1,
                               color: AppColor.cardColor.withOpacity(0.2))),
@@ -275,16 +281,16 @@ Widget attendanceLogsOverviewLayout(context) {
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
                                       fontSize: Dimensions.fontSizeLarge - 3,
-                                      color: AppColor.cardColor
-                                          .withOpacity(0.8)),
+                                      color:
+                                          AppColor.cardColor.withOpacity(0.8)),
                                 ),
                                 Text(
                                   'Worked',
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
                                       fontSize: Dimensions.fontSizeMid - 3,
-                                      color: AppColor.cardColor
-                                          .withOpacity(0.8)),
+                                      color:
+                                          AppColor.cardColor.withOpacity(0.8)),
                                 ),
                               ],
                             ),
@@ -316,6 +322,3 @@ Widget logsText(text) {
     ),
   );
 }
-
-
-

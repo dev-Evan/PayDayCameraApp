@@ -51,7 +51,6 @@ class _ApplyLeaveButtonLayoutState extends State<ApplyLeaveButtonLayout> {
                   setState(() {
                     currentIndex = index;
                   });
-                  // leaveController.currentIndex==index;
                 },
                 child: Card(
                   elevation: 0,

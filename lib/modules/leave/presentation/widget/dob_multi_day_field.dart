@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/widget/apply_lev_popup_calendar.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/widget/pop_up_dialog.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/custom_text_field_dob.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -27,7 +29,8 @@ class ApplyLeaveDobMultiDay extends StatelessWidget {
               CustomTextFieldDob(
                   hintText: '01-Jan-1996',
                   dobIcon: Icons.calendar_month,
-                  dobIconAction: () {}),
+                  dobIconAction: ()=>popUpDialog(context: context,Child: const ApplyLevPopUpCalendar(),DobSaveAction: (){})),
+
             ],
           ),
         ),
@@ -46,9 +49,11 @@ class ApplyLeaveDobMultiDay extends StatelessWidget {
                     fontSize: Dimensions.fontSizeDefault + 1),
               ),
               CustomTextFieldDob(
-                  hintText: '01-Jan-1996',
-                  dobIcon: Icons.calendar_month,
-                  dobIconAction: () {}),
+                hintText: '01-Jan-1996',
+                dobIcon: Icons.calendar_month,
+                  dobIconAction: ()=>popUpDialog(context: context,Child: const ApplyLevPopUpCalendar(),DobSaveAction: (){})),
+
+
             ],
           ),
         ),

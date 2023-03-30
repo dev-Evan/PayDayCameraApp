@@ -128,6 +128,10 @@ class AppString {
    static const String text_interval = "Interval";
    static const String text_last = "Last";
    static const String text_first = "First";
+   static const String text_note = "Note";
+   static const String text_if_any = "(if any)";
+   static const String text_attachments = "Attachments";
+   static const String text_add_reason_note_here = "Add reason note here";
 
   //PaySlip modules string here
   static const String text_paid = "Paid";

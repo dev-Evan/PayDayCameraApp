@@ -22,7 +22,7 @@ import 'package:pay_day_mobile/utils/images.dart';
 class MoreScreen extends StatelessWidget {
    MoreScreen({Key? key}) : super(key: key);
 
-  UserProfileController profileData=Get.put(UserProfileController());
+ // UserProfileController profileData=Get.put(UserProfileController());
 
   @override
   Widget build(BuildContext context) {
