@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -15,37 +17,30 @@ class AuthController extends GetxController {
 
   final GetStorage box = GetStorage();
 
-  login(String email, String password, context) async {
-    Either<ErrorModel?, Login?> response =
-        await _authDataSource.login(email: email, password: password);
-
-    response.fold((error) {
-      Fluttertoast.showToast(
-          msg: "${error?.message}",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: AppColor.hintColor,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    }, (login) {
-      _writeUserInfo(login);
-      Fluttertoast.showToast(
-          msg: "${login?.message}",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: AppColor.hintColor,
-          textColor: Colors.white,
-          fontSize: 16.0);
-      Get.toNamed(AppString.home);
-    });
-  }
-
   void _writeUserInfo(Login? login) {
     box.write(AppString.idStore, login?.data!.id);
     box.write(AppString.USERNAME, login?.data!.firstName);
     box.write(AppString.ACCESS_TOKEN, login?.data!.token);
     box.write(AppString.loginCheckKey, AppString.loginValue);
   }
+
+  void logIn(String email, String password) {
+    try {
+      _authDataSource.loginIntoAccount(email, password).then((value) {
+        _writeUserInfo(value);
+        Get.toNamed(AppString.home);
+      }, onError: (error) =>_showToast(error.message));
+    } catch (ex) {
+      _showToast(ex.toString());
+    }
+  }
+
+  _showToast(message) => Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: AppColor.hintColor,
+      textColor: Colors.white,
+      fontSize: 16.0);
 }

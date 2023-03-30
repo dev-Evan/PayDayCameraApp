@@ -50,51 +50,6 @@ Widget timeStory() {
             ),
           ]),
         ),
-        // Get.find<AttendanceController>().isPunchIn.value == true
-        //     ? RichText(
-        //         text: TextSpan(children: [
-        //           TextSpan(
-        //             text: (hrs.length < 2 && hrs.startsWith('0')) ? "" : hrs,
-        //             style: AppStyle.timer_text
-        //                 .copyWith(fontWeight: FontWeight.bold),
-        //           ),
-        //           TextSpan(
-        //             text: (hrs.length < 2 && hrs.startsWith('0')) ? "" : " h ",
-        //             style: AppStyle.small_text,
-        //           ),
-        //           TextSpan(
-        //             text: mins,
-        //             style: AppStyle.timer_text
-        //                 .copyWith(fontWeight: FontWeight.bold),
-        //           ),
-        //           TextSpan(
-        //             text: " m ",
-        //             style: AppStyle.normal_text,
-        //           ),
-        //         ]),
-        //       )
-        //     : RichText(
-        //         text: TextSpan(children: [
-        //           TextSpan(
-        //             text: (TimeCounterHelper.getHrsStringFromDouble(Get.find<AttendanceController>().logs.value.data?.todayWorked.toDouble()).length < 2 && hrs.startsWith('0')) ? "" : hrs,
-        //             style: AppStyle.timer_text
-        //                 .copyWith(fontWeight: FontWeight.bold),
-        //           ),
-        //           TextSpan(
-        //             text: (TimeCounterHelper.getHrsStringFromDouble(Get.find<AttendanceController>().logs.value.data?.todayWorked.toDouble()).length < 2 && hrs.startsWith('0')) ? "" : " h ",
-        //             style: AppStyle.small_text,
-        //           ),
-        //           TextSpan(
-        //             text: TimeCounterHelper.getMinsStringFromDouble(Get.find<AttendanceController>().logs.value.data?.todayWorked.toDouble()),
-        //             style: AppStyle.timer_text
-        //                 .copyWith(fontWeight: FontWeight.bold),
-        //           ),
-        //           TextSpan(
-        //             text: " m ",
-        //             style: AppStyle.normal_text,
-        //           ),
-        //         ]),
-        //       ),
         Text(
           "Worked",
           style: AppStyle.small_text,

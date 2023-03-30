@@ -12,6 +12,8 @@ class AppString {
   static String ATTENDANCE_REQUEST = "/attendance/request";
   static String CHANGE_LOG = "/attendance/log";
   static String USER_PROFILE = "/user/profile";
+  static String LOG_SUMMARY_BY_THIS_MONTH = "/attendance/summary?within=thisMonth";
+  static String LOG_SUMMARY_BY_THIS_YEAR = "/attendance/summary?within=thisYear";
 
   // Apps string here
   static const String exampleText = "";
@@ -45,6 +47,9 @@ class AppString {
   static const String text_export_attendance = "Export Attendance?";
   static const String text_dialog_dec = "If you do this, you cannot turn back";
   static const String text_dialog_dec_pdf = "December Attendance.pdf";
+  static String error_text = "Something went wrong! Please try again";
+  static String text_reload = "Reload";
+
   static const String text_attendance_status = "Attendance Status";
   static const String text_entry_type = "Entry Type";
   static const String text_attendance_behavior = "Attendance Behavior";
@@ -182,6 +187,12 @@ class AppString {
   static String text_$30 = "\$30,000";
   static String text_salary_increment = "Salary Increment";
   static String text_will_be_effective_from = "Will be effective from ";
+  static String text_worked= "Worked";
+  static String text_leave_hour= "Leave Hour";
+  static String text_behaviour= "Behaviour";
+  static String text_availablity= "Availability";
+  // static String text_address_details = "Permanent";
+
   static String text_permanent = "Permanent ";
   static String text_about_me = "About me";
   static String text_about_this_app = "About This App";
@@ -272,13 +283,13 @@ class AppString {
 
   // Route string here
   static const String splashScreen = "/splash_screen";
-  static const String signInScreen = "/signIn_screen'";
-  static const String forgotScreen = "/forgot_screen'";
-  static const String receiveScreen = "/receive_screen'";
-  static const String onboardScreen = "/onboard_screen'";
-  static const String attendLogScreen = "/attendLog_screen'";
-  static const String moreScreen = "/more_screen'";
-  static const String home = "/home'";
+  static const String signInScreen = "/signIn_screen";
+  static const String forgotScreen = "/forgot_screen";
+  static const String receiveScreen = "/receive_screen";
+  static const String onboardScreen = "/onboard_screen";
+  static const String attendLogScreen = "/attendLog_screen";
+  static const String moreScreen = "/more_screen";
+  static const String home = "/home";
   static const String calender = "/calender_screen";
   static const String payslip = "/payslip_screen";
   static const String leave = "/leave_screen";

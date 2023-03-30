@@ -9,8 +9,7 @@ import 'package:flutter/cupertino.dart';
 Widget customMoreAppbar({
   titleText,
   bgColor = AppColor.backgroundColor,
-  titleTextColor=AppColor.normalTextColor,
-  iconColor = AppColor.normalTextColor,
+  textColor=AppColor.normalTextColor
 }) {
   return AppBar(
     elevation: 0,
@@ -18,14 +17,14 @@ Widget customMoreAppbar({
       onPressed: () => Get.back(),
       icon: Icon(
         Icons.arrow_back,
-        color: iconColor,
+        color: textColor,
       ),
     ),
     centerTitle: true,
     title: Text(
       titleText,
       style: AppStyle.title_text.copyWith(
-          color: titleTextColor,
+          color: textColor,
           fontSize: Dimensions.fontSizeDefault + 1),
     ),
     backgroundColor: bgColor,

@@ -1,33 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/common/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/common/custom_buttom_sheet.dart';
-import 'package:pay_day_mobile/common/custom_divider.dart';
-import 'package:pay_day_mobile/common/custom_status_button.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/widget/date_picker.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/logs_list.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/selected_range_calender.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/widget/filter_view.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import 'package:pay_day_mobile/utils/app_style.dart';
-import 'package:pay_day_mobile/utils/dimensions.dart';
 
+import '../../../../utils/app_style.dart';
+import '../../../../utils/dimensions.dart';
 import 'attendance_filter.dart';
 
-class allLogsScreen extends StatefulWidget {
-  const allLogsScreen({Key? key}) : super(key: key);
+class AllLogsScreen extends StatelessWidget {
+  const AllLogsScreen({super.key});
 
-  @override
-  State<allLogsScreen> createState() => _allLogsScreenState();
-}
-
-class _allLogsScreenState extends State<allLogsScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.symmetric(
+        horizontal: AppLayout.getWidth(Dimensions.paddingDefault),
+        vertical: AppLayout.getHeight(Dimensions.paddingDefault),
+      ),
       child: Column(
         children: [
           SizedBox(
@@ -42,8 +35,8 @@ class _allLogsScreenState extends State<allLogsScreen> {
                   InkWell(
                     onTap: () => customButtomSheet(
                         context: context,
-                        Height: 0.9,
-                        Child: const SelectRangeCalender()),
+                        height: 0.9,
+                        child: const SelectRangeCalender()),
                     child: Row(
                       children: [
                         Text(
@@ -79,8 +72,8 @@ class _allLogsScreenState extends State<allLogsScreen> {
                           InkWell(
                               onTap: () => customButtomSheet(
                                   context: context,
-                                  Height: 0.9,
-                                  Child: const AttendanceFilter()),
+                                  height: 0.9,
+                                  child: const AttendanceFilter()),
                               child: const Icon(
                                 Icons.filter_alt,
                                 color: AppColor.hintColor,

@@ -8,6 +8,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 
 import '../../../../utils/app_string.dart';
 import '../../../../utils/app_style.dart';
+import '../../../../utils/behaviour_color_picker_helper.dart';
 
 Widget infoLayout() {
   return Obx(
@@ -21,7 +22,7 @@ Widget infoLayout() {
         ),
         Get.find<AttendanceController>().isPunchIn.value == true
             ? CustomStatusButton(
-                bgColor: getBgColor(Get.find<AttendanceController>()
+                bgColor: Util.getBgColor(Get.find<AttendanceController>()
                     .logs
                     .value
                     .data!
@@ -33,7 +34,7 @@ Widget infoLayout() {
                     .data!
                     .behavior
                     .toString(),
-                textColor: getTextColor(
+                textColor: Util.getTextColor(
                   Get.find<AttendanceController>()
                       .logs
                       .value
@@ -46,50 +47,6 @@ Widget infoLayout() {
       ],
     ),
   );
-}
-
-Color getBgColor(String behaviour) {
-  if (Get.find<AttendanceController>()
-      .logs
-      .value
-      .data!
-      .behavior
-      .toString()
-      .startsWith("late")) {
-    return AppColor.errorColor;
-  } else if (Get.find<AttendanceController>()
-      .logs
-      .value
-      .data!
-      .behavior
-      .toString()
-      .startsWith("regular")) {
-    return Colors.white;
-  } else {
-    return AppColor.primary_orange;
-  }
-}
-
-Color getTextColor(String behaviour) {
-  if (Get.find<AttendanceController>()
-      .logs
-      .value
-      .data!
-      .behavior
-      .toString()
-      .startsWith("late")) {
-    return Colors.white;
-  } else if (Get.find<AttendanceController>()
-      .logs
-      .value
-      .data!
-      .behavior
-      .toString()
-      .startsWith("regular")) {
-    return AppColor.primary_green;
-  } else {
-    return Colors.white;
-  }
 }
 
 _userName() {

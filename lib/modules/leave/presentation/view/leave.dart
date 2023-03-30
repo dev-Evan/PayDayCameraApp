@@ -67,8 +67,8 @@ class Leave extends StatelessWidget {
                                 padding:  const EdgeInsets.all(12.0),
                                 child: CustomButton(AppString.text_apply_leve, ()=>customButtomSheet(
                                     context: context,
-                                    Height: 0.9,
-                                    Child: const ApplyLeaveView())),
+                                    height: 0.9,
+                                    child: const ApplyLeaveView())),
                               ),
 
                             ],

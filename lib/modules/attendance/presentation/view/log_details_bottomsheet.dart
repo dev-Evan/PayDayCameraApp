@@ -1,48 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_eidt_bottomsheet.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/custom_app_button.dart';
+import '../../../../common/loading_indicator.dart';
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/dimensions.dart';
 import '../widget/bottom_sheet_appbar.dart';
 import '../widget/log_details_bottom_sheet_content.dart';
 
-class LogDetailsBottomSheet extends StatelessWidget {
-  const LogDetailsBottomSheet({Key? key}) : super(key: key);
+class LogDetailsBottomSheet extends GetView<AttendanceController> {
+  const LogDetailsBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return DraggableScrollableSheet(
-      initialChildSize: .8,
-      maxChildSize: .8,
-      minChildSize: .5,
-      builder: (BuildContext context, ScrollController scrollController) =>
-          Container(
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-        child: Stack(
-          children: [
-            ListView(
-              controller: scrollController,
-              children: [
-                bottomSheetAppbar(
-                    context: context, appbarTitle: AppString.text_log_details),
-                contentLayout(),
-                SizedBox(
-                  height: AppLayout.getHeight(60),
-                )
-              ],
+    return controller.obx(
+        (state) => DraggableScrollableSheet(
+              initialChildSize: .8,
+              maxChildSize: .8,
+              minChildSize: .5,
+              builder:
+                  (BuildContext context, ScrollController scrollController) =>
+                      Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(16))),
+                child: Stack(
+                  children: [
+                    ListView(
+                      controller: scrollController,
+                      children: [
+                        bottomSheetAppbar(
+                            context: context,
+                            appbarTitle: AppString.text_log_details),
+                        contentLayout(),
+                        SizedBox(
+                          height: AppLayout.getHeight(60),
+                        )
+                      ],
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: _buttonLayout(context),
+                    )
+                  ],
+                ),
+              ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: _buttonLayout(context),
-            )
-          ],
-        ),
-      ),
-    );
+        onLoading: const LoadingIndicator());
   }
 
   _buttonLayout(BuildContext context) {
@@ -68,14 +76,14 @@ class LogDetailsBottomSheet extends StatelessWidget {
     return AppButton(
       buttonColor: AppColor.primary_blue,
       buttonText: AppString.text_edit,
-      onPressed: ()=>_openEditBottomSheet(context: context),
+      onPressed: () => _openEditBottomSheet(context: context),
     );
   }
 
   _cancelButton(BuildContext context) {
     return AppButton(
       buttonText: AppString.text_cancel,
-      onPressed: ()=>Navigator.of(context).pop(),
+      onPressed: () => Navigator.of(context).pop(),
       buttonColor: Colors.transparent,
       hasOutline: true,
       borderColor: Colors.black,

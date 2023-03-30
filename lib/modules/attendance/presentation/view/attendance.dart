@@ -20,16 +20,15 @@ import '../widget/timer_overview_layout.dart';
 import '../widget/todays_log_text.dart';
 import 'log_entry_bottomsheet.dart';
 
-class Attendance extends StatelessWidget {
+class Attendance extends GetView<AttendanceController> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Obx(
-        () => Get.find<AttendanceController>().isLoading.value == true
-            ? const LoadingIndicator()
-            : _body(context),
-      ),
-    );
+    Get.put(AttendanceController());
+    return controller.obx(
+        (state) => Scaffold(
+              body: _body(context),
+            ),
+        onLoading: const LoadingIndicator());
   }
 
   Widget _body(BuildContext context) {
@@ -61,17 +60,18 @@ class Attendance extends StatelessWidget {
                     SizedBox(
                         height:
                             AppLayout.getHeight(Dimensions.paddingExtraLarge)),
-                    timerLayout(),
-                    timerOverviewLayout(),
+                    Obx(() => timerLayout()),
+                    Obx(() => timerOverviewLayout()),
                     SizedBox(
                         height: AppLayout.getHeight(Dimensions.paddingDefault)),
-                    punchButton(() {
-                      Get.find<AttendanceController>().getLatLong();
+                    punchButton(() async {
                       _openBottomSheet(context: context);
+                      await Get.find<AttendanceController>().getLatLong();
                     }),
                     SizedBox(
                         height: AppLayout.getHeight(Dimensions.paddingMid)),
-                    dotIndicator(),
+                    Obx(() => dotIndicator(
+                        Get.find<AttendanceController>().currentIndex.value)),
                     attendanceLogText(
                       context: context,
                       text: AppString.text_attendance_log,

@@ -32,6 +32,7 @@ List<GetPage> getPage = [
     page: () => onboardingScreen(),
   ),
   GetPage(
+    transition: Transition.cupertino,
     name: AppString.attendLogScreen,
     page: () => const AttendanceLogsScreen(),
   ),

@@ -12,7 +12,6 @@ import 'modules/more/presentation/view/address_details.dart';
 import 'modules/more/presentation/view/jod_history.dart';
 import 'modules/more/presentation/widget/add_address.dart';
 
-
 void main() async {
   await initApp();
   runApp(const MyApp());

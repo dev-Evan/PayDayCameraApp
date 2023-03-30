@@ -151,7 +151,7 @@ class _DocumentsState extends State<Documents> {
                     const Spacer(),
                     CustomButton('Add Document', () {
 
-                      customButtomSheet(context: context, Height: 0.9,Child: const AddDocument());
+                      customButtomSheet(context: context, height: 0.9,child: const AddDocument());
                     }),
                     SizedBox(
                       height: AppLayout.getHeight(20),

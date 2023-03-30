@@ -54,8 +54,8 @@ class LeaveDetails extends StatelessWidget {
                     IconButton(
                         onPressed: () => customButtomSheet(
                             context: context,
-                            Height: 0.9,
-                            Child: const EditDetails()),
+                            height: 0.9,
+                            child: const EditDetails()),
                         icon: const Icon(
                           Icons.edit_document,
                           color: AppColor.hintColor,

@@ -1,192 +1,142 @@
 class LogDetails {
-  bool? _status;
-  String? _message;
-  Data? _data;
+  bool? status;
+  String? message;
+  Data? data;
 
-  LogDetails({bool? status, String? message, Data? data}) {
-    if (status != null) {
-      _status = status;
-    }
-    if (message != null) {
-      _message = message;
-    }
-    if (data != null) {
-      _data = data;
-    }
-  }
-
-  bool? get status => _status;
-
-  String? get message => _message;
-
-  Data? get data => _data;
+  LogDetails({this.status, this.message, this.data});
 
   LogDetails.fromJson(Map<String, dynamic> json) {
-    _status = json['status'];
-    _message = json['message'];
-    _data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    status = json['status'];
+    message = json['message'];
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
+
 }
 
 class Data {
-  int? _id;
-  String? _inTime;
-  String? _outTime;
-  int? _attendanceId;
-  String? _inIpData;
-  String? _outIpData;
-  int? _statusId;
-  dynamic _reviewBy;
-  dynamic _addedBy;
-  dynamic _attendanceDetailsId;
-  String? _createdAt;
-  String? _updatedAt;
-  List<Comments>? _comments;
+  int? id;
+  String? inTime;
+  String? outTime;
+  int? attendanceId;
+  InIpData? inIpData;
+  InIpData? outIpData;
+  int? statusId;
+  int? reviewBy;
+  int? addedBy;
+  int? attendanceDetailsId;
+  String? createdAt;
+  String? updatedAt;
+  List<Comments>? comments;
+  String? behavior;
+  String? inDate;
+  double? totalHours;
+  String? punchInStatus;
+  String? logDate;
+  String? logTime;
+  dynamic parentAttendanceDetails;
 
   Data(
-      {int? id,
-      String? inTime,
-      String? outTime,
-      int? attendanceId,
-      String? inIpData,
-      String? outIpData,
-      int? statusId,
-      dynamic reviewBy,
-      dynamic addedBy,
-      dynamic attendanceDetailsId,
-      String? createdAt,
-      String? updatedAt,
-      List<Comments>? comments}) {
-    if (id != null) {
-      _id = id;
-    }
-    if (inTime != null) {
-      _inTime = inTime;
-    }
-    if (outTime != null) {
-      _outTime = outTime;
-    }
-    if (attendanceId != null) {
-      _attendanceId = attendanceId;
-    }
-    if (inIpData != null) {
-      _inIpData = inIpData;
-    }
-    if (outIpData != null) {
-      _outIpData = outIpData;
-    }
-    if (statusId != null) {
-      _statusId = statusId;
-    }
-    if (reviewBy != null) {
-      _reviewBy = reviewBy;
-    }
-    if (addedBy != null) {
-      _addedBy = addedBy;
-    }
-    if (attendanceDetailsId != null) {
-      _attendanceDetailsId = attendanceDetailsId;
-    }
-    if (createdAt != null) {
-      _createdAt = createdAt;
-    }
-    if (updatedAt != null) {
-      _updatedAt = updatedAt;
-    }
-    if (comments != null) {
-      _comments = comments;
-    }
-  }
-
-  int? get id => _id;
-
-  String? get inTime => _inTime;
-
-  String? get outTime => _outTime;
-
-  int? get attendanceId => _attendanceId;
-
-  String? get inIpData => _inIpData;
-
-  String? get outIpData => _outIpData;
-
-  int? get statusId => _statusId;
-
-  dynamic get reviewBy => _reviewBy;
-
-  dynamic get addedBy => _addedBy;
-
-  dynamic get attendanceDetailsId => _attendanceDetailsId;
-
-  String? get createdAt => _createdAt;
-
-  String? get updatedAt => _updatedAt;
-
-  List<Comments>? get comments => _comments;
+      {this.id,
+        this.inTime,
+        this.outTime,
+        this.attendanceId,
+        this.inIpData,
+        this.outIpData,
+        this.statusId,
+        this.reviewBy,
+        this.addedBy,
+        this.attendanceDetailsId,
+        this.createdAt,
+        this.updatedAt,
+        this.comments,
+        this.behavior,
+        this.inDate,
+        this.totalHours,
+        this.punchInStatus,
+        this.logDate,
+        this.logTime,
+        this.parentAttendanceDetails});
 
   Data.fromJson(Map<String, dynamic> json) {
-    _id = json['id'];
-    _inTime = json['in_time'];
-    _outTime = json['out_time'];
-    _attendanceId = json['attendance_id'];
-    _inIpData = json['in_ip_data'];
-    _outIpData = json['out_ip_data'];
-    _statusId = json['status_id'];
-    _reviewBy = json['review_by'];
-    _addedBy = json['added_by'];
-    _attendanceDetailsId = json['attendance_details_id'];
-    _createdAt = json['created_at'];
-    _updatedAt = json['updated_at'];
+    id = json['id'];
+    inTime = json['in_time'];
+    outTime = json['out_time'];
+    attendanceId = json['attendance_id'];
+    inIpData = json['in_ip_data'] != null
+        ? new InIpData.fromJson(json['in_ip_data'])
+        : null;
+    outIpData = json['out_ip_data'] != null
+        ? new InIpData.fromJson(json['out_ip_data'])
+        : null;
+    statusId = json['status_id'];
+    reviewBy = json['review_by'];
+    addedBy = json['added_by'];
+    attendanceDetailsId = json['attendance_details_id'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
     if (json['comments'] != null) {
-      _comments = <Comments>[];
+      comments = <Comments>[];
       json['comments'].forEach((v) {
-        _comments!.add(Comments.fromJson(v));
+        comments!.add(new Comments.fromJson(v));
       });
     }
+    behavior = json['behavior'];
+    inDate = json['in_date'];
+    totalHours = json['total_hours'];
+    punchInStatus = json['punch_in_status'];
+    logDate = json['log_date'];
+    logTime = json['log_time'];
+    parentAttendanceDetails = json['parent_attendance_details'];
   }
+
+}
+
+class InIpData {
+  String? ip;
+  Coordinate? coordinate;
+  String? location;
+  bool? workFromHome;
+
+  InIpData({this.ip, this.coordinate, this.location, this.workFromHome});
+
+  InIpData.fromJson(Map<String, dynamic> json) {
+    ip = json['ip'];
+    coordinate = json['coordinate'] != null
+        ? new Coordinate.fromJson(json['coordinate'])
+        : null;
+    location = json['location'];
+    workFromHome = json['work_from_home'];
+  }
+
+}
+
+class Coordinate {
+  String? lat;
+  String? lng;
+
+  Coordinate({this.lat, this.lng});
+
+  Coordinate.fromJson(Map<String, dynamic> json) {
+    lat = json['lat'];
+    lng = json['lng'];
+  }
+
 }
 
 class Comments {
-  int? _id;
-  int? _userId;
-  String? _type;
-  String? _comment;
-  dynamic _parentId;
+  int? id;
+  int? userId;
+  String? type;
+  String? comment;
 
-  Comments(
-      {int? id, int? userId, String? type, String? comment, Null? parentId}) {
-    if (id != null) {
-      _id = id;
-    }
-    if (userId != null) {
-      _userId = userId;
-    }
-    if (type != null) {
-      _type = type;
-    }
-    if (comment != null) {
-      _comment = comment;
-    }
-    if (parentId != null) {
-      _parentId = parentId;
-    }
-  }
-
-  int? get id => _id;
-
-  int? get userId => _userId;
-
-  String? get type => _type;
-
-  String? get comment => _comment;
-
-  dynamic? get parentId => _parentId;
+  Comments({this.id, this.userId, this.type, this.comment});
 
   Comments.fromJson(Map<String, dynamic> json) {
-    _id = json['id'];
-    _userId = json['user_id'];
-    _type = json['type'];
-    _comment = json['comment'];
-    _parentId = json['parent_id'];
+    id = json['id'];
+    userId = json['user_id'];
+    type = json['type'];
+    comment = json['comment'];
   }
+
+
 }

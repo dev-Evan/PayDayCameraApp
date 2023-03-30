@@ -7,6 +7,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:pay_day_mobile/common/error_alert.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attendance_data_repository.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/change_log/change_log.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details.dart';
@@ -22,10 +24,9 @@ import '../../domain/check_entry_status/check_entry_status.dart';
 import '../../domain/daily_log/daily_log.dart';
 import '../../domain/log_entry/log_entry_response.dart';
 
-class AttendanceController extends GetxController {
+class AttendanceController extends GetxController with StateMixin {
   @override
   void onInit() async {
-    print(DateTime.now().timeZoneName.toString());
     await checkUserIsPunchedIn();
     await getDailyLog();
     duration =
@@ -39,7 +40,6 @@ class AttendanceController extends GetxController {
       AttendanceDataRepository(NetworkClient());
 
   final RxBool isPunchIn = false.obs;
-  final RxBool isLoading = false.obs;
   final TextEditingController editTextController = TextEditingController();
   final RxDouble lat = 0.0.obs;
   final RxDouble long = 0.0.obs;
@@ -47,123 +47,110 @@ class AttendanceController extends GetxController {
   final RxString addressOut = "Current Location".obs;
   final RxString ipAddress = "".obs;
   final Rx<DailyLog> logs = DailyLog().obs;
-  late Timer timer;
+  Timer timer = Timer(Duration.zero, () {});
   Rx<Duration> duration = const Duration().obs;
   Rx<Duration> countdownDuration = const Duration().obs;
-
-  _isLoading({required bool loading}) {
-    isLoading.value = loading;
-  }
+  final currentIndex = 0.obs;
+  late LogDetails logDetailsById = LogDetails();
 
   checkUserIsPunchedIn() async {
-    _isLoading(loading: true);
-    Either<ErrorModel, CheckEntryStatus>? response =
-        await _attendanceDataRepository.checkEntryStatus();
-    response?.fold((error) {
-      Fluttertoast.showToast(
-          msg: "${error.message}",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: AppColor.hintColor,
-          textColor: Colors.white,
-          fontSize: 16.0);
+    change(null, status: RxStatus.loading());
+    await _attendanceDataRepository.checkEntryStatus().then((checkEntryStatus) {
+      print(checkEntryStatus.toString());
+      isPunchIn.value = checkEntryStatus.data!.punchIn!;
+      if (checkEntryStatus.data!.punchIn == true && !timer.isActive) {
+        startTimer();
+      }
+    }, onError: (error) {
       if (error.message!.startsWith("Unauthenticated")) {
         Get.toNamed(AppString.signInScreen);
       }
-    }, (checkEntryStatus) {
-      isPunchIn.value = checkEntryStatus.data!.punchIn!;
     });
-    _isLoading(loading: false);
+    change(null, status: RxStatus.success());
   }
 
-  punchIn(LogEntryRequest punchInRequest) async {
-    Either<ErrorModel, LogEntryResponse> response =
-        await _attendanceDataRepository.punchIn(
-      punchInRequest: punchInRequest,
-    );
-    response.fold(
-        (error) => Fluttertoast.showToast(
-            msg: "${error.message}",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: AppColor.hintColor,
-            textColor: Colors.white,
-            fontSize: 16.0), (entryResponse) async {
-      startTimer();
-      await checkUserIsPunchedIn();
-      await getDailyLog();
-    });
+  punchIn(LogEntryRequest punchInRequest) {
+    change(null, status: RxStatus.loading());
+    try {
+      _attendanceDataRepository.punchIn(punchInRequest: punchInRequest).then(
+          (value) {
+        startTimer();
+        checkUserIsPunchedIn();
+        getDailyLog();
+      }, onError: (error) => showToast(error.toString()));
+    } catch (ex) {
+      print(ex.toString());
+    }
+    change(null, status: RxStatus.loading());
+    change(null, status: RxStatus.success());
   }
 
   punchOut(LogEntryRequest punchOutRequest) async {
-    Either<ErrorModel, LogEntryResponse> response =
-        await _attendanceDataRepository.punchOut(
+    change(null, status: RxStatus.loading());
+    await _attendanceDataRepository
+        .punchOut(
       punchOutRequest: punchOutRequest,
+    )
+        .then(
+      (value) {
+        stopTimer();
+        checkUserIsPunchedIn();
+        getDailyLog();
+      },
+      onError: (error) => showToast(error.toString()),
     );
-    response.fold(
-        (error) => Fluttertoast.showToast(
-            msg: "${error.message}",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: AppColor.hintColor,
-            textColor: Colors.white,
-            fontSize: 16.0), (entryResponse) async {
-      stopTimer();
-      await checkUserIsPunchedIn();
-      await getDailyLog();
-    });
+    change(null, status: RxStatus.success());
   }
 
   getDailyLog() async {
-    _isLoading(loading: true);
-    Either<ErrorModel, DailyLog> response =
-        await _attendanceDataRepository.getDailyLog();
-    response.fold(
-        (error) => Fluttertoast.showToast(
-            msg: "${error.message}",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            backgroundColor: AppColor.hintColor,
-            textColor: Colors.white,
-            fontSize: 16.0),
-        (dailyLogs) => logs.value = dailyLogs);
-    _isLoading(loading: false);
+    change(null, status: RxStatus.loading());
+    await _attendanceDataRepository.getDailyLog().then((dailyLogs) {
+      logs.value = dailyLogs;
+      print(logs.value);
+    }, onError: (error) {
+      errorAlert(getDailyLog());
+      print('Error:::: ${error.toString()}');
+    });
+    change(null, status: RxStatus.success());
   }
 
   logDetails(int logId) async {
-    Either<ErrorModel, LogDetails> response =
-        await _attendanceDataRepository.getLogDetails(logId);
+    change(null, status: RxStatus.loading());
+    await _attendanceDataRepository.getLogDetails(logId).then(((logDetails) {
+      logDetailsById = logDetails;
+      print(logDetails.toString());
+    }), onError: (error) {
+      print('Error:::: ${error.toString()}');
+    });
+    change(null, status: RxStatus.success());
   }
 
-  changeLogRequest(int logId) async {
-    Either<ErrorModel, ChangeLog> response =
-        await _attendanceDataRepository.changeLog(logId);
-  }
+  // changeLogRequest(int logId) async {
+  //   Either<ErrorModel, ChangeLog> response =
+  //       await _attendanceDataRepository.changeLog(logId);
+  // }
 
-  changeAttendanceRequest(
-      int logId, ChangeRequestReqModel changeRequestReqModel) async {
-    Either<ErrorModel, ChangeRequestResponseModel> response =
-        await _attendanceDataRepository.changeAttendanceRequest(
-            logId, changeRequestReqModel);
-  }
+  // changeAttendanceRequest(
+  //     int logId, ChangeRequestReqModel changeRequestReqModel) async {
+  //   Either<ErrorModel, ChangeRequestResponseModel> response =
+  //       await _attendanceDataRepository.changeAttendanceRequest(
+  //           logId, changeRequestReqModel);
+  // }
 
   getLatLong() async {
-    _isLoading(loading: true);
+    change(null, status: RxStatus.loading());
     ipAddress.value = await Ipify.ipv4();
     Future<Position> data = _determinePosition();
     data.then((value) {
       lat.value = value.latitude;
       long.value = value.longitude;
-
+      print("${value.latitude}, ${value.longitude}");
       _getAddress(value.latitude, value.longitude);
+      change(null, status: RxStatus.success());
     }).catchError((error) {
       print("Error $error");
+      change(null, status: RxStatus.success());
     });
-    _isLoading(loading: false);
   }
 
 //For convert lat long to address
@@ -171,7 +158,6 @@ class AttendanceController extends GetxController {
     List<Placemark> placemarks = await placemarkFromCoordinates(lat, long);
 
     address.value = "${placemarks[0].street!} ${placemarks[0].country!}";
-
     // for (int i = 0; i < placemarks.length; i++) {
     //   print("INDEX $i ${placemarks[i]}");
     // }
@@ -235,4 +221,13 @@ class AttendanceController extends GetxController {
     countdownDuration.value =
         Duration(minutes: countdownDuration.value.inMinutes - 1);
   }
+
+  showToast(String message) => Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: AppColor.hintColor,
+      textColor: Colors.white,
+      fontSize: 16.0);
 }

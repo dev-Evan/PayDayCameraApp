@@ -4,7 +4,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-Future customButtomSheet({context, Height, Child}) {
+Future customButtomSheet({context, height, child}) {
   return showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -19,8 +19,8 @@ Future customButtomSheet({context, Height, Child}) {
       context,
     ) {
       return FractionallySizedBox(
-        heightFactor: AppLayout.getHeight(Height),
-        child: Child,
+        heightFactor: AppLayout.getHeight(height),
+        child: child,
       );
     },
   );

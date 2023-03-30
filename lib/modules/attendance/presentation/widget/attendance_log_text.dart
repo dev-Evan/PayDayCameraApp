@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/custom_navigator.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_logs.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';

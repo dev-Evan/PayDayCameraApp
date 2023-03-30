@@ -40,8 +40,8 @@ class AddressDetails extends StatelessWidget {
                           InkWell(
                             onTap: ()=> customButtomSheet(
                                 context: context,
-                                Height: 0.9,
-                                Child: const EditAddress()),
+                                height: 0.9,
+                                child: const EditAddress()),
                             child: const Icon(
                               Icons.edit_square,
                               color: AppColor.hintColor,
@@ -226,8 +226,8 @@ class AddressDetails extends StatelessWidget {
                               TextButton(
                                   onPressed: () => customButtomSheet(
                                       context: context,
-                                      Height: 0.9,
-                                      Child: AddAddress()),
+                                      height: 0.9,
+                                      child: AddAddress()),
                                   child: Text(
                                     AppString.text_add,
                                     style: AppStyle.mid_large_text.copyWith(
