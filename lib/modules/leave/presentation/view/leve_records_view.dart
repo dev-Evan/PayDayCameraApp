@@ -30,98 +30,112 @@ class LeaveRecordsView extends StatelessWidget {
         physics: const ScrollPhysics(),
         child: Column(
           children: [
-            SizedBox(
-              height: AppLayout.getHeight(174),
-              child: Container(
-                height: AppLayout.getHeight(222),
-                decoration: AppStyle.ContainerStyle.copyWith(
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(Dimensions.radiusMid),
-                      bottomRight: Radius.circular(Dimensions.radiusMid)),
-                  color: AppColor.primaryColor,
-                ),
-                child: Column(
-                  children: [
-                    customMoreAppbar(
-                      titleText: AppString.text_leave_records,
-                      bgColor: AppColor.primaryColor,
-                      textColor: AppColor.backgroundColor,
-
-                    ),
-                    leaveRecordsLayOut(),
-                  ],
-                ),
-              ),
-            ),
+            _containerView(),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          InkWell(
-                            onTap: () => customButtomSheet(
-                                context: context,
-                                height: 0.9,
-                                child: const SelectRangeCalender()),
-                            child: Row(
-                              children: [
-                                Text(
-                                  AppString.textCustom,
-                                  style: AppStyle.mid_large_text.copyWith(
-                                      color: AppColor.secondaryColor,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                SizedBox(
-                                  width: AppLayout.getWidth(12),
-                                ),
-                                const Icon(
-                                  Icons.keyboard_arrow_down,
-                                  color: AppColor.hintColor,
-                                )
-                              ],
-                            ),
-                          ),
-                          Text(
-                            '14 Dec 2022 - 30 Dec 2022',
-                            style: AppStyle.small_text_black
-                                .copyWith(color: AppColor.hintColor),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 2.3,
-                      ),
-                      Column(
-                        children: [
-                          InkWell(
-                              onTap: () => customButtomSheet(
-                                  context: context,
-                                  height: 0.9,
-                                  child: const LeaveDurationFilter()),
-                              child: const Icon(
-                                Icons.filter_alt,
-                                color: AppColor.hintColor,
-                              )),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+                children: [_customTexTitle(context)],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
-              child: viewListViewLayout(),
-            ),
+            viewListViewLayout(),
           ],
         ),
       ),
     );
   }
+}
+
+Widget _containerView() {
+  return SizedBox(
+    height: AppLayout.getHeight(174),
+    child: _containerViewStyle(
+        child: Column(
+      children: [
+        customMoreAppbar(
+          titleText: AppString.text_leave_records,
+          bgColor: AppColor.primaryColor,
+          textColor: AppColor.backgroundColor,
+        ),
+        leaveRecordsLayOut(),
+      ],
+    )),
+  );
+}
+
+Widget _containerViewStyle({child}) {
+  return Container(
+    height: AppLayout.getHeight(222),
+    decoration: AppStyle.ContainerStyle.copyWith(
+      borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(Dimensions.radiusMid),
+          bottomRight: Radius.circular(Dimensions.radiusMid)),
+      color: AppColor.primaryColor,
+    ),
+    child: child,
+  );
+}
+
+Widget _customTexTitle(context) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          InkWell(
+            onTap: () => customButtomSheet(
+                context: context,
+                height: 0.9,
+                child: const SelectRangeCalender()),
+            child: _customTitleTextStyle(titleText: AppString.textCustom),
+          ),
+          Text(
+            '14 Dec 2022 - 30 Dec 2022',
+            style:
+                AppStyle.small_text_black.copyWith(color: AppColor.hintColor),
+          ),
+        ],
+      ),
+      SizedBox(
+        width: MediaQuery.of(context).size.width / 2.3,
+      ),
+      _filterStyle(context)
+    ],
+  );
+}
+
+Widget _customTitleTextStyle({titleText}) {
+  return Row(
+    children: [
+      Text(
+        titleText,
+        style: AppStyle.mid_large_text.copyWith(
+            color: AppColor.secondaryColor, fontWeight: FontWeight.w700),
+      ),
+      SizedBox(
+        width: AppLayout.getWidth(12),
+      ),
+      const Icon(
+        Icons.keyboard_arrow_down,
+        color: AppColor.hintColor,
+      )
+    ],
+  );
+}
+
+Widget _filterStyle(context) {
+  return Column(
+    children: [
+      InkWell(
+          onTap: () => customButtomSheet(
+              context: context,
+              height: 0.9,
+              child: const LeaveDurationFilter()),
+          child: const Icon(
+            Icons.filter_alt,
+            color: AppColor.hintColor,
+          )),
+    ],
+  );
 }
