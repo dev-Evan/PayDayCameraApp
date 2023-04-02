@@ -5,12 +5,12 @@ import 'package:pay_day_mobile/common/custom_appbar.dart';
 import 'package:pay_day_mobile/common/custom_button.dart';
 import 'package:pay_day_mobile/common/text_field.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
 import '../widget/custom_text_field_dob.dart';
 
 class EditProfile extends StatefulWidget {
@@ -40,35 +40,18 @@ class _EditProfileState extends State<EditProfile> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      AppString.text_name,
-                      style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Dimensions.fontSizeDefault + 1),
-                    ),
+                    child: textFieldTitleText(titleText: AppString.text_name),
                   ),
                   CustomTextFeild(hintText: 'Steave Roggers'),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      AppString.text_email,
-                      style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Dimensions.fontSizeDefault + 1),
-                    ),
+                    child: textFieldTitleText(titleText: AppString.text_email),
                   ),
                   CustomTextFeild(hintText: 'steaave@gmail.com'),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      AppString.text_gender_text,
-                      style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Dimensions.fontSizeDefault + 1),
-                    ),
+                    child: textFieldTitleText(
+                        titleText: AppString.text_gender_text),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -117,24 +100,18 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      AppString.text_phone,
-                      style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Dimensions.fontSizeDefault + 1),
-                    ),
+                    child: textFieldTitleText(titleText: AppString.text_phone),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: IntlPhoneField(
-                      decoration: const InputDecoration(
-                        labelText: 'Phone Number',
-                        enabledBorder: OutlineInputBorder(
+                      decoration:  InputDecoration(
+                        labelText: AppString.text_phone_number,
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 width: 0.0, color: AppColor.disableColor)),
-                        contentPadding: EdgeInsets.all(7),
-                        border: OutlineInputBorder(
+                        contentPadding: const EdgeInsets.all(7),
+                        border: const OutlineInputBorder(
                           borderSide: BorderSide(
                               width: 0.0, color: AppColor.disableColor),
                         ),
@@ -143,13 +120,8 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      AppString.text_address_details,
-                      style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Dimensions.fontSizeDefault + 1),
-                    ),
+                    child: textFieldTitleText(
+                        titleText: AppString.text_address_details),
                   ),
                   SizedBox(
                     height: AppLayout.getHeight(8),
@@ -162,9 +134,9 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                         border: Border.all(
                             width: 0.0, color: AppColor.disableColor)),
-                    child: const TextField(
+                    child: TextField(
                       decoration: InputDecoration(
-                        hintText: 'Enter a message',
+                        hintText: AppString.text_enter_massage,
                         contentPadding: EdgeInsets.all(8),
                         border: InputBorder.none,
                       ),
@@ -174,13 +146,8 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      AppString.text_date_of_birth,
-                      style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Dimensions.fontSizeDefault + 1),
-                    ),
+                    child: textFieldTitleText(
+                        titleText: AppString.text_date_of_birth),
                   ),
                   SizedBox(
                     height: AppLayout.getHeight(8),
@@ -191,13 +158,8 @@ class _EditProfileState extends State<EditProfile> {
                       dobIconAction: () {}),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      AppString.text_about_me,
-                      style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Dimensions.fontSizeDefault + 1),
-                    ),
+                    child:
+                        textFieldTitleText(titleText: AppString.text_about_me),
                   ),
                   SizedBox(
                     height: AppLayout.getHeight(8),
@@ -210,10 +172,10 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                         border: Border.all(
                             width: 0.0, color: AppColor.disableColor)),
-                    child: const TextField(
+                    child: TextField(
                       decoration: InputDecoration(
-                        hintText: 'Enter a message',
-                        contentPadding: EdgeInsets.all(8),
+                        hintText: AppString.text_enter_massage,
+                        contentPadding: const EdgeInsets.all(8),
                         border: InputBorder.none,
                       ),
                       maxLines: null,
@@ -225,7 +187,7 @@ class _EditProfileState extends State<EditProfile> {
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: CustomButton('Save', () {}),
+              child: CustomButton(AppString.text_save, () {}),
             )
           ],
         ),

@@ -15,11 +15,12 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 import '../controller/change_password_controller.dart';
+import '../widget/text_title_text.dart';
 
 class ChangePassword extends StatelessWidget {
-  TextEditingController _oldPasswordController = TextEditingController();
-  TextEditingController _newPasswordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _oldPasswordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,46 +38,31 @@ class ChangePassword extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(
-                    AppString.text_old_password,
-                    style: AppStyle.small_text.copyWith(
-                        color: AppColor.hintColor,
-                        fontWeight: FontWeight.w700,
-                        fontSize: Dimensions.fontSizeDefault + 1),
-                  ),
+                  child: textFieldTitleText(titleText: AppString.text_old_password )
+
+
                 ),
                 CustomPasswordTextField(
-                  hintText: 'Enter your old password',
+                  hintText: AppString.text_enter_your_old_password,
                   inputType: TextInputType.text,
                   controller: _oldPasswordController,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(
-                    AppString.text_new_password,
-                    style: AppStyle.small_text.copyWith(
-                        color: AppColor.hintColor,
-                        fontWeight: FontWeight.w700,
-                        fontSize: Dimensions.fontSizeDefault + 1),
-                  ),
+                  child: textFieldTitleText(titleText: AppString.text_new_password )
+
                 ),
                 CustomPasswordTextField(
-                  hintText: 'New password',
+                  hintText: AppString.text_enter_new_password,
                   inputType: TextInputType.text,
                   controller: _newPasswordController,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(
-                    AppString.text_confirm_password,
-                    style: AppStyle.small_text.copyWith(
-                        color: AppColor.hintColor,
-                        fontWeight: FontWeight.w700,
-                        fontSize: Dimensions.fontSizeDefault + 1),
-                  ),
+                  child: textFieldTitleText(titleText: AppString.text_confirm_password )
                 ),
                 CustomPasswordTextField(
-                  hintText: 'Confirm your new password',
+                  hintText: AppString.text_confirm_your_new_password,
                   inputType: TextInputType.text,
                   controller: _confirmPasswordController,
                 ),
@@ -86,7 +72,7 @@ class ChangePassword extends StatelessWidget {
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(20.0),
-            child: CustomButton('Save', () {
+            child: CustomButton(AppString.text_save, () {
               final oldPassword=_oldPasswordController.text.toString();
               final newPassword=_newPasswordController.text.toString();
               final confirmPassword=_confirmPasswordController.text.toString();
@@ -96,19 +82,14 @@ class ChangePassword extends StatelessWidget {
               print(newPassword);
               print(confirmPassword);
               CustomSuccessAlertDialog(
-                titleText: 'Success',
+                titleText: AppString.text_success,
                 context: context,
                 icon: Icons.published_with_changes,
                 iconBgColor: AppColor.successColor.withOpacity(0.2),
                 iconColor: AppColor.successColor,
-                contentText: 'Password changed successfully',
+                contentText: AppString.text_password_change_successfully,
               );
 
-              // Future.delayed(
-              //   const Duration(seconds: 1),
-              //   () => CustomNavigator(
-              //       context: context, pageName:  ViewProfile()),
-              // );
             }),
           ),
           SizedBox(

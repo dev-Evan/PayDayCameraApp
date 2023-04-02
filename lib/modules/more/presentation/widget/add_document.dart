@@ -157,8 +157,8 @@ class _AddDocumentState extends State<AddDocument> {
           child: customDoubleButton(
               textButtonAction: () =>Get.back(),
               elevatedButtonAction: () {},
-              textBtnText: 'Cancel',
-              elevatedBtnText: 'Save',
+              textBtnText: AppString.text_cancel,
+              elevatedBtnText: AppString.text_save,
               context: context),
         ),
       ],

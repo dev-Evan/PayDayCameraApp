@@ -257,6 +257,22 @@ class AppString {
   static String text_this_year = "This Year";
   static String text_caleder = "Calender";
   static String text_this_month = "This month";
+  static String text_success = "Success";
+  static String text_back = "Back";
+  static String text_enter_massage = "Enter message";
+  static String text_password_change_successfully = "Password changed successfully";
+
+  static String text_enter_your_old_password = "Enter your old password";
+  static String text_enter_new_password = "Enter new password";
+  static String text_confirm_your_new_password = "Confirm your new password";
+
+
+  static String text_enter_address = "Enter Address";
+  static String text_enter_state = "Enter state";
+  static String text_enter_zip_code = "Enter zip code";
+  static String text_enter_area = "Enet area";
+  static String text_enter_city = "Enter city";
+  static String text_this_enter_phone_number = "Enter phone Number";
   static String text_this_all_holiday = "All Holiday";
   static String text_calender_text = "Calender";
   static String text_about_me_dec =

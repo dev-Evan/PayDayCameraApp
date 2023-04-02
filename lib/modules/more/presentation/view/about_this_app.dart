@@ -48,7 +48,7 @@ Widget _body(){
           AppStyle.small_text_black.copyWith(color: AppColor.hintColor),
         ),
         const Spacer(),
-        CustomButton('Back', () => Get.back()),
+        CustomButton(AppString.text_back, () => Get.back()),
       ],
     ),
   );

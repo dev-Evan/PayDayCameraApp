@@ -3,6 +3,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pay_day_mobile/common/custom_double_button.dart';
 import 'package:pay_day_mobile/common/text_field.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -11,7 +12,6 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class EditAddress extends StatefulWidget {
   const EditAddress({Key? key}) : super(key: key);
-
   @override
   State<EditAddress> createState() => _EditAddressState();
 }
@@ -41,13 +41,7 @@ class _EditAddressState extends State<EditAddress> {
 
             Padding(
               padding: const EdgeInsets.only(top: 12.0),
-              child: Text(
-                AppString.text_county,
-                style: AppStyle.small_text.copyWith(
-                    color: AppColor.hintColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: Dimensions.fontSizeDefault + 1),
-              ),
+              child: textFieldTitleText(titleText: AppString.text_county),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
@@ -96,14 +90,9 @@ class _EditAddressState extends State<EditAddress> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
-              child: Text(
-                AppString.text_phone,
-                style: AppStyle.small_text.copyWith(
-                    color: AppColor.hintColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: Dimensions.fontSizeDefault + 1),
-              ),
+              child: textFieldTitleText(titleText: AppString.text_phone),
             ),
+
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: IntlPhoneField(
@@ -127,15 +116,9 @@ class _EditAddressState extends State<EditAddress> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        AppString.text_area,
-                        style: AppStyle.small_text.copyWith(
-                            color: AppColor.hintColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: Dimensions.fontSizeDefault + 1),
-                      ),
+                      textFieldTitleText(titleText: AppString.text_area),
                       CustomTextFeild(
-                          hintText: 'Enter area', controller: _areaController),
+                          hintText: AppString.text_enter_area, controller: _areaController),
                     ],
                   ),
                 ),
@@ -146,15 +129,9 @@ class _EditAddressState extends State<EditAddress> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        AppString.text_city,
-                        style: AppStyle.small_text.copyWith(
-                            color: AppColor.hintColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: Dimensions.fontSizeDefault + 1),
-                      ),
+                      textFieldTitleText(titleText: AppString.text_city),
                       CustomTextFeild(
-                          hintText: 'Enter city', controller: _cityController),
+                          hintText:AppString.text_enter_city, controller: _cityController),
                     ],
                   ),
                 ),
@@ -169,15 +146,9 @@ class _EditAddressState extends State<EditAddress> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        AppString.text_state,
-                        style: AppStyle.small_text.copyWith(
-                            color: AppColor.hintColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: Dimensions.fontSizeDefault + 1),
-                      ),
+                      textFieldTitleText(titleText: AppString.text_state),
                       CustomTextFeild(
-                          hintText: 'Enter state',
+                          hintText: AppString.text_enter_state,
                           controller: _stateController),
                     ],
                   ),
@@ -189,15 +160,9 @@ class _EditAddressState extends State<EditAddress> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        AppString.text_zip_code,
-                        style: AppStyle.small_text.copyWith(
-                            color: AppColor.hintColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: Dimensions.fontSizeDefault + 1),
-                      ),
+                      textFieldTitleText(titleText: AppString.text_zip_code),
                       CustomTextFeild(
-                          hintText: 'Enter zip code',
+                          hintText: AppString.text_enter_zip_code,
                           controller: _zipCodeController),
                     ],
                   ),
@@ -207,28 +172,20 @@ class _EditAddressState extends State<EditAddress> {
             SizedBox(
               height: AppLayout.getHeight(12),
             ),
-
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  AppString.text_address + AppString.text_details,
-                  style: AppStyle.small_text.copyWith(
-                      color: AppColor.hintColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: Dimensions.fontSizeDefault + 1),
-                ),
+                textFieldTitleText(
+                    titleText: AppString.text_address + AppString.text_details),
                 CustomTextFeild(
-                    hintText: 'Enter address',
+                    hintText: AppString.text_enter_address,
                     controller: _addDetailsController),
               ],
             ),
-            //   const Spacer(),
-
             customDoubleButton(
                 context: context,
-                elevatedBtnText: 'Add Address',
-                textBtnText: 'Cancel',
+                elevatedBtnText: '${AppString.text_add} ${AppString.text_address}',
+                textBtnText: AppString.text_cancel,
                 textButtonAction: () {},
                 elevatedButtonAction: () {}),
           ],
@@ -237,3 +194,5 @@ class _EditAddressState extends State<EditAddress> {
     );
   }
 }
+
+

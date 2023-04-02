@@ -38,7 +38,7 @@ class AddressDetails extends StatelessWidget {
                       Row(
                         children: [
                           InkWell(
-                            onTap: ()=> customButtomSheet(
+                            onTap: () => customButtomSheet(
                                 context: context,
                                 height: 0.9,
                                 child: const EditAddress()),
@@ -95,57 +95,18 @@ class AddressDetails extends StatelessWidget {
                               SizedBox(
                                 height: AppLayout.getHeight(12),
                               ),
-                              Text(
-                                AppString.text_area,
-                                style: AppStyle.mid_large_text.copyWith(
-                                    color: AppColor.hintColor.withOpacity(0.7),
-                                    fontSize: Dimensions.fontSizeDefault,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              Text(
-                                AppString.text_ca,
-                                style: AppStyle.mid_large_text.copyWith(
-                                    color: AppColor.normalTextColor
-                                        .withOpacity(0.7),
-                                    fontSize: Dimensions.fontSizeDefault + 2,
-                                    fontWeight: FontWeight.w700),
-                              ),
+                              _textTitle(titleText: AppString.text_area),
+                              _textSubTitle(subTitleText: AppString.text_ca),
                               SizedBox(
                                 height: AppLayout.getHeight(16),
                               ),
-                              Text(
-                                AppString.text_state,
-                                style: AppStyle.mid_large_text.copyWith(
-                                    color: AppColor.hintColor.withOpacity(0.7),
-                                    fontSize: Dimensions.fontSizeDefault,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              Text(
-                                AppString.text_texas,
-                                style: AppStyle.mid_large_text.copyWith(
-                                    color: AppColor.normalTextColor
-                                        .withOpacity(0.7),
-                                    fontSize: Dimensions.fontSizeDefault + 2,
-                                    fontWeight: FontWeight.w700),
-                              ),
+                              _textTitle(titleText: AppString.text_state),
+                              _textSubTitle(subTitleText: AppString.text_texas),
                               SizedBox(
                                 height: AppLayout.getHeight(16),
                               ),
-                              Text(
-                                AppString.text_county,
-                                style: AppStyle.mid_large_text.copyWith(
-                                    color: AppColor.hintColor.withOpacity(0.7),
-                                    fontSize: Dimensions.fontSizeDefault,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              Text(
-                                AppString.text_usa,
-                                style: AppStyle.mid_large_text.copyWith(
-                                    color: AppColor.normalTextColor
-                                        .withOpacity(0.7),
-                                    fontSize: Dimensions.fontSizeDefault + 2,
-                                    fontWeight: FontWeight.w700),
-                              ),
+                              _textTitle(titleText: AppString.text_county),
+                              _textSubTitle(subTitleText: AppString.text_usa),
                             ],
                           ),
                           Column(
@@ -154,57 +115,20 @@ class AddressDetails extends StatelessWidget {
                               SizedBox(
                                 height: AppLayout.getHeight(12),
                               ),
-                              Text(
-                                AppString.text_city,
-                                style: AppStyle.mid_large_text.copyWith(
-                                    color: AppColor.hintColor.withOpacity(0.7),
-                                    fontSize: Dimensions.fontSizeDefault,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              Text(
-                                AppString.text_prosaccobury,
-                                style: AppStyle.mid_large_text.copyWith(
-                                    color: AppColor.normalTextColor
-                                        .withOpacity(0.7),
-                                    fontSize: Dimensions.fontSizeDefault + 2,
-                                    fontWeight: FontWeight.w700),
-                              ),
+                              _textTitle(titleText: AppString.text_city),
+                              _textSubTitle(
+                                  subTitleText: AppString.text_prosaccobury),
                               SizedBox(
                                 height: AppLayout.getHeight(16),
                               ),
-                              Text(
-                                AppString.text_zip_code,
-                                style: AppStyle.mid_large_text.copyWith(
-                                    color: AppColor.hintColor.withOpacity(0.7),
-                                    fontSize: Dimensions.fontSizeDefault,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              Text(
-                                AppString.text_768,
-                                style: AppStyle.mid_large_text.copyWith(
-                                    color: AppColor.normalTextColor
-                                        .withOpacity(0.7),
-                                    fontSize: Dimensions.fontSizeDefault + 2,
-                                    fontWeight: FontWeight.w700),
-                              ),
+                              _textTitle(titleText: AppString.text_zip_code),
+                              _textSubTitle(subTitleText: AppString.text_768),
                               SizedBox(
                                 height: AppLayout.getHeight(16),
                               ),
-                              Text(
-                                AppString.text_phone,
-                                style: AppStyle.mid_large_text.copyWith(
-                                    color: AppColor.hintColor.withOpacity(0.7),
-                                    fontSize: Dimensions.fontSizeDefault,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              Text(
-                                AppString.text_phone_number,
-                                style: AppStyle.mid_large_text.copyWith(
-                                    color: AppColor.normalTextColor
-                                        .withOpacity(0.7),
-                                    fontSize: Dimensions.fontSizeDefault + 2,
-                                    fontWeight: FontWeight.w700),
-                              ),
+                              _textTitle(titleText: AppString.text_phone),
+                              _textSubTitle(
+                                  subTitleText: AppString.text_phone_number)
                             ],
                           ),
                         ],
@@ -254,4 +178,24 @@ class AddressDetails extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _textTitle({titleText}) {
+  return Text(
+    titleText,
+    style: AppStyle.mid_large_text.copyWith(
+        color: AppColor.hintColor.withOpacity(0.7),
+        fontSize: Dimensions.fontSizeDefault,
+        fontWeight: FontWeight.w500),
+  );
+}
+
+Widget _textSubTitle({subTitleText}) {
+  return Text(
+    subTitleText,
+    style: AppStyle.mid_large_text.copyWith(
+        color: AppColor.normalTextColor.withOpacity(0.7),
+        fontSize: Dimensions.fontSizeDefault + 2,
+        fontWeight: FontWeight.w700),
+  );
 }
