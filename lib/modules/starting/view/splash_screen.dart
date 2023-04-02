@@ -7,16 +7,16 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
-class splashScreen extends StatefulWidget {
-  const splashScreen({Key? key}) : super(key: key);
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  State<splashScreen> createState() => _splashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _splashScreenState extends State<splashScreen> {
+class _SplashScreenState extends State<SplashScreen> {
 
-  bool isLoad = false;
+  bool _isLoad = false;
   final box = GetStorage();
   Future chooseScreen() async {
     final idStore = box.read(AppString.idStore);
@@ -33,7 +33,7 @@ class _splashScreenState extends State<splashScreen> {
 
   isMove() {
     setState(() {
-      isLoad = !isLoad;
+      _isLoad = !_isLoad;
     });
   }
 
@@ -62,31 +62,35 @@ class _splashScreenState extends State<splashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double _heightf = MediaQuery.of(context).size.height;
-    double _widthf = MediaQuery.of(context).size.width;
+    double _bdHeight = MediaQuery.of(context).size.height;
+    double _bdWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
       body: SafeArea(
         child: SizedBox(
-          width: _widthf,
-          height: _heightf,
+          width: _bdWidth,
+          height: _bdHeight,
           child: Stack(
             children: [
-              AnimatedContainer(
-                duration: const Duration(seconds: 2),
-                alignment: isLoad ? Alignment.topCenter : Alignment.center,
-                child: AnimatedContainer(
-                  duration: const Duration(seconds: 2),
-                  width: _width,
-                  height: _height,
-                  child: Image.asset(Images.logo),
-                ),
-              ),
+              _containerLayout(height: _height,width: _width,isLoad: _isLoad)
             ],
           ),
         ),
       ),
     );
   }
+}
+
+Widget _containerLayout({isLoad,width,height}){
+  return AnimatedContainer(
+    duration: const Duration(seconds: 2),
+    alignment: isLoad ? Alignment.topCenter : Alignment.center,
+    child: AnimatedContainer(
+      duration: const Duration(seconds: 2),
+      width: width,
+      height: height,
+      child: Image.asset(Images.logo),
+    ),
+  );
 }

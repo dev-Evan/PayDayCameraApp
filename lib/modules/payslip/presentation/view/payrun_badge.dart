@@ -11,10 +11,8 @@ class PayRunBadge extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppbar(),
       body: Column(
-
         children: [
           customMoreAppbar(titleText:AppString.text_payrun_badge, ),
-
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(

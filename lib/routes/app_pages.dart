@@ -15,9 +15,9 @@ import '../modules/more/presentation/view/more.dart';
 List<GetPage> getPage = [
   GetPage(
     name: AppString.splashScreen,
-    page: () => const splashScreen(),
+    page: () => const SplashScreen(),
   ),
-  GetPage(name: AppString.signInScreen, page: () => const signInScreen()),
+  GetPage(name: AppString.signInScreen, page: () => const SignInScreen()),
   GetPage(
     name: AppString.forgotScreen,
     page: () => const forgotScreen(),
@@ -29,7 +29,7 @@ List<GetPage> getPage = [
   GetPage(
     transition: Transition.cupertino,
     name: AppString.onboardScreen,
-    page: () => onboardingScreen(),
+    page: () => OnboardingScreen(),
   ),
   GetPage(
     transition: Transition.cupertino,

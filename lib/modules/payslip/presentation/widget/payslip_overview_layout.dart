@@ -9,11 +9,10 @@ import '../../../../utils/dimensions.dart';
 import '../../../attendance/presentation/widget/attendace_log_overview.dart';
 
 Widget paySlipOverviewLayout({context}) {
-  List data=[
+  List countTitleText=[
     AppString.text_paid,
     AppString.text_unpaid,
     AppString.text_total,
-
 
   ];
   return SizedBox(
@@ -31,50 +30,55 @@ Widget paySlipOverviewLayout({context}) {
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
-                  childAspectRatio: 3.8 / 3,
+                  childAspectRatio: 4 / 3,
                   crossAxisSpacing: 0,
                   mainAxisSpacing: 0),
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 3,
               itemBuilder: (context, index) {
-                return Card(
-                  elevation: 0,
-                  color: AppColor.cardColor.withOpacity(0.1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius:
-                      BorderRadius.circular(Dimensions.radiusDefault),
-                      side: BorderSide(
-                          width: 2,
-                          color: AppColor.cardColor.withOpacity(0.2))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '148',
-                              style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: Dimensions.fontSizeLarge - 3,
-                                  color: AppColor.cardColor
-                                      .withOpacity(0.8)),
-                            ),
-                            Text(
-                              data[index],
-                              style:AppStyle. normal_text,
-
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
+                return _cardText(countNumber: '148',countText: countTitleText[index]);
               },
             ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+
+Widget _cardText({countText,countNumber}){
+  return Card(
+    elevation: 0,
+    color: AppColor.cardColor.withOpacity(0.1),
+    shape: RoundedRectangleBorder(
+        borderRadius:
+        BorderRadius.circular(Dimensions.radiusDefault+2),
+        side: BorderSide(
+            width: 1,
+            color: AppColor.cardColor.withOpacity(0.2))),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                countNumber,
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w600,
+                    fontSize: Dimensions.fontSizeLarge - 3,
+                    color: AppColor.cardColor
+                        .withOpacity(0.8)),
+              ),
+              Text(
+                countText,
+                style:AppStyle. normal_text,
+
+              ),
+            ],
           ),
         ),
       ],

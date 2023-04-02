@@ -36,6 +36,7 @@ class AppString {
   static const String text_leave_status = "Leave Status";
   static const String text_leave_duration = "Leave Duration";
   static const String text_approved = "Approved";
+  static const String text_duration = "Duration";
   static const String text_pending = "Pending";
   static const String text_rejection = "Rejection";
   static const String text_hours = "Hours";
@@ -49,6 +50,8 @@ class AppString {
   static const String text_dialog_dec_pdf = "December Attendance.pdf";
   static String error_text = "Something went wrong! Please try again";
   static String text_reload = "Reload";
+  static String text_skip = "Skip";
+  static String text_next = "Next";
 
   static const String text_attendance_status = "Attendance Status";
   static const String text_entry_type = "Entry Type";
@@ -60,6 +63,9 @@ class AppString {
   static String text_scheduled = "Scheduled";
   static String text_remaining = "Remaining";
   static String text_overtime = "Overtime";
+  static String text_remember_me = "Remember me";
+  static String text_forgot_password = "Forgot password?";
+  static String text_log_in = "Log In";
 
   static String text_today = "Today";
   static String text_this_week = "This Week";

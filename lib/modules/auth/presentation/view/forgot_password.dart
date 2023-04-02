@@ -76,7 +76,7 @@ class _forgotScreenState extends State<forgotScreen> {
                 // }, icon: Icon(Icons.arrow_back)),
                 InkWell(
                   onTap: (){
-                    Navigator.push(context, CupertinoPageRoute(builder: (context) => signInScreen(),));
+                    Navigator.push(context, CupertinoPageRoute(builder: (context) => SignInScreen(),));
                   },
                     child: Icon(Icons.arrow_back)),
                 SizedBox(height: AppLayout.getHeight(Dimensions.fontSizeMid),),
