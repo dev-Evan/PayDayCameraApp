@@ -12,12 +12,11 @@ Widget CustomTextFieldDob(
       padding: const EdgeInsets.only(top: 8.0),
       child: TextField(
       readOnly: true,
-
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(16),
           hintText: hintText,
           focusColor: AppColor.primaryColor,
-          hintStyle: GoogleFonts.poppins(color: AppColor.hintColor),
+          hintStyle: GoogleFonts.poppins(color: AppColor.hintColor,fontSize: Dimensions.fontSizeDefault),
           filled: false,
           fillColor: AppColor.backgroundColor,
           disabledBorder: OutlineInputBorder(

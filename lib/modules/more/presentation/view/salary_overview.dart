@@ -222,19 +222,23 @@ Widget _salaryCardTitleView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  titleText,
-                  style: AppStyle.mid_large_text.copyWith(
-                    color: AppColor.hintColor,
-                    fontSize: Dimensions.fontSizeDefault + 2,
-                  ),
-                ),
-              ],
-            ),
+            _titleText(titleTextS: titleText)
           ],
+        ),
+      ),
+    ],
+  );
+}
+
+Widget _titleText({titleTextS}){
+  return  Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        titleTextS,
+        style: AppStyle.mid_large_text.copyWith(
+          color: AppColor.hintColor,
+          fontSize: Dimensions.fontSizeDefault + 2,
         ),
       ),
     ],

@@ -9,16 +9,12 @@ class ApplyLeaveDobSingleDay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CustomTextFieldDob(
-            hintText: '01-Jan-1996',
-            dobIcon: Icons.calendar_month,
-            dobIconAction: () => popUpDialog(
-                context: context,
-                Child: const ApplyLevPopUpCalendar(),
-                DobSaveAction: () {})),
-      ],
-    );
+    return CustomTextFieldDob(
+        hintText: '01-Jan-1996',
+        dobIcon: Icons.calendar_month,
+        dobIconAction: () => popUpDialog(
+            context: context,
+            Child: const ApplyLevPopUpCalendar(),
+            DobSaveAction: () {}));
   }
 }

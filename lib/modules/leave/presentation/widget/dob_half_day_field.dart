@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/common/text_field.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/pop_up_dialog.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/custom_text_field_dob.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -29,12 +31,8 @@ class _ApplyLeaveDobHalfDayState extends State<ApplyLeaveDobHalfDay> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                AppString.text_start_day,
-                style: AppStyle.small_text.copyWith(
-                    color: AppColor.hintColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: Dimensions.fontSizeDefault + 1),
+              textFieldTitleText(
+                titleText: AppString.text_start_day,
               ),
               CustomTextFieldDob(
                   hintText: '01-Jan-1996',
@@ -46,92 +44,39 @@ class _ApplyLeaveDobHalfDayState extends State<ApplyLeaveDobHalfDay> {
             ],
           ),
         ),
-        SizedBox(
-          width: AppLayout.getWidth(12),
-        ),
+        customSpacerW(width: 12),
         Flexible(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                AppString.text_end_day,
-                style: AppStyle.small_text.copyWith(
-                    color: AppColor.hintColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: Dimensions.fontSizeDefault + 1),
+              textFieldTitleText(
+                titleText: AppString.text_end_day,
               ),
               Row(
                 children: [
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        selectedFirst = !selectedFirst;
-                      });
-                    },
-                    child: Card(
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radiusDefault),
-                          side: BorderSide(
-                              color: selectedFirst
-                                  ? AppColor.primaryColor
-                                  : AppColor.disableColor.withOpacity(0.4))),
-                      color: selectedFirst
-                          ? AppColor.primaryColor.withOpacity(0.2)
-                          : AppColor.disableColor.withOpacity(0.4),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 22.0, right: 22, top: 16, bottom: 16),
-                        child: Text(
-                          AppString.text_first,
-                          style: AppStyle.small_text_black.copyWith(
-                              fontWeight: FontWeight.w600,
-                              fontSize: Dimensions.fontSizeDefault,
-                              letterSpacing: 0.2,
-                              color: selectedFirst
-                                  ? AppColor.primaryColor
-                                  : AppColor.normalTextColor),
-                        ),
-                      ),
+                  Flexible(
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          selectedFirst = !selectedFirst;
+                        });
+                      },
+                      child: _endDayButton(
+                          selectedValue: selectedFirst,
+                          btnText: AppString.text_first),
                     ),
                   ),
-                  SizedBox(
-                    width: AppLayout.getWidth(12),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        selectedLast = !selectedLast;
-                      });
-                    },
-                    child: Card(
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radiusDefault),
-                          side: BorderSide(
-                              color: selectedLast
-                                  ? AppColor.primaryColor
-                                  : AppColor.disableColor.withOpacity(0.4))),
-                      color: selectedLast
-                          ? AppColor.primaryColor.withOpacity(0.2)
-                          : AppColor.disableColor.withOpacity(0.4),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 22.0, right: 22, top: 16, bottom: 16),
-                        child: Text(
-                          AppString.text_last,
-                          style: AppStyle.small_text_black.copyWith(
-                              fontWeight: FontWeight.w600,
-                              fontSize: Dimensions.fontSizeDefault,
-                              letterSpacing: 0.2,
-                              color: selectedLast
-                                  ? AppColor.primaryColor
-                                  : AppColor.normalTextColor),
-                        ),
-                      ),
-                    ),
+                  customSpacerW(width: 6),
+                  Flexible(
+                    child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            selectedLast = !selectedLast;
+                          });
+                        },
+                        child: _endDayButton(
+                            selectedValue: selectedLast,
+                            btnText: AppString.text_last)),
                   ),
                 ],
               )
@@ -141,4 +86,34 @@ class _ApplyLeaveDobHalfDayState extends State<ApplyLeaveDobHalfDay> {
       ],
     );
   }
+}
+
+Widget _endDayButton({selectedValue, btnText}) {
+  return Card(
+    elevation: 0,
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+        side: BorderSide(
+            color: selectedValue
+                ? AppColor.primaryColor
+                : AppColor.disableColor.withOpacity(0.4))),
+    color: selectedValue
+        ? AppColor.primaryColor.withOpacity(0.2)
+        : AppColor.disableColor.withOpacity(0.4),
+    child: _endDayBtnText(btnTextS: btnText, value: selectedValue),
+  );
+}
+
+Widget _endDayBtnText({btnTextS, value}) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 22.0, right: 22, top: 16, bottom: 16),
+    child: Text(
+      btnTextS,
+      style: AppStyle.small_text_black.copyWith(
+          fontWeight: FontWeight.w600,
+          fontSize: Dimensions.fontSizeDefault,
+          letterSpacing: 0.2,
+          color: value ? AppColor.primaryColor : AppColor.normalTextColor),
+    ),
+  );
 }

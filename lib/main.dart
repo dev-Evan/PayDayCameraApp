@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       theme: appTheme,
        // initialRoute: AppString.splashScreen,
        // getPages: getPage,
-     home:  Leave(),
+     home:  MoreScreen(),
     );
   }
 }

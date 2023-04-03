@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/common/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/common/custom_appbar.dart';
 import 'package:pay_day_mobile/common/custom_navigator.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/about_this_app.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/address_details.dart';
@@ -27,6 +28,7 @@ class MoreScreen extends StatelessWidget {
   MoreScreen({Key? key}) : super(key: key);
 
   // UserProfileController profileData=Get.put(UserProfileController());
+//   LogoutController logoutController =Get.put(LogoutController());
 
   @override
   Widget build(BuildContext context) {
@@ -105,6 +107,7 @@ class MoreScreen extends StatelessWidget {
                                 onAction: () => CustomNavigator(
                                     context: context,
                                     pageName: const AboutThisApp())),
+
                             _jobDeskCard(
                                 cardIcon: Icons.logout,
                                 cardText: AppString.text_log_out,
@@ -112,7 +115,15 @@ class MoreScreen extends StatelessWidget {
                                     context: context,
                                     icon: Icons.logout,
                                     iconBgColor: Colors.orange.shade50,
-                                    yesAction: () {})),
+                                    yesAction: () {
+                                      //logoutController.logout();
+
+
+                                    })),
+
+
+
+
                             _languageCardView(
                                 langName: AppString.text_english,
                                 langText: AppString.text_language),

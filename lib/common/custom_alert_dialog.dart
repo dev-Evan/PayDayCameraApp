@@ -98,7 +98,7 @@ Future CustomAlertDialog({
                     // width: MediaQuery.of(context).size.width / 1,
                     height: AppLayout.getHeight(40),
                     child: ElevatedButton(
-                        onPressed: () => yesAction,
+                        onPressed: () => yesAction(),
                         style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
