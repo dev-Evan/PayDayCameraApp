@@ -81,7 +81,10 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
+                  padding: EdgeInsets.only(
+                      top: AppLayout.getHeight(Dimensions.paddingDefaultExtra),
+                      bottom:
+                          AppLayout.getHeight(Dimensions.paddingDefaultExtra)),
                   child: Text(
                     AppString.text_leave_duration,
                     style: AppStyle.small_text.copyWith(
@@ -91,17 +94,15 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                   ),
                 ),
                 const ApplyLeaveButtonLayout(),
-                SizedBox(
-                  height: AppLayout.getHeight(20),
+                customSpacerHeight(height: 20),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: AppLayout.getHeight(Dimensions.paddingDefault)),
+                  child: textFieldTitleText(titleText: AppString.text_phone),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child:textFieldTitleText(titleText:AppString.text_phone ),
-                ),
-
-
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
+                  padding: EdgeInsets.only(
+                      top: AppLayout.getHeight(Dimensions.paddingDefault)),
                   child: Card(
                     color: AppColor.cardColor,
                     elevation: 0,
@@ -111,7 +112,13 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                         side: const BorderSide(
                             width: 0.0, color: AppColor.disableColor)),
                     child: Padding(
-                      padding: const EdgeInsets.all(12.0),
+                      padding: EdgeInsets.only(
+                          top: AppLayout.getHeight(
+                              Dimensions.paddingDefaultExtra+2),
+
+                      bottom: AppLayout.getHeight(
+                          Dimensions.paddingDefaultExtra+2),
+                      ),
                       child: DropdownButton<String>(
                         style: const TextStyle(fontWeight: FontWeight.w500),
                         isDense: true,
@@ -119,22 +126,22 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                         underline: const SizedBox.shrink(),
                         icon: const Icon(Icons.expand_more),
                         iconEnabledColor: AppColor.normalTextColor,
-                        hint: Row(
-                          children: [
-
-
-                            _hintText(hintText: AppString.text_paid_casual,),
-                            customSpacerW(width: 4),
-                            Text(
-                              '( 8d 7h)',
-                              style: AppStyle.normal_text.copyWith(
-                                  color: AppColor.hintColor,
-                                  fontSize: Dimensions.fontSizeDefault),
-                            ),
-
-
-
-                          ],
+                        hint: Padding(
+                          padding:  EdgeInsets.only(left: AppLayout.getWidth(Dimensions.paddingDefault),right: AppLayout.getWidth(Dimensions.paddingDefault)),
+                          child: Row(
+                            children: [
+                              _hintText(
+                                hintText: AppString.text_paid_casual,
+                              ),
+                              customSpacerWidth(width: 4),
+                              Text(
+                                '( 8d 7h)',
+                                style: AppStyle.normal_text.copyWith(
+                                    color: AppColor.hintColor,
+                                    fontSize: Dimensions.fontSizeDefault),
+                              ),
+                            ],
+                          ),
                         ),
                         value: dropdownValue,
                         borderRadius:
@@ -143,10 +150,9 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: _hintText(hintText:value,),
-
-
-
+                            child: _hintText(
+                              hintText: value,
+                            ),
                           );
                         }).toList(),
                         onChanged: (String? newValue) {
@@ -158,31 +164,23 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                     ),
                   ),
                 ),
-
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child:textFieldTitleText(titleText:AppString.text_note ),
+                  padding: EdgeInsets.only(
+                      top: AppLayout.getHeight(Dimensions.paddingDefault)),
+                  child: textFieldTitleText(titleText: AppString.text_note),
                 ),
-
-
-                customSpacerH(height: 8),
-
+                customSpacerHeight(height: 8),
                 _noteTextField(),
-
-                customSpacerH(height: 8),
-
+                customSpacerHeight(height: 8),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
-                    textFieldTitleText(titleText:'${AppString.text_attachments} ${AppString.text_if_any}' ),
-
-                    customSpacerH(height: 20),
-
-                    _dottedBorder(onAction: ()=>pickFile1()),
-
-                    customSpacerH(height: 8),
-
+                    textFieldTitleText(
+                        titleText:
+                            '${AppString.text_attachments} ${AppString.text_if_any}'),
+                    customSpacerHeight(height: 20),
+                    _dottedBorder(onAction: () => pickFile1()),
+                    customSpacerHeight(height: 8),
                     Text(
                       AppString.text_jpeg_jpg_png_etc,
                       style: AppStyle.mid_large_text.copyWith(
@@ -191,8 +189,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                     ),
                   ],
                 ),
-                customSpacerH(height: 24),
-
+                customSpacerHeight(height: 24),
                 customDoubleButton(
                     context: context,
                     elevatedBtnText:
@@ -209,15 +206,14 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
   }
 }
 
-Widget _noteTextField(){
+Widget _noteTextField() {
   return Container(
     height: AppLayout.getHeight(80),
     decoration: AppStyle.ContainerStyle.copyWith(
         borderRadius: BorderRadius.circular(
           Dimensions.radiusDefault,
         ),
-        border:
-        Border.all(width: 0.0, color: AppColor.disableColor)),
+        border: Border.all(width: 0.0, color: AppColor.disableColor)),
     child: const TextField(
       decoration: InputDecoration(
         hintText: AppString.text_add_reason_note_here,
@@ -230,32 +226,30 @@ Widget _noteTextField(){
   );
 }
 
-Widget _dottedBorder({onAction}){
-  return    DottedBorder(
+Widget _dottedBorder({onAction}) {
+  return DottedBorder(
     radius: Radius.circular(Dimensions.radiusMid),
     color: AppColor.disableColor,
     strokeCap: StrokeCap.square,
-    dashPattern: [8, 6],
+    dashPattern: [AppLayout.getHeight(8), AppLayout.getWidth(6)],
     strokeWidth: 2,
     child: InkWell(
       onTap: () => onAction(),
       child: Container(
-        height: 100,
+        height: AppLayout.getHeight(100),
         color: AppColor.disableColor.withOpacity(0.4),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(CupertinoIcons.link),
-
-            customSpacerW(width: 6),
+            customSpacerWidth(width: 6),
             Text(
               AppString.text_click,
               style: AppStyle.mid_large_text.copyWith(
                   color: AppColor.primaryColor,
                   fontSize: Dimensions.fontSizeDefault),
             ),
-            customSpacerW(width: 6),
-
+            customSpacerWidth(width: 6),
             Text(
               AppString.text_to_add_fils,
               style: AppStyle.mid_large_text.copyWith(
@@ -269,12 +263,9 @@ Widget _dottedBorder({onAction}){
   );
 }
 
-
-Widget _hintText({hintText,Color textColor=AppColor.normalTextColor}){
-
-  return  Text(
+Widget _hintText({hintText, Color textColor = AppColor.normalTextColor}) {
+  return Text(
     hintText,
-    style: AppStyle.normal_text
-        .copyWith(color: textColor),
+    style: AppStyle.normal_text.copyWith(color: textColor),
   );
 }

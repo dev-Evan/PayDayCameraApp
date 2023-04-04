@@ -12,7 +12,7 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 
 
 
-Future popUpDialog({context, Child,DobSaveAction,double?  height,double?  width}) {
+Future popUpDialog({context, child,dobSaveAction,double?  height,double?  width}) {
   return showDialog(
     barrierDismissible: false,
     context: context,
@@ -32,7 +32,7 @@ Future popUpDialog({context, Child,DobSaveAction,double?  height,double?  width}
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Child,
+              child: child,
             ),
           ),
         ),
@@ -40,7 +40,7 @@ Future popUpDialog({context, Child,DobSaveAction,double?  height,double?  width}
           Center(
               child: Padding(
             padding: const EdgeInsets.only(bottom: 12.0, top: 12),
-            child: CustomSmallButton(AppString.text_save, ()=>DobSaveAction()),
+            child: CustomSmallButton(AppString.text_save, ()=>dobSaveAction()),
           )),
         ],
       );

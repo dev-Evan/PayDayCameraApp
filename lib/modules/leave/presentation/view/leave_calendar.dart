@@ -27,50 +27,6 @@ class _DatePickerCustomState extends State<DatePickerCustom> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      // child: AppBar(
-      //   backgroundColor: Colors.white,
-      //   toolbarHeight: 148.0,
-      //   title: Column(
-      //     children: [
-      //       CalendarTimeline(
-      //         showYears: true,
-      //         initialDate: DateTime(now.year, now.month, now.day),
-      //         firstDate: DateTime(now.year-5, now.month-5, now.day-5),
-      //         lastDate: DateTime(2050, 11, 20),
-      //         onDateSelected: (date) => print(date),
-      //         leftMargin: 20,
-      //         monthColor: Colors.blueGrey,
-      //         dayColor: Colors.teal[200],
-      //         activeDayColor: Colors.white,
-      //         activeBackgroundDayColor: Colors.redAccent[100],
-      //         dotsColor: const Color(0xFF333A47),
-      //         selectableDayPredicate: (date) => date.day != 23,
-      //         locale: 'en_ISO',
-      //       ),
-      //
-      //       CalendarTimeline(
-      //         initialDate: DateTime(2020, 4, 20),
-      //         firstDate: DateTime(2019, 1, 15),
-      //         lastDate: DateTime(2020, 11, 20),
-      //         onDateSelected: (date) => print(date),
-      //         leftMargin: 20,
-      //         dayNameColor: AppColor.cardColor,
-      //         showYears: true,
-      //         //shrink: true,
-      //         monthColor: Colors.blueGrey,
-      //         dayColor: AppColor.normalTextColor,
-      //         activeDayColor: Colors.white,
-      //         activeBackgroundDayColor: AppColor.primaryColor,
-      //         dotsColor: AppColor.primaryColor,
-      //
-      //         selectableDayPredicate: (date) => date.day != 23,
-      //         locale: 'en_ISO',
-      //       )
-      //
-      //     ],
-      //   ),
-      // ),
-
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(children: [

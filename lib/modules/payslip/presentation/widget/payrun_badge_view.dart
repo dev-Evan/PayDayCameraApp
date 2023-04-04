@@ -88,7 +88,7 @@ class PayRunBadgeView extends StatelessWidget {
                     _subTextLeft(subTitleText: AppString.text_period),
                     _subTextLeft(subTitleText: AppString.text_period),
                     _subTextLeft(subTitleText: AppString.text_period),
-                    customSpacerH(height: 12),
+                    customSpacerHeight(height: 12),
                     _subTextLeft(subTitleText: AppString.text_tax),
                   ],
                 ),
@@ -98,7 +98,7 @@ class PayRunBadgeView extends StatelessWidget {
                     _subTextRight(subTextRight: AppString.text_monthly),
                     _subTextRight(subTextRight: AppString.text_monthly),
                     _subTextRight(subTextRight: AppString.text_monthly),
-                    customSpacerH(height: 12),
+                    customSpacerHeight(height: 12),
                     _subTextRight(
                         subTextRight:
                             AppString.text_2 + AppString.text_percent),

@@ -14,7 +14,7 @@ class ApplyLeaveDobSingleDay extends StatelessWidget {
         dobIcon: Icons.calendar_month,
         dobIconAction: () => popUpDialog(
             context: context,
-            Child: const ApplyLevPopUpCalendar(),
-            DobSaveAction: () {}));
+            child: const ApplyLevPopUpCalendar(),
+            dobSaveAction: () {}));
   }
 }

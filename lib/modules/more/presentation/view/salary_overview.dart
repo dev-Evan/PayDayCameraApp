@@ -193,11 +193,11 @@ Widget _salaryCardView({icon, salaryText}) {
 
 Widget _salaryOvrDotted() {
   return Padding(
-    padding: const EdgeInsets.only(left: 28.0),
+    padding:  EdgeInsets.only(left: AppLayout.getWidth(28)),
     child: DottedBorder(
       customPath: (p0) => Path()..lineTo(0, 480),
       color: AppColor.disableColor,
-      dashPattern: [6, 4],
+      dashPattern: [AppLayout.getHeight(6), AppLayout.getWidth(4)],
       strokeWidth: 1,
       child: Divider(
         height: AppLayout.getHeight(480),
@@ -218,7 +218,7 @@ Widget _salaryCardTitleView(
         color: dotIconColor,
       ),
       Padding(
-        padding: const EdgeInsets.only(left: 12.0),
+        padding:  EdgeInsets.only(left: AppLayout.getWidth(12)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -238,7 +238,7 @@ Widget _titleText({titleTextS}){
         titleTextS,
         style: AppStyle.mid_large_text.copyWith(
           color: AppColor.hintColor,
-          fontSize: Dimensions.fontSizeDefault + 2,
+          fontSize: Dimensions.fontSizeExtraDefault,
         ),
       ),
     ],

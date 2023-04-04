@@ -91,7 +91,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       color: AppColor.normalTextColor),
                 ),
               ),
-              customSpacerH(height: 20),
+              customSpacerHeight(height: 20),
               Obx(() => Text(
                     '${_description[_currentIndex.toInt()]}',
                     style: GoogleFonts.poppins(
@@ -119,7 +119,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ],
               ),
-              customSpacerH(height: 30),
+              customSpacerHeight(height: 30),
               _buttonLayout(
                   context: context,
                   titleText: _title,

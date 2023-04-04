@@ -75,7 +75,7 @@ class MoreScreen extends StatelessWidget {
                                     pageName: const CalendarScreen())),
                             _jobDeskCard(
                                 cardIcon: Icons.access_time_outlined,
-                                cardText: AppString.text_salary_overview,
+                                cardText: AppString.text_job_history,
                                 onAction: () => CustomNavigator(
                                     context: context,
                                     pageName: const JodHistory())),

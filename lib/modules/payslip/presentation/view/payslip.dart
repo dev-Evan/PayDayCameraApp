@@ -42,7 +42,7 @@ class PaySlip extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      customSpacerH(height: 14),
+                      customSpacerHeight(height: 14),
                       paySlipOverviewLayout(context: context),
                       attendanceLogText(
                           context: context,
@@ -144,7 +144,7 @@ Widget _cardMidText({amountText, midDate, midMonth, statusText}) {
         ),
       ),
 
-      customSpacerH(height: 8),
+      customSpacerHeight(height: 8),
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -155,7 +155,7 @@ Widget _cardMidText({amountText, midDate, midMonth, statusText}) {
                 midDate,
                 style: AppStyle.small_text.copyWith(color: AppColor.hintColor),
               ),
-              customSpacerH(height: 8),
+              customSpacerHeight(height: 8),
               const Icon(
                 Icons.circle,
                 size: 8,
@@ -163,14 +163,14 @@ Widget _cardMidText({amountText, midDate, midMonth, statusText}) {
               ),
             ],
           ),
-          customSpacerH(height: 8),
+          customSpacerHeight(height: 8),
           Text(
             midMonth,
             style: AppStyle.small_text.copyWith(color: AppColor.hintColor),
           ),
         ],
       ),
-      customSpacerH(height: 6),
+      customSpacerHeight(height: 6),
       CustomStatusButton(
         bgColor: AppColor.successColor.withOpacity(0.2),
         text: statusText,

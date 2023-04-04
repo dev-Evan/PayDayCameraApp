@@ -24,7 +24,7 @@ class ApplyLeaveDobMultiDay extends StatelessWidget {
               onAction: () {},
               fieldTitleText: AppString.text_start_day),
         ),
-        customSpacerW(width: 12),
+        customSpacerWidth(width: 12),
         Flexible(
           child: _dobField(
               hintText: '12-02-2012',
@@ -47,8 +47,8 @@ Widget _dobField({context, fieldTitleText, hintText, onAction}) {
           dobIcon: Icons.calendar_month,
           dobIconAction: () => popUpDialog(
               context: context,
-              Child: const ApplyLevPopUpCalendar(),
-              DobSaveAction: () => onAction())),
+              child: const ApplyLevPopUpCalendar(),
+              dobSaveAction: () => onAction())),
     ],
   );
 }

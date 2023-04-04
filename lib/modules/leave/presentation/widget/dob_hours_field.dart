@@ -19,20 +19,20 @@ class ApplyLeaveDobHours extends StatelessWidget {
             dobIcon: Icons.calendar_month,
             dobIconAction: () => popUpDialog(
                 context: context,
-                Child: const ApplyLevPopUpCalendar(),
-                DobSaveAction: () {})),
-        customSpacerH(height: 12),
+                child: const ApplyLevPopUpCalendar(),
+                dobSaveAction: () {})),
+        customSpacerHeight(height: 12),
         Row(
           children: [
             Flexible(
-              child: _timePicKarF(
+              child: _apLyLavTimePicKarField(
                 context: context,
                 fieldTitleText: AppString.text_start_day,
               ),
             ),
-            customSpacerW(width: 12),
+            customSpacerWidth(width: 12),
             Flexible(
-              child: _timePicKarF(
+              child: _apLyLavTimePicKarField(
                 context: context,
                 fieldTitleText: AppString.text_end_day,
               ),
@@ -44,14 +44,13 @@ class ApplyLeaveDobHours extends StatelessWidget {
   }
 }
 
-Widget _timePicKarF({context, fieldTitleText,}) {
+Widget _apLyLavTimePicKarField({context, fieldTitleText,}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       textFieldTitleText(titleText: fieldTitleText),
       CustomTextFieldDob(
           hintText: AppString.text_select_time,
-
           dobIcon: Icons.access_time_outlined,
           dobIconAction: () => timePicker(
                 context,

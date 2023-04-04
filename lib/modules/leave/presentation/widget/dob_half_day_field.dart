@@ -39,12 +39,12 @@ class _ApplyLeaveDobHalfDayState extends State<ApplyLeaveDobHalfDay> {
                   dobIcon: Icons.calendar_month,
                   dobIconAction: () => popUpDialog(
                       context: context,
-                      Child: const ApplyLevPopUpCalendar(),
-                      DobSaveAction: () {})),
+                      child: const ApplyLevPopUpCalendar(),
+                      dobSaveAction: () {})),
             ],
           ),
         ),
-        customSpacerW(width: 12),
+        customSpacerWidth(width: 12),
         Flexible(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +66,7 @@ class _ApplyLeaveDobHalfDayState extends State<ApplyLeaveDobHalfDay> {
                           btnText: AppString.text_first),
                     ),
                   ),
-                  customSpacerW(width: 6),
+                  customSpacerWidth(width: 6),
                   Flexible(
                     child: InkWell(
                         onTap: () {
@@ -106,7 +106,11 @@ Widget _endDayButton({selectedValue, btnText}) {
 
 Widget _endDayBtnText({btnTextS, value}) {
   return Padding(
-    padding: const EdgeInsets.only(left: 22.0, right: 22, top: 16, bottom: 16),
+    padding: EdgeInsets.only(
+        left: AppLayout.getWidth(Dimensions.fontSizeLarge+2),
+        right: AppLayout.getWidth(Dimensions.fontSizeLarge+2),
+        top: AppLayout.getHeight(Dimensions.fontSizeExtraDefault),
+        bottom: AppLayout.getHeight(Dimensions.fontSizeExtraDefault)),
     child: Text(
       btnTextS,
       style: AppStyle.small_text_black.copyWith(

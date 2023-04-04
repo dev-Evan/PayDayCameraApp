@@ -62,7 +62,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
-                    customSpacerH(height: 30),
+                    customSpacerHeight(height: 30),
 
 
                     SizedBox(
@@ -91,7 +91,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ],
                     ),
 
-                    customSpacerH(height:Dimensions.fontSizeLarge),
+                    customSpacerHeight(height:Dimensions.fontSizeLarge),
 
 
                     Column(
@@ -111,7 +111,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                       ],
                     ),
-                    customSpacerH(height: Dimensions.fontSizeLarge),
+                    customSpacerHeight(height: Dimensions.fontSizeLarge),
                     Wrap(
                       children: [
                         Row(
@@ -144,7 +144,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                       ],
                     ),
-                    customSpacerH(height:Dimensions.fontSizeExtraLarge),
+                    customSpacerHeight(height:Dimensions.fontSizeExtraLarge),
                     CustomButton(AppString.text_log_in, () {
                       Get.find<AuthController>().logIn(
                           _emailController.text.toString(),
