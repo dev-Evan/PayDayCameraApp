@@ -8,7 +8,7 @@ class LogDetails {
   LogDetails.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
 }
@@ -29,7 +29,7 @@ class Data {
   List<Comments>? comments;
   String? behavior;
   String? inDate;
-  double? totalHours;
+  dynamic totalHours;
   String? punchInStatus;
   String? logDate;
   String? logTime;
@@ -77,7 +77,7 @@ class Data {
     if (json['comments'] != null) {
       comments = <Comments>[];
       json['comments'].forEach((v) {
-        comments!.add(new Comments.fromJson(v));
+        comments!.add(Comments.fromJson(v));
       });
     }
     behavior = json['behavior'];
@@ -102,7 +102,7 @@ class InIpData {
   InIpData.fromJson(Map<String, dynamic> json) {
     ip = json['ip'];
     coordinate = json['coordinate'] != null
-        ? new Coordinate.fromJson(json['coordinate'])
+        ? Coordinate.fromJson(json['coordinate'])
         : null;
     location = json['location'];
     workFromHome = json['work_from_home'];

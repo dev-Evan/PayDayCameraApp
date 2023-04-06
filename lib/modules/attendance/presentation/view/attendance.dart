@@ -23,7 +23,8 @@ import 'log_entry_bottomsheet.dart';
 class Attendance extends GetView<AttendanceController> {
   @override
   Widget build(BuildContext context) {
-    Get.put(AttendanceController());
+    controller.checkUserIsPunchedIn();
+    controller.getDailyLog();
     return controller.obx(
         (state) => Scaffold(
               body: _body(context),
@@ -31,7 +32,9 @@ class Attendance extends GetView<AttendanceController> {
         onLoading: const LoadingIndicator());
   }
 
-  Widget _body(BuildContext context) {
+  Widget _body(
+    BuildContext context,
+  ) {
     return SafeArea(
         child: SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
@@ -65,13 +68,12 @@ class Attendance extends GetView<AttendanceController> {
                     SizedBox(
                         height: AppLayout.getHeight(Dimensions.paddingDefault)),
                     punchButton(() async {
-                      _openBottomSheet(context: context);
-                      await Get.find<AttendanceController>().getLatLong();
+                      await _openBottomSheet();
+                      await controller.getLatLong();
                     }),
                     SizedBox(
                         height: AppLayout.getHeight(Dimensions.paddingMid)),
-                    Obx(() => dotIndicator(
-                        Get.find<AttendanceController>().currentIndex.value)),
+                    Obx(() => dotIndicator(controller.currentIndex.value)),
                     attendanceLogText(
                       context: context,
                       text: AppString.text_attendance_log,
@@ -83,12 +85,8 @@ class Attendance extends GetView<AttendanceController> {
             ),
           ),
           Obx(
-            () => Get.find<AttendanceController>()
-                    .logs
-                    .value
-                    .data!
-                    .dailyLogs!
-                    .isNotEmpty
+            () => (controller.logs.value.data != null &&
+                    controller.logs.value.data!.dailyLogs!.isNotEmpty)
                 ? Container(
                     padding: EdgeInsets.symmetric(
                         vertical: AppLayout.getHeight(Dimensions.paddingLarge),
@@ -101,11 +99,7 @@ class Attendance extends GetView<AttendanceController> {
                           SizedBox(
                               height:
                                   AppLayout.getHeight(Dimensions.paddingLarge)),
-                          logList(Get.find<AttendanceController>()
-                              .logs
-                              .value
-                              .data!
-                              .dailyLogs!),
+                          logList(controller.logs.value.data!.dailyLogs!),
                         ]),
                   )
                 : noLogLayout(),
@@ -115,12 +109,12 @@ class Attendance extends GetView<AttendanceController> {
     ));
   }
 
-  Future _openBottomSheet({required BuildContext context}) {
+  Future _openBottomSheet() {
     return showModalBottomSheet(
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      context: context,
-      builder: (context) => logEntryBottomSheet(),
+      context: Get.context!,
+      builder: (context) => const LogEntryBottomSheet(),
     );
   }
 }

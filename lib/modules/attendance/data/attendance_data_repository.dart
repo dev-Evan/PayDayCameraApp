@@ -7,7 +7,6 @@ import 'package:pay_day_mobile/modules/attendance/domain/change_request/change_r
 import 'package:pay_day_mobile/modules/attendance/domain/check_entry_status/check_entry_status.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/daily_log/daily_log.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../network/error_model.dart';
@@ -31,7 +30,7 @@ class AttendanceDataRepository {
         return LogEntryResponse.fromJson(response.body);
       }
     } catch (e) {
-      return Future.error(e.toString());
+      return Future.error(ErrorModel(message: e.toString()));
     }
   }
 
@@ -46,7 +45,7 @@ class AttendanceDataRepository {
         return LogEntryResponse.fromJson(response.body);
       }
     } catch (e) {
-      return Future.error(e.toString());
+      return Future.error(ErrorModel(message: e.toString()));
     }
   }
 
@@ -62,7 +61,7 @@ class AttendanceDataRepository {
         return CheckEntryStatus.fromJson(response.body);
       }
     } catch (ex) {
-      return Future.error(ex.toString());
+      return Future.error(ErrorModel(message: ex.toString()));
     }
   }
 
@@ -70,13 +69,14 @@ class AttendanceDataRepository {
     try {
       Response response = await networkClient.getRequest(
           "${AppString.DAILY_LOG}?timezone=${DateTime.now().timeZoneName}");
+      print(response.body);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
         return DailyLog.fromJson(response.body);
       }
     } catch (ex) {
-      return Future.error(ex.toString());
+      return Future.error(ErrorModel(message: ex.toString()));
     }
   }
 
@@ -91,7 +91,7 @@ class AttendanceDataRepository {
         return LogDetails.fromJson(response.body);
       }
     } catch (ex) {
-      return Future.error(ex.toString());
+      return Future.error(ErrorModel(message: ex.toString()));
     }
   }
 
@@ -104,7 +104,7 @@ class AttendanceDataRepository {
         return ChangeLog.fromJson(response.body);
       }
     } catch (ex) {
-      return Future.error(ex.toString());
+      return Future.error(ErrorModel(message: ex.toString()));
     }
   }
 
@@ -119,7 +119,7 @@ class AttendanceDataRepository {
         return ChangeRequestResponseModel.fromJson(response.body);
       }
     } catch (ex) {
-      return Future.error(ex.toString());
+      return Future.error(ErrorModel(message: ex.toString()));
     }
   }
 }

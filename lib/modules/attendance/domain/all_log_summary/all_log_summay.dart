@@ -13,13 +13,18 @@ class FilteredLogSummary {
 }
 
 class Data {
+  QueryString? queryString;
   List<LogData>? data;
   Links? links;
   Meta? meta;
 
-  Data({this.data, this.links, this.meta});
+  Data({this.queryString, this.data, this.links, this.meta});
 
   Data.fromJson(Map<String, dynamic> json) {
+    queryString = json['query_string'] != null
+        ? QueryString.fromJson(json['query_string'])
+        : null;
+
     if (json['data'] != null) {
       data = <LogData>[];
       json['data'].forEach((v) {
@@ -42,12 +47,12 @@ class LogData {
 
   LogData(
       {this.id,
-        this.date,
-        this.dateInNumber,
-        this.month,
-        this.userId,
-        this.behavior,
-        this.details});
+      this.date,
+      this.dateInNumber,
+      this.month,
+      this.userId,
+      this.behavior,
+      this.details});
 
   LogData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -72,7 +77,7 @@ class Details {
   String? inTime;
   String? outTime;
   String? startTime;
-  int? totalHours;
+  dynamic totalHours;
   InIpData? inIpData;
   InIpData? outIpData;
   String? statusName;
@@ -81,17 +86,17 @@ class Details {
 
   Details(
       {this.id,
-        this.attendanceId,
-        this.statusId,
-        this.inTime,
-        this.outTime,
-        this.startTime,
-        this.totalHours,
-        this.inIpData,
-        this.outIpData,
-        this.statusName,
-        this.statusClass,
-        this.comments});
+      this.attendanceId,
+      this.statusId,
+      this.inTime,
+      this.outTime,
+      this.startTime,
+      this.totalHours,
+      this.inIpData,
+      this.outIpData,
+      this.statusName,
+      this.statusClass,
+      this.comments});
 
   Details.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -116,7 +121,6 @@ class Details {
       });
     }
   }
-
 }
 
 class InIpData {
@@ -147,7 +151,6 @@ class Coordinate {
     lat = json['lat'];
     lng = json['lng'];
   }
-
 }
 
 class Comments {
@@ -164,7 +167,6 @@ class Comments {
     type = json['type'];
     comment = json['comment'];
   }
-
 }
 
 class Links {
@@ -192,10 +194,10 @@ class Meta {
 
   Meta(
       {this.total,
-        this.count,
-        this.perPage,
-        this.currentPage,
-        this.totalPages});
+      this.count,
+      this.perPage,
+      this.currentPage,
+      this.totalPages});
 
   Meta.fromJson(Map<String, dynamic> json) {
     total = json['total'];
@@ -203,5 +205,17 @@ class Meta {
     perPage = json['per_page'];
     currentPage = json['current_page'];
     totalPages = json['total_pages'];
+  }
+}
+
+class QueryString {
+  String? start;
+  String? end;
+
+  QueryString({this.start, this.end});
+
+  QueryString.fromJson(Map<String, dynamic> json) {
+    start = json['start'];
+    end = json['end'];
   }
 }

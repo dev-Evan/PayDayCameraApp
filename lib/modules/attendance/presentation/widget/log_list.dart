@@ -43,7 +43,7 @@ Widget _logDetails(DailyLogs dailyLog) {
                   SizedBox(width: AppLayout.getWidth(4)),
                   Text(
                     TimeCounterHelper.getTimeStringFromDouble(
-                        dailyLog.totalHours.toDouble() ?? 0.0),
+                        dailyLog.totalHours?.toDouble() ?? 0.0),
                     style: AppStyle.small_text.copyWith(color: Colors.grey),
                   ),
                   SizedBox(
@@ -79,6 +79,6 @@ Future _openLogDetailsBottomSheet() {
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     context: Get.context!,
-    builder: (context) => const LogDetailsBottomSheet(),
+    builder: (context) => LogDetailsBottomSheet(),
   );
 }

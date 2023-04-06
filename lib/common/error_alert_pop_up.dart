@@ -9,7 +9,7 @@ import '../utils/app_layout.dart';
 import '../utils/dimensions.dart';
 
 
-Future errorAlert( Function onReloadClicked) {
+Future errorAlertPopup( Function onReloadClicked) {
   return showDialog(
     context: Get.context!,
     builder: (context) {

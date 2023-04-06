@@ -8,7 +8,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pay_day_mobile/common/error_alert.dart';
+import 'package:pay_day_mobile/common/error_alert_pop_up.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attendance_data_repository.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/change_log/change_log.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details.dart';
@@ -27,13 +27,13 @@ import '../../domain/log_entry/log_entry_response.dart';
 class AttendanceController extends GetxController with StateMixin {
   @override
   void onInit() async {
-    await checkUserIsPunchedIn();
-    await getDailyLog();
-    duration =
-        Duration(minutes: (logs.value.data?.todayWorked * 60).toInt()).obs;
-    countdownDuration =
-        Duration(minutes: (logs.value.data?.todayShortage * 60).toInt()).obs;
-    super.onInit();
+    // await checkUserIsPunchedIn();
+    // await getDailyLog();
+    // // duration =
+    // //     Duration(minutes: (logs.value.data?.todayWorked * 60).toInt()).obs;
+    // // countdownDuration =
+    // //     Duration(minutes: (logs.value.data?.todayShortage * 60).toInt()).obs;
+    // super.onInit();
   }
 
   final AttendanceDataRepository _attendanceDataRepository =
@@ -51,7 +51,7 @@ class AttendanceController extends GetxController with StateMixin {
   Rx<Duration> duration = const Duration().obs;
   Rx<Duration> countdownDuration = const Duration().obs;
   final currentIndex = 0.obs;
-  late LogDetails logDetailsById = LogDetails();
+  late LogDetails logDetailsById;
 
   checkUserIsPunchedIn() async {
     change(null, status: RxStatus.loading());
@@ -73,15 +73,14 @@ class AttendanceController extends GetxController with StateMixin {
     change(null, status: RxStatus.loading());
     try {
       _attendanceDataRepository.punchIn(punchInRequest: punchInRequest).then(
-          (value) {
+          (value) async {
         startTimer();
-        checkUserIsPunchedIn();
-        getDailyLog();
-      }, onError: (error) => showToast(error.toString()));
+        await checkUserIsPunchedIn();
+        await getDailyLog();
+      }, onError: (error) => showToast(error.message));
     } catch (ex) {
       print(ex.toString());
     }
-    change(null, status: RxStatus.loading());
     change(null, status: RxStatus.success());
   }
 
@@ -92,10 +91,10 @@ class AttendanceController extends GetxController with StateMixin {
       punchOutRequest: punchOutRequest,
     )
         .then(
-      (value) {
+      (value) async {
         stopTimer();
-        checkUserIsPunchedIn();
-        getDailyLog();
+        await checkUserIsPunchedIn();
+        await getDailyLog();
       },
       onError: (error) => showToast(error.toString()),
     );
@@ -108,8 +107,7 @@ class AttendanceController extends GetxController with StateMixin {
       logs.value = dailyLogs;
       print(logs.value);
     }, onError: (error) {
-      errorAlert(getDailyLog());
-      print('Error:::: ${error.toString()}');
+      print("Error::${error.message}");
     });
     change(null, status: RxStatus.success());
   }
@@ -120,7 +118,7 @@ class AttendanceController extends GetxController with StateMixin {
       logDetailsById = logDetails;
       print(logDetails.toString());
     }), onError: (error) {
-      print('Error:::: ${error.toString()}');
+      print(error.message);
     });
     change(null, status: RxStatus.success());
   }

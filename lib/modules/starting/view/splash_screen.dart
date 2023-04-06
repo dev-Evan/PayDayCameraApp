@@ -15,9 +15,9 @@ class splashScreen extends StatefulWidget {
 }
 
 class _splashScreenState extends State<splashScreen> {
-
   bool isLoad = false;
   final box = GetStorage();
+
   Future chooseScreen() async {
     final idStore = box.read(AppString.idStore);
     dynamic remValue = box.read(AppString.rememberKey);

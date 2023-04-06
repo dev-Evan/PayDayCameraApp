@@ -8,7 +8,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 
 import '../../../../utils/app_string.dart';
 import '../../../../utils/app_style.dart';
-import '../../../../utils/behaviour_color_picker_helper.dart';
+import '../../../../utils/color_picker_helper.dart';
 
 Widget infoLayout() {
   return Obx(
@@ -22,7 +22,7 @@ Widget infoLayout() {
         ),
         Get.find<AttendanceController>().isPunchIn.value == true
             ? CustomStatusButton(
-                bgColor: Util.getBgColor(Get.find<AttendanceController>()
+                bgColor: Util.getBtnBgColor(Get.find<AttendanceController>()
                     .logs
                     .value
                     .data!
@@ -34,7 +34,7 @@ Widget infoLayout() {
                     .data!
                     .behavior
                     .toString(),
-                textColor: Util.getTextColor(
+                textColor: Util.getBtnTextColor(
                   Get.find<AttendanceController>()
                       .logs
                       .value

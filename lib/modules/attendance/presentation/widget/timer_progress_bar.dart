@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/modules/attendance/domain/daily_log/daily_log.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'dart:math' as math;
@@ -48,9 +49,7 @@ class _TimerProgressBarState extends State<TimerProgressBar>
           ),
           CustomPaint(
             painter: ProgressArc(
-                arc: animation.value,
-                isBG: false,
-                progressColor: Colors.white),
+                arc: animation.value, isBG: false, progressColor: Colors.white),
           ),
         ],
         // This trailing comma makes auto-formatting nicer for build methods.
@@ -60,14 +59,18 @@ class _TimerProgressBarState extends State<TimerProgressBar>
 }
 
 double getWorkPercentage() {
-  double value =
-      Get.find<AttendanceController>().logs.value.data?.todayWorked.toDouble() /
-          Get.find<AttendanceController>()
-              .logs
-              .value
-              .data
-              ?.todayScheduled
-              .toDouble();
+  double value = Get.find<AttendanceController>()
+          .logs
+          .value
+          .data!
+          .todayWorked!
+          .toDouble() /
+      Get.find<AttendanceController>()
+          .logs
+          .value
+          .data!
+          .todayScheduled!
+          .toDouble();
   if (value >= 1) {
     return value = 1.00;
   }

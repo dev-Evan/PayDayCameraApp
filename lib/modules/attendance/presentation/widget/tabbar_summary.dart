@@ -1,191 +1,174 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/custom_divider.dart';
+import 'package:pay_day_mobile/common/loading_indicator.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-class SummaryScreen extends StatelessWidget {
+class SummaryScreen extends GetView<AttendanceLogsController> {
   const SummaryScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.symmetric(
-            vertical: AppLayout.getHeight(Dimensions.paddingDefault),
-            horizontal: AppLayout.getWidth(Dimensions.paddingDefault)),
-        child: Column(
-          children: [
-            SizedBox(height: AppLayout.getHeight(12)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return controller.obx(
+        (state) => Container(
+            padding: EdgeInsets.symmetric(
+                vertical: AppLayout.getHeight(Dimensions.paddingDefault),
+                horizontal: AppLayout.getWidth(Dimensions.paddingDefault)),
+            child: Column(
               children: [
-                Column(
+                SizedBox(height: AppLayout.getHeight(12)),
+                Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          AppString.textMonth,
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.secondaryColor,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        SizedBox(
-                          width: AppLayout.getWidth(12),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            // _show();
-                          },
-                          child: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: AppColor.hintColor,
-                          ),
-                        )
+                        controller.logSummaryOverview.data != null
+                            ? Text(
+                                controller.logSummaryOverview.data!.queryString!
+                                        .start!.isNotEmpty
+                                    ? "Custom"
+                                    : "This Month",
+                                style: AppStyle.mid_large_text.copyWith(
+                                    color: AppColor.secondaryColor,
+                                    fontWeight: FontWeight.w700),
+                              )
+                            : Container(),
+                        controller.logSummaryOverview.data != null
+                            ? Text(
+                                controller.logSummaryOverview.data!.queryString!
+                                        .start!.isNotEmpty
+                                    ? "${controller.logSummaryOverview.data?.queryString?.start} - ${controller.logSummaryOverview.data?.queryString?.end}"
+                                    : DateFormat('MMMM yyyy')
+                                        .format(DateTime.now())
+                                        .toString(),
+                                style: AppStyle.normal_text_grey,
+                              )
+                            : Container(),
                       ],
                     ),
-                    Text(
-                      'Dec 2022',
-                      style: AppStyle.small_text_black
-                          .copyWith(color: AppColor.hintColor),
+                    SizedBox(
+                      width: AppLayout.getWidth(12),
+                    ),
+                    const Icon(
+                      Icons.keyboard_arrow_down,
+                      color: AppColor.hintColor,
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: AppLayout.getHeight(12),
+                ),
+                Expanded(child: logsList(controller))
               ],
-            ),
-            SizedBox(
-              height: AppLayout.getHeight(12),
-            ),
-            Expanded(child: logsList())
-          ],
-        ));
+            )),
+        onLoading: const LoadingIndicator());
   }
 }
 
-Widget logsList() {
-  List _color = [
-    Colors.green,
-    AppColor.errorColor,
-    AppColor.secondaryColor,
-    Colors.green,
-    AppColor.secondaryColor,
-  ];
+logsList(AttendanceLogsController controller) {
   return ListView.builder(
-    itemCount: 5,
+    itemCount: controller.logSummaryOverview.data?.attendanceDetails?.length,
     itemBuilder: (context, index) {
       return Column(
         children: [
-          Card(
-            elevation: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      "10",
-                      style: AppStyle.mid_large_text.copyWith(
-                          color: AppColor.normalTextColor,
-                          fontSize: Dimensions.fontSizeExtraLarge,
-                          fontWeight: FontWeight.w900),
-                    ),
-                    Text(
-                      "Dec",
-                      style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontSize: Dimensions.fontSizeSmall),
-                    ),
-                  ],
-                ),
-                CustomDiveider(25, 1),
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          's : ',
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  controller.logSummaryOverview.data != null
+                      ? Text(
+                          controller.logSummaryOverview.data!
+                              .attendanceDetails![index].dateInNumber
+                              .toString(),
+                          style: AppStyle.mid_large_text.copyWith(
+                              color: AppColor.normalTextColor,
+                              fontSize: Dimensions.fontSizeExtraLarge,
+                              fontWeight: FontWeight.w900),
+                        )
+                      : Container(),
+                  controller.logSummaryOverview.data != null
+                      ? Text(
+                          controller.logSummaryOverview.data!
+                              .attendanceDetails![index].month
+                              .toString(),
                           style: AppStyle.small_text.copyWith(
                               color: AppColor.hintColor,
-                              fontSize: Dimensions.fontSizeDefault + 4,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          "8.00",
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.secondaryColor,
-                              fontSize: Dimensions.fontSizeDefault + 2),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'w : ',
-                          style: AppStyle.small_text.copyWith(
-                              color: AppColor.hintColor,
-                              fontSize: Dimensions.fontSizeDefault + 4,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          "8.00",
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.secondaryColor,
-                              fontSize: Dimensions.fontSizeDefault + 2),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'PL : ',
-                          style: AppStyle.small_text.copyWith(
-                              color: AppColor.hintColor,
-                              fontSize: Dimensions.fontSizeDefault,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          "0.00",
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.secondaryColor,
-                              fontSize: Dimensions.fontSizeDefault + 2),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'B : ',
-                          style: AppStyle.small_text.copyWith(
-                              color: AppColor.hintColor,
-                              fontSize: Dimensions.fontSizeDefault,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          "1.00",
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: _color[index],
-                              fontSize: Dimensions.fontSizeDefault + 2),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                              fontSize: Dimensions.fontSizeSmall),
+                        )
+                      : Container(),
+                ],
+              ),
+              CustomDiveider(25, 1),
+              Column(
+                children: [
+                  _logOverviewInfos(
+                      title: "S",
+                      count: controller.logSummaryOverview.data != null
+                          ? controller.logSummaryOverview.data!
+                              .attendanceDetails![index].scheduledHours
+                              .toString()
+                          : ""),
+                  _logOverviewInfos(
+                      title: "W",
+                      count: controller.logSummaryOverview.data != null
+                          ? controller.logSummaryOverview.data!
+                              .attendanceDetails![index].totalWorkingHours
+                              .toString()
+                          : ""),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _logOverviewInfos(
+                      title: "PL",
+                      count: controller.logSummaryOverview.data != null
+                          ? controller.logSummaryOverview.data!
+                              .attendanceDetails![index].paidLeaves
+                              .toString()
+                          : ""),
+                  _logOverviewInfos(
+                      title: "B",
+                      count: controller.logSummaryOverview.data != null
+                          ? controller.logSummaryOverview.data!
+                              .attendanceDetails![index].balance
+                              .toString()
+                          : ""),
+                ],
+              ),
+            ],
           ),
           SizedBox(
-            height: AppLayout.getHeight(18),
+            height: AppLayout.getHeight(32),
           )
         ],
       );
     },
   );
 }
+
+_logOverviewInfos({required String title, required String count}) => Row(
+      children: [
+        Text(
+          '$title : ',
+          style: AppStyle.mid_large_text.copyWith(
+              color: AppColor.hintColor,
+              fontSize: Dimensions.fontSizeDefault + 4,
+              fontWeight: FontWeight.w500),
+        ),
+        Text(
+          count,
+          style: AppStyle.mid_large_text.copyWith(
+              color: AppColor.secondaryColor,
+              fontSize: Dimensions.fontSizeDefault + 2),
+        ),
+      ],
+    );

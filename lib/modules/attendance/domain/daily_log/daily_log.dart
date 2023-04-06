@@ -10,11 +10,6 @@ class DailyLog {
     message = json['message'];
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
-
-  @override
-  String toString() {
-    return 'DailyLog{status: $status, message: $message, data: $data}';
-  }
 }
 
 class Data {
@@ -24,27 +19,21 @@ class Data {
   dynamic todayWorked;
   dynamic todayShortage;
   dynamic todayOvertime;
-  dynamic totalShortage;
-  dynamic totalOverTime;
+  double? totalShortage;
+  int? totalOverTime;
   String? behavior;
   List<DailyLogs>? dailyLogs;
 
-
-  @override
-  String toString() {
-    return 'Data{totalScheduled: $totalScheduled, todayScheduled: $todayScheduled, totalWorked: $totalWorked, todayWorked: $todayWorked, todayShortage: $todayShortage, todayOvertime: $todayOvertime, totalShortage: $totalShortage, totalOverTime: $totalOverTime, behavior: $behavior, dailyLogs: $dailyLogs}';
-  }
-
   Data(
       {this.totalScheduled,
-        this.todayScheduled,
-        this.totalWorked,
-        this.todayWorked,
-        this.todayShortage,
-        this.todayOvertime,
-        this.totalShortage,
-        this.totalOverTime,
-        this.behavior,
+      this.todayScheduled,
+      this.totalWorked,
+      this.todayWorked,
+      this.todayShortage,
+      this.todayOvertime,
+      this.totalShortage,
+      this.totalOverTime,
+      this.behavior,
       this.dailyLogs});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -73,8 +62,8 @@ class DailyLogs {
   String? inTime;
   String? outTime;
   dynamic totalHours;
-  String? inIpData;
-  String? outIpData;
+  InIpData? inIpData;
+  InIpData? outIpData;
   List<Notes>? notes;
 
   DailyLogs(
@@ -88,11 +77,6 @@ class DailyLogs {
       this.outIpData,
       this.notes});
 
-  @override
-  String toString() {
-    return 'DailyLogs{id: $id, attendanceId: $attendanceId, startTime: $startTime, inTime: $inTime, outTime: $outTime, totalHours: $totalHours, inIpData: $inIpData, outIpData: $outIpData, notes: $notes}';
-  }
-
   DailyLogs.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     attendanceId = json['attendance_id'];
@@ -100,8 +84,12 @@ class DailyLogs {
     inTime = json['in_time'];
     outTime = json['out_time'];
     totalHours = json['total_hours'];
-    inIpData = json['in_ip_data'];
-    outIpData = json['out_ip_data'];
+    inIpData = json['in_ip_data'] != null
+        ? InIpData.fromJson(json['in_ip_data'])
+        : null;
+    outIpData = json['out_ip_data'] != null
+        ? InIpData.fromJson(json['out_ip_data'])
+        : null;
     if (json['notes'] != null) {
       notes = <Notes>[];
       json['notes'].forEach((v) {
@@ -111,17 +99,42 @@ class DailyLogs {
   }
 }
 
+class InIpData {
+  String? ip;
+  Coordinate? coordinate;
+  String? location;
+  bool? workFromHome;
+
+  InIpData({this.ip, this.coordinate, this.location, this.workFromHome});
+
+  InIpData.fromJson(Map<String, dynamic> json) {
+    ip = json['ip'];
+    coordinate = json['coordinate'] != null
+        ? Coordinate.fromJson(json['coordinate'])
+        : null;
+    location = json['location'];
+    workFromHome = json['work_from_home'];
+  }
+}
+
+class Coordinate {
+  String? lat;
+  String? lng;
+
+  Coordinate({this.lat, this.lng});
+
+  Coordinate.fromJson(Map<String, dynamic> json) {
+    lat = json['lat'];
+    lng = json['lng'];
+  }
+}
+
 class Notes {
   int? id;
   String? type;
   String? comment;
 
   Notes({this.id, this.type, this.comment});
-
-  @override
-  String toString() {
-    return 'Notes{id: $id, type: $type, comment: $comment}';
-  }
 
   Notes.fromJson(Map<String, dynamic> json) {
     id = json['id'];

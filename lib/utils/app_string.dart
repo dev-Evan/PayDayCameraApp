@@ -14,6 +14,8 @@ class AppString {
   static String USER_PROFILE = "/user/profile";
   static String LOG_SUMMARY_BY_THIS_MONTH = "/attendance/summary?within=thisMonth";
   static String LOG_SUMMARY_BY_THIS_YEAR = "/attendance/summary?within=thisYear";
+  static String SUMMARY_ALL_LOG = "/attendance/summaries-data-logs?";
+  static String DETAILS_SUMMARY = "/attendance/details-summary?";
 
   // Apps string here
   static const String exampleText = "";
@@ -37,6 +39,7 @@ class AppString {
   static const String text_leave_duration = "Leave Duration";
   static const String text_approved = "Approved";
   static const String text_pending = "Pending";
+  static const String text_rejected = "Rejected";
   static const String text_rejection = "Rejection";
   static const String text_hours = "Hours";
   static const String text_single_day = "Single Day";

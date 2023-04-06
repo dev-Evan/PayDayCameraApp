@@ -20,7 +20,9 @@ import '../../../../utils/app_layout.dart';
 import '../widget/bottom_sheet_appbar.dart';
 import '../widget/vertical_divider.dart';
 
-class logEntryBottomSheet extends GetView<AttendanceController> {
+class LogEntryBottomSheet extends GetView<AttendanceController> {
+  const LogEntryBottomSheet({super.key});
+
   @override
   Widget build(BuildContext context) {
     return controller.obx(

@@ -13,7 +13,7 @@ import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_string.dart';
 import '../../../../utils/app_style.dart';
 import '../../../../utils/dimensions.dart';
-import '../../../../utils/behaviour_color_picker_helper.dart';
+import '../../../../utils/color_picker_helper.dart';
 
 Widget contentLayout() {
   return Container(
@@ -28,7 +28,6 @@ Widget contentLayout() {
           _logTimeLayout(),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
           _punchInDetails(),
-          SizedBox(height: AppLayout.getHeight(48)),
           _punchOutDetails(),
         ],
       ));
@@ -65,11 +64,11 @@ _logDate() {
 
 _entryBehaviour() {
   return CustomStatusButton(
-      bgColor: Util.getBgColor(
+      bgColor: Util.getBtnBgColor(
           Get.find<AttendanceController>().logDetailsById.data?.behavior ?? ""),
       text:
           Get.find<AttendanceController>().logDetailsById.data?.behavior ?? "",
-      textColor: Util.getTextColor(
+      textColor: Util.getBtnTextColor(
           Get.find<AttendanceController>().logDetailsById.data?.behavior ??
               ""));
 }
@@ -126,40 +125,48 @@ _punchInDetails() {
       punchDetails(
           title: AppString.text_punch_in,
           note: (logDetails.data?.comments != null &&
-              logDetails.data!.comments!.isNotEmpty)
+                  logDetails.data!.comments!.isNotEmpty)
               ? logDetails.data?.comments?.first.comment
               : ""),
       SizedBox(height: AppLayout.getHeight(Dimensions.paddingExtraLarge)),
       UsersCurrentInfoLayout(
-          title: AppString.text_my_location, data: logDetails.data?.inIpData?.location??""),
+          title: AppString.text_my_location,
+          data: logDetails.data?.inIpData?.location ?? ""),
       SizedBox(height: AppLayout.getHeight(Dimensions.paddingMid)),
       UsersCurrentInfoLayout(
-          title: AppString.text_ip_address, data: logDetails.data?.inIpData?.ip??""),
+          title: AppString.text_ip_address,
+          data: logDetails.data?.inIpData?.ip ?? ""),
     ],
   );
 }
 
 _punchOutDetails() {
   LogDetails logDetails = Get.find<AttendanceController>().logDetailsById;
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      punchDetails(
-          title: AppString.text_punch_out,
-          note: (logDetails.data?.comments != null &&
-                  logDetails.data!.comments!.isNotEmpty)
-              ? (logDetails.data!.comments!.last.type!.startsWith("out-note")
-                  ? logDetails.data?.comments?.last.comment
-                  : "")
-              : ""),
-      SizedBox(height: AppLayout.getHeight(Dimensions.paddingExtraLarge)),
-      UsersCurrentInfoLayout(
-          title: AppString.text_my_location, data: logDetails.data?.outIpData?.location??""),
-      SizedBox(height: AppLayout.getHeight(Dimensions.paddingMid)),
-      UsersCurrentInfoLayout(
-          title: AppString.text_ip_address, data: logDetails.data?.outIpData?.ip??""),
-    ],
-  );
+  return logDetails.data!.outTime!.isNotEmpty
+      ? Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: AppLayout.getHeight(48)),
+            punchDetails(
+                title: AppString.text_punch_out,
+                note: (logDetails.data?.comments != null &&
+                        logDetails.data!.comments!.isNotEmpty)
+                    ? (logDetails.data!.comments!.last.type!
+                            .startsWith("out-note")
+                        ? logDetails.data?.comments?.last.comment
+                        : "")
+                    : ""),
+            SizedBox(height: AppLayout.getHeight(Dimensions.paddingExtraLarge)),
+            UsersCurrentInfoLayout(
+                title: AppString.text_my_location,
+                data: logDetails.data?.outIpData?.location ?? ""),
+            SizedBox(height: AppLayout.getHeight(Dimensions.paddingMid)),
+            UsersCurrentInfoLayout(
+                title: AppString.text_ip_address,
+                data: logDetails.data?.outIpData?.ip ?? ""),
+          ],
+        )
+      : Container();
 }
 
 punchDetails({required String title, String? note}) {
