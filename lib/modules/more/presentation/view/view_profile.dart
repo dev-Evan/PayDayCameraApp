@@ -1,9 +1,13 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/common/custom_appbar.dart';
 import 'package:pay_day_mobile/common/custom_navigator.dart';
+import 'package:pay_day_mobile/modules/more/data/profile_img_change_rep.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/change_password.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/edit_profile.dart';
@@ -16,8 +20,54 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
-class ViewProfile extends StatelessWidget {
-  //UserProfileController profileData=Get.put(UserProfileController());
+import '../controller/change_profile_img_controller.dart';
+
+class ViewProfile extends StatefulWidget {
+  @override
+  State<ViewProfile> createState() => _ViewProfileState();
+}
+
+class _ViewProfileState extends State<ViewProfile> {
+  ProfileDataController profileDataController =
+      Get.put(ProfileDataController());
+
+  ChangeProfileImgController changeProfileImgController=Get.put(ChangeProfileImgController());
+
+  FilePickerResult? result;
+
+  String? fileName;
+
+  PlatformFile? pickFile;
+
+  bool isLoading = false;
+
+  File fileToDisplay = File('');
+
+  void pickFile1() async {
+    try {
+      setState(() {
+        isLoading = false;
+      });
+
+      result = await FilePicker.platform.pickFiles(
+        type: FileType.any,
+        allowMultiple: false,
+      );
+
+      if (result != null) {
+        setState(() {
+          fileName = result!.files.first.name;
+          pickFile = result!.files.first;
+          fileToDisplay = File(pickFile!.path.toString());
+          //changeProfileImgController.changeProfileImage(fileToDisplay);
+          print(fileName.toString());
+
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +84,15 @@ class ViewProfile extends StatelessWidget {
             SizedBox(
               height: AppLayout.getHeight(10),
             ),
-            _circleAvatarStyle(onAction: () {}, userImage: Images.user),
-
+            _circleAvatarStyle(
+                onAction: ()=>changeProfileImgController.pickImage(),
+                userImage: profileDataController
+                            .userProfile?.data?.profilePictureUrl ==
+                        null
+                    ? AssetImage(Images.user)
+                    : NetworkImage(profileDataController
+                            .userProfile?.data?.profilePictureUrl ??
+                        "")),
             SizedBox(
               height: AppLayout.getHeight(10),
             ),
@@ -45,7 +102,9 @@ class ViewProfile extends StatelessWidget {
               children: [
                 Center(
                   child: Text(
-                    '',
+                    profileDataController.userProfile?.data?.fullName
+                            .toString() ??
+                        "Demo",
                     style: AppStyle.mid_large_text.copyWith(
                         fontWeight: FontWeight.w800,
                         color: AppColor.normalTextColor),
@@ -58,7 +117,10 @@ class ViewProfile extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'hdfh',
+                          profileDataController
+                                  .userProfile?.data?.designationName
+                                  .toString() ??
+                              "Demo",
                           style: AppStyle.small_text
                               .copyWith(color: AppColor.hintColor),
                         ),
@@ -76,7 +138,9 @@ class ViewProfile extends StatelessWidget {
                       width: AppLayout.getWidth(8),
                     ),
                     Text(
-                      'hdf',
+                      profileDataController.userProfile?.data?.employmentStatus
+                              .toString() ??
+                          "Demo",
                       style: AppStyle.small_text
                           .copyWith(color: AppColor.hintColor),
                     ),
@@ -99,7 +163,9 @@ class ViewProfile extends StatelessWidget {
                         height: AppLayout.getHeight(8),
                       ),
                       Text(
-                        AppString.text_about_me_dec,
+                        profileDataController.userProfile?.data?.aboutMe
+                                .toString() ??
+                            "Demo",
                         style: AppStyle.small_text.copyWith(
                             color: AppColor.normalTextColor,
                             fontSize: Dimensions.fontSizeDefault - 1),
@@ -109,19 +175,31 @@ class ViewProfile extends StatelessWidget {
                       ),
                       textFieldTitleText(titleText: AppString.text_general),
                       _cardView(
-                          dynamicText: 'dynamic',
+                          dynamicText: profileDataController
+                                  .userProfile?.data?.departmentName
+                                  .toString() ??
+                              "Demo",
                           titleText: AppString.text_department,
                           icon: Icons.work_outline_outlined),
                       _cardView(
-                          dynamicText: 'dynamic',
+                          dynamicText: profileDataController
+                                  .userProfile?.data?.workingShiftType
+                                  .toString() ??
+                              "Demo",
                           titleText: AppString.text_shift,
                           icon: Icons.access_time_outlined),
                       _cardView(
-                          dynamicText: 'dynamic',
+                          dynamicText: profileDataController
+                                  .userProfile?.data?.email
+                                  .toString() ??
+                              "Demo",
                           titleText: AppString.text_email,
                           icon: CupertinoIcons.mail),
                       _cardView(
-                          dynamicText: 'dynamic',
+                          dynamicText: profileDataController
+                                  .userProfile?.data?.contact
+                                  .toString() ??
+                              "Demo",
                           titleText: AppString.text_phone,
                           icon: CupertinoIcons.phone),
                       SizedBox(
@@ -129,15 +207,24 @@ class ViewProfile extends StatelessWidget {
                       ),
                       textFieldTitleText(titleText: AppString.text_personal),
                       _cardView(
-                          dynamicText: 'dynamic',
+                          dynamicText: profileDataController
+                                  .userProfile?.data?.address
+                                  .toString() ??
+                              "Demo",
                           titleText: AppString.text_address,
                           icon: CupertinoIcons.home),
                       _cardView(
-                          dynamicText: 'dynamic',
+                          dynamicText: profileDataController
+                                  .userProfile?.data?.dateOfBirth
+                                  .toString() ??
+                              "Demo",
                           titleText: AppString.text_birthday,
                           icon: Icons.card_giftcard),
                       _cardView(
-                          dynamicText: 'dynamic',
+                          dynamicText: profileDataController
+                                  .userProfile?.data?.gender
+                                  .toString() ??
+                              "Demo",
                           titleText: AppString.text_gender,
                           icon: CupertinoIcons.person),
                     ],
@@ -187,15 +274,16 @@ Widget _cardView({icon, dynamicText, titleText}) {
   );
 }
 
-Widget _circleAvatarStyle({userImage, onAction}) {
+Widget _circleAvatarStyle({final userImage, onAction}) {
   return Stack(
     children: [
       CircleAvatar(
         radius: 34,
         backgroundColor: AppColor.primaryColor,
         child: CircleAvatar(
-          radius: 32,
-          backgroundImage: AssetImage(userImage),
+          radius: 34,
+          backgroundColor: AppColor.primaryColor,
+          backgroundImage: userImage,
         ),
       ),
       Positioned(

@@ -12,27 +12,31 @@ import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
-class AuthController extends GetxController {
+class AuthController extends GetxController with StateMixin{
   final AuthDataSource _authDataSource = AuthDataSource(NetworkClient());
 
   final GetStorage box = GetStorage();
 
-  void _writeUserInfo(Login? login) {
-    box.write(AppString.idStore, login?.data!.id);
-    box.write(AppString.USERNAME, login?.data!.firstName);
-    box.write(AppString.ACCESS_TOKEN, login?.data!.token);
-    box.write(AppString.loginCheckKey, AppString.loginValue);
-  }
 
-  void logIn(String email, String password) {
+
+  void logIn(String email, String password) async{
+    change(null,status: RxStatus.loading());
     try {
-      _authDataSource.loginIntoAccount(email, password).then((value) {
+    await  _authDataSource.loginIntoAccount(email, password).then((Login value) {
         _writeUserInfo(value);
         Get.toNamed(AppString.home);
       }, onError: (error) =>_showToast(error.message));
     } catch (ex) {
       _showToast(ex.toString());
     }
+    change(null,status: RxStatus.success());
+  }
+
+  void _writeUserInfo(Login? login ){
+    box.write(AppString.idStore, login?.data!.id);
+    box.write(AppString.USERNAME, login?.data!.firstName);
+    box.write(AppString.ACCESS_TOKEN, login?.data!.token);
+    box.write(AppString.loginCheckKey, AppString.loginValue);
   }
 
   _showToast(message) => Fluttertoast.showToast(

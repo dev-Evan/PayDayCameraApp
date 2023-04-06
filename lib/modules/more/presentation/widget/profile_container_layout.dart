@@ -9,7 +9,12 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-Widget profileCardLayOut({context, userName, userImage, userEmail}) {
+import '../../../../utils/images.dart';
+
+
+Widget profileCardLayOut({context, userName,final userImage, userEmail,statusText}) {
+
+
   return Expanded(
       flex: 3,
       child: Container(
@@ -29,9 +34,11 @@ Widget profileCardLayOut({context, userName, userImage, userEmail}) {
                   Row(
                     children: [
                       CircleAvatar(
-                        backgroundImage: AssetImage(userImage),
+                        backgroundImage:userImage ,
                         radius: 28,
                       ),
+
+                      
                       SizedBox(
                         width: AppLayout.getWidth(16),
                       ),
@@ -53,7 +60,7 @@ Widget profileCardLayOut({context, userName, userImage, userEmail}) {
                       ),
                     ],
                   ),
-                  userStatusView(statusText: 'Active')
+                  userStatusView(statusText: statusText)
                 ],
               ),
               const Spacer(),

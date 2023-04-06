@@ -13,6 +13,9 @@ class AppString {
   static String ATTENDANCE_REQUEST = "/attendance/request";
   static String CHANGE_LOG = "/attendance/log";
   static String USER_PROFILE = "/user/profile";
+  static String BASIC_INFO = "/basic-information";
+  static String USER_CHANGE_PICTURE = "/user/change-picture";
+  static String SALARY_OVERVIEW = "/employee/salary-overview";
   static String LOG_SUMMARY_BY_THIS_MONTH = "/attendance/summary?within=thisMonth";
   static String LOG_SUMMARY_BY_THIS_YEAR = "/attendance/summary?within=thisYear";
 
@@ -284,7 +287,6 @@ class AppString {
   static String text_calender_text = "Calender";
   static String text_about_me_dec =
       "Hello. I am an UX/UI designer. I am in love with designing since my childhood. It gives me the freedom of my mind and helps me to express myself and my personality ";
-
   // Local store string here
   static const String idStore = "store";
   static String ACCESS_TOKEN = "access_token";

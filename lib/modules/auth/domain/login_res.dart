@@ -25,7 +25,7 @@ class Login {
   Login.fromJson(Map<String, dynamic> json) {
     _status = json['status'];
     _message = json['message'];
-    _data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    _data = json['data'] != null ?  Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {

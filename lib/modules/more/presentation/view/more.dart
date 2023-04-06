@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/common/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/common/custom_appbar.dart';
 import 'package:pay_day_mobile/common/custom_navigator.dart';
+import 'package:pay_day_mobile/common/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/about_this_app.dart';
@@ -24,122 +25,137 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
-class MoreScreen extends StatelessWidget {
+class MoreScreen extends GetView<ProfileDataController> {
   MoreScreen({Key? key}) : super(key: key);
-
-  // UserProfileController profileData=Get.put(UserProfileController());
-//   LogoutController logoutController =Get.put(LogoutController());
-
+  ProfileDataController profileDataController =
+      Get.put(ProfileDataController());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                profileCardLayOut(
-                    context: context,
-                    userImage: Images.user,
-                    userName: AppString.text_user_name,
-                    userEmail: AppString.text_user_email),
-                Expanded(
-                    flex: 12,
-                    child: Container(
-                      color: AppColor.backgroundColor,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppString.text_job_desk,
-                              style: AppStyle.mid_large_text.copyWith(
-                                  color: AppColor.hintColor,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: Dimensions.fontSizeDefault + 2),
-                            ),
-                            _jobDeskCard(
-                                cardIcon: Icons.folder_open,
-                                cardText: AppString.text_documents,
-                                onAction: () => CustomNavigator(
-                                    context: context,
-                                    pageName: const Documents())),
-                            _jobDeskCard(
-                                cardIcon: Icons.calendar_month,
-                                cardText: AppString.text_calender,
-                                onAction: () => CustomNavigator(
-                                    context: context,
-                                    pageName: const CalendarScreen())),
-                            _jobDeskCard(
-                                cardIcon: Icons.access_time_outlined,
-                                cardText: AppString.text_job_history,
-                                onAction: () => CustomNavigator(
-                                    context: context,
-                                    pageName: const JodHistory())),
-                            _jobDeskCard(
-                                cardIcon: Icons.monetization_on_outlined,
-                                cardText: AppString.text_salary_overview,
-                                onAction: () => CustomNavigator(
-                                    context: context,
-                                    pageName: const SalaryOverView())),
-                            _jobDeskCard(
-                                cardIcon: Icons.location_on_outlined,
-                                cardText: AppString.text_address_details,
-                                onAction: () => CustomNavigator(
-                                    context: context,
-                                    pageName: const AddressDetails())),
-                            SizedBox(
-                              height: AppLayout.getHeight(20),
-                            ),
-                            Text(
-                              AppString.text_other,
-                              style: AppStyle.mid_large_text.copyWith(
-                                  color: AppColor.hintColor,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: Dimensions.fontSizeDefault + 2),
-                            ),
-                            _jobDeskCard(
-                                cardIcon: CupertinoIcons.doc_text,
-                                cardText: AppString.text_about_this_app,
-                                onAction: () => CustomNavigator(
-                                    context: context,
-                                    pageName: const AboutThisApp())),
+    return controller.obx(
+        (state) => Scaffold(
+          appBar: const CustomAppbar(),
+              body: CustomScrollView(
+                slivers: [
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        profileCardLayOut(
+                          context: context,
+                          userImage: profileDataController
+                              .userProfile?.data?.profilePictureUrl ==null
+                              ? AssetImage(Images.user )
+                              : NetworkImage(profileDataController
+                        .userProfile?.data?.profilePictureUrl ?? "") ,
 
-                            _jobDeskCard(
-                                cardIcon: Icons.logout,
-                                cardText: AppString.text_log_out,
-                                onAction: () => CustomAlertDialog(
-                                    context: context,
-                                    icon: Icons.logout,
-                                    iconBgColor: Colors.orange.shade50,
-                                    yesAction: () {
-                                      //logoutController.logout();
-
-
-                                    })),
-
-
-
-
-                            _languageCardView(
-                                langName: AppString.text_english,
-                                langText: AppString.text_language),
-                            SizedBox(
-                              height: AppLayout.getHeight(30),
-                            )
-                          ],
+                          userName: profileDataController
+                                  .userProfile?.data?.fullName
+                                  .toString() ??
+                              "Demo",
+                          userEmail: profileDataController
+                                  .userProfile?.data?.email
+                                  .toString() ??
+                              "Demo",
+                          statusText: profileDataController
+                                  .userProfile?.data?.userStatus
+                                  .toString() ??
+                              "Demo",
                         ),
-                      ),
-                    )),
-              ],
+
+                        Expanded(
+                            flex: 12,
+                            child: Container(
+                              color: AppColor.backgroundColor,
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      AppString.text_job_desk,
+                                      style: AppStyle.mid_large_text.copyWith(
+                                          color: AppColor.hintColor,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize:
+                                              Dimensions.fontSizeDefault + 2),
+                                    ),
+                                    _jobDeskCard(
+                                        cardIcon: Icons.folder_open,
+                                        cardText: AppString.text_documents,
+                                        onAction: () => CustomNavigator(
+                                            context: context,
+                                            pageName: const Documents())),
+                                    _jobDeskCard(
+                                        cardIcon: Icons.calendar_month,
+                                        cardText: AppString.text_calender,
+                                        onAction: () => CustomNavigator(
+                                            context: context,
+                                            pageName: const CalendarScreen())),
+                                    _jobDeskCard(
+                                        cardIcon: Icons.access_time_outlined,
+                                        cardText: AppString.text_job_history,
+                                        onAction: () => CustomNavigator(
+                                            context: context,
+                                            pageName: const JodHistory())),
+                                    _jobDeskCard(
+                                        cardIcon:
+                                            Icons.monetization_on_outlined,
+                                        cardText:
+                                            AppString.text_salary_overview,
+                                        onAction: () => CustomNavigator(
+                                            context: context, pageName: () {})),
+                                    _jobDeskCard(
+                                        cardIcon: Icons.location_on_outlined,
+                                        cardText:
+                                            AppString.text_address_details,
+                                        onAction: () => CustomNavigator(
+                                            context: context,
+                                            pageName: const AddressDetails())),
+                                    SizedBox(
+                                      height: AppLayout.getHeight(20),
+                                    ),
+                                    Text(
+                                      AppString.text_other,
+                                      style: AppStyle.mid_large_text.copyWith(
+                                          color: AppColor.hintColor,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize:
+                                              Dimensions.fontSizeDefault + 2),
+                                    ),
+                                    _jobDeskCard(
+                                        cardIcon: CupertinoIcons.doc_text,
+                                        cardText: AppString.text_about_this_app,
+                                        onAction: () => CustomNavigator(
+                                            context: context,
+                                            pageName: const AboutThisApp())),
+                                    _jobDeskCard(
+                                        cardIcon: Icons.logout,
+                                        cardText: AppString.text_log_out,
+                                        onAction: () => CustomAlertDialog(
+                                            context: context,
+                                            icon: Icons.logout,
+                                            iconBgColor: Colors.orange.shade50,
+                                            yesAction: () {
+                                              //logoutController.logout();
+                                            })),
+                                    _languageCardView(
+                                        langName: AppString.text_english,
+                                        langText: AppString.text_language),
+                                    SizedBox(
+                                      height: AppLayout.getHeight(30),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          )
-        ],
-      ),
-    );
+        onLoading: const LoadingIndicator());
   }
 }
 
@@ -171,8 +187,6 @@ Widget _jobDeskCard({cardIcon, cardText, onAction}) {
     ),
   );
 }
-
-
 
 Widget _cardShape({icon}) {
   return Card(
@@ -240,5 +254,3 @@ Widget _languageCardView({langText, langName}) {
     ),
   );
 }
-
-

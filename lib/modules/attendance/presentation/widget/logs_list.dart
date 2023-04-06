@@ -33,6 +33,7 @@ class _LogsListState extends State<LogsList> {
         return Padding(
           padding: const EdgeInsets.only(top: 8.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ExpansionTile(
                 title: Card(
