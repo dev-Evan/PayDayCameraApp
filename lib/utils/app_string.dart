@@ -13,6 +13,8 @@ class AppString {
   static String ATTENDANCE_REQUEST = "/attendance/request";
   static String CHANGE_LOG = "/attendance/log";
   static String USER_PROFILE = "/user/profile";
+  static String USER_CHANGE_PASSWORD = "/user/change-password";
+  static String ADDRESS_DETAILS = "/employee/addresses";
   static String BASIC_INFO = "/basic-information";
   static String USER_CHANGE_PICTURE = "/user/change-picture";
   static String SALARY_OVERVIEW = "/employee/salary-overview";

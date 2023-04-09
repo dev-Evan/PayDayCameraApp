@@ -56,7 +56,7 @@ class NetworkClient extends GetConnect {
     return await get(_getRequestUrl(apiEndPoint), headers: {
       "Content-Type": "application/json",
       "Accept": "application/json",
-      "Authorization": "Bearer 34|jLoLoZwDOREPNdzTUU4y8h3kZz93ngMslgogb0l6"
+      "Authorization": "Bearer 38|oY2k6j3XyK7XZ2jYHhaKDKiCr4EcLj7RVqinb1xt"
     }).timeout(const Duration(seconds: 20));
   }
 
@@ -67,7 +67,7 @@ class NetworkClient extends GetConnect {
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json; charset=UTF-8",
-          "Authorization": "Bearer 34|jLoLoZwDOREPNdzTUU4y8h3kZz93ngMslgogb0l6"
+          "Authorization": "Bearer 40|MOhcg9DoLwGRppa5RYCmEv9BARvBWBJU7C4sr5Iv"
         }).timeout(const Duration(seconds: 20));
 
 
@@ -80,7 +80,7 @@ class NetworkClient extends GetConnect {
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
-        "Authorization": "Bearer 34|jLoLoZwDOREPNdzTUU4y8h3kZz93ngMslgogb0l6"
+        "Authorization": "Bearer 40|MOhcg9DoLwGRppa5RYCmEv9BARvBWBJU7C4sr5Iv"
 
         }).timeout(const Duration(seconds: 20));
 

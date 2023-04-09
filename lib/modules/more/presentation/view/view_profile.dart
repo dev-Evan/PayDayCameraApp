@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pay_day_mobile/common/custom_appbar.dart';
 import 'package:pay_day_mobile/common/custom_navigator.dart';
 import 'package:pay_day_mobile/modules/more/data/profile_img_change_rep.dart';
@@ -30,44 +31,11 @@ class ViewProfile extends StatefulWidget {
 class _ViewProfileState extends State<ViewProfile> {
   ProfileDataController profileDataController =
       Get.put(ProfileDataController());
+  ImagePickerController imagePickerController =
+      Get.put(ImagePickerController());
 
-  ChangeProfileImgController changeProfileImgController=Get.put(ChangeProfileImgController());
-
-  FilePickerResult? result;
-
-  String? fileName;
-
-  PlatformFile? pickFile;
-
-  bool isLoading = false;
-
-  File fileToDisplay = File('');
-
-  void pickFile1() async {
-    try {
-      setState(() {
-        isLoading = false;
-      });
-
-      result = await FilePicker.platform.pickFiles(
-        type: FileType.any,
-        allowMultiple: false,
-      );
-
-      if (result != null) {
-        setState(() {
-          fileName = result!.files.first.name;
-          pickFile = result!.files.first;
-          fileToDisplay = File(pickFile!.path.toString());
-          //changeProfileImgController.changeProfileImage(fileToDisplay);
-          print(fileName.toString());
-
-        });
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  ImagePickerController changeProfileImgController =
+      Get.put(ImagePickerController());
 
   @override
   Widget build(BuildContext context) {
@@ -84,15 +52,15 @@ class _ViewProfileState extends State<ViewProfile> {
             SizedBox(
               height: AppLayout.getHeight(10),
             ),
-            _circleAvatarStyle(
-                onAction: ()=>changeProfileImgController.pickImage(),
+            Obx(
+              () => _circleAvatarStyle(
                 userImage: profileDataController
-                            .userProfile?.data?.profilePictureUrl ==
-                        null
-                    ? AssetImage(Images.user)
+                    .userProfile?.data?.profilePictureUrl ==null
+                    ? AssetImage(Images.user )
                     : NetworkImage(profileDataController
-                            .userProfile?.data?.profilePictureUrl ??
-                        "")),
+                    .userProfile?.data?.profilePictureUrl ?? ""),
+              ),
+            ),
             SizedBox(
               height: AppLayout.getHeight(10),
             ),
@@ -274,7 +242,10 @@ Widget _cardView({icon, dynamicText, titleText}) {
   );
 }
 
-Widget _circleAvatarStyle({final userImage, onAction}) {
+Widget _circleAvatarStyle({final userImage}) {
+  ImagePickerController imagePickerController =
+      Get.put(ImagePickerController());
+
   return Stack(
     children: [
       CircleAvatar(
@@ -283,7 +254,10 @@ Widget _circleAvatarStyle({final userImage, onAction}) {
         child: CircleAvatar(
           radius: 34,
           backgroundColor: AppColor.primaryColor,
-          backgroundImage: userImage,
+          backgroundImage: imagePickerController.pickedImage.value == null
+              ? userImage
+              : Image.file(File(imagePickerController.pickedImage.value!.path))
+                  .image,
         ),
       ),
       Positioned(
@@ -294,7 +268,8 @@ Widget _circleAvatarStyle({final userImage, onAction}) {
               backgroundColor: AppColor.primaryColor,
               child: IconButton(
                   padding: const EdgeInsets.all(0),
-                  onPressed: () => onAction(),
+                  onPressed: () =>
+                      imagePickerController.pickImage(ImageSource.gallery),
                   icon: const Icon(
                     Icons.add_a_photo_outlined,
                     size: 14,

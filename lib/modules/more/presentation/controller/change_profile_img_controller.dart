@@ -1,57 +1,42 @@
-
-import 'dart:io';
-import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/status/http_status.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pay_day_mobile/modules/more/data/profile_img_change_rep.dart';
-import 'package:pay_day_mobile/network/network_client.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
-import 'dart:io';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:path/path.dart';
-import 'package:async/async.dart';
+import 'package:pay_day_mobile/utils/app_string.dart';
 
-class ChangeProfileImgController extends GetxController {
-  ProfilePicChangeRepository profilePicChangeRepository =
-      ProfilePicChangeRepository(NetworkClient());
+class ImagePickerController extends GetxController {
+  var baseUrl = AppString.BASE_URL + AppString.USER_CHANGE_PICTURE;
+  final _box = GetStorage();
+  late var accessToken = _box.read(AppString.ACCESS_TOKEN);
+  var pickedImage = Rx<XFile?>(null);
 
-  File? pickedImage;
- // bool showSpinner = false;
-
-  Future<void> pickImage() async {
-    final image = await ImagePicker().getImage(source: ImageSource.gallery);
-
-    final ImagePicker _picker = ImagePicker();
-    XFile? image1 = await _picker.pickImage(source: ImageSource.gallery);
-    if (image1 != null) {
-      var selected = File(image1.path);
-        // _file = selected;
-      changeProfileImage(img : image1.path);
-    } else {
-      print("No file selected");
+  Future<void> pickImage(ImageSource source) async {
+    XFile? image = await ImagePicker().pickImage(source: source);
+    if (image != null) {
+      pickedImage.value = image;
+      await sendImage(image);
     }
-
   }
-  void changeProfileImage({img}) async {
+
+  Future<void> sendImage(XFile image) async {
     try {
-      await profilePicChangeRepository.getProfilePicChange(img)
-      .then((value) {
-        print('Image change okay');
-        print(value);
-      }, onError: (error) {
-        print(error.toString());
-      });
+      final request = http.MultipartRequest('POST', Uri.parse(baseUrl));
+
+      request.headers['Authorization'] =
+          'Bearer 38|oY2k6j3XyK7XZ2jYHhaKDKiCr4EcLj7RVqinb1xt'; //$accessToken
+      request.fields['profile_picture'];
+      request.files.add(
+          await http.MultipartFile.fromPath('profile_picture', image.path));
+      final response = await request.send();
+      if (response.statusCode == HttpStatus.ok) {
+        print('Image uploaded successfully!');
+      } else {
+        print('Failed to upload image!');
+      }
     } catch (ex) {
       print(ex.toString());
     }
   }
-
-
-
-
-
-
-
-
-
 }

@@ -138,6 +138,10 @@ Future CustomSuccessAlertDialog({
   return showDialog(
     context: context,
     builder: (context) {
+      Future.delayed(
+        const Duration(seconds: 2),
+        () => Navigator.of(context).pop()
+      );
       return AlertDialog(
         title: Text(titleText!,style: AppStyle.mid_large_text.copyWith(color: AppColor.normalTextColor,fontWeight: FontWeight.w800),),
         shape: RoundedRectangleBorder(
@@ -166,3 +170,4 @@ Future CustomSuccessAlertDialog({
     },
   );
 }
+

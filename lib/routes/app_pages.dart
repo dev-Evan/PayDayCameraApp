@@ -57,5 +57,8 @@ List<GetPage> getPage = [
   GetPage(
     name: AppString.leave,
     page: () => const Leave(),
+  ),GetPage(
+    name: AppString.leave,
+    page: () => const Leave(),
   ),
 ];

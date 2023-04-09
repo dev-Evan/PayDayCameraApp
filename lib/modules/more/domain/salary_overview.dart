@@ -1,11 +1,11 @@
-class SalaryOverView {
+class SalaryOverViewModel {
   bool? status;
   String? message;
   List<Data>? data;
 
-  SalaryOverView({this.status, this.message, this.data});
+  SalaryOverViewModel({this.status, this.message, this.data});
 
-  SalaryOverView.fromJson(Map<String, dynamic> json) {
+  SalaryOverViewModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     if (json['data'] != null) {

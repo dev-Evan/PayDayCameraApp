@@ -21,6 +21,7 @@ class ProfilePicChangeRepository {
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
+        print("ok");
         return ProfileImageModel.fromJson(response.body);
       }
     } catch (ex) {

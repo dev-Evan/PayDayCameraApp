@@ -7,6 +7,7 @@ import 'package:pay_day_mobile/common/custom_appbar.dart';
 import 'package:pay_day_mobile/common/custom_navigator.dart';
 import 'package:pay_day_mobile/common/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/salary_overview_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/about_this_app.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/address_details.dart';
@@ -18,6 +19,7 @@ import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart'
 import 'package:pay_day_mobile/modules/more/presentation/widget/arrow_style.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/profile_container_layout.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
+import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -25,10 +27,14 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
+
 class MoreScreen extends GetView<ProfileDataController> {
   MoreScreen({Key? key}) : super(key: key);
   ProfileDataController profileDataController =
       Get.put(ProfileDataController());
+  SalaryOverviewController salaryOverviewController=Get.put(SalaryOverviewController());
+  SettingController settingController=Get.put(SettingController());
+
   @override
   Widget build(BuildContext context) {
     return controller.obx(
@@ -41,27 +47,27 @@ class MoreScreen extends GetView<ProfileDataController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        profileCardLayOut(
-                          context: context,
-                          userImage: profileDataController
-                              .userProfile?.data?.profilePictureUrl ==null
-                              ? AssetImage(Images.user )
-                              : NetworkImage(profileDataController
-                        .userProfile?.data?.profilePictureUrl ?? "") ,
+                       Obx(() =>  profileCardLayOut(
+                         context: context,
+                         userImage: profileDataController
+                             .userProfile?.data?.profilePictureUrl ==null
+                             ? AssetImage(Images.user )
+                             : NetworkImage(profileDataController
+                             .userProfile?.data?.profilePictureUrl ?? "") ,
 
-                          userName: profileDataController
-                                  .userProfile?.data?.fullName
-                                  .toString() ??
-                              "Demo",
-                          userEmail: profileDataController
-                                  .userProfile?.data?.email
-                                  .toString() ??
-                              "Demo",
-                          statusText: profileDataController
-                                  .userProfile?.data?.userStatus
-                                  .toString() ??
-                              "Demo",
-                        ),
+                         userName: profileDataController
+                             .userProfile?.data?.fullName
+                             .toString() ??
+                             "Demo",
+                         userEmail: profileDataController
+                             .userProfile?.data?.email
+                             .toString() ??
+                             "Demo",
+                         statusText: profileDataController
+                             .userProfile?.data?.userStatus
+                             .toString() ??
+                             "Demo",
+                       ),),
 
                         Expanded(
                             flex: 12,
@@ -103,8 +109,12 @@ class MoreScreen extends GetView<ProfileDataController> {
                                             Icons.monetization_on_outlined,
                                         cardText:
                                             AppString.text_salary_overview,
-                                        onAction: () => CustomNavigator(
-                                            context: context, pageName: () {})),
+                                        onAction: (){
+                                          CustomNavigator(
+                                              context: context,
+                                              pageName:  SalaryOverView());
+                                        },
+                                    ),
                                     _jobDeskCard(
                                         cardIcon: Icons.location_on_outlined,
                                         cardText:

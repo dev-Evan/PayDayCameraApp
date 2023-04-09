@@ -1,9 +1,9 @@
-class ChangePassword {
+class ChangePasswordModel {
   bool? _status;
   String? _message;
   Data? _data;
 
-  ChangePassword({bool? status, String? message, Data? data}) {
+  ChangePasswordModel({bool? status, String? message, Data? data}) {
     if (status != null) {
       this._status = status;
     }
@@ -22,7 +22,7 @@ class ChangePassword {
   Data? get data => _data;
   set data(Data? data) => _data = data;
 
-  ChangePassword.fromJson(Map<String, dynamic> json) {
+  ChangePasswordModel.fromJson(Map<String, dynamic> json) {
     _status = json['status'];
     _message = json['message'];
     _data = json['data'] != null ? new Data.fromJson(json['data']) : null;

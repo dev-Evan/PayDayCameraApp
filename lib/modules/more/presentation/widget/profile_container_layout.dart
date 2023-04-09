@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:pay_day_mobile/common/custom_navigator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/user_status.dart';
@@ -10,11 +14,12 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 import '../../../../utils/images.dart';
+import '../controller/change_profile_img_controller.dart';
 
 
 Widget profileCardLayOut({context, userName,final userImage, userEmail,statusText}) {
-
-
+  ImagePickerController imagePickerController =
+  Get.put(ImagePickerController());
   return Expanded(
       flex: 3,
       child: Container(
@@ -34,8 +39,10 @@ Widget profileCardLayOut({context, userName,final userImage, userEmail,statusTex
                   Row(
                     children: [
                       CircleAvatar(
-                        backgroundImage:userImage ,
-                        radius: 28,
+                        backgroundImage: imagePickerController.pickedImage.value == null
+                            ? userImage
+                            : Image.file(File(imagePickerController.pickedImage.value!.path))
+                            .image,                        radius: 28,
                       ),
 
                       

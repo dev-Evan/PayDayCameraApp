@@ -18,84 +18,68 @@ import '../controller/change_password_controller.dart';
 import '../widget/text_title_text.dart';
 
 class ChangePassword extends StatelessWidget {
-  final TextEditingController _oldPasswordController = TextEditingController();
-  final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  ChangePassController changePassController =Get.put(ChangePassController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppbar(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          customMoreAppbar(titleText: AppString.text_change_password),
-          Padding(
-            padding: const EdgeInsets.only(
-                top: 12.0, bottom: 8, left: 20, right: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: textFieldTitleText(titleText: AppString.text_old_password )
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            customMoreAppbar(titleText: AppString.text_change_password),
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 12.0, bottom: 8, left: 20, right: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: textFieldTitleText(titleText: AppString.text_old_password )
 
+                  ),
+                  CustomPasswordTextField(
+                    hintText: AppString.text_enter_your_old_password,
+                    inputType: TextInputType.text,
+                    controller: changePassController.oldPassController.value,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: textFieldTitleText(titleText: AppString.text_new_password )
 
-                ),
-                CustomPasswordTextField(
-                  hintText: AppString.text_enter_your_old_password,
-                  inputType: TextInputType.text,
-                  controller: _oldPasswordController,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: textFieldTitleText(titleText: AppString.text_new_password )
-
-                ),
-                CustomPasswordTextField(
-                  hintText: AppString.text_enter_new_password,
-                  inputType: TextInputType.text,
-                  controller: _newPasswordController,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: textFieldTitleText(titleText: AppString.text_confirm_password )
-                ),
-                CustomPasswordTextField(
-                  hintText: AppString.text_confirm_your_new_password,
-                  inputType: TextInputType.text,
-                  controller: _confirmPasswordController,
-                ),
-              ],
+                  ),
+                  CustomPasswordTextField(
+                    hintText: AppString.text_enter_new_password,
+                    inputType: TextInputType.text,
+                    controller: changePassController.passwordController.value,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: textFieldTitleText(titleText: AppString.text_confirm_password )
+                  ),
+                  CustomPasswordTextField(
+                    hintText: AppString.text_confirm_your_new_password,
+                    inputType: TextInputType.text,
+                    controller: changePassController.confirmPasswordController.value,
+                  ),
+                ],
+              ),
             ),
-          ),
-          const Spacer(),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: CustomButton(AppString.text_save, () {
-              final oldPassword=_oldPasswordController.text.toString();
-              final newPassword=_newPasswordController.text.toString();
-              final confirmPassword=_confirmPasswordController.text.toString();
-
-              AuthController().signUp(oldPassword, newPassword, confirmPassword);
-              print(oldPassword);
-              print(newPassword);
-              print(confirmPassword);
-              CustomSuccessAlertDialog(
-                titleText: AppString.text_success,
-                context: context,
-                icon: Icons.published_with_changes,
-                iconBgColor: AppColor.successColor.withOpacity(0.2),
-                iconColor: AppColor.successColor,
-                contentText: AppString.text_password_change_successfully,
-              );
-
-            }),
-          ),
-          SizedBox(
-            height: AppLayout.getHeight(14),
-          ),
-        ],
+         
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: CustomButton(AppString.text_save, () {
+                changePassController.changePassword();
+              }),
+            ),
+            SizedBox(
+              height: AppLayout.getHeight(14),
+            ),
+          ],
+        ),
       ),
     );
   }
