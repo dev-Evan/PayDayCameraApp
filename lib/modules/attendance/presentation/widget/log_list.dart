@@ -79,6 +79,6 @@ Future _openLogDetailsBottomSheet() {
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     context: Get.context!,
-    builder: (context) => LogDetailsBottomSheet(),
+    builder: (context) => const LogDetailsBottomSheet(),
   );
 }

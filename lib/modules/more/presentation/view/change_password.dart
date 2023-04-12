@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:pay_day_mobile/common/custom_alert_dialog.dart';
-import 'package:pay_day_mobile/common/custom_appbar.dart';
-import 'package:pay_day_mobile/common/custom_button.dart';
-import 'package:pay_day_mobile/common/custom_navigator.dart';
-import 'package:pay_day_mobile/common/text_field.dart';
-import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
+import 'package:pay_day_mobile/common/widget/custom_alert_dialog.dart';
+import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
+import 'package:pay_day_mobile/common/widget/custom_button.dart';
+import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -91,7 +87,7 @@ class ChangePassword extends StatelessWidget {
               final newPassword=_newPasswordController.text.toString();
               final confirmPassword=_confirmPasswordController.text.toString();
 
-              AuthController().signUp(oldPassword, newPassword, confirmPassword);
+              // AuthController().signUp(oldPassword, newPassword, confirmPassword);
               print(oldPassword);
               print(newPassword);
               print(confirmPassword);

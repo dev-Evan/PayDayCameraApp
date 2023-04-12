@@ -19,8 +19,8 @@ class Data {
   dynamic todayWorked;
   dynamic todayShortage;
   dynamic todayOvertime;
-  double? totalShortage;
-  int? totalOverTime;
+  dynamic totalShortage;
+  dynamic totalOverTime;
   String? behavior;
   List<DailyLogs>? dailyLogs;
 

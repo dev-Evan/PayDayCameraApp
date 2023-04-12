@@ -22,9 +22,11 @@ class _TimerProgressBarState extends State<TimerProgressBar>
   @override
   void initState() {
     super.initState();
+    var controller = Get.find<AttendanceController>();
+    Data? data = controller.logs.value.data;
     animationController = AnimationController(
         // timer value will be set here
-        lowerBound: getWorkPercentage(),
+        lowerBound: data != null ? getWorkPercentage(controller, data) : 0.0,
         upperBound: 1,
         vsync: this);
     final curveAnimation = CurvedAnimation(
@@ -58,22 +60,15 @@ class _TimerProgressBarState extends State<TimerProgressBar>
   }
 }
 
-double getWorkPercentage() {
-  double value = Get.find<AttendanceController>()
-          .logs
-          .value
-          .data!
-          .todayWorked!
-          .toDouble() /
-      Get.find<AttendanceController>()
-          .logs
-          .value
-          .data!
-          .todayScheduled!
-          .toDouble();
+double getWorkPercentage(AttendanceController controller, data) {
+  //TODO
+  double value = controller.isPunchIn.isFalse
+      ? data.todayWorked.toDouble() / data.todayScheduled.toDouble()
+      : controller.duration.value.inHours / data.todayScheduled.toDouble();
   if (value >= 1) {
     return value = 1.00;
   }
+  print(value);
   return value;
 }
 

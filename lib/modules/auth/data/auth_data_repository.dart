@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/auth/domain/login_res.dart';
-import 'package:pay_day_mobile/network/error_model.dart';
+import 'package:pay_day_mobile/common/domain/error_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 

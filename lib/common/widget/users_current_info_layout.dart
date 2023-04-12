@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
-import '../utils/app_layout.dart';
-import '../utils/app_style.dart';
+import '../../utils/app_layout.dart';
+import '../../utils/app_style.dart';
 
 class UsersCurrentInfoLayout extends StatelessWidget {
   final String title;

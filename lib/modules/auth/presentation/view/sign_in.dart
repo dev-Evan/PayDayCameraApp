@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pay_day_mobile/common/custom_button.dart';
-import 'package:pay_day_mobile/common/error_alert_pop_up.dart';
-import 'package:pay_day_mobile/common/text_field.dart';
+import 'package:pay_day_mobile/common/widget/custom_button.dart';
+import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
+import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -117,6 +117,7 @@ class _signInScreenState extends State<signInScreen> {
                             if (value!.isEmpty) {
                               return AppString.fieldIsRequired;
                             }
+                            return null;
                           },
                         ),
                       ],
@@ -152,36 +153,32 @@ class _signInScreenState extends State<signInScreen> {
                         height: AppLayout.getHeight(
                       Dimensions.fontSizeLarge,
                     )),
-                    Wrap(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                Checkbox(
-                                  visualDensity: const VisualDensity(
-                                      horizontal: -4, vertical: -4),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          Dimensions.radiusSmall)),
-                                  value: rememberMe,
-                                  onChanged: (bool? rememberMe) {
-                                    setState(() {
-                                      this.rememberMe = rememberMe;
-                                      if (rememberMe == true) {
-                                        box.write(AppString.rememberKey,
-                                            AppString.rememberValue);
-                                      }
-                                    });
-                                  },
-                                ),
-                              ],
+                            Checkbox(
+                              visualDensity: const VisualDensity(
+                                  horizontal: -4, vertical: -4),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      Dimensions.radiusSmall)),
+                              value: rememberMe,
+                              onChanged: (bool? rememberMe) {
+                                setState(() {
+                                  this.rememberMe = rememberMe;
+                                  if (rememberMe == true) {
+                                    box.write(AppString.rememberKey,
+                                        AppString.rememberValue);
+                                  }
+                                });
+                              },
                             ),
                             TextButton(
                                 onPressed: () =>
                                     Get.toNamed(AppString.forgotScreen),
-                                child: Text('Forgot password?',
+                                child: Text('Remember me',
                                     style: GoogleFonts.poppins(
                                         fontSize: Dimensions.fontSizeDefault,
                                         color: AppColor.primaryColor)))
@@ -193,7 +190,7 @@ class _signInScreenState extends State<signInScreen> {
                             child: Text('Forgot password?',
                                 style: GoogleFonts.poppins(
                                     fontSize: Dimensions.fontSizeSmall,
-                                    color: AppColor.primaryColor)))
+                                    color: AppColor.primaryColor))),
                       ],
                     ),
                     SizedBox(
@@ -202,7 +199,7 @@ class _signInScreenState extends State<signInScreen> {
                     )),
                     CustomButton('Log In', () {
                       Get.find<AuthController>().logIn(
-                          _emailController.text.toString(),
+                          _emailController.text,
                           _passwordController.text);
                     })
                   ],

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pay_day_mobile/common/custom_buttom_sheet.dart';
-import 'package:pay_day_mobile/common/custom_button.dart';
-import 'package:pay_day_mobile/common/custom_divider.dart';
+import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/add_address.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';

@@ -2,9 +2,9 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pay_day_mobile/common/custom_buttom_sheet.dart';
-import 'package:pay_day_mobile/common/custom_divider.dart';
-import 'package:pay_day_mobile/common/custom_status_button.dart';
+import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
+import 'package:pay_day_mobile/common/widget/custom_divider.dart';
+import 'package:pay_day_mobile/common/widget/custom_status_button.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/leave_details.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/payslip_view.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';

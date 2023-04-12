@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../utils/app_style.dart';
+import '../../utils/app_style.dart';
 
 Widget inputNote({TextEditingController? controller}) {
   return TextField(

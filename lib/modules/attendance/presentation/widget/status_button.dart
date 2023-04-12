@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 
-import '../../../../common/custom_status_button.dart';
+import '../../../../common/widget/custom_status_button.dart';
 import '../../../../utils/color_picker_helper.dart';
 
 Widget getStatusButton(

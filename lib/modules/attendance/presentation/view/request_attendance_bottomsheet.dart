@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
+import 'package:pay_day_mobile/common/widget/custom_time_in_time_picker.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/widget/single_date_picker_calendar.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
-import 'package:table_calendar/table_calendar.dart';
-
-import '../../../../common/custom_app_button.dart';
+import '../../../../common/widget/custom_app_button.dart';
+import '../../../../common/widget/custom_time_picker.dart';
+import '../../../../common/widget/input_note.dart';
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_string.dart';
 import '../../../../utils/dimensions.dart';
 import '../widget/bottom_sheet_appbar.dart';
 
-
-class RequestAttendanceBottomSheet extends StatelessWidget {
+class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
   const RequestAttendanceBottomSheet({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Get.delete<DateTimeController>();
+    Get.put(DateTimeController());
     return DraggableScrollableSheet(
       initialChildSize: .8,
       maxChildSize: .8,
@@ -59,7 +65,11 @@ class RequestAttendanceBottomSheet extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _dateEntry(context),
+          _dateEntry(),
+          SizedBox(height: AppLayout.getHeight(24)),
+          _timeLayout(),
+          SizedBox(height: AppLayout.getHeight(24)),
+          _noteLayout(),
         ],
       ),
     );
@@ -85,10 +95,24 @@ class RequestAttendanceBottomSheet extends StatelessWidget {
   }
 
   _requestButton(BuildContext context) {
+    var controller = Get.find<DateTimeController>();
     return AppButton(
       buttonColor: AppColor.primary_blue,
       buttonText: AppString.text_request,
-      onPressed: () {},
+      onPressed: () {
+        if (controller.requestedDate.isNotEmpty &&
+            controller.pickedInTime.isNotEmpty &&
+            controller.pickedOutTime.isNotEmpty) {
+          Get.find<AttendanceLogsController>().requestAttendance();
+          Navigator.pop(Get.context!);
+        } else {
+          Get.showSnackbar(const GetSnackBar(
+            message: "Select a valid input before request a attendance",
+            duration: Duration(seconds: 2),
+            dismissDirection: DismissDirection.down,
+          ));
+        }
+      },
     );
   }
 
@@ -103,7 +127,7 @@ class RequestAttendanceBottomSheet extends StatelessWidget {
     );
   }
 
-  _dateEntry(BuildContext context) {
+  _dateEntry() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -114,12 +138,13 @@ class RequestAttendanceBottomSheet extends StatelessWidget {
         SizedBox(
           height: AppLayout.getHeight(Dimensions.radiusDefault),
         ),
-        _dateInputField(context)
+        Obx(() => _dateInputField(Get.context!))
       ],
     );
   }
 
   _dateInputField(BuildContext context) {
+    var controller = Get.find<DateTimeController>();
     return InkWell(
       child: Container(
         decoration: BoxDecoration(
@@ -135,9 +160,14 @@ class RequestAttendanceBottomSheet extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                AppString.text_select_date,
-                style: AppStyle.normal_text_grey
-                    .copyWith(fontWeight: FontWeight.w400),
+                controller.requestedDate.value.isEmpty
+                    ? AppString.text_select_date
+                    : controller.requestedDate.value,
+                style: controller.requestedDate.value.isNotEmpty
+                    ? AppStyle.normal_text_black
+                        .copyWith(fontWeight: FontWeight.w400)
+                    : AppStyle.normal_text_grey
+                        .copyWith(fontWeight: FontWeight.w400),
               ),
               Icon(
                 Icons.calendar_today_outlined,
@@ -145,17 +175,79 @@ class RequestAttendanceBottomSheet extends StatelessWidget {
               )
             ]),
       ),
-      onTap: () => _openCalendar(context),
+      onTap: () => _showCalendar(),
     );
   }
 
-  _openCalendar(BuildContext context) async {
-    return await showDatePicker(
-      context: context,
-      firstDate: DateTime(2022, 1, 1),
-      lastDate: DateTime(2030, 12, 31),
-      initialDate: DateTime.now(),
-      initialEntryMode: DatePickerEntryMode.calendar,
+  Future _showCalendar() {
+    return showDialog(
+      context: Get.context!,
+      builder: (context) {
+        return const Dialog(
+            backgroundColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(16))),
+            insetPadding: EdgeInsets.zero,
+            child: SingleDatePicker());
+      },
+    );
+  }
+
+  _timeLayout() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        _inTimeEntry(),
+        SizedBox(width: AppLayout.getWidth(Dimensions.paddingDefaultMid)),
+        _outTimeEntry(),
+      ],
+    );
+  }
+
+  _inTimeEntry() {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(AppString.text_in_time,
+              style: AppStyle.normal_text
+                  .copyWith(color: Colors.grey, fontWeight: FontWeight.w600)),
+          SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
+          const CustomTimeInTimePicker(),
+        ],
+      ),
+    );
+  }
+
+  _outTimeEntry() {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(AppString.text_out_time,
+              style: AppStyle.normal_text
+                  .copyWith(color: Colors.grey, fontWeight: FontWeight.w600)),
+          SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
+          const CustomOutTimePicker(),
+        ],
+      ),
+    );
+  }
+
+  _noteLayout() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          AppString.text_punch_in_note,
+          style: AppStyle.normal_text_black
+              .copyWith(color: Colors.grey, fontWeight: FontWeight.w600),
+        ),
+        SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
+        inputNote(
+            controller:
+                Get.find<AttendanceLogsController>().textEditingController),
+      ],
     );
   }
 }

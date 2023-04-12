@@ -6,8 +6,8 @@ import 'package:pay_day_mobile/modules/attendance/presentation/widget/timer_over
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/vertical_divider.dart';
 import 'package:pay_day_mobile/utils/time_counter_helper.dart';
 
-import '../../../../common/custom_status_button.dart';
-import '../../../../common/users_current_info_layout.dart';
+import '../../../../common/widget/custom_status_button.dart';
+import '../../../../common/widget/users_current_info_layout.dart';
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_string.dart';

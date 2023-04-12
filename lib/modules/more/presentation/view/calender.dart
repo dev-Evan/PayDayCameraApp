@@ -1,10 +1,6 @@
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:pay_day_mobile/common/custom_appbar.dart';
-import 'package:pay_day_mobile/common/custom_navigator.dart';
-import 'package:pay_day_mobile/common/custom_status_button.dart';
-import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
+import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
+import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/calender_holiday_title.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/view_holiday.dart';
@@ -14,10 +10,8 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../../../common/custom_divider.dart';
+import '../../../../common/widget/custom_divider.dart';
 import '../../../../utils/app_layout.dart';
-import '../../../../utils/images.dart';
-import '../../../attendance/presentation/widget/selected_range_calender.dart';
 
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({Key? key}) : super(key: key);

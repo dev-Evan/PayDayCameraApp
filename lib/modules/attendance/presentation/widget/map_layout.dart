@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:pay_day_mobile/common/loading_indicator.dart';
+import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/dimensions.dart';

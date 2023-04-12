@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:pay_day_mobile/common/custom_appbar.dart';
-import 'package:pay_day_mobile/common/custom_button.dart';
-import 'package:pay_day_mobile/common/custom_double_button.dart';
-import 'package:pay_day_mobile/common/text_field.dart';
+import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/apply_leave_button_layout.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/custom_text_field_dob.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';

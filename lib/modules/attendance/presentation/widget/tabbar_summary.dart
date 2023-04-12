@@ -1,14 +1,14 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:pay_day_mobile/common/custom_divider.dart';
-import 'package:pay_day_mobile/common/loading_indicator.dart';
+import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+
+import '../../../../common/widget/custom_divider.dart';
 
 class SummaryScreen extends GetView<AttendanceLogsController> {
   const SummaryScreen({Key? key}) : super(key: key);

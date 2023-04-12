@@ -1,20 +1,21 @@
 import 'package:flutter/cupertino.dart';
-import '../utils/app_color.dart';
-import '../utils/app_style.dart';
+import 'package:flutter/material.dart';
+import '../../utils/app_color.dart';
+import '../../utils/app_style.dart';
 
-class CustomWheelPickerHrs extends StatefulWidget {
+class CustomWheelPickerMins extends StatefulWidget {
   List list;
+  var controller;
 
-  CustomWheelPickerHrs({
-    Key? key,
-    required this.list,
-  }) : super(key: key);
+  CustomWheelPickerMins(
+      {Key? key, required this.list, required this.controller})
+      : super(key: key);
 
   @override
-  State<CustomWheelPickerHrs> createState() => _CustomWheelPickerHrsState();
+  State<CustomWheelPickerMins> createState() => _CustomWheelPickerMinsState();
 }
 
-class _CustomWheelPickerHrsState extends State<CustomWheelPickerHrs> {
+class _CustomWheelPickerMinsState extends State<CustomWheelPickerMins> {
   late int currentIndex;
   late FixedExtentScrollController scrollController;
 
@@ -46,6 +47,7 @@ class _CustomWheelPickerHrsState extends State<CustomWheelPickerHrs> {
       childCount: widget.list.length,
       onSelectedItemChanged: (int value) => setState(() {
         currentIndex = value;
+        widget.controller.selectedInputMins = value.toString();
       }),
       itemBuilder: (BuildContext context, int index) {
         return Text("${widget.list[index]}",

@@ -18,8 +18,6 @@ class AuthController extends GetxController {
     await box.write(AppString.USERNAME, login?.data!.firstName);
     await box.write(AppString.ACCESS_TOKEN, login?.data!.token);
     await box.write(AppString.loginCheckKey, AppString.loginValue);
-    print(
-        "${box.read(AppString.idStore)}::${box.read(AppString.USERNAME)}::${box.read(AppString.ACCESS_TOKEN)}::${box.read(AppString.loginCheckKey)}");
   }
 
   void logIn(String email, String password) {

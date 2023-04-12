@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:pay_day_mobile/common/input_note.dart';
-
-import '../../../../common/custom_time_picker.dart';
+import '../../../../common/widget/custom_time_picker.dart';
+import '../../../../common/widget/input_note.dart';
 import '../widget/bottom_sheet_appbar.dart';
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_string.dart';
 import '../../../../utils/app_style.dart';
 import '../../../../utils/dimensions.dart';
-import '../../../../common/custom_app_button.dart';
+import '../../../../common/widget/custom_app_button.dart';
 
 class EditAttendanceBottomSheet extends StatelessWidget {
   const EditAttendanceBottomSheet({Key? key}) : super(key: key);
@@ -138,7 +137,7 @@ class EditAttendanceBottomSheet extends StatelessWidget {
               style: AppStyle.normal_text
                   .copyWith(color: Colors.grey, fontWeight: FontWeight.w600)),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
-          const CustomTimePicker(),
+          const CustomOutTimePicker(),
         ],
       ),
     );
@@ -153,7 +152,7 @@ class EditAttendanceBottomSheet extends StatelessWidget {
               style: AppStyle.normal_text
                   .copyWith(color: Colors.grey, fontWeight: FontWeight.w600)),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
-          const CustomTimePicker(),
+          const CustomOutTimePicker(),
         ],
       ),
     );

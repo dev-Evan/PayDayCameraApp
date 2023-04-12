@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pay_day_mobile/modules/attendance/domain/daily_log/daily_log.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
@@ -50,78 +51,59 @@ Widget timerOverviewLayout() {
 }
 
 overtimeTimeLog() {
+  Data? data = Get.find<AttendanceController>().logs.value.data;
   return logInfo(
       title: AppString.text_overtime,
       time: TimeCounterHelper.getTimeStringFromDouble(
-          Get.find<AttendanceController>().logs.value.data != null
-              ? Get.find<AttendanceController>()
-                  .logs
-                  .value
-                  .data!
-                  .todayOvertime
-                  !.toDouble()
-              : 0.0));
+          data?.todayOvertime.toDouble() ?? 0.0));
 }
 
 remainingTimeLog() {
+  Data? data = Get.find<AttendanceController>().logs.value.data;
   return scheduledLogInfo(
       title: AppString.text_remaining,
       time: TimeCounterHelper.getTimeStringFromDouble(
-          Get.find<AttendanceController>().logs.value.data != null
-              ? Get.find<AttendanceController>()
-                  .logs
-                  .value
-                  .data!
-                  .todayShortage
-                  !.toDouble()
-              : 0.0));
+          data?.todayShortage.toDouble() ?? 0.0));
 }
 
 scheduledTimeLog() {
+  Data? data = Get.find<AttendanceController>().logs.value.data;
   return scheduledLogInfo(
       title: AppString.text_scheduled,
       time: TimeCounterHelper.getTimeStringFromDouble(
-          Get.find<AttendanceController>().logs.value.data != null
-              ? Get.find<AttendanceController>()
-                  .logs
-                  .value
-                  .data!
-                  .todayScheduled
-                  !.toDouble()
-              : 0.0));
+          data?.todayScheduled.toDouble() ?? 0.0));
 }
 
 balanceTimeLog() {
   Duration timerTime = Get.find<AttendanceController>().countdownDuration.value;
   String hrs = timerTime.inHours.remainder(60).toString();
   String mins = timerTime.inMinutes.remainder(60).toString();
-  if ((hrs.length < 2 && hrs.startsWith('0'))) {
+
+  //if there is no hr then not need to show 0 before mins mark
+  if (hrs.length.isEqual(1) && hrs.startsWith('0') && mins.length < 2) {
     hrs = '';
   }
-  if ((mins.length < 2 && hrs.startsWith('0'))) {
-    hrs = '';
-  }
-  return logInfo(title: AppString.text_balance, time: "- $hrs h $mins m");
+  return logInfo(title: AppString.text_balance, time: "-$hrs h $mins m");
 }
 
 outTimeLog() {
-  var controller = Get.find<AttendanceController>();
+  AttendanceController controller = Get.find<AttendanceController>();
+  Data? data = controller.logs.value.data;
   return scheduledLogInfo(
       title: AppString.text_out,
-      time: (!controller.isPunchIn.value &&
-              controller.logs.value.data != null &&
-              controller.logs.value.data!.dailyLogs!.isNotEmpty)
-          ? controller.logs.value.data?.dailyLogs?.first.outTime
+      time: data != null &&
+              controller.isPunchIn.isFalse &&
+              data.dailyLogs!.isNotEmpty
+          ? data.dailyLogs?.first.outTime
           : '');
 }
 
 inTimeLog() {
-  var controller = Get.find<AttendanceController>();
+  Data? data = Get.find<AttendanceController>().logs.value.data;
   return scheduledLogInfo(
       title: AppString.text_in,
-      time: (controller.logs.value.data != null &&
-              controller.logs.value.data!.dailyLogs!.isNotEmpty)
-          ? controller.logs.value.data?.dailyLogs?.first.inTime
+      time: data != null && data.dailyLogs!.isNotEmpty
+          ? data.dailyLogs?.first.inTime
           : '');
 }
 

@@ -1,64 +1,70 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
+import 'package:pay_day_mobile/utils/app_layout.dart';
 
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_style.dart';
 import '../../../../utils/dimensions.dart';
 
-Widget amPmToggleButton() {
-  int currentIndex = 1;
-  return CupertinoSegmentedControl(
-    children: <int, Widget>{
-      1: _amButton(title: "AM"),
-      2: _pmButton(title: "PM"),
-    },
-    onValueChanged: (int value) {
-      currentIndex = value;
-    },
-  );
+class AmPmToggleButton extends StatefulWidget {
+  var controller;
+
+  AmPmToggleButton({required this.controller, Key? key}) : super(key: key);
+
+  @override
+  State<AmPmToggleButton> createState() => _AmPmToggleButtonState();
 }
 
-_pmButton({required String title}) {
-  var currentIndex = 1;
-  return Container(
-    margin: EdgeInsets.symmetric(horizontal: Dimensions.paddingSmall),
-    decoration: currentIndex == 1
-        ? BoxDecoration(
-            border: Border.all(color: AppColor.primary_blue, width: 1),
-            color: AppColor.primary_blue.withOpacity(0.12),
-            borderRadius: BorderRadius.circular(Dimensions.radiusDefault))
-        : BoxDecoration(
-            color: const Color(0xFFF9F9F9),
-            borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
-    padding: EdgeInsets.symmetric(
-        vertical: Dimensions.paddingDefault, horizontal: Dimensions.paddingMid),
-    child: Text(
-      title,
-      style: currentIndex == 1
-          ? AppStyle.normal_text_black.copyWith(color: AppColor.primary_blue)
-          : AppStyle.normal_text_black,
-    ),
-  );
-}
+class _AmPmToggleButtonState extends State<AmPmToggleButton> {
+  int value = 0;
 
-_amButton({required String title}) {
-  var currentIndex = 1;
-  return Container(
-    margin: EdgeInsets.symmetric(horizontal: Dimensions.paddingSmall),
-    decoration: currentIndex == 1
-        ? BoxDecoration(
-            color: const Color(0xFFF9F9F9),
-            borderRadius: BorderRadius.circular(Dimensions.radiusDefault))
-        : BoxDecoration(
-            border: Border.all(color: AppColor.primary_blue, width: 1),
-            color: AppColor.primary_blue.withOpacity(0.12),
-            borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
-    padding: EdgeInsets.symmetric(
-        vertical: Dimensions.paddingDefault, horizontal: Dimensions.paddingMid),
-    child: Text(
-      title,
-      style: currentIndex == 1
-          ? AppStyle.normal_text_black
-          : AppStyle.normal_text_black.copyWith(color: AppColor.primary_blue),
-    ),
-  );
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _customRadioButton("AM", 1),
+          SizedBox(width: AppLayout.getWidth(20)),
+          _customRadioButton("PM", 2),
+        ],
+      ),
+    );
+  }
+
+  Widget _customRadioButton(String text, int index) {
+    return OutlinedButton(
+      style: value == index
+          ? OutlinedButton.styleFrom(
+              backgroundColor: AppColor.primary_blue.withOpacity(.15),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              side: const BorderSide(width: .5, color: AppColor.primary_blue),
+            )
+          : OutlinedButton.styleFrom(
+              backgroundColor: Colors.grey.withOpacity(.15),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
+      onPressed: () {
+        setState(() {
+          value = index;
+          value == 1
+              ? Get.find<DateTimeController>().clockHrsFormat = "AM"
+              : Get.find<DateTimeController>().clockHrsFormat = "PM";
+        });
+      },
+      child: Text(
+        text,
+        style: TextStyle(
+          color: value == index ? AppColor.primary_blue : Colors.black,
+        ),
+      ),
+    );
+  }
 }

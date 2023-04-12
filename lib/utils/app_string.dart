@@ -16,6 +16,7 @@ class AppString {
   static String LOG_SUMMARY_BY_THIS_YEAR = "/attendance/summary?within=thisYear";
   static String SUMMARY_ALL_LOG = "/attendance/summaries-data-logs?";
   static String DETAILS_SUMMARY = "/attendance/details-summary?";
+  static String REQUEST_ATTENDANCE = "/attendance/add-request";
 
   // Apps string here
   static const String exampleText = "";

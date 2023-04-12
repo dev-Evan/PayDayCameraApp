@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 Future<void> initApp() async {
   await GetStorage.init();
   Get.lazyPut(() => AuthController());
-  Get.lazyPut(() => AttendanceController(), fenix: true);
-  Get.lazyPut(() => AttendanceLogsController(), fenix: true);
+  Get.lazyPut(() => AttendanceController(),fenix: true);
+  Get.lazyPut(() => AttendanceLogsController(),fenix: true);
+  // Get.lazyPut(() => DateTimeController(), fenix: true);
 }

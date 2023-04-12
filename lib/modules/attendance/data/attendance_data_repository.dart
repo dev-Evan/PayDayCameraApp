@@ -9,7 +9,7 @@ import 'package:pay_day_mobile/modules/attendance/domain/daily_log/daily_log.dar
 import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import '../../../network/error_model.dart';
+import '../../../common/domain/error_model.dart';
 import '../domain/change_request/change_request_req_model.dart';
 import '../domain/log_entry/log_entry_request.dart';
 import '../domain/log_entry/log_entry_response.dart';
@@ -69,7 +69,6 @@ class AttendanceDataRepository {
     try {
       Response response = await networkClient.getRequest(
           "${AppString.DAILY_LOG}?timezone=${DateTime.now().timeZoneName}");
-      print(response.body);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -84,7 +83,6 @@ class AttendanceDataRepository {
     try {
       Response response = await networkClient.getRequest(
           "${AppString.LOG_DETAILS}/$logId?timezone=${DateTime.now().timeZoneName}");
-      print('res:::: ${response.body.toString()}');
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

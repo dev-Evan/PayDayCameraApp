@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:pay_day_mobile/common/custom_buttom_sheet.dart';
-import 'package:pay_day_mobile/common/custom_double_button.dart';
-import 'package:pay_day_mobile/common/custom_status_button.dart';
+import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
+import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
+import 'package:pay_day_mobile/common/widget/custom_status_button.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/edit_details.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/payslip_view.dart';

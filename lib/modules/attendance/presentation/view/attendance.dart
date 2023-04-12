@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pay_day_mobile/common/custom_navigator.dart';
-import 'package:pay_day_mobile/common/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_logs.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
@@ -10,6 +8,8 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
+import '../../../../common/widget/custom_navigator.dart';
+import '../../../../common/widget/loading_indicator.dart';
 import '../widget/dot_indicator.dart';
 import '../widget/info_layout.dart';
 import '../widget/log_list.dart';
@@ -21,6 +21,8 @@ import '../widget/todays_log_text.dart';
 import 'log_entry_bottomsheet.dart';
 
 class Attendance extends GetView<AttendanceController> {
+  const Attendance({super.key});
+
   @override
   Widget build(BuildContext context) {
     controller.checkUserIsPunchedIn();
