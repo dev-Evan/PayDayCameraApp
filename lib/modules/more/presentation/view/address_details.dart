@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/common/custom_appbar.dart';
 import 'package:pay_day_mobile/common/custom_buttom_sheet.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/add_address.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/edit_address.dart';
@@ -12,7 +15,10 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class AddressDetails extends StatelessWidget {
-  const AddressDetails({Key? key}) : super(key: key);
+   AddressDetails({Key? key}) : super(key: key);
+
+  AddressDetailsController addressDetailsController=Get.put(AddressDetailsController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +36,7 @@ class AddressDetails extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        AppString.text_permanent + AppString.text_address,
+                        addressDetailsController.addressDetailsModel?.data?.first.key.toString() ??"Demo",
                         style: AppStyle.mid_large_text.copyWith(
                             color: AppColor.normalTextColor,
                             fontWeight: FontWeight.bold),
@@ -74,7 +80,7 @@ class AddressDetails extends StatelessWidget {
                     height: AppLayout.getHeight(8),
                   ),
                   Text(
-                    AppString.text_address_dec,
+                    addressDetailsController.addressDetailsModel?.data?.first.value?.details.toString() ??"Demo",
                     style: AppStyle.mid_large_text.copyWith(
                         color: AppColor.normalTextColor.withOpacity(0.7),
                         fontSize: Dimensions.fontSizeDefault,
@@ -96,17 +102,17 @@ class AddressDetails extends StatelessWidget {
                                 height: AppLayout.getHeight(12),
                               ),
                               _textTitle(titleText: AppString.text_area),
-                              _textSubTitle(subTitleText: AppString.text_ca),
+                              _textSubTitle(subTitleText:   addressDetailsController.addressDetailsModel?.data?.first.value?.area ??"Demo",),
                               SizedBox(
                                 height: AppLayout.getHeight(16),
                               ),
                               _textTitle(titleText: AppString.text_state),
-                              _textSubTitle(subTitleText: AppString.text_texas),
+                              _textSubTitle(subTitleText: addressDetailsController.addressDetailsModel?.data?.first.value?.state ??"Demo",),
                               SizedBox(
                                 height: AppLayout.getHeight(16),
                               ),
                               _textTitle(titleText: AppString.text_county),
-                              _textSubTitle(subTitleText: AppString.text_usa),
+                              _textSubTitle(subTitleText: addressDetailsController.addressDetailsModel?.data?.first.value?.country ??"Demo"),
                             ],
                           ),
                           Column(
@@ -117,18 +123,18 @@ class AddressDetails extends StatelessWidget {
                               ),
                               _textTitle(titleText: AppString.text_city),
                               _textSubTitle(
-                                  subTitleText: AppString.text_prosaccobury),
+                                  subTitleText: addressDetailsController.addressDetailsModel?.data?.first.value?.city ??"Demo"),
                               SizedBox(
                                 height: AppLayout.getHeight(16),
                               ),
                               _textTitle(titleText: AppString.text_zip_code),
-                              _textSubTitle(subTitleText: AppString.text_768),
+                              _textSubTitle(subTitleText: addressDetailsController.addressDetailsModel?.data?.first.value?.zipCode ??"Demo"),
                               SizedBox(
                                 height: AppLayout.getHeight(16),
                               ),
                               _textTitle(titleText: AppString.text_phone),
                               _textSubTitle(
-                                  subTitleText: AppString.text_phone_number)
+                                  subTitleText: addressDetailsController.addressDetailsModel?.data?.first.value?.phoneNumber ??"Demo")
                             ],
                           ),
                         ],

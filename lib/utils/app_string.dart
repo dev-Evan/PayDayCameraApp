@@ -13,9 +13,12 @@ class AppString {
   static String ATTENDANCE_REQUEST = "/attendance/request";
   static String CHANGE_LOG = "/attendance/log";
   static String USER_PROFILE = "/user/profile";
+  static String ADDRESS_UPDATE = "/employee/address-update";
+  static String EMPLOYEE_ADDRESS = "/employee/addresses";
   static String USER_CHANGE_PASSWORD = "/user/change-password";
   static String ADDRESS_DETAILS = "/employee/addresses";
   static String BASIC_INFO = "/basic-information";
+  static String UPDATE_PROFILE_DATA = "/user/profile/update";
   static String USER_CHANGE_PICTURE = "/user/change-picture";
   static String SALARY_OVERVIEW = "/employee/salary-overview";
   static String LOG_SUMMARY_BY_THIS_MONTH = "/attendance/summary?within=thisMonth";
@@ -57,6 +60,8 @@ class AppString {
   static String error_text = "Something went wrong! Please try again";
   static String text_reload = "Reload";
   static String text_skip = "Skip";
+  static String text_please_selected_date = "Please selected date";
+  static String text_alert = "Alert";
   static String text_next = "Next";
 
   static const String text_attendance_status = "Attendance Status";
@@ -250,7 +255,8 @@ class AppString {
   static String text_old_password = "Old Password";
   static String text_new_password = "New Password";
   static String text_confirm_password = "Confirm Password";
-  static String text_male = "Male";
+  static String text_male = "male";
+  static String text_female = "female";
   static String text_holiday = "Holidays";
   static String text_area = "Area";
   static String text_city = "City";
@@ -295,6 +301,7 @@ class AppString {
   static String USERNAME = "full_name";
   static const String storeToken = "storeToken";
   static const String loginCheckKey = "loginCheckValue";
+  static const String storeDate = "storeData";
   static const String loginValue = "LogInValue";
   static const String rememberValue = "rememberValue";
   static const String rememberKey = "rememberKey";
@@ -324,4 +331,5 @@ class AppString {
   static const String calender = "/calender_screen";
   static const String payslip = "/payslip_screen";
   static const String leave = "/leave_screen";
+  static const String profileView = "/profileView_screen";
 }

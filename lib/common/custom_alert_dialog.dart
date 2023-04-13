@@ -134,13 +134,14 @@ Future CustomSuccessAlertDialog({
   Color? buttonColor = Colors.orange,
   Color? iconBgColor = Colors.orange,
   Color? iconColor = Colors.orange,
+  popupAction
 }) {
   return showDialog(
     context: context,
     builder: (context) {
       Future.delayed(
         const Duration(seconds: 2),
-        () => Navigator.of(context).pop()
+        () => popupAction()
       );
       return AlertDialog(
         title: Text(titleText!,style: AppStyle.mid_large_text.copyWith(color: AppColor.normalTextColor,fontWeight: FontWeight.w800),),

@@ -5,27 +5,41 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/modules/more/data/change_password_repo.dart';
+import 'package:pay_day_mobile/modules/more/data/edit_profile_data_repo.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
-class ChangePassController extends GetxController with StateMixin {
-  final ChangePassDataSource changePassDataSource =
-      ChangePassDataSource(NetworkClient());
+import 'edit_profile_drop_dawon_cnt.dart';
 
-  final oldPassController = TextEditingController().obs;
-  final passwordController = TextEditingController().obs;
-  final confirmPasswordController = TextEditingController().obs;
+class EditProfileDataController extends GetxController with StateMixin {
+  final EditProfileDataSource editProfileDataSource =
+  EditProfileDataSource(NetworkClient());
+
+  final firstNameController = TextEditingController().obs;
+  final lastNameController = TextEditingController().obs;
+  final emailController = TextEditingController().obs;
+  final contactController = TextEditingController().obs;
+  final dobController = TextEditingController().obs;
+  final genderController = TextEditingController().obs;
+  final aboutMeController = TextEditingController().obs;
+  final addressController = TextEditingController().obs;
+  DropdownBtnController dropdownBtnController =Get.put(DropdownBtnController());
 
   final GetStorage box = GetStorage();
-  void changePassword() async {
+  void editProfileData({selectedDate}) async {
     change(null, status: RxStatus.loading());
     try {
-      await changePassDataSource
-          .changePassIntoAccount(
-        oldPassController.value.text,
-        passwordController.value.text,
-        confirmPasswordController.value.text,
+      await editProfileDataSource
+          .editProfileRepo(
+        firstNameController.value.text,
+        lastNameController.value.text,
+        emailController.value.text,
+        contactController.value.text,
+        selectedDate.toString(),
+        dropdownBtnController.dropdownValue.value.toString(),
+        aboutMeController.value.text,
+        addressController.value.text,
       )
           .then((value) {
         _successDialog();

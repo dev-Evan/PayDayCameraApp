@@ -16,18 +16,23 @@ class AuthController extends GetxController with StateMixin{
   final AuthDataSource _authDataSource = AuthDataSource(NetworkClient());
 
   final GetStorage box = GetStorage();
-
-
-
   void logIn(String email, String password) async{
     change(null,status: RxStatus.loading());
     try {
     await  _authDataSource.loginIntoAccount(email, password).then((Login value) {
         _writeUserInfo(value);
         Get.toNamed(AppString.home);
-      }, onError: (error) =>_showToast(error.message));
+      }, onError: (error){
+      print(error.toString());
+      _showToast(error.message);
+    }
+    );
     } catch (ex) {
+      print(ex.toString());
+
       _showToast(ex.toString());
+
+
     }
     change(null,status: RxStatus.success());
   }

@@ -161,7 +161,10 @@ class _SignInScreenState extends State<SignInScreen> {
 
 Widget _containerLayout({isLeft}) {
   return Padding(
-    padding: const EdgeInsets.all(20.0),
+    padding:  EdgeInsets.only(left: AppLayout.getWidth(20),
+        right: AppLayout.getWidth(20),
+        top: AppLayout.getHeight(20),
+        bottom: AppLayout.getHeight(20)),
     child: AnimatedContainer(
       duration: const Duration(milliseconds: 400),
       alignment: isLeft ? Alignment.topCenter : Alignment.topRight,

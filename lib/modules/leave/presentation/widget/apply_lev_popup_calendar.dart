@@ -28,43 +28,50 @@ class _ApplyLevPopUpCalendarState extends State<ApplyLevPopUpCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    return TableCalendar(
-      locale: "en_US",
-      rowHeight: 43,
+    return Column(
+      children: [
+        TableCalendar(
+          locale: "en_US",
+          rowHeight: 43,
 
-      calendarStyle: const CalendarStyle(
-        selectedDecoration:
-            BoxDecoration(color: AppColor.primaryColor, shape: BoxShape.circle),
-        todayDecoration: BoxDecoration(color: Colors.transparent),
-        todayTextStyle: TextStyle(color: AppColor.primaryColor),
-      ),
-      headerStyle:
-          const HeaderStyle(formatButtonVisible: false, titleCentered: true),
-      availableGestures: AvailableGestures.all,
-      firstDay: firstDate,
-      lastDay: lastDate,
-      focusedDay: today,
-      onDaySelected: (selectedDay, focusedDay) {
-        if (!isSameDay(_selectedDate, selectedDay)) {
-          setState(() {
-            _selectedDate = selectedDay;
+          calendarStyle: const CalendarStyle(
+            selectedDecoration:
+                BoxDecoration(color: AppColor.primaryColor, shape: BoxShape.circle),
+            todayDecoration: BoxDecoration(color: Colors.transparent),
+            todayTextStyle: TextStyle(color: AppColor.primaryColor),
+          ),
+          headerStyle:
+              const HeaderStyle(formatButtonVisible: false, titleCentered: true),
+          availableGestures: AvailableGestures.all,
+          firstDay: firstDate,
+          lastDay: lastDate,
+          focusedDay: today,
+          onDaySelected: (selectedDay, focusedDay) {
+            if (!isSameDay(_selectedDate, selectedDay)) {
+              setState(() {
+                _selectedDate = selectedDay;
+                _focusedDay = focusedDay;
+                print(selectedDay.toString());
+              });
+            }
+          },
+          selectedDayPredicate: (day) {
+            return isSameDay(_selectedDate, day);
+          },
+          onFormatChanged: (format) {
+            if (_calendarFormat != format) {
+              setState(() {
+                _calendarFormat = format;
+              });
+            }
+          },
+          onPageChanged: (focusedDay) {
             _focusedDay = focusedDay;
-          });
-        }
-      },
-      selectedDayPredicate: (day) {
-        return isSameDay(_selectedDate, day);
-      },
-      onFormatChanged: (format) {
-        if (_calendarFormat != format) {
-          setState(() {
-            _calendarFormat = format;
-          });
-        }
-      },
-      onPageChanged: (focusedDay) {
-        _focusedDay = focusedDay;
-      },
+          },
+        ),
+
+       
+      ],
     );
   }
 }

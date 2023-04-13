@@ -19,7 +19,7 @@ import '../widget/text_title_text.dart';
 
 class ChangePassword extends StatelessWidget {
 
-  ChangePassController changePassController =Get.put(ChangePassController());
+  ChangePassController changePasswordController =Get.put(ChangePassController());
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class ChangePassword extends StatelessWidget {
                   CustomPasswordTextField(
                     hintText: AppString.text_enter_your_old_password,
                     inputType: TextInputType.text,
-                    controller: changePassController.oldPassController.value,
+                    controller: changePasswordController.oldPassController.value,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -54,7 +54,7 @@ class ChangePassword extends StatelessWidget {
                   CustomPasswordTextField(
                     hintText: AppString.text_enter_new_password,
                     inputType: TextInputType.text,
-                    controller: changePassController.passwordController.value,
+                    controller: changePasswordController.passwordController.value,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -63,7 +63,7 @@ class ChangePassword extends StatelessWidget {
                   CustomPasswordTextField(
                     hintText: AppString.text_confirm_your_new_password,
                     inputType: TextInputType.text,
-                    controller: changePassController.confirmPasswordController.value,
+                    controller: changePasswordController.confirmPasswordController.value,
                   ),
                 ],
               ),
@@ -72,7 +72,7 @@ class ChangePassword extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: CustomButton(AppString.text_save, () {
-                changePassController.changePassword();
+                changePasswordController.changePassword();
               }),
             ),
             SizedBox(

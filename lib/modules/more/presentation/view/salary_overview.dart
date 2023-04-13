@@ -30,7 +30,11 @@ class SalaryOverView extends StatelessWidget {
           children: [
             customMoreAppbar(titleText: AppString.text_salary_overview),
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: EdgeInsets.only(
+                  left: AppLayout.getWidth(20),
+                  right: AppLayout.getWidth(20),
+                  top: AppLayout.getHeight(20),
+                  bottom: AppLayout.getHeight(20)),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +77,7 @@ Widget _jobHisTitleView() {
   SettingController settingController = Get.put(SettingController());
 
   return Padding(
-    padding: EdgeInsets.only(left: AppLayout.getWidth(8), bottom: 18),
+    padding: EdgeInsets.only(left: AppLayout.getWidth(8), bottom: AppLayout.getHeight(18)),
     child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -84,7 +88,7 @@ Widget _jobHisTitleView() {
           children: [
             dottedView(),
             Positioned(
-                left: 23,
+                left: AppLayout.getWidth(23),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -133,7 +137,10 @@ Widget _salaryCardView({iconText, salaryText}) {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
             child: Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding:  EdgeInsets.only(left: AppLayout.getWidth(6),
+                  right: AppLayout.getWidth(6),
+                  top: AppLayout.getHeight(6),
+                  bottom: AppLayout.getHeight(6)),
               child: Center(
                 child: Padding(
                   padding: EdgeInsets.only(
@@ -149,9 +156,7 @@ Widget _salaryCardView({iconText, salaryText}) {
                 ),
               ),
             )),
-        SizedBox(
-          width: AppLayout.getWidth(3),
-        ),
+        customSpacerWidth(width: 3),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

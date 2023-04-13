@@ -6,6 +6,7 @@ import 'package:pay_day_mobile/common/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/common/custom_appbar.dart';
 import 'package:pay_day_mobile/common/custom_navigator.dart';
 import 'package:pay_day_mobile/common/loading_indicator.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/salary_overview_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
@@ -34,6 +35,8 @@ class MoreScreen extends GetView<ProfileDataController> {
       Get.put(ProfileDataController());
   SalaryOverviewController salaryOverviewController=Get.put(SalaryOverviewController());
   SettingController settingController=Get.put(SettingController());
+  AddressDetailsController addressDetailsController=Get.put(AddressDetailsController());
+  LogoutController logoutController=Get.put(LogoutController());
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +124,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                             AppString.text_address_details,
                                         onAction: () => CustomNavigator(
                                             context: context,
-                                            pageName: const AddressDetails())),
+                                            pageName:  AddressDetails())),
                                     SizedBox(
                                       height: AppLayout.getHeight(20),
                                     ),
@@ -147,7 +150,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                             icon: Icons.logout,
                                             iconBgColor: Colors.orange.shade50,
                                             yesAction: () {
-                                              //logoutController.logout();
+                                              logoutController.logOut();
                                             })),
                                     _languageCardView(
                                         langName: AppString.text_english,

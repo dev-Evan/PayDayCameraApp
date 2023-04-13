@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pay_day_mobile/common/custom_double_button.dart';
 import 'package:pay_day_mobile/common/text_field.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/address_update_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -25,6 +28,8 @@ class _EditAddressState extends State<EditAddress> {
   final TextEditingController _stateController = TextEditingController();
   final TextEditingController _zipCodeController = TextEditingController();
   final TextEditingController _addDetailsController = TextEditingController();
+
+  AddressUpdateController addressUpdateController=Get.put(AddressUpdateController());
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +192,11 @@ class _EditAddressState extends State<EditAddress> {
                 elevatedBtnText: '${AppString.text_add} ${AppString.text_address}',
                 textBtnText: AppString.text_cancel,
                 textButtonAction: () {},
-                elevatedButtonAction: () {}),
+                elevatedButtonAction: () {
+
+                  addressUpdateController.addressUpdate();
+                  print("click");
+                }),
           ],
         ),
       ),
