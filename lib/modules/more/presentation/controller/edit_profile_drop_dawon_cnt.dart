@@ -7,7 +7,6 @@ class DropdownBtnController extends GetxController {
 
   void onValueChanged(String? newValue) {
     dropdownValue.value = newValue!;
-    // print(newValue.toString());//
     print(dropdownValue.toString());
   }
 }

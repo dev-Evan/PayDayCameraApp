@@ -1,12 +1,9 @@
-import 'dart:convert';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:pay_day_mobile/modules/more/data/profile_data_repo.dart';
 import 'package:pay_day_mobile/modules/more/domain/user_profile.dart';
-import 'package:pay_day_mobile/network/error_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
+
 
 class ProfileDataController extends GetxController with StateMixin {
   UserProfile? userProfile;
@@ -20,7 +17,6 @@ class ProfileDataController extends GetxController with StateMixin {
 
   ProfileDataRepository profileDataRepository =
       ProfileDataRepository(NetworkClient());
-
   getUserData() async {
     change(null, status: RxStatus.loading());
     await profileDataRepository.getUserProfileData().then((value) {

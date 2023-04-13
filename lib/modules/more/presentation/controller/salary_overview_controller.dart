@@ -1,5 +1,3 @@
-
-
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:pay_day_mobile/modules/more/data/salary_overview_rep.dart';
@@ -13,7 +11,6 @@ class SalaryOverviewController extends GetxController with StateMixin {
     getUserData();
     super.onInit();
   }
-
   SalaryOverViewRepository salaryOverViewRepository =
       SalaryOverViewRepository(NetworkClient());
 
@@ -26,7 +23,6 @@ class SalaryOverviewController extends GetxController with StateMixin {
       }, onError: (error) {
         print(error.message);
       });
-
       change(null, status: RxStatus.success());
     } catch (ex) {
       print(ex.toString());

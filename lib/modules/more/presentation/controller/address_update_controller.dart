@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pay_day_mobile/modules/auth/data/auth_data_repository.dart';
-import 'package:pay_day_mobile/modules/auth/domain/login_res.dart';
 import 'package:pay_day_mobile/modules/more/data/address_update_repo.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
+
 
 class AddressUpdateController extends GetxController with StateMixin {
   final AddressUpdateDataSource addressUpdateDataSource =
@@ -39,7 +37,7 @@ class AddressUpdateController extends GetxController with StateMixin {
         zipCodeController.value.text,
       )
           .then((value) {
-        //   Get.toNamed(AppString.home);
+        //  Get.toNamed(AppString.home);
         print("update done");
       }, onError: (error) => _showToast(error.message));
     } catch (ex) {

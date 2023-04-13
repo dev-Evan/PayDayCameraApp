@@ -23,9 +23,8 @@ class ImagePickerController extends GetxController {
   Future<void> sendImage(XFile image) async {
     try {
       final request = http.MultipartRequest('POST', Uri.parse(baseUrl));
-
       request.headers['Authorization'] =
-          'Bearer 38|oY2k6j3XyK7XZ2jYHhaKDKiCr4EcLj7RVqinb1xt'; //$accessToken
+          'Bearer $accessToken';
       request.fields['profile_picture'];
       request.files.add(
           await http.MultipartFile.fromPath('profile_picture', image.path));
