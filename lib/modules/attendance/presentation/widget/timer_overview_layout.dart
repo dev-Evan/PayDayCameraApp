@@ -74,12 +74,31 @@ scheduledTimeLog() {
           data?.todayScheduled.toDouble() ?? 0.0));
 }
 
-balanceTimeLog() {
+Widget balanceTimeLog() {
+  AttendanceController controller = Get.find<AttendanceController>();
+  return controller.logs.value.data?.todayOvertime > 0
+      ? overTimedBalanceTime()
+      : normalBalanceTime();
+}
+
+overTimedBalanceTime() {
+  Duration timerTime = Get.find<AttendanceController>().balanceDuration.value;
+  String hrs = timerTime.inHours.remainder(60).toString();
+  String mins = timerTime.inMinutes.remainder(60).toString();
+
+//if there is no hr then not need to show 0 before mins mark
+  if (hrs.length.isEqual(1) && hrs.startsWith('0') && mins.length < 2) {
+    hrs = '';
+  }
+  return logInfo(title: AppString.text_balance, time: "$hrs h $mins m");
+}
+
+Widget normalBalanceTime() {
   Duration timerTime = Get.find<AttendanceController>().countdownDuration.value;
   String hrs = timerTime.inHours.remainder(60).toString();
   String mins = timerTime.inMinutes.remainder(60).toString();
 
-  //if there is no hr then not need to show 0 before mins mark
+//if there is no hr then not need to show 0 before mins mark
   if (hrs.length.isEqual(1) && hrs.startsWith('0') && mins.length < 2) {
     hrs = '';
   }

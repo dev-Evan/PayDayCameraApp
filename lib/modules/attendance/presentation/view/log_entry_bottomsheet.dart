@@ -141,17 +141,13 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
   }
 
   _inTimeLog() {
+    var data = Get.find<AttendanceController>().logs.value.data;
     return logInfo(
         title: AppString.text_in,
         time: Get.find<AttendanceController>().isPunchIn.value
-            ? (Get.find<AttendanceController>()
-                    .logs
-                    .value
-                    .data!
-                    .dailyLogs
-                    ?.first
-                    .inTime ??
-                "")
+            ? data != null && data.dailyLogs!.isNotEmpty
+                ? data.dailyLogs?.first.inTime ?? ""
+                : ""
             : DateFormat('h:mma').format(DateTime.now()).toString(),
         fontColor: Colors.black);
   }
@@ -166,16 +162,10 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
   }
 
   _totalTimeLog() {
+    var data = Get.find<AttendanceController>().logs.value.data;
     final Duration time = DateTime.now().difference(DateTime.parse(
-        Get.find<AttendanceController>().logs.value.data!.dailyLogs!.isNotEmpty
-            ? Get.find<AttendanceController>()
-                .logs
-                .value
-                .data!
-                .dailyLogs!
-                .first
-                .startTime
-                .toString()
+        data != null && data.dailyLogs!.isNotEmpty
+            ? data.dailyLogs!.first.startTime.toString()
             : "2023-03-21 10:41:25"));
     String hrs = time.inHours.remainder(60).toString();
     String mins = time.inMinutes.remainder(60).toString();

@@ -7,15 +7,31 @@ import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_style.dart';
 
 Widget timerLayout() {
+  var todayScheduled = Get.find<AttendanceController>().logs.value.data != null
+      ? Get.find<AttendanceController>().logs.value.data?.todayScheduled
+      : 0;
+  double value =
+      (Get.find<AttendanceController>().duration.value.inMinutes / 60) /
+          todayScheduled;
+  print(value);
   return Center(
     child: Stack(
       alignment: Alignment.topCenter,
       children: [
-        const TimerProgressBar(),
+        TimerProgressBar(
+            lowerBound:
+                value.isNaN || value.isInfinite ? 0 : getWorkPercentage(value)),
         Positioned(top: AppLayout.getHeight(30), child: timeStory())
       ],
     ),
   );
+}
+
+double getWorkPercentage(double value) {
+  if (value >= 1) {
+    return value = 1.00;
+  }
+  return value;
 }
 
 Widget timeStory() {
@@ -32,8 +48,7 @@ Widget timeStory() {
           text: TextSpan(children: [
             TextSpan(
               text: (hrs.length < 2 && hrs.startsWith('0')) ? "" : hrs,
-              style: AppStyle.timer_text
-                  .copyWith(fontWeight: FontWeight.bold),
+              style: AppStyle.timer_text.copyWith(fontWeight: FontWeight.bold),
             ),
             TextSpan(
               text: (hrs.length < 2 && hrs.startsWith('0')) ? "" : " h ",
@@ -41,8 +56,7 @@ Widget timeStory() {
             ),
             TextSpan(
               text: mins,
-              style: AppStyle.timer_text
-                  .copyWith(fontWeight: FontWeight.bold),
+              style: AppStyle.timer_text.copyWith(fontWeight: FontWeight.bold),
             ),
             TextSpan(
               text: " m ",

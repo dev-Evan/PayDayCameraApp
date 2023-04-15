@@ -53,6 +53,7 @@ class AppString {
   static const String text_dialog_dec_pdf = "December Attendance.pdf";
   static String error_text = "Something went wrong! Please try again";
   static String text_reload = "Reload";
+  static String text_change_log = "Change Log";
 
   static const String text_attendance_status = "Attendance Status";
   static const String text_entry_type = "Entry Type";

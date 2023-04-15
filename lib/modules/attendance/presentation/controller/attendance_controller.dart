@@ -26,6 +26,12 @@ class AttendanceController extends GetxController with StateMixin {
   final AttendanceDataRepository _attendanceDataRepository =
       AttendanceDataRepository(NetworkClient());
 
+  @override
+  void onInit() async {
+    await getDailyLog();
+    super.onInit();
+  }
+
   final RxBool isPunchIn = false.obs;
   final TextEditingController editTextController = TextEditingController();
   final RxDouble lat = 0.0.obs;
@@ -37,6 +43,7 @@ class AttendanceController extends GetxController with StateMixin {
   Timer timer = Timer(Duration.zero, () {});
   Rx<Duration> duration = const Duration().obs;
   Rx<Duration> countdownDuration = const Duration().obs;
+  Rx<Duration> balanceDuration = const Duration().obs;
   final currentIndex = 0.obs;
   late LogDetails logDetailsById;
 
@@ -59,9 +66,9 @@ class AttendanceController extends GetxController with StateMixin {
 
     _attendanceDataRepository.punchIn(punchInRequest: punchInRequest).then(
         (value) async {
-      startTimer();
       await checkUserIsPunchedIn();
       await getDailyLog();
+      startTimer();
       print("punchIn :: ${value.message}");
     }, onError: (error) {
       print("punchIn :: ${error.message}");
@@ -77,9 +84,9 @@ class AttendanceController extends GetxController with StateMixin {
     )
         .then(
       (value) async {
-        stopTimer();
         await checkUserIsPunchedIn();
         await getDailyLog();
+        stopTimer();
         print("punchOut :: ${value.message}");
       },
       onError: (error) {
@@ -91,14 +98,18 @@ class AttendanceController extends GetxController with StateMixin {
 
   getDailyLog() async {
     change(null, status: RxStatus.loading());
-    await _attendanceDataRepository.getDailyLog().then((dailyLogs) async {
+    await _attendanceDataRepository.getDailyLog().then((dailyLogs) {
       logs.value = dailyLogs;
+      print(dailyLogs.toString());
       //set the duration value for timer
       // it may have some existing value[other device or removing app from bg]
       duration =
           Duration(minutes: (dailyLogs.data?.todayWorked * 60).toInt()).obs;
       countdownDuration =
           Duration(minutes: (logs.value.data?.todayShortage * 60).toInt()).obs;
+      balanceDuration =
+          Duration(minutes: (dailyLogs.data?.todayOvertime * 60).toInt()).obs;
+
       if (isPunchIn.isTrue && !timer.isActive) {
         startTimer();
       }
@@ -124,10 +135,10 @@ class AttendanceController extends GetxController with StateMixin {
     change(null, status: RxStatus.loading());
     ipAddress.value = await Ipify.ipv4();
     Future<Position> data = _determinePosition();
-    data.then((value) {
+    data.then((value) async {
       lat.value = value.latitude;
       long.value = value.longitude;
-      _getAddress(value.latitude, value.longitude);
+      await _getAddress(value.latitude, value.longitude);
       change(null, status: RxStatus.success());
     }).catchError((error) {
       print("getLatLong :: $error");
@@ -187,6 +198,7 @@ class AttendanceController extends GetxController with StateMixin {
     timer = Timer.periodic(const Duration(minutes: 1), (timer) {
       _timer();
       _countDown();
+      _startBalanceTimer();
     });
   }
 
@@ -202,6 +214,11 @@ class AttendanceController extends GetxController with StateMixin {
   void _countDown() {
     countdownDuration.value =
         Duration(minutes: countdownDuration.value.inMinutes - 1);
+  }
+
+  void _startBalanceTimer() {
+    balanceDuration.value =
+        Duration(minutes: balanceDuration.value.inMinutes + 1);
   }
 
   showToast(String message) => Fluttertoast.showToast(

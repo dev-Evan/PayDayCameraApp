@@ -72,9 +72,9 @@ class AttendanceLogsController extends GetxController with StateMixin {
       note: textEditingController.text,
       inDate: controller.requestedDate.value,
       inTime:
-          "${DateFormat("yyyy-MM-dd hh:mm a").parse("${controller.requestedDate.value} ${controller.pickedInTime.value}")} ",
+          "${DateFormat("yyyy-MM-dd hh:mm a").parse("${controller.requestedDate.value} ${controller.pickedInTime.value}")}",
       outTime:
-          "${DateFormat("yyyy-MM-dd hh:mm a").parse("${controller.requestedDate.value} ${controller.pickedOutTime.value}")} ",
+          "${DateFormat("yyyy-MM-dd hh:mm a").parse("${controller.requestedDate.value} ${controller.pickedOutTime.value}")}",
     ))
         .then((value) => print(value.toString()), onError: (error) {
       print(error.message);

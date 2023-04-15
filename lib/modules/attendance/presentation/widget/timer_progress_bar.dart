@@ -8,25 +8,28 @@ import 'dart:math' as math;
 import 'package:pay_day_mobile/utils/app_layout.dart';
 
 class TimerProgressBar extends StatefulWidget {
-  const TimerProgressBar({Key? key}) : super(key: key);
+  final double? lowerBound;
+
+  const TimerProgressBar({super.key, this.lowerBound});
 
   @override
   State<TimerProgressBar> createState() => _TimerProgressBarState();
 }
 
 class _TimerProgressBarState extends State<TimerProgressBar>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late Animation<double> animation;
-  late AnimationController animationController;
+  late AttendanceController controller;
+  late Data? data;
 
   @override
   void initState() {
     super.initState();
-    var controller = Get.find<AttendanceController>();
-    Data? data = controller.logs.value.data;
-    animationController = AnimationController(
+    controller = Get.find<AttendanceController>();
+    data = controller.logs.value.data;
+    AnimationController animationController = AnimationController(
         // timer value will be set here
-        lowerBound: data != null ? getWorkPercentage(controller, data) : 0.0,
+        lowerBound: widget.lowerBound ?? 0,
         upperBound: 1,
         vsync: this);
     final curveAnimation = CurvedAnimation(
@@ -40,19 +43,20 @@ class _TimerProgressBarState extends State<TimerProgressBar>
 
   @override
   Widget build(BuildContext context) {
+    print("animation.value ${animation.value}, ${controller.duration.value}");
     return SizedBox(
       height: AppLayout.getHeight(100),
       width: AppLayout.getWidth(160),
       child: Stack(
         children: [
           CustomPaint(
-            painter: ProgressArc(
-                arc: null, isBG: true, progressColor: AppColor.primary_blue),
+            painter:
+                ProgressArc(arc: null, progressColor: AppColor.primary_blue),
           ),
           CustomPaint(
-            painter: ProgressArc(
-                arc: animation.value, isBG: false, progressColor: Colors.white),
-          ),
+            painter:
+                ProgressArc(arc: animation.value, progressColor: Colors.white),
+          )
         ],
         // This trailing comma makes auto-formatting nicer for build methods.
       ),
@@ -61,10 +65,9 @@ class _TimerProgressBarState extends State<TimerProgressBar>
 }
 
 double getWorkPercentage(AttendanceController controller, data) {
-  //TODO
   double value = controller.isPunchIn.isFalse
       ? data.todayWorked.toDouble() / data.todayScheduled.toDouble()
-      : controller.duration.value.inHours / data.todayScheduled.toDouble();
+      : (controller.duration.value.inMinutes / 60);
   if (value >= 1) {
     return value = 1.00;
   }
@@ -73,12 +76,10 @@ double getWorkPercentage(AttendanceController controller, data) {
 }
 
 class ProgressArc extends CustomPainter {
-  final bool isBG;
   final double? arc;
   final Color progressColor;
 
-  ProgressArc(
-      {required this.isBG, required this.arc, required this.progressColor});
+  ProgressArc({required this.arc, required this.progressColor});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -94,7 +95,6 @@ class ProgressArc extends CustomPainter {
       ..strokeWidth = 10
       ..strokeCap = StrokeCap.round;
 
-    if (isBG) {}
     canvas.drawArc(rect, startAngle, sweepAngle, useCenter, paint);
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_eidt_bottomsheet.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/view/change_log_bottom_sheet.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/widget/custom_app_button.dart';
 import '../../../../common/widget/loading_indicator.dart';
@@ -46,7 +47,8 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: _buttonLayout(context),
-                    )
+                    ),
+
                   ],
                 ),
               ),
@@ -77,14 +79,14 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
     return AppButton(
       buttonColor: AppColor.primary_blue,
       buttonText: AppString.text_edit,
-      onPressed: () => _openEditBottomSheet(context: context),
+      onPressed: () => _openEditBottomSheet(),
     );
   }
 
   _cancelButton(BuildContext context) {
     return AppButton(
-      buttonText: AppString.text_cancel,
-      onPressed: () => Navigator.of(context).pop(),
+      buttonText: AppString.text_change_log,
+      onPressed: () => _openChangeLogBottomSheet(),
       buttonColor: Colors.transparent,
       hasOutline: true,
       borderColor: Colors.black,
@@ -93,11 +95,20 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
   }
 }
 
-Future _openEditBottomSheet({required BuildContext context}) {
+Future _openEditBottomSheet() {
   return showModalBottomSheet(
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
-    context: context,
+    context: Get.context!,
     builder: (context) => const EditAttendanceBottomSheet(),
+  );
+}
+
+Future _openChangeLogBottomSheet() {
+  return showModalBottomSheet(
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    context: Get.context!,
+    builder: (context) => const ChangeLogBottomSheet(),
   );
 }

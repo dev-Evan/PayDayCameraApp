@@ -10,6 +10,11 @@ class DailyLog {
     message = json['message'];
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
+
+  @override
+  String toString() {
+    return 'DailyLog{status: $status, message: $message, data: $data}';
+  }
 }
 
 class Data {
@@ -52,6 +57,11 @@ class Data {
         dailyLogs!.add(DailyLogs.fromJson(v));
       });
     }
+  }
+
+  @override
+  String toString() {
+    return 'Data{totalScheduled: $totalScheduled, todayScheduled: $todayScheduled, totalWorked: $totalWorked, todayWorked: $todayWorked, todayShortage: $todayShortage, todayOvertime: $todayOvertime, totalShortage: $totalShortage, totalOverTime: $totalOverTime, behavior: $behavior, dailyLogs: $dailyLogs}';
   }
 }
 
@@ -96,6 +106,11 @@ class DailyLogs {
         notes!.add(Notes.fromJson(v));
       });
     }
+  }
+
+  @override
+  String toString() {
+    return 'DailyLogs{id: $id, attendanceId: $attendanceId, startTime: $startTime, inTime: $inTime, outTime: $outTime, totalHours: $totalHours, inIpData: $inIpData, outIpData: $outIpData, notes: $notes}';
   }
 }
 

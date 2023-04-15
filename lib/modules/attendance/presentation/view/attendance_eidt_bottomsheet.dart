@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../../../common/controller/date_time_helper_controller.dart';
 import '../../../../common/widget/custom_time_picker.dart';
 import '../../../../common/widget/input_note.dart';
 import '../widget/bottom_sheet_appbar.dart';
@@ -14,6 +16,8 @@ class EditAttendanceBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.delete<DateTimeController>();
+    Get.put(DateTimeController());
     return DraggableScrollableSheet(
       initialChildSize: .8,
       maxChildSize: .8,
@@ -32,6 +36,9 @@ class EditAttendanceBottomSheet extends StatelessWidget {
                     context: context,
                     appbarTitle: AppString.text_edit_attendance),
                 _contentLayout(),
+                SizedBox(
+                  height: AppLayout.getHeight(60),
+                )
               ],
             ),
             Align(
