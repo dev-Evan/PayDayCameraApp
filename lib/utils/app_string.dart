@@ -64,6 +64,8 @@ class AppString {
   static String text_please_selected_date = "Please selected date";
   static String text_alert = "Alert";
   static String text_next = "Next";
+  static String text_search = "Search";
+  static String text_search_typing_to_search = "Start typing to search";
 
   static const String text_attendance_status = "Attendance Status";
   static const String text_entry_type = "Entry Type";
@@ -296,6 +298,11 @@ class AppString {
   static String text_calender_text = "Calender";
   static String text_about_me_dec =
       "Hello. I am an UX/UI designer. I am in love with designing since my childhood. It gives me the freedom of my mind and helps me to express myself and my personality ";
+
+
+
+
+
   // Local store string here
   static const String idStore = "store";
   static String ACCESS_TOKEN = "access_token";
@@ -306,6 +313,7 @@ class AppString {
   static const String loginValue = "LogInValue";
   static const String rememberValue = "rememberValue";
   static const String rememberKey = "rememberKey";
+  static const String storeCounty = "storeCounty";
 
 // Auth String
 

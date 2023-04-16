@@ -1,6 +1,10 @@
+import 'package:country_picker/country_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pay_day_mobile/common/custom_double_button.dart';
 import 'package:pay_day_mobile/common/text_field.dart';
@@ -21,9 +25,6 @@ class EditAddress extends StatefulWidget {
 }
 
 class _EditAddressState extends State<EditAddress> {
-  final List<String> _locations = ['A', 'B', 'C', 'D'];
-  String? dropdownValue;
-
   AddressUpdateController addressUpdateController =
       Get.put(AddressUpdateController());
   AddressDetailsController addressDetailsController =
@@ -31,12 +32,15 @@ class _EditAddressState extends State<EditAddress> {
 
   @override
   Widget build(BuildContext context) {
+    final _box = GetStorage();
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            //controller.t().
+
             bottomSheetAppbar(
               context: context,
               appbarTitle: '${AppString.text_edit} ${AppString.text_address}',
@@ -45,51 +49,46 @@ class _EditAddressState extends State<EditAddress> {
               padding: const EdgeInsets.only(top: 12.0),
               child: textFieldTitleText(titleText: AppString.text_county),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Card(
-                color: AppColor.cardColor,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(Dimensions.radiusDefault),
-                    side: const BorderSide(
-                        width: 0.0, color: AppColor.disableColor)),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: DropdownButton<String>(
-                    style: const TextStyle(fontWeight: FontWeight.w500),
-                    isDense: true,
-                    isExpanded: true,
-                    underline: const SizedBox.shrink(),
-                    icon: const Icon(Icons.expand_more),
-                    iconEnabledColor: AppColor.normalTextColor,
-                    hint: Text(
-                      AppString.text_select_county,
-                      style: AppStyle.normal_text
-                          .copyWith(color: AppColor.normalTextColor),
+
+            InkWell(
+              onTap: () {
+                showCountryPicker(
+                    context: context,
+                    countryListTheme: CountryListThemeData(
+                      flagSize: 24,
+                      backgroundColor: AppColor.cardColor,
+                      textStyle: const TextStyle(
+                          fontSize: 16, color: AppColor.normalTextColor),
+                      bottomSheetHeight: AppLayout.getHeight(554),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(Dimensions.radiusMid),
+                        topRight: Radius.circular(Dimensions.radiusMid),
+                      ),
+                      inputDecoration: InputDecoration(
+                        labelText: AppString.text_search,
+                        hintText: AppString.text_search_typing_to_search,
+                        prefixIcon: const Icon(Icons.search),
+                        border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: AppColor.hintColor,
+                            ),
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radiusMid)),
+                      ),
                     ),
-                    value: dropdownValue,
-                    borderRadius:
-                        BorderRadius.circular(Dimensions.radiusDefault),
-                    items: _locations
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value,
-                            style: AppStyle.normal_text
-                                .copyWith(color: AppColor.normalTextColor)),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownValue = newValue!;
-                      });
-                    },
-                  ),
-                ),
+                    onSelect: (Country country) {
+                      _box.write(AppString.storeCounty, country.displayName);
+                    });
+              },
+              child: _countyField(
+                text: _box.read(AppString.storeCounty) ?? addressDetailsController
+                        .addressDetailsModel?.data?.first.value?.country
+                        .toString(),
+                context: context,
               ),
             ),
+            //),
+
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: textFieldTitleText(titleText: AppString.text_phone),
@@ -214,19 +213,49 @@ class _EditAddressState extends State<EditAddress> {
                 elevatedBtnText:
                     '${AppString.text_add} ${AppString.text_address}',
                 textBtnText: AppString.text_cancel,
-                textButtonAction: () {},
+                textButtonAction: ()=>Get.back(),
                 elevatedButtonAction: () {
                   addressUpdateController.addressUpdate(
                     typeKey: addressDetailsController
                             .addressDetailsModel?.data?.first.key
                             .toString() ??
                         "",
+                    selectedCounty: _box.read(AppString.storeCounty ?? ""),
                   );
-                  print("click");
                 }),
           ],
         ),
       ),
     );
   }
+}
+
+Widget _countyField({text, context}) {
+  return Container(
+    width: MediaQuery.of(context).size.width / 1,
+    height: AppLayout.getHeight(50),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+        border: Border.all(width: 0, color: AppColor.disableColor)),
+    child: Padding(
+      padding: EdgeInsets.only(
+          left: AppLayout.getWidth(8),
+          top: AppLayout.getHeight(8),
+          bottom: AppLayout.getHeight(8),
+          right: AppLayout.getWidth(8)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            text,
+            style: GoogleFonts.poppins(color: AppColor.hintColor),
+          ),
+          const Icon(
+            Icons.keyboard_arrow_down_rounded,
+            color: AppColor.normalTextColor,
+          ),
+        ],
+      ),
+    ),
+  );
 }

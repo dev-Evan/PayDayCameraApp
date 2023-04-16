@@ -22,16 +22,16 @@ class AddressUpdateController extends GetxController with StateMixin {
   final typeController = TextEditingController().obs;
   final zipCodeController = TextEditingController().obs;
 
-  final GetStorage box = GetStorage();
 
-  void addressUpdate({required typeKey}) async {
+
+  void addressUpdate({required typeKey,required selectedCounty}) async {
     change(null, status: RxStatus.loading());
     try {
       await addressUpdateDataSource
           .getAddressUpdate(
       areaController.value.text,
         cityController.value.text,
-        "USA",
+        selectedCounty.toString(),
         detailsController.value.text,
         phoneNumberController.value.text,
         stateController.value.text,

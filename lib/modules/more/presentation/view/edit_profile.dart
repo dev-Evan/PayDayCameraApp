@@ -300,7 +300,7 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     final _box = GetStorage();
-    var receiveDate = _box.read(AppString.storeDate.toString());
+    var receiveDate = _box.read(AppString.storeDate.toString()??"");
 
     return Scaffold(
       appBar: const CustomAppbar(),
@@ -479,20 +479,18 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                   Container(
                     child: CustomTextFieldDob(
-                        hintText: _box.read(AppString.storeDate.toString())==null?
-
-                        _box.read(AppString.storeDate.toString())
-                            :profileDataController
+                        hintText: _box.read(AppString.storeDate.toString()??"") ?? profileDataController
                             .userProfile?.data?.dateOfBirth ??
                             "",
-                        dobIcon: Icons.calendar_month,
+
+          dobIcon: Icons.calendar_month,
                         dobIconAction: () {
                           profileCalenderDialog(
                               context: context,
                               height: AppLayout.getHeight(72),
                               child: const EditProfileCalender(),
                               dobSaveAction: () {
-                                if (_box.read(AppString.storeDate.toString()) ==
+                                if (_box.read(AppString.storeDate.toString()??"") ==
                                     null) {
                                   Get.snackbar(AppString.text_alert,
                                       AppString.text_please_selected_date);
@@ -541,7 +539,7 @@ class _EditProfileState extends State<EditProfile> {
                 // editProfileDataController.editProfileData();
 
                 editProfileDataController.editProfileData(
-                    selectedDate: _box.read(AppString.storeDate.toString()));
+                    selectedDate: _box.read(AppString.storeDate.toString()??""));
               }),
             )
           ],

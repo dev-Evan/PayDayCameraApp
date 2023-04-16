@@ -11,7 +11,6 @@ class CustomTextFeild extends StatelessWidget {
   final inputType;
   final controller;
   final String? Function(String?)? validator;
-
   CustomTextFeild({
     Key? key,
     required this.hintText,
