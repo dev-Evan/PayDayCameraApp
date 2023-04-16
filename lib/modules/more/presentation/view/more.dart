@@ -7,6 +7,7 @@ import 'package:pay_day_mobile/common/custom_appbar.dart';
 import 'package:pay_day_mobile/common/custom_navigator.dart';
 import 'package:pay_day_mobile/common/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/salary_overview_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
@@ -31,12 +32,13 @@ import 'package:pay_day_mobile/utils/images.dart';
 
 class MoreScreen extends GetView<ProfileDataController> {
   MoreScreen({Key? key}) : super(key: key);
-  ProfileDataController profileDataController =
-      Get.put(ProfileDataController());
+
+  ProfileDataController profileDataController = Get.put(ProfileDataController());
   SalaryOverviewController salaryOverviewController=Get.put(SalaryOverviewController());
   SettingController settingController=Get.put(SettingController());
   AddressDetailsController addressDetailsController=Get.put(AddressDetailsController());
   LogoutController logoutController=Get.put(LogoutController());
+  JobHistoryController jobHistoryController=Get.put(JobHistoryController());
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +108,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                         cardText: AppString.text_job_history,
                                         onAction: () => CustomNavigator(
                                             context: context,
-                                            pageName: const JodHistory())),
+                                            pageName:  JodHistory())),
                                     _jobDeskCard(
                                         cardIcon:
                                             Icons.monetization_on_outlined,

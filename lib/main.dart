@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appTheme,
        initialRoute: AppString.signInScreen,
-       getPages: getPage,
+      getPages: getPage,
       //home:  MoreScreen(),
     );
   }

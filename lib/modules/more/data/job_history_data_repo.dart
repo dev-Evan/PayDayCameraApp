@@ -1,23 +1,25 @@
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/modules/more/domain/job_history_model.dart';
+import 'package:pay_day_mobile/modules/more/domain/salary_overview.dart';
 import 'package:pay_day_mobile/network/error_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-
 import '../../../utils/app_string.dart';
-import '../domain/user_profile.dart';
 
-class ProfileDataRepository {
+
+class JobHistoryRepository {
   final NetworkClient networkClient;
 
-  ProfileDataRepository(this.networkClient);
+  JobHistoryRepository(this.networkClient);
 
-  Future<UserProfile> getUserProfileData() async {
+  Future<JobHistoryModel> getJobHistoryRepoData() async {
     try {
       Response response =
-      await networkClient.getRequest(AppString.USER_PROFILE);
+      await networkClient.getRequest(AppString.JOB_HISTORY);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
-        return UserProfile.fromJson(response.body);
+        print(response.body);
+        return JobHistoryModel.fromJson(response.body);
       }
     } catch (e) {
       return Future.error(ErrorModel(message: e.toString()));

@@ -1,129 +1,236 @@
-import 'dart:convert';
-
-JobHistoryModel jobHistoryModelFromJson(String str) => JobHistoryModel.fromJson(json.decode(str));
-
-String jobHistoryModelToJson(JobHistoryModel data) => json.encode(data.toJson());
-
 class JobHistoryModel {
-  JobHistoryModel({
-    this.status,
-    this.message,
-    this.data,
-  });
-
   bool? status;
   String? message;
   Data? data;
 
-  factory JobHistoryModel.fromJson(Map<String, dynamic> json) => JobHistoryModel(
-    status: json["status"],
-    message: json["message"],
-    data: json["data"] == null ? null : Data.fromJson(json["data"]),
-  );
+  JobHistoryModel({this.status, this.message, this.data});
 
-  Map<String, dynamic> toJson() => {
-    "status": status,
-    "message": message,
-    "data": data?.toJson(),
-  };
+  JobHistoryModel.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    message = json['message'];
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['message'] = this.message;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    return data;
+  }
 }
 
 class Data {
-  Data({
-    this.joiningDate,
-    this.designations,
-    this.departments,
-    this.roles,
-    this.workingShifts,
-    this.employmentStatuses,
-  });
-
   String? joiningDate;
-  List<Department>? designations;
-  List<Department>? departments;
-  List<Role>? roles;
-  List<Department>? workingShifts;
-  List<Department>? employmentStatuses;
+  List<Designations>? designations;
+  List<Departments>? departments;
+  List<Roles>? roles;
+  List<WorkingShifts>? workingShifts;
+  List<EmploymentStatuses>? employmentStatuses;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-    joiningDate: json["joining_date"],
-    designations: json["designations"] == null ? [] : List<Department>.from(json["designations"]!.map((x) => Department.fromJson(x))),
-    departments: json["departments"] == null ? [] : List<Department>.from(json["departments"]!.map((x) => Department.fromJson(x))),
-    roles: json["roles"] == null ? [] : List<Role>.from(json["roles"]!.map((x) => Role.fromJson(x))),
-    workingShifts: json["working_shifts"] == null ? [] : List<Department>.from(json["working_shifts"]!.map((x) => Department.fromJson(x))),
-    employmentStatuses: json["employment_statuses"] == null ? [] : List<Department>.from(json["employment_statuses"]!.map((x) => Department.fromJson(x))),
-  );
+  Data(
+      {this.joiningDate,
+        this.designations,
+        this.departments,
+        this.roles,
+        this.workingShifts,
+        this.employmentStatuses});
 
-  Map<String, dynamic> toJson() => {
-    "joining_date": joiningDate,
-    "designations": designations == null ? [] : List<dynamic>.from(designations!.map((x) => x.toJson())),
-    "departments": departments == null ? [] : List<dynamic>.from(departments!.map((x) => x.toJson())),
-    "roles": roles == null ? [] : List<dynamic>.from(roles!.map((x) => x.toJson())),
-    "working_shifts": workingShifts == null ? [] : List<dynamic>.from(workingShifts!.map((x) => x.toJson())),
-    "employment_statuses": employmentStatuses == null ? [] : List<dynamic>.from(employmentStatuses!.map((x) => x.toJson())),
-  };
+  Data.fromJson(Map<String, dynamic> json) {
+    joiningDate = json['joining_date'];
+    if (json['designations'] != null) {
+      designations = <Designations>[];
+      json['designations'].forEach((v) {
+        designations!.add(new Designations.fromJson(v));
+      });
+    }
+    if (json['departments'] != null) {
+      departments = <Departments>[];
+      json['departments'].forEach((v) {
+        departments!.add(new Departments.fromJson(v));
+      });
+    }
+    if (json['roles'] != null) {
+      roles = <Roles>[];
+      json['roles'].forEach((v) {
+        roles!.add(new Roles.fromJson(v));
+      });
+    }
+    if (json['working_shifts'] != null) {
+      workingShifts = <WorkingShifts>[];
+      json['working_shifts'].forEach((v) {
+        workingShifts!.add(new WorkingShifts.fromJson(v));
+      });
+    }
+    if (json['employment_statuses'] != null) {
+      employmentStatuses = <EmploymentStatuses>[];
+      json['employment_statuses'].forEach((v) {
+        employmentStatuses!.add(new EmploymentStatuses.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['joining_date'] = this.joiningDate;
+    if (this.designations != null) {
+      data['designations'] = this.designations!.map((v) => v.toJson()).toList();
+    }
+    if (this.departments != null) {
+      data['departments'] = this.departments!.map((v) => v.toJson()).toList();
+    }
+    if (this.roles != null) {
+      data['roles'] = this.roles!.map((v) => v.toJson()).toList();
+    }
+    if (this.workingShifts != null) {
+      data['working_shifts'] =
+          this.workingShifts!.map((v) => v.toJson()).toList();
+    }
+    if (this.employmentStatuses != null) {
+      data['employment_statuses'] =
+          this.employmentStatuses!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }
 
-class Department {
-  Department({
-    this.id,
-    this.name,
-    this.departmentId,
-    this.startDate,
-    this.endDate,
-    this.designationId,
-    this.employmentStatusId,
-    this.workingShiftId,
-  });
+class Designations {
+  int? id;
+  String? name;
+  int? designationId;
+  String? startDate;
+  String? endDate;
 
+  Designations(
+      {this.id, this.name, this.designationId, this.startDate, this.endDate});
+
+  Designations.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    designationId = json['designation_id'];
+    startDate = json['start_date'];
+    endDate = json['end_date'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['designation_id'] = this.designationId;
+    data['start_date'] = this.startDate;
+    data['end_date'] = this.endDate;
+    return data;
+  }
+}
+
+class Departments {
   int? id;
   String? name;
   int? departmentId;
   String? startDate;
   String? endDate;
-  int? designationId;
-  int? employmentStatusId;
-  int? workingShiftId;
 
-  factory Department.fromJson(Map<String, dynamic> json) => Department(
-    id: json["id"],
-    name: json["name"],
-    departmentId: json["department_id"],
-    startDate: json["start_date"],
-    endDate: json["end_date"],
-    designationId: json["designation_id"],
-    employmentStatusId: json["employment_status_id"],
-    workingShiftId: json["working_shift_id"],
-  );
+  Departments(
+      {this.id, this.name, this.departmentId, this.startDate, this.endDate});
 
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "department_id": departmentId,
-    "start_date": startDate,
-    "end_date": endDate,
-    "designation_id": designationId,
-    "employment_status_id": employmentStatusId,
-    "working_shift_id": workingShiftId,
-  };
+  Departments.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    departmentId = json['department_id'];
+    startDate = json['start_date'];
+    endDate = json['end_date'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['department_id'] = this.departmentId;
+    data['start_date'] = this.startDate;
+    data['end_date'] = this.endDate;
+    return data;
+  }
 }
 
-class Role {
-  Role({
-    this.id,
-    this.name,
-  });
-
+class Roles {
   int? id;
   String? name;
 
-  factory Role.fromJson(Map<String, dynamic> json) => Role(
-    id: json["id"],
-    name: json["name"],
-  );
+  Roles({this.id, this.name});
 
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-  };
+  Roles.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    return data;
+  }
+}
+
+class WorkingShifts {
+  int? id;
+  String? name;
+  int? workingShiftId;
+  String? startDate;
+  String? endDate;
+
+  WorkingShifts(
+      {this.id, this.name, this.workingShiftId, this.startDate, this.endDate});
+
+  WorkingShifts.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    workingShiftId = json['working_shift_id'];
+    startDate = json['start_date'];
+    endDate = json['end_date'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['working_shift_id'] = this.workingShiftId;
+    data['start_date'] = this.startDate;
+    data['end_date'] = this.endDate;
+    return data;
+  }
+}
+
+class EmploymentStatuses {
+  int? id;
+  String? name;
+  int? employmentStatusId;
+  String? startDate;
+  String? endDate;
+
+  EmploymentStatuses(
+      {this.id,
+        this.name,
+        this.employmentStatusId,
+        this.startDate,
+        this.endDate});
+
+  EmploymentStatuses.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    employmentStatusId = json['employment_status_id'];
+    startDate = json['start_date'];
+    endDate = json['end_date'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['employment_status_id'] = this.employmentStatusId;
+    data['start_date'] = this.startDate;
+    data['end_date'] = this.endDate;
+    return data;
+  }
 }

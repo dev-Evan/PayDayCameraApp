@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/modules/more/data/address_update_repo.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 
@@ -10,6 +11,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 class AddressUpdateController extends GetxController with StateMixin {
   final AddressUpdateDataSource addressUpdateDataSource =
       AddressUpdateDataSource(NetworkClient());
+  AddressDetailsController addressDetailsController =Get.put(AddressDetailsController());
 
   final areaController = TextEditingController().obs;
   final cityController = TextEditingController().obs;
@@ -22,22 +24,24 @@ class AddressUpdateController extends GetxController with StateMixin {
 
   final GetStorage box = GetStorage();
 
-  void addressUpdate() async {
+  void addressUpdate({required typeKey}) async {
     change(null, status: RxStatus.loading());
     try {
       await addressUpdateDataSource
           .getAddressUpdate(
       areaController.value.text,
         cityController.value.text,
-        countyController.value.text,
+        "USA",
         detailsController.value.text,
         phoneNumberController.value.text,
         stateController.value.text,
-        typeController.value.text,
+          typeKey.toString(),
         zipCodeController.value.text,
       )
           .then((value) {
         //  Get.toNamed(AppString.home);
+        _showToast(value.message);
+
         print("update done");
       }, onError: (error) => _showToast(error.message));
     } catch (ex) {

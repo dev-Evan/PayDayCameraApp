@@ -12,6 +12,7 @@ class AppString {
   static String LOG_DETAILS = "/attendance/details";
   static String ATTENDANCE_REQUEST = "/attendance/request";
   static String CHANGE_LOG = "/attendance/log";
+  static String JOB_HISTORY = "/employee/job-history";
   static String USER_PROFILE = "/user/profile";
   static String ADDRESS_UPDATE = "/employee/address-update";
   static String EMPLOYEE_ADDRESS = "/employee/addresses";
@@ -245,7 +246,7 @@ class AppString {
   static String text_employment = "Employment Status";
   static String text_ca_usa = "CA, USA";
   static String text_01_jan_1998 = "01-Jan-1998";
-  static String text_gender = "Male";
+  static String text_gender = "Gender";
   static String text_gender_text = "Gender";
   static String text_county = "County";
   static String text_address_setails = "Address Details";

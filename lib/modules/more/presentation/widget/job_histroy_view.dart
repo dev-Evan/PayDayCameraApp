@@ -1,8 +1,12 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/custom_spacer.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/dotted_view.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/job_his_job_title.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/job_history_title.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -17,16 +21,14 @@ class JobHistoryView extends StatefulWidget {
 }
 
 class _JobHistoryViewState extends State<JobHistoryView> {
+  JobHistoryController jobHistoryController = Get.put(JobHistoryController());
+
   bool _designationIcon = false;
   bool _departmentIcon = false;
   bool _roleIcon = false;
-  bool _workShifIcon = false;
+  bool _workShifeIcon = false;
   bool _employmentIcon = false;
-  List title = [
-    AppString.text_ui_designer,
-    AppString.text_ui_designer,
-    AppString.text_ui_designer,
-  ];
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -51,10 +53,8 @@ class _JobHistoryViewState extends State<JobHistoryView> {
                 setState(() => _designationIcon = expanded);
               },
               children: [
-                SizedBox(
-                  height: AppLayout.getHeight(18),
-                ),
-                _jobHisTitleView(titleText: title)
+                customSpacerHeight(height: 16),
+                jobHisDesignationView()
               ],
             ),
           ),
@@ -77,10 +77,8 @@ class _JobHistoryViewState extends State<JobHistoryView> {
                 setState(() => _departmentIcon = expanded);
               },
               children: [
-                SizedBox(
-                  height: AppLayout.getHeight(18),
-                ),
-                _jobHisTitleView(titleText: title)
+                customSpacerHeight(height: 16),
+                jobHisDepartmentView()
               ],
             ),
           ),
@@ -102,18 +100,13 @@ class _JobHistoryViewState extends State<JobHistoryView> {
               onExpansionChanged: (bool expanded) {
                 setState(() => _roleIcon = expanded);
               },
-              children: [
-                SizedBox(
-                  height: AppLayout.getHeight(18),
-                ),
-                _jobHisTitleView(titleText: title)
-              ],
+              children: [customSpacerHeight(height: 18), jobHisRoleView()],
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 12.0),
             child: ExpansionTile(
-              trailing: _statusIcon(value: _workShifIcon),
+              trailing: _statusIcon(value: _workShifeIcon),
               title: InkWell(
                 //onTap: ()=>CustomNavigator(context: context,pageName: const AboutThisApp()),
                 child: Row(
@@ -126,14 +119,9 @@ class _JobHistoryViewState extends State<JobHistoryView> {
                 ),
               ),
               onExpansionChanged: (bool expanded) {
-                setState(() => _workShifIcon = expanded);
+                setState(() => _workShifeIcon = expanded);
               },
-              children: [
-                SizedBox(
-                  height: AppLayout.getHeight(18),
-                ),
-                _jobHisTitleView(titleText: title)
-              ],
+              children: [customSpacerHeight(height: 18), jobHisWorkShiftView()],
             ),
           ),
           Padding(
@@ -155,10 +143,8 @@ class _JobHistoryViewState extends State<JobHistoryView> {
                 setState(() => _employmentIcon = expanded);
               },
               children: [
-                SizedBox(
-                  height: AppLayout.getHeight(18),
-                ),
-                _jobHisTitleView(titleText: title)
+                customSpacerHeight(height: 14),
+                jobHisEmploymentView()
               ],
             ),
           ),
@@ -166,27 +152,6 @@ class _JobHistoryViewState extends State<JobHistoryView> {
       ),
     );
   }
-}
-
-Widget _jobHisTitleView({titleText}) {
-  return Padding(
-    padding: const EdgeInsets.only(left: 44.0, bottom: 18),
-    child: ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: titleText.length,
-      itemBuilder: (context, index) {
-        return Stack(
-          alignment: Alignment.center,
-          children: [
-            dottedView(),
-            Positioned(
-                left: 23, child: jodTitle(jobTitleText: titleText[index])),
-          ],
-        );
-      },
-    ),
-  );
 }
 
 Widget _cardIconTitleText({icon, titleText}) {

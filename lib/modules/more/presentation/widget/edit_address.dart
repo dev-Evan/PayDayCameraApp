@@ -5,6 +5,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pay_day_mobile/common/custom_double_button.dart';
 import 'package:pay_day_mobile/common/text_field.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_update_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -23,13 +24,10 @@ class _EditAddressState extends State<EditAddress> {
   final List<String> _locations = ['A', 'B', 'C', 'D'];
   String? dropdownValue;
 
-  final TextEditingController _areaController = TextEditingController();
-  final TextEditingController _cityController = TextEditingController();
-  final TextEditingController _stateController = TextEditingController();
-  final TextEditingController _zipCodeController = TextEditingController();
-  final TextEditingController _addDetailsController = TextEditingController();
-
-  AddressUpdateController addressUpdateController=Get.put(AddressUpdateController());
+  AddressUpdateController addressUpdateController =
+      Get.put(AddressUpdateController());
+  AddressDetailsController addressDetailsController =
+      Get.put(AddressDetailsController());
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +41,6 @@ class _EditAddressState extends State<EditAddress> {
               context: context,
               appbarTitle: '${AppString.text_edit} ${AppString.text_address}',
             ),
-
             Padding(
               padding: const EdgeInsets.only(top: 12.0),
               child: textFieldTitleText(titleText: AppString.text_county),
@@ -97,24 +94,26 @@ class _EditAddressState extends State<EditAddress> {
               padding: const EdgeInsets.only(top: 8.0),
               child: textFieldTitleText(titleText: AppString.text_phone),
             ),
-
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: IntlPhoneField(
-                decoration: const InputDecoration(
-                  labelText: ' Enter phone Number',
-                  enabledBorder: OutlineInputBorder(
+                decoration: InputDecoration(
+                  labelText: addressDetailsController
+                          .addressDetailsModel?.data?.first.value?.phoneNumber
+                          .toString() ??
+                      "Demo",
+                  enabledBorder: const OutlineInputBorder(
                       borderSide:
                           BorderSide(width: 0.0, color: AppColor.disableColor)),
-                  contentPadding: EdgeInsets.all(7),
-                  border: OutlineInputBorder(
+                  contentPadding: const EdgeInsets.all(7),
+                  border: const OutlineInputBorder(
                     borderSide:
                         BorderSide(width: 0.0, color: AppColor.disableColor),
                   ),
                 ),
+                controller: addressUpdateController.phoneNumberController.value,
               ),
             ),
-
             Row(
               children: [
                 Flexible(
@@ -123,7 +122,13 @@ class _EditAddressState extends State<EditAddress> {
                     children: [
                       textFieldTitleText(titleText: AppString.text_area),
                       CustomTextFeild(
-                          hintText: AppString.text_enter_area, controller: _areaController),
+                        hintText: addressDetailsController
+                                .addressDetailsModel?.data?.first.value?.area
+                                .toString() ??
+                            "Demo",
+                        controller:
+                            addressUpdateController.areaController.value,
+                      ),
                     ],
                   ),
                 ),
@@ -136,7 +141,12 @@ class _EditAddressState extends State<EditAddress> {
                     children: [
                       textFieldTitleText(titleText: AppString.text_city),
                       CustomTextFeild(
-                          hintText:AppString.text_enter_city, controller: _cityController),
+                          hintText: addressDetailsController
+                                  .addressDetailsModel?.data?.first.value?.city
+                                  .toString() ??
+                              "Demo",
+                          controller:
+                              addressUpdateController.cityController.value),
                     ],
                   ),
                 ),
@@ -153,8 +163,12 @@ class _EditAddressState extends State<EditAddress> {
                     children: [
                       textFieldTitleText(titleText: AppString.text_state),
                       CustomTextFeild(
-                          hintText: AppString.text_enter_state,
-                          controller: _stateController),
+                          hintText: addressDetailsController
+                                  .addressDetailsModel?.data?.first.value?.state
+                                  .toString() ??
+                              "Demo",
+                          controller:
+                              addressUpdateController.stateController.value),
                     ],
                   ),
                 ),
@@ -167,8 +181,12 @@ class _EditAddressState extends State<EditAddress> {
                     children: [
                       textFieldTitleText(titleText: AppString.text_zip_code),
                       CustomTextFeild(
-                          hintText: AppString.text_enter_zip_code,
-                          controller: _zipCodeController),
+                          hintText: addressDetailsController.addressDetailsModel
+                                  ?.data?.first.value?.zipCode
+                                  .toString() ??
+                              "Demo",
+                          controller:
+                              addressUpdateController.zipCodeController.value),
                     ],
                   ),
                 ),
@@ -183,18 +201,27 @@ class _EditAddressState extends State<EditAddress> {
                 textFieldTitleText(
                     titleText: AppString.text_address + AppString.text_details),
                 CustomTextFeild(
-                    hintText: AppString.text_enter_address,
-                    controller: _addDetailsController),
+                    hintText: addressDetailsController
+                            .addressDetailsModel?.data?.first.value?.details
+                            .toString() ??
+                        "Demo",
+                    controller:
+                        addressUpdateController.detailsController.value),
               ],
             ),
             customDoubleButton(
                 context: context,
-                elevatedBtnText: '${AppString.text_add} ${AppString.text_address}',
+                elevatedBtnText:
+                    '${AppString.text_add} ${AppString.text_address}',
                 textBtnText: AppString.text_cancel,
                 textButtonAction: () {},
                 elevatedButtonAction: () {
-
-                  addressUpdateController.addressUpdate();
+                  addressUpdateController.addressUpdate(
+                    typeKey: addressDetailsController
+                            .addressDetailsModel?.data?.first.key
+                            .toString() ??
+                        "",
+                  );
                   print("click");
                 }),
           ],
@@ -203,5 +230,3 @@ class _EditAddressState extends State<EditAddress> {
     );
   }
 }
-
-

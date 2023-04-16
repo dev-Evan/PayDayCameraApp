@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/common/custom_appbar.dart';
 import 'package:pay_day_mobile/common/custom_buttom_sheet.dart';
+import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/add_address.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
@@ -15,9 +16,10 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class AddressDetails extends StatelessWidget {
-   AddressDetails({Key? key}) : super(key: key);
+  AddressDetails({Key? key}) : super(key: key);
 
-  AddressDetailsController addressDetailsController=Get.put(AddressDetailsController());
+  AddressDetailsController addressDetailsController =
+      Get.put(AddressDetailsController());
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,10 @@ class AddressDetails extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        addressDetailsController.addressDetailsModel?.data?.first.key.toString() ??"Demo",
+                        addressDetailsController
+                                .addressDetailsModel?.data?.first.key
+                                .toString() ??
+                            "Demo",
                         style: AppStyle.mid_large_text.copyWith(
                             color: AppColor.normalTextColor,
                             fontWeight: FontWeight.bold),
@@ -66,9 +71,7 @@ class AddressDetails extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: AppLayout.getHeight(20),
-                  ),
+                  customSpacerHeight(height: 20),
                   Text(
                     AppString.text_details,
                     style: AppStyle.mid_large_text.copyWith(
@@ -76,19 +79,18 @@ class AddressDetails extends StatelessWidget {
                         fontSize: Dimensions.fontSizeDefault - 2,
                         fontWeight: FontWeight.w500),
                   ),
-                  SizedBox(
-                    height: AppLayout.getHeight(8),
-                  ),
+                  customSpacerHeight(height: 8),
                   Text(
-                    addressDetailsController.addressDetailsModel?.data?.first.value?.details.toString() ??"Demo",
+                    addressDetailsController
+                            .addressDetailsModel?.data?.first.value?.details
+                            .toString() ??
+                        "Demo",
                     style: AppStyle.mid_large_text.copyWith(
                         color: AppColor.normalTextColor.withOpacity(0.7),
                         fontSize: Dimensions.fontSizeDefault,
                         fontWeight: FontWeight.w500),
                   ),
-                  SizedBox(
-                    height: AppLayout.getHeight(12),
-                  ),
+                  customSpacerHeight(height: 12),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -98,50 +100,78 @@ class AddressDetails extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                height: AppLayout.getHeight(12),
-                              ),
+                              customSpacerHeight(height: 12),
                               _textTitle(titleText: AppString.text_area),
-                              _textSubTitle(subTitleText:   addressDetailsController.addressDetailsModel?.data?.first.value?.area ??"Demo",),
-                              SizedBox(
-                                height: AppLayout.getHeight(16),
+                              _textSubTitle(
+                                subTitleText: addressDetailsController
+                                        .addressDetailsModel
+                                        ?.data
+                                        ?.first
+                                        .value
+                                        ?.area ??
+                                    "Demo",
                               ),
+                              customSpacerHeight(height: 16),
                               _textTitle(titleText: AppString.text_state),
-                              _textSubTitle(subTitleText: addressDetailsController.addressDetailsModel?.data?.first.value?.state ??"Demo",),
-                              SizedBox(
-                                height: AppLayout.getHeight(16),
+                              _textSubTitle(
+                                subTitleText: addressDetailsController
+                                        .addressDetailsModel
+                                        ?.data
+                                        ?.first
+                                        .value
+                                        ?.state ??
+                                    "Demo",
                               ),
+                              customSpacerHeight(height: 16),
                               _textTitle(titleText: AppString.text_county),
-                              _textSubTitle(subTitleText: addressDetailsController.addressDetailsModel?.data?.first.value?.country ??"Demo"),
+                              _textSubTitle(
+                                  subTitleText: addressDetailsController
+                                          .addressDetailsModel
+                                          ?.data
+                                          ?.first
+                                          .value
+                                          ?.country ??
+                                      "Demo"),
                             ],
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                height: AppLayout.getHeight(12),
-                              ),
+                              customSpacerHeight(height: 12),
                               _textTitle(titleText: AppString.text_city),
                               _textSubTitle(
-                                  subTitleText: addressDetailsController.addressDetailsModel?.data?.first.value?.city ??"Demo"),
-                              SizedBox(
-                                height: AppLayout.getHeight(16),
-                              ),
+                                  subTitleText: addressDetailsController
+                                          .addressDetailsModel
+                                          ?.data
+                                          ?.first
+                                          .value
+                                          ?.city ??
+                                      "Demo"),
+                              customSpacerHeight(height: 16),
                               _textTitle(titleText: AppString.text_zip_code),
-                              _textSubTitle(subTitleText: addressDetailsController.addressDetailsModel?.data?.first.value?.zipCode ??"Demo"),
-                              SizedBox(
-                                height: AppLayout.getHeight(16),
-                              ),
+                              _textSubTitle(
+                                  subTitleText: addressDetailsController
+                                          .addressDetailsModel
+                                          ?.data
+                                          ?.first
+                                          .value
+                                          ?.zipCode ??
+                                      "Demo"),
+                              customSpacerHeight(height: 16),
                               _textTitle(titleText: AppString.text_phone),
                               _textSubTitle(
-                                  subTitleText: addressDetailsController.addressDetailsModel?.data?.first.value?.phoneNumber ??"Demo")
+                                  subTitleText: addressDetailsController
+                                          .addressDetailsModel
+                                          ?.data
+                                          ?.first
+                                          .value
+                                          ?.phoneNumber ??
+                                      "Demo")
                             ],
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: AppLayout.getHeight(24),
-                      ),
+                      customSpacerHeight(height: 24),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -154,10 +184,21 @@ class AddressDetails extends StatelessWidget {
                           Row(
                             children: [
                               TextButton(
-                                  onPressed: () => customButtomSheet(
-                                      context: context,
-                                      height: 0.9,
-                                      child: AddAddress()),
+                                  onPressed: () {
+                                    if (addressDetailsController
+                                            .addressDetailsModel
+                                            ?.data
+                                            ?.first
+                                            .key !=
+                                        null) {
+                                      customButtomSheet(
+                                          context: context,
+                                          height: 0.9,
+                                          child: AddAddress());
+                                    } else {
+                                      print("Address already added");
+                                    }
+                                  },
                                   child: Text(
                                     AppString.text_add,
                                     style: AppStyle.mid_large_text.copyWith(
