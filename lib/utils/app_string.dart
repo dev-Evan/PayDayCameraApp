@@ -12,11 +12,14 @@ class AppString {
   static String ATTENDANCE_REQUEST = "/attendance/request";
   static String CHANGE_LOG = "/attendance/log";
   static String USER_PROFILE = "/user/profile";
-  static String LOG_SUMMARY_BY_THIS_MONTH = "/attendance/summary?within=thisMonth";
-  static String LOG_SUMMARY_BY_THIS_YEAR = "/attendance/summary?within=thisYear";
+  static String LOG_SUMMARY_BY_THIS_MONTH =
+      "/attendance/summary?within=thisMonth";
+  static String LOG_SUMMARY_BY_THIS_YEAR =
+      "/attendance/summary?within=thisYear";
   static String SUMMARY_ALL_LOG = "/attendance/summaries-data-logs?";
   static String DETAILS_SUMMARY = "/attendance/details-summary?";
   static String REQUEST_ATTENDANCE = "/attendance/add-request";
+  static String ATTENDANCE_STATUS = "/status?type=attendance";
 
   // Apps string here
   static const String exampleText = "";
@@ -71,9 +74,6 @@ class AppString {
   static String text_last_week = "Last Week";
   static String text_last_month = "Last Month";
 
-
-
-
   static String text_requstAttendance = "Request Attendance";
   static String text_attendance_log = "Attendance Logs";
   static String todays_log = "Today’s logs";
@@ -122,17 +122,17 @@ class AppString {
   static const String text_leave_details = "Leave Details";
   static const String text_3_hour = "3 hours";
   static const String text_two_attachments = "Two Attachments";
-   static const String text_paid_casual = "Paid Casual";
-   static const String text_two_attachment = "Two Attachments";
-   static const String text_cancel_leave = "Cancel Leave";
-   static const String text_log_response = "Log Response";
-   static const String text_leve_note = "Leave note";
-   static const String text_half_day = "Half Day";
-   static const String text_start_day = "Start Day";
-   static const String text_end_day = "End Day";
-   static const String text_interval = "Interval";
-   static const String text_last = "Last";
-   static const String text_first = "First";
+  static const String text_paid_casual = "Paid Casual";
+  static const String text_two_attachment = "Two Attachments";
+  static const String text_cancel_leave = "Cancel Leave";
+  static const String text_log_response = "Log Response";
+  static const String text_leve_note = "Leave note";
+  static const String text_half_day = "Half Day";
+  static const String text_start_day = "Start Day";
+  static const String text_end_day = "End Day";
+  static const String text_interval = "Interval";
+  static const String text_last = "Last";
+  static const String text_first = "First";
 
   //PaySlip modules string here
   static const String text_paid = "Paid";
@@ -192,10 +192,11 @@ class AppString {
   static String text_$30 = "\$30,000";
   static String text_salary_increment = "Salary Increment";
   static String text_will_be_effective_from = "Will be effective from ";
-  static String text_worked= "Worked";
-  static String text_leave_hour= "Leave Hour";
-  static String text_behaviour= "Behaviour";
-  static String text_availablity= "Availability";
+  static String text_worked = "Worked";
+  static String text_leave_hour = "Leave Hour";
+  static String text_behaviour = "Behaviour";
+  static String text_availablity = "Availability";
+
   // static String text_address_details = "Permanent";
 
   static String text_permanent = "Permanent ";

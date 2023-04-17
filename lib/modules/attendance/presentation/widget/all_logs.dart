@@ -10,6 +10,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
+import '../../../../enum/range_calendar_method_imp.dart';
 import '../../../../utils/app_style.dart';
 import '../../../../utils/dimensions.dart';
 import 'attendance_filter.dart';
@@ -35,7 +36,7 @@ class AllLogsScreen extends GetView<AttendanceLogsController> {
                   onTap: () => customButtomSheet(
                       context: context,
                       height: 0.9,
-                      child: const SelectRangeCalender()),
+                      child: SelectRangeCalender(rangeCalendarMethodImp: RangeCalendarMethodImp.ALL_LOG)),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

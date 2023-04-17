@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
+import 'package:pay_day_mobile/enum/range_calendar_method_imp.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/all_logs.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_filter.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
@@ -66,7 +67,10 @@ class LeaveRecordsView extends StatelessWidget {
                             onTap: () => customButtomSheet(
                                 context: context,
                                 height: 0.9,
-                                child: const SelectRangeCalender()),
+                                child: SelectRangeCalender(
+                                  rangeCalendarMethodImp:
+                                      RangeCalendarMethodImp.LEAVE_RECORD,
+                                )),
                             child: Row(
                               children: [
                                 Text(

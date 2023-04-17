@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/all_logs.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/tabbar_summary.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -14,6 +16,7 @@ Widget logSummaryTabBar() {
         horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
     child: DefaultTabController(
       length: 2,
+      initialIndex: Get.find<AttendanceLogsController>().tabIndex.value,
       child: Column(
         children: [
           Container(
@@ -25,6 +28,8 @@ Widget logSummaryTabBar() {
             child: Padding(
               padding: const EdgeInsets.all(6.0),
               child: TabBar(
+                onTap: (value) =>
+                    Get.find<AttendanceLogsController>().tabIndex.value = value,
                 indicator: BoxDecoration(
                   color: AppColor.cardColor,
                   borderRadius: BorderRadius.circular(Dimensions.radiusDefault),

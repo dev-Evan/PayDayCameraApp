@@ -6,6 +6,7 @@ import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_divider.dart';
 import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
 import 'package:pay_day_mobile/common/widget/custom_status_button.dart';
+import 'package:pay_day_mobile/enum/range_calendar_method_imp.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_filter.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/selected_range_calender.dart';
@@ -76,7 +77,7 @@ class PaySlip extends StatelessWidget {
                         onTap: () => customButtomSheet(
                             context: context,
                             height: 0.9,
-                            child: const SelectRangeCalender()),
+                            child: SelectRangeCalender(rangeCalendarMethodImp: RangeCalendarMethodImp.PAYSLIP,)),
                         child: Row(
                           children: [
                             Text(

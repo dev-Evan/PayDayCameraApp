@@ -19,6 +19,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
   Rx<LogSummary> logSummaryByYear = LogSummary().obs;
   Rx<FilteredLogSummary> filteredLogSummary = FilteredLogSummary().obs;
   final currentIndex = 0.obs;
+  final tabIndex = 0.obs;
   LogSummaryOverview logSummaryOverview = LogSummaryOverview();
 
   final TextEditingController textEditingController = TextEditingController();
@@ -81,5 +82,4 @@ class AttendanceLogsController extends GetxController with StateMixin {
     });
     change(null, status: RxStatus.success());
   }
-
 }
