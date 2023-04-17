@@ -13,6 +13,7 @@ class AppString {
   static String ATTENDANCE_REQUEST = "/attendance/request";
   static String CHANGE_LOG = "/attendance/log";
   static String JOB_HISTORY = "/employee/job-history";
+  static String DELETED_ADDRESS = "/employee/address-delete";
   static String USER_PROFILE = "/user/profile";
   static String ADDRESS_UPDATE = "/employee/address-update";
   static String EMPLOYEE_ADDRESS = "/employee/addresses";
@@ -82,6 +83,8 @@ class AppString {
   static String text_log_in = "Log In";
 
   static String text_today = "Today";
+  static String text_enter_phone_number = "Enter phone number";
+  static String text_enter = "Enter";
   static String text_this_week = "This Week";
   static String text_last_week = "Last Week";
   static String text_last_month = "Last Month";
@@ -218,6 +221,8 @@ class AppString {
   // static String text_address_details = "Permanent";
 
   static String text_permanent = "Permanent ";
+  static String text_permanent_address = "permanent_address";
+  static String text_present_address = "present_address";
   static String text_about_me = "About me";
   static String text_about_this_app = "About This App";
   static String text_version_2_1_0_1 = "Version: 2.1.0.1";
@@ -282,6 +287,7 @@ class AppString {
   static String text_back = "Back";
   static String text_enter_massage = "Enter message";
   static String text_password_change_successfully = "Password changed successfully";
+  static String text_deleted_address_successfully = "Deleted address successfully";
 
   static String text_enter_your_old_password = "Enter your old password";
   static String text_enter_new_password = "Enter new password";
@@ -310,6 +316,7 @@ class AppString {
   static const String storeToken = "storeToken";
   static const String loginCheckKey = "loginCheckValue";
   static const String storeDate = "storeData";
+  static const String storeAddress = "storeAddress";
   static const String loginValue = "LogInValue";
   static const String rememberValue = "rememberValue";
   static const String rememberKey = "rememberKey";

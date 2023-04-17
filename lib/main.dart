@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       theme: appTheme,
        //initialRoute: AppString.signInScreen,
       //getPages: getPage,
-      home:  MoreScreen(),
+      home:  AddressDetails(),
     );
   }
 }
