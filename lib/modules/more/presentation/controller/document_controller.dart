@@ -14,9 +14,7 @@ class DocumentController extends GetxController with StateMixin {
     getDocumentData();
     super.onInit();
   }
-
   DocumentRepository documentRepository = DocumentRepository(NetworkClient());
-
   getDocumentData() async {
     change(null, status: RxStatus.loading());
     try {

@@ -314,18 +314,18 @@ class AppString {
 
 
   // Local store string here
-  static const String idStore = "store";
+  static const String ID_STORE = "store";
   static String ACCESS_TOKEN = "access_token";
   static String USERNAME = "full_name";
-  static const String storeToken = "storeToken";
-  static const String loginCheckKey = "loginCheckValue";
-  static const String storeDate = "storeData";
-  static const String storeAddress = "storeAddress";
+  static const String STORE_TOKEN = "storeToken";
+  static const String LOGIN_CHECK_KEY = "loginCheckValue";
+  static const String STORE_DATE = "storeData";
+  static const String STORE_ADDRESS = "storeAddress";
   static const String STORE_DOC_USER_ID = "StoreDocUserId";
-  static const String loginValue = "LogInValue";
-  static const String rememberValue = "rememberValue";
-  static const String rememberKey = "rememberKey";
-  static const String storeCounty = "storeCounty";
+  static const String LOGIN_VALUE = "LogInValue";
+  static const String REMEMBER_VALUE = "rememberValue";
+  static const String REMEMBER_KEY = "rememberKey";
+  static const String STORE_COUNTY = "storeCounty";
 
 // Auth String
 

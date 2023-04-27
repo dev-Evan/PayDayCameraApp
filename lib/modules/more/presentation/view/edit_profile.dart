@@ -300,7 +300,7 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     final _box = GetStorage();
-    var receiveDate = _box.read(AppString.storeDate.toString()??"");
+    var receiveDate = _box.read(AppString.STORE_DATE.toString()??"");
 
     return Scaffold(
       appBar: const CustomAppbar(),
@@ -479,7 +479,7 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                   Container(
                     child: CustomTextFieldDob(
-                        hintText: _box.read(AppString.storeDate.toString()??"") ?? profileDataController
+                        hintText: _box.read(AppString.STORE_DATE.toString()??"") ?? profileDataController
                             .userProfile?.data?.dateOfBirth ??
                             "",
 
@@ -490,7 +490,7 @@ class _EditProfileState extends State<EditProfile> {
                               height: AppLayout.getHeight(72),
                               child: const EditProfileCalender(),
                               dobSaveAction: () {
-                                if (_box.read(AppString.storeDate.toString()??"") ==
+                                if (_box.read(AppString.STORE_DATE.toString()??"") ==
                                     null) {
                                   Get.snackbar(AppString.text_alert,
                                       AppString.text_please_selected_date);
@@ -539,7 +539,7 @@ class _EditProfileState extends State<EditProfile> {
                 // editProfileDataController.editProfileData();
 
                 editProfileDataController.editProfileData(
-                    selectedDate: _box.read(AppString.storeDate.toString()??""));
+                    selectedDate: _box.read(AppString.STORE_DATE.toString()??""));
               }),
             )
           ],

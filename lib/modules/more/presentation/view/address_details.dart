@@ -66,7 +66,7 @@ class AddressDetails extends GetView<AddressDetailsController> {
 
                                     )
                                   : _addButton(onAction: () {
-                                      _box.write(AppString.storeAddress,
+                                      _box.write(AppString.STORE_ADDRESS,
                                           AppString.text_permanent_address);
                                       customButtomSheet(
                                           context: context,
@@ -242,7 +242,7 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                           editAction: const AddCurrentAddress(),
                                         )
                                       : _addButton(onAction: () {
-                                          _box.write(AppString.storeAddress,
+                                          _box.write(AppString.STORE_ADDRESS,
                                               AppString.text_present_address);
                                           customButtomSheet(
                                               context: context,

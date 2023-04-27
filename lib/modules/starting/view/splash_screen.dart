@@ -19,9 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
   bool _isLoad = false;
   final box = GetStorage();
   Future chooseScreen() async {
-    final idStore = box.read(AppString.idStore);
-    dynamic remValue = box.read(AppString.rememberKey);
-    dynamic logValue = box.read(AppString.loginCheckKey);
+    final idStore = box.read(AppString.ID_STORE);
+    dynamic remValue = box.read(AppString.REMEMBER_KEY);
+    dynamic logValue = box.read(AppString.LOGIN_CHECK_KEY);
     if (idStore == null) {
       Get.toNamed(AppString.onboardScreen);
     } else if (logValue != null && remValue != null) {

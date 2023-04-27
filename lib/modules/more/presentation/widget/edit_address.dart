@@ -308,11 +308,11 @@ class _EditAddressState extends State<EditAddress> {
                       ),
                     ),
                     onSelect: (Country country) {
-                      _box.write(AppString.storeCounty, country.displayName);
+                      _box.write(AppString.STORE_COUNTY, country.displayName);
                     });
               },
               child: _countyField(
-                text: _box.read(AppString.storeCounty) ??
+                text: _box.read(AppString.STORE_COUNTY) ??
                     (addressDetailsController
                             .addressDetailsModel!.data!.isNotEmpty
                         ? addressDetailsController
@@ -323,7 +323,7 @@ class _EditAddressState extends State<EditAddress> {
                                     .toString() ??
                                 ""
                             : AppString.text_select_county
-                        : _box.read(AppString.storeCounty)),
+                        : _box.read(AppString.STORE_COUNTY)),
                 context: context,
               ),
             ),
@@ -520,20 +520,20 @@ class _EditAddressState extends State<EditAddress> {
                         .addressDetailsModel?.data?.first.key
                         .toString() ??
                         ""
-                        : _box.read(AppString.storeAddress),
-                    selectedCounty: _box.read(AppString.storeCounty ?? ""),
+                        : _box.read(AppString.STORE_ADDRESS),
+                    selectedCounty: _box.read(AppString.STORE_COUNTY ?? ""),
                   );
                   Future.delayed(
                     const Duration(seconds: 2),
-                        () => _box.remove(AppString.storeCounty),
+                        () => _box.remove(AppString.STORE_COUNTY),
                   );
 
                   Future.delayed(
                     const Duration(seconds: 5),
-                        () => _box.remove(AppString.storeAddress),
+                        () => _box.remove(AppString.STORE_ADDRESS),
                   );
 
-                  print(_box.read(AppString.storeAddress).toString());
+                  print(_box.read(AppString.STORE_ADDRESS).toString());
 
 
                 }),

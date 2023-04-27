@@ -130,8 +130,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                     setState(() {
                                       this._rememberMe = rememberMe!;
                                       if (rememberMe == true) {
-                                        box.write(AppString.rememberKey,
-                                            AppString.rememberValue);
+                                        box.write(AppString.REMEMBER_KEY,
+                                            AppString.REMEMBER_VALUE);
                                       }
                                     });
                                   },

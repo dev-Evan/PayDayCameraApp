@@ -24,9 +24,9 @@ class _EditProfileCalenderState extends State<EditProfileCalender> {
   void _onDaySelected(DateTime day, DateTime focusDay) {
     setState(() {
       today = day;
-      _box.write(AppString.storeDate,
+      _box.write(AppString.STORE_DATE,
           DateFormat('yyyy-MM-dd').format(today).toString());
-      print(_box.read(AppString.storeDate.toString()));
+      print(_box.read(AppString.STORE_DATE.toString()));
     });
   }
 

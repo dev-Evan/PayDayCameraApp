@@ -211,88 +211,90 @@ class DocumentScreen extends GetView<DocumentController> {
           children: [
             customMoreAppbar(
                 titleText: documentController.documentModel?.message ?? ""),
-            documentController.documentModel?.data?.documents == null
-                ? Container(
-                    color: AppColor.backgroundColor,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _fileTitleText(
-                            totalFileText: documentController
-                                    .documentModel?.data?.meta?.total
-                                    .toString() ??
-                                ""),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              children: [
-                                Expanded(
-                                    child: ListView.builder(
-                                  itemCount: documentController
-                                      .documentModel?.data?.documents?.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return InkWell(
-                                      onTap: () => CustomNavigator(
-                                        context: context,
-                                        pageName: const DocumentView(),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Card(
-                                          elevation: 0,
-                                          shape: RoundedRectangleBorder(
-                                              side: BorderSide(
-                                                  width:
-                                                      AppLayout.getWidth(0.3),
-                                                  color: AppColor.hintColor),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      Dimensions
-                                                          .radiusDefault)),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                flex: 3,
-                                                child: _cardImage(
-                                                  imageUrl: documentController
-                                                          .documentModel
-                                                          ?.data
-                                                          ?.documents?[index]
-                                                          .fullUrl ??
-                                                      "",
+            documentController.documentModel?.data?.documents != null
+                ? Expanded(
+                  child: Container(
+                      color: AppColor.backgroundColor,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _fileTitleText(
+                              totalFileText: documentController
+                                      .documentModel?.data?.meta?.total
+                                      .toString() ??
+                                  ""),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                      child: ListView.builder(
+                                    itemCount: documentController
+                                        .documentModel?.data?.documents?.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return InkWell(
+                                        onTap: () => CustomNavigator(
+                                          context: context,
+                                          pageName: const DocumentView(),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Card(
+                                            elevation: 0,
+                                            shape: RoundedRectangleBorder(
+                                                side: BorderSide(
+                                                    width:
+                                                        AppLayout.getWidth(0.3),
+                                                    color: AppColor.hintColor),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        Dimensions
+                                                            .radiusDefault)),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  flex: 3,
+                                                  child: _cardImage(
+                                                    imageUrl: documentController
+                                                            .documentModel
+                                                            ?.data
+                                                            ?.documents?[index]
+                                                            .fullUrl ??
+                                                        "",
+                                                  ),
                                                 ),
-                                              ),
-                                              Expanded(
-                                                  flex: 8,
-                                                  child: _cardImgTitle(
-                                                      titleText:
-                                                          documentController
-                                                                  .documentModel
-                                                                  ?.data
-                                                                  ?.documents?[
-                                                                      index]
-                                                                  .name ??
-                                                              "",
-                                                      sizeText: "")),
-                                            ],
+                                                Expanded(
+                                                    flex: 8,
+                                                    child: _cardImgTitle(
+                                                        titleText:
+                                                            documentController
+                                                                    .documentModel
+                                                                    ?.data
+                                                                    ?.documents?[
+                                                                        index]
+                                                                    .name ??
+                                                                "",
+                                                        sizeText: "")),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                )),
+                                      );
+                                    },
+                                  )),
 
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
-                  )
+                )
                 : Center(
                     child: Text(
                     AppString.text_no_document_found,

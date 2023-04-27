@@ -31,10 +31,10 @@ class AuthController extends GetxController with StateMixin{
   }
 
   void _writeUserInfo(Login? login ){
-    box.write(AppString.idStore, login?.data!.id);
+    box.write(AppString.ID_STORE, login?.data!.id);
     box.write(AppString.USERNAME, login?.data!.firstName);
     box.write(AppString.ACCESS_TOKEN, login?.data!.token);
-    box.write(AppString.loginCheckKey, AppString.loginValue);
+    box.write(AppString.LOGIN_CHECK_KEY, AppString.LOGIN_VALUE);
   }
 
   _showToast(message) => Fluttertoast.showToast(
