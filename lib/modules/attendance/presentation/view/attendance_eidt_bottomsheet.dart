@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_time_in_time_picker.dart';
+import 'package:pay_day_mobile/modules/attendance/domain/change_request/change_request_req_model.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import '../../../../common/controller/date_time_helper_controller.dart';
 import '../../../../common/widget/custom_time_picker.dart';
 import '../../../../common/widget/input_note.dart';
@@ -22,9 +24,9 @@ class EditAttendanceBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.delete<DateTimeController>();
-    var controller=Get.put(DateTimeController());
-    controller.pickedInTime.value=logDetailsById.data!.inTime!;
-    controller.pickedOutTime.value=logDetailsById.data!.outTime!;
+    var controller = Get.put(DateTimeController());
+    controller.pickedInTime.value = logDetailsById.data!.inTime!;
+    controller.pickedOutTime.value = logDetailsById.data!.outTime!;
     return DraggableScrollableSheet(
       initialChildSize: .8,
       maxChildSize: .8,
@@ -183,7 +185,8 @@ class EditAttendanceBottomSheet extends StatelessWidget {
               .copyWith(color: Colors.grey, fontWeight: FontWeight.w600),
         ),
         SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
-        inputNote(),
+        inputNote(
+            controller: Get.find<DateTimeController>().textEditingController),
       ],
     );
   }
@@ -193,7 +196,15 @@ _saveButton() {
   return AppButton(
     buttonColor: AppColor.primary_blue,
     buttonText: AppString.text_save,
-    onPressed: () {},
+    onPressed: () async {
+      await Get.find<AttendanceController>().changeAttendance(
+          Get.find<AttendanceController>().logDetailsById.data!.id!,
+          ChangeRequestReqModel(
+              inTime: Get.find<DateTimeController>().pickedInTime.value,
+              outTime: Get.find<DateTimeController>().pickedOutTime.value,
+              note: Get.find<DateTimeController>().textEditingController.text));
+      Navigator.of(Get.context!).pop();
+    },
   );
 }
 

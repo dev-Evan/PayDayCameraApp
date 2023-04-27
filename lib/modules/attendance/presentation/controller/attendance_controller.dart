@@ -131,6 +131,16 @@ class AttendanceController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
+  changeAttendance(
+      int logId, ChangeRequestReqModel changeRequestReqModel) async {
+    change(null, status: RxStatus.loading());
+    await _attendanceDataRepository
+        .changeAttendanceRequest(logId, changeRequestReqModel)
+        .then((value) => print("changeAttendance :: called"),
+            onError: (error) => print(error.message));
+    change(null, status: RxStatus.success());
+  }
+
   getLatLong() async {
     change(null, status: RxStatus.loading());
     ipAddress.value = await Ipify.ipv4();
