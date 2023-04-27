@@ -1,15 +1,16 @@
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:pay_day_mobile/common/custom_appbar.dart';
-import 'package:pay_day_mobile/common/custom_buttom_sheet.dart';
-import 'package:pay_day_mobile/common/custom_button.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pay_day_mobile/common/custom_double_button.dart';
 import 'package:pay_day_mobile/common/text_field.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/document_upload_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -27,15 +28,13 @@ class AddDocument extends StatefulWidget {
 
 class _AddDocumentState extends State<AddDocument> {
   final TextEditingController _documetController = TextEditingController();
+
+
   FilePickerResult? result;
-
   String? fileName;
-
   PlatformFile? pickFile;
-
   bool isLoading = false;
-
-  File fileToDisplay = File('');
+  File? fileToDisplay;
 
   void pickFile1() async {
     try {
@@ -55,10 +54,19 @@ class _AddDocumentState extends State<AddDocument> {
           fileToDisplay = File(pickFile!.path.toString());
         });
       }
+
+
     } catch (e) {
       print(e);
     }
   }
+
+
+
+
+
+  DocumentUploadController documentUploadController =Get.put(DocumentUploadController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +87,10 @@ class _AddDocumentState extends State<AddDocument> {
                         color: AppColor.hintColor,
                         fontSize: Dimensions.fontSizeDefault + 1),
                   ),
-                  CustomTextFeild(hintText: AppString.text_enter_document_name,
-                      inputType: TextInputType.text,controller:  _documetController),
+                  CustomTextFeild(
+                      hintText: AppString.text_enter_document_name,
+                      inputType: TextInputType.text,
+                      controller: _documetController),
                 ],
               ),
               SizedBox(
@@ -105,34 +115,42 @@ class _AddDocumentState extends State<AddDocument> {
                     dashPattern: [8, 6],
                     strokeWidth: 2,
                     child: InkWell(
-                      onTap: ()=>pickFile1(),
-                      child: Container(
-                        height: 100,
-                        color: AppColor.disableColor.withOpacity(0.4),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(CupertinoIcons.link),
-                            SizedBox(
-                              width: AppLayout.getWidth(6),
-                            ),
-                            Text(
-                              AppString.text_click,
-                              style: AppStyle.mid_large_text.copyWith(
-                                  color: AppColor.primaryColor,
-                                  fontSize: Dimensions.fontSizeDefault),
-                            ),
-                            SizedBox(
-                              width: AppLayout.getWidth(6),
-                            ),
-                            Text(
-                              AppString.text_to_add_fils,
-                              style: AppStyle.mid_large_text.copyWith(
-                                  color: AppColor.hintColor,
-                                  fontSize: Dimensions.fontSizeDefault + 2),
-                            ),
-                          ],
+                      onTap: () =>  pickFile1(),
+                      child: fileToDisplay != null
+                          ? Container(
+                        height: AppLayout.getHeight(100),
+                        decoration: BoxDecoration(
+                          color: AppColor.disableColor.withOpacity(0.4),
+                          //image: DecorationImage(image: Image.file(fileToDisplay.path.toString() as File).image)
+
+                          image: DecorationImage(
+                              image:
+                              FileImage(File(fileToDisplay?.path ??"").absolute),
+                              fit: BoxFit.cover),
                         ),
+                      ):Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(CupertinoIcons.link),
+                          SizedBox(
+                            width: AppLayout.getWidth(6),
+                          ),
+                          Text(
+                            AppString.text_click,
+                            style: AppStyle.mid_large_text.copyWith(
+                                color: AppColor.primaryColor,
+                                fontSize: Dimensions.fontSizeDefault),
+                          ),
+                          SizedBox(
+                            width: AppLayout.getWidth(6),
+                          ),
+                          Text(
+                            AppString.text_to_add_fils,
+                            style: AppStyle.mid_large_text.copyWith(
+                                color: AppColor.hintColor,
+                                fontSize: Dimensions.fontSizeDefault + 2),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -140,7 +158,9 @@ class _AddDocumentState extends State<AddDocument> {
                     height: AppLayout.getHeight(8),
                   ),
                   Text(
-                    AppString.text_jpeg_jpg_png_etc,
+                    // fileName.toString() ?? "",,
+
+                    "",
                     style: AppStyle.mid_large_text.copyWith(
                         color: AppColor.hintColor,
                         fontSize: Dimensions.fontSizeDefault - 2),
@@ -150,13 +170,15 @@ class _AddDocumentState extends State<AddDocument> {
             ],
           ),
         ),
-
         const Spacer(),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: customDoubleButton(
-              textButtonAction: () =>Get.back(),
-              elevatedButtonAction: () {},
+              textButtonAction: () => Get.back(),
+              elevatedButtonAction: () {
+                documentUploadController.uploadImage(fileToDisplay!.path, "file name");
+
+              },
               textBtnText: AppString.text_cancel,
               elevatedBtnText: AppString.text_save,
               context: context),

@@ -15,6 +15,7 @@ import 'modules/attendance/presentation/view/attendance_logs.dart';
 import 'modules/leave/presentation/view/leave.dart';
 import 'modules/more/presentation/view/address_details.dart';
 import 'modules/more/presentation/view/change_password.dart';
+import 'modules/more/presentation/view/documents.dart';
 import 'modules/more/presentation/view/jod_history.dart';
 import 'modules/more/presentation/widget/add_address.dart';
 import 'modules/starting/view/onboarding_screen.dart';
@@ -32,9 +33,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-       //initialRoute: AppString.signInScreen,
+     // initialRoute: AppString.moreScreen,
       //getPages: getPage,
-      home:  AddressDetails(),
+      home:  DocumentScreen(),
     );
   }
 }

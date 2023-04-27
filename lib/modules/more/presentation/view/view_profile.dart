@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pay_day_mobile/common/custom_appbar.dart';
 import 'package:pay_day_mobile/common/custom_navigator.dart';
 import 'package:pay_day_mobile/modules/more/data/profile_img_change_rep.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/change_password.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/edit_profile.dart';
@@ -36,6 +37,7 @@ class _ViewProfileState extends State<ViewProfile> {
 
   ImagePickerController changeProfileImgController =
       Get.put(ImagePickerController());
+  DocumentController documentController = Get.put(DocumentController());
 
   @override
   Widget build(BuildContext context) {

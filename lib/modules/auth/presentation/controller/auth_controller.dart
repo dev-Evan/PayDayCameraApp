@@ -1,13 +1,9 @@
-import 'dart:convert';
-
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/modules/auth/data/auth_data_repository.dart';
 import 'package:pay_day_mobile/modules/auth/domain/login_res.dart';
-import 'package:pay_day_mobile/network/error_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -29,10 +25,7 @@ class AuthController extends GetxController with StateMixin{
     );
     } catch (ex) {
       print(ex.toString());
-
       _showToast(ex.toString());
-
-
     }
     change(null,status: RxStatus.success());
   }

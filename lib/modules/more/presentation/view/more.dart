@@ -96,7 +96,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                         cardText: AppString.text_documents,
                                         onAction: () => CustomNavigator(
                                             context: context,
-                                            pageName: const Documents())),
+                                            pageName:  DocumentScreen())),
                                     _jobDeskCard(
                                         cardIcon: Icons.calendar_month,
                                         cardText: AppString.text_calender,

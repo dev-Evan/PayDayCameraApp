@@ -12,6 +12,7 @@ class AppString {
   static String LOG_DETAILS = "/attendance/details";
   static String ATTENDANCE_REQUEST = "/attendance/request";
   static String CHANGE_LOG = "/attendance/log";
+  static String DOCUMENT_LIST = "/document/index";
   static String JOB_HISTORY = "/employee/job-history";
   static String DELETED_ADDRESS = "/employee/address-delete";
   static String USER_PROFILE = "/user/profile";
@@ -21,6 +22,8 @@ class AppString {
   static String ADDRESS_DETAILS = "/employee/addresses";
   static String BASIC_INFO = "/basic-information";
   static String UPDATE_PROFILE_DATA = "/user/profile/update";
+  static String DOCUMENT_UPLOAD = "/document/store";
+  static String POST = "POST";
   static String USER_CHANGE_PICTURE = "/user/change-picture";
   static String SALARY_OVERVIEW = "/employee/salary-overview";
   static String LOG_SUMMARY_BY_THIS_MONTH = "/attendance/summary?within=thisMonth";
@@ -74,6 +77,7 @@ class AppString {
   static const String text_single = "Single";
   static const String text_multi = "Multi";
   static const String text_enrly = "Early";
+  static const String text_no_document_found = "No Document Found";
   static const String text_regular = "Regular";
   static String text_scheduled = "Scheduled";
   static String text_remaining = "Remaining";
@@ -317,6 +321,7 @@ class AppString {
   static const String loginCheckKey = "loginCheckValue";
   static const String storeDate = "storeData";
   static const String storeAddress = "storeAddress";
+  static const String STORE_DOC_USER_ID = "StoreDocUserId";
   static const String loginValue = "LogInValue";
   static const String rememberValue = "rememberValue";
   static const String rememberKey = "rememberKey";
