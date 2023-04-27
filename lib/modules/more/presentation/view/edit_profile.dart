@@ -1,16 +1,283 @@
+// import 'package:get/get.dart';
+// import 'package:get/get_core/src/get_main.dart';
+// import 'package:intl_phone_field/intl_phone_field.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/material.dart';
+// import 'package:pay_day_mobile/common/custom_appbar.dart';
+// import 'package:pay_day_mobile/common/custom_button.dart';
+// import 'package:pay_day_mobile/common/custom_spacer.dart';
+// import 'package:pay_day_mobile/common/text_field.dart';
+// import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_controller.dart';
+// import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
+// import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
+// import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
+// import 'package:pay_day_mobile/utils/app_color.dart';
+// import 'package:pay_day_mobile/utils/app_layout.dart';
+// import 'package:pay_day_mobile/utils/app_string.dart';
+// import 'package:pay_day_mobile/utils/app_style.dart';
+// import 'package:pay_day_mobile/utils/dimensions.dart';
+// import '../widget/custom_text_field_dob.dart';
+//
+// class EditProfile extends StatefulWidget {
+//   const EditProfile({Key? key}) : super(key: key);
+//
+//   @override
+//   State<EditProfile> createState() => _EditProfileState();
+// }
+//
+// class _EditProfileState extends State<EditProfile> {
+//   final List<String> _locations = [AppString.text_male, AppString.text_female];
+//   String? dropdownValue;
+//   EditProfileDataController editProfileDataController =
+//       Get.put(EditProfileDataController());
+//   ProfileDataController profileDataController =
+//       Get.put(ProfileDataController());
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: const CustomAppbar(),
+//       body: SingleChildScrollView(
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             customMoreAppbar(titleText: AppString.text_edit_profile),
+//             Padding(
+//               padding: const EdgeInsets.all(20.0),
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Row(
+//                     children: [
+//                       Flexible(
+//                         child: Column(
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           children: [
+//                             textFieldTitleText(
+//                                 titleText:
+//                                     AppString.text_first + AppString.text_name),
+//                             CustomTextFeild(
+//                               hintText: profileDataController
+//                                       .userProfile?.data?.firstName ??
+//                                   AppString.text_first + AppString.text_name,
+//                               controller: editProfileDataController
+//                                   .firstNameController.value,
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                       customSpacerWidth(width: 12),
+//                       Flexible(
+//                         child: Column(
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           children: [
+//                             textFieldTitleText(
+//                                 titleText:
+//                                     AppString.text_first + AppString.text_name),
+//                             CustomTextFeild(
+//                               hintText: profileDataController
+//                                       .userProfile?.data?.lastName ??
+//                                   AppString.text_last + AppString.text_name,
+//                               controller: editProfileDataController
+//                                   .lastNameController.value,
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                   Padding(
+//                     padding: const EdgeInsets.only(top: 8.0),
+//                     child: textFieldTitleText(titleText: AppString.text_email),
+//                   ),
+//                   CustomTextFeild(
+//                     hintText: profileDataController.userProfile?.data?.email ??
+//                         AppString.text_email,
+//                     controller: editProfileDataController.emailController.value,
+//                   ),
+//                   Padding(
+//                     padding: const EdgeInsets.only(top: 8.0),
+//                     child: textFieldTitleText(
+//                         titleText: AppString.text_gender_text),
+//                   ),
+//                   Padding(
+//                     padding: const EdgeInsets.only(top: 8.0),
+//                     child: Card(
+//                       color: AppColor.cardColor,
+//                       elevation: 0,
+//                       shape: RoundedRectangleBorder(
+//                           borderRadius:
+//                               BorderRadius.circular(Dimensions.radiusDefault),
+//                           side: const BorderSide(
+//                               width: 0.0, color: AppColor.disableColor)),
+//                       child: Padding(
+//                         padding: const EdgeInsets.all(12.0),
+//                         child: DropdownButton<String>(
+//                           style: const TextStyle(fontWeight: FontWeight.w500),
+//                           isDense: true,
+//                           isExpanded: true,
+//                           underline: const SizedBox.shrink(),
+//                           icon: const Icon(Icons.expand_more),
+//                           iconEnabledColor: AppColor.normalTextColor,
+//                           hint: Text(
+//                             profileDataController.userProfile?.data?.gender ??"",
+//                             style: AppStyle.normal_text
+//                                 .copyWith(color: AppColor.normalTextColor),
+//                           ),
+//                           value: dropdownValue,
+//
+//                           borderRadius:
+//                               BorderRadius.circular(Dimensions.radiusDefault),
+//                           items: _locations
+//                               .map<DropdownMenuItem<String>>((String value) {
+//                             return DropdownMenuItem<String>(
+//                               value: value,
+//                               child: Text(value,
+//                                   style: AppStyle.normal_text.copyWith(
+//                                       color: AppColor.normalTextColor)),
+//                             );
+//                           }).toList(),
+//                           onChanged: (String? newValue) {
+//                             setState(() {
+//                               dropdownValue = newValue!;
+//                             });
+//
+//                             print(newValue.toString());
+//                           },
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                   Padding(
+//                     padding: const EdgeInsets.only(top: 8.0),
+//                     child: textFieldTitleText(titleText: AppString.text_phone),
+//                   ),
+//                   Padding(
+//                     padding: const EdgeInsets.only(top: 8.0),
+//                     child: IntlPhoneField(
+//                       decoration: InputDecoration(
+//                         labelText: profileDataController.userProfile?.data?.contact ??"",
+//                         enabledBorder: const OutlineInputBorder(
+//                             borderSide: BorderSide(
+//                                 width: 0.0, color: AppColor.disableColor)),
+//                         contentPadding: const EdgeInsets.all(7),
+//                         border: const OutlineInputBorder(
+//                           borderSide: BorderSide(
+//                               width: 0.0, color: AppColor.disableColor),
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                   Padding(
+//                     padding: const EdgeInsets.only(top: 8.0),
+//                     child: textFieldTitleText(
+//                         titleText: AppString.text_address_details),
+//                   ),
+//                   SizedBox(
+//                     height: AppLayout.getHeight(8),
+//                   ),
+//                   Container(
+//                     height: AppLayout.getHeight(120),
+//                     decoration: AppStyle.ContainerStyle.copyWith(
+//                         borderRadius: BorderRadius.circular(
+//                           Dimensions.radiusDefault,
+//                         ),
+//                         border: Border.all(
+//                             width: 0.0, color: AppColor.disableColor)),
+//                     child: TextField(
+//                       decoration: InputDecoration(
+//                         hintText: profileDataController.userProfile?.data?.address ??"",
+//
+//                         contentPadding: EdgeInsets.all(8),
+//                         border: InputBorder.none,
+//                       ),
+//                       maxLines: null,
+//                       expands: true,
+//                     ),
+//                   ),
+//                   Padding(
+//                     padding: const EdgeInsets.only(top: 8.0),
+//                     child: textFieldTitleText(
+//                         titleText: AppString.text_date_of_birth),
+//                   ),
+//                   SizedBox(
+//                     height: AppLayout.getHeight(8),
+//                   ),
+//                   CustomTextFieldDob(
+//                       hintText: profileDataController
+//                               .userProfile?.data?.dateOfBirth ??
+//                           "",
+//                       dobIcon: Icons.calendar_month,
+//                       dobIconAction: () {}),
+//                   Padding(
+//                     padding: const EdgeInsets.only(top: 8.0),
+//                     child:
+//                         textFieldTitleText(titleText: AppString.text_about_me),
+//                   ),
+//                   SizedBox(
+//                     height: AppLayout.getHeight(8),
+//                   ),
+//                   Container(
+//                     height: AppLayout.getHeight(120),
+//                     decoration: AppStyle.ContainerStyle.copyWith(
+//                         borderRadius: BorderRadius.circular(
+//                           Dimensions.radiusDefault,
+//                         ),
+//                         border: Border.all(
+//                             width: 0.0, color: AppColor.disableColor)),
+//                     child: TextField(
+//                       controller:
+//                           editProfileDataController.lastNameController.value,
+//                       decoration: InputDecoration(
+//                         hintText:
+//                             profileDataController.userProfile?.data?.aboutMe ?? "",
+//                         contentPadding: const EdgeInsets.all(8),
+//                         border: InputBorder.none,
+//                       ),
+//                       maxLines: null,
+//                       expands: true,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             Padding(
+//               padding: const EdgeInsets.all(20.0),
+//               child: CustomButton(AppString.text_save, () {
+//                 editProfileDataController.editProfileData();
+//               }),
+//             )
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
-import 'package:pay_day_mobile/common/widget/custom_button.dart';
-import 'package:pay_day_mobile/common/widget/text_field.dart';
+import 'package:pay_day_mobile/common/custom_spacer.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/widget/apply_lev_popup_calendar.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/widget/pop_up_dialog.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/edit_profile_calender.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/profile_calender_dialog.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
+import '../../../../common/widget/custom_appbar.dart';
+import '../../../../common/widget/custom_button.dart';
+import '../../../../common/widget/text_field.dart';
+import '../controller/edit_profile_drop_dawon_cnt.dart';
 import '../widget/custom_text_field_dob.dart';
 
 class EditProfile extends StatefulWidget {
@@ -21,11 +288,20 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  final List<String> _locations = ['A', 'B', 'C', 'D'];
+  final List<String> _locations = [AppString.text_male, AppString.text_female];
   String? dropdownValue;
+  EditProfileDataController editProfileDataController =
+      Get.put(EditProfileDataController());
+  ProfileDataController profileDataController =
+      Get.put(ProfileDataController());
+  DropdownBtnController dropdownBtnController =
+      Get.put(DropdownBtnController());
 
   @override
   Widget build(BuildContext context) {
+    final _box = GetStorage();
+    var receiveDate = _box.read(AppString.STORE_DATE.toString()??"");
+
     return Scaffold(
       appBar: const CustomAppbar(),
       body: SingleChildScrollView(
@@ -38,118 +314,135 @@ class _EditProfileState extends State<EditProfile> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      AppString.text_name,
-                      style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Dimensions.fontSizeDefault + 1),
-                    ),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            textFieldTitleText(
+                                titleText:
+                                    AppString.text_first + AppString.text_name),
+                            CustomTextFeild(
+                              hintText: profileDataController
+                                      .userProfile?.data?.firstName ??
+                                  AppString.text_first + AppString.text_name,
+                              controller: editProfileDataController
+                                  .firstNameController.value,
+                            ),
+                          ],
+                        ),
+                      ),
+                      customSpacerWidth(width: 12),
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            textFieldTitleText(
+                                titleText:
+                                    AppString.text_first + AppString.text_name),
+                            CustomTextFeild(
+                              hintText: profileDataController
+                                      .userProfile?.data?.lastName ??
+                                  AppString.text_last + AppString.text_name,
+                              controller: editProfileDataController
+                                  .lastNameController.value,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  CustomTextFeild(hintText: 'Steave Roggers'),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      AppString.text_email,
-                      style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Dimensions.fontSizeDefault + 1),
-                    ),
+                    child: textFieldTitleText(titleText: AppString.text_email),
                   ),
-                  CustomTextFeild(hintText: 'steaave@gmail.com'),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      AppString.text_gender_text,
-                      style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Dimensions.fontSizeDefault + 1),
-                    ),
+                  CustomTextFeild(
+                    hintText: profileDataController.userProfile?.data?.email ??
+                        AppString.text_email,
+                    controller: editProfileDataController.emailController.value,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Card(
-                      color: AppColor.cardColor,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radiusDefault),
-                          side: const BorderSide(
-                              width: 0.0, color: AppColor.disableColor)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: DropdownButton<String>(
-                          style: const TextStyle(fontWeight: FontWeight.w500),
-                          isDense: true,
-                          isExpanded: true,
-                          underline: const SizedBox.shrink(),
-                          icon: const Icon(Icons.expand_more),
-                          iconEnabledColor: AppColor.normalTextColor,
-                          hint: Text(
-                            AppString.text_select_gender,
-                            style: AppStyle.normal_text
-                                .copyWith(color: AppColor.normalTextColor),
+                    child: textFieldTitleText(
+                        titleText: AppString.text_gender_text),
+                  ),
+                  Obx(
+                    () => Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Card(
+                        color: AppColor.cardColor,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radiusDefault),
+                            side: const BorderSide(
+                                width: 0.0, color: AppColor.disableColor)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: DropdownButton<String>(
+                            style: const TextStyle(fontWeight: FontWeight.w500),
+                            isDense: true,
+                            isExpanded: true,
+                            underline: const SizedBox.shrink(),
+                            icon: const Icon(Icons.expand_more),
+                            iconEnabledColor: AppColor.normalTextColor,
+                            hint: Text(
+                              profileDataController.userProfile?.data?.gender ??
+                                  "",
+                              style: AppStyle.normal_text
+                                  .copyWith(color: AppColor.normalTextColor),
+                            ),
+                            value: dropdownBtnController.dropdownValue.value,
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radiusDefault),
+                            items: _locations
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value,
+                                    style: AppStyle.normal_text.copyWith(
+                                        color: AppColor.normalTextColor)),
+                              );
+                            }).toList(),
+                            onChanged: (newValue) {
+                              dropdownBtnController.onValueChanged(newValue);
+
+                              // print(newValue.toString());
+                            },
                           ),
-                          value: dropdownValue,
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radiusDefault),
-                          items: _locations
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value,
-                                  style: AppStyle.normal_text.copyWith(
-                                      color: AppColor.normalTextColor)),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropdownValue = newValue!;
-                            });
-                          },
                         ),
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      AppString.text_phone,
-                      style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Dimensions.fontSizeDefault + 1),
-                    ),
+                    child: textFieldTitleText(titleText: AppString.text_phone),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: IntlPhoneField(
-                      decoration: const InputDecoration(
-                        labelText: 'Phone Number',
-                        enabledBorder: OutlineInputBorder(
+                      decoration: InputDecoration(
+                        labelText:
+                            profileDataController.userProfile?.data?.contact ??
+                                "",
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
                                 width: 0.0, color: AppColor.disableColor)),
-                        contentPadding: EdgeInsets.all(7),
-                        border: OutlineInputBorder(
+                        contentPadding: const EdgeInsets.all(7),
+                        border: const OutlineInputBorder(
                           borderSide: BorderSide(
                               width: 0.0, color: AppColor.disableColor),
                         ),
                       ),
+                      controller:
+                          editProfileDataController.contactController.value,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      AppString.text_address_details,
-                      style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Dimensions.fontSizeDefault + 1),
-                    ),
+                    child: textFieldTitleText(
+                        titleText: AppString.text_address_details),
                   ),
                   SizedBox(
                     height: AppLayout.getHeight(8),
@@ -162,9 +455,13 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                         border: Border.all(
                             width: 0.0, color: AppColor.disableColor)),
-                    child: const TextField(
+                    child: TextField(
+                      controller:
+                          editProfileDataController.addressController.value,
                       decoration: InputDecoration(
-                        hintText: 'Enter a message',
+                        hintText:
+                            profileDataController.userProfile?.data?.address ??
+                                "",
                         contentPadding: EdgeInsets.all(8),
                         border: InputBorder.none,
                       ),
@@ -174,30 +471,39 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      AppString.text_date_of_birth,
-                      style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Dimensions.fontSizeDefault + 1),
-                    ),
+                    child: textFieldTitleText(
+                        titleText: AppString.text_date_of_birth),
                   ),
                   SizedBox(
                     height: AppLayout.getHeight(8),
                   ),
-                  CustomTextFieldDob(
-                      hintText: '01-Jan-1996',
-                      dobIcon: Icons.calendar_month,
-                      dobIconAction: () {}),
+                  Container(
+                    child: CustomTextFieldDob(
+                        hintText: _box.read(AppString.STORE_DATE.toString()??"") ?? profileDataController
+                            .userProfile?.data?.dateOfBirth ??
+                            "",
+
+          dobIcon: Icons.calendar_month,
+                        dobIconAction: () {
+                          profileCalenderDialog(
+                              context: context,
+                              height: AppLayout.getHeight(72),
+                              child: const EditProfileCalender(),
+                              dobSaveAction: () {
+                                if (_box.read(AppString.STORE_DATE.toString()??"") ==
+                                    null) {
+                                  Get.snackbar(AppString.text_alert,
+                                      AppString.text_please_selected_date);
+                                } else {
+                                  Get.back();
+                                }
+                              });
+                        }),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      AppString.text_about_me,
-                      style: AppStyle.small_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Dimensions.fontSizeDefault + 1),
-                    ),
+                    child:
+                        textFieldTitleText(titleText: AppString.text_about_me),
                   ),
                   SizedBox(
                     height: AppLayout.getHeight(8),
@@ -210,10 +516,14 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                         border: Border.all(
                             width: 0.0, color: AppColor.disableColor)),
-                    child: const TextField(
+                    child: TextField(
+                      controller:
+                          editProfileDataController.aboutMeController.value,
                       decoration: InputDecoration(
-                        hintText: 'Enter a message',
-                        contentPadding: EdgeInsets.all(8),
+                        hintText:
+                            profileDataController.userProfile?.data?.aboutMe ??
+                                "",
+                        contentPadding: const EdgeInsets.all(8),
                         border: InputBorder.none,
                       ),
                       maxLines: null,
@@ -225,7 +535,12 @@ class _EditProfileState extends State<EditProfile> {
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: CustomButton('Save', () {}),
+              child: CustomButton(AppString.text_save, () {
+                // editProfileDataController.editProfileData();
+
+                editProfileDataController.editProfileData(
+                    selectedDate: _box.read(AppString.STORE_DATE.toString()??""));
+              }),
             )
           ],
         ),

@@ -5,6 +5,7 @@ import 'package:pay_day_mobile/modules/auth/presentation/view/sign_in.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_logs.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/view/leave.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/calender.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/view/payslip.dart';
 import 'package:pay_day_mobile/modules/starting/view/onboarding_screen.dart';
 import 'package:pay_day_mobile/modules/starting/view/splash_screen.dart';
@@ -15,9 +16,9 @@ import '../modules/more/presentation/view/more.dart';
 List<GetPage> getPage = [
   GetPage(
     name: AppString.splashScreen,
-    page: () => const splashScreen(),
+    page: () => const SplashScreen(),
   ),
-  GetPage(name: AppString.signInScreen, page: () => const signInScreen()),
+  GetPage(name: AppString.signInScreen, page: () => const SignInScreen()),
   GetPage(
     name: AppString.forgotScreen,
     page: () => const forgotScreen(),
@@ -29,7 +30,7 @@ List<GetPage> getPage = [
   GetPage(
     transition: Transition.cupertino,
     name: AppString.onboardScreen,
-    page: () => onboardingScreen(),
+    page: () => OnboardingScreen(),
   ),
   GetPage(
     transition: Transition.cupertino,
@@ -57,5 +58,13 @@ List<GetPage> getPage = [
   GetPage(
     name: AppString.leave,
     page: () => const Leave(),
+  ),
+
+  GetPage(
+    name: AppString.leave,
+    page: () => const Leave(),
+  ),  GetPage(
+    name: AppString.profileView,
+    page: () =>  ViewProfile(),
   ),
 ];

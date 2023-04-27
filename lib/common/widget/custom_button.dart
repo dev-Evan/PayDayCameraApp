@@ -53,7 +53,8 @@ class CustomSmallButton extends StatelessWidget {
         child: Text(
           text,
           style: GoogleFonts.poppins(
-              fontSize: Dimensions.fontSizeDefault, fontWeight: FontWeight.w600),
+              fontSize: Dimensions.fontSizeDefault,
+              fontWeight: FontWeight.w600),
         ),
       ),
     );

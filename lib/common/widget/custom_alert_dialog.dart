@@ -97,7 +97,7 @@ Future CustomAlertDialog({
                     // width: MediaQuery.of(context).size.width / 1,
                     height: AppLayout.getHeight(40),
                     child: ElevatedButton(
-                        onPressed: () => yesAction,
+                        onPressed: () => yesAction(),
                         style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -133,10 +133,15 @@ Future CustomSuccessAlertDialog({
   Color? buttonColor = Colors.orange,
   Color? iconBgColor = Colors.orange,
   Color? iconColor = Colors.orange,
+  popupAction
 }) {
   return showDialog(
     context: context,
     builder: (context) {
+      Future.delayed(
+        const Duration(seconds: 2),
+        () => popupAction()
+      );
       return AlertDialog(
         title: Text(titleText!,style: AppStyle.mid_large_text.copyWith(color: AppColor.normalTextColor,fontWeight: FontWeight.w800),),
         shape: RoundedRectangleBorder(
@@ -165,3 +170,4 @@ Future CustomSuccessAlertDialog({
     },
   );
 }
+

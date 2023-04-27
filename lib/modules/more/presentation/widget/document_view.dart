@@ -40,7 +40,7 @@ class DocumentView extends StatelessWidget {
                         .copyWith(fontWeight: FontWeight.w600),
                   ),
                   leading: IconButton(
-                    onPressed: () => Get.to(const Documents()),
+                    onPressed: () => Get.to( DocumentScreen()),
                     icon: const Icon(
                       Icons.arrow_back,
                       color: AppColor.cardColor,

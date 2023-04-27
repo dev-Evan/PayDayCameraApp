@@ -4,6 +4,7 @@ class AppString {
   // Apps url here
   static String BASE_URL = "https://payday.php8.gainhq.com/api";
   static String LOG_IN = "/login";
+  static String LOG_OUT = "/logout";
   static String PUNCH_IN = "/attendance/punch-in";
   static String PUNCH_OUT = "/attendance/punch-out";
   static String CHECK_PUNCH_IN = "/attendance/check-is-punch-in";
@@ -11,15 +12,26 @@ class AppString {
   static String LOG_DETAILS = "/attendance/details";
   static String ATTENDANCE_REQUEST = "/attendance/request";
   static String CHANGE_LOG = "/attendance/log";
+  static String DOCUMENT_LIST = "/document/index";
+  static String JOB_HISTORY = "/employee/job-history";
+  static String DELETED_ADDRESS = "/employee/address-delete";
   static String USER_PROFILE = "/user/profile";
-  static String LOG_SUMMARY_BY_THIS_MONTH =
-      "/attendance/summary?within=thisMonth";
-  static String LOG_SUMMARY_BY_THIS_YEAR =
-      "/attendance/summary?within=thisYear";
   static String SUMMARY_ALL_LOG = "/attendance/summaries-data-logs?";
   static String DETAILS_SUMMARY = "/attendance/details-summary?";
   static String REQUEST_ATTENDANCE = "/attendance/add-request";
   static String ATTENDANCE_STATUS = "/status?type=attendance";
+  static String ADDRESS_UPDATE = "/employee/address-update";
+  static String EMPLOYEE_ADDRESS = "/employee/addresses";
+  static String USER_CHANGE_PASSWORD = "/user/change-password";
+  static String ADDRESS_DETAILS = "/employee/addresses";
+  static String BASIC_INFO = "/basic-information";
+  static String UPDATE_PROFILE_DATA = "/user/profile/update";
+  static String DOCUMENT_UPLOAD = "/document/store";
+  static String POST = "POST";
+  static String USER_CHANGE_PICTURE = "/user/change-picture";
+  static String SALARY_OVERVIEW = "/employee/salary-overview";
+  static String LOG_SUMMARY_BY_THIS_MONTH = "/attendance/summary?within=thisMonth";
+  static String LOG_SUMMARY_BY_THIS_YEAR = "/attendance/summary?within=thisYear";
 
   // Apps string here
   static const String exampleText = "";
@@ -42,6 +54,7 @@ class AppString {
   static const String text_leave_status = "Leave Status";
   static const String text_leave_duration = "Leave Duration";
   static const String text_approved = "Approved";
+  static const String text_duration = "Duration";
   static const String text_pending = "Pending";
   static const String text_rejected = "Rejected";
   static const String text_rejection = "Rejection";
@@ -58,6 +71,12 @@ class AppString {
   static String error_text = "Something went wrong! Please try again";
   static String text_reload = "Reload";
   static String text_change_log = "Change Log";
+  static String text_skip = "Skip";
+  static String text_please_selected_date = "Please selected date";
+  static String text_alert = "Alert";
+  static String text_next = "Next";
+  static String text_search = "Search";
+  static String text_search_typing_to_search = "Start typing to search";
 
   static const String text_attendance_status = "Attendance Status";
   static const String text_entry_type = "Entry Type";
@@ -65,12 +84,18 @@ class AppString {
   static const String text_single = "Single";
   static const String text_multi = "Multi";
   static const String text_enrly = "Early";
+  static const String text_no_document_found = "No Document Found";
   static const String text_regular = "Regular";
   static String text_scheduled = "Scheduled";
   static String text_remaining = "Remaining";
   static String text_overtime = "Overtime";
+  static String text_remember_me = "Remember me";
+  static String text_forgot_password = "Forgot password?";
+  static String text_log_in = "Log In";
 
   static String text_today = "Today";
+  static String text_enter_phone_number = "Enter phone number";
+  static String text_enter = "Enter";
   static String text_this_week = "This Week";
   static String text_last_week = "Last Week";
   static String text_last_month = "Last Month";
@@ -134,6 +159,9 @@ class AppString {
   static const String text_interval = "Interval";
   static const String text_last = "Last";
   static const String text_first = "First";
+   static const String text_if_any = "(if any)";
+   static const String text_attachments = "Attachments";
+   static const String text_add_reason_note_here = "Add reason note here";
 
   //PaySlip modules string here
   static const String text_paid = "Paid";
@@ -201,6 +229,8 @@ class AppString {
   // static String text_address_details = "Permanent";
 
   static String text_permanent = "Permanent ";
+  static String text_permanent_address = "permanent_address";
+  static String text_present_address = "present_address";
   static String text_about_me = "About me";
   static String text_about_this_app = "About This App";
   static String text_version_2_1_0_1 = "Version: 2.1.0.1";
@@ -231,7 +261,7 @@ class AppString {
   static String text_employment = "Employment Status";
   static String text_ca_usa = "CA, USA";
   static String text_01_jan_1998 = "01-Jan-1998";
-  static String text_gender = "Male";
+  static String text_gender = "Gender";
   static String text_gender_text = "Gender";
   static String text_county = "County";
   static String text_address_setails = "Address Details";
@@ -241,7 +271,8 @@ class AppString {
   static String text_old_password = "Old Password";
   static String text_new_password = "New Password";
   static String text_confirm_password = "Confirm Password";
-  static String text_male = "Male";
+  static String text_male = "male";
+  static String text_female = "female";
   static String text_holiday = "Holidays";
   static String text_area = "Area";
   static String text_city = "City";
@@ -260,20 +291,45 @@ class AppString {
   static String text_this_year = "This Year";
   static String text_caleder = "Calender";
   static String text_this_month = "This month";
+  static String text_success = "Success";
+  static String text_back = "Back";
+  static String text_enter_massage = "Enter message";
+  static String text_password_change_successfully = "Password changed successfully";
+  static String text_deleted_address_successfully = "Deleted address successfully";
+
+  static String text_enter_your_old_password = "Enter your old password";
+  static String text_enter_new_password = "Enter new password";
+  static String text_confirm_your_new_password = "Confirm your new password";
+
+
+  static String text_enter_address = "Enter Address";
+  static String text_enter_state = "Enter state";
+  static String text_enter_zip_code = "Enter zip code";
+  static String text_enter_area = "Enet area";
+  static String text_enter_city = "Enter city";
+  static String text_this_enter_phone_number = "Enter phone Number";
   static String text_this_all_holiday = "All Holiday";
   static String text_calender_text = "Calender";
   static String text_about_me_dec =
       "Hello. I am an UX/UI designer. I am in love with designing since my childhood. It gives me the freedom of my mind and helps me to express myself and my personality ";
 
+
+
+
+
   // Local store string here
-  static const String idStore = "store";
+  static const String ID_STORE = "store";
   static String ACCESS_TOKEN = "access_token";
   static String USERNAME = "full_name";
-  static const String storeToken = "storeToken";
-  static const String loginCheckKey = "loginCheckValue";
-  static const String loginValue = "LogInValue";
-  static const String rememberValue = "rememberValue";
-  static const String rememberKey = "rememberKey";
+  static const String STORE_TOKEN = "storeToken";
+  static const String LOGIN_CHECK_KEY = "loginCheckValue";
+  static const String STORE_DATE = "storeData";
+  static const String STORE_ADDRESS = "storeAddress";
+  static const String STORE_DOC_USER_ID = "StoreDocUserId";
+  static const String LOGIN_VALUE = "LogInValue";
+  static const String REMEMBER_VALUE = "rememberValue";
+  static const String REMEMBER_KEY = "rememberKey";
+  static const String STORE_COUNTY = "storeCounty";
 
 // Auth String
 
@@ -300,4 +356,5 @@ class AppString {
   static const String calender = "/calender_screen";
   static const String payslip = "/payslip_screen";
   static const String leave = "/leave_screen";
+  static const String profileView = "/profileView_screen";
 }

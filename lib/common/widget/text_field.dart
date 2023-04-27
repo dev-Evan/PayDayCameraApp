@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
+import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class CustomTextFeild extends StatelessWidget {
@@ -10,7 +11,6 @@ class CustomTextFeild extends StatelessWidget {
   final inputType;
   final controller;
   final String? Function(String?)? validator;
-
   CustomTextFeild({
     Key? key,
     required this.hintText,
@@ -24,13 +24,16 @@ class CustomTextFeild extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
       child: Padding(
-        padding: const EdgeInsets.only(top: 8.0),
+        padding:  EdgeInsets.only(top: AppLayout.getHeight(8)),
         child: TextFormField(
           keyboardType: inputType,
           controller: controller,
           validator: validator,
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.all(16),
+            contentPadding:  EdgeInsets.only(left: AppLayout.getWidth(20),
+                right: AppLayout.getWidth(20),
+                top: AppLayout.getHeight(20),
+                bottom: AppLayout.getHeight(20)),
             hintText: hintText,
             focusColor: AppColor.primaryColor,
             hintStyle: GoogleFonts.poppins(color: AppColor.hintColor),
@@ -87,7 +90,10 @@ class _CustomTextFeildState extends State<CustomPasswordTextField> {
       obscureText: value,
       validator: widget.validator,
       decoration: InputDecoration(
-          contentPadding: const EdgeInsets.all(16),
+          contentPadding:  EdgeInsets.only(left: AppLayout.getWidth(16),
+              right: AppLayout.getWidth(16),
+              top: AppLayout.getHeight(16),
+              bottom: AppLayout.getHeight(16)),
           hintText: widget.hintText,
           focusColor: AppColor.primaryColor,
           hintStyle: GoogleFonts.poppins(color: AppColor.hintColor),

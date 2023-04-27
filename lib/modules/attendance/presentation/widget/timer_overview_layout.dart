@@ -66,6 +66,10 @@ remainingTimeLog() {
           data?.todayShortage.toDouble() ?? 0.0));
 }
 
+
+
+
+
 scheduledTimeLog() {
   Data? data = Get.find<AttendanceController>().logs.value.data;
   return scheduledLogInfo(
@@ -124,7 +128,10 @@ inTimeLog() {
       time: data != null && data.dailyLogs!.isNotEmpty
           ? data.dailyLogs?.first.inTime
           : '');
+
 }
+
+
 
 logInfo({required String title, required String time, Color? fontColor}) {
   return Column(
