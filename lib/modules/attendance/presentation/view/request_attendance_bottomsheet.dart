@@ -239,7 +239,7 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppString.text_punch_in_note,
+          AppString.text_note,
           style: AppStyle.normal_text_black
               .copyWith(color: Colors.grey, fontWeight: FontWeight.w600),
         ),

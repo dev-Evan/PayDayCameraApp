@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/widget/custom_time_in_time_picker.dart';
 import '../../../../common/controller/date_time_helper_controller.dart';
 import '../../../../common/widget/custom_time_picker.dart';
 import '../../../../common/widget/input_note.dart';
+import '../../../../utils/time_counter_helper.dart';
+import '../../domain/log_details/log_details.dart';
 import '../widget/bottom_sheet_appbar.dart';
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_layout.dart';
@@ -12,12 +15,16 @@ import '../../../../utils/dimensions.dart';
 import '../../../../common/widget/custom_app_button.dart';
 
 class EditAttendanceBottomSheet extends StatelessWidget {
-  const EditAttendanceBottomSheet({Key? key}) : super(key: key);
+  final LogDetails logDetailsById;
+
+  const EditAttendanceBottomSheet(this.logDetailsById, {super.key});
 
   @override
   Widget build(BuildContext context) {
     Get.delete<DateTimeController>();
-    Get.put(DateTimeController());
+    var controller=Get.put(DateTimeController());
+    controller.pickedInTime.value=logDetailsById.data!.inTime!;
+    controller.pickedOutTime.value=logDetailsById.data!.outTime!;
     return DraggableScrollableSheet(
       initialChildSize: .8,
       maxChildSize: .8,
@@ -85,12 +92,12 @@ class EditAttendanceBottomSheet extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "20-01-23",
+          logDetailsById.data?.inDate ?? "",
           style: AppStyle.extra_large_text_black
               .copyWith(fontWeight: FontWeight.w600),
         ),
         Text(
-          "Auto",
+          logDetailsById.data?.punchInStatus ?? "",
           style: AppStyle.normal_text_black
               .copyWith(fontWeight: FontWeight.w400, color: Colors.grey),
         ),
@@ -100,7 +107,8 @@ class EditAttendanceBottomSheet extends StatelessWidget {
 
   _entryBehaviour() {
     return Text(
-      "8h 10m",
+      TimeCounterHelper.getTimeStringFromDouble(
+          logDetailsById.data!.totalHours),
       style: AppStyle.normal_text_black.copyWith(fontWeight: FontWeight.w400),
     );
   }
@@ -144,7 +152,7 @@ class EditAttendanceBottomSheet extends StatelessWidget {
               style: AppStyle.normal_text
                   .copyWith(color: Colors.grey, fontWeight: FontWeight.w600)),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
-          const CustomOutTimePicker(),
+          const CustomTimeInTimePicker(),
         ],
       ),
     );
@@ -167,18 +175,10 @@ class EditAttendanceBottomSheet extends StatelessWidget {
 
   _noteLayout() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start   ,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppString.text_punch_in_note,
-          style: AppStyle.normal_text_black
-              .copyWith(color: Colors.grey, fontWeight: FontWeight.w600),
-        ),
-        SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
-        inputNote(),
-        SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-        Text(
-          AppString.text_punch_out_note,
+          AppString.text_note,
           style: AppStyle.normal_text_black
               .copyWith(color: Colors.grey, fontWeight: FontWeight.w600),
         ),

@@ -19,11 +19,11 @@ class DateTimeController extends GetxController {
               "${selectedInputHrs.padLeft(2, '0')}:${selectedInputMins.padLeft(2, '0')} $clockHrsFormat";
     }
     print("in time: $pickedInTime  out time: $pickedOutTime");
+    isInTimeClicked.value=!isInTimeClicked.value;
   }
 
   @override
   void dispose() {
-    print("Dispose Called");
     selectedInputHrs = '';
     selectedInputMins = '';
     isInTimeClicked.value = false;

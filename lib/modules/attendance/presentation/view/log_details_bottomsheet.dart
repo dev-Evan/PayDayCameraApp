@@ -15,7 +15,6 @@ import '../widget/log_details_bottom_sheet_content.dart';
 class LogDetailsBottomSheet extends GetView<AttendanceController> {
   const LogDetailsBottomSheet({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return controller.obx(
@@ -100,7 +99,7 @@ Future _openEditBottomSheet() {
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     context: Get.context!,
-    builder: (context) => const EditAttendanceBottomSheet(),
+    builder: (context) =>  EditAttendanceBottomSheet(Get.find<AttendanceController>().logDetailsById),
   );
 }
 

@@ -82,4 +82,5 @@ class AttendanceLogsController extends GetxController with StateMixin {
     });
     change(null, status: RxStatus.success());
   }
+
 }
