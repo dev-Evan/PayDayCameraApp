@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_logs.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
+import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
+import '../../../../common/widget/custom_navigator.dart';
+import '../../../../common/widget/loading_indicator.dart';
 import '../widget/dot_indicator.dart';
 import '../widget/info_layout.dart';
 import '../widget/log_list.dart';
@@ -14,17 +20,23 @@ import '../widget/timer_overview_layout.dart';
 import '../widget/todays_log_text.dart';
 import 'log_entry_bottomsheet.dart';
 
-class Attendance extends StatelessWidget {
-  bool loggedIn = false;
+class Attendance extends GetView<AttendanceController> {
+  const Attendance({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _body(context),
-    );
+    controller.checkUserIsPunchedIn();
+    controller.getDailyLog();
+    return controller.obx(
+        (state) => Scaffold(
+              body: _body(context),
+            ),
+        onLoading: const LoadingIndicator());
   }
 
-  Widget _body(BuildContext context) {
+  Widget _body(
+    BuildContext context,
+  ) {
     return SafeArea(
         child: SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
@@ -51,48 +63,60 @@ class Attendance extends StatelessWidget {
                   children: [
                     infoLayout(),
                     SizedBox(
-                      height: AppLayout.getHeight(Dimensions.paddingExtraLarge),
-                    ),
-                    timerLayout(),
-                    timerOverviewLayout(),
+                        height:
+                            AppLayout.getHeight(Dimensions.paddingExtraLarge)),
+                    Obx(() => timerLayout()),
+                    Obx(() => timerOverviewLayout()),
                     SizedBox(
                         height: AppLayout.getHeight(Dimensions.paddingDefault)),
-                    punchButton(() => _openBottomSheet(context: context)),
+                    punchButton(() async {
+                      await _openBottomSheet();
+                      await controller.getLatLong();
+                    }),
                     SizedBox(
                         height: AppLayout.getHeight(Dimensions.paddingMid)),
-                    dotIndicator(),
-                    attendanceLogText(),
+                    Obx(() => dotIndicator(controller.currentIndex.value)),
+                    attendanceLogText(
+                      context: context,
+                      text: AppString.text_attendance_log,
+                      onAction: () => CustomNavigator(
+                          context: context,
+                          pageName: const AttendanceLogsScreen()),
+                    ),
                   ]),
             ),
           ),
-          loggedIn
-              ? Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: AppLayout.getHeight(Dimensions.paddingLarge),
-                      horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        todaysLogIntroText(),
-                        SizedBox(
-                            height:
-                                AppLayout.getHeight(Dimensions.paddingLarge)),
-                        logList(),
-                      ]),
-                )
-              : noLogLayout(),
+          Obx(
+            () => (controller.logs.value.data != null &&
+                    controller.logs.value.data!.dailyLogs!.isNotEmpty)
+                ? Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: AppLayout.getHeight(Dimensions.paddingLarge),
+                        horizontal:
+                            AppLayout.getWidth(Dimensions.paddingLarge)),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          todaysLogIntroText(),
+                          SizedBox(
+                              height:
+                                  AppLayout.getHeight(Dimensions.paddingLarge)),
+                          logList(controller.logs.value.data!.dailyLogs!),
+                        ]),
+                  )
+                : noLogLayout(),
+          )
         ],
       ),
     ));
   }
 
-  Future _openBottomSheet({required BuildContext context}) {
+  Future _openBottomSheet() {
     return showModalBottomSheet(
-      enableDrag: false,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      context: context,
-      builder: (context) => logEntryBottomSheet(),
+      context: Get.context!,
+      builder: (context) => const LogEntryBottomSheet(),
     );
   }
 }

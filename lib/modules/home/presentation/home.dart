@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pay_day_mobile/common/custom_appbar.dart';
+import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/more.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 
 import '../../attendance/presentation/view/attendance.dart';
-import '../../leave/presentation/leave.dart';
-import '../../more/presentation/more.dart';
-import '../../payslip/presentation/payslip.dart';
+import '../../leave/presentation/view/leave.dart';
+import '../../payslip/presentation/view/payslip.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -18,11 +18,16 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int currentIndex = 0;
 
-  final _screens = <Widget>[Attendance(), Leave(), PaySlip(), More()];
+  final _screens = <Widget>[
+    Attendance(),
+    const Leave(),
+    const PaySlip(),
+     MoreScreen()
+  ];
 
   final _items = <BottomNavigationBarItem>[
     const BottomNavigationBarItem(
-        icon: Icon(Icons.watch_later), label: "Attendance"),
+        icon: Icon(Icons.watch_later_outlined), label: "Attendance"),
     const BottomNavigationBarItem(
         icon: Icon(Icons.calendar_today_outlined), label: "Leave"),
     const BottomNavigationBarItem(

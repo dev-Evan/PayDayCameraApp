@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/utils/app_layout.dart';
 
-import '../../../../utils/app_layout.dart';
 
 Widget verticalDivider({Color? dividerColor}) {
   return Container(

@@ -1,29 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
-import 'package:pay_day_mobile/common/custom_status_button.dart';
+import 'package:pay_day_mobile/common/widget/custom_status_button.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
+import 'package:pay_day_mobile/utils/app_color.dart';
 
+import '../../../../utils/app_string.dart';
 import '../../../../utils/app_style.dart';
+import '../../../../utils/color_picker_helper.dart';
 
 Widget infoLayout() {
-  return Row(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _userName(),
-          _getCurrentDate()
-        ],
-      ),
-      const CustomStatusButton(bgColor: Colors.white, text: 'Regular',textColor: Colors.green,)
-    ],
+  var controller = Get.find<AttendanceController>();
+  return Obx(
+    () => Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _userName(),
+            _getCurrentDate(),
+          ],
+        ),
+        //check if user is punched in
+        // has data to show
+        controller.isPunchIn.isTrue && controller.logs.value.data != null
+            ? CustomStatusButton(
+                bgColor: Util.getBtnBgColor(
+                    controller.logs.value.data!.behavior.toString()),
+                text: controller.logs.value.data!.behavior.toString(),
+                textColor: Util.getBtnTextColor(
+                  controller.logs.value.data!.behavior.toString(),
+                ),
+              )
+            : Container()
+      ],
+    ),
   );
 }
 
 _userName() {
   return Text(
-    "Hi, Steve",
+    "Hi, ${GetStorage().read(AppString.USERNAME)}",
     style: AppStyle.title_text,
   );
 }
