@@ -1,21 +1,22 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/modules/more/domain/document_model.dart';
-import 'package:pay_day_mobile/modules/more/domain/job_history_model.dart';
-import 'package:pay_day_mobile/modules/more/domain/salary_overview.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import '../../../common/domain/error_model.dart';
 import '../../../utils/app_string.dart';
 
-
 class DocumentRepository {
   final NetworkClient networkClient;
-
   DocumentRepository(this.networkClient);
-
+  final _box = GetStorage();
   Future<DocumentModel> getDocumentRepoData() async {
+    var queryParams = {
+      'page': _box.read(AppString.ID_STORE),
+    };
+
     try {
-      Response response =
-      await networkClient.getRequest(AppString.DOCUMENT_LIST);
+      Response response = await networkClient.getQueryRequest(
+          apiEndPoint: AppString.DOCUMENT_LIST, body: queryParams);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -27,5 +28,3 @@ class DocumentRepository {
     }
   }
 }
-
-

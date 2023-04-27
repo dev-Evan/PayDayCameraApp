@@ -44,4 +44,37 @@ Future profileCalenderDialog({context, child,dobSaveAction,double?  height,doubl
   );
 }
 
+Future DocumentDialog({context, child,}) {
+  return showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        contentPadding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimensions.radiusMid - 4),
+        ),
+        titlePadding: const EdgeInsets.only(top: 0, left: 0, right: 0),
+        insetPadding: const EdgeInsets.symmetric(horizontal: 0),
+        content: SizedBox(
+          height: AppLayout.getHeight(40),
+          width: AppLayout.getWidth(40),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: child,
+            ),
+          ),
+        ),
+        actions: [
+          // Center(
+          //     child: Padding(
+          //       padding: const EdgeInsets.only(bottom: 12.0, top: 12),
+          //       child: CustomSmallButton(AppString.text_save, ()=>dobSaveAction()),
+          //     )),
+        ],
+      );
+    },
+  );
+}
 
