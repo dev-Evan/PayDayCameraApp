@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class DateTimeController extends GetxController {
@@ -9,6 +10,7 @@ class DateTimeController extends GetxController {
 
   RxString pickedInTime = ''.obs;
   RxString pickedOutTime = ''.obs;
+  TextEditingController textEditingController = TextEditingController();
 
   void getTime() {
     if (clockHrsFormat.isNotEmpty) {
@@ -19,7 +21,7 @@ class DateTimeController extends GetxController {
               "${selectedInputHrs.padLeft(2, '0')}:${selectedInputMins.padLeft(2, '0')} $clockHrsFormat";
     }
     print("in time: $pickedInTime  out time: $pickedOutTime");
-    isInTimeClicked.value=!isInTimeClicked.value;
+    isInTimeClicked.value = !isInTimeClicked.value;
   }
 
   @override
