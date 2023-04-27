@@ -1,9 +1,9 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pay_day_mobile/common/widget/custom_button.dart';
-import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
+import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/auth/presentation/view/sign_in.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -11,13 +11,16 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
-class onboardingScreen extends StatefulWidget {
+import '../../../common/widget/custom_button.dart';
+import '../../../common/widget/custom_navigator.dart';
+
+class OnboardingScreen extends StatefulWidget {
   @override
-  State<onboardingScreen> createState() => _onboardingScreenState();
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _onboardingScreenState extends State<onboardingScreen> {
-  final List _onboardingImage = [
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  final List _onboardImage = [
     Images.calendar,
     Images.mobile,
     Images.mobile,
@@ -53,9 +56,6 @@ class _onboardingScreenState extends State<onboardingScreen> {
     super.initState();
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height / 5;
@@ -73,30 +73,16 @@ class _onboardingScreenState extends State<onboardingScreen> {
                   height: _height,
                   width: _width,
                   child: Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 400),
-                          alignment:
-                              isleft ? Alignment.topCenter : Alignment.topRight,
-                          curve: Curves.easeInOut,
-                          child: Image.asset(Images.app_logo),
-                        ),
-                      ),
-                    ],
+                    children: [_headerLayout(isLeft: isleft)],
                   )),
-
               Obx(
                 () => Expanded(
                     flex: 2,
                     child: Center(
-                        child: Image.asset(
-                            _onboardingImage[_currentIndex.toInt()]))),
+                        child:
+                            Image.asset(_onboardImage[_currentIndex.toInt()]))),
               ),
-
               SizedBox(height: AppLayout.getHeight(25)),
-
               Obx(
                 () => Text(
                   '${_title[_currentIndex.toInt()]}',
@@ -106,24 +92,20 @@ class _onboardingScreenState extends State<onboardingScreen> {
                       color: AppColor.normalTextColor),
                 ),
               ),
-              // SizedBox(height: 10.h,),
-              SizedBox(height: AppLayout.getHeight(20)),
-
+              customSpacerHeight(height: 20),
               Obx(() => Text(
                     '${_description[_currentIndex.toInt()]}',
                     style: GoogleFonts.poppins(
                         fontSize: Dimensions.fontSizeMid,
                         fontWeight: FontWeight.w300),
                   )),
-
               SizedBox(height: AppLayout.getHeight(20)),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Obx(
                     () => DotsIndicator(
-                      dotsCount: _onboardingImage.length,
+                      dotsCount: _onboardImage.length,
                       position: _currentIndex.toDouble(),
                       decorator: const DotsDecorator(
                           color: AppColor.disableColor,
@@ -138,34 +120,55 @@ class _onboardingScreenState extends State<onboardingScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: AppLayout.getHeight(30)),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                    onPressed: () => CustomNavigator(
-                        context: context, pageName: const signInScreen()),
-                    child: Text(
-                      'Skip',
-                      style: GoogleFonts.poppins(
-                          fontSize: Dimensions.fontSizeMid,
-                          color: AppColor.primaryColor,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  CustomSmallButton(" Next ", () {
-                    if (_currentIndex == _title.length - 1) {
-                      CustomNavigator(
-                          context: context, pageName: const signInScreen());
-                    } else {
-                      _currentIndex + 1;
-                    }
-                  }),
-                ],
-              )
+              customSpacerHeight(height: 30),
+              _buttonLayout(
+                  context: context,
+                  titleText: _title,
+                  currentIndex: _currentIndex)
             ],
           ),
         ));
   }
+}
+
+Widget _skipButton({context}) {
+  return TextButton(
+    onPressed: () =>
+        CustomNavigator(context: context, pageName: const SignInScreen()),
+    child: Text(
+      AppString.text_skip,
+      style: GoogleFonts.poppins(
+          fontSize: Dimensions.fontSizeMid,
+          color: AppColor.primaryColor,
+          fontWeight: FontWeight.w600),
+    ),
+  );
+}
+
+Widget _buttonLayout({context, currentIndex, titleText}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      _skipButton(context: context),
+      CustomSmallButton(AppString.text_next, () {
+        if (currentIndex == titleText.length - 1) {
+          CustomNavigator(context: context, pageName: const SignInScreen());
+        } else {
+          currentIndex + 1;
+        }
+      }),
+    ],
+  );
+}
+
+Widget _headerLayout({isLeft}) {
+  return Padding(
+    padding: const EdgeInsets.all(20.0),
+    child: AnimatedContainer(
+      duration: const Duration(milliseconds: 400),
+      alignment: isLeft ? Alignment.topCenter : Alignment.topRight,
+      curve: Curves.easeInOut,
+      child: Image.asset(Images.app_logo),
+    ),
+  );
 }

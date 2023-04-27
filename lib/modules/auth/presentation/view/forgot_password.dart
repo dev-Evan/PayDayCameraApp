@@ -56,36 +56,34 @@ class _forgotScreenState extends State<forgotScreen> {
                     child: Stack(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: EdgeInsets.only(
+                              left: AppLayout.getWidth(20),
+                              right: AppLayout.getWidth(20),
+                              top: AppLayout.getHeight(20),
+                              bottom: AppLayout.getHeight(20)),
                           child: AnimatedContainer(
                             duration: Duration(milliseconds: 400),
                             alignment: isleft
                                 ? Alignment.topCenter
                                 : Alignment.topRight,
-                            child: Image.asset(Images.app_logo),
                             curve: Curves.easeInOut,
+                            child: Image.asset(Images.app_logo),
                           ),
                         ),
                       ],
                     )),
-
-                // IconButton(
-                //     padding: EdgeInsets.all(0.0),
-                //     onPressed: (){
-                //   Get.toNamed(signIn);
-                // }, icon: Icon(Icons.arrow_back)),
                 InkWell(
-                  onTap: (){
-                    Navigator.push(context, CupertinoPageRoute(builder: (context) => signInScreen(),));
-                  },
-                    child: Icon(Icons.arrow_back)),
-                SizedBox(height: AppLayout.getHeight(Dimensions.fontSizeMid),),
-
-               
-
-
-
-
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => const SignInScreen(),
+                          ));
+                    },
+                    child: const Icon(Icons.arrow_back)),
+                SizedBox(
+                  height: AppLayout.getHeight(Dimensions.fontSizeMid),
+                ),
                 Text(
                   "Reset Password",
                   style: GoogleFonts.poppins(
@@ -93,9 +91,9 @@ class _forgotScreenState extends State<forgotScreen> {
                       fontSize: Dimensions.fontSizeLarge),
                 ),
                 SizedBox(
-                  height:AppLayout.getHeight( Dimensions.fontSizeMid,)
-
-                ),
+                    height: AppLayout.getHeight(
+                  Dimensions.fontSizeMid,
+                )),
                 Text(
                   "Enter your email and request ",
                   style: GoogleFonts.poppins(
@@ -105,10 +103,9 @@ class _forgotScreenState extends State<forgotScreen> {
                       letterSpacing: 0.3),
                 ),
                 SizedBox(
-
-                    height:AppLayout.getHeight( Dimensions.fontSizeLarge,)
-
-                ),
+                    height: AppLayout.getHeight(
+                  Dimensions.fontSizeLarge,
+                )),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -120,15 +117,14 @@ class _forgotScreenState extends State<forgotScreen> {
                           color: AppColor.hintColor),
                     ),
                     CustomTextFeild(
-                     hintText:  'Enter email',
-                    inputType:   TextInputType.emailAddress,
-                    controller:   _emailController,
+                      hintText: 'Enter email',
+                      inputType: TextInputType.emailAddress,
+                      controller: _emailController,
                     ),
                   ],
                 ),
-
                 SizedBox(
-                  height: AppLayout.getHeight(Dimensions.fontSizeExtraLarge) ,
+                  height: AppLayout.getHeight(Dimensions.fontSizeExtraLarge),
                 ),
                 CustomButton('Request', () {}),
               ],

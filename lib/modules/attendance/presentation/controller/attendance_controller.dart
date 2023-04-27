@@ -141,8 +141,7 @@ class AttendanceController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  getLatLong() async {
-    change(null, status: RxStatus.loading());
+  getLatLong() async {change(null, status: RxStatus.loading());
     ipAddress.value = await Ipify.ipv4();
     Future<Position> data = _determinePosition();
     data.then((value) async {

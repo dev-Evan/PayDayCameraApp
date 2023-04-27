@@ -48,8 +48,8 @@ class _HomeState extends State<Home> {
       appBar: const CustomAppbar(),
       body: _screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
+        selectedItemColor: AppColor.primaryColor,
+        unselectedItemColor: AppColor.disableColor,
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
         items: _items,
