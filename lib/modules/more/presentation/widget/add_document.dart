@@ -31,7 +31,6 @@ class AddDocument extends StatefulWidget {
 }
 
 class _AddDocumentState extends State<AddDocument> {
-  final TextEditingController _documetController = TextEditingController();
 
   FilePickerResult? result;
   String? fileName;
@@ -140,12 +139,12 @@ class _AddDocumentState extends State<AddDocument> {
 
                   customSpacerHeight(height: 8),
 
-                  Text(
-                    "",
+                 fileName !=null? Text(
+                    fileName.toString(),
                     style: AppStyle.mid_large_text.copyWith(
                         color: AppColor.hintColor,
                         fontSize: Dimensions.fontSizeDefault - 2),
-                  ),
+                  ):const Text(""),
                 ],
               ),
             ],

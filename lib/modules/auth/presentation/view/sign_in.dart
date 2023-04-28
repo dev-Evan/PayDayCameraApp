@@ -61,10 +61,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     customSpacerHeight(height: 30),
-
-
                     SizedBox(
                         height: _height,
                         width: _width,
@@ -91,10 +88,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                       ],
                     ),
-
-                    customSpacerHeight(height:Dimensions.fontSizeLarge),
-
-
+                    customSpacerHeight(height: Dimensions.fontSizeLarge),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -116,6 +110,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     Wrap(
                       children: [
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Row(
                               children: [
@@ -144,11 +139,10 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                       ],
                     ),
-                    customSpacerHeight(height:Dimensions.fontSizeExtraLarge),
+                    customSpacerHeight(height: Dimensions.fontSizeExtraLarge),
                     CustomButton(AppString.text_log_in, () {
                       Get.find<AuthController>().logIn(
-                          _emailController.text,
-                          _passwordController.text);
+                          _emailController.text, _passwordController.text);
                     })
                   ],
                 ),
@@ -161,7 +155,8 @@ class _SignInScreenState extends State<SignInScreen> {
 
 Widget _containerLayout({isLeft}) {
   return Padding(
-    padding:  EdgeInsets.only(left: AppLayout.getWidth(20),
+    padding: EdgeInsets.only(
+        left: AppLayout.getWidth(20),
         right: AppLayout.getWidth(20),
         top: AppLayout.getHeight(20),
         bottom: AppLayout.getHeight(20)),

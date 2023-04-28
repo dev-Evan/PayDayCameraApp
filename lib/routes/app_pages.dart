@@ -6,6 +6,7 @@ import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_l
 import 'package:pay_day_mobile/modules/leave/presentation/view/leave.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/calender.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/update_document.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/view/payslip.dart';
 import 'package:pay_day_mobile/modules/starting/view/onboarding_screen.dart';
 import 'package:pay_day_mobile/modules/starting/view/splash_screen.dart';
@@ -63,8 +64,14 @@ List<GetPage> getPage = [
   GetPage(
     name: AppString.leave,
     page: () => const Leave(),
-  ),  GetPage(
+  ),
+
+  GetPage(
     name: AppString.profileView,
     page: () =>  ViewProfile(),
+  ),
+  GetPage(
+    name: AppString.updateDocument,
+    page: () =>  UpdateDocument(),
   ),
 ];

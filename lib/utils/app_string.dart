@@ -27,7 +27,9 @@ class AppString {
   static String BASIC_INFO = "/basic-information";
   static String UPDATE_PROFILE_DATA = "/user/profile/update";
   static String DOCUMENT_UPLOAD = "/document/store";
+  static String UPDATE_DOCUMENT = "/document/update";
   static String POST = "POST";
+  static String DELETED_DOCUMENT = "/document/delete";
   static String USER_CHANGE_PICTURE = "/user/change-picture";
   static String SALARY_OVERVIEW = "/employee/salary-overview";
   static String LOG_SUMMARY_BY_THIS_MONTH = "/attendance/summary?within=thisMonth";
@@ -45,6 +47,7 @@ class AppString {
   static const String text_log_out = "Log Out";
   static const String text_all_logs = "All Logs";
   static const String text_summary = "Summary";
+  static const String text_deleted = "Delete";
   static const String text_balance = "Balance";
   static const String textCustom = "Custom";
   static const String textMonth = "This Month";
@@ -88,6 +91,7 @@ class AppString {
   static const String text_regular = "Regular";
   static String text_scheduled = "Scheduled";
   static String text_remaining = "Remaining";
+  static String text_change_file = "Change file";
   static String text_overtime = "Overtime";
   static String text_remember_me = "Remember me";
   static String text_forgot_password = "Forgot password?";
@@ -114,6 +118,7 @@ class AppString {
   static String text_edit = "Edit";
   static String text_edit_attendance = "Edit Attendance";
   static String text_save = "Save";
+  static String text_no_data_found = "No data found !";
   static String text_in_time = "In Time";
   static String text_out_time = "Out Time";
   static String text_select_time = "Select Time";
@@ -296,6 +301,9 @@ class AppString {
   static String text_enter_massage = "Enter message";
   static String text_password_change_successfully = "Password changed successfully";
   static String text_deleted_address_successfully = "Deleted address successfully";
+  static String text_deleted_document_successfully = "Deleted document successfully";
+  static String text_document_upload_successfully = "Document uploaded successfully!";
+  static String text_document_update_successfully = "Document update successfully!";
 
   static String text_enter_your_old_password = "Enter your old password";
   static String text_enter_new_password = "Enter new password";
@@ -357,4 +365,5 @@ class AppString {
   static const String payslip = "/payslip_screen";
   static const String leave = "/leave_screen";
   static const String profileView = "/profileView_screen";
+  static const String updateDocument = "/updateDocument_screen";
 }
