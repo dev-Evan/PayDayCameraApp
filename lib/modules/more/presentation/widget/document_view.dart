@@ -8,58 +8,60 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 
 import '../view/documents.dart';
-import 'documents_appbar.dart';
 
 class DocumentView extends StatelessWidget {
-  const DocumentView({Key? key}) : super(key: key);
+  final imageUrl;
+  final docName;
+  const DocumentView({Key? key, this.imageUrl, this.docName}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
       appBar: const CustomAppbar(),
       body: Column(
         children: [
           Expanded(
             child: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            'https://images.unsplash.com/photo-1547665979-bb809517610d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80'),
-                        fit: BoxFit.cover),
-                  ),
-                ),
-                Positioned(
-                    child: AppBar(
-                  backgroundColor: Colors.transparent,
-                  centerTitle: true,
-                  title: Text(
-                    AppString.text_documents,
-                    style: AppStyle.mid_large_text
-                        .copyWith(fontWeight: FontWeight.w600),
-                  ),
-                  leading: IconButton(
-                    onPressed: () => Get.to( DocumentScreen()),
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: AppColor.cardColor,
-                    ),
-                  ),
-                  actions: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(CupertinoIcons.arrow_down_to_line))
-                  ],
-                )
-
-
-                ),
-              ],
+              children: [_fileView(url: imageUrl), _body(docName: docName)],
             ),
           ),
         ],
       ),
     );
   }
+}
+
+Widget _body({required docName}) {
+  return Positioned(
+      child: AppBar(
+    backgroundColor: Colors.transparent,
+    centerTitle: true,
+    title: _titleText(text: docName),
+    leading: _leading(),
+  ));
+}
+
+Widget _fileView({required url}) {
+  return Container(
+    decoration: BoxDecoration(
+      image: DecorationImage(image: NetworkImage(url), fit: BoxFit.cover),
+    ),
+  );
+}
+
+Widget _titleText({required text}) {
+  return Text(
+    text,
+    style: AppStyle.mid_large_text.copyWith(fontWeight: FontWeight.w600),
+  );
+}
+
+Widget _leading() {
+  return IconButton(
+    onPressed: () => Get.to(DocumentScreen()),
+    icon: const Icon(
+      Icons.arrow_back,
+      color: AppColor.cardColor,
+    ),
+  );
 }

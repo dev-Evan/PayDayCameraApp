@@ -29,41 +29,48 @@ class SalaryOverView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             customMoreAppbar(titleText: AppString.text_salary_overview),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: AppLayout.getWidth(20),
-                  right: AppLayout.getWidth(20),
-                  top: AppLayout.getHeight(20),
-                  bottom: AppLayout.getHeight(20)),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      AppString.text_basic_salary,
-                      style: AppStyle.mid_large_text.copyWith(
-                          color: AppColor.normalTextColor,
-                          fontSize: Dimensions.fontSizeMid,
-                          fontWeight: FontWeight.w700),
+            salaryOverviewController.salaryOverView!.data!.isNotEmpty
+                ? Padding(
+                    padding: EdgeInsets.only(
+                        left: AppLayout.getWidth(20),
+                        right: AppLayout.getWidth(20),
+                        top: AppLayout.getHeight(20),
+                        bottom: AppLayout.getHeight(20)),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppString.text_basic_salary,
+                            style: AppStyle.mid_large_text.copyWith(
+                                color: AppColor.normalTextColor,
+                                fontSize: Dimensions.fontSizeMid,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          Text(
+                            salaryOverviewController.salaryOverView?.data?.first
+                                        .basicSalary ==
+                                    true
+                                ? salaryOverviewController
+                                        .salaryOverView?.data?.first.amount
+                                        .toString() ??
+                                    ""
+                                : "",
+                            style: AppStyle.small_text_black
+                                .copyWith(color: AppColor.hintColor),
+                          ),
+                          customSpacerHeight(height: 16),
+                          _jobHisTitleView()
+                        ],
+                      ),
                     ),
-                    Text(
-                      salaryOverviewController
-                                  .salaryOverView?.data?.first.basicSalary ==
-                              true
-                          ? salaryOverviewController
-                                  .salaryOverView?.data?.first.amount
-                                  .toString() ??
-                              ""
-                          : "",
-                      style: AppStyle.small_text_black
-                          .copyWith(color: AppColor.hintColor),
-                    ),
-                    customSpacerHeight(height: 16),
-                    _jobHisTitleView()
-                  ],
-                ),
-              ),
-            ),
+                  )
+                : Align(
+                    alignment: Alignment.center,
+                    child: Center(
+                        child: Text(
+                      AppString.text_no_data_found,
+                    ))),
           ],
         ),
       ),
@@ -77,7 +84,8 @@ Widget _jobHisTitleView() {
   SettingController settingController = Get.put(SettingController());
 
   return Padding(
-    padding: EdgeInsets.only(left: AppLayout.getWidth(8), bottom: AppLayout.getHeight(18)),
+    padding: EdgeInsets.only(
+        left: AppLayout.getWidth(8), bottom: AppLayout.getHeight(18)),
     child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -137,7 +145,8 @@ Widget _salaryCardView({iconText, salaryText}) {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
             child: Padding(
-              padding:  EdgeInsets.only(left: AppLayout.getWidth(6),
+              padding: EdgeInsets.only(
+                  left: AppLayout.getWidth(6),
                   right: AppLayout.getWidth(6),
                   top: AppLayout.getHeight(6),
                   bottom: AppLayout.getHeight(6)),
