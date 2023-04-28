@@ -10,6 +10,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/documents.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
@@ -36,8 +37,10 @@ class UpdateDocumentController extends GetxController {
     request.headers['Authorization'] = 'Bearer $accessToken';
     var response = await request.send();
     if (response.statusCode == 200) {
-      print("Document update successfully!");
-      _showToast("Document update successfully!");
+      print(AppString.text_document_update_successfully);
+      _showToast(AppString.text_document_update_successfully);
+      Get.to(DocumentScreen());
+
     } else {
       return 'Error update image: ${response.statusCode}';
     }

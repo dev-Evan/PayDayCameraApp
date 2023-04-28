@@ -91,6 +91,7 @@ class AppString {
   static const String text_regular = "Regular";
   static String text_scheduled = "Scheduled";
   static String text_remaining = "Remaining";
+  static String text_change_file = "Change file";
   static String text_overtime = "Overtime";
   static String text_remember_me = "Remember me";
   static String text_forgot_password = "Forgot password?";
@@ -117,6 +118,7 @@ class AppString {
   static String text_edit = "Edit";
   static String text_edit_attendance = "Edit Attendance";
   static String text_save = "Save";
+  static String text_no_data_found = "No data found !";
   static String text_in_time = "In Time";
   static String text_out_time = "Out Time";
   static String text_select_time = "Select Time";
@@ -300,6 +302,8 @@ class AppString {
   static String text_password_change_successfully = "Password changed successfully";
   static String text_deleted_address_successfully = "Deleted address successfully";
   static String text_deleted_document_successfully = "Deleted document successfully";
+  static String text_document_upload_successfully = "Document uploaded successfully!";
+  static String text_document_update_successfully = "Document update successfully!";
 
   static String text_enter_your_old_password = "Enter your old password";
   static String text_enter_new_password = "Enter new password";

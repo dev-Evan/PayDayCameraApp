@@ -33,8 +33,6 @@ class UpdateDocument extends StatefulWidget {
 }
 
 class _AddDocumentState extends State<UpdateDocument> {
-
-
   FilePickerResult? result;
   String? fileName;
   PlatformFile? pickFile;
@@ -65,15 +63,16 @@ class _AddDocumentState extends State<UpdateDocument> {
   }
 
   UpdateDocumentController updateDocumentController =
-  Get.put(UpdateDocumentController());
-  DocumentController documentController=Get.put(DocumentController());
+      Get.put(UpdateDocumentController());
+  DocumentController documentController = Get.put(DocumentController());
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         bottomSheetAppbar(
-            context: context, appbarTitle: AppString.text_add_documents),
+            context: context,
+            appbarTitle: "${AppString.text_edit} ${AppString.text_documents}"),
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
@@ -81,75 +80,64 @@ class _AddDocumentState extends State<UpdateDocument> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
-                  textFieldTitleText(titleText:AppString.text_name ),
-
+                  textFieldTitleText(titleText: AppString.text_name),
                   CustomTextFeild(
-                     // hintText: AppString.text_enter_document_name,
-                      hintText: documentController.documentModel?.data?.documents?.first.name ??"",
+                      // hintText: AppString.text_enter_document_name,
+                      hintText: documentController
+                              .documentModel?.data?.documents?.first.name ??
+                          "",
                       inputType: TextInputType.text,
                       controller:
-                      updateDocumentController.docNameController.value),
+                          updateDocumentController.docNameController.value),
                 ],
               ),
-
               customSpacerHeight(height: 20),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  textFieldTitleText(titleText: AppString.text_documents,),
+                  textFieldTitleText(
+                    titleText: AppString.text_documents,
+                  ),
                   customSpacerHeight(height: 20),
-                  _dottedBorder(child:InkWell(
+                  _dottedBorder(
+                      child: InkWell(
                     onTap: () => pickFile1(),
                     child: fileToDisplay != null
                         ? Container(
-                      height: AppLayout.getHeight(100),
-                      decoration: BoxDecoration(
-                        color: AppColor.disableColor.withOpacity(0.4),
-                        //image: DecorationImage(image: Image.file(fileToDisplay.path.toString() as File).image)
+                            height: AppLayout.getHeight(100),
+                            decoration: BoxDecoration(
+                              color: AppColor.disableColor.withOpacity(0.4),
+                              //image: DecorationImage(image: Image.file(fileToDisplay.path.toString() as File).image)
 
-                        image: DecorationImage(
-                            image: FileImage(
-                                File(fileToDisplay?.path ?? "")
-                                    .absolute),
-                            fit: BoxFit.cover),
-                      ),
-                    )
-                        : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(CupertinoIcons.link),
-                        SizedBox(
-                          width: AppLayout.getWidth(6),
-                        ),
-                        Text(
-                          AppString.text_click,
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.primaryColor,
-                              fontSize: Dimensions.fontSizeDefault),
-                        ),
-                        SizedBox(
-                          width: AppLayout.getWidth(6),
-                        ),
-                        Text(
-                          AppString.text_to_add_fils,
+                              image: DecorationImage(
+                                  image: FileImage(
+                                      File(fileToDisplay?.path ?? "").absolute),
+                                  fit: BoxFit.cover),
+                            ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                _fileTitle(
+                                    text: documentController.documentModel?.data
+                                            ?.documents?.first.name ??
+                                        ""),
+                                customSpacerHeight(height: 16),
+                                _changeFile()
+                              ],
+                            ),
+                          ),
+                  )),
+                  customSpacerHeight(height: 8),
+                  fileName != null
+                      ? Text(
+                          fileName.toString(),
                           style: AppStyle.mid_large_text.copyWith(
                               color: AppColor.hintColor,
-                              fontSize: Dimensions.fontSizeDefault + 2),
-                        ),
-                      ],
-                    ),
-                  ) ),
-
-                  customSpacerHeight(height: 8),
-
-                  fileName !=null? Text(
-                    fileName.toString(),
-                    style: AppStyle.mid_large_text.copyWith(
-                        color: AppColor.hintColor,
-                        fontSize: Dimensions.fontSizeDefault - 2),
-                  ):const Text(""),
+                              fontSize: Dimensions.fontSizeDefault - 2),
+                        )
+                      : const Text(""),
                 ],
               ),
             ],
@@ -171,16 +159,53 @@ class _AddDocumentState extends State<UpdateDocument> {
   }
 }
 
-Widget _dottedBorder({required child}){
-  return  DottedBorder(
+Widget _fileTitle({required text}) {
+  return Center(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Icon(
+          Icons.image,
+          color: AppColor.primaryColor,
+        ),
+        customSpacerWidth(width: 8),
+        Text(
+          text,
+          style: AppStyle.mid_large_text.copyWith(
+              color: AppColor.normalTextColor,
+              fontSize: Dimensions.fontSizeDefault),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _dottedBorder({required child}) {
+  return DottedBorder(
     radius: Radius.circular(Dimensions.radiusMid),
     color: AppColor.disableColor,
     strokeCap: StrokeCap.square,
     dashPattern: [8, 6],
     strokeWidth: AppLayout.getWidth(2),
     child: SizedBox(
-      height: AppLayout.getHeight(140),
+      height: AppLayout.getHeight(70),
       child: child,
     ),
+  );
+}
+
+Widget _changeFile() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      SizedBox(
+        width: AppLayout.getWidth(6),
+      ),
+      Text(
+        AppString.text_change_file,
+        style: AppStyle.mid_large_text.copyWith(
+            color: AppColor.primaryColor, fontSize: Dimensions.fontSizeDefault),
+      ),
+    ],
   );
 }

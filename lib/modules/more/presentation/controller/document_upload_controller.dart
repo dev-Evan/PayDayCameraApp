@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get_storage/get_storage.dart';
@@ -28,10 +30,11 @@ class DocumentUploadController extends GetxController {
     request.headers['Authorization'] = 'Bearer $accessToken';
     var response = await request.send();
     if (response.statusCode == 200) {
-      print("Document uploaded successfully!");
-      _showToast("Document uploaded successfully!");
+      print(AppString.text_document_upload_successfully);
+      Get.back();
+      _showToast(AppString.text_document_upload_successfully);
     } else {
-      return 'Error uploading image: ${response.statusCode}';
+      return '${response.statusCode}';
     }
   }
 
