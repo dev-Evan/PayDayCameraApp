@@ -25,7 +25,6 @@ class PaySlip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppbar(),
       body: SingleChildScrollView(
         physics: const ScrollPhysics(),
         child: Column(
@@ -39,25 +38,21 @@ class PaySlip extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(Dimensions.radiusMid),
                         bottomRight: Radius.circular(Dimensions.radiusMid))),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      customSpacerHeight(height: 14),
-                      paySlipOverviewLayout(context: context),
-                      attendanceLogText(
-                          context: context,
-                          text: AppString.text_payrun_badge,
-                          onAction: () =>
-                              CustomNavigator(
-                                  context: context,
-                                  pageName: const PayRunBadge())),
-                    ],
-                  ),
+                child: Column(
+                  children: [
+                    customSpacerHeight(height: 20),
+                    paySlipOverviewLayout(context: context),
+                    attendanceLogText(
+                        context: context,
+                        text: AppString.text_payrun_badge,
+                        onAction: () =>
+                            CustomNavigator(
+                                context: context,
+                                pageName: const PayRunBadge())),
+                  ],
                 ),
               ),
             ),
-            _customTitleText(
-                context: context, date: '14 Dec 2022 - 30 Dec 2022'),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Row(

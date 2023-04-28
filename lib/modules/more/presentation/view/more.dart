@@ -46,7 +46,6 @@ class MoreScreen extends GetView<ProfileDataController> {
   Widget build(BuildContext context) {
     return controller.obx(
         (state) => Scaffold(
-         // appBar: const CustomAppbar(),
               body: CustomScrollView(
                 slivers: [
                   SliverFillRemaining(

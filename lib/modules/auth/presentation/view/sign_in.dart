@@ -107,36 +107,28 @@ class _SignInScreenState extends State<SignInScreen> {
                       ],
                     ),
                     customSpacerHeight(height: Dimensions.fontSizeLarge),
-                    Wrap(
+                    Row(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Checkbox(
-                                  visualDensity: const VisualDensity(
-                                      horizontal: -4, vertical: -4),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          Dimensions.radiusSmall)),
-                                  value: _rememberMe,
-                                  onChanged: (bool? rememberMe) {
-                                    setState(() {
-                                      this._rememberMe = rememberMe!;
-                                      if (rememberMe == true) {
-                                        box.write(AppString.REMEMBER_KEY,
-                                            AppString.REMEMBER_VALUE);
-                                      }
-                                    });
-                                  },
-                                ),
-                                _rememberText()
-                              ],
-                            ),
-                            _forgotButton()
-                          ],
+                        Checkbox(
+                          visualDensity: const VisualDensity(
+                              horizontal: -4, vertical: -4),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  Dimensions.radiusSmall)),
+                          value: _rememberMe,
+                          onChanged: (bool? rememberMe) {
+                            setState(() {
+                              _rememberMe = rememberMe!;
+                              if (rememberMe == true) {
+                                box.write(AppString.REMEMBER_KEY,
+                                    AppString.REMEMBER_VALUE);
+                              }
+                            });
+                          },
                         ),
+                        _rememberText(),
+                        const Spacer(),
+                        _forgotButton()
                       ],
                     ),
                     customSpacerHeight(height: Dimensions.fontSizeExtraLarge),

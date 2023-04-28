@@ -197,8 +197,16 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                   "start ::: ${DateFormat("yyyy-MM-dd").format(_rangeStartDay!)} End ::: ${DateFormat("yyyy-MM-dd").format(_rangeEndDate!)}");
               switch (widget.rangeCalendarMethodImp) {
                 case RangeCalendarMethodImp.ALL_LOG:
-                  //TODO:
-                  print(RangeCalendarMethodImp.ALL_LOG);
+                  if (_rangeStartDay != null && _rangeEndDate != null) {
+                    Map<String, String> queryParams = {
+                      'start': DateFormat("yyyy-MM-dd").format(_rangeStartDay!),
+                      'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
+                    };
+                    String v = json.encode(queryParams);
+                    Get.find<AttendanceLogsController>()
+                        .getAllFilteredLogSummary(queryParams: "date=$v");
+                  }
+                  Navigator.pop(Get.context!);
                   break;
                 case RangeCalendarMethodImp.LOG_SUMMARY:
                   if (_rangeStartDay != null && _rangeEndDate != null) {
