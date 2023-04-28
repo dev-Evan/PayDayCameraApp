@@ -45,7 +45,6 @@ class MoreScreen extends GetView<ProfileDataController> {
   Widget build(BuildContext context) {
     return controller.obx(
         (state) => Scaffold(
-          appBar: const CustomAppbar(),
               body: CustomScrollView(
                 slivers: [
                   SliverFillRemaining(
@@ -98,12 +97,6 @@ class MoreScreen extends GetView<ProfileDataController> {
                                         onAction: () => CustomNavigator(
                                             context: context,
                                             pageName:  DocumentScreen())),
-                                    _jobDeskCard(
-                                        cardIcon: Icons.calendar_month,
-                                        cardText: AppString.text_calender,
-                                        onAction: () => CustomNavigator(
-                                            context: context,
-                                            pageName: const CalendarScreen())),
                                     _jobDeskCard(
                                         cardIcon: Icons.access_time_outlined,
                                         cardText: AppString.text_job_history,

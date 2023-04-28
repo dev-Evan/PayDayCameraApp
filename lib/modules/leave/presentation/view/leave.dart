@@ -14,8 +14,6 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-
-import '../../../../common/widget/custom_appbar.dart';
 import '../../../../common/widget/custom_buttom_sheet.dart';
 import '../../../../common/widget/custom_button.dart';
 import '../../../../common/widget/custom_navigator.dart';
@@ -27,7 +25,6 @@ class Leave extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppbar(),
       body: Stack(
         children: [
           CustomScrollView(
@@ -68,7 +65,6 @@ class Leave extends StatelessWidget {
                             children: [
                               const DatePickerCustom(),
                               _noDataImg(),
-                              customSpacerHeight(height: 60),
                               _appLeaveBtn(context: context)
                             ],
                           ),

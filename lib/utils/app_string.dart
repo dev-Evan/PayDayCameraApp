@@ -32,6 +32,7 @@ class AppString {
   static String SALARY_OVERVIEW = "/employee/salary-overview";
   static String LOG_SUMMARY_BY_THIS_MONTH = "/attendance/summary?within=thisMonth";
   static String LOG_SUMMARY_BY_THIS_YEAR = "/attendance/summary?within=thisYear";
+  static String LEAVE_ALLOWANCE = "/leave/allowance";
 
   // Apps string here
   static const String exampleText = "";

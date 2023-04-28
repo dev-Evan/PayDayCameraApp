@@ -28,6 +28,7 @@ class AttendanceController extends GetxController with StateMixin {
 
   @override
   void onInit() async {
+    await checkUserIsPunchedIn();
     await getDailyLog();
     super.onInit();
   }
@@ -55,6 +56,7 @@ class AttendanceController extends GetxController with StateMixin {
     }, onError: (error) {
       if (error.message.startsWith("Unauthenticated")) {
         Get.toNamed(AppString.signInScreen);
+        Get.delete<AttendanceController>();
       }
       print("checkUserIsPunchedIn :: ${error.message}");
     });
