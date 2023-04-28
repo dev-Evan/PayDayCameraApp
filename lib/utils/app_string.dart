@@ -27,6 +27,7 @@ class AppString {
   static String BASIC_INFO = "/basic-information";
   static String UPDATE_PROFILE_DATA = "/user/profile/update";
   static String DOCUMENT_UPLOAD = "/document/store";
+  static String UPDATE_DOCUMENT = "/document/update";
   static String POST = "POST";
   static String DELETED_DOCUMENT = "/document/delete";
   static String USER_CHANGE_PICTURE = "/user/change-picture";
@@ -360,4 +361,5 @@ class AppString {
   static const String payslip = "/payslip_screen";
   static const String leave = "/leave_screen";
   static const String profileView = "/profileView_screen";
+  static const String updateDocument = "/updateDocument_screen";
 }

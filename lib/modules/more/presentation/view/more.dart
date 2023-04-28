@@ -29,6 +29,7 @@ import '../../../../common/widget/custom_alert_dialog.dart';
 import '../../../../common/widget/custom_appbar.dart';
 import '../../../../common/widget/custom_navigator.dart';
 import '../../../../common/widget/loading_indicator.dart';
+import '../controller/document_controller.dart';
 
 
 class MoreScreen extends GetView<ProfileDataController> {

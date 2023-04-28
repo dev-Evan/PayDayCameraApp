@@ -10,6 +10,7 @@ import 'package:pay_day_mobile/common/custom_spacer.dart';
 
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_upload_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/update_document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/job_his_job_title.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -22,15 +23,17 @@ import 'package:dotted_border/dotted_border.dart';
 
 import '../../../../common/widget/custom_double_button.dart';
 import '../../../../common/widget/text_field.dart';
+import '../controller/document_controller.dart';
 
-class AddDocument extends StatefulWidget {
-  const AddDocument({Key? key}) : super(key: key);
+class UpdateDocument extends StatefulWidget {
+  const UpdateDocument({Key? key}) : super(key: key);
 
   @override
-  State<AddDocument> createState() => _AddDocumentState();
+  State<UpdateDocument> createState() => _AddDocumentState();
 }
 
-class _AddDocumentState extends State<AddDocument> {
+class _AddDocumentState extends State<UpdateDocument> {
+
 
   FilePickerResult? result;
   String? fileName;
@@ -61,8 +64,9 @@ class _AddDocumentState extends State<AddDocument> {
     }
   }
 
-  DocumentUploadController documentUploadController =
-      Get.put(DocumentUploadController());
+  UpdateDocumentController updateDocumentController =
+  Get.put(UpdateDocumentController());
+  DocumentController documentController=Get.put(DocumentController());
 
   @override
   Widget build(BuildContext context) {
@@ -81,10 +85,11 @@ class _AddDocumentState extends State<AddDocument> {
                   textFieldTitleText(titleText:AppString.text_name ),
 
                   CustomTextFeild(
-                      hintText: AppString.text_enter_document_name,
+                     // hintText: AppString.text_enter_document_name,
+                      hintText: documentController.documentModel?.data?.documents?.first.name ??"",
                       inputType: TextInputType.text,
                       controller:
-                          documentUploadController.fileNameController.value),
+                      updateDocumentController.docNameController.value),
                 ],
               ),
 
@@ -139,7 +144,7 @@ class _AddDocumentState extends State<AddDocument> {
 
                   customSpacerHeight(height: 8),
 
-                 fileName !=null? Text(
+                  fileName !=null? Text(
                     fileName.toString(),
                     style: AppStyle.mid_large_text.copyWith(
                         color: AppColor.hintColor,
@@ -156,7 +161,7 @@ class _AddDocumentState extends State<AddDocument> {
           child: customDoubleButton(
               textButtonAction: () => Get.back(),
               elevatedButtonAction: () =>
-                  documentUploadController.uploadImage(fileToDisplay!.path),
+                  updateDocumentController.uploadDocument(fileToDisplay!.path),
               textBtnText: AppString.text_cancel,
               elevatedBtnText: AppString.text_save,
               context: context),

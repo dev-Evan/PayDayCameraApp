@@ -11,7 +11,7 @@ class DocumentRepository {
   final _box = GetStorage();
   Future<DocumentModel> getDocumentRepoData() async {
     var queryParams = {
-      'page': _box.read(AppString.ID_STORE),
+      'page': _box.read(AppString.ID_STORE).toString(),
     };
 
     try {
