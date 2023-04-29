@@ -21,8 +21,7 @@ class DeletedDocumentController extends GetxController with StateMixin {
           .deletedDocRepo(
         _box.read(AppString.ID_STORE).toString(),
 
-      )
-          .then((value) {
+      ).then((value) {
         _successDialog();
       }, onError: (error) {
         print(error.toString());
