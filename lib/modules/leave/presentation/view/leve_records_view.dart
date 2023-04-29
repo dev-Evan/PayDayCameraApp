@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
+import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/enum/range_calendar_method_imp.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/all_logs.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_filter.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/selected_range_calender.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/timer_overview_layout.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/leave_filter.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/leave_records_layout.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/view_list_view.dart';
@@ -20,30 +23,32 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-class LeaveRecordsView extends StatelessWidget {
+class LeaveRecordsView extends GetView<LeaveController> {
   const LeaveRecordsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppbar(),
-      body: SingleChildScrollView(
-        physics: const ScrollPhysics(),
-        child: Column(
-          children: [
-            _containerView(),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [_customTexTitle(context)],
+    return controller.obx(
+        (state) => Scaffold(
+              appBar: const CustomAppbar(),
+              body: SingleChildScrollView(
+                physics: const ScrollPhysics(),
+                child: Column(
+                  children: [
+                    _containerView(),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [_customTexTitle(context)],
+                      ),
+                    ),
+                    viewListViewLayout(),
+                  ],
+                ),
               ),
             ),
-            viewListViewLayout(),
-          ],
-        ),
-      ),
-    );
+        onLoading: const LoadingIndicator());
   }
 }
 
@@ -88,7 +93,9 @@ Widget _customTexTitle(context) {
             onTap: () => customButtomSheet(
                 context: context,
                 height: 0.9,
-                child: SelectRangeCalender(rangeCalendarMethodImp: RangeCalendarMethodImp.LEAVE_RECORD,)),
+                child: SelectRangeCalender(
+                  rangeCalendarMethodImp: RangeCalendarMethodImp.LEAVE_RECORD,
+                )),
             child: _customTitleTextStyle(titleText: AppString.textCustom),
           ),
           Text(
@@ -101,7 +108,9 @@ Widget _customTexTitle(context) {
       SizedBox(
         width: MediaQuery.of(context).size.width / 2.3,
       ),
-      _filterStyle(context)
+
+      //v2
+      // _filterStyle(context)
     ],
   );
 }

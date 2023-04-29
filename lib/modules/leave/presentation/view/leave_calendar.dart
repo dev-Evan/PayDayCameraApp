@@ -1,7 +1,8 @@
 
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
+
+import '../widget/custom_horizontal_calendar/custom_horizontal_calendar.dart';
 
 class DatePickerCustom extends StatefulWidget {
   const DatePickerCustom({Key? key}) : super(key: key);
@@ -26,6 +27,19 @@ class _DatePickerCustomState extends State<DatePickerCustom> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            CustomCalendarTimeline(
+              initialDate: now,
+              showYears: false,
+              monthColor: Colors.blueAccent,
+              firstDate: DateTime(2015, 1, 1),
+              lastDate: DateTime(2030, 12, 1),
+              onDateSelected: (date) => print(date),
+              dayNameColor: AppColor.cardColor,
+              dayColor: AppColor.normalTextColor,
+              activeDayColor: Colors.white,
+              activeBackgroundDayColor: AppColor.primaryColor,
+              dotsColor: AppColor.primaryColor,
+            ),
           ],
         ),
       ),

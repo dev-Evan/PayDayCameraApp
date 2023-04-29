@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:dart_ipify/dart_ipify.dart';
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';

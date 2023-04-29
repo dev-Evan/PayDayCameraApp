@@ -65,7 +65,8 @@ _logDate() {
 _entryBehaviour() {
   return CustomStatusButton(
       bgColor: Util.getBtnBgColor(
-          Get.find<AttendanceController>().logDetailsById.data?.behavior ?? ""),
+          Get.find<AttendanceController>().logDetailsById.data?.behavior ?? "",
+          false),
       text:
           Get.find<AttendanceController>().logDetailsById.data?.behavior ?? "",
       textColor: Util.getBtnTextColor(

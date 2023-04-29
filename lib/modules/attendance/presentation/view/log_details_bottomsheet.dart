@@ -82,10 +82,11 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
     );
   }
 
+  //_openChangeLogBottomSheet()
   _cancelButton(BuildContext context) {
     return AppButton(
       buttonText: AppString.text_change_log,
-      onPressed: () => _openChangeLogBottomSheet(),
+      onPressed: () => (){},
       buttonColor: Colors.transparent,
       hasOutline: true,
       borderColor: Colors.black,

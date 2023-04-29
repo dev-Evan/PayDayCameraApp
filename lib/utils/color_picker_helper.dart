@@ -6,11 +6,13 @@ import 'app_color.dart';
 class Util {
   Util._();
 
-  static Color getBtnBgColor(String behaviour) {
+  static Color getBtnBgColor(String behaviour, bool isColorWhite) {
     if (behaviour.startsWith("late")) {
       return AppColor.errorColor;
     } else if (behaviour.startsWith("regular")) {
-      return Colors.white;
+      return isColorWhite
+          ? Colors.white
+          : AppColor.primary_green.withOpacity(.15);
     } else {
       return AppColor.primary_orange;
     }

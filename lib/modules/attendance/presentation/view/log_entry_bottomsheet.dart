@@ -1,5 +1,4 @@
 import 'package:dart_ipify/dart_ipify.dart';
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
