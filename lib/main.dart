@@ -4,6 +4,7 @@ import 'package:pay_day_mobile/init_%20app.dart';
 import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/theme.dart';
+import 'modules/more/presentation/view/view_doc_file.dart';
 
 
 void main() async {
@@ -18,7 +19,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appTheme,
       initialRoute: AppString.moreScreen,
-      getPages: getPage,
+       getPages: getPage,
+     // home: ViewDocFile(),
+
     );
   }
 }

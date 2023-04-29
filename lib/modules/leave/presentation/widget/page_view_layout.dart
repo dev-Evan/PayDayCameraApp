@@ -35,7 +35,7 @@ Widget PageViewLayout() {
     '07',
   ];
 
-  return Container(
+  return SizedBox(
     height: AppLayout.getHeight(146),
     width: AppLayout.getWidth(412),
     child: ListView.builder(

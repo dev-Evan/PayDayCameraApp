@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 
 import '../view/documents.dart';
@@ -15,7 +14,7 @@ class DocumentView extends StatelessWidget {
   const DocumentView({Key? key, this.imageUrl, this.docName}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppbar(),
       body: Column(
