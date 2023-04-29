@@ -188,7 +188,7 @@ Widget _dottedBorder({required child}) {
     dashPattern: [8, 6],
     strokeWidth: AppLayout.getWidth(2),
     child: SizedBox(
-      height: AppLayout.getHeight(70),
+      height: AppLayout.getHeight(90),
       child: child,
     ),
   );

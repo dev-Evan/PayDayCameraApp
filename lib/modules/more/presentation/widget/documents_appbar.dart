@@ -9,12 +9,19 @@ import 'package:flutter/cupertino.dart';
 Widget customMoreAppbar({
   titleText,
   bgColor = AppColor.backgroundColor,
-  textColor=AppColor.normalTextColor
+  textColor=AppColor.normalTextColor,
+  Function ? onAction ,
 }) {
   return AppBar(
     elevation: 0,
     leading: IconButton(
-      onPressed: () => Get.back(),
+      onPressed: (){
+        if(onAction !=null){
+          onAction();
+        }else{
+          Get.back();
+        }
+      },
       icon: Icon(
         Icons.arrow_back,
         color: textColor,

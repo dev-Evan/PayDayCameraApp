@@ -36,7 +36,7 @@ class DocumentScreen extends GetView<DocumentController> {
           children: [
             customMoreAppbar(
                 titleText: documentController.documentModel?.message ??
-                    AppString.text_documents),
+                    AppString.text_documents,onAction: ()=>Get.toNamed(AppString.moreScreen)),
             documentController.documentModel?.data?.documents != null
                 ? Expanded(
                     child: Container(
