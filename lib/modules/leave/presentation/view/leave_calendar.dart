@@ -1,4 +1,4 @@
-import 'package:calendar_timeline/calendar_timeline.dart';
+
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -26,18 +26,6 @@ class _DatePickerCustomState extends State<DatePickerCustom> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            CalendarTimeline(
-              initialDate: now,
-              monthColor: Colors.transparent,
-              firstDate: DateTime(2015, 1, 1),
-              lastDate: DateTime(2030, 12, 1),
-              onDateSelected: (date) => print(date),
-              dayNameColor: AppColor.cardColor,
-              dayColor: AppColor.normalTextColor,
-              activeDayColor: Colors.white,
-              activeBackgroundDayColor: AppColor.primaryColor,
-              dotsColor: AppColor.primaryColor,
-            )
           ],
         ),
       ),
