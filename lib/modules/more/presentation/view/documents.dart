@@ -343,6 +343,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
@@ -380,7 +381,7 @@ class DocumentScreen extends GetView<DocumentController> {
             customMoreAppbar(
                 titleText: documentController.documentModel?.message ??
                     AppString.text_documents,
-                onAction: () => Get.toNamed(AppString.moreScreen)),
+                onAction: () => Get.toNamed(AppString.home)),
             documentController.documentModel?.data?.documents != null
                 ? Expanded(
                     child: Container(
@@ -576,7 +577,7 @@ Widget _cardImgTitle(
                 height: 0.3,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: _docEditAndDeleted(context),
+                  child: _docEditAndDeleted(context: context,docName: titleText),
                 ));
           },
           icon: const Icon(Icons.more_vert))
@@ -620,9 +621,11 @@ Widget _fileTitleText({required totalFileText}) {
   );
 }
 
-Widget _docEditAndDeleted(context) {
+Widget _docEditAndDeleted({ required context, required docName}) {
   DeletedDocumentController deletedDocumentController =
       Get.put(DeletedDocumentController());
+  final _box=GetStorage();
+  _box.write(AppString.STORE_DOC_NAME, docName);
   return Column(
     children: [
       bottomSheetAppbar(context: context, appbarTitle: ""),

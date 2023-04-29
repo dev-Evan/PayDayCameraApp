@@ -13,7 +13,6 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      // width: MediaQuery.of(context).size.width / 1,
       height: MediaQuery.of(context).size.height / 18,
       child: ElevatedButton(
           onPressed: () => onAction(),

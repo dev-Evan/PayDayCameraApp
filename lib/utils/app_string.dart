@@ -338,6 +338,7 @@ class AppString {
   static const String REMEMBER_VALUE = "rememberValue";
   static const String REMEMBER_KEY = "rememberKey";
   static const String STORE_COUNTY = "storeCounty";
+  static const String STORE_DOC_NAME = "storeDocName";
 
 // Auth String
 
