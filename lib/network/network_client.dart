@@ -29,5 +29,17 @@ class NetworkClient extends GetConnect {
     return response;
   }
 
+  Future<Response> getQueryRequest({required String apiEndPoint, body}) async {
+    return await get(_getRequestUrl(apiEndPoint),query: body, headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": GetStorage().read(AppString.ACCESS_TOKEN) != null
+          ? "Bearer ${GetStorage().read(AppString.ACCESS_TOKEN)}"
+          : ""
+    }).timeout(const Duration(seconds: 20));
+  }
+
+
+
   String _getRequestUrl(String apiEndPoint) => AppString.BASE_URL + apiEndPoint;
 }
