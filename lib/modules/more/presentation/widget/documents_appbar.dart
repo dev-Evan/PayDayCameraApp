@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/address_details.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
@@ -53,10 +54,9 @@ Widget profileViewAppbar(
     actions: [
       IconButton(
           onPressed: () => rightBtnAction(),
-          icon:   Icon(
-            Icons.edit_square,
-            color: AppColor.normalTextColor.withOpacity(0.6),
-          ))
+          icon:  editIcon(),
+
+      )
     ],
     title: Text(
       titleText,

@@ -13,6 +13,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import 'package:pay_day_mobile/utils/images.dart';
 
 import '../../../../common/widget/custom_appbar.dart';
 import '../../../../common/widget/custom_buttom_sheet.dart';
@@ -468,11 +469,9 @@ Widget _editDetBtn({context, onAction, required editAction}) {
         customButtomSheet(context: context, height: 0.9, child: editAction),
     child: Row(
       children: [
-        const Icon(
-          Icons.edit,
-          color: AppColor.hintColor,
-          size: 20,
-        ),
+
+        editIcon(),
+
         SizedBox(
           width: AppLayout.getWidth(14),
         ),
@@ -489,4 +488,9 @@ Widget _editDetBtn({context, onAction, required editAction}) {
   );
 }
 
-
+Widget editIcon(){
+  return  SizedBox(
+      height: AppLayout.getHeight(20),
+      width: AppLayout.getWidth(20),
+      child: Image(image: AssetImage(Images.edit)));
+}
