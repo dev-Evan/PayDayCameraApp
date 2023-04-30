@@ -54,7 +54,7 @@ List<GetPage> getPage = [
   ),
   GetPage(
     name: AppString.payslip,
-    page: () => const PaySlip(),
+    page: () =>  PaySlip(),
   ),
   GetPage(
     name: AppString.leave,
@@ -72,6 +72,6 @@ List<GetPage> getPage = [
   ),
   GetPage(
     name: AppString.updateDocument,
-    page: () =>  UpdateDocument(),
+    page: () =>  const UpdateDocument(),
   ),
 ];

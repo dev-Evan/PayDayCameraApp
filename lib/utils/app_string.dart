@@ -29,6 +29,7 @@ class AppString {
   static String DOCUMENT_UPLOAD = "/document/store";
   static String UPDATE_DOCUMENT = "/document/update";
   static String POST = "POST";
+  static String PAYSLIP_SUMMARY = "/payroll/payslip-summary";
   static String DELETED_DOCUMENT = "/document/delete";
   static String USER_CHANGE_PICTURE = "/user/change-picture";
   static String SALARY_OVERVIEW = "/employee/salary-overview";

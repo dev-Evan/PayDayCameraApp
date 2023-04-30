@@ -8,11 +8,16 @@ import '../../../../utils/app_style.dart';
 import '../../../../utils/dimensions.dart';
 import '../../../attendance/presentation/widget/attendace_log_overview.dart';
 
-Widget paySlipOverviewLayout({context}) {
+Widget paySlipOverviewLayout({required context,required total,required paid,required unpaid}) {
   List countTitleText=[
     AppString.text_paid,
     AppString.text_unpaid,
     AppString.text_total,
+
+  ];
+
+  List countNumber=[
+     paid, unpaid,total,
 
   ];
   return SizedBox(
@@ -36,7 +41,9 @@ Widget paySlipOverviewLayout({context}) {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 3,
               itemBuilder: (context, index) {
-                return _cardText(countNumber: '148',countText: countTitleText[index]);
+                return _cardText(
+                    countNumber: countNumber[index],
+                    countText: countTitleText[index]);
               },
             ),
           ),
