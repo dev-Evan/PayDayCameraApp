@@ -87,7 +87,7 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                           color: AppColor.hintColor
                                               .withOpacity(0.7),
                                           fontSize:
-                                              Dimensions.fontSizeDefault - 2,
+                                              Dimensions.fontSizeDefault+2 ,
                                           fontWeight: FontWeight.w500),
                                     ),
                                     customSpacerHeight(height: 8),
@@ -426,7 +426,7 @@ Widget _textTitle({titleText}) {
     titleText,
     style: AppStyle.mid_large_text.copyWith(
         color: AppColor.hintColor.withOpacity(0.7),
-        fontSize: Dimensions.fontSizeDefault,
+        fontSize: Dimensions.fontSizeDefault+1,
         fontWeight: FontWeight.w500),
   );
 }
@@ -435,9 +435,9 @@ Widget _textSubTitle({subTitleText}) {
   return Text(
     subTitleText,
     style: AppStyle.mid_large_text.copyWith(
-        color: AppColor.normalTextColor.withOpacity(0.7),
-        fontSize: Dimensions.fontSizeDefault + 2,
-        fontWeight: FontWeight.w700),
+        color: AppColor.normalTextColor,
+        fontSize: Dimensions.fontSizeDefault+1,
+        fontWeight: FontWeight.w500),
   );
 }
 
@@ -469,7 +469,7 @@ Widget _editDetBtn({context, onAction, required editAction}) {
     child: Row(
       children: [
         const Icon(
-          Icons.edit_square,
+          Icons.edit,
           color: AppColor.hintColor,
           size: 20,
         ),
@@ -488,3 +488,5 @@ Widget _editDetBtn({context, onAction, required editAction}) {
     ),
   );
 }
+
+

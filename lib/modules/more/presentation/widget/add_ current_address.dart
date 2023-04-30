@@ -36,7 +36,12 @@ class _EditAddressState extends State<AddCurrentAddress> {
   Widget build(BuildContext context) {
     final _box = GetStorage();
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding:  EdgeInsets.only(
+        left: AppLayout.getWidth(20),
+        right: AppLayout.getWidth(20),
+          bottom: AppLayout.getHeight(20)
+
+      ),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +58,7 @@ class _EditAddressState extends State<AddCurrentAddress> {
                       : "",
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 12.0),
+              padding: const EdgeInsets.only(top: 12.0,bottom: 12),
               child: textFieldTitleText(titleText: AppString.text_county),
             ),
 
@@ -267,6 +272,7 @@ class _EditAddressState extends State<AddCurrentAddress> {
                         addressUpdateController.detailsController.value),
               ],
             ),
+            customSpacerHeight(height: 30),
             customDoubleButton(
                 context: context,
                 elevatedBtnText:

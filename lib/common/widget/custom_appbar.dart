@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
+import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -12,7 +13,6 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       leadingWidth: AppLayout.getWidth(150),
       toolbarHeight: AppLayout.getHeight(35),
       backgroundColor: AppColor.cardColor,
-
       leading: Padding(
         padding: const EdgeInsets.only(left: 12.0),
         child: Image.asset(
@@ -23,9 +23,10 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {},
-          icon: const Icon(
+          icon: Icon(
             Icons.notifications_none,
-            color: AppColor.primaryColor,size: 30,
+            color: AppColor.primaryColor,
+            size: Dimensions.fontSizeExtraLarge + 5,
           ),
         )
       ],
@@ -34,5 +35,5 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(60));
+  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(46));
 }

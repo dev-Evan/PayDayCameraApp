@@ -25,7 +25,37 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return isButtonExpanded == true
         ? Expanded(
-            child: TextButton(
+            child: SizedBox(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height / 18,
+              child: TextButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: buttonColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    side: BorderSide(width: 1, color: borderColor!)),
+                onPressed: () async {
+                  onPressed();
+                },
+                child: Text(
+                  buttonText,
+                  style: textColor != null
+                      ? AppStyle.normal_text.copyWith(
+                          color: textColor,
+                          fontWeight: hasOutline == false
+                              ? FontWeight.w600
+                              : FontWeight.w400)
+                      : AppStyle.normal_text.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                ),
+              ),
+            ),
+          )
+        : SizedBox(
+      width: double.infinity,
+      height: MediaQuery.of(context).size.height / 18,
+          child: TextButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: buttonColor,
                   shape: RoundedRectangleBorder(
@@ -47,28 +77,6 @@ class AppButton extends StatelessWidget {
                       ),
               ),
             ),
-          )
-        : TextButton(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: buttonColor,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-                side: BorderSide(width: 1, color: borderColor!)),
-            onPressed: () async {
-              onPressed();
-            },
-            child: Text(
-              buttonText,
-              style: textColor != null
-                  ? AppStyle.normal_text.copyWith(
-                      color: textColor,
-                      fontWeight: hasOutline == false
-                          ? FontWeight.w600
-                          : FontWeight.w400)
-                  : AppStyle.normal_text.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-            ),
-          );
+        );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/more.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
+import 'package:pay_day_mobile/utils/dimensions.dart';
 
 import '../../attendance/presentation/view/attendance.dart';
 import '../../leave/presentation/view/leave.dart';
@@ -19,7 +20,7 @@ class _HomeState extends State<Home> {
   int currentIndex = 0;
 
   final _screens = <Widget>[
-    Attendance(),
+    const Attendance(),
     const Leave(),
     const PaySlip(),
      MoreScreen()
@@ -51,6 +52,8 @@ class _HomeState extends State<Home> {
         selectedItemColor: AppColor.primaryColor,
         unselectedItemColor: AppColor.disableColor,
         type: BottomNavigationBarType.fixed,
+        selectedFontSize: Dimensions.fontSizeDefault,
+        unselectedFontSize: Dimensions.fontSizeDefault,
         showUnselectedLabels: true,
         items: _items,
         elevation: 4,

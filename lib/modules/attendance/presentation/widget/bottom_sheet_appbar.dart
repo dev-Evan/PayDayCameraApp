@@ -8,8 +8,8 @@ import '../../../../utils/app_layout.dart';
 Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle,}) {
   return Container(
     padding: EdgeInsets.symmetric(
-        horizontal: AppLayout.getWidth(Dimensions.paddingLarge),
-        vertical: AppLayout.getHeight(Dimensions.paddingDefault)),
+        horizontal: AppLayout.getWidth(Dimensions.paddingDefault),
+        vertical: AppLayout.getHeight(Dimensions.paddingDefault-6)),
     decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(16), topRight: Radius.circular(16)),
@@ -17,7 +17,7 @@ Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle,}) 
         boxShadow: [
           BoxShadow(
             color: Colors.grey.shade200,
-            offset: const Offset(0, 3),
+            offset: const Offset(0, 1),
           )
         ]),
     child: AppBar(
@@ -27,14 +27,14 @@ Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle,}) 
       automaticallyImplyLeading: false,
       title: Text(
         appbarTitle ?? "Punch In",
-        style: AppStyle.normal_text_black.copyWith(fontWeight: FontWeight.w600,fontSize: Dimensions.fontSizeDefault+4),
+        style: AppStyle.normal_text_black.copyWith(fontWeight: FontWeight.w600,fontSize: Dimensions.fontSizeDefault+2),
       ),
       actions: [
       IconButton(
           onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(
+          icon:  Icon(
             Icons.close,
-            size: 24,color: AppColor.secondaryColor,
+            size: Dimensions.fontSizeLarge,color: AppColor.secondaryColor,
           ),
         ),
       ],

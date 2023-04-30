@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/change_password.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/edit_profile.dart';
@@ -61,9 +62,11 @@ class _ViewProfileState extends State<ViewProfile> {
                     .userProfile?.data?.profilePictureUrl ?? ""),
               ),
             ),
-            SizedBox(
-              height: AppLayout.getHeight(10),
-            ),
+
+            customSpacerHeight(height: 10),
+
+
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -75,7 +78,7 @@ class _ViewProfileState extends State<ViewProfile> {
                         "Demo",
                     style: AppStyle.mid_large_text.copyWith(
                         fontWeight: FontWeight.w800,
-                        color: AppColor.normalTextColor),
+                        color: AppColor.normalTextColor,fontSize: Dimensions.fontSizeMid+1),
                   ),
                 ),
                 Row(
@@ -90,11 +93,10 @@ class _ViewProfileState extends State<ViewProfile> {
                                   .toString() ??
                               "Demo",
                           style: AppStyle.small_text
-                              .copyWith(color: AppColor.hintColor),
+                              .copyWith(color: AppColor.hintColor,fontSize: Dimensions.fontSizeSmall+1),
                         ),
-                        SizedBox(
-                          width: AppLayout.getWidth(8),
-                        ),
+
+                        customSpacerWidth(width: 8),
                         const Icon(
                           Icons.circle,
                           size: 8,
@@ -110,13 +112,12 @@ class _ViewProfileState extends State<ViewProfile> {
                               .toString() ??
                           "Demo",
                       style: AppStyle.small_text
-                          .copyWith(color: AppColor.hintColor),
+                          .copyWith(color: AppColor.hintColor,fontSize: Dimensions.fontSizeSmall+1),
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: AppLayout.getHeight(20),
-                ),
+                customSpacerHeight(height: 20),
+
                 _moveChangePassword(
                     context: context,
                     onAction: () => CustomNavigator(
@@ -127,20 +128,18 @@ class _ViewProfileState extends State<ViewProfile> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       textFieldTitleText(titleText: AppString.text_about_me),
-                      SizedBox(
-                        height: AppLayout.getHeight(8),
-                      ),
+                      customSpacerHeight(height: 8),
+
                       Text(
                         profileDataController.userProfile?.data?.aboutMe
                                 .toString() ??
                             "Demo",
                         style: AppStyle.small_text.copyWith(
                             color: AppColor.normalTextColor,
-                            fontSize: Dimensions.fontSizeDefault - 1),
+                            fontSize: Dimensions.fontSizeDefault ),
                       ),
-                      SizedBox(
-                        height: AppLayout.getHeight(14),
-                      ),
+
+                      customSpacerHeight(height: 14),
                       textFieldTitleText(titleText: AppString.text_general),
                       _cardView(
                           dynamicText: profileDataController
@@ -225,14 +224,14 @@ Widget _cardView({icon, dynamicText, titleText}) {
             Text(
               dynamicText,
               style: AppStyle.small_text_black.copyWith(
-                  fontSize: Dimensions.fontSizeSmall + 2,
+                  fontSize: Dimensions.fontSizeSmall + 3,
                   color: AppColor.normalTextColor),
             ),
             Text(
               titleText,
               style: AppStyle.small_text.copyWith(
                 color: AppColor.hintColor,
-                fontSize: Dimensions.fontSizeDefault - 2,
+                fontSize: Dimensions.fontSizeDefault - 1,
               ),
             ),
           ],
@@ -310,7 +309,7 @@ Widget _moveChangePassword({
             style: AppStyle.small_text.copyWith(
                 color: AppColor.primaryColor,
                 fontWeight: FontWeight.w600,
-                fontSize: Dimensions.fontSizeDefault),
+                fontSize: Dimensions.fontSizeDefault+1),
           ),
         ),
         SizedBox(
