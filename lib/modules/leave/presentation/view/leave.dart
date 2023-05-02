@@ -77,8 +77,9 @@ class Leave extends GetView<LeaveController> {
                                         CustomNavigator(
                                             context: context,
                                             pageName: const LeaveRecordsView());
-                                        await Get.find<LeaveController>()
-                                            .getLeaveSummary();
+                                        await controller.getLeaveSummary();
+                                        await controller
+                                            .getLeaveRecord("&within=thisYear");
                                       }),
                                 ],
                               ),
@@ -107,10 +108,11 @@ class Leave extends GetView<LeaveController> {
 Widget _appLeaveBtn({context}) {
   return Padding(
     padding: const EdgeInsets.all(12.0),
-    child: CustomButton(
-        AppString.text_apply_leve,
-        () => customButtomSheet(
-            context: context, height: 0.9, child: const ApplyLeaveView())),
+    child: CustomButton(AppString.text_apply_leve, () async {
+      await Get.find<LeaveController>().getLeaveType();
+      customButtomSheet(
+          context: context, height: 0.9, child: const ApplyLeaveView());
+    }),
   );
 }
 

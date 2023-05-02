@@ -36,6 +36,8 @@ class AppString {
   static String LOG_SUMMARY_BY_THIS_YEAR = "/attendance/summary?within=thisYear";
   static String LEAVE_ALLOWANCE = "/leave/allowance";
   static String LEAVE_SUMMARY = "/leave/summary";
+  static String LEAVE_RECORD = "/leave/record?per_page=50";
+  static String LEAVE_TYPE = "/leave/type";
 
   // Apps string here
   static const String exampleText = "";
@@ -81,6 +83,7 @@ class AppString {
   static String text_alert = "Alert";
   static String text_next = "Next";
   static String text_search = "Search";
+  static String text_leave_type = "Leave Type";
   static String text_search_typing_to_search = "Start typing to search";
 
   static const String text_attendance_status = "Attendance Status";
@@ -296,6 +299,7 @@ class AppString {
   static String text_payrun_badge = "Payrun & Badge";
   static String text_february_2022 = "February 2022";
   static String text_this_year = "This Year";
+  static String text_last_year = "Last Year";
   static String text_caleder = "Calender";
   static String text_this_month = "This month";
   static String text_success = "Success";

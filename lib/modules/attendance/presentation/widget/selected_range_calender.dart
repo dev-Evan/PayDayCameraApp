@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/widget/custom_divider.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
-import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/enum/range_calendar_method_imp.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -109,7 +108,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                     child: ListView.builder(
                       shrinkWrap: true,
                       physics: const AlwaysScrollableScrollPhysics(),
-                      itemCount: dateTime.length,
+                      itemCount:dateTime.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return InkWell(
@@ -124,7 +123,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                   left: 12.0, right: 12, top: 8, bottom: 8),
                               child: Center(
                                   child: Text(
-                                dateTime[index],
+                               dateTime[index],
                                 style: AppStyle.mid_large_text.copyWith(
                                     color: AppColor.normalTextColor,
                                     fontSize: Dimensions.fontSizeDefault + 3),
@@ -225,6 +224,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                   break;
                 case RangeCalendarMethodImp.PAYSLIP:
                   // TODO: Handle this case.
+
                   break;
                 case RangeCalendarMethodImp.LEAVE_RECORD:
                   // TODO: Handle this case.

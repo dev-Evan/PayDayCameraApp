@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class datePickarScreen extends StatefulWidget {
-  const datePickarScreen({Key? key}) : super(key: key);
+class DatePickerScreen extends StatefulWidget {
+  const DatePickerScreen({Key? key}) : super(key: key);
 
   @override
-  State<datePickarScreen> createState() => _datePickarScreenState();
+  State<DatePickerScreen> createState() => _DatePickerScreenState();
 }
 
-class _datePickarScreenState extends State<datePickarScreen> {
+class _DatePickerScreenState extends State<DatePickerScreen> {
 
   DateTimeRange? _selectedDateRange;
 

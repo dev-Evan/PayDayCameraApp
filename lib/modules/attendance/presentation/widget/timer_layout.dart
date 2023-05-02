@@ -7,9 +7,8 @@ import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_style.dart';
 
 Widget timerLayout() {
-  var todayScheduled = Get.find<AttendanceController>().logs.value.data != null
-      ? Get.find<AttendanceController>().logs.value.data?.todayScheduled
-      : 0;
+  var todayScheduled =
+      Get.find<AttendanceController>().logs.value.data?.todayScheduled ?? 0;
   double value =
       (Get.find<AttendanceController>().duration.value.inMinutes / 60) /
           todayScheduled;

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -32,8 +34,7 @@ class _ApplyLevPopUpCalendarState extends State<ApplyLevPopUpCalendar> {
       children: [
         TableCalendar(
           locale: "en_US",
-          rowHeight: 43,
-
+          rowHeight: 40,
           calendarStyle: const CalendarStyle(
             selectedDecoration:
                 BoxDecoration(color: AppColor.primaryColor, shape: BoxShape.circle),
@@ -52,6 +53,7 @@ class _ApplyLevPopUpCalendarState extends State<ApplyLevPopUpCalendar> {
                 _selectedDate = selectedDay;
                 _focusedDay = focusedDay;
                 print(selectedDay.toString());
+
               });
             }
           },
@@ -69,9 +71,8 @@ class _ApplyLevPopUpCalendarState extends State<ApplyLevPopUpCalendar> {
             _focusedDay = focusedDay;
           },
         ),
-
-       
       ],
     );
   }
+
 }

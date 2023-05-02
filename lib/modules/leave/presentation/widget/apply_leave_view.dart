@@ -4,9 +4,11 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/apply_leave_button_layout.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/custom_text_field_dob.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
@@ -60,7 +62,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
     }
   }
 
-  final List<String> _locations = ['A', 'B', 'C', 'D'];
+  final _leaveType=Get.find<LeaveController>().leaveType;
   String? dropdownValue;
 
   @override
@@ -96,7 +98,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                 Padding(
                   padding: EdgeInsets.only(
                       top: AppLayout.getHeight(Dimensions.paddingDefault)),
-                  child: textFieldTitleText(titleText: AppString.text_phone),
+                  child: textFieldTitleText(titleText: AppString.text_leave_type),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
@@ -144,7 +146,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                         value: dropdownValue,
                         borderRadius:
                             BorderRadius.circular(Dimensions.radiusDefault),
-                        items: _locations
+                        items: _leaveType
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,

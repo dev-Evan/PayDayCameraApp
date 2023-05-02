@@ -25,6 +25,7 @@ class MapSample extends GetView<AttendanceController> {
       child: GoogleMap(
           mapType: MapType.normal,
           zoomControlsEnabled: false,
+          zoomGesturesEnabled: false,
           initialCameraPosition: CameraPosition(
               target: LatLng(lat, long),
               // target: LatLng(23.795603333333332, 90.35365333333333),
