@@ -16,7 +16,7 @@ class DocumentRepository {
 
     try {
       Response response = await networkClient.getQueryRequest(
-          apiEndPoint: AppString.DOCUMENT_LIST, body: queryParams);
+          apiEndPoint: AppString.DOCUMENT_LIST, query: queryParams);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

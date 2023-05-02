@@ -29,13 +29,17 @@ class NetworkClient extends GetConnect {
     return response;
   }
 
-  Future<Response> getQueryRequest({required String apiEndPoint, body}) async {
-    return await get(_getRequestUrl(apiEndPoint),query: body, headers: {
+  Future<Response> getQueryRequest({required String apiEndPoint, query}) async {
+    return await get(_getRequestUrl(apiEndPoint),query: query,
+
+
+
+        headers: {
       "Content-Type": "application/json",
       "Accept": "application/json",
-      "Authorization": GetStorage().read(AppString.ACCESS_TOKEN) != null
-          ? "Bearer ${GetStorage().read(AppString.ACCESS_TOKEN)}"
-          : ""
+      "Authorization":
+           "Bearer 8|G0rcvy3J7VTQoG15Q3bkNHR2WhXQvVh9gbC2W6E2"
+
     }).timeout(const Duration(seconds: 20));
   }
 

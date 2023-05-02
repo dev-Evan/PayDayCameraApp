@@ -1,34 +1,44 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
-import 'package:pay_day_mobile/common/widget/custom_divider.dart';
-import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
-import 'package:pay_day_mobile/common/widget/custom_status_button.dart';
+import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/enum/range_calendar_method_imp.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/selected_range_calender.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/arrow_style.dart';
+import 'package:pay_day_mobile/modules/payslip/presentation/controller/payslip_list_controller.dart';
+import 'package:pay_day_mobile/modules/payslip/presentation/controller/payslip_std_drop_dawon_controller.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/controller/summary_controller.dart';
-import 'package:pay_day_mobile/modules/payslip/presentation/view/payrun_badge.dart';
-import 'package:pay_day_mobile/modules/payslip/presentation/widget/payslip_view.dart';
+import 'package:pay_day_mobile/modules/payslip/presentation/widget/logList_widget.dart';
+import 'package:pay_day_mobile/modules/payslip/presentation/widget/summary_layout.dart';
+import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-import '../../../../common/custom_spacer.dart';
-import '../widget/payslip_overview_layout.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 
-class PaySlip extends GetView<SummaryViewController> {
+class PaySlip extends GetView<PayslipListController> {
   PaySlip({Key? key}) : super(key: key);
 
-  SummaryViewController summaryViewController =
+  final SummaryViewController summaryViewController =
       Get.put(SummaryViewController());
+
+  final PayslipListController payslipListController =
+      Get.put(PayslipListController());
+  final SettingController settingController = Get.put(SettingController());
+  final DropdownBtnStdController dropdownBtnStdController =
+      Get.put(DropdownBtnStdController());
+  final List<String> _selectedValue = [
+    AppString.text_this_month,
+    AppString.text_this_year,
+    AppString.text_last_month,
+    AppString.text_total
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -38,96 +48,72 @@ class PaySlip extends GetView<SummaryViewController> {
               body: SingleChildScrollView(
                 physics: const ScrollPhysics(),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: AppLayout.getHeight(194),
-                      child: Container(
-                        height: AppLayout.getHeight(222),
-                        decoration: AppStyle.ContainerStyle.copyWith(
-                            color: AppColor.primaryColor,
-                            borderRadius: BorderRadius.only(
-                                bottomLeft:
-                                    Radius.circular(Dimensions.radiusMid),
-                                bottomRight:
-                                    Radius.circular(Dimensions.radiusMid))),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              customSpacerHeight(height: 14),
-                              paySlipOverviewLayout(
-                                  context: context,
-                                  paid: summaryViewController
-                                          .summaryModel?.data?.summary?.paid
-                                          .toString() ??
-                                      "0",
-                                  unpaid: summaryViewController
-                                          .summaryModel?.data?.summary?.unpaid
-                                          .toString() ??
-                                      "0",
-                                  total: summaryViewController
-                                          .summaryModel?.data?.summary?.unpaid
-                                          .toString() ??
-                                      "0"),
-                              attendanceLogText(
-                                  context: context,
-                                  text: AppString.text_payrun_badge,
-                                  onAction: () => CustomNavigator(
-                                      context: context,
-                                      pageName: const PayRunBadge())),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                    summaryLayout(
+                        paid: summaryViewController
+                                .summaryModel?.data?.summary?.paid
+                                .toString() ??
+                            "p",
+                        unpaid: summaryViewController
+                                .summaryModel?.data?.summary?.unpaid
+                                .toString() ??
+                            "u",
+                        total: summaryViewController
+                                .summaryModel?.data?.summary?.unpaid
+                                .toString() ??
+                            "t"),
 
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              InkWell(
-                                onTap: () => customButtomSheet(
-                                    context: context,
-                                    height: 0.9,
-                                    child: SelectRangeCalender(
-                                      rangeCalendarMethodImp:
-                                          RangeCalendarMethodImp.PAYSLIP,
-                                    )),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      AppString.textCustom,
-                                      style: AppStyle.mid_large_text.copyWith(
-                                          color: AppColor.secondaryColor,
-                                          fontWeight: FontWeight.w700),
-                                    ),
-                                    SizedBox(
-                                      width: AppLayout.getWidth(12),
-                                    ),
-                                    const Icon(
-                                      Icons.keyboard_arrow_down,
-                                      color: AppColor.hintColor,
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Text(
-                                '14 Dec 2022 - 30 Dec 2022',
-                                style: AppStyle.small_text_black
-                                    .copyWith(color: AppColor.hintColor),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 20.0, right: 20, bottom: 20),
-                      child: logsList(),
+                    Obx(() => _dropDawnBtnCard(
+                            child: DropdownButton<String>(
+                          style: const TextStyle(fontWeight: FontWeight.w500),
+                          isDense: true,
+                          isExpanded: false,
+                          underline: const SizedBox.shrink(),
+                          icon: const Icon(Icons.expand_more),
+                          iconEnabledColor: AppColor.normalTextColor,
+                          hint: _dropDawHintText(),
+                          value: dropdownBtnStdController.dropdownValue.value,
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radiusDefault),
+                          items: _selectedValue
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: _calTitleRow(titleText: value),
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            dropdownBtnStdController.onValueChanged(newValue);
+                          },
+                        ))),
+                    ListView.builder(
+                      itemCount: payslipListController
+                          .payslipListModel?.data?.payslips?.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return logsList(
+                          titleMonth: payslipListController.payslipListModel
+                                  ?.data?.payslips?[index].month ??
+                              "",
+                          titleDate: payslipListController.payslipListModel
+                                  ?.data?.payslips?[index].dateInNumber ??
+                              "",
+                          basicSalary: payslipListController.payslipListModel
+                                  ?.data?.payslips?[index].basicSalary ??
+                              "",
+                          statusText: payslipListController.payslipListModel
+                                  ?.data?.payslips?[index].statusName ??
+                              "",
+                          startDate: payslipListController.payslipListModel
+                                  ?.data?.payslips?[index].startDate ??
+                              "",
+                          endDate: payslipListController.payslipListModel?.data
+                                  ?.payslips?[index].endDate ??
+                              "",
+                        );
+                      },
                     )
                   ],
                 ),
@@ -137,114 +123,64 @@ class PaySlip extends GetView<SummaryViewController> {
   }
 }
 
-Widget logsList() {
-  return ListView.builder(
-    itemCount: 222,
-    physics: const NeverScrollableScrollPhysics(),
-    shrinkWrap: true,
-    itemBuilder: (context, index) {
-      return Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: Column(
+Widget _dropDawHintText() {
+  return Text(
+    AppString.text_this_month,
+    style: AppStyle.normal_text.copyWith(color: AppColor.normalTextColor),
+  );
+}
+
+Widget _dropDawnBtnCard({required child}) {
+  return Padding(
+    padding: const EdgeInsets.only(top: 8.0),
+    child: Card(
+      color: AppColor.cardColor,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+          side: const BorderSide(width: 0.0, color: Colors.transparent)),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: child,
+      ),
+    ),
+  );
+}
+
+Widget _calendarTitle(
+    {required onAction, required titleText, required subText}) {
+  return Padding(
+    padding: const EdgeInsets.all(20.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             InkWell(
-              onTap: () => customButtomSheet(
-                  context: context, height: 0.9, child: const PaySlipView()),
-              child: Card(
-                elevation: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _dateTitle(dateText: '10', monthText: 'Dec'),
-                    CustomDiveider(25, 0.5),
-                    _cardMidText(
-                        amountText: "\$32,00",
-                        midDate: '01.11.22 - 30.11.22',
-                        midMonth: 'Monthly',
-                        statusText: 'Generated'),
-                    avatarArrowIcon(),
-                  ],
-                ),
-              ),
+              onTap: () => onAction(),
+              child: _calTitleRow(titleText: titleText),
             ),
-            _divider(context: context),
+            Text(
+              subText,
+              style:
+                  AppStyle.small_text_black.copyWith(color: AppColor.hintColor),
+            ),
           ],
         ),
-      );
-    },
+      ],
+    ),
   );
 }
 
-Widget _divider({context}) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 12.0),
-    child: CustomDiveider(
-        AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
-  );
-}
-
-Widget _dateTitle({dateText, monthText}) {
-  return Column(
+Widget _calTitleRow({required titleText}) {
+  return Row(
     children: [
       Text(
-        "10",
+        titleText,
         style: AppStyle.mid_large_text.copyWith(
-            color: AppColor.normalTextColor,
-            fontSize: Dimensions.fontSizeExtraLarge,
-            fontWeight: FontWeight.w900),
+            color: AppColor.secondaryColor, fontWeight: FontWeight.w700),
       ),
-      Text(
-        "Dec",
-        style: AppStyle.small_text.copyWith(
-            color: AppColor.hintColor, fontSize: Dimensions.fontSizeSmall),
-      ),
-    ],
-  );
-}
-
-Widget _cardMidText({amountText, midDate, midMonth, statusText}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        amountText,
-        style: AppStyle.mid_large_text.copyWith(
-          color: AppColor.secondaryColor,
-          fontSize: Dimensions.fontSizeDefault + 2,
-        ),
-      ),
-      customSpacerHeight(height: 8),
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            children: [
-              Text(
-                midDate,
-                style: AppStyle.small_text.copyWith(color: AppColor.hintColor),
-              ),
-              customSpacerHeight(height: 8),
-              const Icon(
-                Icons.circle,
-                size: 8,
-                color: AppColor.hintColor,
-              ),
-            ],
-          ),
-          customSpacerHeight(height: 8),
-          Text(
-            midMonth,
-            style: AppStyle.small_text.copyWith(color: AppColor.hintColor),
-          ),
-        ],
-      ),
-      customSpacerHeight(height: 6),
-      CustomStatusButton(
-        bgColor: AppColor.successColor.withOpacity(0.2),
-        text: statusText,
-        textColor: AppColor.successColor,
-      )
     ],
   );
 }

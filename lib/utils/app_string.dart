@@ -28,6 +28,7 @@ class AppString {
   static String UPDATE_PROFILE_DATA = "/user/profile/update";
   static String DOCUMENT_UPLOAD = "/document/store";
   static String UPDATE_DOCUMENT = "/document/update";
+  static String PAYSLIP_LIST = "/payroll/payslip-list";
   static String POST = "POST";
   static String PAYSLIP_SUMMARY = "/payroll/payslip-summary";
   static String DELETED_DOCUMENT = "/document/delete";
@@ -295,6 +296,7 @@ class AppString {
   static String text_payrun_badge = "Payrun & Badge";
   static String text_february_2022 = "February 2022";
   static String text_this_year = "This Year";
+  static String text_this_year2 = "thisYear";
   static String text_caleder = "Calender";
   static String text_this_month = "This month";
   static String text_success = "Success";
@@ -339,6 +341,7 @@ class AppString {
   static const String REMEMBER_VALUE = "rememberValue";
   static const String REMEMBER_KEY = "rememberKey";
   static const String STORE_COUNTY = "storeCounty";
+  static const String STORE_CURRENCY = "storeCurrency";
   static const String STORE_DOC_NAME = "storeDocName";
 
 // Auth String

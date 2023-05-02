@@ -414,7 +414,7 @@ class DocumentScreen extends GetView<DocumentController> {
                                                             ?.data
                                                             ?.documents?[index]
                                                             .fullUrl ??
-                                                        "",
+                                                      "",
                                                     docText: documentController
                                                             .documentModel
                                                             ?.data
