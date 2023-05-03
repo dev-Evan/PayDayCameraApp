@@ -12,7 +12,7 @@ class PayslipListRepository {
   Future<PayslipListModel> getPayslipListRepo(
       {required String selectedType}) async {
     var queryParams = {
-      "within": selectedType,
+      "within": selectedType.isEmpty?"total":selectedType,
     };
 
     try {

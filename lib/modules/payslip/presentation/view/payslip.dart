@@ -42,6 +42,8 @@ class PaySlip extends GetView<PayslipListController> {
 
   @override
   Widget build(BuildContext context) {
+    payslipListController.getPayslipListData();
+
     return controller.obx(
         (state) => Scaffold(
               appBar: const CustomAppbar(),
