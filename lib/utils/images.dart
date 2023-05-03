@@ -12,4 +12,5 @@ static String mobile = 'assets/images/mobile.png';
 static String user = 'assets/images/user.jpeg';
 static String documents = 'assets/images/document.jpeg';
 static String error_alert_logo = 'assets/images/error_alert_logo.png';
+static String attachment_file = 'assets/images/attachment_file.png';
 }

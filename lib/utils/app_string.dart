@@ -38,6 +38,9 @@ class AppString {
   static String LEAVE_SUMMARY = "/leave/summary";
   static String LEAVE_RECORD = "/leave/record?per_page=50";
   static String LEAVE_TYPE = "/leave/type";
+  static String INDIVIDUAL_DATE_LEAVE = "/leave/list/view";
+  static String LEAVE_DETAILS = "/leave/log";
+  static String CANCEL_LEAVE = "/leave/cancel";
 
   // Apps string here
   static const String exampleText = "";

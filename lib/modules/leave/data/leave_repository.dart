@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/domain/error_model.dart';
+import 'package:pay_day_mobile/common/domain/success_model.dart';
+import 'package:pay_day_mobile/modules/leave/domain/individual_date_leave.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_allowance.dart';
+import 'package:pay_day_mobile/modules/leave/domain/leave_details.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_summary.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_type.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
@@ -57,12 +60,54 @@ class LeaveRepository {
 
   Future<LeaveType> getLeaveType() async {
     try {
-      Response response =
-          await networkClient.getRequest(AppString.LEAVE_TYPE);
+      Response response = await networkClient.getRequest(AppString.LEAVE_TYPE);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
         return LeaveType.fromJson(response.body);
+      }
+    } catch (ex) {
+      return Future.error(ErrorModel(message: ex.toString()));
+    }
+  }
+
+  Future<IndividualDateLeave> getIndividualDateLeave(
+      {required String queryParams}) async {
+    try {
+      Response response = await networkClient
+          .getRequest("${AppString.INDIVIDUAL_DATE_LEAVE}?$queryParams");
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
+      } else {
+        return IndividualDateLeave.fromJson(response.body);
+      }
+    } catch (ex) {
+      return Future.error(ErrorModel(message: ex.toString()));
+    }
+  }
+
+  Future<LeaveDetails> getLeaveDetails({required int id}) async {
+    try {
+      Response response = await networkClient.getRequest(
+          "${AppString.LEAVE_DETAILS}/$id?timezone=${DateTime.now().toUtc().timeZoneName}");
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
+      } else {
+        return LeaveDetails.fromJson(response.body);
+      }
+    } catch (ex) {
+      return Future.error(ErrorModel(message: ex.toString()));
+    }
+  }
+
+  Future<SuccessModel> cancelLeave({required int id}) async {
+    try {
+      Response response = await networkClient
+          .postRequest(AppString.CANCEL_LEAVE, {"leave_id": id});
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
+      } else {
+        return SuccessModel.fromJson(response.body);
       }
     } catch (ex) {
       return Future.error(ErrorModel(message: ex.toString()));
