@@ -31,6 +31,7 @@ class AppString {
   static String PAYSLIP_LIST = "/payroll/payslip-list";
   static String POST = "POST";
   static String PAYSLIP_SUMMARY = "/payroll/payslip-summary";
+  static String PAYRUN_BADGE = "/payroll/payrun-and-badge";
   static String DELETED_DOCUMENT = "/document/delete";
   static String USER_CHANGE_PICTURE = "/user/change-picture";
   static String SALARY_OVERVIEW = "/employee/salary-overview";
@@ -191,6 +192,7 @@ class AppString {
   static String text_period = "Period";
   static String text_consider_type = "Consider Type";
   static String text_monthly = "Monthly";
+  static String text_no_included = "N/A";
   static String text_hour = "Hour";
   static String text_2 = "2";
   static String text_included = "Included";
@@ -340,6 +342,7 @@ class AppString {
   static const String LOGIN_VALUE = "LogInValue";
   static const String REMEMBER_VALUE = "rememberValue";
   static const String REMEMBER_KEY = "rememberKey";
+  static const String CURRENT_DATE = "currentDate";
   static const String STORE_COUNTY = "storeCounty";
   static const String STORE_CURRENCY = "storeCurrency";
   static const String STORE_DOC_NAME = "storeDocName";

@@ -1,22 +1,25 @@
+
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:pay_day_mobile/modules/more/data/salary_overview_rep.dart';
 import 'package:pay_day_mobile/modules/more/domain/salary_overview.dart';
+import 'package:pay_day_mobile/modules/payslip/data/payrun_badge_repo.dart';
 import 'package:pay_day_mobile/modules/payslip/data/summmary_repo.dart';
+import 'package:pay_day_mobile/modules/payslip/domain/payrun_badge_model.dart';
 import 'package:pay_day_mobile/modules/payslip/domain/summary_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 
-class SummaryViewController extends GetxController with StateMixin {
-  SummaryModel? summaryModel;
-  SummaryViewRepository summaryViewRepository =
-  SummaryViewRepository(NetworkClient());
+class PayrunBadgeController extends GetxController with StateMixin {
+  PayrunBadgeModel? payrunBadgeModel;
+  PayrunBadgeRepository payrunBadgeRepository =
+  PayrunBadgeRepository(NetworkClient());
 
-  getSummaryData() async {
+  getPayrunBadgeData() async {
     change(null, status: RxStatus.loading());
     try {
-      await summaryViewRepository.getSummaryViewData().then((value) {
+      await payrunBadgeRepository.getPayrunBagReoData().then((value) {
         print(value);
-        summaryModel = value;
+        payrunBadgeModel = value;
       }, onError: (error) {
         print(error.message);
       });

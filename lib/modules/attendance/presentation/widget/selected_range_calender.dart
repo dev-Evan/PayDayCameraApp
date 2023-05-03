@@ -147,8 +147,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                     _rangeStartDay = getDate(today.subtract(
                                         Duration(days: today.weekday - 1)));
                                     _rangeEndDate = getDate(today.add(Duration(
-                                        days: DateTime.daysPerWeek -
-                                            today.weekday)));
+                                        days: DateTime.daysPerWeek - today.weekday)));
                                   });
                                 }
                                 break;

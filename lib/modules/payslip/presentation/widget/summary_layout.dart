@@ -13,7 +13,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 Widget summaryLayout({required paid, required unpaid,required total}){
-  return      SizedBox(
+  return   SizedBox(
     height: AppLayout.getHeight(194),
     child: Container(
       height: AppLayout.getHeight(222),
@@ -38,7 +38,7 @@ Widget summaryLayout({required paid, required unpaid,required total}){
                 text: AppString.text_payrun_badge,
                 onAction: () => CustomNavigator(
                     context:  Get.context,
-                    pageName: const PayRunBadge())),
+                    pageName:  PayRunBadge())),
           ],
         ),
       ),

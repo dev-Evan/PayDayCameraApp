@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
+import 'package:pay_day_mobile/modules/payslip/presentation/controller/payrun_badge_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -7,7 +11,10 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class PayRunBadgeView extends StatelessWidget {
-  const PayRunBadgeView({Key? key}) : super(key: key);
+  PayRunBadgeView({Key? key}) : super(key: key);
+
+  PayrunBadgeController payrunBadgeController =
+      Get.put(PayrunBadgeController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,92 +33,197 @@ class PayRunBadgeView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _subTextLeft(subTitleText: AppString.text_period),
-                    _subTextLeft(subTitleText: AppString.text_period),
-                    _subTextLeft(subTitleText: AppString.text_period),
+                    _subTextLeft(subTitleText: AppString.text_consider_type),
+                    _subTextLeft(subTitleText: AppString.text_overtime),
                   ],
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _subTextRight(subTextRight: AppString.text_monthly),
-                    _subTextRight(subTextRight: AppString.text_monthly),
-                    _subTextRight(subTextRight: AppString.text_monthly),
+                    _subTextRight(
+                        subTextRight: payrunBadgeController.payrunBadgeModel
+                                ?.data?.defaultPayrun?.setting?.payrunPeriod
+                                .toString() ??
+                            ""),
+                    _subTextRight(
+                        subTextRight: payrunBadgeController.payrunBadgeModel
+                                ?.data?.defaultPayrun?.setting?.considerType
+                                .toString() ??
+                            ""),
+                    _subTextRight(
+                        subTextRight: payrunBadgeController
+                                    .payrunBadgeModel
+                                    ?.data
+                                    ?.defaultPayrun
+                                    ?.setting
+                                    ?.considerOvertime
+                                    .toString() ==
+                                "0"
+                            ? AppString.text_no_included
+                            : AppString.text_included)
                   ],
                 ),
               ],
             ),
           ),
+
           _cardTitle(
               icon: Icons.more_time, titleText: AppString.text_allowances),
-          Padding(
-            padding: const EdgeInsets.only(left: 56.0, top: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _subTextLeft(subTitleText: AppString.text_period),
-                    _subTextLeft(subTitleText: AppString.text_period),
-                    _subTextLeft(subTitleText: AppString.text_period),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _subTextRight(
-                        subTextRight:
-                            AppString.text_2 + AppString.text_percent),
-                    _subTextRight(
-                        subTextRight:
-                            AppString.text_2 + AppString.text_percent),
-                    _subTextRight(
-                        subTextRight:
-                            AppString.text_2 + AppString.text_percent),
-                    _subTextRight(
-                        subTextRight:
-                            AppString.text_2 + AppString.text_percent),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          _cardTitle(icon: Icons.timelapse, titleText: AppString.text_duration),
-          Padding(
-            padding: const EdgeInsets.only(left: 56.0, top: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _subTextLeft(subTitleText: AppString.text_period),
-                    _subTextLeft(subTitleText: AppString.text_period),
-                    _subTextLeft(subTitleText: AppString.text_period),
-                    customSpacerHeight(height: 12),
-                    _subTextLeft(subTitleText: AppString.text_tax),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _subTextRight(subTextRight: AppString.text_monthly),
-                    _subTextRight(subTextRight: AppString.text_monthly),
-                    _subTextRight(subTextRight: AppString.text_monthly),
-                    customSpacerHeight(height: 12),
-                    _subTextRight(
-                        subTextRight:
-                            AppString.text_2 + AppString.text_percent),
-                  ],
-                ),
-              ],
-            ),
-          ),
+
+
+          _getCurrentDate()
+
+
+          //_getCurrentDate()
+
+
+      // ListView.builder(
+          //   itemCount: payrunBadgeController
+          //       .payrunBadgeModel
+          //       ?.data
+          //       ?.defaultPayrun
+          //       ?.beneficiaries?.length,
+          //   physics: const NeverScrollableScrollPhysics(),
+          //   primary: false,
+          //   shrinkWrap: true,
+          //
+          //   itemBuilder: (context, index) {
+          //     return
+          //       Column(
+          //       children: [
+          //
+          //         // Padding(
+          //         //   padding: const EdgeInsets.only(left: 56.0, top: 8),
+          //         //   child: Row(
+          //         //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //         //     children: [
+          //         //       Column(
+          //         //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         //         children: [
+          //         //           _subTextLeft(subTitleText: payrunBadgeController
+          //         //               .payrunBadgeModel
+          //         //               ?.data
+          //         //               ?.defaultPayrun
+          //         //               ?.beneficiaries?[index].beneficiary?.name ??""
+          //         //
+          //         //           ),
+          //         //
+          //         //         ],
+          //         //       ),
+          //         //       Column(
+          //         //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         //         children: [
+          //         //           _subTextRight(
+          //         //               subTextRight:
+          //         //               payrunBadgeController
+          //         //                   .payrunBadgeModel
+          //         //                   ?.data
+          //         //                   ?.defaultPayrun
+          //         //                   ?.beneficiaries?[index].amount .toString()    ??""),
+          //         //         ],
+          //         //       ),
+          //         //     ],
+          //         //   ),
+          //         // ),
+          //
+          //         // payrunBadgeController
+          //         //     .payrunBadgeModel
+          //         //     ?.data
+          //         //     ?.defaultPayrun
+          //         //     ?.beneficiaries?[index].beneficiary?.type =="allowance"?
+          //         //
+          //         //
+          //         //     Text("a"):Text("dfg"),
+          //
+          //       ],
+          //     );
+          //
+          //
+          //   },
+          //
+          //
+          // ),
+
+
+          // _cardTitle(
+          //     icon: Icons.more_time, titleText: AppString.text_allowances),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 56.0, top: 8),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           _subTextLeft(subTitleText: AppString.text_period),
+          //           _subTextLeft(subTitleText: AppString.text_period),
+          //           _subTextLeft(subTitleText: AppString.text_period),
+          //         ],
+          //       ),
+          //       Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           _subTextRight(
+          //               subTextRight:
+          //                   AppString.text_2 + AppString.text_percent),
+          //           _subTextRight(
+          //               subTextRight:
+          //                   AppString.text_2 + AppString.text_percent),
+          //           _subTextRight(
+          //               subTextRight:
+          //                   AppString.text_2 + AppString.text_percent),
+          //           _subTextRight(
+          //               subTextRight:
+          //                   AppString.text_2 + AppString.text_percent),
+          //         ],
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // _cardTitle(icon: Icons.timelapse, titleText: AppString.text_duration),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 56.0, top: 8),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           _subTextLeft(subTitleText: AppString.text_period),
+          //           _subTextLeft(subTitleText: AppString.text_period),
+          //           _subTextLeft(subTitleText: AppString.text_period),
+          //           customSpacerHeight(height: 12),
+          //           _subTextLeft(subTitleText: AppString.text_tax),
+          //         ],
+          //       ),
+          //       Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           _subTextRight(subTextRight: AppString.text_monthly),
+          //           _subTextRight(subTextRight: AppString.text_monthly),
+          //           _subTextRight(subTextRight: AppString.text_monthly),
+          //           customSpacerHeight(height: 12),
+          //           _subTextRight(
+          //               subTextRight:
+          //                   AppString.text_2 + AppString.text_percent),
+          //         ],
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );
   }
 }
+
+_getCurrentDate() {
+  return Text(
+    DateFormat.MMMMd().format(DateTime.now()),
+    style: AppStyle.normal_text.copyWith(color: AppColor.normalTextColor),
+  );
+}
+
 
 Widget _cardTitle({icon, titleText}) {
   return Row(
@@ -130,9 +242,7 @@ Widget _cardTitle({icon, titleText}) {
               ),
             ),
           )),
-      SizedBox(
-        width: AppLayout.getWidth(12),
-      ),
+      customSpacerWidth(width: 12),
       Text(
         titleText,
         style: AppStyle.mid_large_text.copyWith(
@@ -161,7 +271,7 @@ Widget _subTextLeft({subTitleText}) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8.0),
     child: Text(
-      AppString.text_period,
+      subTitleText,
       style: AppStyle.mid_large_text.copyWith(
           color: AppColor.hintColor,
           fontSize: Dimensions.fontSizeDefault,
