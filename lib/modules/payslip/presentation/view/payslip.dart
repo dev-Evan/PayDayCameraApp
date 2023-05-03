@@ -27,7 +27,6 @@ class PaySlip extends GetView<PayslipListController> {
 
   final SummaryViewController summaryViewController =
       Get.put(SummaryViewController());
-
   final PayslipListController payslipListController =
       Get.put(PayslipListController());
   final SettingController settingController = Get.put(SettingController());
@@ -42,11 +41,10 @@ class PaySlip extends GetView<PayslipListController> {
 
   @override
   Widget build(BuildContext context) {
-    payslipListController.getPayslipListData();
+    payslipListController.getPayslipListData(value: "thisYear");
 
     return controller.obx(
         (state) => Scaffold(
-              appBar: const CustomAppbar(),
               body: SingleChildScrollView(
                 physics: const ScrollPhysics(),
                 child: Column(
@@ -56,21 +54,22 @@ class PaySlip extends GetView<PayslipListController> {
                         paid: summaryViewController
                                 .summaryModel?.data?.summary?.paid
                                 .toString() ??
-                            "p",
+                            "",
                         unpaid: summaryViewController
                                 .summaryModel?.data?.summary?.unpaid
                                 .toString() ??
-                            "u",
+                            "",
                         total: summaryViewController
                                 .summaryModel?.data?.summary?.unpaid
                                 .toString() ??
-                            "t"),
+                            ""),
 
                     Obx(() => _dropDawnBtnCard(
                             child: DropdownButton<String>(
                           style: const TextStyle(fontWeight: FontWeight.w500),
                           isDense: true,
                           isExpanded: false,
+
                           underline: const SizedBox.shrink(),
                           icon: const Icon(Icons.expand_more),
                           iconEnabledColor: AppColor.normalTextColor,
@@ -89,6 +88,9 @@ class PaySlip extends GetView<PayslipListController> {
                             dropdownBtnStdController.onValueChanged(newValue);
                           },
                         ))),
+
+                    payslipListController
+                        .payslipListModel!.data!.payslips!.isNotEmpty?
                     ListView.builder(
                       itemCount: payslipListController
                           .payslipListModel?.data?.payslips?.length,
@@ -116,7 +118,7 @@ class PaySlip extends GetView<PayslipListController> {
                               "",
                         );
                       },
-                    )
+                    ): Center(child: Text(AppString.text_no_data_found))
                   ],
                 ),
               ),

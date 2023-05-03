@@ -6,15 +6,12 @@ import 'package:pay_day_mobile/network/network_client.dart';
 
 class SalaryOverviewController extends GetxController with StateMixin {
   SalaryOverViewModel? salaryOverView;
-  @override
-  void onInit() {
-    getUserData();
-    super.onInit();
-  }
+
+
   SalaryOverViewRepository salaryOverViewRepository =
       SalaryOverViewRepository(NetworkClient());
 
-  getUserData() async {
+  getSalaryOveData() async {
     change(null, status: RxStatus.loading());
     try {
       await salaryOverViewRepository.getSalaryOverViewData().then((value) {

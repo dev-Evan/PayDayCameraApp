@@ -30,6 +30,8 @@ class AddressDetails extends GetView<AddressDetailsController> {
   @override
   Widget build(BuildContext context) {
     final _box = GetStorage();
+    addressDetailsController.getEmployeeAddressData();
+
     return controller.obx(
         (state) => Scaffold(
               appBar: const CustomAppbar(),

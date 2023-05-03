@@ -23,6 +23,7 @@ class JodHistory extends GetView<JobHistoryController> {
 
   @override
   Widget build(BuildContext context) {
+    jobHistoryController.getJobHistoryData();
     return controller.obx(
             (state) => Scaffold(
                 appBar: const CustomAppbar(),

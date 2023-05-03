@@ -8,11 +8,6 @@ import 'package:pay_day_mobile/network/network_client.dart';
 
 class JobHistoryController extends GetxController with StateMixin {
   JobHistoryModel? jobHistoryModel;
-  @override
-  void onInit() {
-    getJobHistoryData();
-    super.onInit();
-  }
   JobHistoryRepository jobHistoryRepository =
   JobHistoryRepository(NetworkClient());
 

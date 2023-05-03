@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      initialRoute: AppString.payslip,
+      initialRoute: AppString.splashScreen,
        getPages: getPage,
     );
   }

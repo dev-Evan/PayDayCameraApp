@@ -24,12 +24,10 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-
 import '../../../../common/widget/custom_alert_dialog.dart';
-import '../../../../common/widget/custom_appbar.dart';
 import '../../../../common/widget/custom_navigator.dart';
 import '../../../../common/widget/loading_indicator.dart';
-import '../controller/document_controller.dart';
+
 
 
 class MoreScreen extends GetView<ProfileDataController> {
@@ -44,6 +42,7 @@ class MoreScreen extends GetView<ProfileDataController> {
 
   @override
   Widget build(BuildContext context) {
+    profileDataController.getUserData();
     return controller.obx(
         (state) => Scaffold(
          // appBar: const CustomAppbar(),

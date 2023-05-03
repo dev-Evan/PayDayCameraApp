@@ -7,13 +7,6 @@ import 'package:pay_day_mobile/network/network_client.dart';
 class ProfileDataController extends GetxController with StateMixin {
   UserProfile? userProfile;
   RxBool loading = false.obs;
-
-  @override
-  void onInit() {
-    getUserData();
-    super.onInit();
-  }
-
   ProfileDataRepository profileDataRepository =
       ProfileDataRepository(NetworkClient());
   getUserData() async {
