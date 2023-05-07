@@ -29,7 +29,6 @@ class PayRunBadge extends GetView<PayrunBadgeController> {
                 child: Column(
                   children:  [
                     PayRunBadgeView(),
-                    Text(payrunBadgeController.payrunBadgeModel?.data?.defaultPayrun?.setting?.payrunPeriod ??""),
                   ],
                 ),
               ),
