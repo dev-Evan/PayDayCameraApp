@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/modules/leave/data/leave_repository.dart';
 import 'package:pay_day_mobile/modules/leave/domain/individual_date_leave.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_allowance.dart';
@@ -6,9 +9,9 @@ import 'package:pay_day_mobile/modules/leave/domain/leave_details.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_record.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_summary.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
 
 class LeaveController extends GetxController with StateMixin {
+
   final LeaveRepository _leaveRepository = LeaveRepository(NetworkClient());
 
   LeaveAllowance leaveAllowance = LeaveAllowance();
@@ -19,8 +22,11 @@ class LeaveController extends GetxController with StateMixin {
 
   List<String> leaveType = [];
 
-  IndividualDateLeave individualDateLeaveList = IndividualDateLeave();
+  Rx<IndividualDateLeave> individualDateLeaveList = IndividualDateLeave().obs;
+
   LeaveDetails leaveDetails = LeaveDetails();
+
+  final isValueLoading = false.obs;
 
   getLeaveAllowance() async {
     change(null, status: RxStatus.loading());
@@ -64,15 +70,16 @@ class LeaveController extends GetxController with StateMixin {
   }
 
   getIndividualLeaveList({required String queryParams}) async {
-    change(null, status: RxStatus.loading());
+    isValueLoading.value = true;
     await _leaveRepository
         .getIndividualDateLeave(queryParams: queryParams)
-        .then((value) {
-      print("getIndividualLeaveList ::: called");
-      individualDateLeaveList = value;
+        .then((individualDateLeaveValue) {
+      print("getIndividualLeaveList ::: called $individualDateLeaveValue");
+      individualDateLeaveList.value = individualDateLeaveValue;
     }, onError: (error) => print("getIndividualLeaveList ${error.message}"));
 
-    change(null, status: RxStatus.success());
+    isValueLoading.value = false;
+    ;
   }
 
   getILeaveDetails({required int id}) async {

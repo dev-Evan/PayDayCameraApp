@@ -3,6 +3,11 @@ class IndividualDateLeave {
   String? message;
   List<Data>? data;
 
+  @override
+  String toString() {
+    return 'IndividualDateLeave{status: $status, message: $message, data: $data}';
+  }
+
   IndividualDateLeave({this.status, this.message, this.data});
 
   IndividualDateLeave.fromJson(Map<String, dynamic> json) {
@@ -40,6 +45,11 @@ class Data {
       this.leaveStatus,
       this.leaveStatusClass,
       this.leaveType});
+
+  @override
+  String toString() {
+    return 'Data{id: $id, userId: $userId, leaveDuration: $leaveDuration, date: $date, month: $month, test: $test, durationType: $durationType, leaveStatus: $leaveStatus, leaveStatusClass: $leaveStatusClass, leaveType: $leaveType}';
+  }
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];

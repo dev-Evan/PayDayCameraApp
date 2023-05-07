@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
@@ -23,6 +26,13 @@ class Leave extends GetView<LeaveController> {
   @override
   Widget build(BuildContext context) {
     controller.getLeaveAllowance();
+    Map<String, String> queryParams = {
+      "start": DateFormat("yyyy-MM-dd").format(DateTime.now()),
+      "end": DateFormat("yyyy-MM-dd").format(DateTime.now())
+    };
+    String value = json.encode(queryParams);
+    Get.find<LeaveController>()
+        .getIndividualLeaveList(queryParams: "date_range=$value");
     return controller.obx(
         (state) => Scaffold(
               floatingActionButton: Padding(

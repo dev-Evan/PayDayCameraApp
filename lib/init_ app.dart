@@ -13,7 +13,7 @@ Future<void> initApp() async {
   Get.lazyPut(() => AuthController());
   Get.lazyPut(() => AttendanceController(),fenix: true);
   Get.lazyPut(() => AttendanceLogsController(),fenix: true);
-  Get.lazyPut(() => LeaveController(),fenix: true);
+  Get.lazyPut(() => LeaveController());
   // Get.lazyPut(() => DateTimeController(), fenix: true);
   // Get.lazyPut(() => StatusController(), fenix: true);
   Get.put(StatusController());

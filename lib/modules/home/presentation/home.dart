@@ -20,7 +20,7 @@ class _HomeState extends State<Home> {
 
   final _screens = <Widget>[
     Attendance(),
-    const Leave(),
+    Leave(),
     const PaySlip(),
      MoreScreen()
   ];
