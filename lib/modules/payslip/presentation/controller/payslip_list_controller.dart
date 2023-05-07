@@ -1,24 +1,33 @@
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/payslip/data/payslip_list_repo.dart';
+import 'package:pay_day_mobile/modules/payslip/data/summmary_repo.dart';
 import 'package:pay_day_mobile/modules/payslip/domain/payslip_list_model.dart';
+import 'package:pay_day_mobile/modules/payslip/domain/summary_model.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/controller/payslip_std_drop_dawon_controller.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 
 
 class PayslipListController extends GetxController with StateMixin {
-  PayslipListModel? payslipListModel;
+  SummaryModel summaryModel =SummaryModel();
+  PayslipListModel payslipListModel=PayslipListModel();
 
-  DropdownBtnStdController dropdownBtnStdController =
-      Get.put(DropdownBtnStdController());
-  PayslipListRepository payslipListRepository =
-      PayslipListRepository(NetworkClient());
-  getPayslipListData({required value}) async {
+  DropdownBtnStdController dropdownBtnStdController = Get.put(DropdownBtnStdController());
+  PayslipListRepository payslipListRepository = PayslipListRepository(NetworkClient());
+  SummaryViewRepository summaryViewRepository = SummaryViewRepository(NetworkClient());
+
+
+
+  void getPayslipListData({required value}) async {
     change(null, status: RxStatus.loading());
     try {
       await payslipListRepository
           .getPayslipListRepo(selectedType: value.toString())
-          .then((value) {
-        payslipListModel = value;
+          .then((payslipListData) {
+
+        payslipListModel = payslipListData;
+        print(payslipListData.toString());
+        print(payslipListModel.data?.payslips?.first.month.toString());
+
       }, onError: (error) {
         print(error.message);
       });
@@ -28,4 +37,27 @@ class PayslipListController extends GetxController with StateMixin {
     }
     change(null, status: RxStatus.success());
   }
+
+
+
+
+ void getSummaryData() async {
+    change(null, status: RxStatus.loading());
+    try {
+      await summaryViewRepository.getSummaryViewData().then((value) {
+        print(value);
+        summaryModel = value;
+      }, onError: (error) {
+        print(error.message);
+      });
+      change(null, status: RxStatus.success());
+    } catch (ex) {
+      print(ex.toString());
+    }
+  }
+
+
+
+
+
 }

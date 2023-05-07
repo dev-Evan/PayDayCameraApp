@@ -10,7 +10,7 @@ import 'package:pay_day_mobile/modules/payslip/domain/summary_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 
 class PayrunBadgeController extends GetxController with StateMixin {
-  PayrunBadgeModel? payrunBadgeModel;
+  PayrunBadgeModel payrunBadgeModel =PayrunBadgeModel();
   PayrunBadgeRepository payrunBadgeRepository =
   PayrunBadgeRepository(NetworkClient());
 
