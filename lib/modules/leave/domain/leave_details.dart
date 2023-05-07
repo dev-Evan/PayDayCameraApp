@@ -16,6 +16,7 @@ class Data {
   int? id;
   String? leaveType;
   String? leaveStatus;
+  String? leaveStatusClass;
   String? leaveDuration;
   int? attachmentCount;
   String? startAt;
@@ -28,6 +29,7 @@ class Data {
       {this.id,
         this.leaveType,
         this.leaveStatus,
+        this.leaveStatusClass,
         this.leaveDuration,
         this.attachmentCount,
         this.startAt,
@@ -40,6 +42,7 @@ class Data {
     id = json['id'];
     leaveType = json['leave_type'];
     leaveStatus = json['leave_status'];
+    leaveStatusClass=json['clas_name'];
     leaveDuration = json['leave_duration'];
     attachmentCount = json['attachment_count'];
     startAt = json['start_at'];

@@ -111,6 +111,7 @@ class AppString {
   static String text_this_week = "This Week";
   static String text_last_week = "Last Week";
   static String text_last_month = "Last Month";
+  static String text_leave_response = "Leave Response";
 
   static String text_requstAttendance = "Request Attendance";
   static String text_attendance_log = "Attendance Logs";

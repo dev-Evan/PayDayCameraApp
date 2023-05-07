@@ -8,6 +8,7 @@ import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/edit_details.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/widget/log_response.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -39,38 +40,24 @@ class LeaveDetails extends GetView<LeaveController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      controller.leaveDetails.data?.leaveType ??
-                                          "",
-                                      style: AppStyle.title_text.copyWith(
-                                          color: AppColor.normalTextColor,
-                                          fontSize: Dimensions.fontSizeMid),
-                                    ),
-                                    SizedBox(
-                                      width: AppLayout.getWidth(12),
-                                    ),
-                                    CustomStatusButton(
-                                      //todo
-                                      textColor: AppColor.pendingTextColor,
-                                      bgColor: AppColor.pendingBgColor
-                                          .withOpacity(0.2),
-                                      text: AppString.text_pending,
-                                    ),
-                                  ],
+                                Text(
+                                  controller.leaveDetails.data?.leaveType ??
+                                      "",
+                                  style: AppStyle.title_text.copyWith(
+                                      color: AppColor.normalTextColor,
+                                      fontSize: Dimensions.fontSizeMid),
                                 ),
-                                IconButton(
-                                    onPressed: () => customButtomSheet(
-                                        context: context,
-                                        height: 0.9,
-                                        child: const EditDetails()),
-                                    icon: const Icon(
-                                      Icons.edit_document,
-                                      color: AppColor.hintColor,
-                                    ))
+                                SizedBox(
+                                  width: AppLayout.getWidth(12),
+                                ),
+                                CustomStatusButton(
+                                  //todo
+                                  textColor: AppColor.pendingTextColor,
+                                  bgColor: AppColor.pendingBgColor
+                                      .withOpacity(0.2),
+                                  text: AppString.text_pending,
+                                ),
                               ],
                             ),
                             Row(
@@ -194,7 +181,12 @@ class LeaveDetails extends GetView<LeaveController> {
 
   _logResponseButton() {
     return AppButton(
-      onPressed: () {},
+      onPressed: () {
+        customButtomSheet(
+            context: Get.context!,
+            height: 0.9,
+            child: const LogResponse());
+      },
       buttonText: AppString.text_log_response,
       buttonColor: AppColor.primary_blue,
       textColor: Colors.white,
@@ -208,9 +200,4 @@ class LeaveDetails extends GetView<LeaveController> {
           controller.leaveDetails.data?.attachments?[index].fullUrl ?? '')),
     );
   }
-
-// if(!controller.leaveDetails.data!.leaveStatus!.startsWith("Canceled")) {
-// _cancelButton(),
-// SizedBox(width: AppLayout.getWidth(10)),
-// },
 }
