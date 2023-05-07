@@ -17,17 +17,12 @@ import '../widget/documents_appbar.dart';
 
 class JodHistory extends GetView<JobHistoryController> {
   JodHistory({Key? key}) : super(key: key);
-
-  JobHistoryController jobHistoryController=Get.put(JobHistoryController());
-
-
   @override
   Widget build(BuildContext context) {
-    jobHistoryController.getJobHistoryData();
-    return controller.obx(
-            (state) => Scaffold(
+    controller.getJobHistoryData();
+    return  Scaffold(
                 appBar: const CustomAppbar(),
-                body: SingleChildScrollView(
+                body: controller.obx((state) => SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -51,7 +46,7 @@ class JodHistory extends GetView<JobHistoryController> {
                                       fontWeight: FontWeight.w700),
                                 ),
                                 Text(
-                                  jobHistoryController.jobHistoryModel?.data?.joiningDate.toString() ??"Demo",
+                                  controller.jobHistoryModel?.data?.joiningDate.toString() ??"",
                                   style: AppStyle.small_text_black
                                       .copyWith(color: AppColor.hintColor),
                                 ),
@@ -63,7 +58,13 @@ class JodHistory extends GetView<JobHistoryController> {
                       )
                     ],
                   ),
-                )),
-        onLoading: const LoadingIndicator());
+                ),
+                    onLoading: const LoadingIndicator(),
+
+                )
+
+
+
+    );
   }
 }

@@ -25,10 +25,13 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
   @override
   Widget build(BuildContext context) {
     salaryOverviewController.getSalaryOveData();
-    return controller.obx(
-            (state) => Scaffold(
+    return  Scaffold(
           appBar: const CustomAppbar(),
-          body: SingleChildScrollView(
+          body: controller.obx((state) =>
+
+
+
+          SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -77,9 +80,12 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
                         ))),
               ],
             ),
-          ) ,
-        ),
-        onLoading: const LoadingIndicator());
+          ),
+              onLoading: const LoadingIndicator())
+
+
+    );
+
   }
 }
 

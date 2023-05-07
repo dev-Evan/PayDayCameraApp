@@ -32,20 +32,18 @@ import '../../../../common/widget/loading_indicator.dart';
 
 class MoreScreen extends GetView<ProfileDataController> {
   MoreScreen({Key? key}) : super(key: key);
-
-  ProfileDataController profileDataController = Get.put(ProfileDataController());
+  ProfileDataController profileDataController =
+  Get.put(ProfileDataController());
   SalaryOverviewController salaryOverviewController=Get.put(SalaryOverviewController());
   SettingController settingController=Get.put(SettingController());
   AddressDetailsController addressDetailsController=Get.put(AddressDetailsController());
   LogoutController logoutController=Get.put(LogoutController());
   JobHistoryController jobHistoryController=Get.put(JobHistoryController());
-
   @override
   Widget build(BuildContext context) {
     profileDataController.getUserData();
     return controller.obx(
         (state) => Scaffold(
-         // appBar: const CustomAppbar(),
               body: CustomScrollView(
                 slivers: [
                   SliverFillRemaining(
@@ -55,24 +53,24 @@ class MoreScreen extends GetView<ProfileDataController> {
                       children: [
                        Obx(() =>  profileCardLayOut(
                          context: context,
-                         userImage: profileDataController
-                             .userProfile?.data?.profilePictureUrl ==null
+                         userImage: controller
+                             .userProfile.data?.profilePictureUrl ==null
                              ? AssetImage(Images.user )
-                             : NetworkImage(profileDataController
-                             .userProfile?.data?.profilePictureUrl ?? "") ,
+                             : NetworkImage(controller
+                             .userProfile.data?.profilePictureUrl ?? "") ,
 
-                         userName: profileDataController
-                             .userProfile?.data?.fullName
+                         userName: controller
+                             .userProfile.data?.fullName
                              .toString() ??
-                             "Demo",
-                         userEmail: profileDataController
-                             .userProfile?.data?.email
+                             "",
+                         userEmail: controller
+                             .userProfile.data?.email
                              .toString() ??
-                             "Demo",
-                         statusText: profileDataController
-                             .userProfile?.data?.userStatus
+                             "",
+                         statusText: controller
+                             .userProfile.data?.userStatus
                              .toString() ??
-                             "Demo",
+                             "",
                        ),),
 
                         Expanded(

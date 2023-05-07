@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,7 +15,6 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-
 import '../../../../common/widget/custom_appbar.dart';
 import '../../../../common/widget/custom_navigator.dart';
 import '../controller/change_profile_img_controller.dart';
@@ -40,6 +37,8 @@ class _ViewProfileState extends State<ViewProfile> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
       appBar: const CustomAppbar(),
@@ -56,10 +55,10 @@ class _ViewProfileState extends State<ViewProfile> {
             Obx(
               () => _circleAvatarStyle(
                 userImage: profileDataController
-                    .userProfile?.data?.profilePictureUrl ==null
+                    .userProfile.data?.profilePictureUrl ==null
                     ? AssetImage(Images.user )
                     : NetworkImage(profileDataController
-                    .userProfile?.data?.profilePictureUrl ?? ""),
+                    .userProfile.data?.profilePictureUrl ?? ""),
               ),
             ),
 
@@ -75,7 +74,7 @@ class _ViewProfileState extends State<ViewProfile> {
                   child: Text(
                     profileDataController.userProfile?.data?.fullName
                             .toString() ??
-                        "Demo",
+                        "",
                     style: AppStyle.mid_large_text.copyWith(
                         fontWeight: FontWeight.w800,
                         color: AppColor.normalTextColor,fontSize: Dimensions.fontSizeMid+1),
@@ -91,7 +90,7 @@ class _ViewProfileState extends State<ViewProfile> {
                           profileDataController
                                   .userProfile?.data?.designationName
                                   .toString() ??
-                              "Demo",
+                              "",
                           style: AppStyle.small_text
                               .copyWith(color: AppColor.hintColor,fontSize: Dimensions.fontSizeSmall+1),
                         ),
@@ -110,7 +109,7 @@ class _ViewProfileState extends State<ViewProfile> {
                     Text(
                       profileDataController.userProfile?.data?.employmentStatus
                               .toString() ??
-                          "Demo",
+                          "",
                       style: AppStyle.small_text
                           .copyWith(color: AppColor.hintColor,fontSize: Dimensions.fontSizeSmall+1),
                     ),
@@ -133,7 +132,7 @@ class _ViewProfileState extends State<ViewProfile> {
                       Text(
                         profileDataController.userProfile?.data?.aboutMe
                                 .toString() ??
-                            "Demo",
+                            "",
                         style: AppStyle.small_text.copyWith(
                             color: AppColor.normalTextColor,
                             fontSize: Dimensions.fontSizeDefault ),
@@ -145,28 +144,28 @@ class _ViewProfileState extends State<ViewProfile> {
                           dynamicText: profileDataController
                                   .userProfile?.data?.departmentName
                                   .toString() ??
-                              "Demo",
+                              "",
                           titleText: AppString.text_department,
                           icon: Icons.work_outline_outlined),
                       _cardView(
                           dynamicText: profileDataController
                                   .userProfile?.data?.workingShiftType
                                   .toString() ??
-                              "Demo",
+                              "",
                           titleText: AppString.text_shift,
                           icon: Icons.access_time_outlined),
                       _cardView(
                           dynamicText: profileDataController
                                   .userProfile?.data?.email
                                   .toString() ??
-                              "Demo",
+                              "",
                           titleText: AppString.text_email,
                           icon: CupertinoIcons.mail),
                       _cardView(
                           dynamicText: profileDataController
                                   .userProfile?.data?.contact
                                   .toString() ??
-                              "Demo",
+                              "",
                           titleText: AppString.text_phone,
                           icon: CupertinoIcons.phone),
                       SizedBox(
@@ -177,21 +176,21 @@ class _ViewProfileState extends State<ViewProfile> {
                           dynamicText: profileDataController
                                   .userProfile?.data?.address
                                   .toString() ??
-                              "Demo",
+                              "",
                           titleText: AppString.text_address,
                           icon: CupertinoIcons.home),
                       _cardView(
                           dynamicText: profileDataController
                                   .userProfile?.data?.dateOfBirth
                                   .toString() ??
-                              "Demo",
+                              "",
                           titleText: AppString.text_birthday,
                           icon: Icons.card_giftcard),
                       _cardView(
                           dynamicText: profileDataController
                                   .userProfile?.data?.gender
                                   .toString() ??
-                              "Demo",
+                              "",
                           titleText: AppString.text_gender,
                           icon: CupertinoIcons.person),
                     ],

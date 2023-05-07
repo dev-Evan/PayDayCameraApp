@@ -4,6 +4,7 @@ import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/controller/payrun_badge_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
+import 'package:pay_day_mobile/utils/app_layout.dart';
 
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
@@ -17,12 +18,14 @@ class PayRunBadgeView extends GetView<PayrunBadgeController> {
     return controller.obx(
         (state) => SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+
                 children: [
                   _cardTitle(
                       icon: Icons.description_outlined,
                       titleText: AppString.text_payrun_details),
                   Padding(
-                    padding: const EdgeInsets.only(left: 56.0, top: 8),
+                    padding:  EdgeInsets.only(left: AppLayout.getWidth(56), top: AppLayout.getHeight(8)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -106,6 +109,7 @@ class PayRunBadgeView extends GetView<PayrunBadgeController> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           controller
                                       .payrunBadgeModel
@@ -267,9 +271,9 @@ Widget _cardTitle({icon, titleText}) {
   );
 }
 
-Widget _subTextRight({subTextRight}) {
+Widget _subTextRight({required subTextRight}) {
   return Padding(
-    padding: const EdgeInsets.only(bottom: 8.0),
+    padding:  EdgeInsets.only(bottom: AppLayout.getHeight(8)),
     child: Text(
       subTextRight,
       style: AppStyle.mid_large_text.copyWith(
@@ -280,9 +284,9 @@ Widget _subTextRight({subTextRight}) {
   );
 }
 
-Widget _subTextRightBtn({subTextRight, required isPercentage}) {
+Widget _subTextRightBtn({required subTextRight, required isPercentage}) {
   return Padding(
-    padding: const EdgeInsets.only(bottom: 8.0),
+    padding:  EdgeInsets.only(bottom: AppLayout.getHeight(8)),
     child: Row(
       children: [
         Text(
@@ -292,6 +296,7 @@ Widget _subTextRightBtn({subTextRight, required isPercentage}) {
               fontSize: Dimensions.fontSizeDefault,
               fontWeight: FontWeight.w500),
         ),
+
         customSpacerWidth(width: 4),
         Text(isPercentage.toString() == "1" ? "%" : "tk"),
       ],
@@ -299,9 +304,9 @@ Widget _subTextRightBtn({subTextRight, required isPercentage}) {
   );
 }
 
-Widget _subTextLeft({subTitleText}) {
+Widget _subTextLeft({required subTitleText}) {
   return Padding(
-    padding: const EdgeInsets.only(bottom: 8.0),
+    padding:  EdgeInsets.only(bottom: AppLayout.getHeight(8)),
     child: Text(
       subTitleText,
       style: AppStyle.mid_large_text.copyWith(

@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/add_address.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/edit_address.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -14,7 +12,6 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-
 import '../../../../common/widget/custom_appbar.dart';
 import '../../../../common/widget/custom_buttom_sheet.dart';
 import '../../../../common/widget/loading_indicator.dart';
@@ -23,19 +20,18 @@ import '../widget/add_ current_address.dart';
 
 class AddressDetails extends GetView<AddressDetailsController> {
   AddressDetails({Key? key}) : super(key: key);
-  AddressDetailsController addressDetailsController =
-      Get.put(AddressDetailsController());
+
   DeletedAddController deletedAddController = Get.put(DeletedAddController());
 
   @override
   Widget build(BuildContext context) {
     final _box = GetStorage();
-    addressDetailsController.getEmployeeAddressData();
+    controller.getEmployeeAddressData();
 
-    return controller.obx(
-        (state) => Scaffold(
-              appBar: const CustomAppbar(),
-              body: SingleChildScrollView(
+    return Scaffold(
+      appBar: const CustomAppbar(),
+      body: controller.obx(
+          (state) => SingleChildScrollView(
                 child: Column(
                   children: [
                     customMoreAppbar(titleText: AppString.text_address_details),
@@ -53,20 +49,17 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                     color: AppColor.normalTextColor,
                                     fontWeight: FontWeight.bold),
                               ),
-                              addressDetailsController
-                                      .addressDetailsModel!.data!.isNotEmpty
+                              controller.addressDetailsModel?.data != null
                                   ? _editDetBtn(
                                       context: context,
                                       onAction: () => deletedAddController
                                           .deletedAddressApi(
-                                              addressType:
-                                                  addressDetailsController
-                                                      .addressDetailsModel
-                                                      ?.data
-                                                      ?.first
-                                                      .key),
+                                              addressType: controller
+                                                  .addressDetailsModel
+                                                  ?.data
+                                                  ?.first
+                                                  .key),
                                       editAction: const EditAddress(),
-
                                     )
                                   : _addButton(onAction: () {
                                       _box.write(AppString.STORE_ADDRESS,
@@ -78,8 +71,7 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                     })
                             ],
                           ),
-                          addressDetailsController
-                                  .addressDetailsModel!.data!.isNotEmpty
+                          controller.addressDetailsModel!.data!.isNotEmpty
                               ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -90,19 +82,15 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                           color: AppColor.hintColor
                                               .withOpacity(0.7),
                                           fontSize:
-                                              Dimensions.fontSizeDefault+2 ,
+                                              Dimensions.fontSizeDefault + 2,
                                           fontWeight: FontWeight.w500),
                                     ),
                                     customSpacerHeight(height: 8),
                                     Text(
-                                      addressDetailsController
-                                              .addressDetailsModel
-                                              ?.data
-                                              ?.first
-                                              .value
-                                              ?.details
+                                      controller.addressDetailsModel?.data
+                                              ?.first.value?.details
                                               .toString() ??
-                                          "Demo",
+                                          "",
                                       style: AppStyle.mid_large_text.copyWith(
                                           color: AppColor.normalTextColor
                                               .withOpacity(0.7),
@@ -127,42 +115,39 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                                     titleText:
                                                         AppString.text_area),
                                                 _textSubTitle(
-                                                  subTitleText:
-                                                      addressDetailsController
-                                                              .addressDetailsModel
-                                                              ?.data
-                                                              ?.first
-                                                              .value
-                                                              ?.area ??
-                                                          "Demo",
+                                                  subTitleText: controller
+                                                          .addressDetailsModel
+                                                          ?.data
+                                                          ?.first
+                                                          .value
+                                                          ?.area ??
+                                                      "",
                                                 ),
                                                 customSpacerHeight(height: 16),
                                                 _textTitle(
                                                     titleText:
                                                         AppString.text_state),
                                                 _textSubTitle(
-                                                  subTitleText:
-                                                      addressDetailsController
-                                                              .addressDetailsModel
-                                                              ?.data
-                                                              ?.first
-                                                              .value
-                                                              ?.state ??
-                                                          "Demo",
+                                                  subTitleText: controller
+                                                          .addressDetailsModel
+                                                          ?.data
+                                                          ?.first
+                                                          .value
+                                                          ?.state ??
+                                                      "",
                                                 ),
                                                 customSpacerHeight(height: 16),
                                                 _textTitle(
                                                     titleText:
                                                         AppString.text_county),
                                                 _textSubTitle(
-                                                    subTitleText:
-                                                        addressDetailsController
-                                                                .addressDetailsModel
-                                                                ?.data
-                                                                ?.first
-                                                                .value
-                                                                ?.country ??
-                                                            "Demo"),
+                                                    subTitleText: controller
+                                                            .addressDetailsModel
+                                                            ?.data
+                                                            ?.first
+                                                            .value
+                                                            ?.country ??
+                                                        ""),
                                               ],
                                             ),
                                             Column(
@@ -174,40 +159,37 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                                     titleText:
                                                         AppString.text_city),
                                                 _textSubTitle(
-                                                    subTitleText:
-                                                        addressDetailsController
-                                                                .addressDetailsModel
-                                                                ?.data
-                                                                ?.first
-                                                                .value
-                                                                ?.city ??
-                                                            "Demo"),
+                                                    subTitleText: controller
+                                                            .addressDetailsModel
+                                                            ?.data
+                                                            ?.first
+                                                            .value
+                                                            ?.city ??
+                                                        ""),
                                                 customSpacerHeight(height: 16),
                                                 _textTitle(
                                                     titleText: AppString
                                                         .text_zip_code),
                                                 _textSubTitle(
-                                                    subTitleText:
-                                                        addressDetailsController
-                                                                .addressDetailsModel
-                                                                ?.data
-                                                                ?.first
-                                                                .value
-                                                                ?.zipCode ??
-                                                            "Demo"),
+                                                    subTitleText: controller
+                                                            .addressDetailsModel
+                                                            ?.data
+                                                            ?.first
+                                                            .value
+                                                            ?.zipCode ??
+                                                        ""),
                                                 customSpacerHeight(height: 16),
                                                 _textTitle(
                                                     titleText:
                                                         AppString.text_phone),
                                                 _textSubTitle(
-                                                    subTitleText:
-                                                        addressDetailsController
-                                                                .addressDetailsModel
-                                                                ?.data
-                                                                ?.first
-                                                                .value
-                                                                ?.phoneNumber ??
-                                                            "Demo")
+                                                    subTitleText: controller
+                                                            .addressDetailsModel
+                                                            ?.data
+                                                            ?.first
+                                                            .value
+                                                            ?.phoneNumber ??
+                                                        "")
                                               ],
                                             ),
                                           ],
@@ -227,21 +209,19 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                     color: AppColor.normalTextColor,
                                     fontWeight: FontWeight.bold),
                               ),
-                              addressDetailsController
-                                      .addressDetailsModel!.data!.isNotEmpty
-                                  ? addressDetailsController.addressDetailsModel
-                                              ?.data?.last.key ==
+                              controller.addressDetailsModel!.data!.isNotEmpty
+                                  ? controller.addressDetailsModel?.data?.last
+                                              .key ==
                                           AppString.text_present_address
                                       ? _editDetBtn(
                                           context: context,
                                           onAction: () => deletedAddController
                                               .deletedAddressApi(
-                                                  addressType:
-                                                      addressDetailsController
-                                                          .addressDetailsModel
-                                                          ?.data
-                                                          ?.last
-                                                          .key),
+                                                  addressType: controller
+                                                      .addressDetailsModel
+                                                      ?.data
+                                                      ?.last
+                                                      .key),
                                           editAction: const AddCurrentAddress(),
                                         )
                                       : _addButton(onAction: () {
@@ -255,10 +235,8 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                   : Container()
                             ],
                           ),
-                          addressDetailsController
-                                  .addressDetailsModel!.data!.isNotEmpty
-                              ? addressDetailsController
-                                      .addressDetailsModel!.data!.last.key!
+                          controller.addressDetailsModel!.data!.isNotEmpty
+                              ? controller.addressDetailsModel!.data!.last.key!
                                       .startsWith(
                                           AppString.text_present_address)
                                   ? Column(
@@ -279,14 +257,10 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                         ),
                                         customSpacerHeight(height: 8),
                                         Text(
-                                          addressDetailsController
-                                                  .addressDetailsModel
-                                                  ?.data
-                                                  ?.last
-                                                  .value
-                                                  ?.details
+                                          controller.addressDetailsModel?.data
+                                                  ?.last.value?.details
                                                   .toString() ??
-                                              "Demo",
+                                              "",
                                           style: AppStyle.mid_large_text
                                               .copyWith(
                                                   color: AppColor
@@ -316,14 +290,13 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                                         titleText: AppString
                                                             .text_area),
                                                     _textSubTitle(
-                                                      subTitleText:
-                                                          addressDetailsController
-                                                                  .addressDetailsModel
-                                                                  ?.data
-                                                                  ?.last
-                                                                  .value
-                                                                  ?.area ??
-                                                              "Demo",
+                                                      subTitleText: controller
+                                                              .addressDetailsModel
+                                                              ?.data
+                                                              ?.last
+                                                              .value
+                                                              ?.area ??
+                                                          "",
                                                     ),
                                                     customSpacerHeight(
                                                         height: 16),
@@ -331,14 +304,13 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                                         titleText: AppString
                                                             .text_state),
                                                     _textSubTitle(
-                                                      subTitleText:
-                                                          addressDetailsController
-                                                                  .addressDetailsModel
-                                                                  ?.data
-                                                                  ?.last
-                                                                  .value
-                                                                  ?.state ??
-                                                              "Demo",
+                                                      subTitleText: controller
+                                                              .addressDetailsModel
+                                                              ?.data
+                                                              ?.last
+                                                              .value
+                                                              ?.state ??
+                                                          "",
                                                     ),
                                                     customSpacerHeight(
                                                         height: 16),
@@ -346,14 +318,13 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                                         titleText: AppString
                                                             .text_county),
                                                     _textSubTitle(
-                                                        subTitleText:
-                                                            addressDetailsController
-                                                                    .addressDetailsModel
-                                                                    ?.data
-                                                                    ?.last
-                                                                    .value
-                                                                    ?.country ??
-                                                                "Demo"),
+                                                        subTitleText: controller
+                                                                .addressDetailsModel
+                                                                ?.data
+                                                                ?.last
+                                                                .value
+                                                                ?.country ??
+                                                            ""),
                                                   ],
                                                 ),
                                                 Column(
@@ -366,42 +337,39 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                                         titleText: AppString
                                                             .text_city),
                                                     _textSubTitle(
-                                                        subTitleText:
-                                                            addressDetailsController
-                                                                    .addressDetailsModel
-                                                                    ?.data
-                                                                    ?.last
-                                                                    .value
-                                                                    ?.city ??
-                                                                "Demo"),
+                                                        subTitleText: controller
+                                                                .addressDetailsModel
+                                                                ?.data
+                                                                ?.last
+                                                                .value
+                                                                ?.city ??
+                                                            ""),
                                                     customSpacerHeight(
                                                         height: 16),
                                                     _textTitle(
                                                         titleText: AppString
                                                             .text_zip_code),
                                                     _textSubTitle(
-                                                        subTitleText:
-                                                            addressDetailsController
-                                                                    .addressDetailsModel
-                                                                    ?.data
-                                                                    ?.last
-                                                                    .value
-                                                                    ?.zipCode ??
-                                                                "Demo"),
+                                                        subTitleText: controller
+                                                                .addressDetailsModel
+                                                                ?.data
+                                                                ?.last
+                                                                .value
+                                                                ?.zipCode ??
+                                                            ""),
                                                     customSpacerHeight(
                                                         height: 16),
                                                     _textTitle(
                                                         titleText: AppString
                                                             .text_phone),
                                                     _textSubTitle(
-                                                        subTitleText:
-                                                            addressDetailsController
-                                                                    .addressDetailsModel
-                                                                    ?.data
-                                                                    ?.last
-                                                                    .value
-                                                                    ?.phoneNumber ??
-                                                                "Demo")
+                                                        subTitleText: controller
+                                                                .addressDetailsModel
+                                                                ?.data
+                                                                ?.last
+                                                                .value
+                                                                ?.phoneNumber ??
+                                                            "")
                                                   ],
                                                 ),
                                               ],
@@ -419,8 +387,8 @@ class AddressDetails extends GetView<AddressDetailsController> {
                   ],
                 ),
               ),
-            ),
-        onLoading: const LoadingIndicator());
+          onLoading: const LoadingIndicator()),
+    );
   }
 }
 
@@ -429,7 +397,7 @@ Widget _textTitle({titleText}) {
     titleText,
     style: AppStyle.mid_large_text.copyWith(
         color: AppColor.hintColor.withOpacity(0.7),
-        fontSize: Dimensions.fontSizeDefault+1,
+        fontSize: Dimensions.fontSizeDefault + 1,
         fontWeight: FontWeight.w500),
   );
 }
@@ -439,7 +407,7 @@ Widget _textSubTitle({subTitleText}) {
     subTitleText,
     style: AppStyle.mid_large_text.copyWith(
         color: AppColor.normalTextColor,
-        fontSize: Dimensions.fontSizeDefault+1,
+        fontSize: Dimensions.fontSizeDefault + 1,
         fontWeight: FontWeight.w500),
   );
 }
@@ -471,9 +439,7 @@ Widget _editDetBtn({context, onAction, required editAction}) {
         customButtomSheet(context: context, height: 0.9, child: editAction),
     child: Row(
       children: [
-
         editIcon(),
-
         SizedBox(
           width: AppLayout.getWidth(14),
         ),
@@ -490,8 +456,8 @@ Widget _editDetBtn({context, onAction, required editAction}) {
   );
 }
 
-Widget editIcon(){
-  return  SizedBox(
+Widget editIcon() {
+  return SizedBox(
       height: AppLayout.getHeight(20),
       width: AppLayout.getWidth(20),
       child: Image(image: AssetImage(Images.edit)));
