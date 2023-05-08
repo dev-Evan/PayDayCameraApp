@@ -18,9 +18,5 @@ Future<void> initApp() async {
    Get.lazyPut(() => PayrunBadgeController(), fenix: true);
    Get.lazyPut(() => DocumentController(), fenix: true);
    Get.lazyPut(() => ProfileDataController(), fenix: true);
-
-
-
-
   Get.put(StatusController());
 }

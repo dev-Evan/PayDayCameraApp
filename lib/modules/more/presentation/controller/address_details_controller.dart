@@ -4,7 +4,7 @@ import 'package:pay_day_mobile/modules/more/domain/address_details_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 
 class AddressDetailsController extends GetxController with StateMixin {
-  AddressDetailsModel? addressDetailsModel;
+  AddressDetailsModel addressDetailsModel=AddressDetailsModel();
   AddressDetailsRepository addressDetailsRepository =
       AddressDetailsRepository(NetworkClient());
   getEmployeeAddressData() async {
@@ -15,7 +15,6 @@ class AddressDetailsController extends GetxController with StateMixin {
     }, onError: (error) {
       print(error.message);
     });
-
     change(null, status: RxStatus.success());
   }
 }

@@ -28,21 +28,15 @@ class AddressUpdateController extends GetxController with StateMixin {
     change(null, status: RxStatus.loading());
     try {
       await addressUpdateDataSource
-          .getAddressUpdate(
-      areaController.value.text,
-        cityController.value.text,
-        selectedCounty.toString(),
-        detailsController.value.text,
-        phoneNumberController.value.text,
-        stateController.value.text,
-          typeKey.toString(),
+          .getAddressUpdate(areaController.value.text, cityController.value.text, selectedCounty.toString(), detailsController.value.text, phoneNumberController.value.text, stateController.value.text, typeKey.toString(),
         zipCodeController.value.text,
       )
           .then((value) {
-        //  Get.toNamed(AppString.home);
+         Get.back();
+         addressDetailsController.getEmployeeAddressData();
         _showToast(value.message);
 
-        print("update done");
+        print("Address update ::: update done");
       }, onError: (error) => _showToast(error.message));
     } catch (ex) {
       print(ex.toString());

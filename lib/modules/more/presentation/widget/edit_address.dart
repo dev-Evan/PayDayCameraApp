@@ -19,17 +19,16 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-class EditAddress extends StatefulWidget {
-  const EditAddress({Key? key}) : super(key: key);
-  @override
-  State<EditAddress> createState() => _EditAddressState();
-}
+class EditAddress extends StatelessWidget {
+  final String typeText;
+  EditAddress(this.typeText);
 
-class _EditAddressState extends State<EditAddress> {
   AddressUpdateController addressUpdateController =
       Get.put(AddressUpdateController());
+
   AddressDetailsController addressDetailsController =
       Get.put(AddressDetailsController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,247 +36,22 @@ class _EditAddressState extends State<EditAddress> {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: SingleChildScrollView(
-        // child: Column(
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        //   children: [
-        //     bottomSheetAppbar(
-        //       context: context,
-        //         appbarTitle:  addressDetailsController
-        //             .addressDetailsModel!.data!.isNotEmpty?
-        //         addressDetailsController
-        //             .addressDetailsModel!.data!.first.key!.startsWith(AppString.text_permanent_address)?"${AppString.text_edit} ${AppString.text_address}":
-        //         "${AppString.text_add} ${AppString.text_address}":"",
-        //
-        //
-        //
-        //     ),
-        //     Padding(
-        //       padding: const EdgeInsets.only(top: 12.0),
-        //       child: textFieldTitleText(titleText: AppString.text_county),
-        //     ),
-        //
-        //     InkWell(
-        //       onTap: () {
-        //         showCountryPicker(
-        //             context: context,
-        //             countryListTheme: CountryListThemeData(
-        //               flagSize: 24,
-        //               backgroundColor: AppColor.cardColor,
-        //               textStyle: const TextStyle(
-        //                   fontSize: 16, color: AppColor.normalTextColor),
-        //               bottomSheetHeight: AppLayout.getHeight(554),
-        //               borderRadius: BorderRadius.only(
-        //                 topLeft: Radius.circular(Dimensions.radiusMid),
-        //                 topRight: Radius.circular(Dimensions.radiusMid),
-        //               ),
-        //               inputDecoration: InputDecoration(
-        //                 labelText: AppString.text_search,
-        //                 hintText: AppString.text_search_typing_to_search,
-        //                 prefixIcon: const Icon(Icons.search),
-        //                 border: OutlineInputBorder(
-        //                     borderSide: const BorderSide(
-        //                       color: AppColor.hintColor,
-        //                     ),
-        //                     borderRadius:
-        //                         BorderRadius.circular(Dimensions.radiusMid)),
-        //               ),
-        //             ),
-        //             onSelect: (Country country) {
-        //               _box.write(AppString.storeCounty, country.displayName);
-        //             });
-        //       },
-        //       child: _countyField(
-        //         text: _box.read(AppString.storeCounty) ??
-        //             (addressDetailsController
-        //                     .addressDetailsModel!.data!.isNotEmpty
-        //                 ? addressDetailsController
-        //                         .addressDetailsModel?.data?.first.value?.country
-        //                         .toString() ??
-        //                     ""
-        //                 : "${AppString.text_enter}${AppString.text_county}"),
-        //         context: context,
-        //       ),
-        //     ),
-        //     //),
-        //
-        //     Padding(
-        //       padding: const EdgeInsets.only(top: 8.0),
-        //       child: textFieldTitleText(titleText: AppString.text_phone),
-        //     ),
-        //     Padding(
-        //       padding: const EdgeInsets.only(top: 8.0),
-        //       child: IntlPhoneField(
-        //         decoration: InputDecoration(
-        //           labelText: addressDetailsController
-        //                   .addressDetailsModel!.data!.isNotEmpty
-        //               ? addressDetailsController
-        //                   .addressDetailsModel?.data?.first.value?.phoneNumber
-        //               : AppString.text_enter_phone_number,
-        //           enabledBorder: const OutlineInputBorder(
-        //               borderSide:
-        //                   BorderSide(width: 0.0, color: AppColor.disableColor)),
-        //           contentPadding: const EdgeInsets.all(7),
-        //           border: const OutlineInputBorder(
-        //             borderSide:
-        //                 BorderSide(width: 0.0, color: AppColor.disableColor),
-        //           ),
-        //         ),
-        //         controller: addressUpdateController.phoneNumberController.value,
-        //       ),
-        //     ),
-        //     Row(
-        //       children: [
-        //         Flexible(
-        //           child: Column(
-        //             crossAxisAlignment: CrossAxisAlignment.start,
-        //             children: [
-        //               textFieldTitleText(titleText: AppString.text_area),
-        //               CustomTextFeild(
-        //                 hintText: addressDetailsController
-        //                         .addressDetailsModel!.data!.isNotEmpty
-        //                     ? addressDetailsController.addressDetailsModel?.data
-        //                             ?.first.value?.area
-        //                             .toString() ??
-        //                         ""
-        //                     : AppString.text_enter_area,
-        //                 controller:
-        //                     addressUpdateController.areaController.value,
-        //               ),
-        //             ],
-        //           ),
-        //         ),
-        //         SizedBox(
-        //           width: AppLayout.getWidth(18),
-        //         ),
-        //         Flexible(
-        //           child: Column(
-        //             crossAxisAlignment: CrossAxisAlignment.start,
-        //             children: [
-        //               textFieldTitleText(titleText: AppString.text_city),
-        //               CustomTextFeild(
-        //                   hintText: addressDetailsController
-        //                           .addressDetailsModel!.data!.isNotEmpty
-        //                       ? AppString.text_enter_city
-        //                       : addressDetailsController.addressDetailsModel
-        //                               ?.data?.first.value?.city
-        //                               .toString() ??
-        //                           "Demo",
-        //                   controller:
-        //                       addressUpdateController.cityController.value),
-        //             ],
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //     SizedBox(
-        //       height: AppLayout.getHeight(16),
-        //     ),
-        //     Row(
-        //       children: [
-        //         Flexible(
-        //           child: Column(
-        //             crossAxisAlignment: CrossAxisAlignment.start,
-        //             children: [
-        //               textFieldTitleText(titleText: AppString.text_state),
-        //               CustomTextFeild(
-        //                   hintText: addressDetailsController
-        //                           .addressDetailsModel!.data!.isNotEmpty
-        //                       ? addressDetailsController.addressDetailsModel
-        //                               ?.data?.first.value?.state
-        //                               .toString() ??
-        //                           "Demo"
-        //                       : AppString.text_enter_state,
-        //                   controller:
-        //                       addressUpdateController.stateController.value),
-        //             ],
-        //           ),
-        //         ),
-        //         SizedBox(
-        //           width: AppLayout.getWidth(18),
-        //         ),
-        //         Flexible(
-        //           child: Column(
-        //             crossAxisAlignment: CrossAxisAlignment.start,
-        //             children: [
-        //               textFieldTitleText(titleText: AppString.text_zip_code),
-        //               CustomTextFeild(
-        //                   hintText: addressDetailsController
-        //                           .addressDetailsModel!.data!.isNotEmpty
-        //                       ? addressDetailsController.addressDetailsModel
-        //                               ?.data?.first.value?.zipCode
-        //                               .toString() ??
-        //                           "Demo"
-        //                       : AppString.text_enter_zip_code,
-        //                   controller:
-        //                       addressUpdateController.zipCodeController.value),
-        //             ],
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //     SizedBox(
-        //       height: AppLayout.getHeight(12),
-        //     ),
-        //     Column(
-        //       crossAxisAlignment: CrossAxisAlignment.start,
-        //       children: [
-        //         textFieldTitleText(
-        //             titleText: AppString.text_address + AppString.text_details),
-        //         CustomTextFeild(
-        //             hintText: addressDetailsController
-        //                     .addressDetailsModel!.data!.isNotEmpty
-        //                 ? addressDetailsController
-        //                         .addressDetailsModel?.data?.first.value?.details
-        //                         .toString() ??
-        //                     "Demo"
-        //                 : "${AppString.text_add}${AppString.text_address_details}",
-        //             controller:
-        //                 addressUpdateController.detailsController.value),
-        //       ],
-        //     ),
-        //     customDoubleButton(
-        //         context: context,
-        //         elevatedBtnText:
-        //             '${AppString.text_add} ${AppString.text_address}',
-        //         textBtnText: AppString.text_cancel,
-        //         textButtonAction: () => Get.back(),
-        //         elevatedButtonAction: () {
-        //           addressUpdateController.addressUpdate(
-        //             typeKey:
-        //                 addressDetailsController.addressDetailsModel?.data ==
-        //                         null
-        //                     ? addressDetailsController
-        //                             .addressDetailsModel?.data?.first.key
-        //                             .toString() ??
-        //                         ""
-        //                     : _box.read(AppString.storeAddress),
-        //             selectedCounty: _box.read(AppString.storeCounty ?? ""),
-        //           );
-        //
-        //           print(_box.read(AppString.storeAddress).toString());
-        //         }),
-        //
-        //     customSpacerHeight(height: 250)
-        //
-        //   ],
-        // ),
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             bottomSheetAppbar(
               context: context,
               appbarTitle:
-                  addressDetailsController.addressDetailsModel!.data!.isNotEmpty
+                  addressDetailsController.addressDetailsModel.data!.isNotEmpty
                       ? addressDetailsController
-                              .addressDetailsModel!.data!.first.key!
+                              .addressDetailsModel.data!.first.key!
                               .startsWith(AppString.text_permanent_address)
                           ? "${AppString.text_edit} ${AppString.text_address}"
                           : "${AppString.text_add} ${AppString.text_address}"
                       : "",
             ),
             Padding(
-              padding:  EdgeInsets.only(top: AppLayout.getHeight(12)),
+              padding: EdgeInsets.only(top: AppLayout.getHeight(12)),
               child: textFieldTitleText(titleText: AppString.text_county),
             ),
 
@@ -314,11 +88,11 @@ class _EditAddressState extends State<EditAddress> {
               child: _countyField(
                 text: _box.read(AppString.STORE_COUNTY) ??
                     (addressDetailsController
-                            .addressDetailsModel!.data!.isNotEmpty
+                            .addressDetailsModel.data!.isNotEmpty
                         ? addressDetailsController
-                                .addressDetailsModel!.data!.first.key!
+                                .addressDetailsModel.data!.first.key!
                                 .startsWith(AppString.text_permanent_address)
-                            ? addressDetailsController.addressDetailsModel?.data
+                            ? addressDetailsController.addressDetailsModel.data
                                     ?.last.value?.country
                                     .toString() ??
                                 ""
@@ -338,11 +112,11 @@ class _EditAddressState extends State<EditAddress> {
               child: IntlPhoneField(
                 decoration: InputDecoration(
                   labelText: addressDetailsController
-                          .addressDetailsModel!.data!.isNotEmpty
+                          .addressDetailsModel.data!.isNotEmpty
                       ? addressDetailsController
-                              .addressDetailsModel!.data!.first.key!
+                              .addressDetailsModel.data!.first.key!
                               .startsWith(AppString.text_permanent_address)
-                          ? addressDetailsController.addressDetailsModel?.data
+                          ? addressDetailsController.addressDetailsModel.data
                               ?.first.value?.phoneNumber
                           : AppString.text_enter_phone_number
                       : "",
@@ -402,7 +176,7 @@ class _EditAddressState extends State<EditAddress> {
                                   ? addressDetailsController.addressDetailsModel
                                           ?.data?.first.value?.city
                                           .toString() ??
-                                      "Demo"
+                                      ""
                                   : AppString.text_enter_city
                               : "",
                           controller:
@@ -432,7 +206,7 @@ class _EditAddressState extends State<EditAddress> {
                                   ? addressDetailsController.addressDetailsModel
                                           ?.data?.first.value?.state
                                           .toString() ??
-                                      "Demo"
+                                      ""
                                   : AppString.text_enter_state
                               : "",
                           controller:
@@ -458,7 +232,7 @@ class _EditAddressState extends State<EditAddress> {
                                   ? addressDetailsController.addressDetailsModel
                                           ?.data?.first.value?.zipCode
                                           .toString() ??
-                                      "Demo"
+                                      ""
                                   : AppString.text_enter_zip_code
                               : "",
                           controller:
@@ -478,14 +252,14 @@ class _EditAddressState extends State<EditAddress> {
                     titleText: AppString.text_address + AppString.text_details),
                 CustomTextFeild(
                     hintText: addressDetailsController
-                            .addressDetailsModel!.data!.isNotEmpty
+                            .addressDetailsModel.data!.isNotEmpty
                         ? addressDetailsController
-                                .addressDetailsModel!.data!.first.key!
+                                .addressDetailsModel.data!.first.key!
                                 .startsWith(AppString.text_permanent_address)
-                            ? addressDetailsController.addressDetailsModel?.data
+                            ? addressDetailsController.addressDetailsModel.data
                                     ?.first.value?.details
                                     .toString() ??
-                                "Demo"
+                                ""
                             : "${AppString.text_add}${AppString.text_address_details}"
                         : "",
                     controller:
@@ -499,43 +273,22 @@ class _EditAddressState extends State<EditAddress> {
                 textBtnText: AppString.text_cancel,
                 textButtonAction: () => Get.back(),
                 elevatedButtonAction: () {
-
-
                   addressUpdateController.addressUpdate(
-                  //   typeKey:
-                  //        _box.read(AppString.storeAddress),
-                  //   selectedCounty: _box.read(AppString.storeCounty ?? ""),
-                  // );
+                    typeKey: typeText.toString(),
+                    selectedCounty: _box.read(AppString.STORE_COUNTY),
+                  );
+
                   // Future.delayed(
                   //   const Duration(seconds: 2),
-                  //   () => _box.remove(AppString.storeCounty),
+                  //       () => _box.remove(AppString.STORE_COUNTY),
                   // );
-                  //
-                  // print(_box.read(AppString.storeAddress).toString());
 
-                    typeKey:
-                    addressDetailsController.addressDetailsModel!.data!.isNotEmpty
-
-                        ? addressDetailsController
-                        .addressDetailsModel?.data?.first.key
-                        .toString() ??
-                        ""
-                        : _box.read(AppString.STORE_ADDRESS),
-                    selectedCounty: _box.read(AppString.STORE_COUNTY ?? ""),
-                  );
-                  Future.delayed(
-                    const Duration(seconds: 2),
-                        () => _box.remove(AppString.STORE_COUNTY),
-                  );
-
-                  Future.delayed(
-                    const Duration(seconds: 5),
-                        () => _box.remove(AppString.STORE_ADDRESS),
-                  );
+                  // Future.delayed(
+                  //   const Duration(seconds: 5),
+                  //       () => _box.remove(AppString.STORE_ADDRESS),
+                  // );
 
                   print(_box.read(AppString.STORE_ADDRESS).toString());
-
-
                 }),
 
             customSpacerHeight(height: 250)
@@ -563,7 +316,7 @@ Widget _countyField({text, context}) {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            text,
+            text ?? "",
             style: GoogleFonts.poppins(color: AppColor.hintColor),
           ),
           const Icon(

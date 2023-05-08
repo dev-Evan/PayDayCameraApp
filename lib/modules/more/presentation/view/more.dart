@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
@@ -117,9 +116,13 @@ class MoreScreen extends GetView<ProfileDataController> {
                                         cardIcon: Icons.location_on_outlined,
                                         cardText:
                                             AppString.text_address_details,
-                                        onAction: () => CustomNavigator(
-                                            context: context,
-                                            pageName:  AddressDetails())),
+                                        onAction: ()async {
+                                         CustomNavigator(
+                                              context: context,
+                                              pageName:  AddressDetails());
+                                         await Get.find<AddressDetailsController>().getEmployeeAddressData();
+
+                                        } ),
                                     SizedBox(
                                       height: AppLayout.getHeight(20),
                                     ),

@@ -20,15 +20,15 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../../common/widget/custom_double_button.dart';
 import '../../../../common/widget/text_field.dart';
 
-class AddCurrentAddress extends StatefulWidget {
-  const AddCurrentAddress({Key? key}) : super(key: key);
-  @override
-  State<AddCurrentAddress> createState() => _EditAddressState();
-}
+class AddCurrentAddress extends StatelessWidget {
+  final  String typeKey;
 
-class _EditAddressState extends State<AddCurrentAddress> {
+
+  AddCurrentAddress({required this.typeKey});
+
   AddressUpdateController addressUpdateController =
       Get.put(AddressUpdateController());
+
   AddressDetailsController addressDetailsController =
       Get.put(AddressDetailsController());
 
@@ -42,6 +42,7 @@ class _EditAddressState extends State<AddCurrentAddress> {
           bottom: AppLayout.getHeight(20)
 
       ),
+
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,9 +50,9 @@ class _EditAddressState extends State<AddCurrentAddress> {
             bottomSheetAppbar(
               context: context,
               appbarTitle:
-                  addressDetailsController.addressDetailsModel!.data!.isNotEmpty
+                  addressDetailsController.addressDetailsModel.data!.isNotEmpty
                       ? addressDetailsController
-                              .addressDetailsModel!.data!.last.key!
+                              .addressDetailsModel.data!.last.key!
                               .startsWith(AppString.text_present_address)
                           ? "${AppString.text_edit} ${AppString.text_address}"
                           : "${AppString.text_add} ${AppString.text_address}"
@@ -63,53 +64,56 @@ class _EditAddressState extends State<AddCurrentAddress> {
             ),
 
             InkWell(
-              onTap: () {
-                showCountryPicker(
-                    context: context,
-                    countryListTheme: CountryListThemeData(
-                      flagSize: 24,
-                      backgroundColor: AppColor.cardColor,
-                      textStyle: const TextStyle(
-                          fontSize: 16, color: AppColor.normalTextColor),
-                      bottomSheetHeight: AppLayout.getHeight(554),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(Dimensions.radiusMid),
-                        topRight: Radius.circular(Dimensions.radiusMid),
-                      ),
-                      inputDecoration: InputDecoration(
-                        labelText: AppString.text_search,
-                        hintText: AppString.text_search_typing_to_search,
-                        prefixIcon: const Icon(Icons.search),
-                        border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: AppColor.hintColor,
-                            ),
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.radiusMid)),
-                      ),
+              onTap: ()=> showCountryPicker(
+                  context: context,
+                  countryListTheme: CountryListThemeData(
+                    flagSize: 24,
+                    backgroundColor: AppColor.cardColor,
+                    textStyle: const TextStyle(
+                        fontSize: 16, color: AppColor.normalTextColor),
+                    bottomSheetHeight: AppLayout.getHeight(554),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(Dimensions.radiusMid),
+                      topRight: Radius.circular(Dimensions.radiusMid),
                     ),
-                    onSelect: (Country country) {
-                      _box.write(AppString.STORE_COUNTY, country.displayName);
-                    });
-              },
+                    inputDecoration: InputDecoration(
+                      labelText: AppString.text_search,
+                      hintText: AppString.text_search_typing_to_search,
+                      prefixIcon: const Icon(Icons.search),
+                      border: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: AppColor.hintColor,
+                          ),
+                          borderRadius:
+                          BorderRadius.circular(Dimensions.radiusMid)),
+                    ),
+                  ),
+                  onSelect: (Country country) {
+                    _box.write(AppString.STORE_COUNTY, country.displayName);
+                  }),
+
+
+
+
               child: _countyField(
-                text: _box.read(AppString.STORE_COUNTY) ??
-                    (addressDetailsController
-                            .addressDetailsModel!.data!.isNotEmpty
+                text:
+
+                        addressDetailsController
+                            .addressDetailsModel.data!.isNotEmpty
                         ? addressDetailsController
-                                .addressDetailsModel!.data!.last.key!
+                                .addressDetailsModel.data!.last.key!
                                 .startsWith(AppString.text_present_address)
-                            ? addressDetailsController.addressDetailsModel?.data
+                            ? addressDetailsController.addressDetailsModel.data
                                     ?.last.value?.country
                                     .toString() ??
                                 ""
-                            : AppString.text_select_county
-                        : _box.read(AppString.STORE_COUNTY)),
-                context: context,
+                            : _box.read(AppString.STORE_COUNTY)
+                        : _box.read(AppString.STORE_COUNTY),
+
+
+                context: Get.context,
               ),
             ),
-            //),
-
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: textFieldTitleText(titleText: AppString.text_phone),
@@ -119,11 +123,11 @@ class _EditAddressState extends State<AddCurrentAddress> {
               child: IntlPhoneField(
                 decoration: InputDecoration(
                   labelText: addressDetailsController
-                          .addressDetailsModel!.data!.isNotEmpty
+                          .addressDetailsModel.data!.isNotEmpty
                       ? addressDetailsController
-                              .addressDetailsModel!.data!.last.key!
+                              .addressDetailsModel.data!.last.key!
                               .startsWith(AppString.text_present_address)
-                          ? addressDetailsController.addressDetailsModel?.data
+                          ? addressDetailsController.addressDetailsModel.data
                               ?.last.value?.phoneNumber
                           : AppString.text_enter_phone_number
                       : "",
@@ -148,12 +152,12 @@ class _EditAddressState extends State<AddCurrentAddress> {
                       textFieldTitleText(titleText: AppString.text_area),
                       CustomTextFeild(
                         hintText: addressDetailsController
-                                .addressDetailsModel!.data!.isNotEmpty
+                                .addressDetailsModel.data!.isNotEmpty
                             ? addressDetailsController
-                                    .addressDetailsModel!.data!.last.key!
+                                    .addressDetailsModel.data!.last.key!
                                     .startsWith(AppString.text_present_address)
                                 ? addressDetailsController.addressDetailsModel
-                                        ?.data?.last.value?.area
+                                        .data?.last.value?.area
                                         .toString() ??
                                     ""
                                 : AppString.text_enter_area
@@ -174,15 +178,15 @@ class _EditAddressState extends State<AddCurrentAddress> {
                       textFieldTitleText(titleText: AppString.text_city),
                       CustomTextFeild(
                           hintText: addressDetailsController
-                                  .addressDetailsModel!.data!.isNotEmpty
+                                  .addressDetailsModel.data!.isNotEmpty
                               ? addressDetailsController
-                                      .addressDetailsModel!.data!.last.key!
+                                      .addressDetailsModel.data!.last.key!
                                       .startsWith(
                                           AppString.text_present_address)
                                   ? addressDetailsController.addressDetailsModel
-                                          ?.data?.last.value?.city
+                                          .data?.last.value?.city
                                           .toString() ??
-                                      "Demo"
+                                      ""
                                   : AppString.text_enter_city
                               : "",
                           controller:
@@ -192,9 +196,10 @@ class _EditAddressState extends State<AddCurrentAddress> {
                 ),
               ],
             ),
-            SizedBox(
-              height: AppLayout.getHeight(16),
-            ),
+
+            customSpacerHeight(height: 16),
+
+
             Row(
               children: [
                 Flexible(
@@ -204,15 +209,15 @@ class _EditAddressState extends State<AddCurrentAddress> {
                       textFieldTitleText(titleText: AppString.text_state),
                       CustomTextFeild(
                           hintText: addressDetailsController
-                                  .addressDetailsModel!.data!.isNotEmpty
+                                  .addressDetailsModel.data!.isNotEmpty
                               ? addressDetailsController
-                                      .addressDetailsModel!.data!.last.key!
+                                      .addressDetailsModel.data!.last.key!
                                       .startsWith(
                                           AppString.text_present_address)
                                   ? addressDetailsController.addressDetailsModel
-                                          ?.data?.last.value?.state
+                                          .data?.last.value?.state
                                           .toString() ??
-                                      "Demo"
+                                      ""
                                   : AppString.text_enter_state
                               : "",
                           controller:
@@ -230,15 +235,15 @@ class _EditAddressState extends State<AddCurrentAddress> {
                       textFieldTitleText(titleText: AppString.text_zip_code),
                       CustomTextFeild(
                           hintText: addressDetailsController
-                                  .addressDetailsModel!.data!.isNotEmpty
+                                  .addressDetailsModel.data!.isNotEmpty
                               ? addressDetailsController
-                                      .addressDetailsModel!.data!.last.key!
+                                      .addressDetailsModel.data!.last.key!
                                       .startsWith(
                                           AppString.text_present_address)
                                   ? addressDetailsController.addressDetailsModel
-                                          ?.data?.last.value?.zipCode
+                                          .data?.last.value?.zipCode
                                           .toString() ??
-                                      "Demo"
+                                      ""
                                   : AppString.text_enter_zip_code
                               : "",
                           controller:
@@ -248,9 +253,8 @@ class _EditAddressState extends State<AddCurrentAddress> {
                 ),
               ],
             ),
-            SizedBox(
-              height: AppLayout.getHeight(12),
-            ),
+
+            customSpacerHeight(height: 12),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -258,14 +262,14 @@ class _EditAddressState extends State<AddCurrentAddress> {
                     titleText: AppString.text_address + AppString.text_details),
                 CustomTextFeild(
                     hintText: addressDetailsController
-                            .addressDetailsModel!.data!.isNotEmpty
+                            .addressDetailsModel.data!.isNotEmpty
                         ? addressDetailsController
-                                .addressDetailsModel!.data!.last.key!
+                                .addressDetailsModel.data!.last.key!
                                 .startsWith(AppString.text_present_address)
-                            ? addressDetailsController.addressDetailsModel?.data
+                            ? addressDetailsController.addressDetailsModel.data
                                     ?.last.value?.details
                                     .toString() ??
-                                "Demo"
+                                ""
                             : "${AppString.text_add}${AppString.text_address_details}"
                         : "",
                     controller:
@@ -281,31 +285,20 @@ class _EditAddressState extends State<AddCurrentAddress> {
                 textButtonAction: () => Get.back(),
                 elevatedButtonAction: () {
                   addressUpdateController.addressUpdate(
-                    typeKey:
-                        addressDetailsController.addressDetailsModel!.data!.isNotEmpty
+                    typeKey: typeKey.toString(),
 
-                            ? addressDetailsController
-                                    .addressDetailsModel?.data?.last.key
-                                    .toString() ??
-                                ""
-                            : _box.read(AppString.STORE_ADDRESS),
-                    selectedCounty: _box.read(AppString.STORE_COUNTY ?? ""),
+
+                    selectedCounty: _box.read(AppString.STORE_COUNTY),
                   );
                   Future.delayed(
                     const Duration(seconds: 2),
                     () => _box.remove(AppString.STORE_COUNTY),
                   );
 
-                  Future.delayed(
-                    const Duration(seconds: 5),
-                        () => _box.remove(AppString.STORE_ADDRESS),
-                  );
-
-                  print(_box.read(AppString.STORE_ADDRESS).toString());
                 }),
-            
-            
-            
+
+
+
             customSpacerHeight(height: 250)
           ],
         ),
@@ -331,7 +324,7 @@ Widget _countyField({text, context}) {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            text,
+            text==null?"":text,
             style: GoogleFonts.poppins(color: AppColor.hintColor),
           ),
           const Icon(
