@@ -41,6 +41,9 @@ class AppString {
   static String INDIVIDUAL_DATE_LEAVE = "/leave/list/view";
   static String LEAVE_DETAILS = "/leave/log";
   static String CANCEL_LEAVE = "/leave/cancel";
+  static String ALL_NOTIFICATION = "/notifications";
+  static String NOTICATION_AS_READ = "/notification/read";
+  static String NOTIFICATION_AS_ALL_READ = "/notification/all/read";
 
   // Apps string here
   static const String exampleText = "";
@@ -88,6 +91,7 @@ class AppString {
   static String text_search = "Search";
   static String text_leave_type = "Leave Type";
   static String text_search_typing_to_search = "Start typing to search";
+  static String text_notications = "Notifications";
 
   static const String text_attendance_status = "Attendance Status";
   static const String text_entry_type = "Entry Type";

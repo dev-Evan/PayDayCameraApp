@@ -19,10 +19,10 @@ class _HomeState extends State<Home> {
   int currentIndex = 0;
 
   final _screens = <Widget>[
-    Attendance(),
-    Leave(),
+    const Attendance(),
+    const Leave(),
     const PaySlip(),
-     MoreScreen()
+    MoreScreen()
   ];
 
   final _items = <BottomNavigationBarItem>[

@@ -1,4 +1,7 @@
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pay_day_mobile/modules/notification/presentation/view/notifications.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/images.dart';
@@ -22,7 +25,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-          onPressed: () {},
+          onPressed: () =>_openBottomSheet(context),
           icon: const Icon(
             Icons.notifications_none,
             color: AppColor.primaryColor,size: 30,
@@ -30,6 +33,15 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
         )
       ],
       elevation: 0,
+    );
+  }
+
+  Future _openBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) => const Notifications(),
     );
   }
 

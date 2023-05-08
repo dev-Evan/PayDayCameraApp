@@ -60,74 +60,87 @@ _leaves({required List<Leaves> leaves}) {
     itemCount: leaves.length,
     separatorBuilder: (context, index) => customSpacerHeight(height: 20),
     itemBuilder: (context, index) => InkWell(
-      onTap: () async{
-        customButtomSheet(
-            context: context,
-            height: 0.9,
-            child: LeaveDetails());
-        await Get.find<LeaveController>().getILeaveDetails(id: leaves[index].id!);
+      onTap: () async {
+        customButtomSheet(context: context, height: 0.9, child: LeaveDetails());
+        await Get.find<LeaveController>()
+            .getILeaveDetails(id: leaves[index].id!);
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            children: [
-              Text(
-                leaves[index].date ?? "",
-                style: AppStyle.mid_large_text.copyWith(
-                    color: AppColor.normalTextColor,
-                    fontSize: Dimensions.fontSizeExtraLarge,
-                    fontWeight: FontWeight.w900),
-              ),
-              Text(
-                leaves[index].month ?? "",
-                style: AppStyle.small_text.copyWith(
-                    color: AppColor.hintColor,
-                    fontSize: Dimensions.fontSizeSmall),
-              ),
-            ],
-          ),
-          CustomDiveider(25, 0.5),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                leaves[index].leaveType??"",
-                style: AppStyle.mid_large_text.copyWith(
-                  color: AppColor.normalTextColor,
-                  fontWeight: FontWeight.w600,
-                  fontSize: Dimensions.fontSizeDefault + 1,
+          Expanded(
+            flex: 1,
+            child: Column(
+              children: [
+                Text(
+                  leaves[index].date ?? "",
+                  style: AppStyle.mid_large_text.copyWith(
+                      color: AppColor.normalTextColor,
+                      fontSize: Dimensions.fontSizeExtraLarge,
+                      fontWeight: FontWeight.w900),
                 ),
-              ),
-              SizedBox(
-                height: AppLayout.getHeight(6),
-              ),
-              Row(
-                children: [
-                  Text(
-                    leaves[index].leaveDuration ?? "",
-                    style: AppStyle.small_text_black,
-                  ),
-                  SizedBox(
-                    width: AppLayout.getWidth(12),
-                  ),
-                  CustomStatusButton(
-                    bgColor: Util.getChipBgColor(leaves[index].leaveStatusClass!),
-                    text: leaves[index].leaveStatus,
-                    textColor: Util.getChipTextColor(leaves[index].leaveStatusClass!),
-                  ),
-                ],
-              )
-            ],
+                Text(
+                  leaves[index].month ?? "",
+                  style: AppStyle.small_text.copyWith(
+                      color: AppColor.hintColor,
+                      fontSize: Dimensions.fontSizeSmall),
+                ),
+              ],
+            ),
           ),
-          CircleAvatar(
-              backgroundColor: AppColor.disableColor.withOpacity(0.2),
-              radius: 14,
-              child: const Icon(
-                Icons.arrow_forward_ios_rounded,
-                color: AppColor.primaryColor,
-                size: 16,
-              ))
+          Expanded(
+            flex: 5,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CustomDiveider(25, 0.5),
+                customSpacerWidth(width: 20),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      leaves[index].leaveType ?? "",
+                      style: AppStyle.mid_large_text.copyWith(
+                        color: AppColor.normalTextColor,
+                        fontWeight: FontWeight.w600,
+                        fontSize: Dimensions.fontSizeDefault + 1,
+                      ),
+                    ),
+                    SizedBox(
+                      height: AppLayout.getHeight(6),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          leaves[index].leaveDuration ?? "",
+                          style: AppStyle.small_text_black,
+                        ),
+                        SizedBox(
+                          width: AppLayout.getWidth(12),
+                        ),
+                        CustomStatusButton(
+                          bgColor: Util.getChipBgColor(
+                              leaves[index].leaveStatusClass!),
+                          text: leaves[index].leaveStatus,
+                          textColor: Util.getChipTextColor(
+                              leaves[index].leaveStatusClass!),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                const Spacer(),
+                CircleAvatar(
+                    backgroundColor: AppColor.disableColor.withOpacity(0.2),
+                    radius: 14,
+                    child: const Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      color: AppColor.primaryColor,
+                      size: 16,
+                    )),
+              ],
+            ),
+          )
         ],
       ),
     ),

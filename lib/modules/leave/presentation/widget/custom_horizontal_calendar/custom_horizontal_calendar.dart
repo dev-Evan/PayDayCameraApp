@@ -319,8 +319,8 @@ class _CustomCalendarTimelineState extends State<CustomCalendarTimeline> {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         if (widget.showYears) _buildYearList(),
-        // _buildMonthList(),
-        _monthList(),
+     _buildMonthList(),
+        // _monthList(),
         customSpacerHeight(height: 8),
         _buildDayList(),
       ],
@@ -463,7 +463,7 @@ class _CustomCalendarTimelineState extends State<CustomCalendarTimeline> {
         itemCount: _months.length,
         itemBuilder: (BuildContext context, int index) {
           final currentDate = _months[index];
-          final monthName = DateFormat.MMMM(_locale).format(currentDate);
+          final monthName = DateFormat("MMMM").format(currentDate);
 
           return Padding(
             padding: const EdgeInsets.only(right: 12, left: 4),

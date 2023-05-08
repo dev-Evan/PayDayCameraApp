@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/modules/leave/data/leave_repository.dart';
 import 'package:pay_day_mobile/modules/leave/domain/individual_date_leave.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_allowance.dart';
@@ -11,7 +8,6 @@ import 'package:pay_day_mobile/modules/leave/domain/leave_summary.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 
 class LeaveController extends GetxController with StateMixin {
-
   final LeaveRepository _leaveRepository = LeaveRepository(NetworkClient());
 
   LeaveAllowance leaveAllowance = LeaveAllowance();
@@ -27,6 +23,13 @@ class LeaveController extends GetxController with StateMixin {
   LeaveDetails leaveDetails = LeaveDetails();
 
   final isValueLoading = false.obs;
+
+  final rangeName = "This Month".obs;
+
+  final rangeStartDay =
+      DateTime.utc(DateTime.now().year, DateTime.now().month, 1).obs;
+  final rangeEndDate =
+      DateTime.utc(DateTime.now().year, DateTime.now().month + 1, 0).obs;
 
   getLeaveAllowance() async {
     change(null, status: RxStatus.loading());

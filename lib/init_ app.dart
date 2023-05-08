@@ -4,6 +4,7 @@ import 'package:pay_day_mobile/modules/attendance/presentation/controller/attend
 import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_controller.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
+import 'package:pay_day_mobile/modules/notification/presentation/controller/notication_controller.dart';
 import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
 
 import 'common/controller/status_controller.dart';
@@ -14,6 +15,7 @@ Future<void> initApp() async {
   Get.lazyPut(() => AttendanceController(),fenix: true);
   Get.lazyPut(() => AttendanceLogsController(),fenix: true);
   Get.lazyPut(() => LeaveController());
+  Get.lazyPut(() => NotificationController());
   // Get.lazyPut(() => DateTimeController(), fenix: true);
   // Get.lazyPut(() => StatusController(), fenix: true);
   Get.put(StatusController());

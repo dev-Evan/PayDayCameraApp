@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
@@ -44,88 +44,77 @@ class LeaveRecordsView extends GetView<LeaveController> {
             ),
         onLoading: const LoadingIndicator());
   }
-}
 
-Widget _containerView() {
-  return SizedBox(
-    height: AppLayout.getHeight(174),
-    child: _containerViewStyle(
-        child: Column(
+  Widget _containerView() {
+    return SizedBox(
+      height: AppLayout.getHeight(174),
+      child: _containerViewStyle(
+          child: Column(
+        children: [
+          customMoreAppbar(
+            titleText: AppString.text_leave_records,
+            bgColor: AppColor.primaryColor,
+            textColor: AppColor.backgroundColor,
+          ),
+          leaveRecordsLayOut(),
+        ],
+      )),
+    );
+  }
+
+  Widget _containerViewStyle({child}) {
+    return Container(
+      height: AppLayout.getHeight(222),
+      decoration: AppStyle.ContainerStyle.copyWith(
+        borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(Dimensions.radiusMid),
+            bottomRight: Radius.circular(Dimensions.radiusMid)),
+        color: AppColor.primaryColor,
+      ),
+      child: child,
+    );
+  }
+
+  Widget _customTitleTextStyle({titleText}) {
+    return Row(
       children: [
-        customMoreAppbar(
-          titleText: AppString.text_leave_records,
-          bgColor: AppColor.primaryColor,
-          textColor: AppColor.backgroundColor,
+        Text(
+          titleText,
+          style: AppStyle.mid_large_text.copyWith(
+              color: AppColor.secondaryColor, fontWeight: FontWeight.w700),
         ),
-        leaveRecordsLayOut(),
+        SizedBox(
+          width: AppLayout.getWidth(12),
+        ),
+        const Icon(
+          Icons.keyboard_arrow_down,
+          color: AppColor.hintColor,
+        )
       ],
-    )),
-  );
-}
+    );
+  }
 
-Widget _containerViewStyle({child}) {
-  return Container(
-    height: AppLayout.getHeight(222),
-    decoration: AppStyle.ContainerStyle.copyWith(
-      borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(Dimensions.radiusMid),
-          bottomRight: Radius.circular(Dimensions.radiusMid)),
-      color: AppColor.primaryColor,
-    ),
-    child: child,
-  );
-}
-
-Widget _customTexTitle(context) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Column(
+  Widget _customTexTitle(context) {
+    return InkWell(
+      onTap: () => customButtomSheet(
+          context: context,
+          height: 0.9,
+          child: SelectRangeCalender(
+            rangeCalendarMethodImp: RangeCalendarMethodImp.LEAVE_RECORD,
+          )),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          InkWell(
-            onTap: () => customButtomSheet(
-                context: context,
-                height: 0.9,
-                child: SelectRangeCalender(
-                  rangeCalendarMethodImp: RangeCalendarMethodImp.LEAVE_RECORD,
-                )),
-            child: _customTitleTextStyle(titleText: AppString.textCustom),
-          ),
+          _customTitleTextStyle(titleText: controller.rangeName.value),
           Text(
-            '14 Dec 2022 - 30 Dec 2022',
+            '${DateFormat("dd MMM yyyy").format(controller.rangeStartDay.value)} - ${DateFormat("dd MMM yyyy").format(controller.rangeEndDate.value)}',
             style:
                 AppStyle.small_text_black.copyWith(color: AppColor.hintColor),
           ),
         ],
       ),
-      SizedBox(
-        width: MediaQuery.of(context).size.width / 2.3,
-      ),
-
-      //v2
-      // _filterStyle(context)
-    ],
-  );
-}
-
-Widget _customTitleTextStyle({titleText}) {
-  return Row(
-    children: [
-      Text(
-        titleText,
-        style: AppStyle.mid_large_text.copyWith(
-            color: AppColor.secondaryColor, fontWeight: FontWeight.w700),
-      ),
-      SizedBox(
-        width: AppLayout.getWidth(12),
-      ),
-      const Icon(
-        Icons.keyboard_arrow_down,
-        color: AppColor.hintColor,
-      )
-    ],
-  );
+    );
+  }
 }
 
 Widget _filterStyle(context) {
