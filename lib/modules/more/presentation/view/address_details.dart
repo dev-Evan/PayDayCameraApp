@@ -19,9 +19,6 @@ import '../widget/add_ current_address.dart';
 
 class AddressDetails extends GetView<AddressDetailsController> {
   AddressDetails({Key? key}) : super(key: key);
-
-  DeletedAddController deletedAddController = Get.put(DeletedAddController());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,20 +36,18 @@ class AddressDetails extends GetView<AddressDetailsController> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                "${AppString.text_permanent}${AppString.text_address}",
-                                style: AppStyle.mid_large_text.copyWith(
-                                    color: AppColor.normalTextColor,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                              perTitleText(),
                               controller.addressDetailsModel.data!.isNotEmpty
                                   ? controller
                                           .addressDetailsModel.data!.first.key!
                                           .startsWith(
-                                              AppString.text_permanent_address)
+                                              AppString.text_permanent_address) 	|| controller
+                                  .addressDetailsModel.data!.last.key!
+                                  .endsWith(
+                                  AppString.text_permanent_address)
                                       ? _editDetBtn(
                                           context: context,
-                                          onAction: () => deletedAddController
+                                          onAction: () => Get.find<DeletedAddController>()
                                               .deletedAddressApi(
                                                   addressType: controller
                                                       .addressDetailsModel
@@ -78,10 +73,15 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                     }),
                             ],
                           ),
+
+
                           controller.addressDetailsModel.data!.isNotEmpty
                               ? controller.addressDetailsModel.data!.first.key!
                                       .startsWith(
-                                          AppString.text_permanent_address)
+                                          AppString.text_permanent_address)|| controller
+                              .addressDetailsModel.data!.last.key!
+                              .endsWith(
+                              AppString.text_permanent_address)
                                   ? Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -227,20 +227,26 @@ class AddressDetails extends GetView<AddressDetailsController> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                AppString.text_current_address,
-                                style: AppStyle.mid_large_text.copyWith(
-                                    color: AppColor.normalTextColor,
-                                    fontWeight: FontWeight.bold),
-                              ),
+
+                              currTitleText(),
+
+
+
+
+
+
+
                               controller.addressDetailsModel.data!.isNotEmpty
                                   ? controller
                                           .addressDetailsModel.data!.last.key!
                                           .startsWith(
-                                              AppString.text_present_address)
+                                              AppString.text_present_address)|| controller
+                                  .addressDetailsModel.data!.first.key!
+                                  .endsWith(
+                                  AppString.text_present_address)
                                       ? _editDetBtn(
                                           context: context,
-                                          onAction: () => deletedAddController
+                                          onAction: () => Get.find<DeletedAddController>()
                                               .deletedAddressApi(
                                                   addressType: controller
                                                       .addressDetailsModel
@@ -272,7 +278,10 @@ class AddressDetails extends GetView<AddressDetailsController> {
                           controller.addressDetailsModel.data!.isNotEmpty
                               ? controller.addressDetailsModel.data!.last.key!
                                       .startsWith(
-                                          AppString.text_present_address)
+                                          AppString.text_present_address)|| controller
+                              .addressDetailsModel.data!.first.key!
+                              .endsWith(
+                              AppString.text_present_address)
                                   ? Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -495,4 +504,21 @@ Widget editIcon() {
       height: AppLayout.getHeight(20),
       width: AppLayout.getWidth(20),
       child: Image(image: AssetImage(Images.edit)));
+}
+
+Widget perTitleText(){
+  return  Text(
+    "${AppString.text_permanent}${AppString.text_address}",
+    style: AppStyle.mid_large_text.copyWith(
+        color: AppColor.normalTextColor,
+        fontWeight: FontWeight.bold),
+  );
+}
+Widget currTitleText(){
+  return  Text(
+    AppString.text_current_address,
+    style: AppStyle.mid_large_text.copyWith(
+        color: AppColor.normalTextColor,
+        fontWeight: FontWeight.bold),
+  );
 }

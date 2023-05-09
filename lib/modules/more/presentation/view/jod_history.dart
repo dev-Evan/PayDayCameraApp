@@ -19,7 +19,6 @@ class JodHistory extends GetView<JobHistoryController> {
   JodHistory({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    controller.getJobHistoryData();
     return  Scaffold(
                 appBar: const CustomAppbar(),
                 body: controller.obx((state) => SingleChildScrollView(

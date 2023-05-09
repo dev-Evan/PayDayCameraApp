@@ -1,8 +1,6 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
@@ -26,13 +24,8 @@ import '../widget/documents_appbar.dart';
 class DocumentScreen extends GetView<DocumentController> {
   DocumentScreen({Key? key}) : super(key: key);
 
-  DeletedDocumentController deletedDocumentController =
-      Get.put(DeletedDocumentController());
-
   @override
   Widget build(BuildContext context) {
-    controller.getDocumentData();
-
     return Scaffold(
       appBar: const CustomAppbar(),
       body: controller.obx(

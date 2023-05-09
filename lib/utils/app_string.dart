@@ -374,4 +374,9 @@ class AppString {
   static const String leave = "/leave_screen";
   static const String profileView = "/profileView_screen";
   static const String updateDocument = "/updateDocument_screen";
+  static const String documentScreen = "/document_screen";
+  static const String jobHistory = "/jobHistory_screen";
+  static const String salaryOverView = "/salaryOverView_screen";
+  static const String addressDetails = "/addressDetails_screen";
+  static const String aboutPage = "/aboutPage_screen";
 }

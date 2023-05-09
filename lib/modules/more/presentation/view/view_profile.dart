@@ -1,44 +1,22 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
+import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
+import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/change_password.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/edit_profile.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/view_profile_widget.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
-import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import 'package:pay_day_mobile/utils/app_style.dart';
-import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-import '../../../../common/widget/custom_appbar.dart';
-import '../../../../common/widget/custom_navigator.dart';
-import '../controller/change_profile_img_controller.dart';
-import '../controller/document_controller.dart';
 
-class ViewProfile extends StatefulWidget {
-  @override
-  State<ViewProfile> createState() => _ViewProfileState();
-}
-
-class _ViewProfileState extends State<ViewProfile> {
-  ProfileDataController profileDataController =
-      Get.put(ProfileDataController());
-  ImagePickerController imagePickerController =
-      Get.put(ImagePickerController());
-
-  ImagePickerController changeProfileImgController =
-      Get.put(ImagePickerController());
-  DocumentController documentController = Get.put(DocumentController());
-
+class ViewProfile extends GetView<ProfileDataController> {
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
       appBar: const CustomAppbar(),
@@ -49,75 +27,33 @@ class _ViewProfileState extends State<ViewProfile> {
                 titleText: AppString.text_my_profile,
                 rightBtnAction: () => CustomNavigator(
                     context: context, pageName: const EditProfile())),
-            SizedBox(
-              height: AppLayout.getHeight(10),
-            ),
+            customSpacerHeight(height: 10),
             Obx(
-              () => _circleAvatarStyle(
-                userImage: profileDataController
-                    .userProfile.data?.profilePictureUrl ==null
-                    ? AssetImage(Images.user )
-                    : NetworkImage(profileDataController
-                    .userProfile.data?.profilePictureUrl ?? ""),
+              () => circleAvatarStyle(
+                userImage: controller.userProfile.data?.profilePictureUrl ==
+                        null
+                    ? AssetImage(Images.user)
+                    : NetworkImage(
+                        controller.userProfile.data?.profilePictureUrl ?? ""),
               ),
             ),
-
             customSpacerHeight(height: 10),
-
-
-
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Center(
-                  child: Text(
-                    profileDataController.userProfile?.data?.fullName
+                userName(
+                    text:
+                        controller.userProfile.data?.fullName.toString() ?? ""),
+                designationText(
+                    desText: controller.userProfile.data?.designationName
                             .toString() ??
                         "",
-                    style: AppStyle.mid_large_text.copyWith(
-                        fontWeight: FontWeight.w800,
-                        color: AppColor.normalTextColor,fontSize: Dimensions.fontSizeMid+1),
-                  ),
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          profileDataController
-                                  .userProfile?.data?.designationName
-                                  .toString() ??
-                              "",
-                          style: AppStyle.small_text
-                              .copyWith(color: AppColor.hintColor,fontSize: Dimensions.fontSizeSmall+1),
-                        ),
-
-                        customSpacerWidth(width: 8),
-                        const Icon(
-                          Icons.circle,
-                          size: 8,
-                          color: AppColor.hintColor,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: AppLayout.getWidth(8),
-                    ),
-                    Text(
-                      profileDataController.userProfile?.data?.employmentStatus
-                              .toString() ??
-                          "",
-                      style: AppStyle.small_text
-                          .copyWith(color: AppColor.hintColor,fontSize: Dimensions.fontSizeSmall+1),
-                    ),
-                  ],
-                ),
+                    status: controller.userProfile.data?.employmentStatus
+                            .toString() ??
+                        ""),
                 customSpacerHeight(height: 20),
-
-                _moveChangePassword(
+                moveChangePassword(
                     context: context,
                     onAction: () => CustomNavigator(
                         context: context, pageName: ChangePassword())),
@@ -128,77 +64,62 @@ class _ViewProfileState extends State<ViewProfile> {
                     children: [
                       textFieldTitleText(titleText: AppString.text_about_me),
                       customSpacerHeight(height: 8),
-
-                      Text(
-                        profileDataController.userProfile?.data?.aboutMe
-                                .toString() ??
-                            "",
-                        style: AppStyle.small_text.copyWith(
-                            color: AppColor.normalTextColor,
-                            fontSize: Dimensions.fontSizeDefault ),
-                      ),
-
+                      aboutText(
+                          text:
+                              controller.userProfile.data?.aboutMe.toString() ??
+                                  ""),
                       customSpacerHeight(height: 14),
                       textFieldTitleText(titleText: AppString.text_general),
-                      _cardView(
-                          dynamicText: profileDataController
-                                  .userProfile?.data?.departmentName
+                      cardView(
+                          dynamicText: controller
+                                  .userProfile.data?.departmentName
                                   .toString() ??
                               "",
                           titleText: AppString.text_department,
                           icon: Icons.work_outline_outlined),
-                      _cardView(
-                          dynamicText: profileDataController
-                                  .userProfile?.data?.workingShiftType
+                      cardView(
+                          dynamicText: controller
+                                  .userProfile.data?.workingShiftType
                                   .toString() ??
                               "",
                           titleText: AppString.text_shift,
                           icon: Icons.access_time_outlined),
-                      _cardView(
-                          dynamicText: profileDataController
-                                  .userProfile?.data?.email
-                                  .toString() ??
-                              "",
+                      cardView(
+                          dynamicText:
+                              controller.userProfile.data?.email.toString() ??
+                                  "",
                           titleText: AppString.text_email,
                           icon: CupertinoIcons.mail),
-                      _cardView(
-                          dynamicText: profileDataController
-                                  .userProfile?.data?.contact
-                                  .toString() ??
-                              "",
+                      cardView(
+                          dynamicText:
+                              controller.userProfile.data?.contact.toString() ??
+                                  "",
                           titleText: AppString.text_phone,
                           icon: CupertinoIcons.phone),
-                      SizedBox(
-                        height: AppLayout.getHeight(14),
-                      ),
+                      customSpacerHeight(height: 14),
                       textFieldTitleText(titleText: AppString.text_personal),
-                      _cardView(
-                          dynamicText: profileDataController
-                                  .userProfile?.data?.address
-                                  .toString() ??
-                              "",
+                      cardView(
+                          dynamicText:
+                              controller.userProfile.data?.address.toString() ??
+                                  "",
                           titleText: AppString.text_address,
                           icon: CupertinoIcons.home),
-                      _cardView(
-                          dynamicText: profileDataController
-                                  .userProfile?.data?.dateOfBirth
+                      cardView(
+                          dynamicText: controller.userProfile.data?.dateOfBirth
                                   .toString() ??
                               "",
                           titleText: AppString.text_birthday,
                           icon: Icons.card_giftcard),
-                      _cardView(
-                          dynamicText: profileDataController
-                                  .userProfile?.data?.gender
-                                  .toString() ??
-                              "",
+                      cardView(
+                          dynamicText:
+                              controller.userProfile.data?.gender.toString() ??
+                                  "",
                           titleText: AppString.text_gender,
                           icon: CupertinoIcons.person),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: AppLayout.getHeight(40),
-                ),
+                customSpacerHeight(height: 40)
               ],
             ),
           ],
@@ -206,120 +127,4 @@ class _ViewProfileState extends State<ViewProfile> {
       ),
     );
   }
-}
-
-Widget _cardView({icon, dynamicText, titleText}) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 8.0),
-    child: Row(
-      children: [
-        _cardIconView(cardIcon: icon),
-        SizedBox(
-          width: AppLayout.getWidth(8),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              dynamicText,
-              style: AppStyle.small_text_black.copyWith(
-                  fontSize: Dimensions.fontSizeSmall + 3,
-                  color: AppColor.normalTextColor),
-            ),
-            Text(
-              titleText,
-              style: AppStyle.small_text.copyWith(
-                color: AppColor.hintColor,
-                fontSize: Dimensions.fontSizeDefault - 1,
-              ),
-            ),
-          ],
-        )
-      ],
-    ),
-  );
-}
-
-Widget _circleAvatarStyle({final userImage}) {
-  ImagePickerController imagePickerController =
-      Get.put(ImagePickerController());
-
-  return Stack(
-    children: [
-      CircleAvatar(
-        radius: 34,
-        backgroundColor: AppColor.primaryColor,
-        child: CircleAvatar(
-          radius: 34,
-          backgroundColor: AppColor.primaryColor,
-          backgroundImage: imagePickerController.pickedImage.value == null
-              ? userImage
-              : Image.file(File(imagePickerController.pickedImage.value!.path))
-                  .image,
-        ),
-      ),
-      Positioned(
-          right: 0,
-          bottom: 0,
-          child: CircleAvatar(
-              radius: 12,
-              backgroundColor: AppColor.primaryColor,
-              child: IconButton(
-                  padding: const EdgeInsets.all(0),
-                  onPressed: () =>
-                      imagePickerController.pickImage(ImageSource.gallery),
-                  icon: const Icon(
-                    Icons.add_a_photo_outlined,
-                    size: 14,
-                  ))))
-    ],
-  );
-}
-
-Widget _cardIconView({cardIcon}) {
-  return Card(
-      elevation: 0,
-      color: AppColor.primaryColor.withOpacity(0.1),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
-      child: Padding(
-        padding: const EdgeInsets.all(6.0),
-        child: Center(
-          child: Icon(
-            cardIcon,
-            color: AppColor.primaryColor.withOpacity(0.8),
-          ),
-        ),
-      ));
-}
-
-Widget _moveChangePassword({
-  context,
-  onAction,
-}) {
-  return InkWell(
-    onTap: () => onAction(),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Center(
-          child: Text(
-            AppString.text_change_password,
-            style: AppStyle.small_text.copyWith(
-                color: AppColor.primaryColor,
-                fontWeight: FontWeight.w600,
-                fontSize: Dimensions.fontSizeDefault+1),
-          ),
-        ),
-        SizedBox(
-          width: AppLayout.getWidth(4),
-        ),
-        const Icon(
-          Icons.arrow_forward,
-          color: AppColor.primaryColor,
-          size: 16,
-        )
-      ],
-    ),
-  );
 }

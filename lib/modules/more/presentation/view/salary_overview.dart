@@ -10,7 +10,6 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
 import '../../../../common/custom_spacer.dart';
 import '../../../../common/widget/custom_appbar.dart';
 import '../controller/salary_overview_controller.dart';
@@ -18,25 +17,17 @@ import '../controller/salary_overview_controller.dart';
 class SalaryOverView extends GetView<SalaryOverviewController> {
   SalaryOverView({Key? key}) : super(key: key);
 
-
-  SalaryOverviewController salaryOverviewController =
-  Get.put(SalaryOverviewController());
-
   @override
   Widget build(BuildContext context) {
-    salaryOverviewController.getSalaryOveData();
     return  Scaffold(
           appBar: const CustomAppbar(),
           body: controller.obx((state) =>
-
-
-
           SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 customMoreAppbar(titleText: AppString.text_salary_overview),
-                salaryOverviewController.salaryOverView!.data!.isNotEmpty
+                controller.salaryOverView!.data!.isNotEmpty
                     ? Padding(
                   padding: EdgeInsets.only(
                       left: AppLayout.getWidth(20),
@@ -55,10 +46,10 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
                               fontWeight: FontWeight.w700),
                         ),
                         Text(
-                          salaryOverviewController.salaryOverView?.data?.first
+                          controller.salaryOverView?.data?.first
                               .basicSalary ==
                               true
-                              ? salaryOverviewController
+                              ? controller
                               .salaryOverView?.data?.first.amount
                               .toString() ??
                               ""

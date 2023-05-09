@@ -36,18 +36,14 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   final List<String> _locations = [AppString.text_male, AppString.text_female];
   String? dropdownValue;
-  EditProfileDataController editProfileDataController =
-      Get.put(EditProfileDataController());
-  ProfileDataController profileDataController =
-      Get.put(ProfileDataController());
-  DropdownBtnController dropdownBtnController =
-      Get.put(DropdownBtnController());
+  EditProfileDataController editProfileDataController = Get.put(EditProfileDataController());
+  ProfileDataController profileDataController = Get.put(ProfileDataController());
+  DropdownBtnController dropdownBtnController = Get.put(DropdownBtnController());
+
 
   @override
   Widget build(BuildContext context) {
     final _box = GetStorage();
-    var receiveDate = _box.read(AppString.STORE_DATE.toString()??"");
-
     return Scaffold(
       appBar: const CustomAppbar(),
       body: SingleChildScrollView(

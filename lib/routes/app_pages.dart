@@ -4,7 +4,12 @@ import 'package:pay_day_mobile/modules/auth/presentation/view/received_screen.da
 import 'package:pay_day_mobile/modules/auth/presentation/view/sign_in.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_logs.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/view/leave.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/about_this_app.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/address_details.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/calender.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/documents.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/jod_history.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/salary_overview.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/update_document.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/view/payslip.dart';
@@ -68,10 +73,36 @@ List<GetPage> getPage = [
 
   GetPage(
     name: AppString.profileView,
+    transition: Transition.rightToLeft,
     page: () =>  ViewProfile(),
   ),
   GetPage(
     name: AppString.updateDocument,
     page: () =>  const UpdateDocument(),
+  ),
+  GetPage(
+    name: AppString.documentScreen,
+    transition: Transition.rightToLeft,
+    page: () =>   DocumentScreen(),
+  ),
+  GetPage(
+    name: AppString.jobHistory,
+    transition: Transition.rightToLeft,
+    page: () =>   JodHistory(),
+  ),
+
+  GetPage(
+    name: AppString.salaryOverView,
+    transition: Transition.rightToLeft,
+    page: () =>   SalaryOverView(),
+  ),
+  GetPage(
+    name: AppString.addressDetails,
+    transition: Transition.rightToLeft,
+    page: () =>   AddressDetails(),
+  ), GetPage(
+    name: AppString.aboutPage,
+    transition: Transition.rightToLeft,
+    page: () =>   const AboutThisApp(),
   ),
 ];
