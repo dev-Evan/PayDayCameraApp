@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pay_day_mobile/common/widget/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
-import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import 'package:pay_day_mobile/utils/app_style.dart';
-import 'package:pay_day_mobile/utils/dimensions.dart';
-
 import '../controller/change_password_controller.dart';
 import '../widget/text_title_text.dart';
 
 class ChangePassword extends StatelessWidget {
-
-  ChangePassController changePasswordController =Get.put(ChangePassController());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +33,7 @@ class ChangePassword extends StatelessWidget {
                   CustomPasswordTextField(
                     hintText: AppString.text_enter_your_old_password,
                     inputType: TextInputType.text,
-                    controller: changePasswordController.oldPassController.value,
+                    controller: Get.find<ChangePassController>().oldPassController.value,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -51,7 +43,7 @@ class ChangePassword extends StatelessWidget {
                   CustomPasswordTextField(
                     hintText: AppString.text_enter_new_password,
                     inputType: TextInputType.text,
-                    controller: changePasswordController.passwordController.value,
+                    controller: Get.find<ChangePassController>().passwordController.value,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -60,7 +52,7 @@ class ChangePassword extends StatelessWidget {
                   CustomPasswordTextField(
                     hintText: AppString.text_confirm_your_new_password,
                     inputType: TextInputType.text,
-                    controller: changePasswordController.confirmPasswordController.value,
+                    controller: Get.find<ChangePassController>().confirmPasswordController.value,
                   ),
                 ],
               ),
@@ -69,7 +61,7 @@ class ChangePassword extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: CustomButton(AppString.text_save, () {
-                changePasswordController.changePassword();
+                Get.find<ChangePassController>().changePassword();
               }),
             ),
             SizedBox(

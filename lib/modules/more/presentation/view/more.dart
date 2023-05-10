@@ -98,7 +98,11 @@ class MoreScreen extends GetView<ProfileDataController> {
                                           await Get.find<
                                                   AddressDetailsController>()
                                               .getEmployeeAddressData();
-                                        }),
+                                        }
+
+
+
+                                        ),
                                     customSpacerHeight(height: 20),
                                     jobDeskTitle(text: AppString.text_other),
                                     jobDeskCard(

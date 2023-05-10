@@ -44,7 +44,7 @@ Widget profileViewAppbar(
   return AppBar(
     elevation: 0,
     leading: IconButton(
-      onPressed: () => Get.back(),
+      onPressed: ()=>Get.back(),
       icon: const Icon(
         Icons.arrow_back,
         color: AppColor.normalTextColor,

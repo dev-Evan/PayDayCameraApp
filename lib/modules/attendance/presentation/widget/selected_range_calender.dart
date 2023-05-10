@@ -87,7 +87,6 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                         }
                       });
                     },
-                    // selectedDayPredicate: (day) => isSameDay(day, today),
                   ),
                   // const Spacer(),
                   Row(
@@ -144,17 +143,34 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                               case 1:
                                 {
                                   setState(() {
+
                                     _rangeStartDay = getDate(today.subtract(
                                         Duration(days: today.weekday - 1)));
                                     _rangeEndDate = getDate(today.add(Duration(
                                         days: DateTime.daysPerWeek - today.weekday)));
+
+
+
                                   });
                                 }
                                 break;
                               case 2:
                                 setState(() {
-                                  _rangeStartDay = getDate(today.subtract(
-                                      Duration(days: today.weekday + 6)));
+                                  _rangeStartDay = getDate(
+
+
+                                      today.subtract(
+
+
+                                      Duration(days: today.weekday + 6)
+
+
+
+                                      )
+
+
+
+                                  );
                                   _rangeEndDate = getDate(today.add(Duration(
                                       days: DateTime.daysPerWeek -
                                           7 -
@@ -194,9 +210,13 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
             elevatedButtonAction: () {
               print(
                   "start ::: ${DateFormat("yyyy-MM-dd").format(_rangeStartDay!)} End ::: ${DateFormat("yyyy-MM-dd").format(_rangeEndDate!)}");
+
+
+
+
               switch (widget.rangeCalendarMethodImp) {
                 case RangeCalendarMethodImp.ALL_LOG:
-                  //TODO:
+
                   print(RangeCalendarMethodImp.ALL_LOG);
                   break;
                 case RangeCalendarMethodImp.LOG_SUMMARY:
@@ -206,8 +226,12 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                       'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
                     };
                     String v = json.encode(queryParams);
+
                     Get.find<AttendanceLogsController>()
-                        .getLogSummaryOverview(queryParams: "time_range=$v");
+                        .getLogSummaryOverview(queryParams: "date_range=$v");
+
+
+
                   }
                   Navigator.pop(Get.context!);
                   break;
@@ -215,7 +239,28 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                   // TODO: Handle this case.
                   break;
                 case RangeCalendarMethodImp.PAYSLIP:
-                  // TODO: Handle this case.
+
+
+                  if (_rangeStartDay != null && _rangeEndDate != null) {
+                    Map<String, String> queryParams = {
+                      'start': DateFormat("yyyy-MM-dd").format(_rangeStartDay!),
+                      'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
+                    };
+                    String v = json.encode(queryParams);
+
+                    Get.find<AttendanceLogsController>()
+                        .getLogSummaryOverview(queryParams: "date_range=$v");
+
+
+
+                  }
+                  Navigator.pop(Get.context!);
+
+
+
+
+
+
                   break;
                 case RangeCalendarMethodImp.LEAVE_RECORD:
                   // TODO: Handle this case.

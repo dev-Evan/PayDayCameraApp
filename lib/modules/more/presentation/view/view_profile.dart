@@ -26,7 +26,7 @@ class ViewProfile extends GetView<ProfileDataController> {
             profileViewAppbar(
                 titleText: AppString.text_my_profile,
                 rightBtnAction: () => CustomNavigator(
-                    context: context, pageName: const EditProfile())),
+                    context: context, pageName:  EditProfile())),
             customSpacerHeight(height: 10),
             Obx(
               () => circleAvatarStyle(

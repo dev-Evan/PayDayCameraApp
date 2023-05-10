@@ -27,7 +27,7 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 customMoreAppbar(titleText: AppString.text_salary_overview),
-                controller.salaryOverView!.data!.isNotEmpty
+                controller.salaryOverView.data!.isNotEmpty
                     ? Padding(
                   padding: EdgeInsets.only(
                       left: AppLayout.getWidth(20),
@@ -46,11 +46,11 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
                               fontWeight: FontWeight.w700),
                         ),
                         Text(
-                          controller.salaryOverView?.data?.first
+                          controller.salaryOverView.data?.first
                               .basicSalary ==
                               true
                               ? controller
-                              .salaryOverView?.data?.first.amount
+                              .salaryOverView.data?.first.amount
                               .toString() ??
                               ""
                               : "",
@@ -92,7 +92,7 @@ Widget _jobHisTitleView() {
     child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: salaryOverviewController.salaryOverView?.data?.length,
+      itemCount: salaryOverviewController.salaryOverView.data?.length,
       itemBuilder: (context, index) {
         return Stack(
           alignment: Alignment.center,
@@ -108,10 +108,10 @@ Widget _jobHisTitleView() {
                       children: [
                         _salaryCardTitleView(
                             titleText: salaryOverviewController
-                                    .salaryOverView?.data?[index].level ??
-                                "demo",
+                                    .salaryOverView.data?[index].level ??
+                                "",
                             dotIconColor: salaryOverviewController
-                                        .salaryOverView?.data?[index] ==
+                                        .salaryOverView.data?[index] ==
                                     0
                                 ? AppColor.primaryColor
                                 : AppColor.disableColor),
@@ -121,9 +121,9 @@ Widget _jobHisTitleView() {
                                     .basicInfo?.data.currencySymbol ??
                                 "",
                             salaryText: salaryOverviewController
-                                    .salaryOverView?.data?[index].amount
+                                    .salaryOverView.data?[index].amount
                                     .toString() ??
-                                "Demo"),
+                                ""),
                       ],
                     ),
                   ],
@@ -159,7 +159,7 @@ Widget _salaryCardView({iconText, salaryText}) {
                       top: AppLayout.getHeight(4),
                       bottom: AppLayout.getHeight(4)),
                   child: Text(
-                    iconText ?? "Demo",
+                    iconText ?? "",
                     style: TextStyle(
                         color: AppColor.primaryColor.withOpacity(0.8)),
                   ),

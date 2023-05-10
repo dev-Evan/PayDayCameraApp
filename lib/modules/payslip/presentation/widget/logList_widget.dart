@@ -15,7 +15,11 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-Widget logsList({required titleDate,required titleMonth ,required basicSalary,required statusText,required startDate, required endDate,required monthly}) {
+Widget logsList({required titleDate,required titleMonth ,required basicSalary,required statusText,required startDate, required endDate,required monthly,required indexId}) {
+
+  final _box=GetStorage();
+
+
   return Padding(
     padding:  EdgeInsets.only(
 
@@ -28,8 +32,12 @@ top: AppLayout.getHeight(12) ,
     child: Column(
       children: [
         InkWell(
-          onTap: () => customButtomSheet(
-              context: Get.context, height: 0.9, child: const PaySlipView()),
+          onTap: (){
+            _box.write(AppString.STORE_PAYSLIP_LSIT_ID, indexId);
+            customButtomSheet(
+                context: Get.context, height: 0.9, child:  PaySlipView(indexVal: indexId));
+
+          },
           child: Card(
             elevation: 0,
             child: _logListRow(titleDate:titleDate ,titleMonth: titleMonth,basicSalary: basicSalary,statusText: statusText,endDate: endDate,startDate: startDate,monthly: monthly),

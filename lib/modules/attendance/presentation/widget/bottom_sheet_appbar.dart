@@ -16,8 +16,8 @@ Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle,}) 
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.shade200,
-            offset: const Offset(0, 1),
+            color: Colors.grey.shade50,
+            offset: const Offset(0, 3),
           )
         ]),
     child: AppBar(

@@ -141,13 +141,13 @@ class EditAddress extends StatelessWidget {
                       textFieldTitleText(titleText: AppString.text_area),
                       CustomTextFeild(
                         hintText: addressDetailsController
-                                .addressDetailsModel!.data!.isNotEmpty
+                                .addressDetailsModel.data!.isNotEmpty
                             ? addressDetailsController
-                                    .addressDetailsModel!.data!.first.key!
+                                    .addressDetailsModel.data!.first.key!
                                     .startsWith(
                                         AppString.text_permanent_address)
                                 ? addressDetailsController.addressDetailsModel
-                                        ?.data?.first.value?.area
+                                        .data?.first.value?.area
                                         .toString() ??
                                     ""
                                 : AppString.text_enter_area
@@ -168,13 +168,13 @@ class EditAddress extends StatelessWidget {
                       textFieldTitleText(titleText: AppString.text_city),
                       CustomTextFeild(
                           hintText: addressDetailsController
-                                  .addressDetailsModel!.data!.isNotEmpty
+                                  .addressDetailsModel.data!.isNotEmpty
                               ? addressDetailsController
-                                      .addressDetailsModel!.data!.first.key!
+                                      .addressDetailsModel.data!.first.key!
                                       .startsWith(
                                           AppString.text_permanent_address)
                                   ? addressDetailsController.addressDetailsModel
-                                          ?.data?.first.value?.city
+                                          .data?.first.value?.city
                                           .toString() ??
                                       ""
                                   : AppString.text_enter_city
@@ -198,13 +198,13 @@ class EditAddress extends StatelessWidget {
                       textFieldTitleText(titleText: AppString.text_state),
                       CustomTextFeild(
                           hintText: addressDetailsController
-                                  .addressDetailsModel!.data!.isNotEmpty
+                                  .addressDetailsModel.data!.isNotEmpty
                               ? addressDetailsController
-                                      .addressDetailsModel!.data!.first.key!
+                                      .addressDetailsModel.data!.first.key!
                                       .startsWith(
                                           AppString.text_permanent_address)
                                   ? addressDetailsController.addressDetailsModel
-                                          ?.data?.first.value?.state
+                                          .data?.first.value?.state
                                           .toString() ??
                                       ""
                                   : AppString.text_enter_state
@@ -224,13 +224,13 @@ class EditAddress extends StatelessWidget {
                       textFieldTitleText(titleText: AppString.text_zip_code),
                       CustomTextFeild(
                           hintText: addressDetailsController
-                                  .addressDetailsModel!.data!.isNotEmpty
+                                  .addressDetailsModel.data!.isNotEmpty
                               ? addressDetailsController
-                                      .addressDetailsModel!.data!.first.key!
+                                      .addressDetailsModel.data!.first.key!
                                       .startsWith(
                                           AppString.text_permanent_address)
                                   ? addressDetailsController.addressDetailsModel
-                                          ?.data?.first.value?.zipCode
+                                          .data?.first.value?.zipCode
                                           .toString() ??
                                       ""
                                   : AppString.text_enter_zip_code
@@ -312,19 +312,22 @@ Widget _countyField({text, context}) {
           top: AppLayout.getHeight(8),
           bottom: AppLayout.getHeight(8),
           right: AppLayout.getWidth(8)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            text ?? "",
-            style: GoogleFonts.poppins(color: AppColor.hintColor),
-          ),
-          const Icon(
-            Icons.keyboard_arrow_down_rounded,
-            color: AppColor.normalTextColor,
-          ),
-        ],
-      ),
+      child: _fieldText(text: text),
     ),
+  );
+}
+Widget _fieldText({required text}){
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text(
+        text ?? "",
+        style: GoogleFonts.poppins(color: AppColor.hintColor),
+      ),
+      const Icon(
+        Icons.keyboard_arrow_down_rounded,
+        color: AppColor.normalTextColor,
+      ),
+    ],
   );
 }

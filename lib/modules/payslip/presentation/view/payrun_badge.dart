@@ -13,8 +13,6 @@ class PayRunBadge extends GetView<PayrunBadgeController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.getPayrunBadgeData();
-
     return controller.obx(
         (state) => Scaffold(
               appBar: const CustomAppbar(),

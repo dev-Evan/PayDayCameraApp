@@ -31,6 +31,7 @@ class AppString {
   static String PAYSLIP_LIST = "/payroll/payslip-list";
   static String POST = "POST";
   static String PAYSLIP_SUMMARY = "/payroll/payslip-summary";
+  static String PAYSLIP_VIEW = "/payroll/payslip/";
   static String PAYRUN_BADGE = "/payroll/payrun-and-badge";
   static String DELETED_DOCUMENT = "/document/delete";
   static String USER_CHANGE_PICTURE = "/user/change-picture";
@@ -106,6 +107,7 @@ class AppString {
   static String text_this_week = "This Week";
   static String text_last_week = "Last Week";
   static String text_last_month = "Last Month";
+  static String text_last_year = "Last Year";
 
   static String text_requstAttendance = "Request Attendance";
   static String text_attendance_log = "Attendance Logs";
@@ -332,8 +334,8 @@ class AppString {
 
   // Local store string here
   static const String ID_STORE = "store";
-  static String ACCESS_TOKEN = "access_token";
-  static String USERNAME = "full_name";
+  static const String ACCESS_TOKEN = "access_token";
+  static const String USERNAME = "full_name";
   static const String STORE_TOKEN = "storeToken";
   static const String LOGIN_CHECK_KEY = "loginCheckValue";
   static const String STORE_DATE = "storeData";
@@ -345,6 +347,7 @@ class AppString {
   static const String CURRENT_DATE = "currentDate";
   static const String STORE_COUNTY = "storeCounty";
   static const String STORE_CURRENCY = "storeCurrency";
+  static const String STORE_PAYSLIP_LSIT_ID = "storePayslipListId";
   static const String STORE_DOC_NAME = "storeDocName";
 
 // Auth String
@@ -379,4 +382,5 @@ class AppString {
   static const String salaryOverView = "/salaryOverView_screen";
   static const String addressDetails = "/addressDetails_screen";
   static const String aboutPage = "/aboutPage_screen";
+  static const String payrunBage = "/payrunBage_screen";
 }

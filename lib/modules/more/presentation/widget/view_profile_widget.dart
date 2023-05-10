@@ -46,8 +46,6 @@ Widget cardView({icon, dynamicText, titleText}) {
 }
 
 Widget circleAvatarStyle({final userImage}) {
-  ImagePickerController imagePickerController =
-  Get.put(ImagePickerController());
 
   return Stack(
     children: [
@@ -57,9 +55,9 @@ Widget circleAvatarStyle({final userImage}) {
         child: CircleAvatar(
           radius: 34,
           backgroundColor: AppColor.primaryColor,
-          backgroundImage: imagePickerController.pickedImage.value == null
+          backgroundImage: Get.find<ImagePickerController>().pickedImage.value == null
               ? userImage
-              : Image.file(File(imagePickerController.pickedImage.value!.path))
+              : Image.file(File(Get.find<ImagePickerController>().pickedImage.value!.path))
               .image,
         ),
       ),
@@ -72,7 +70,7 @@ Widget circleAvatarStyle({final userImage}) {
               child: IconButton(
                   padding: const EdgeInsets.all(0),
                   onPressed: () =>
-                      imagePickerController.pickImage(ImageSource.gallery),
+                      Get.find<ImagePickerController>().pickImage(ImageSource.gallery),
                   icon: const Icon(
                     Icons.add_a_photo_outlined,
                     size: 14,

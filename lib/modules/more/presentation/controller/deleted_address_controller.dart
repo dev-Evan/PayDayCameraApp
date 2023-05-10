@@ -6,13 +6,11 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/address_deta
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-
 import '../../../../common/widget/custom_alert_dialog.dart';
 
+
 class DeletedAddController extends GetxController with StateMixin {
-  final DeletedAddRepository deletedAddRepository =
-  DeletedAddRepository(NetworkClient());
-  AddressDetailsController addressDetailsController=Get.put(AddressDetailsController());
+  final DeletedAddRepository deletedAddRepository = DeletedAddRepository(NetworkClient());
 
 
 
@@ -22,12 +20,10 @@ class DeletedAddController extends GetxController with StateMixin {
       await deletedAddRepository
           .deletedAddressRepo(
         addressType.toString(),
-
       )
           .then((value) {
         _successDialog();
-
-        addressDetailsController.getEmployeeAddressData();
+        Get.find<AddressDetailsController>().getEmployeeAddressData();
       }, onError: (error) {
         print(error.toString());
       });

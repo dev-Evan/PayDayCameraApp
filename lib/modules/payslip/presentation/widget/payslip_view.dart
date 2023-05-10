@@ -1,471 +1,182 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
+import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
-import 'package:pay_day_mobile/utils/app_color.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
+import 'package:pay_day_mobile/modules/payslip/presentation/controller/payslip_view_controller.dart';
+import 'package:pay_day_mobile/modules/payslip/presentation/widget/payslip_view_sub_widget.dart';
+import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import 'package:pay_day_mobile/utils/app_style.dart';
-import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
-class PaySlipView extends StatelessWidget {
-  const PaySlipView({Key? key}) : super(key: key);
+class PaySlipView extends GetView<PayslipViewController> {
+  final indexVal;
+  PaySlipView({this.indexVal});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          bottomSheetAppbar(
-              appbarTitle: AppString.text_payslip, context: context),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
+    controller.getPayslipViewData();
+    return controller.obx(
+        (state) => SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  bottomSheetAppbar(
+                      appbarTitle: AppString.text_payslip, context: context),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CircleAvatar(
-                          backgroundImage: AssetImage(Images.user),
-                          radius: 28,
+                        profileCard(
+                          imgUrl: Get.find<ProfileDataController>()
+                                      .userProfile
+                                      .data
+                                      ?.profilePictureUrl ==
+                                  null
+                              ? AssetImage(Images.user)
+                              : NetworkImage(Get.find<ProfileDataController>()
+                                      .userProfile
+                                      .data
+                                      ?.profilePictureUrl ??
+                                  ""),
+                          nameText: Get.find<ProfileDataController>()
+                                  .userProfile
+                                  .data
+                                  ?.fullName
+                                  .toString() ??
+                              "",
+                          userEmail: Get.find<ProfileDataController>()
+                                  .userProfile
+                                  .data
+                                  ?.email
+                                  .toString() ??
+                              "",
                         ),
-                        SizedBox(
-                          width: AppLayout.getWidth(16),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        customSpacerHeight(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              AppString.text_user_name,
-                              style: AppStyle.mid_large_text.copyWith(
-                                  fontWeight: FontWeight.w800,
-                                  color: AppColor.normalTextColor,
-                                  fontSize: Dimensions.fontSizeDefault),
+                            payslipVDateCard(
+                              titleText: AppString.text_create_at,
+                              dateText: controller
+                                      .payslipViewModel.data?.payslip?.createdAt
+                                      .toString() ??
+                                  "",
                             ),
-                            Text(
-                              AppString.text_user_email,
-                              style: AppStyle.small_text
-                                  .copyWith(color: AppColor.hintColor),
+                            payslipVDateCard(
+                              titleText: AppString.text_payslip_for,
+                              dateText:
+                                  '${controller.payslipViewModel.data?.payslip?.createdAt ?? ""} - ${controller.payslipViewModel.data?.payslip?.endDate ?? ""}',
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: AppLayout.getHeight(8),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: AppLayout.getHeight(12),
+                        basicSalaryText(),
+                        customSpacerHeight(height: 12),
+                        subTitleContainer(
+                            leftText: AppString.text_allowances,
+                            rightText: AppString.text_total),
+                        ListView.builder(
+                          itemCount: controller
+                              .payslipViewModel.data?.allowances?.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                subTextCard(
+                                    subLeftText:
+                                        "${controller.payslipViewModel.data?.allowances?[index].name.toString() ?? ""} ${controller.payslipViewModel.data?.allowances?[index].value.toString() ?? ""}",
+                                    subRightText:
+                                        "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.allowances?[index].amount.toString() ?? ""}",
+                                    isPercentage: controller
+                                            .payslipViewModel
+                                            .data
+                                            ?.allowances?[index]
+                                            .isPercentage
+                                            .toString() ??
+                                        "")
+                              ],
+                            );
+                          },
                         ),
-                        Text(
-                          AppString.text_create_at,
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.hintColor.withOpacity(0.7),
-                              fontSize: Dimensions.fontSizeDefault,
-                              fontWeight: FontWeight.w500),
+                        const Divider(height: 1),
+
+
+                        totalRowView(
+                            amount:
+                                "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.payslip?.totalAllowance.toString() ?? ""}"),
+                        subTitleContainer(
+                            leftText: AppString.text_deductions,
+                            rightText: AppString.text_total),
+                        ListView.builder(
+                          itemCount: controller
+                              .payslipViewModel.data?.allowances?.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                subTextCard(
+                                    subLeftText:
+                                        "${controller.payslipViewModel.data?.deductions?[index].name.toString() ?? ""} ${controller.payslipViewModel.data?.deductions?[index].value.toString() ?? ""}",
+                                    subRightText:
+                                        "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.deductions?[index].amount.toString() ?? ""}",
+                                    isPercentage: controller
+                                            .payslipViewModel
+                                            .data
+                                            ?.allowances?[index]
+                                            .isPercentage
+                                            .toString() ??
+                                        "")
+                              ],
+                            );
+                          },
                         ),
-                        Text(
-                          AppString.text_01_jan_1998,
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.normalTextColor.withOpacity(0.7),
-                              fontSize: Dimensions.fontSizeDefault,
-                              fontWeight: FontWeight.w500),
+                        const Divider(height: 1),
+
+                        totalRowView(
+                            amount:
+                                "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.payslip?.totalDeduction.toString() ?? ""}"),
+                        customSpacerHeight(height: 8),
+                        summaryText(),
+                        summaryTextCard(
+                          subLeftText: AppString.text_allowances,
+                          subRightText:
+                              "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.payslip?.totalAllowance.toString() ?? ""}",
                         ),
-                        SizedBox(
-                          height: AppLayout.getHeight(16),
+                        summaryTextCard(
+                          subLeftText: AppString.text_deductions,
+                          subRightText:
+                              "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.payslip?.totalDeduction.toString() ?? ""}",
                         ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: AppLayout.getHeight(12),
+                        summaryTextCard(
+                          subLeftText: AppString.text_basic_salary,
+                          subRightText:
+                              "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.payslip?.basicSalary.toString() ?? ""}",
                         ),
-                        Text(
-                          AppString.text_payslip_for,
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.hintColor.withOpacity(0.7),
-                              fontSize: Dimensions.fontSizeDefault,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          AppString.text_01_jan_1998 +
-                              '-' +
-                              AppString.text_01_jan_1998,
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.normalTextColor.withOpacity(0.7),
-                              fontSize: Dimensions.fontSizeDefault,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(
-                          height: AppLayout.getHeight(16),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Text(AppString.text_basic_salary,
-                    style: AppStyle.mid_large_text.copyWith(
-                        color: AppColor.normalTextColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: Dimensions.fontSizeDefault + 2)),
-                SizedBox(
-                  height: AppLayout.getHeight(12),
-                ),
-                Container(
-                  decoration: AppStyle.ContainerStyle.copyWith(
-                      color: AppColor.disableColor.withOpacity(0.6),
-                      borderRadius:
-                          BorderRadius.circular(Dimensions.radiusDefault - 6)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          AppString.text_allowances,
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.hintColor,
-                              fontSize: Dimensions.fontSizeDefault,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          AppString.text_total,
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.hintColor,
-                              fontSize: Dimensions.fontSizeDefault,
-                              fontWeight: FontWeight.w500),
-                        ),
+                        const Divider(height: 1),
+                        totalRowView(
+                            amount:
+                                "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.payslip?.netSalary.toString() ?? ""}"),
                       ],
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppString.text_bonus + AppString.text_percent,
-                            style: AppStyle.mid_large_text.copyWith(
-                                color:
-                                    AppColor.normalTextColor.withOpacity(0.9),
-                                fontSize: Dimensions.fontSizeDefault,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: AppLayout.getHeight(16),
-                          ),
-                          Text(
-                            AppString.text_medical + AppString.text_percent,
-                            style: AppStyle.mid_large_text.copyWith(
-                                color:
-                                    AppColor.normalTextColor.withOpacity(0.9),
-                                fontSize: Dimensions.fontSizeDefault,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: AppLayout.getHeight(16),
-                          ),
-                          Text(
-                            AppString.text_food_ + AppString.text_percent,
-                            style: AppStyle.mid_large_text.copyWith(
-                                color:
-                                    AppColor.normalTextColor.withOpacity(0.9),
-                                fontSize: Dimensions.fontSizeDefault,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: AppLayout.getHeight(16),
-                          ),
-                          Text(
-                            AppString.text_transport + AppString.text_percent,
-                            style: AppStyle.mid_large_text.copyWith(
-                                color:
-                                    AppColor.normalTextColor.withOpacity(0.9),
-                                fontSize: Dimensions.fontSizeDefault,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: AppLayout.getHeight(12),
-                          ),
-                          Text(
-                            AppString.text_$30,
-                            style: AppStyle.mid_large_text.copyWith(
-                                color:
-                                    AppColor.normalTextColor.withOpacity(0.9),
-                                fontSize: Dimensions.fontSizeDefault,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: AppLayout.getHeight(16),
-                          ),
-                          Text(
-                            AppString.text_$30,
-                            style: AppStyle.mid_large_text.copyWith(
-                                color:
-                                    AppColor.normalTextColor.withOpacity(0.9),
-                                fontSize: Dimensions.fontSizeDefault,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: AppLayout.getHeight(16),
-                          ),
-                          Text(
-                            AppString.text_$30,
-                            style: AppStyle.mid_large_text.copyWith(
-                                color:
-                                    AppColor.normalTextColor.withOpacity(0.9),
-                                fontSize: Dimensions.fontSizeDefault,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: AppLayout.getHeight(16),
-                          ),
-                          Text(
-                            AppString.text_$30,
-                            style: AppStyle.mid_large_text.copyWith(
-                                color:
-                                    AppColor.normalTextColor.withOpacity(0.9),
-                                fontSize: Dimensions.fontSizeDefault,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  decoration: AppStyle.ContainerStyle.copyWith(
-                      color: AppColor.disableColor.withOpacity(0.6),
-                      borderRadius:
-                          BorderRadius.circular(Dimensions.radiusDefault - 6)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          AppString.text_deductions,
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.hintColor,
-                              fontSize: Dimensions.fontSizeDefault,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          AppString.text_total,
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.hintColor,
-                              fontSize: Dimensions.fontSizeDefault,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppString.text_tax + AppString.text_percent,
-                            style: AppStyle.mid_large_text.copyWith(
-                                color:
-                                    AppColor.normalTextColor.withOpacity(0.9),
-                                fontSize: Dimensions.fontSizeDefault,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: AppLayout.getHeight(8),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '-' + AppString.text_$30,
-                            style: AppStyle.mid_large_text.copyWith(
-                                color:
-                                    AppColor.normalTextColor.withOpacity(0.9),
-                                fontSize: Dimensions.fontSizeDefault,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: AppLayout.getHeight(8),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const Divider(height: 1),
-                SizedBox(
-                  height: AppLayout.getHeight(8),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 8.0, right: 8, bottom: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppString.text_total,
-                        style: AppStyle.mid_large_text.copyWith(
-                            color: AppColor.normalTextColor,
-                            fontSize: Dimensions.fontSizeDefault,
-                            fontWeight: FontWeight.w600),
-                      ),
-                      Text(
-                        AppString.text_$30,
-                        style: AppStyle.mid_large_text.copyWith(
-                            color: AppColor.normalTextColor,
-                            fontSize: Dimensions.fontSizeDefault,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: AppLayout.getHeight(20),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppString.text_total_summary,
-                        style: AppStyle.mid_large_text.copyWith(
-                            color: AppColor.normalTextColor,
-                            fontSize: Dimensions.fontSizeDefault,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppString.text_basic_salary,
-                            style: AppStyle.mid_large_text.copyWith(
-                                color:
-                                    AppColor.normalTextColor.withOpacity(0.9),
-                                fontSize: Dimensions.fontSizeDefault,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: AppLayout.getHeight(16),
-                          ),
-                          Text(
-                            AppString.text_beneficiary,
-                            style: AppStyle.mid_large_text.copyWith(
-                                color:
-                                    AppColor.normalTextColor.withOpacity(0.9),
-                                fontSize: Dimensions.fontSizeDefault,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: AppLayout.getHeight(16),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppString.text_$30,
-                            style: AppStyle.mid_large_text.copyWith(
-                                color:
-                                    AppColor.normalTextColor.withOpacity(0.9),
-                                fontSize: Dimensions.fontSizeDefault,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: AppLayout.getHeight(16),
-                          ),
-                          Text(
-                            AppString.text_$30,
-                            style: AppStyle.mid_large_text.copyWith(
-                                color:
-                                    AppColor.normalTextColor.withOpacity(0.9),
-                                fontSize: Dimensions.fontSizeDefault,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          SizedBox(
-                            height: AppLayout.getHeight(16),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const Divider(height: 1),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppString.text_total,
-                        style: AppStyle.mid_large_text.copyWith(
-                            color: AppColor.normalTextColor,
-                            fontSize: Dimensions.fontSizeDefault + 2,
-                            fontWeight: FontWeight.w700),
-                      ),
-                      Text(
-                        AppString.text_$30,
-                        style: AppStyle.mid_large_text.copyWith(
-                            color: AppColor.normalTextColor,
-                            fontSize: Dimensions.fontSizeDefault + 2,
-                            fontWeight: FontWeight.w700),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                  _payslipDownloadBtn(),
+                  customSpacerHeight(height: 26)
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: CustomButton(AppString.text_download_payslip, () {}),
-          ),
-          SizedBox(
-            height: AppLayout.getHeight(20),
-          )
-        ],
-      ),
-    );
+        onLoading: const LoadingIndicator());
   }
+}
+
+Widget _payslipDownloadBtn(){
+  return  Padding(
+    padding:  EdgeInsets.only(left: AppLayout.getWidth(20),right: AppLayout.getWidth(20),top: AppLayout.getHeight(8),bottom: AppLayout.getHeight(12)       ),
+    child: CustomButton(AppString.text_download_payslip, () {}),
+  );
 }
