@@ -8,15 +8,13 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 
 class PayslipViewController extends GetxController with StateMixin {
   PayslipViewModel  payslipViewModel=PayslipViewModel();
-  final _box=GetStorage();
-   late var indexId=_box.read(AppString.STORE_PAYSLIP_LSIT_ID);
   PayslipDataRepository payslipDataRepository =
   PayslipDataRepository(NetworkClient());
 
   getPayslipViewData() async {
     change(null, status: RxStatus.loading());
     try {
-      await payslipDataRepository.getPayslipViewData(indexId: indexId.toString()).then((value) {
+      await payslipDataRepository.getPayslipViewData().then((value) {
         payslipViewModel =value;
         print(value);
 

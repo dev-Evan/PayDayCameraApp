@@ -1,4 +1,5 @@
 import 'package:get/get_connect/http/src/response/response.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/domain/error_model.dart';
 import 'package:pay_day_mobile/modules/payslip/domain/payrun_badge_model.dart';
 import 'package:pay_day_mobile/modules/payslip/domain/payslip_list_model.dart';
@@ -11,7 +12,6 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 class PayslipDataRepository {
   final NetworkClient networkClient;
   PayslipDataRepository(this.networkClient);
-
   Future<PayslipListModel> getPayslipListRepo(
       {required String selectedType}) async {
     var queryParams = {
@@ -62,9 +62,11 @@ class PayslipDataRepository {
     }
   }
 
-  Future<PayslipViewModel> getPayslipViewData({required indexId})async {
+  Future<PayslipViewModel> getPayslipViewData()async {
+    final box=GetStorage();
+    var id=box.read(AppString.STORE_PAYSLIP_LSIT_ID);
     try {
-      Response response = await networkClient.getRequest(AppString.PAYSLIP_VIEW+indexId);
+      Response response = await networkClient.getRequest(AppString.PAYSLIP_VIEW+id.toString());
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
