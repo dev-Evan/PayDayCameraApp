@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
@@ -11,6 +12,8 @@ import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_c
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/images.dart';
+
+import '../controller/payslip_dawonload_controller.dart';
 
 class PaySlipView extends GetView<PayslipViewController> {
   final indexVal;
@@ -175,8 +178,15 @@ class PaySlipView extends GetView<PayslipViewController> {
 }
 
 Widget _payslipDownloadBtn(){
+  final _box=GetStorage();
+  var id=_box.read(AppString.STORE_PAYSLIP_LSIT_ID);
+  
   return  Padding(
     padding:  EdgeInsets.only(left: AppLayout.getWidth(20),right: AppLayout.getWidth(20),top: AppLayout.getHeight(8),bottom: AppLayout.getHeight(12)       ),
-    child: CustomButton(AppString.text_download_payslip, () {}),
+    child: CustomButton(AppString.text_download_payslip, () {
+      
+      Get.find<PayslipDownlaodController>().downloadPdf();
+      
+    }),
   );
 }

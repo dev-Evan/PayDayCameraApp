@@ -32,6 +32,7 @@ class AppString {
   static String POST = "POST";
   static String PAYSLIP_SUMMARY = "/payroll/payslip-summary";
   static String PAYSLIP_VIEW = "/payroll/payslip/";
+  static String PAYSLIP_DOWNLOAD = "/payroll/payslip/pdf/";
   static String PAYRUN_BADGE = "/payroll/payrun-and-badge";
   static String DELETED_DOCUMENT = "/document/delete";
   static String USER_CHANGE_PICTURE = "/user/change-picture";

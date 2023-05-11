@@ -11,16 +11,16 @@ import 'modules/more/presentation/controller/address_details_controller.dart';
 import 'modules/more/presentation/controller/change_profile_img_controller.dart';
 import 'modules/more/presentation/controller/deleted_address_controller.dart';
 import 'modules/more/presentation/controller/edit_profile_drop_dawon_cnt.dart';
+import 'modules/more/presentation/controller/logout_controller.dart';
 import 'modules/more/presentation/controller/salary_overview_controller.dart';
 import 'modules/more/presentation/controller/user_profile_controller.dart';
 import 'modules/payslip/presentation/controller/payrun_badge_controller.dart';
+import 'modules/payslip/presentation/controller/payslip_dawonload_controller.dart';
 import 'modules/payslip/presentation/controller/payslip_list_controller.dart';
 import 'modules/payslip/presentation/controller/payslip_view_controller.dart';
 import 'modules/setting/presentation/controller/setting_controller.dart';
 
 Future<void> initApp() async {
-
-
   await GetStorage.init();
   Get.lazyPut(() => AuthController());
   Get.lazyPut(() => AttendanceController(),fenix: true);
@@ -38,6 +38,8 @@ Future<void> initApp() async {
    Get.lazyPut(() => PayslipViewController(), fenix: true);
    Get.lazyPut(() => ImagePickerController(), fenix: true);
    Get.lazyPut(() => SettingController(), fenix: true);
+   Get.lazyPut(() => PayslipDownlaodController(), fenix: true);
+   Get.lazyPut(() => LogoutController(), fenix: true);
    Get.put(StatusController());
 
 
