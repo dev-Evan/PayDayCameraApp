@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/page_view_layout.dart';
 
-import '../../../../common/custom_spacer.dart';
+import '../../../../common/widget/custom_spacer.dart';
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_string.dart';
 import '../controller/leave_controller.dart';

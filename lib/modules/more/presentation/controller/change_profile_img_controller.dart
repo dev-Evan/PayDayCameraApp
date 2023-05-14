@@ -21,6 +21,7 @@ class ImagePickerController extends GetxController {
   }
 
   Future<void> sendImage(XFile image) async {
+    print(image.path);
     try {
       final request = http.MultipartRequest('POST', Uri.parse(baseUrl));
       request.headers['Authorization'] =

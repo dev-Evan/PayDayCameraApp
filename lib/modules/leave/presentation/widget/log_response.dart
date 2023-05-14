@@ -2,7 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pay_day_mobile/common/custom_spacer.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_status_button.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';

@@ -14,7 +14,7 @@ class Notifications {
 }
 
 class Data {
-  List<Data>? data;
+  List<NotificationData>? data;
   Links? links;
   Meta? meta;
 
@@ -22,9 +22,9 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <NotificationData>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(NotificationData.fromJson(v));
       });
     }
     links = json['links'] != null ? Links.fromJson(json['links']) : null;

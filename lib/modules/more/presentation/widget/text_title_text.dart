@@ -9,6 +9,6 @@ Widget textFieldTitleText({titleText}) {
     style: AppStyle.small_text.copyWith(
         color: AppColor.hintColor,
         fontWeight: FontWeight.w600,
-        fontSize: Dimensions.fontSizeDefault + 1),
+        fontSize: Dimensions.fontSizeDefault),
   );
 }

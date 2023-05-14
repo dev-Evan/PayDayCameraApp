@@ -5,7 +5,6 @@ import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_control
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/modules/notification/presentation/controller/notication_controller.dart';
-import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
 
 import 'common/controller/status_controller.dart';
 

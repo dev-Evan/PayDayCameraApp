@@ -43,16 +43,17 @@ class Leave extends GetView<LeaveController> {
         onLoading: const LoadingIndicator());
   }
 
-}
 
-Widget _appLeaveBtn({context}) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: AppLayout.getHeight(12),horizontal: AppLayout.getWidth(12)),
-    child: CustomButton(AppString.text_apply_leve, () async {
-      await Get.find<LeaveController>().getLeaveType();
-      customButtomSheet(
-          context: context, height: 0.9, child: const ApplyLeaveView());
-    }),
-  );
-}
+  Widget _appLeaveBtn({context}) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: AppLayout.getHeight(12),horizontal: AppLayout.getWidth(12)),
+      child: CustomButton(AppString.text_apply_leve, () async {
+        await controller.getLeaveType();
+        customButtomSheet(
+            context: context, height: 0.9, child: const ApplyLeaveView());
+      }),
+    );
+  }
 
+
+}

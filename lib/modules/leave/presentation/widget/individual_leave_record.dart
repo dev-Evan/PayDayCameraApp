@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/leave_details.dart';
 
-import '../../../../common/custom_spacer.dart';
+import '../../../../common/widget/custom_spacer.dart';
 import '../../../../common/widget/custom_buttom_sheet.dart';
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_layout.dart';
@@ -20,11 +20,17 @@ Widget individualDateLeaveRecord() => Container(
           Obx(() => Get.find<LeaveController>().isValueLoading.isTrue
               ? const CircularProgressIndicator()
               : Get.find<LeaveController>()
-                      .individualDateLeaveList
-                      .value
-                      .data!
-                      .isNotEmpty
-                  ? _individualDateLeaveRecordList()
+                          .individualDateLeaveList
+                          .value
+                          .data !=
+                      null
+                  ? (Get.find<LeaveController>()
+                          .individualDateLeaveList
+                          .value
+                          .data!
+                          .isNotEmpty
+                      ? _individualDateLeaveRecordList()
+                      : _noDataImg())
                   : _noDataImg())
           // ,
         ],

@@ -25,6 +25,20 @@ class NotificationRepository {
     }
   }
 
+  Future<Notifications> getAllUnreadNotification() async {
+    try {
+      Response response = await networkClient.getRequest(
+          "${AppString.ALL_UNREAD_NOTIFICATION}&timezone=${DateTime.now().toUtc().timeZoneName}");
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
+      } else {
+        return Notifications.fromJson(response.body);
+      }
+    } catch (ex) {
+      return Future.error(ErrorModel(message: ex.toString()));
+    }
+  }
+
   Future<SuccessModel> notificationAsRead(String id) async {
     try {
       Response response =

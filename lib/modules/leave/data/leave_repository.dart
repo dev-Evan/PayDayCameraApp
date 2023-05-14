@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/domain/error_model.dart';
 import 'package:pay_day_mobile/common/domain/success_model.dart';
@@ -112,5 +114,34 @@ class LeaveRepository {
     } catch (ex) {
       return Future.error(ErrorModel(message: ex.toString()));
     }
+  }
+
+  requestLeave({required Map<dynamic, dynamic> leaveQueries}) async {
+    final formData = FormData({});
+
+    leaveQueries.forEach((key, value) {
+      if (key == "attachments[]") {
+        formData.files.add(MapEntry(
+            key,
+            MultipartFile(File(value),
+                filename:
+                    "${DateTime.now().toUtc().microsecondsSinceEpoch}.${value.split(".").last}")));
+      } else {
+        formData.fields.add(MapEntry(key, value));
+      }
+    });
+    print("${leaveQueries.keys}:::${leaveQueries.values}");
+    // try {
+    //   Response response =
+    //       await networkClient.postRequest(AppString.REQUEST_LEAVE, formData);
+    //   print(response.body);
+    //   if (response.status.hasError) {
+    //     return Future.error(ErrorModel.fromJson(response.body));
+    //   } else {
+    //     return SuccessModel.fromJson(response.body);
+    //   }
+    // } catch (ex) {
+    //   return Future.error(ErrorModel(message: ex.toString()));
+    // }
   }
 }

@@ -43,9 +43,7 @@ Future timePicker(BuildContext context) {
               appbarTitle: AppString.text_select_time,
             ),
             _openClock(),
-            AmPmToggleButton(
-              controller: Get.find<AttendanceLogsController>(),
-            ),
+            AmPmToggleButton(),
             SizedBox(
               height: AppLayout.getHeight(28),
             ),

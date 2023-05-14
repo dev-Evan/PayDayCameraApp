@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/modules/leave/data/leave_repository.dart';
 import 'package:pay_day_mobile/modules/leave/domain/individual_date_leave.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_allowance.dart';
@@ -21,6 +23,15 @@ class LeaveController extends GetxController with StateMixin {
   Rx<IndividualDateLeave> individualDateLeaveList = IndividualDateLeave().obs;
 
   LeaveDetails leaveDetails = LeaveDetails();
+
+  final leaveDurationIndex = 0.obs;
+
+  final leaveNote = TextEditingController();
+
+  final RxMap<dynamic, dynamic> requestLeaveQueries = {}.obs;
+
+  final startDate = DateFormat('yyyy-MM-dd').format(DateTime.now().toUtc()).obs;
+  final endDate = DateFormat('yyyy-MM-dd').format(DateTime.now().toUtc()).obs;
 
   final isValueLoading = false.obs;
 
@@ -102,6 +113,17 @@ class LeaveController extends GetxController with StateMixin {
       Get.back(canPop: false);
       getLeaveRecord("&within=thisYear");
     }, onError: (error) => print("getILeaveDetails ${error.message}"));
+
+    change(null, status: RxStatus.success());
+  }
+
+  requestLeave({required Map<dynamic, dynamic> leaveARequestQueries}) async {
+    change(null, status: RxStatus.loading());
+    await _leaveRepository
+        .requestLeave(leaveQueries: leaveARequestQueries)
+        .then((value) {
+      print("requestLeave ::: called");
+    }, onError: (error) => print("getILeaveDetails ${error}"));
 
     change(null, status: RxStatus.success());
   }

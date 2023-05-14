@@ -1,39 +1,56 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/modules/notification/presentation/controller/notication_controller.dart';
 import 'package:pay_day_mobile/modules/notification/presentation/view/notifications.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
-class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppbar extends GetView<NotificationController>
+    implements PreferredSizeWidget {
   const CustomAppbar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      leadingWidth: AppLayout.getWidth(150),
-      toolbarHeight: AppLayout.getHeight(35),
-      backgroundColor: AppColor.cardColor,
-
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 12.0),
-        child: Image.asset(
-          Images.app_logo,
-          fit: BoxFit.cover,
-        ),
-      ),
-      actions: [
-        IconButton(
-          onPressed: () =>_openBottomSheet(context),
-          icon: const Icon(
-            Icons.notifications_none,
-            color: AppColor.primaryColor,size: 30,
+    return Obx(() => AppBar(
+          leadingWidth: AppLayout.getWidth(150),
+          toolbarHeight: AppLayout.getHeight(35),
+          backgroundColor: AppColor.cardColor,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 12.0),
+            child: Image.asset(
+              Images.app_logo,
+              fit: BoxFit.cover,
+            ),
           ),
-        )
-      ],
-      elevation: 0,
-    );
+          actions: [
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                IconButton(
+                  onPressed: () async {
+                    _openBottomSheet(context);
+                    await controller.getAllNotification();
+                  },
+                  icon: const Icon(
+                    Icons.notifications_none,
+                    color: AppColor.primaryColor,
+                    size: 30,
+                  ),
+                ),
+                if (controller.length > 0)
+                  Positioned(
+                      left: AppLayout.getWidth(25),
+                      child: Icon(
+                        Icons.circle,
+                        color: Colors.red,
+                        size: AppLayout.getHeight(10),
+                      ))
+              ],
+            )
+          ],
+          elevation: 0,
+        ));
   }
 
   Future _openBottomSheet(BuildContext context) {
@@ -41,7 +58,9 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       context: context,
-      builder: (context) => const Notifications(),
+      builder: (context) {
+        return const Notifications();
+      },
     );
   }
 

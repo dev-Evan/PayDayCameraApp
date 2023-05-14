@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pay_day_mobile/common/custom_spacer.dart';
+import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/apply_lev_popup_calendar.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/widget/dob_single_day_field.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/pop_up_dialog.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/custom_text_field_dob.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
@@ -13,27 +16,28 @@ class ApplyLeaveDobHours extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (Get.isRegistered<DateTimeController>()) {
+      Get.delete<DateTimeController>();
+    }
+    Get.put(DateTimeController());
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomTextFieldDob(
-            hintText: '01-Jan-1996',
-            dobIcon: Icons.calendar_month,
-            dobIconAction: () => popUpDialog(
-                context: context,
-                child: const ApplyLevPopUpCalendar(),
-                dobSaveAction: () {})),
+        textFieldTitleText(titleText: AppString.text_date),
+        customSpacerHeight(height: 8),
+        const ApplyLeaveDobSingleDay(),
         customSpacerHeight(height: 12),
         Row(
           children: [
             Flexible(
-              child: _apLyLavTimePicKarField(
+              child: _applyLeaveStartTime(
                 context: context,
                 fieldTitleText: AppString.text_start_day,
               ),
             ),
             customSpacerWidth(width: 12),
             Flexible(
-              child: _apLyLavTimePicKarField(
+              child: _applyLeaveEndTime(
                 context: context,
                 fieldTitleText: AppString.text_end_day,
               ),
@@ -45,7 +49,7 @@ class ApplyLeaveDobHours extends StatelessWidget {
   }
 }
 
-Widget _apLyLavTimePicKarField({
+Widget _applyLeaveEndTime({
   context,
   fieldTitleText,
 }) {
@@ -53,12 +57,37 @@ Widget _apLyLavTimePicKarField({
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       textFieldTitleText(titleText: fieldTitleText),
-      CustomTextFieldDob(
-          hintText: AppString.text_select_time,
-          dobIcon: Icons.access_time_outlined,
-          dobIconAction: () => timePicker(
-                context,
-              )),
+      Obx(() => CustomTextFieldDob(
+            hintText: Get.find<DateTimeController>().pickedOutTime.isEmpty
+                ? AppString.text_select_time
+                : Get.find<DateTimeController>().pickedOutTime.value,
+            dobIcon: Icons.access_time_outlined,
+            dobIconAction: () {
+              timePicker(context);
+            },
+          )),
+    ],
+  );
+}
+
+Widget _applyLeaveStartTime({
+  context,
+  fieldTitleText,
+}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      textFieldTitleText(titleText: fieldTitleText),
+      Obx(() => CustomTextFieldDob(
+            hintText: Get.find<DateTimeController>().pickedInTime.isEmpty
+                ? AppString.text_select_time
+                : Get.find<DateTimeController>().pickedInTime.value,
+            dobIcon: Icons.access_time_outlined,
+            dobIconAction: () {
+              Get.find<DateTimeController>().isInTimeClicked.value = true;
+              timePicker(context);
+            },
+          )),
     ],
   );
 }

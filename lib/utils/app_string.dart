@@ -41,7 +41,9 @@ class AppString {
   static String INDIVIDUAL_DATE_LEAVE = "/leave/list/view";
   static String LEAVE_DETAILS = "/leave/log";
   static String CANCEL_LEAVE = "/leave/cancel";
+  static String REQUEST_LEAVE = "/leave/store";
   static String ALL_NOTIFICATION = "/notifications";
+  static String ALL_UNREAD_NOTIFICATION = "/notifications?unread=true";
   static String NOTICATION_AS_READ = "/notification/read";
   static String NOTIFICATION_AS_ALL_READ = "/notification/all/read";
 
@@ -63,6 +65,8 @@ class AppString {
   static const String textMonth = "This Month";
   static const String textYear = "This Year";
   static const String text_filter = "Filter";
+  static const String mark_read = "Mark as Read";
+  static const String select_leave_type = "Select Leave Type";
   static const String text_select_time_range = "Select Time Range";
   static const String text_leave_status = "Leave Status";
   static const String text_leave_duration = "Leave Duration";
@@ -158,6 +162,7 @@ class AppString {
   static const String text_casual = "Casual";
   static const String text_sick = "Sick";
   static const String text_apply_leve = "Apply Leave";
+  static const String text_apply = "Apply";
   static const String text_leave_records = "Leave Records";
   static const String text_upcomming = "Upcoming";
   static const String text_singleDay = "Single Day";
