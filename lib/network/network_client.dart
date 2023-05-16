@@ -25,6 +25,9 @@ class NetworkClient extends GetConnect {
     return response;
   }
 
+
+
+
   Future<Response> getQueryRequest({required String apiEndPoint, query}) async {
     return await get(_getRequestUrl(apiEndPoint), query: query, headers: {
       "Content-Type": "application/json",
@@ -34,5 +37,11 @@ class NetworkClient extends GetConnect {
           : ""
     }).timeout(const Duration(seconds: 20));
   }
+
   String _getRequestUrl(String apiEndPoint) => AppString.BASE_URL + apiEndPoint;
+
+
+
+
+
 }

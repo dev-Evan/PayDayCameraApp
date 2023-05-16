@@ -55,8 +55,7 @@ class EditProfile extends StatelessWidget {
                                       .userProfile.data?.firstName ??
                                   AppString.text_first + AppString.text_name,
                               controller: Get.find<EditProfileDataController>()
-                                  .firstNameController
-                                  .value,
+                                  .firstNameController,
                             ),
                           ],
                         ),
@@ -74,8 +73,7 @@ class EditProfile extends StatelessWidget {
                                       .userProfile.data?.lastName ??
                                   AppString.text_last + AppString.text_name,
                               controller: Get.find<EditProfileDataController>()
-                                  .lastNameController
-                                  .value,
+                                  .lastNameController,
                             ),
                           ],
                         ),
@@ -90,8 +88,7 @@ class EditProfile extends StatelessWidget {
                     hintText: Get.find<ProfileDataController>().userProfile.data?.email ??
                         AppString.text_email,
                     controller: Get.find<EditProfileDataController>()
-                        .emailController
-                        .value,
+                        .emailController,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -167,8 +164,7 @@ class EditProfile extends StatelessWidget {
                         ),
                       ),
                       controller: Get.find<EditProfileDataController>()
-                          .contactController
-                          .value,
+                          .contactController,
                     ),
                   ),
                   Padding(
@@ -189,13 +185,12 @@ class EditProfile extends StatelessWidget {
                             width: 0.0, color: AppColor.disableColor)),
                     child: TextField(
                       controller: Get.find<EditProfileDataController>()
-                          .addressController
-                          .value,
+                          .addressController,
                       decoration: InputDecoration(
                         hintText:
                         Get.find<ProfileDataController>().userProfile.data?.address ??
                                 "",
-                        contentPadding: EdgeInsets.all(8),
+                        contentPadding: const EdgeInsets.all(8),
                         border: InputBorder.none,
                       ),
                       maxLines: null,
@@ -254,8 +249,7 @@ class EditProfile extends StatelessWidget {
                             width: 0.0, color: AppColor.disableColor)),
                     child: TextField(
                       controller: Get.find<EditProfileDataController>()
-                          .aboutMeController
-                          .value,
+                          .aboutMeController,
                       decoration: InputDecoration(
                         hintText:
                         Get.find<ProfileDataController>().userProfile.data?.aboutMe ??
@@ -273,8 +267,6 @@ class EditProfile extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: CustomButton(AppString.text_save, () {
-                // editProfileDataController.editProfileData();
-
                 Get.find<EditProfileDataController>().editProfileData(
                     selectedDate:
                         _box.read(AppString.STORE_DATE.toString() ?? ""));

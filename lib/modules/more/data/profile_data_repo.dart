@@ -17,7 +17,7 @@ class ProfileDataRepository {
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
-        print(response.body.toString());
+        print('User profile called ::: ${response.body.toString()}');
         return UserProfile.fromJson(response.body);
       }
     } catch (e) {

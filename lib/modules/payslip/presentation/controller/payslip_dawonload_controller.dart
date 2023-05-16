@@ -8,23 +8,20 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-
-class PayslipDownlaodController extends GetxController with StateMixin{
-
-  var url=AppString.BASE_URL+AppString.PAYSLIP_DOWNLOAD;
-  Future<void> payslipDownload({required id,required token,required date}) async {
+class PayslipDownlaodController extends GetxController with StateMixin {
+  var url = AppString.BASE_URL + AppString.PAYSLIP_DOWNLOAD;
+  Future<void> payslipDownload(
+      {required id, required token, required date}) async {
     Map<Permission, PermissionStatus> statuses = await [
       Permission.storage,
     ].request();
 
     if (statuses[Permission.storage]!.isGranted) {
-       final uri = Uri.parse("$url$id?download=true")
-          .replace(queryParameters: {'download':'true'});
+      final uri = Uri.parse("$url$id?download=true")
+          .replace(queryParameters: {'download': 'true'});
       final response = await http.get(
         uri,
-        headers: {
-          'Authorization':'Bearer $token'
-        },
+        headers: {'Authorization': 'Bearer $token'},
       );
 
       final directory = await getExternalStorageDirectory();
@@ -32,10 +29,10 @@ class PayslipDownlaodController extends GetxController with StateMixin{
       final bytes = response.bodyBytes;
       final file = File(path);
       await file.writeAsBytes(bytes);
-      if(response.statusCode==200){
+      if (response.statusCode == 200) {
         _showToast(AppString.text_payslip_download_successfully);
         Get.back();
-      }else{
+      } else {
         _showToast(AppString.text_something_wrong);
       }
       print(file);
@@ -51,10 +48,3 @@ _showToast(message) => Fluttertoast.showToast(
     backgroundColor: AppColor.hintColor,
     textColor: Colors.white,
     fontSize: 16.0);
-
-
-
-
-
-
-

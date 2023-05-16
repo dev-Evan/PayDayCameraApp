@@ -17,10 +17,13 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
 class MoreScreen extends GetView<ProfileDataController> {
+
+
+
   MoreScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    controller.getUserData();
+     controller.getUserData();
     return controller.obx(
         (state) => Scaffold(
               body: CustomScrollView(

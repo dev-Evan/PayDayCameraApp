@@ -77,8 +77,8 @@ class PaySlip extends GetView<PayslipListController> {
                             dateText:
                             Get.find<DropdownBtnStdController>().sltDate.toString()),
 
-
-                        controller.payslipListModel.data?.payslips != null
+                        controller.payslipListModel.data?.payslips !=null?
+                        controller.payslipListModel.data!.payslips!.isNotEmpty
                             ? ListView.builder(
                                 itemCount: controller
                                     .payslipListModel.data?.payslips?.length,
@@ -119,7 +119,7 @@ class PaySlip extends GetView<PayslipListController> {
                                   );
                                 },
                               )
-                            : Center(child: Text(AppString.text_no_data_found))
+                            : Center(child: Text(AppString.text_no_data_found)):Center(child: Text(AppString.text_no_data_found))
                       ],
                     ))
                   ],
