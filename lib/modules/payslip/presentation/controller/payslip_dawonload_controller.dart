@@ -27,7 +27,6 @@ class PayslipDownlaodController extends GetxController with StateMixin{
         },
       );
 
-      // commit
       final directory = await getExternalStorageDirectory();
       final path = '${directory!.path}/Payslip for $date.pdf';
       final bytes = response.bodyBytes;
