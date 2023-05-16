@@ -107,8 +107,6 @@ class PaySlipView extends GetView<PayslipViewController> {
                           },
                         ),
                         const Divider(height: 1),
-
-
                         totalRowView(
                             amount:
                                 "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.payslip?.totalAllowance.toString() ?? ""}"),
@@ -140,7 +138,6 @@ class PaySlipView extends GetView<PayslipViewController> {
                           },
                         ),
                         const Divider(height: 1),
-
                         totalRowView(
                             amount:
                                 "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.payslip?.totalDeduction.toString() ?? ""}"),
@@ -164,11 +161,15 @@ class PaySlipView extends GetView<PayslipViewController> {
                         const Divider(height: 1),
                         totalRowView(
                             amount:
-                                "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.payslip?.netSalary.toString() ?? ""}"),
+                                "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.payslip?.netSalary.toString() ?? ""}"
+
+
+
+                        ),
                       ],
                     ),
                   ),
-                  _payslipDownloadBtn(),
+                  _payslipDownloadBtn(payslipDateRange:'${controller.payslipViewModel.data?.payslip?.createdAt ?? ""} - ${controller.payslipViewModel.data?.payslip?.endDate ?? ""}', ),
                   customSpacerHeight(height: 26)
                 ],
               ),
@@ -177,16 +178,17 @@ class PaySlipView extends GetView<PayslipViewController> {
   }
 }
 
-Widget _payslipDownloadBtn(){
-  final _box=GetStorage();
-  var id=_box.read(AppString.STORE_PAYSLIP_LSIT_ID);
-  
-  return  Padding(
-    padding:  EdgeInsets.only(left: AppLayout.getWidth(20),right: AppLayout.getWidth(20),top: AppLayout.getHeight(8),bottom: AppLayout.getHeight(12)       ),
-    child: CustomButton(AppString.text_download_payslip, () {
-      
-      Get.find<PayslipDownlaodController>().downloadPdf();
-      
-    }),
+Widget _payslipDownloadBtn({required payslipDateRange}) {
+  final box=GetStorage();
+   var id=box.read(AppString.STORE_PAYSLIP_LSIT_ID);
+   var token=box.read(AppString.ACCESS_TOKEN);
+  return Padding(
+    padding: EdgeInsets.only(
+        left: AppLayout.getWidth(20),
+        right: AppLayout.getWidth(20),
+        top: AppLayout.getHeight(8),
+        bottom: AppLayout.getHeight(12)),
+    child: CustomButton(AppString.text_download_payslip,
+        () => Get.find<PayslipDownlaodController>().payslipDownload(id: id,token:token,date: payslipDateRange)),
   );
 }

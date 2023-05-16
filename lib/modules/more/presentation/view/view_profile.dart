@@ -25,8 +25,8 @@ class ViewProfile extends GetView<ProfileDataController> {
           children: [
             profileViewAppbar(
                 titleText: AppString.text_my_profile,
-                rightBtnAction: () => CustomNavigator(
-                    context: context, pageName:  EditProfile())),
+                rightBtnAction: () =>
+                    CustomNavigator(context: context, pageName: EditProfile())),
             customSpacerHeight(height: 10),
             Obx(
               () => circleAvatarStyle(
@@ -62,60 +62,83 @@ class ViewProfile extends GetView<ProfileDataController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      textFieldTitleText(titleText: AppString.text_about_me),
                       customSpacerHeight(height: 8),
-                      aboutText(
-                          text:
-                              controller.userProfile.data?.aboutMe.toString() ??
-                                  ""),
+                      controller.userProfile.data!.aboutMe!.isEmpty
+                          ? Container()
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                textFieldTitleText(
+                                    titleText: AppString.text_about_me),
+                                aboutText(
+                                    text: controller.userProfile.data?.aboutMe
+                                            .toString() ??
+                                        ""),
+                              ],
+                            ),
                       customSpacerHeight(height: 14),
                       textFieldTitleText(titleText: AppString.text_general),
-                      cardView(
-                          dynamicText: controller
-                                  .userProfile.data?.departmentName
-                                  .toString() ??
-                              "",
-                          titleText: AppString.text_department,
-                          icon: Icons.work_outline_outlined),
-                      cardView(
-                          dynamicText: controller
-                                  .userProfile.data?.workingShiftType
-                                  .toString() ??
-                              "",
-                          titleText: AppString.text_shift,
-                          icon: Icons.access_time_outlined),
-                      cardView(
-                          dynamicText:
-                              controller.userProfile.data?.email.toString() ??
+                      controller.userProfile.data!.departmentName!.isEmpty
+                          ? Container()
+                          : cardView(
+                              dynamicText: controller
+                                      .userProfile.data?.departmentName
+                                      .toString() ??
                                   "",
-                          titleText: AppString.text_email,
-                          icon: CupertinoIcons.mail),
-                      cardView(
-                          dynamicText:
-                              controller.userProfile.data?.contact.toString() ??
+                              titleText: AppString.text_department,
+                              icon: Icons.work_outline_outlined),
+                      controller.userProfile.data!.workingShiftType!.isEmpty
+                          ? Container()
+                          : cardView(
+                              titleText: AppString.text_shift,
+                              dynamicText: controller
+                                      .userProfile.data?.workingShiftType
+                                      .toString() ??
                                   "",
-                          titleText: AppString.text_phone,
-                          icon: CupertinoIcons.phone),
+                              icon: Icons.access_time_outlined),
+                      controller.userProfile.data!.email!.isEmpty
+                          ? Container()
+                          : cardView(
+                              dynamicText: controller.userProfile.data?.email
+                                      .toString() ??
+                                  "",
+                              titleText: AppString.text_email,
+                              icon: CupertinoIcons.mail),
+                      controller.userProfile.data!.contact!.isEmpty
+                          ? Container()
+                          : cardView(
+                              dynamicText: controller.userProfile.data?.contact
+                                      .toString() ??
+                                  "",
+                              titleText: AppString.text_phone,
+                              icon: CupertinoIcons.phone),
                       customSpacerHeight(height: 14),
                       textFieldTitleText(titleText: AppString.text_personal),
-                      cardView(
-                          dynamicText:
-                              controller.userProfile.data?.address.toString() ??
+                      controller.userProfile.data!.address!.isEmpty
+                          ? Container()
+                          : cardView(
+                              dynamicText: controller.userProfile.data?.address
+                                      .toString() ??
                                   "",
-                          titleText: AppString.text_address,
-                          icon: CupertinoIcons.home),
-                      cardView(
-                          dynamicText: controller.userProfile.data?.dateOfBirth
-                                  .toString() ??
-                              "",
-                          titleText: AppString.text_birthday,
-                          icon: Icons.card_giftcard),
-                      cardView(
-                          dynamicText:
-                              controller.userProfile.data?.gender.toString() ??
+                              titleText: AppString.text_address,
+                              icon: CupertinoIcons.home),
+                      controller.userProfile.data!.dateOfBirth!.isEmpty
+                          ? Container()
+                          : cardView(
+                              dynamicText: controller
+                                      .userProfile.data?.dateOfBirth
+                                      .toString() ??
                                   "",
-                          titleText: AppString.text_gender,
-                          icon: CupertinoIcons.person),
+                              titleText: AppString.text_birthday,
+                              icon: Icons.card_giftcard),
+                      controller.userProfile.data!.gender!.isEmpty
+                          ? Container()
+                          : cardView(
+                              dynamicText: controller.userProfile.data?.gender
+                                      .toString() ??
+                                  "",
+                              titleText: AppString.text_gender,
+                              icon: CupertinoIcons.person),
                     ],
                   ),
                 ),

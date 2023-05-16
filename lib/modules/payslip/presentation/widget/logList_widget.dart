@@ -15,32 +15,44 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-Widget logsList({required titleDate,required titleMonth ,required basicSalary,required statusText,required startDate, required endDate,required monthly,required indexId}) {
-
-  final _box=GetStorage();
-
+Widget logsList(
+    {required titleDate,
+    required titleMonth,
+    required basicSalary,
+    required statusText,
+    required startDate,
+    required endDate,
+    required monthly,
+    required indexId}) {
+  final box = GetStorage();
 
   return Padding(
-    padding:  EdgeInsets.only(
-
-        left: AppLayout.getWidth(12),
-        right: AppLayout.getWidth(12),
-bottom: AppLayout.getHeight(12) ,
-top: AppLayout.getHeight(12) ,
-
+    padding: EdgeInsets.only(
+      left: AppLayout.getWidth(12),
+      right: AppLayout.getWidth(12),
+      bottom: AppLayout.getHeight(12),
+      top: AppLayout.getHeight(12),
     ),
     child: Column(
       children: [
         InkWell(
-          onTap: (){
-            _box.write(AppString.STORE_PAYSLIP_LSIT_ID, indexId);
+          onTap: () {
+            box.write(AppString.STORE_PAYSLIP_LSIT_ID, indexId);
             customButtomSheet(
-                context: Get.context, height: 0.9, child:  PaySlipView(indexVal: indexId));
-
+                context: Get.context,
+                height: 0.9,
+                child: PaySlipView(indexVal: indexId));
           },
           child: Card(
             elevation: 0,
-            child: _logListRow(titleDate:titleDate ,titleMonth: titleMonth,basicSalary: basicSalary,statusText: statusText,endDate: endDate,startDate: startDate,monthly: monthly),
+            child: _logListRow(
+                titleDate: titleDate,
+                titleMonth: titleMonth,
+                basicSalary: basicSalary,
+                statusText: statusText,
+                endDate: endDate,
+                startDate: startDate,
+                monthly: monthly),
           ),
         ),
         _divider(context: Get.context),
@@ -49,21 +61,24 @@ top: AppLayout.getHeight(12) ,
   );
 }
 
-
-Widget _logListRow({required titleDate,required titleMonth,required basicSalary,required statusText,required startDate, required endDate,required monthly}) {
-
-  final _box=GetStorage();
-  var currency=_box.read(AppString.STORE_CURRENCY) ??"\$";
+Widget _logListRow(
+    {required titleDate,
+    required titleMonth,
+    required basicSalary,
+    required statusText,
+    required startDate,
+    required endDate,
+    required monthly}) {
+  final _box = GetStorage();
+  var currency = _box.read(AppString.STORE_CURRENCY) ?? "\$";
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       _dateTitle(dateText: titleDate, monthText: titleMonth),
-
-
       CustomDiveider(25, 0.5),
       _cardMidText(
-          amountText: currency+" "+basicSalary.toString(),
-         startDate: startDate,
+          amountText: currency + " " + basicSalary.toString(),
+          startDate: startDate,
           endDate: endDate,
           monthly: monthly,
           statusText: statusText.toString()),
@@ -79,6 +94,7 @@ Widget _divider({context}) {
         AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
   );
 }
+
 Widget _dateTitle({dateText, monthText}) {
   return Column(
     children: [
@@ -98,7 +114,12 @@ Widget _dateTitle({dateText, monthText}) {
   );
 }
 
-Widget _cardMidText({required amountText, required startDate, required endDate, required statusText,required monthly}) {
+Widget _cardMidText(
+    {required amountText,
+    required startDate,
+    required endDate,
+    required statusText,
+    required monthly}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -110,7 +131,7 @@ Widget _cardMidText({required amountText, required startDate, required endDate, 
         ),
       ),
       customSpacerHeight(height: 8),
-      _midTextRow(startDate: startDate,endDate: endDate,monthly: monthly),
+      _midTextRow(startDate: startDate, endDate: endDate, monthly: monthly),
       customSpacerHeight(height: 6),
       CustomStatusButton(
         bgColor: AppColor.successColor.withOpacity(0.2),
@@ -121,46 +142,40 @@ Widget _cardMidText({required amountText, required startDate, required endDate, 
   );
 }
 
-Widget _midTextRow({required startDate,required endDate,required monthly}){
-  return  Row(
+Widget _midTextRow({required startDate, required endDate, required monthly}) {
+  return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-     Text(
-       startDate,
-       style: AppStyle.small_text.copyWith(color: AppColor.hintColor),
-     ),
-
-     customSpacerWidth(width: 8),
-
-     Text("-",style: AppStyle.small_text_black.copyWith(color: AppColor.hintColor),),
+      Text(
+        startDate,
+        style: AppStyle.small_text.copyWith(color: AppColor.hintColor),
+      ),
       customSpacerWidth(width: 8),
-     Row(
-       children: [
-         Text(
-           endDate,
-           style: AppStyle.small_text.copyWith(color: AppColor.hintColor),
-         ),
-         customSpacerWidth(width: 8),
-
-         Icon(
-           Icons.circle,
-           size: Dimensions.fontSizeSmall-5,
-           color: AppColor.hintColor,
-         ),
-         customSpacerWidth(width: 8),
-         Text(
-           monthly,
-           style: AppStyle.small_text.copyWith(color: AppColor.hintColor),
-         ),
-
-
-       ],
-     ),
-
-
-
-
+      Text(
+        "-",
+        style: AppStyle.small_text_black.copyWith(color: AppColor.hintColor),
+      ),
+      customSpacerWidth(width: 8),
+      Row(
+        children: [
+          Text(
+            endDate,
+            style: AppStyle.small_text.copyWith(color: AppColor.hintColor),
+          ),
+          customSpacerWidth(width: 8),
+          Icon(
+            Icons.circle,
+            size: Dimensions.fontSizeSmall - 5,
+            color: AppColor.hintColor,
+          ),
+          customSpacerWidth(width: 8),
+          Text(
+            monthly,
+            style: AppStyle.small_text.copyWith(color: AppColor.hintColor),
+          ),
+        ],
+      ),
     ],
   );
 }

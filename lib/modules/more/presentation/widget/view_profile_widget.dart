@@ -19,9 +19,7 @@ Widget cardView({icon, dynamicText, titleText}) {
     child: Row(
       children: [
         cardIconView(cardIcon: icon),
-        SizedBox(
-          width: AppLayout.getWidth(8),
-        ),
+      customSpacerWidth(width: 8),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -312,6 +312,8 @@ class AppString {
   static String text_deleted_document_successfully = "Deleted document successfully";
   static String text_document_upload_successfully = "Document uploaded successfully!";
   static String text_document_update_successfully = "Document update successfully!";
+  static String text_payslip_download_successfully = "Payslip download successfully!";
+  static String text_something_wrong = "Something wrong !";
 
   static String text_enter_your_old_password = "Enter your old password";
   static String text_enter_new_password = "Enter new password";
@@ -350,6 +352,7 @@ class AppString {
   static const String STORE_CURRENCY = "storeCurrency";
   static const String STORE_PAYSLIP_LSIT_ID = "storePayslipListId";
   static const String STORE_DOC_NAME = "storeDocName";
+  static const String PAYSLIP_DATE_RANGE = "payslip_date_range";
 
 // Auth String
 

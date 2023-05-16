@@ -229,13 +229,6 @@ class AddressDetails extends GetView<AddressDetailsController> {
                             children: [
 
                               currTitleText(),
-
-
-
-
-
-
-
                               controller.addressDetailsModel.data!.isNotEmpty
                                   ? controller
                                           .addressDetailsModel.data!.last.key!
@@ -248,11 +241,9 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                           context: context,
                                           onAction: () => Get.find<DeletedAddController>()
                                               .deletedAddressApi(
-                                                  addressType: controller
-                                                      .addressDetailsModel
-                                                      .data
-                                                      ?.last
-                                                      .key),
+                                                  addressType: AppString.text_present_address
+
+                                          ),
                                           editAction: AddCurrentAddress(
                                               typeKey: AppString
                                                   .text_present_address),

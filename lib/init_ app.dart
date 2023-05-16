@@ -3,6 +3,7 @@ import 'package:pay_day_mobile/modules/attendance/presentation/controller/attend
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_controller.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/change_password_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_controller.dart';
@@ -40,6 +41,7 @@ Future<void> initApp() async {
    Get.lazyPut(() => SettingController(), fenix: true);
    Get.lazyPut(() => PayslipDownlaodController(), fenix: true);
    Get.lazyPut(() => LogoutController(), fenix: true);
+   Get.lazyPut(() => ChangePassController(), fenix: true);
    Get.put(StatusController());
 
 
