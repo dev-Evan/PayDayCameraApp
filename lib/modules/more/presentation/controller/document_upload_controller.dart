@@ -9,6 +9,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
@@ -32,6 +33,8 @@ class DocumentUploadController extends GetxController {
     if (response.statusCode == 200) {
       Get.back();
       print(AppString.text_document_upload_successfully);
+      Get.find<DocumentController>()
+          .getDocumentData();
       _showToast(AppString.text_document_upload_successfully);
     } else {
       return '${response.statusCode}';

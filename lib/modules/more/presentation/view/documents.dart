@@ -276,8 +276,6 @@ Widget _fileTitleText({required totalFileText}) {
 }
 
 Widget _docEditAndDeleted({ required context, required docName}) {
-  DeletedDocumentController deletedDocumentController =
-      Get.put(DeletedDocumentController());
   final _box=GetStorage();
   _box.write(AppString.STORE_DOC_NAME, docName);
   return Column(
@@ -298,7 +296,7 @@ Widget _docEditAndDeleted({ required context, required docName}) {
           ),
           customSpacerWidth(width: 40),
           InkWell(
-            onTap: () => deletedDocumentController.deletedDocumentApi(),
+            onTap: () => Get.find<DeletedDocumentController>().deletedDocumentApi(),
             child: _iconShape(icon: Icons.delete, text: AppString.text_deleted),
           )
         ],

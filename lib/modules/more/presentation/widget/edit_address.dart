@@ -16,19 +16,11 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class EditAddress extends StatelessWidget {
   final String typeText;
   EditAddress(this.typeText);
-
-  AddressUpdateController addressUpdateController =
-      Get.put(AddressUpdateController());
-
-  AddressDetailsController addressDetailsController =
-      Get.put(AddressDetailsController());
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +34,8 @@ class EditAddress extends StatelessWidget {
             bottomSheetAppbar(
               context: context,
               appbarTitle:
-                  addressDetailsController.addressDetailsModel.data!.isNotEmpty
-                      ? addressDetailsController
+                  Get.find<AddressDetailsController>().addressDetailsModel.data!.isNotEmpty
+                      ? Get.find<AddressDetailsController>()
                               .addressDetailsModel.data!.first.key!
                               .startsWith(AppString.text_permanent_address)
                           ? "${AppString.text_edit} ${AppString.text_address}"
@@ -87,12 +79,12 @@ class EditAddress extends StatelessWidget {
               },
               child: _countyField(
                 text: _box.read(AppString.STORE_COUNTY) ??
-                    (addressDetailsController
+                    (Get.find<AddressDetailsController>()
                             .addressDetailsModel.data!.isNotEmpty
-                        ? addressDetailsController
+                        ? Get.find<AddressDetailsController>()
                                 .addressDetailsModel.data!.first.key!
                                 .startsWith(AppString.text_permanent_address)
-                            ? addressDetailsController.addressDetailsModel.data
+                            ? Get.find<AddressDetailsController>().addressDetailsModel.data
                                     ?.last.value?.country
                                     .toString() ??
                                 ""
@@ -111,12 +103,12 @@ class EditAddress extends StatelessWidget {
               padding: const EdgeInsets.only(top: 8.0),
               child: IntlPhoneField(
                 decoration: InputDecoration(
-                  labelText: addressDetailsController
+                  labelText: Get.find<AddressDetailsController>()
                           .addressDetailsModel.data!.isNotEmpty
-                      ? addressDetailsController
+                      ? Get.find<AddressDetailsController>()
                               .addressDetailsModel.data!.first.key!
                               .startsWith(AppString.text_permanent_address)
-                          ? addressDetailsController.addressDetailsModel.data
+                          ? Get.find<AddressDetailsController>().addressDetailsModel.data
                               ?.first.value?.phoneNumber
                           : AppString.text_enter_phone_number
                       : "",
@@ -129,7 +121,7 @@ class EditAddress extends StatelessWidget {
                         BorderSide(width: 0.0, color: AppColor.disableColor),
                   ),
                 ),
-                controller: addressUpdateController.phoneNumberController.value,
+                controller: Get.find<AddressUpdateController>().phoneNumberController,
               ),
             ),
             Row(
@@ -140,20 +132,20 @@ class EditAddress extends StatelessWidget {
                     children: [
                       textFieldTitleText(titleText: AppString.text_area),
                       CustomTextFeild(
-                        hintText: addressDetailsController
+                        hintText: Get.find<AddressDetailsController>()
                                 .addressDetailsModel.data!.isNotEmpty
-                            ? addressDetailsController
+                            ? Get.find<AddressDetailsController>()
                                     .addressDetailsModel.data!.first.key!
                                     .startsWith(
                                         AppString.text_permanent_address)
-                                ? addressDetailsController.addressDetailsModel
+                                ? Get.find<AddressDetailsController>().addressDetailsModel
                                         .data?.first.value?.area
                                         .toString() ??
                                     ""
                                 : AppString.text_enter_area
                             : "",
                         controller:
-                            addressUpdateController.areaController.value,
+                        Get.find<AddressUpdateController>().areaController,
                       ),
                     ],
                   ),
@@ -167,28 +159,26 @@ class EditAddress extends StatelessWidget {
                     children: [
                       textFieldTitleText(titleText: AppString.text_city),
                       CustomTextFeild(
-                          hintText: addressDetailsController
+                          hintText: Get.find<AddressDetailsController>()
                                   .addressDetailsModel.data!.isNotEmpty
-                              ? addressDetailsController
+                              ? Get.find<AddressDetailsController>()
                                       .addressDetailsModel.data!.first.key!
                                       .startsWith(
                                           AppString.text_permanent_address)
-                                  ? addressDetailsController.addressDetailsModel
+                                  ? Get.find<AddressDetailsController>().addressDetailsModel
                                           .data?.first.value?.city
                                           .toString() ??
                                       ""
                                   : AppString.text_enter_city
                               : "",
                           controller:
-                              addressUpdateController.cityController.value),
+                          Get.find<AddressUpdateController>().cityController),
                     ],
                   ),
                 ),
               ],
             ),
-            SizedBox(
-              height: AppLayout.getHeight(16),
-            ),
+            customSpacerHeight(height: 16),
             Row(
               children: [
                 Flexible(
@@ -197,20 +187,20 @@ class EditAddress extends StatelessWidget {
                     children: [
                       textFieldTitleText(titleText: AppString.text_state),
                       CustomTextFeild(
-                          hintText: addressDetailsController
+                          hintText: Get.find<AddressDetailsController>()
                                   .addressDetailsModel.data!.isNotEmpty
-                              ? addressDetailsController
+                              ? Get.find<AddressDetailsController>()
                                       .addressDetailsModel.data!.first.key!
                                       .startsWith(
                                           AppString.text_permanent_address)
-                                  ? addressDetailsController.addressDetailsModel
+                                  ? Get.find<AddressDetailsController>().addressDetailsModel
                                           .data?.first.value?.state
                                           .toString() ??
                                       ""
                                   : AppString.text_enter_state
                               : "",
                           controller:
-                              addressUpdateController.stateController.value),
+                          Get.find<AddressUpdateController>().stateController),
                     ],
                   ),
                 ),
@@ -223,47 +213,46 @@ class EditAddress extends StatelessWidget {
                     children: [
                       textFieldTitleText(titleText: AppString.text_zip_code),
                       CustomTextFeild(
-                          hintText: addressDetailsController
+                          hintText: Get.find<AddressDetailsController>()
                                   .addressDetailsModel.data!.isNotEmpty
-                              ? addressDetailsController
+                              ? Get.find<AddressDetailsController>()
                                       .addressDetailsModel.data!.first.key!
                                       .startsWith(
                                           AppString.text_permanent_address)
-                                  ? addressDetailsController.addressDetailsModel
+                                  ? Get.find<AddressDetailsController>().addressDetailsModel
                                           .data?.first.value?.zipCode
                                           .toString() ??
                                       ""
                                   : AppString.text_enter_zip_code
                               : "",
                           controller:
-                              addressUpdateController.zipCodeController.value),
+                          Get.find<AddressUpdateController>().zipCodeController),
                     ],
                   ),
                 ),
               ],
             ),
-            SizedBox(
-              height: AppLayout.getHeight(12),
-            ),
+
+            customSpacerHeight(height: 12),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 textFieldTitleText(
                     titleText: AppString.text_address + AppString.text_details),
                 CustomTextFeild(
-                    hintText: addressDetailsController
+                    hintText: Get.find<AddressDetailsController>()
                             .addressDetailsModel.data!.isNotEmpty
-                        ? addressDetailsController
+                        ? Get.find<AddressDetailsController>()
                                 .addressDetailsModel.data!.first.key!
                                 .startsWith(AppString.text_permanent_address)
-                            ? addressDetailsController.addressDetailsModel.data
+                            ? Get.find<AddressDetailsController>().addressDetailsModel.data
                                     ?.first.value?.details
                                     .toString() ??
                                 ""
                             : "${AppString.text_add}${AppString.text_address_details}"
                         : "",
                     controller:
-                        addressUpdateController.detailsController.value),
+                    Get.find<AddressUpdateController>().detailsController),
               ],
             ),
             customDoubleButton(
@@ -273,21 +262,10 @@ class EditAddress extends StatelessWidget {
                 textBtnText: AppString.text_cancel,
                 textButtonAction: () => Get.back(),
                 elevatedButtonAction: () {
-                  addressUpdateController.addressUpdate(
+                  Get.find<AddressUpdateController>().addressUpdate(
                     typeKey: typeText.toString(),
                     selectedCounty: _box.read(AppString.STORE_COUNTY),
                   );
-
-                  // Future.delayed(
-                  //   const Duration(seconds: 2),
-                  //       () => _box.remove(AppString.STORE_COUNTY),
-                  // );
-
-                  // Future.delayed(
-                  //   const Duration(seconds: 5),
-                  //       () => _box.remove(AppString.STORE_ADDRESS),
-                  // );
-
                   print(_box.read(AppString.STORE_ADDRESS).toString());
                 }),
 

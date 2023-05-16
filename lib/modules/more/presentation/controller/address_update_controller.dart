@@ -11,14 +11,14 @@ class AddressUpdateController extends GetxController with StateMixin {
   final AddressUpdateDataSource addressUpdateDataSource = AddressUpdateDataSource(NetworkClient());
 
 
-  final areaController = TextEditingController().obs;
-  final cityController = TextEditingController().obs;
-  final countyController = TextEditingController().obs;
-  final detailsController = TextEditingController().obs;
-  final phoneNumberController = TextEditingController().obs;
-  final stateController = TextEditingController().obs;
-  final typeController = TextEditingController().obs;
-  final zipCodeController = TextEditingController().obs;
+  final areaController = TextEditingController();
+  final cityController = TextEditingController();
+  final countyController = TextEditingController();
+  final detailsController = TextEditingController();
+  final phoneNumberController = TextEditingController();
+  final stateController = TextEditingController();
+  final typeController = TextEditingController();
+  final zipCodeController = TextEditingController();
 
   void addressUpdate({required typeKey, required selectedCounty}) async {
     change(null, status: RxStatus.loading());

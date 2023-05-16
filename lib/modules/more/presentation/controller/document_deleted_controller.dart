@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/modules/more/data/deleted_document_repo.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -18,8 +19,12 @@ class DeletedDocumentController extends GetxController with StateMixin {
       await deleteDocumentRepository
           .deletedDocRepo(
         _box.read(AppString.ID_STORE).toString(),
+
       ).then((value) {
         _successDialog();
+        Get.find<DocumentController>()
+            .getDocumentData();
+        Get.back();
       }, onError: (error) {
         print(error.toString());
       });
