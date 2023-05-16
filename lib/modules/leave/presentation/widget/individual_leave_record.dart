@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/leave_details.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../common/widget/custom_spacer.dart';
 import '../../../../common/widget/custom_buttom_sheet.dart';
@@ -10,13 +14,12 @@ import '../../../../utils/app_color.dart';
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_style.dart';
 import '../../../../utils/images.dart';
-import '../view/leave_calendar.dart';
 
 Widget individualDateLeaveRecord() => Container(
       color: AppColor.backgroundColor,
       child: Column(
         children: [
-          const DatePickerCustom(),
+          const HorizontalCalendar(),
           Obx(() => Get.find<LeaveController>().isValueLoading.isTrue
               ? const CircularProgressIndicator()
               : Get.find<LeaveController>()
@@ -36,6 +39,86 @@ Widget individualDateLeaveRecord() => Container(
         ],
       ),
     );
+
+class HorizontalCalendar extends StatefulWidget {
+  const HorizontalCalendar({Key? key}) : super(key: key);
+
+  @override
+  State<HorizontalCalendar> createState() => _HorizontalCalendarState();
+}
+
+class _HorizontalCalendarState extends State<HorizontalCalendar> {
+  DateTime today = DateTime.now();
+  final firstDate = DateTime.utc(2012);
+  final lastDate = DateTime.utc(2040);
+
+  @override
+  Widget build(BuildContext context) {
+    return TableCalendar(
+      locale: "en_US",
+      rowHeight: AppLayout.getHeight(70),
+      availableGestures: AvailableGestures.all,
+      firstDay: firstDate,
+      lastDay: lastDate,
+      focusedDay: today,
+      calendarFormat: CalendarFormat.week,
+      calendarStyle: CalendarStyle(
+          isTodayHighlighted: true,
+          outsideTextStyle: AppStyle.normal_text_black.copyWith(fontSize: 30),
+          outsideDecoration: defaultTableDecoration,
+          weekNumberTextStyle:
+              AppStyle.normal_text_black.copyWith(fontSize: 30),
+          weekendDecoration: defaultTableDecoration,
+          disabledTextStyle: AppStyle.normal_text_black.copyWith(fontSize: 30),
+          disabledDecoration: defaultTableDecoration,
+          weekendTextStyle: AppStyle.normal_text_black.copyWith(fontSize: 30),
+          withinRangeDecoration: defaultTableDecoration,
+          holidayTextStyle: AppStyle.normal_text_black.copyWith(fontSize: 30),
+          holidayDecoration: defaultTableDecoration,
+          defaultTextStyle: AppStyle.normal_text_black.copyWith(fontSize: 30),
+          defaultDecoration: defaultTableDecoration,
+          selectedTextStyle: AppStyle.normal_text_black
+              .copyWith(fontSize: 30, color: Colors.white),
+          selectedDecoration:
+              defaultTableDecoration.copyWith(color: AppColor.primary_blue),
+          todayDecoration: const BoxDecoration(color: Colors.transparent),
+          todayTextStyle: AppStyle.normal_text_black.copyWith(fontSize: 30)),
+      onHeaderTapped: (focusedDay) {
+        print(focusedDay);
+      },
+      headerStyle: HeaderStyle(
+          titleTextStyle: AppStyle.normal_text.copyWith(
+              fontSize: 24,
+              color: AppColor.primary_blue,
+              fontWeight: FontWeight.bold),
+          titleCentered: true,
+          formatButtonVisible: false),
+      selectedDayPredicate: (day) => isSameDay(day, today),
+      onDaySelected: (selectedDay, focusedDay) async {
+        setState(() {
+          today = selectedDay;
+        });
+        try {
+          Map<String, String> queryParams = {
+            "start": DateFormat("yyyy-MM-dd").format(selectedDay),
+            "end": DateFormat("yyyy-MM-dd").format(selectedDay)
+          };
+          String value = json.encode(queryParams);
+          Get.find<LeaveController>()
+              .getIndividualLeaveList(queryParams: "date_range=$value");
+        } catch (e) {
+          print(e);
+        }
+      },
+    );
+  }
+}
+
+BoxDecoration defaultTableDecoration = BoxDecoration(
+    shape: BoxShape.rectangle,
+    border: Border.all(color: Colors.transparent),
+    borderRadius: BorderRadius.all(Radius.circular(8)),
+    color: Colors.transparent);
 
 _individualDateLeaveRecordList() => Padding(
       padding: EdgeInsets.symmetric(horizontal: AppLayout.getWidth(20)),

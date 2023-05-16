@@ -5,6 +5,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
@@ -313,27 +315,36 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
   }
 
   void _applySingleLeave() {
-    //check if leave duration is set
-    //its a mandatory
-    //set default if not set
-    if (!Get.find<LeaveController>()
-        .requestLeaveQueries
-        .containsKey("leave_duration")) {
-      Get.find<LeaveController>().requestLeaveQueries["leave_duration"] =
-          "single_day";
+    try {
+      if (!Get.find<LeaveController>()
+          .requestLeaveQueries
+          .containsKey("date")) {
+        Get.find<LeaveController>().requestLeaveQueries["date"] =
+            Get.find<DateTimeController>().requestedDate.value;
+      }
+      //check if leave duration is set
+      //its a mandatory
+      //set default if not set
+      if (!Get.find<LeaveController>()
+          .requestLeaveQueries
+          .containsKey("leave_duration")) {
+        Get.find<LeaveController>().requestLeaveQueries["leave_duration"] =
+            "single_day";
+      }
+      //check if leave type is set
+      //its a mandatory
+      //set default if not set
+      if (!Get.find<LeaveController>()
+          .requestLeaveQueries
+          .containsKey("leave_type_id")) {
+        Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] = "1";
+      }
+      //take the note value and set into map
+      Get.find<LeaveController>().requestLeaveQueries["note"] =
+          Get.find<LeaveController>().leaveNote.text;
+    } catch (e) {
+      print(e);
     }
-    //check if leave type is set
-    //its a mandatory
-    //set default if not set
-    if (!Get.find<LeaveController>()
-        .requestLeaveQueries
-        .containsKey("leave_type_id")) {
-      Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] = "1";
-    }
-    //take the note value and set into map
-    Get.find<LeaveController>().requestLeaveQueries["note"] =
-        Get.find<LeaveController>().leaveNote.text;
-
     Get.find<LeaveController>().requestLeave(
         leaveARequestQueries: Get.find<LeaveController>().requestLeaveQueries);
 
@@ -341,31 +352,35 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
   }
 
   void _applyMultiDayLeave() {
-    //check if leave duration is set
-    //its a mandatory
-    //set default if not set
-    if (!Get.find<LeaveController>()
-        .requestLeaveQueries
-        .containsKey("leave_duration")) {
-      Get.find<LeaveController>().requestLeaveQueries["leave_duration"] =
-          "multi_day";
+    try {
+      //check if leave duration is set
+      //its a mandatory
+      //set default if not set
+      if (!Get.find<LeaveController>()
+          .requestLeaveQueries
+          .containsKey("leave_duration")) {
+        Get.find<LeaveController>().requestLeaveQueries["leave_duration"] =
+            "multi_day";
+      }
+      //Add multiple date
+      Get.find<LeaveController>().requestLeaveQueries["start_date"] =
+          Get.find<LeaveController>().startDate.value;
+      Get.find<LeaveController>().requestLeaveQueries["end_date"] =
+          Get.find<LeaveController>().endDate.value;
+      //check if leave type is set
+      //its a mandatory
+      //set default if not set
+      if (!Get.find<LeaveController>()
+          .requestLeaveQueries
+          .containsKey("leave_type_id")) {
+        Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] = "1";
+      }
+      //take the note value and set into map
+      Get.find<LeaveController>().requestLeaveQueries["note"] =
+          Get.find<LeaveController>().leaveNote.text;
+    } catch (e) {
+      print(e);
     }
-    //Add multiple date
-    Get.find<LeaveController>().requestLeaveQueries["start_date"] =
-        Get.find<LeaveController>().startDate.value;
-    Get.find<LeaveController>().requestLeaveQueries["end_date"] =
-        Get.find<LeaveController>().endDate.value;
-    //check if leave type is set
-    //its a mandatory
-    //set default if not set
-    if (!Get.find<LeaveController>()
-        .requestLeaveQueries
-        .containsKey("leave_type_id")) {
-      Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] = "1";
-    }
-    //take the note value and set into map
-    Get.find<LeaveController>().requestLeaveQueries["note"] =
-        Get.find<LeaveController>().leaveNote.text;
 
     Get.find<LeaveController>().requestLeave(
         leaveARequestQueries: Get.find<LeaveController>().requestLeaveQueries);
@@ -374,18 +389,28 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
   }
 
   void _applyHalfDayLeave() {
-    //check if leave type is set
-    //its a mandatory
-    //set default if not set
-    if (!Get.find<LeaveController>()
-        .requestLeaveQueries
-        .containsKey("leave_type_id")) {
-      Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] = "1";
-    }
-    //take the note value and set into map
-    Get.find<LeaveController>().requestLeaveQueries["note"] =
-        Get.find<LeaveController>().leaveNote.text;
+    try {
+      if (!Get.find<LeaveController>()
+          .requestLeaveQueries
+          .containsKey("date")) {
+        Get.find<LeaveController>().requestLeaveQueries["date"] =
+            Get.find<DateTimeController>().requestedDate.value;
+      }
 
+      //check if leave type is set
+      //its a mandatory
+      //set default if not set
+      if (!Get.find<LeaveController>()
+          .requestLeaveQueries
+          .containsKey("leave_type_id")) {
+        Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] = "1";
+      }
+      //take the note value and set into map
+      Get.find<LeaveController>().requestLeaveQueries["note"] =
+          Get.find<LeaveController>().leaveNote.text;
+    } catch (e) {
+      print(e);
+    }
     Get.find<LeaveController>().requestLeave(
         leaveARequestQueries: Get.find<LeaveController>().requestLeaveQueries);
 
@@ -393,6 +418,29 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
   }
 
   void _applyHourLeave() {
+    try {
+      if (!Get.find<LeaveController>()
+          .requestLeaveQueries
+          .containsKey("date")) {
+        Get.find<LeaveController>().requestLeaveQueries["date"] =
+            Get.find<DateTimeController>().requestedDate.value;
+      }
+
+      Get.find<LeaveController>()
+          .requestLeaveQueries["start_time"] = DateFormat(
+              "yyyy-MM-dd hh:mma")
+          .parse(
+              "${Get.find<DateTimeController>().requestedDate.value} ${Get.find<DateTimeController>().pickedInTime.value.replaceAll(" ", "")}")
+          .toString();
+
+      Get.find<LeaveController>().requestLeaveQueries["end_time"] = DateFormat(
+              "yyyy-MM-dd hh:mma")
+          .parse(
+              "${Get.find<DateTimeController>().requestedDate.value} ${Get.find<DateTimeController>().pickedOutTime.value.replaceAll(" ", "")}")
+          .toString();
+    } catch (e) {
+      print(e);
+    }
     //check if leave type is set
     //its a mandatory
     //set default if not set

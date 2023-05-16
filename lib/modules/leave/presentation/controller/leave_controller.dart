@@ -62,7 +62,7 @@ class LeaveController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  getLeaveRecord(String params) async {
+  getLeaveRecord({required String params}) async {
     change(null, status: RxStatus.loading());
     await _leaveRepository.getLeaveRecord(params).then((value) {
       print("getLeaveRecord ::: called");
@@ -111,7 +111,7 @@ class LeaveController extends GetxController with StateMixin {
     await _leaveRepository.cancelLeave(id: id).then((value) {
       print("getILeaveDetails ::: called");
       Get.back(canPop: false);
-      getLeaveRecord("&within=thisYear");
+      getLeaveRecord(params: "&within=thisYear");
     }, onError: (error) => print("getILeaveDetails ${error.message}"));
 
     change(null, status: RxStatus.success());

@@ -32,14 +32,14 @@ class ApplyLeaveDobHours extends StatelessWidget {
             Flexible(
               child: _applyLeaveStartTime(
                 context: context,
-                fieldTitleText: AppString.text_start_day,
+                fieldTitleText: AppString.text_start_time,
               ),
             ),
             customSpacerWidth(width: 12),
             Flexible(
               child: _applyLeaveEndTime(
                 context: context,
-                fieldTitleText: AppString.text_end_day,
+                fieldTitleText: AppString.text_end_time,
               ),
             ),
           ],

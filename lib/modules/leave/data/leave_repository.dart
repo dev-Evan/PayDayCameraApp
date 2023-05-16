@@ -116,7 +116,7 @@ class LeaveRepository {
     }
   }
 
-  requestLeave({required Map<dynamic, dynamic> leaveQueries}) async {
+  Future<SuccessModel>requestLeave({required Map<dynamic, dynamic> leaveQueries}) async {
     final formData = FormData({});
 
     leaveQueries.forEach((key, value) {
@@ -131,17 +131,17 @@ class LeaveRepository {
       }
     });
     print("${leaveQueries.keys}:::${leaveQueries.values}");
-    // try {
-    //   Response response =
-    //       await networkClient.postRequest(AppString.REQUEST_LEAVE, formData);
-    //   print(response.body);
-    //   if (response.status.hasError) {
-    //     return Future.error(ErrorModel.fromJson(response.body));
-    //   } else {
-    //     return SuccessModel.fromJson(response.body);
-    //   }
-    // } catch (ex) {
-    //   return Future.error(ErrorModel(message: ex.toString()));
-    // }
+    try {
+      Response response =
+          await networkClient.postRequest(AppString.REQUEST_LEAVE, formData);
+      print(response.body);
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
+      } else {
+        return SuccessModel.fromJson(response.body);
+      }
+    } catch (ex) {
+      return Future.error(ErrorModel(message: ex.toString()));
+    }
   }
 }

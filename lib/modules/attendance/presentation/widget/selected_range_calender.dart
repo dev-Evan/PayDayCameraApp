@@ -317,12 +317,12 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                       'start': DateFormat("yyyy-MM-dd").format(_rangeStartDay!),
                       'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
                     };
-                    String v = json.encode(queryParams);
+                    String value = json.encode(queryParams);
                     // Get.find<AttendanceLogsController>()
-                    //     .getLogSummaryOverview(queryParams: "time_range=$v");
-
+                    //     .getLogSummaryOverview(queryParams: "date_range=$value");
+                    print("QueryParams: $queryParams ::: value:::: $value");
                     Get.find<LeaveController>()
-                        .getLeaveRecord("&within=thisYear");
+                        .getLeaveRecord(params: "&date_range=$value");
                   }
                   Navigator.pop(Get.context!);
                   break;

@@ -9,6 +9,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../common/widget/custom_button.dart';
 import '../../../../utils/app_string.dart';
+import '../../../../utils/app_style.dart';
 
 class ApplyLevPopUpCalendar extends StatefulWidget {
   final bool? isStartDay;
@@ -41,14 +42,18 @@ class _ApplyLevPopUpCalendarState extends State<ApplyLevPopUpCalendar> {
         TableCalendar(
           locale: "en_US",
           rowHeight: 38,
-          calendarStyle: const CalendarStyle(
-            selectedDecoration: BoxDecoration(
-                color: AppColor.primaryColor, shape: BoxShape.circle),
-            todayDecoration: BoxDecoration(color: Colors.transparent),
-            todayTextStyle: TextStyle(color: AppColor.primaryColor),
-          ),
-          headerStyle: const HeaderStyle(
-              formatButtonVisible: false, titleCentered: true),
+          calendarStyle: CalendarStyle(
+              selectedDecoration: const BoxDecoration(
+                  shape: BoxShape.circle, color: AppColor.primary_blue),
+              todayDecoration: const BoxDecoration(
+                  shape: BoxShape.circle, color: Colors.transparent),
+              todayTextStyle: AppStyle.extra_large_text_black.copyWith(
+                  color: AppColor.primary_blue, fontWeight: FontWeight.bold)),
+          headerStyle: HeaderStyle(
+              titleTextStyle: AppStyle.normal_text.copyWith(
+                  color: AppColor.primary_blue, fontWeight: FontWeight.bold),
+              titleCentered: true,
+              formatButtonVisible: false),
           availableGestures: AvailableGestures.all,
           firstDay: firstDate,
           lastDay: lastDate,

@@ -29,7 +29,7 @@ Widget leaveAllowanceLayout() => Container(
                 context: Get.context!,
                 pageName: const LeaveRecordsView());
             await Get.find<LeaveController>().getLeaveSummary();
-            await Get.find<LeaveController>().getLeaveRecord("&within=thisYear");
+            await Get.find<LeaveController>().getLeaveRecord(params: "&within=thisYear");
           }),
     ],
   ),
