@@ -7,6 +7,9 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/change_passw
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_controller.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
+import 'package:pay_day_mobile/modules/notification/presentation/controller/notication_controller.dart';
+
 import 'common/controller/status_controller.dart';
 import 'modules/more/presentation/controller/address_details_controller.dart';
 import 'modules/more/presentation/controller/change_profile_img_controller.dart';
@@ -43,6 +46,9 @@ Future<void> initApp() async {
    Get.lazyPut(() => LogoutController(), fenix: true);
    Get.lazyPut(() => ChangePassController(), fenix: true);
    Get.put(StatusController());
-
-
+  Get.lazyPut(() => LeaveController());
+  Get.lazyPut(() => NotificationController());
+  // Get.lazyPut(() => DateTimeController(), fenix: true);
+  // Get.lazyPut(() => StatusController(), fenix: true);
+  Get.put(StatusController());
 }

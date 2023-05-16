@@ -9,9 +9,8 @@ import '../../../../utils/app_style.dart';
 import '../../../../utils/dimensions.dart';
 
 class AmPmToggleButton extends StatefulWidget {
-  var controller;
 
-  AmPmToggleButton({required this.controller, Key? key}) : super(key: key);
+  AmPmToggleButton({Key? key}) : super(key: key);
 
   @override
   State<AmPmToggleButton> createState() => _AmPmToggleButtonState();

@@ -11,35 +11,35 @@ Widget CustomTextFieldDob(
     child: Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: TextField(
-      readOnly: true,
+        readOnly: true,
         onTap: ()=>dobIconAction(),
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.all(16),
-          hintText: hintText,
-          focusColor: AppColor.primaryColor,
-          hintStyle: GoogleFonts.poppins(color: AppColor.hintColor,fontSize: Dimensions.fontSizeDefault),
-          filled: false,
-          fillColor: AppColor.backgroundColor,
-          disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide:
-            const BorderSide(width: 0.0, color: AppColor.primaryColor),
-            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-          ),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: AppColor.disableColor, width: 0.0),
-          ),
-          border: OutlineInputBorder(
-            borderSide:
-            const BorderSide(width: 0.0, color: AppColor.primaryColor),
-            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-          ),
+            contentPadding: const EdgeInsets.all(16),
+            hintText: hintText,
+            focusColor: AppColor.primaryColor,
+            hintStyle: GoogleFonts.poppins(color: AppColor.hintColor,fontSize: Dimensions.fontSizeDefault),
+            filled: false,
+            fillColor: AppColor.backgroundColor,
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide:
+              const BorderSide(width: 0.0, color: AppColor.primaryColor),
+              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: AppColor.disableColor, width: 0.0),
+            ),
+            border: OutlineInputBorder(
+              borderSide:
+              const BorderSide(width: 0.0, color: AppColor.primaryColor),
+              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+            ),
 
-          suffixIcon: IconButton(
-            onPressed: ()=>dobIconAction(),icon: Icon(dobIcon),
-          )
+            suffixIcon: IconButton(
+              onPressed: ()=>dobIconAction(),icon: Icon(dobIcon),
+            )
 
         ),
       ),

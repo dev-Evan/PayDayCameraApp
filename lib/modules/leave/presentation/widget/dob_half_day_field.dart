@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pay_day_mobile/common/custom_spacer.dart';
+import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/widget/dob_single_day_field.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/pop_up_dialog.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/custom_text_field_dob.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
@@ -9,6 +11,7 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
+import '../controller/leave_controller.dart';
 import 'apply_lev_popup_calendar.dart';
 
 class ApplyLeaveDobHalfDay extends StatefulWidget {
@@ -22,6 +25,12 @@ class _ApplyLeaveDobHalfDayState extends State<ApplyLeaveDobHalfDay> {
   bool selectedFirst = false;
   bool selectedLast = false;
 
+  int? _selectedValueIndex;
+  List<String> buttonText = [
+    AppString.text_first_half,
+    AppString.text_last_half
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -31,15 +40,13 @@ class _ApplyLeaveDobHalfDayState extends State<ApplyLeaveDobHalfDay> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               textFieldTitleText(
-                titleText: AppString.text_start_day,
+                titleText: AppString.text_date,
               ),
-              CustomTextFieldDob(
-                  hintText: '01-Jan-1996',
-                  dobIcon: Icons.calendar_month,
-                  dobIconAction: () => popUpDialog(
-                      context: context,
-                      child: const ApplyLevPopUpCalendar(),
-                      dobSaveAction: () {})),
+              customSpacerHeight(height: 4),
+              SizedBox(
+                width: AppLayout.getSize(context).width * .45,
+                child: const ApplyLeaveDobSingleDay(),
+              )
             ],
           ),
         ),
@@ -49,74 +56,67 @@ class _ApplyLeaveDobHalfDayState extends State<ApplyLeaveDobHalfDay> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               textFieldTitleText(
-                titleText: AppString.text_end_day,
+                titleText: AppString.text_interval,
               ),
+              customSpacerHeight(height: 4),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Flexible(
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          selectedFirst = !selectedFirst;
-                        });
-                      },
-                      child: _endDayButton(
-                          selectedValue: selectedFirst,
-                          btnText: AppString.text_first),
+                  ...List.generate(
+                    buttonText.length,
+                    (index) => intervalButton(
+                      index: index,
+                      text: buttonText[index],
                     ),
-                  ),
-                  customSpacerWidth(width: 6),
-                  Flexible(
-                    child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            selectedLast = !selectedLast;
-                          });
-                        },
-                        child: _endDayButton(
-                            selectedValue: selectedLast,
-                            btnText: AppString.text_last)),
-                  ),
+                  )
                 ],
-              )
+              ),
             ],
           ),
         ),
       ],
     );
   }
-}
 
-Widget _endDayButton({selectedValue, btnText}) {
-  return Card(
-    elevation: 0,
-    shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-        side: BorderSide(
-            color: selectedValue
-                ? AppColor.primaryColor
-                : AppColor.disableColor.withOpacity(0.4))),
-    color: selectedValue
-        ? AppColor.primaryColor.withOpacity(0.2)
-        : AppColor.disableColor.withOpacity(0.4),
-    child: _endDayBtnText(btnTextS: btnText, value: selectedValue),
-  );
-}
-
-Widget _endDayBtnText({btnTextS, value}) {
-  return Padding(
-    padding: EdgeInsets.only(
-        left: AppLayout.getWidth(Dimensions.fontSizeLarge+2),
-        right: AppLayout.getWidth(Dimensions.fontSizeLarge+2),
-        top: AppLayout.getHeight(Dimensions.fontSizeExtraDefault),
-        bottom: AppLayout.getHeight(Dimensions.fontSizeExtraDefault)),
-    child: Text(
-      btnTextS,
-      style: AppStyle.small_text_black.copyWith(
-          fontWeight: FontWeight.w600,
-          fontSize: Dimensions.fontSizeDefault,
-          letterSpacing: 0.2,
-          color: value ? AppColor.primaryColor : AppColor.normalTextColor),
-    ),
-  );
+  Widget intervalButton({required String text, required int index}) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          _selectedValueIndex = index;
+        });
+        switch (_selectedValueIndex) {
+          case 0:
+            {
+              Get.find<LeaveController>()
+                  .requestLeaveQueries["leave_duration"] = "first_half";
+            }
+            break;
+          case 1:
+            {
+              Get.find<LeaveController>()
+                  .requestLeaveQueries["leave_duration"] = "last_half";
+            }
+            break;
+        }
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+            vertical: AppLayout.getHeight(14),
+            horizontal: AppLayout.getWidth(12)),
+        decoration: BoxDecoration(
+            color: index == _selectedValueIndex
+                ? AppColor.primary_blue
+                : Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            border: index == _selectedValueIndex
+                ? Border.all(width: 1, color: Colors.transparent)
+                : Border.all(width: 1, color: Colors.grey)),
+        child: Text(text,
+            style: AppStyle.small_text_black.copyWith(
+                color: index == _selectedValueIndex
+                    ? Colors.white
+                    : Colors.black)),
+      ),
+    );
+  }
 }

@@ -110,7 +110,7 @@ class EditAttendanceBottomSheet extends StatelessWidget {
   _entryBehaviour() {
     return Text(
       TimeCounterHelper.getTimeStringFromDouble(
-          logDetailsById.data!.totalHours),
+          logDetailsById.data!.totalHours.toDouble()),
       style: AppStyle.normal_text_black.copyWith(fontWeight: FontWeight.w400),
     );
   }

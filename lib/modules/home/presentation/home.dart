@@ -22,8 +22,8 @@ class _HomeState extends State<Home> {
   final _screens = <Widget>[
     const Attendance(),
     const Leave(),
-     PaySlip(),
-     MoreScreen()
+    PaySlip(),
+    MoreScreen()
   ];
 
   final _items = <BottomNavigationBarItem>[

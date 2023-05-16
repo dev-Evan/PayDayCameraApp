@@ -40,6 +40,17 @@ class AppString {
   static String LOG_SUMMARY_BY_THIS_MONTH = "/attendance/summary?within=thisMonth";
   static String LOG_SUMMARY_BY_THIS_YEAR = "/attendance/summary?within=thisYear";
   static String LEAVE_ALLOWANCE = "/leave/allowance";
+  static String LEAVE_SUMMARY = "/leave/summary";
+  static String LEAVE_RECORD = "/leave/record?per_page=50";
+  static String LEAVE_TYPE = "/leave/type";
+  static String INDIVIDUAL_DATE_LEAVE = "/leave/list/view";
+  static String LEAVE_DETAILS = "/leave/log";
+  static String CANCEL_LEAVE = "/leave/cancel";
+  static String REQUEST_LEAVE = "/leave/store";
+  static String ALL_NOTIFICATION = "/notifications";
+  static String ALL_UNREAD_NOTIFICATION = "/notifications?unread=true";
+  static String NOTICATION_AS_READ = "/notification/read";
+  static String NOTIFICATION_AS_ALL_READ = "/notification/all/read";
 
   // Apps string here
   static const String exampleText = "";
@@ -59,6 +70,8 @@ class AppString {
   static const String textMonth = "This Month";
   static const String textYear = "This Year";
   static const String text_filter = "Filter";
+  static const String mark_read = "Mark as Read";
+  static const String select_leave_type = "Select Leave Type";
   static const String text_select_time_range = "Select Time Range";
   static const String text_leave_status = "Leave Status";
   static const String text_leave_duration = "Leave Duration";
@@ -80,12 +93,16 @@ class AppString {
   static String error_text = "Something went wrong! Please try again";
   static String text_reload = "Reload";
   static String text_change_log = "Change Log";
+  static String text_start_time = "Start Time";
+  static String text_end_time = "End Time";
   static String text_skip = "Skip";
   static String text_please_selected_date = "Please selected date";
   static String text_alert = "Alert";
   static String text_next = "Next";
   static String text_search = "Search";
+  static String text_leave_type = "Leave Type";
   static String text_search_typing_to_search = "Start typing to search";
+  static String text_notications = "Notifications";
 
   static const String text_attendance_status = "Attendance Status";
   static const String text_entry_type = "Entry Type";
@@ -110,7 +127,7 @@ class AppString {
   static String text_last_week = "Last Week";
   static String text_last_month = "Last Month";
   static String text_last_year = "Last Year";
-
+  static String text_leave_response = "Leave Response";
   static String text_requstAttendance = "Request Attendance";
   static String text_attendance_log = "Attendance Logs";
   static String todays_log = "Today’s logs";
@@ -152,6 +169,7 @@ class AppString {
   static const String text_casual = "Casual";
   static const String text_sick = "Sick";
   static const String text_apply_leve = "Apply Leave";
+  static const String text_apply = "Apply";
   static const String text_leave_records = "Leave Records";
   static const String text_upcomming = "Upcoming";
   static const String text_singleDay = "Single Day";

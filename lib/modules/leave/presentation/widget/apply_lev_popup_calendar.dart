@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../../../common/widget/custom_button.dart';
+import '../../../../utils/app_string.dart';
+import '../../../../utils/app_style.dart';
+
 class ApplyLevPopUpCalendar extends StatefulWidget {
-  const ApplyLevPopUpCalendar({Key? key}) : super(key: key);
+  final bool? isStartDay;
+
+  const ApplyLevPopUpCalendar({ this.isStartDay, super.key});
 
   @override
   State<ApplyLevPopUpCalendar> createState() => _ApplyLevPopUpCalendarState();
@@ -19,7 +29,6 @@ class _ApplyLevPopUpCalendarState extends State<ApplyLevPopUpCalendar> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDate;
 
-  Map<String, List> mySelectedEvents = {};
   @override
   void initState() {
     super.initState();
@@ -32,16 +41,19 @@ class _ApplyLevPopUpCalendarState extends State<ApplyLevPopUpCalendar> {
       children: [
         TableCalendar(
           locale: "en_US",
-          rowHeight: 43,
-
-          calendarStyle: const CalendarStyle(
-            selectedDecoration:
-                BoxDecoration(color: AppColor.primaryColor, shape: BoxShape.circle),
-            todayDecoration: BoxDecoration(color: Colors.transparent),
-            todayTextStyle: TextStyle(color: AppColor.primaryColor),
-          ),
-          headerStyle:
-              const HeaderStyle(formatButtonVisible: false, titleCentered: true),
+          rowHeight: 38,
+          calendarStyle: CalendarStyle(
+              selectedDecoration: const BoxDecoration(
+                  shape: BoxShape.circle, color: AppColor.primary_blue),
+              todayDecoration: const BoxDecoration(
+                  shape: BoxShape.circle, color: Colors.transparent),
+              todayTextStyle: AppStyle.extra_large_text_black.copyWith(
+                  color: AppColor.primary_blue, fontWeight: FontWeight.bold)),
+          headerStyle: HeaderStyle(
+              titleTextStyle: AppStyle.normal_text.copyWith(
+                  color: AppColor.primary_blue, fontWeight: FontWeight.bold),
+              titleCentered: true,
+              formatButtonVisible: false),
           availableGestures: AvailableGestures.all,
           firstDay: firstDate,
           lastDay: lastDate,
@@ -69,8 +81,15 @@ class _ApplyLevPopUpCalendarState extends State<ApplyLevPopUpCalendar> {
             _focusedDay = focusedDay;
           },
         ),
-
-       
+        customSpacerHeight(height: 20),
+        CustomSmallButton(AppString.text_save, () {
+          widget.isStartDay!
+              ? Get.find<LeaveController>().startDate.value =
+                  DateFormat('yyyy-MM-dd').format(_selectedDate!)
+              : Get.find<LeaveController>().endDate.value =
+                  DateFormat('yyyy-MM-dd').format(_selectedDate!);
+          Get.back();
+        }),
       ],
     );
   }
