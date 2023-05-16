@@ -151,7 +151,7 @@ class LogsList extends GetView<AttendanceLogsController> {
         builder: (context) => const LogDetailsBottomSheet(),
       );
 
-  _logInfo(int index) {
+  _logInfo(int dataIndex) {
     return Expanded(
         flex: 11,
         child: Column(
@@ -159,7 +159,7 @@ class LogsList extends GetView<AttendanceLogsController> {
           children: [
             controller.filteredLogSummary.value.data != null
                 ? Text(
-                    "${controller.filteredLogSummary.value.data!.data?[index].details?.last.inTime} - ${controller.filteredLogSummary.value.data!.data?[index].details?.first.outTime}",
+                    "${controller.filteredLogSummary.value.data!.data?[dataIndex].details?.last.inTime} - ${controller.filteredLogSummary.value.data!.data?[dataIndex].details?.first.outTime}",
                     style: AppStyle.mid_large_text.copyWith(
                       color: AppColor.secondaryColor,
                       fontSize: Dimensions.fontSizeDefault + 2,
@@ -181,7 +181,10 @@ class LogsList extends GetView<AttendanceLogsController> {
                 ),
                 controller.filteredLogSummary.value.data != null
                     ? Text(
-                        "9",
+                  //todo
+                        controller.filteredLogSummary.value.data!.data?[dataIndex].details!.length
+                                .toString() ??
+                            "",
                         style: AppStyle.mid_large_text.copyWith(
                             color: AppColor.hintColor.withOpacity(0.7),
                             fontSize: Dimensions.fontSizeDefault + 2,

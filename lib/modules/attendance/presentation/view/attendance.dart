@@ -25,6 +25,10 @@ class Attendance extends GetView<AttendanceController> {
 
   @override
   Widget build(BuildContext context) {
+    bool value = Get.isRegistered<AttendanceController>();
+    if (value) {
+      Get.lazyPut(() => AttendanceController(),fenix: true);
+    }
     controller.checkUserIsPunchedIn();
     controller.getDailyLog();
     return controller.obx(

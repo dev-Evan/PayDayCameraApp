@@ -18,7 +18,7 @@ class AuthController extends GetxController with StateMixin{
       _authDataSource.loginIntoAccount(email, password).then((value) {
         print(value);
         _writeUserInfo(value);
-        Get.toNamed(AppString.home);
+        Get.offAllNamed(AppString.home);
       }, onError: (error) => _showToast(error.message));
     } catch (ex) {
       print(ex.toString());

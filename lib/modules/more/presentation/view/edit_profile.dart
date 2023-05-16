@@ -218,6 +218,7 @@ class EditProfile extends StatelessWidget {
                                     .userProfile.data?.dateOfBirth ??
                                 "",
                         dobIcon: Icons.calendar_month,
+
                         dobIconAction: () {
                           profileCalenderDialog(
                               context: context,

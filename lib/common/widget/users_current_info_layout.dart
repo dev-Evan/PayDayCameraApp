@@ -38,7 +38,7 @@ class UsersCurrentInfoLayout extends StatelessWidget {
         SizedBox(
           width: AppLayout.getWidth(8),
         ),
-        Column(
+        Expanded(child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
@@ -53,7 +53,7 @@ class UsersCurrentInfoLayout extends StatelessWidget {
                   .copyWith(fontWeight: FontWeight.w400, color: Colors.grey),
             ),
           ],
-        ),
+        ),)
       ],
     );
   }

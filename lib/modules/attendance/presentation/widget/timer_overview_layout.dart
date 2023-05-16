@@ -66,10 +66,6 @@ remainingTimeLog() {
           data?.todayShortage.toDouble() ?? 0.0));
 }
 
-
-
-
-
 scheduledTimeLog() {
   Data? data = Get.find<AttendanceController>().logs.value.data;
   return scheduledLogInfo(
@@ -79,10 +75,13 @@ scheduledTimeLog() {
 }
 
 Widget balanceTimeLog() {
-  AttendanceController controller = Get.find<AttendanceController>();
-  return controller.logs.value.data?.todayOvertime > 0
-      ? overTimedBalanceTime()
-      : normalBalanceTime();
+  var data = Get.find<AttendanceController>().logs.value.data;
+  if (data != null) {
+    return data.todayOvertime > 0
+        ? overTimedBalanceTime()
+        : normalBalanceTime();
+  }
+  return Container();
 }
 
 overTimedBalanceTime() {
@@ -128,10 +127,7 @@ inTimeLog() {
       time: data != null && data.dailyLogs!.isNotEmpty
           ? data.dailyLogs?.first.inTime
           : '');
-
 }
-
-
 
 logInfo({required String title, required String time, Color? fontColor}) {
   return Column(
