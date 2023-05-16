@@ -1,16 +1,12 @@
 import 'dart:io';
-import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
-
+import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
+import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_upload_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/job_his_job_title.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -20,8 +16,7 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
 
-import '../../../../common/widget/custom_double_button.dart';
-import '../../../../common/widget/text_field.dart';
+
 
 class AddDocument extends StatefulWidget {
   const AddDocument({Key? key}) : super(key: key);

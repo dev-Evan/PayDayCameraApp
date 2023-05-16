@@ -30,8 +30,8 @@ class DocumentUploadController extends GetxController {
     request.headers['Authorization'] = 'Bearer $accessToken';
     var response = await request.send();
     if (response.statusCode == 200) {
-      print(AppString.text_document_upload_successfully);
       Get.back();
+      print(AppString.text_document_upload_successfully);
       _showToast(AppString.text_document_upload_successfully);
     } else {
       return '${response.statusCode}';

@@ -1,5 +1,3 @@
-
-
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
@@ -7,8 +5,6 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
-import 'package:pay_day_mobile/modules/leave/presentation/widget/apply_lev_popup_calendar.dart';
-import 'package:pay_day_mobile/modules/leave/presentation/widget/pop_up_dialog.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
@@ -26,28 +22,13 @@ import '../../../../common/widget/text_field.dart';
 import '../controller/edit_profile_drop_dawon_cnt.dart';
 import '../widget/custom_text_field_dob.dart';
 
-class EditProfile extends StatefulWidget {
-  const EditProfile({Key? key}) : super(key: key);
-
-  @override
-  State<EditProfile> createState() => _EditProfileState();
-}
-
-class _EditProfileState extends State<EditProfile> {
+class EditProfile extends StatelessWidget {
+   EditProfile({Key? key}) : super(key: key);
   final List<String> _locations = [AppString.text_male, AppString.text_female];
   String? dropdownValue;
-  EditProfileDataController editProfileDataController =
-      Get.put(EditProfileDataController());
-  ProfileDataController profileDataController =
-      Get.put(ProfileDataController());
-  DropdownBtnController dropdownBtnController =
-      Get.put(DropdownBtnController());
-
   @override
   Widget build(BuildContext context) {
     final _box = GetStorage();
-    var receiveDate = _box.read(AppString.STORE_DATE.toString()??"");
-
     return Scaffold(
       appBar: const CustomAppbar(),
       body: SingleChildScrollView(
@@ -70,11 +51,12 @@ class _EditProfileState extends State<EditProfile> {
                                 titleText:
                                     AppString.text_first + AppString.text_name),
                             CustomTextFeild(
-                              hintText: profileDataController
-                                      .userProfile?.data?.firstName ??
+                              hintText: Get.find<ProfileDataController>()
+                                      .userProfile.data?.firstName ??
                                   AppString.text_first + AppString.text_name,
-                              controller: editProfileDataController
-                                  .firstNameController.value,
+                              controller: Get.find<EditProfileDataController>()
+                                  .firstNameController
+                                  .value,
                             ),
                           ],
                         ),
@@ -88,11 +70,12 @@ class _EditProfileState extends State<EditProfile> {
                                 titleText:
                                     AppString.text_first + AppString.text_name),
                             CustomTextFeild(
-                              hintText: profileDataController
-                                      .userProfile?.data?.lastName ??
+                              hintText: Get.find<ProfileDataController>()
+                                      .userProfile.data?.lastName ??
                                   AppString.text_last + AppString.text_name,
-                              controller: editProfileDataController
-                                  .lastNameController.value,
+                              controller: Get.find<EditProfileDataController>()
+                                  .lastNameController
+                                  .value,
                             ),
                           ],
                         ),
@@ -104,9 +87,11 @@ class _EditProfileState extends State<EditProfile> {
                     child: textFieldTitleText(titleText: AppString.text_email),
                   ),
                   CustomTextFeild(
-                    hintText: profileDataController.userProfile?.data?.email ??
+                    hintText: Get.find<ProfileDataController>().userProfile.data?.email ??
                         AppString.text_email,
-                    controller: editProfileDataController.emailController.value,
+                    controller: Get.find<EditProfileDataController>()
+                        .emailController
+                        .value,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -134,12 +119,12 @@ class _EditProfileState extends State<EditProfile> {
                             icon: const Icon(Icons.expand_more),
                             iconEnabledColor: AppColor.normalTextColor,
                             hint: Text(
-                              profileDataController.userProfile?.data?.gender ??
+                              Get.find<ProfileDataController>().userProfile.data?.gender ??
                                   "",
                               style: AppStyle.normal_text
                                   .copyWith(color: AppColor.normalTextColor),
                             ),
-                            value: dropdownBtnController.dropdownValue.value,
+                            value: Get.find<DropdownBtnController>().dropdownValue.value,
                             borderRadius:
                                 BorderRadius.circular(Dimensions.radiusDefault),
                             items: _locations
@@ -152,7 +137,7 @@ class _EditProfileState extends State<EditProfile> {
                               );
                             }).toList(),
                             onChanged: (newValue) {
-                              dropdownBtnController.onValueChanged(newValue);
+                              Get.find<DropdownBtnController>().onValueChanged(newValue);
 
                               // print(newValue.toString());
                             },
@@ -170,7 +155,7 @@ class _EditProfileState extends State<EditProfile> {
                     child: IntlPhoneField(
                       decoration: InputDecoration(
                         labelText:
-                            profileDataController.userProfile?.data?.contact ??
+                        Get.find<ProfileDataController>().userProfile.data?.contact ??
                                 "",
                         enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(
@@ -181,8 +166,9 @@ class _EditProfileState extends State<EditProfile> {
                               width: 0.0, color: AppColor.disableColor),
                         ),
                       ),
-                      controller:
-                          editProfileDataController.contactController.value,
+                      controller: Get.find<EditProfileDataController>()
+                          .contactController
+                          .value,
                     ),
                   ),
                   Padding(
@@ -202,11 +188,12 @@ class _EditProfileState extends State<EditProfile> {
                         border: Border.all(
                             width: 0.0, color: AppColor.disableColor)),
                     child: TextField(
-                      controller:
-                          editProfileDataController.addressController.value,
+                      controller: Get.find<EditProfileDataController>()
+                          .addressController
+                          .value,
                       decoration: InputDecoration(
                         hintText:
-                            profileDataController.userProfile?.data?.address ??
+                        Get.find<ProfileDataController>().userProfile.data?.address ??
                                 "",
                         contentPadding: EdgeInsets.all(8),
                         border: InputBorder.none,
@@ -225,18 +212,21 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                   Container(
                     child: CustomTextFieldDob(
-                        hintText: _box.read(AppString.STORE_DATE.toString()??"")==null? profileDataController
-                            .userProfile?.data?.dateOfBirth ??
-                            "":_box.read(AppString.STORE_DATE.toString()??""),
+                        hintText:
+                            _box.read(AppString.STORE_DATE.toString() ?? "") ??
+                                Get.find<ProfileDataController>()
+                                    .userProfile.data?.dateOfBirth ??
+                                "",
+                        dobIcon: Icons.calendar_month,
 
-          dobIcon: Icons.calendar_month,
                         dobIconAction: () {
                           profileCalenderDialog(
                               context: context,
                               height: AppLayout.getHeight(72),
                               child: const EditProfileCalender(),
                               dobSaveAction: () {
-                                if (_box.read(AppString.STORE_DATE.toString()??"") ==
+                                if (_box.read(AppString.STORE_DATE.toString() ??
+                                        "") ==
                                     null) {
                                   Get.snackbar(AppString.text_alert,
                                       AppString.text_please_selected_date);
@@ -263,11 +253,12 @@ class _EditProfileState extends State<EditProfile> {
                         border: Border.all(
                             width: 0.0, color: AppColor.disableColor)),
                     child: TextField(
-                      controller:
-                          editProfileDataController.aboutMeController.value,
+                      controller: Get.find<EditProfileDataController>()
+                          .aboutMeController
+                          .value,
                       decoration: InputDecoration(
                         hintText:
-                            profileDataController.userProfile?.data?.aboutMe ??
+                        Get.find<ProfileDataController>().userProfile.data?.aboutMe ??
                                 "",
                         contentPadding: const EdgeInsets.all(8),
                         border: InputBorder.none,
@@ -284,8 +275,9 @@ class _EditProfileState extends State<EditProfile> {
               child: CustomButton(AppString.text_save, () {
                 // editProfileDataController.editProfileData();
 
-                editProfileDataController.editProfileData(
-                    selectedDate: _box.read(AppString.STORE_DATE.toString()??""));
+                Get.find<EditProfileDataController>().editProfileData(
+                    selectedDate:
+                        _box.read(AppString.STORE_DATE.toString() ?? ""));
               }),
             )
           ],

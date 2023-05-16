@@ -49,7 +49,7 @@ class _AddAddressState extends State<AddAddress> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 8.0),
+              padding: const EdgeInsets.only(top: 12.0),
               child: Card(
                 color: AppColor.cardColor,
                 elevation: 0,

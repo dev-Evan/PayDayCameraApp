@@ -7,11 +7,9 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/address_deta
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 
-
 class AddressUpdateController extends GetxController with StateMixin {
-  final AddressUpdateDataSource addressUpdateDataSource =
-      AddressUpdateDataSource(NetworkClient());
-  AddressDetailsController addressDetailsController =Get.put(AddressDetailsController());
+  final AddressUpdateDataSource addressUpdateDataSource = AddressUpdateDataSource(NetworkClient());
+
 
   final areaController = TextEditingController().obs;
   final cityController = TextEditingController().obs;
@@ -22,30 +20,30 @@ class AddressUpdateController extends GetxController with StateMixin {
   final typeController = TextEditingController().obs;
   final zipCodeController = TextEditingController().obs;
 
-
-
-  void addressUpdate({required typeKey,required selectedCounty}) async {
+  void addressUpdate({required typeKey, required selectedCounty}) async {
     change(null, status: RxStatus.loading());
     try {
       await addressUpdateDataSource
           .getAddressUpdate(
-      areaController.value.text,
+        areaController.value.text,
         cityController.value.text,
         selectedCounty.toString(),
         detailsController.value.text,
         phoneNumberController.value.text,
         stateController.value.text,
-          typeKey.toString(),
+        typeKey.toString(),
         zipCodeController.value.text,
       )
           .then((value) {
-        //  Get.toNamed(AppString.home);
+        Get.back();
+
+        Get.find<AddressDetailsController>().getEmployeeAddressData();
         _showToast(value.message);
 
-        print("update done");
+        print("Address update ::: update done");
       }, onError: (error) => _showToast(error.message));
     } catch (ex) {
-      print(ex.toString());
+
       _showToast(ex.toString());
     }
     change(null, status: RxStatus.success());
@@ -60,4 +58,3 @@ class AddressUpdateController extends GetxController with StateMixin {
       textColor: Colors.white,
       fontSize: 16.0);
 }
-

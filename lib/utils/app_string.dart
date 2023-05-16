@@ -28,7 +28,12 @@ class AppString {
   static String UPDATE_PROFILE_DATA = "/user/profile/update";
   static String DOCUMENT_UPLOAD = "/document/store";
   static String UPDATE_DOCUMENT = "/document/update";
+  static String PAYSLIP_LIST = "/payroll/payslip-list";
   static String POST = "POST";
+  static String PAYSLIP_SUMMARY = "/payroll/payslip-summary";
+  static String PAYSLIP_VIEW = "/payroll/payslip/";
+  static String PAYSLIP_DOWNLOAD = "/payroll/payslip/pdf/";
+  static String PAYRUN_BADGE = "/payroll/payrun-and-badge";
   static String DELETED_DOCUMENT = "/document/delete";
   static String USER_CHANGE_PICTURE = "/user/change-picture";
   static String SALARY_OVERVIEW = "/employee/salary-overview";
@@ -104,6 +109,7 @@ class AppString {
   static String text_this_week = "This Week";
   static String text_last_week = "Last Week";
   static String text_last_month = "Last Month";
+  static String text_last_year = "Last Year";
 
   static String text_requstAttendance = "Request Attendance";
   static String text_attendance_log = "Attendance Logs";
@@ -190,6 +196,7 @@ class AppString {
   static String text_period = "Period";
   static String text_consider_type = "Consider Type";
   static String text_monthly = "Monthly";
+  static String text_no_included = "N/A";
   static String text_hour = "Hour";
   static String text_2 = "2";
   static String text_included = "Included";
@@ -295,6 +302,7 @@ class AppString {
   static String text_payrun_badge = "Payrun & Badge";
   static String text_february_2022 = "February 2022";
   static String text_this_year = "This Year";
+  static String text_this_year2 = "thisYear";
   static String text_caleder = "Calender";
   static String text_this_month = "This month";
   static String text_success = "Success";
@@ -305,6 +313,8 @@ class AppString {
   static String text_deleted_document_successfully = "Deleted document successfully";
   static String text_document_upload_successfully = "Document uploaded successfully!";
   static String text_document_update_successfully = "Document update successfully!";
+  static String text_payslip_download_successfully = "Payslip download successfully!";
+  static String text_something_wrong = "Something wrong !";
 
   static String text_enter_your_old_password = "Enter your old password";
   static String text_enter_new_password = "Enter new password";
@@ -328,8 +338,8 @@ class AppString {
 
   // Local store string here
   static const String ID_STORE = "store";
-  static String ACCESS_TOKEN = "access_token";
-  static String USERNAME = "full_name";
+  static const String ACCESS_TOKEN = "access_token";
+  static const String USERNAME = "full_name";
   static const String STORE_TOKEN = "storeToken";
   static const String LOGIN_CHECK_KEY = "loginCheckValue";
   static const String STORE_DATE = "storeData";
@@ -338,7 +348,12 @@ class AppString {
   static const String LOGIN_VALUE = "LogInValue";
   static const String REMEMBER_VALUE = "rememberValue";
   static const String REMEMBER_KEY = "rememberKey";
+  static const String CURRENT_DATE = "currentDate";
   static const String STORE_COUNTY = "storeCounty";
+  static const String STORE_CURRENCY = "storeCurrency";
+  static const String STORE_PAYSLIP_LSIT_ID = "storePayslipListId";
+  static const String STORE_DOC_NAME = "storeDocName";
+  static const String PAYSLIP_DATE_RANGE = "payslip_date_range";
 
 // Auth String
 
@@ -367,4 +382,10 @@ class AppString {
   static const String leave = "/leave_screen";
   static const String profileView = "/profileView_screen";
   static const String updateDocument = "/updateDocument_screen";
+  static const String documentScreen = "/document_screen";
+  static const String jobHistory = "/jobHistory_screen";
+  static const String salaryOverView = "/salaryOverView_screen";
+  static const String addressDetails = "/addressDetails_screen";
+  static const String aboutPage = "/aboutPage_screen";
+  static const String payrunBage = "/payrunBage_screen";
 }

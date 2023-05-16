@@ -9,14 +9,14 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 class LogoutController extends GetxController with StateMixin {
   LogoutRepository logoutRepository=LogoutRepository(NetworkClient());
   final _box=GetStorage();
-  LogoutModel? logoutModel;
+  LogoutModel  logoutModel =LogoutModel();
   logOut() async {
     change(null, status: RxStatus.loading());
     try {
       await logoutRepository.getLogoutRepoData().then((value) {
         logoutModel = value;
-          SystemNavigator.pop();
           _box.remove(AppString.STORE_TOKEN);
+        Get.toNamed(AppString.signInScreen);
       }, onError: (error) {
         print(error.message);
       });

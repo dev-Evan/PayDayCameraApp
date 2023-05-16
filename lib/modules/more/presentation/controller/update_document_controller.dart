@@ -19,12 +19,11 @@ class UpdateDocumentController extends GetxController {
   final _box = GetStorage();
   var baseUrl = AppString.BASE_URL + AppString.UPDATE_DOCUMENT;
   late var accessToken = _box.read(AppString.ACCESS_TOKEN);
-  DocumentController documentController=Get.put(DocumentController());
 
   final docNameController = TextEditingController().obs;
   var pickedImage = Rx<XFile?>(null);
   uploadDocument(String filePath) async {
-    var id=documentController.documentModel?.data?.documents?.first.id.toString()??"";
+    var id=Get.find<DocumentController>().documentModel.data?.documents?.first.id.toString()??"";
 
     var request = http.MultipartRequest(AppString.POST, Uri.parse(baseUrl));
     request.fields['id'] = id.toString();

@@ -39,15 +39,23 @@ dependencies:
   fluttertoast: 8.1.2
   dots_indicator: ^2.1.0
   get_storage: 2.0.3
+  path_provider: ^2.0.15
   table_calendar: ^3.0.9
   file_picker: ^5.2.5
   dotted_border: ^2.0.0+3
   intl_phone_field: ^3.1.0
-  dartz: ^0.10.1
   dart_ipify: ^1.1.1
   calendar_timeline: ^1.1.2
   image_picker: ^0.8.7+1
   country_picker: ^2.0.20
+  syncfusion_flutter_pdfviewer: ^21.1.41
+  permission_handler: ^8.2.4
+
+
+
+
+
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2

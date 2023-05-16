@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/dotted_view.dart';
 import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
@@ -9,74 +10,76 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
 import '../../../../common/custom_spacer.dart';
 import '../../../../common/widget/custom_appbar.dart';
 import '../controller/salary_overview_controller.dart';
 
-class SalaryOverView extends StatelessWidget {
+class SalaryOverView extends GetView<SalaryOverviewController> {
   SalaryOverView({Key? key}) : super(key: key);
-
-  SalaryOverviewController salaryOverviewController =
-      Get.put(SalaryOverviewController());
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppbar(),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            customMoreAppbar(titleText: AppString.text_salary_overview),
-            salaryOverviewController.salaryOverView!.data!.isNotEmpty
-                ? Padding(
-                    padding: EdgeInsets.only(
-                        left: AppLayout.getWidth(20),
-                        right: AppLayout.getWidth(20),
-                        top: AppLayout.getHeight(20),
-                        bottom: AppLayout.getHeight(20)),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppString.text_basic_salary,
-                            style: AppStyle.mid_large_text.copyWith(
-                                color: AppColor.normalTextColor,
-                                fontSize: Dimensions.fontSizeMid,
-                                fontWeight: FontWeight.w700),
-                          ),
-                          Text(
-                            salaryOverviewController.salaryOverView?.data?.first
-                                        .basicSalary ==
-                                    true
-                                ? salaryOverviewController
-                                        .salaryOverView?.data?.first.amount
-                                        .toString() ??
-                                    ""
-                                : "",
-                            style: AppStyle.small_text_black
-                                .copyWith(color: AppColor.hintColor),
-                          ),
-                          customSpacerHeight(height: 16),
-                          _jobHisTitleView()
-                        ],
-                      ),
+    return  Scaffold(
+          appBar: const CustomAppbar(),
+          body: controller.obx((state) =>
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                customMoreAppbar(titleText: AppString.text_salary_overview),
+                controller.salaryOverView.data!.isNotEmpty
+                    ? Padding(
+                  padding: EdgeInsets.only(
+                      left: AppLayout.getWidth(20),
+                      right: AppLayout.getWidth(20),
+                      top: AppLayout.getHeight(20),
+                      bottom: AppLayout.getHeight(20)),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppString.text_basic_salary,
+                          style: AppStyle.mid_large_text.copyWith(
+                              color: AppColor.normalTextColor,
+                              fontSize: Dimensions.fontSizeMid,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        Text(
+                          controller.salaryOverView.data?.first
+                              .basicSalary ==
+                              true
+                              ? controller
+                              .salaryOverView.data?.first.amount
+                              .toString() ??
+                              ""
+                              : "",
+                          style: AppStyle.small_text_black
+                              .copyWith(color: AppColor.hintColor),
+                        ),
+                        customSpacerHeight(height: 16),
+                        _jobHisTitleView()
+                      ],
                     ),
-                  )
-                : Align(
+                  ),
+                )
+                    : Align(
                     alignment: Alignment.center,
                     child: Center(
                         child: Text(
-                      AppString.text_no_data_found,
-                    ))),
-          ],
-        ),
-      ),
+                          AppString.text_no_data_found,
+                        ))),
+              ],
+            ),
+          ),
+              onLoading: const LoadingIndicator())
+
+
     );
+
   }
 }
+
 
 Widget _jobHisTitleView() {
   SalaryOverviewController salaryOverviewController =
@@ -89,7 +92,7 @@ Widget _jobHisTitleView() {
     child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: salaryOverviewController.salaryOverView?.data?.length,
+      itemCount: salaryOverviewController.salaryOverView.data?.length,
       itemBuilder: (context, index) {
         return Stack(
           alignment: Alignment.center,
@@ -105,24 +108,22 @@ Widget _jobHisTitleView() {
                       children: [
                         _salaryCardTitleView(
                             titleText: salaryOverviewController
-                                    .salaryOverView?.data?[index].level ??
-                                "demo",
+                                    .salaryOverView.data?[index].level ??
+                                "",
                             dotIconColor: salaryOverviewController
-                                        .salaryOverView?.data?[index] ==
+                                        .salaryOverView.data?[index] ==
                                     0
                                 ? AppColor.primaryColor
                                 : AppColor.disableColor),
-                        SizedBox(
-                          height: AppLayout.getHeight(6),
-                        ),
+                        customSpacerHeight(height: 6),
                         _salaryCardView(
                             iconText: settingController
                                     .basicInfo?.data.currencySymbol ??
                                 "",
                             salaryText: salaryOverviewController
-                                    .salaryOverView?.data?[index].amount
+                                    .salaryOverView.data?[index].amount
                                     .toString() ??
-                                "Demo"),
+                                ""),
                       ],
                     ),
                   ],
@@ -158,7 +159,7 @@ Widget _salaryCardView({iconText, salaryText}) {
                       top: AppLayout.getHeight(4),
                       bottom: AppLayout.getHeight(4)),
                   child: Text(
-                    iconText ?? "Demo",
+                    iconText ?? "",
                     style: TextStyle(
                         color: AppColor.primaryColor.withOpacity(0.8)),
                   ),

@@ -12,6 +12,7 @@ Widget CustomTextFieldDob(
       padding: const EdgeInsets.only(top: 8.0),
       child: TextField(
       readOnly: true,
+        onTap: ()=>dobIconAction(),
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(16),
           hintText: hintText,
@@ -39,10 +40,6 @@ Widget CustomTextFieldDob(
           suffixIcon: IconButton(
             onPressed: ()=>dobIconAction(),icon: Icon(dobIcon),
           )
-
-
-
-
 
         ),
       ),

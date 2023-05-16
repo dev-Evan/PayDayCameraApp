@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
 
 import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -74,7 +75,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _textFieldTitle(titleText: AppString.email),
+                        textFieldTitleText( titleText: AppString.email),
+                        customSpacerHeight(height: 4),
+
                         CustomTextFeild(
                           hintText: AppString.enterYourEmail,
                           inputType: TextInputType.emailAddress,
@@ -92,7 +95,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _textFieldTitle(titleText: AppString.password),
+                        textFieldTitleText( titleText: AppString.password),
+                        customSpacerHeight(height: 8),
+
                         CustomPasswordTextField(
                           hintText: AppString.enterYourPassword,
                           inputType: TextInputType.emailAddress,
@@ -186,7 +191,7 @@ Widget _bodyContent() {
       Text(
         AppString.login,
         style: GoogleFonts.poppins(
-            fontWeight: FontWeight.w800, fontSize: Dimensions.fontSizeLarge),
+            fontWeight: FontWeight.w700, fontSize: Dimensions.fontSizeLarge-1),
       ),
       SizedBox(
           height: AppLayout.getHeight(
@@ -196,7 +201,7 @@ Widget _bodyContent() {
         AppString.hi_login_to_your_dashboard,
         style: GoogleFonts.poppins(
             fontWeight: FontWeight.w500,
-            fontSize: Dimensions.fontSizeMid,
+            fontSize: Dimensions.fontSizeMid-1,
             color: AppColor.hintColor,
             letterSpacing: 0.3),
       ),
@@ -208,12 +213,3 @@ Widget _bodyContent() {
   );
 }
 
-Widget _textFieldTitle({titleText}) {
-  return Text(
-    titleText,
-    style: GoogleFonts.poppins(
-        fontSize: Dimensions.fontSizeMid,
-        fontWeight: FontWeight.w600,
-        color: AppColor.hintColor),
-  );
-}

@@ -68,6 +68,7 @@ class _AddDocumentState extends State<UpdateDocument> {
 
   @override
   Widget build(BuildContext context) {
+    final _box=GetStorage();
     return Column(
       children: [
         bottomSheetAppbar(
@@ -82,9 +83,7 @@ class _AddDocumentState extends State<UpdateDocument> {
                 children: [
                   textFieldTitleText(titleText: AppString.text_name),
                   CustomTextFeild(
-                      // hintText: AppString.text_enter_document_name,
-                      hintText: documentController
-                              .documentModel?.data?.documents?.first.name ??
+                      hintText: _box.read(AppString.STORE_DOC_NAME)??
                           "",
                       inputType: TextInputType.text,
                       controller:
@@ -122,7 +121,8 @@ class _AddDocumentState extends State<UpdateDocument> {
                                 _fileTitle(
                                     text: documentController.documentModel?.data
                                             ?.documents?.first.name ??
-                                        ""),
+                                        "",
+                                ),
                                 customSpacerHeight(height: 16),
                                 _changeFile()
                               ],
@@ -164,10 +164,8 @@ Widget _fileTitle({required text}) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Icon(
-          Icons.image,
-          color: AppColor.primaryColor,
-        ),
+     const Icon(CupertinoIcons.doc_fill,color: AppColor.primaryColor,),
+
         customSpacerWidth(width: 8),
         Text(
           text,

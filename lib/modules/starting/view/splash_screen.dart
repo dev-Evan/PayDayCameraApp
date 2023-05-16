@@ -9,13 +9,11 @@ import 'package:pay_day_mobile/utils/images.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
-
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   bool _isLoad = false;
   final box = GetStorage();
 
@@ -47,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
       isMove();
     });
 
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 2), () {
       chooseScreen();
     });
 
@@ -65,7 +63,6 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     double _bdHeight = MediaQuery.of(context).size.height;
     double _bdWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
       body: SafeArea(
@@ -85,13 +82,18 @@ class _SplashScreenState extends State<SplashScreen> {
 
 Widget _containerLayout({isLoad,width,height}){
   return AnimatedContainer(
-    duration: const Duration(seconds: 2),
+    duration: const Duration(seconds: 1),
     alignment: isLoad ? Alignment.topCenter : Alignment.center,
-    child: AnimatedContainer(
-      duration: const Duration(seconds: 2),
-      width: width,
-      height: height,
-      child: Image.asset(Images.logo),
-    ),
+    child: _animatedLogo(height: height,width: width),
   );
+}
+
+Widget _animatedLogo({required height,required width}){
+  return AnimatedContainer(
+    duration: const Duration(seconds: 1),
+    width: width,
+    height: height,
+    child: Image.asset(Images.logo),
+  );
+
 }

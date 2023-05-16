@@ -1,13 +1,11 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pay_day_mobile/modules/more/data/deleted_address_repo.dart';
 import 'package:pay_day_mobile/modules/more/data/deleted_document_repo.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-
 import '../../../../common/widget/custom_alert_dialog.dart';
 
 class DeletedDocumentController extends GetxController with StateMixin {
@@ -20,9 +18,7 @@ class DeletedDocumentController extends GetxController with StateMixin {
       await deleteDocumentRepository
           .deletedDocRepo(
         _box.read(AppString.ID_STORE).toString(),
-
-      )
-          .then((value) {
+      ).then((value) {
         _successDialog();
       }, onError: (error) {
         print(error.toString());
