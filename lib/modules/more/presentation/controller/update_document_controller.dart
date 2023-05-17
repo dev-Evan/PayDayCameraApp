@@ -40,7 +40,7 @@ class UpdateDocumentController extends GetxController {
       _showToast(AppString.text_document_update_successfully);
       Get.find<DocumentController>()
           .getDocumentData();
-            Get.to(DocumentScreen());
+            Get.back();
 
     } else {
       return 'Error update image: ${response.statusCode}';

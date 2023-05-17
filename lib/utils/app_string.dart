@@ -82,6 +82,7 @@ class AppString {
   static String text_change_log = "Change Log";
   static String text_skip = "Skip";
   static String text_please_selected_date = "Please selected date";
+  static String text_please_selected_document = "Please selected document";
   static String text_alert = "Alert";
   static String text_next = "Next";
   static String text_search = "Search";
@@ -353,6 +354,7 @@ class AppString {
   static const String STORE_CURRENCY = "storeCurrency";
   static const String STORE_PAYSLIP_LSIT_ID = "storePayslipListId";
   static const String STORE_DOC_NAME = "storeDocName";
+  static const String STORE_DOC_Id = "store_doc_id";
   static const String PAYSLIP_DATE_RANGE = "payslip_date_range";
 
 // Auth String

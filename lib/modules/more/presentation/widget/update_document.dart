@@ -119,7 +119,7 @@ class _AddDocumentState extends State<UpdateDocument> {
                             child: Column(
                               children: [
                                 _fileTitle(
-                                    text: documentController.documentModel?.data
+                                    text: documentController.documentModel.data
                                             ?.documents?.first.name ??
                                         "",
                                 ),
@@ -148,8 +148,11 @@ class _AddDocumentState extends State<UpdateDocument> {
           padding: const EdgeInsets.all(16.0),
           child: customDoubleButton(
               textButtonAction: () => Get.back(),
-              elevatedButtonAction: () =>
-                  updateDocumentController.uploadDocument(fileToDisplay!.path),
+              elevatedButtonAction: (){
+                fileToDisplay?.path !=null?
+                updateDocumentController.uploadDocument(fileToDisplay!.path):_showToast(AppString.text_please_selected_document);
+              },
+
               textBtnText: AppString.text_cancel,
               elevatedBtnText: AppString.text_save,
               context: context),
@@ -158,6 +161,17 @@ class _AddDocumentState extends State<UpdateDocument> {
     );
   }
 }
+_showToast(message) => Fluttertoast.showToast(
+    msg: message,
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 1,
+    backgroundColor: AppColor.errorColor,
+    textColor: Colors.white,
+    fontSize: 16.0);
+
+
+
 
 Widget _fileTitle({required text}) {
   return Center(

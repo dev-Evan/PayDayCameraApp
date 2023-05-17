@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
      initialRoute: AppString.splashScreen,
       getPages: getPage,
 
+
     );
   }
 }
