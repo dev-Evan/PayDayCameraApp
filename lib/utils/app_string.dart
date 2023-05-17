@@ -103,6 +103,10 @@ class AppString {
   static String text_remember_me = "Remember me";
   static String text_forgot_password = "Forgot password?";
   static String text_log_in = "Log In";
+  static String text_attendance = "Attendance";
+  static String text_leave = "Leave";
+  static String text_payslip = "Payslip";
+  static String text_more = "More";
 
   static String text_today = "Today";
   static String text_enter_phone_number = "Enter phone number";
@@ -179,7 +183,6 @@ class AppString {
   //PaySlip modules string here
   static const String text_paid = "Paid";
   static const String text_unpaid = "Unpaid";
-  static const String text_payslip = "Payslip";
   static const String text_payslip_for = "Payslip for";
   static const String text_create_at = "Create at";
   static const String text_beneficiary = "Beneficiary";
@@ -335,8 +338,6 @@ class AppString {
 
 
 
-
-
   // Local store string here
   static const String ID_STORE = "store";
   static const String ACCESS_TOKEN = "access_token";
@@ -354,8 +355,11 @@ class AppString {
   static const String STORE_CURRENCY = "storeCurrency";
   static const String STORE_PAYSLIP_LSIT_ID = "storePayslipListId";
   static const String STORE_DOC_NAME = "storeDocName";
+  static const String STORE_DOC_NAME_TEXT = "store_doc_text";
   static const String STORE_DOC_Id = "store_doc_id";
   static const String PAYSLIP_DATE_RANGE = "payslip_date_range";
+
+
 
 // Auth String
 

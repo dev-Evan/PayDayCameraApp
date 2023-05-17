@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
@@ -33,7 +34,7 @@ class ChangePassword extends StatelessWidget {
                   CustomPasswordTextField(
                     hintText: AppString.text_enter_your_old_password,
                     inputType: TextInputType.text,
-                    controller: Get.find<ChangePassController>().oldPassController.value,
+                    controller: Get.find<ChangePassController>().oldPassController,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -43,7 +44,7 @@ class ChangePassword extends StatelessWidget {
                   CustomPasswordTextField(
                     hintText: AppString.text_enter_new_password,
                     inputType: TextInputType.text,
-                    controller: Get.find<ChangePassController>().passwordController.value,
+                    controller: Get.find<ChangePassController>().passwordController,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -52,7 +53,7 @@ class ChangePassword extends StatelessWidget {
                   CustomPasswordTextField(
                     hintText: AppString.text_confirm_your_new_password,
                     inputType: TextInputType.text,
-                    controller: Get.find<ChangePassController>().confirmPasswordController.value,
+                    controller: Get.find<ChangePassController>().confirmPasswordController,
                   ),
                 ],
               ),
@@ -64,9 +65,7 @@ class ChangePassword extends StatelessWidget {
                 Get.find<ChangePassController>().changePassword();
               }),
             ),
-            SizedBox(
-              height: AppLayout.getHeight(14),
-            ),
+            customSpacerHeight(height: 14),
           ],
         ),
       ),

@@ -5,7 +5,6 @@ import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/theme.dart';
 
-
 void main() async {
   await initApp();
   runApp(const MyApp());

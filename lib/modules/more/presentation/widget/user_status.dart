@@ -18,7 +18,11 @@ Widget userStatusView({statusText}) {
         style: AppStyle.normal_text.copyWith(
             color: AppColor.primaryColor,
             fontWeight: FontWeight.w600,
-            fontSize: Dimensions.fontSizeDefault - 2),
+            fontSize: Dimensions.fontSizeDefault - 2,
+            letterSpacing: 0.3
+
+
+        ),
       ),
     ),
   );

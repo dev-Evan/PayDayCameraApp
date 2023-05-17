@@ -14,9 +14,9 @@ class ChangePassController extends GetxController with StateMixin {
   final ChangePassDataSource changePassDataSource =
       ChangePassDataSource(NetworkClient());
 
-  final oldPassController = TextEditingController().obs;
-  final passwordController = TextEditingController().obs;
-  final confirmPasswordController = TextEditingController().obs;
+  final oldPassController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   final GetStorage box = GetStorage();
   void changePassword() async {
@@ -24,14 +24,16 @@ class ChangePassController extends GetxController with StateMixin {
     try {
       await changePassDataSource
           .changePassIntoAccount(
-        oldPassController.value.text,
-        passwordController.value.text,
-        confirmPasswordController.value.text,
+        oldPassController.text,
+        passwordController.text,
+        confirmPasswordController.text,
       )
           .then((value) {
         _successDialog();
       }, onError: (error) {
         print(error.toString());
+        _showToast(error.toString());
+
       });
     } catch (ex) {
       _showToast(ex.toString());

@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_controller.dart';
@@ -12,6 +13,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import 'package:pay_day_mobile/utils/images.dart';
 
 class JobHistoryView extends StatefulWidget {
   const JobHistoryView({super.key});
@@ -21,12 +23,11 @@ class JobHistoryView extends StatefulWidget {
 }
 
 class _JobHistoryViewState extends State<JobHistoryView> {
-  JobHistoryController jobHistoryController = Get.put(JobHistoryController());
 
   bool _designationIcon = false;
   bool _departmentIcon = false;
   bool _roleIcon = false;
-  bool _workShifeIcon = false;
+  bool _workShiftIcon = false;
   bool _employmentIcon = false;
 
   @override
@@ -39,12 +40,11 @@ class _JobHistoryViewState extends State<JobHistoryView> {
             child: ExpansionTile(
               trailing: _statusIcon(value: _designationIcon),
               title: InkWell(
-                //onTap: ()=>CustomNavigator(context: context,pageName: const AboutThisApp()),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _cardIconTitleText(
-                        icon: Icons.sticky_note_2_outlined,
+                        icon: Images.designation,
                         titleText: AppString.text_designation),
                   ],
                 ),
@@ -61,14 +61,15 @@ class _JobHistoryViewState extends State<JobHistoryView> {
           Padding(
             padding: const EdgeInsets.only(top: 12.0),
             child: ExpansionTile(
+
               trailing: _statusIcon(value: _departmentIcon),
+
               title: InkWell(
-                //onTap: ()=>CustomNavigator(context: context,pageName: const AboutThisApp()),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _cardIconTitleText(
-                        icon: Icons.card_giftcard,
+                        icon: Images.department,
                         titleText: AppString.text_department),
                   ],
                 ),
@@ -87,12 +88,11 @@ class _JobHistoryViewState extends State<JobHistoryView> {
             child: ExpansionTile(
               trailing: _statusIcon(value: _roleIcon),
               title: InkWell(
-                //onTap: ()=>CustomNavigator(context: context,pageName: const AboutThisApp()),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _cardIconTitleText(
-                        icon: Icons.flag_outlined,
+                        icon: Images.flag,
                         titleText: AppString.text_role)
                   ],
                 ),
@@ -106,20 +106,20 @@ class _JobHistoryViewState extends State<JobHistoryView> {
           Padding(
             padding: const EdgeInsets.only(top: 12.0),
             child: ExpansionTile(
-              trailing: _statusIcon(value: _workShifeIcon),
+              trailing: _statusIcon(value: _workShiftIcon),
               title: InkWell(
-                //onTap: ()=>CustomNavigator(context: context,pageName: const AboutThisApp()),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _cardIconTitleText(
-                        icon: Icons.schedule,
+                        icon: Images.clock,
+
                         titleText: AppString.text_work_shift),
                   ],
                 ),
               ),
               onExpansionChanged: (bool expanded) {
-                setState(() => _workShifeIcon = expanded);
+                setState(() => _workShiftIcon = expanded);
               },
               children: [customSpacerHeight(height: 18), jobHisWorkShiftView()],
             ),
@@ -129,12 +129,11 @@ class _JobHistoryViewState extends State<JobHistoryView> {
             child: ExpansionTile(
               trailing: _statusIcon(value: _employmentIcon),
               title: InkWell(
-                //onTap: ()=>CustomNavigator(context: context,pageName: const AboutThisApp()),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _cardIconTitleText(
-                        icon: Icons.verified_user_outlined,
+                        icon: Images.user_status,
                         titleText: AppString.text_employment),
                   ],
                 ),
@@ -163,17 +162,17 @@ Widget _cardIconTitleText({icon, titleText}) {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
           child: Padding(
-            padding: const EdgeInsets.all(6.0),
+            padding: const EdgeInsets.all(8.0),
             child: Center(
-              child: Icon(
-                icon,
+              child: SvgPicture.asset(
+                icon.toString(),
+                width: AppLayout.getWidth(20),
+                height: AppLayout.getWidth(20),
                 color: AppColor.primaryColor.withOpacity(0.8),
               ),
             ),
           )),
-      SizedBox(
-        width: AppLayout.getWidth(12),
-      ),
+      customSpacerWidth(width: 12),
       Text(
         titleText,
         style: AppStyle.small_text_black.copyWith(
@@ -186,17 +185,22 @@ Widget _cardIconTitleText({icon, titleText}) {
 
 Widget _statusIcon({value}) {
   return CircleAvatar(
-      radius: 14,
+      radius: 15,
       backgroundColor: AppColor.hintColor.withOpacity(0.1),
       child: value
-          ? Icon(
-              CupertinoIcons.arrow_turn_up_left,
-              size: 18,
-              color: AppColor.primaryColor.withOpacity(0.8),
-            )
-          : const Icon(
-              CupertinoIcons.arrow_turn_right_down,
-              color: AppColor.primaryColor,
-              size: 18,
-            ));
+          ? SvgPicture.asset(
+        Images.close_arrow,
+        width: AppLayout.getWidth(18),
+        height: AppLayout.getWidth(18),
+        color: AppColor.primaryColor.withOpacity(0.8),
+      )
+          :  SvgPicture.asset(
+        Images.open_arrow,
+        width: AppLayout.getWidth(18),
+        height: AppLayout.getWidth(18),
+        color: AppColor.primaryColor.withOpacity(0.8),
+      )
+
+
+  );
 }

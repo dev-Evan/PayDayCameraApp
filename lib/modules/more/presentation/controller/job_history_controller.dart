@@ -4,7 +4,7 @@ import 'package:pay_day_mobile/modules/more/domain/job_history_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 
 class JobHistoryController extends GetxController with StateMixin {
-  JobHistoryModel? jobHistoryModel;
+  JobHistoryModel jobHistoryModel =JobHistoryModel();
   JobHistoryRepository jobHistoryRepository =
   JobHistoryRepository(NetworkClient());
 
@@ -17,9 +17,9 @@ class JobHistoryController extends GetxController with StateMixin {
       }, onError: (error) {
         print(error.message);
       });
-      change(null, status: RxStatus.success());
     } catch (ex) {
       print(ex.toString());
     }
+    change(null, status: RxStatus.success());
   }
 }

@@ -12,6 +12,7 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/salary_overv
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/more_widget.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/profile_container_layout.dart';
+import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/images.dart';
@@ -55,7 +56,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                           ),
                         ),
                         Expanded(
-                            flex: 12,
+                            flex: 14,
                             child: Container(
                               color: AppColor.backgroundColor,
                               child: Padding(
@@ -66,7 +67,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                     jobDeskTitle(
                                         text: AppString.text_job_desk),
                                     jobDeskCard(
-                                        cardIcon: Icons.folder_open,
+                                        cardIcon: Images.folder,
                                         cardText: AppString.text_documents,
                                         onAction: () async {
                                           Get.toNamed(AppString.documentScreen);
@@ -74,7 +75,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                               .getDocumentData();
                                         }),
                                     jobDeskCard(
-                                        cardIcon: Icons.access_time_outlined,
+                                        cardIcon: Images.clock,
                                         cardText: AppString.text_job_history,
                                         onAction: () async {
                                           Get.toNamed(AppString.jobHistory);
@@ -84,16 +85,19 @@ class MoreScreen extends GetView<ProfileDataController> {
 
                                         }),
                                     jobDeskCard(
-                                      cardIcon: Icons.monetization_on_outlined,
+                                      cardIcon: Images.dollar,
                                       cardText: AppString.text_salary_overview,
                                       onAction: () async {
                                         Get.toNamed(AppString.salaryOverView);
                                         await Get.find<SalaryOverviewController>()
                                             .getSalaryOveData();
+                                        await  Get.find<SettingController>().getCurrencyData();
+
+
                                       },
                                     ),
                                     jobDeskCard(
-                                        cardIcon: Icons.location_on_outlined,
+                                        cardIcon: Images.location,
                                         cardText:
                                             AppString.text_address_details,
                                         onAction: () async {
@@ -109,21 +113,26 @@ class MoreScreen extends GetView<ProfileDataController> {
                                     customSpacerHeight(height: 20),
                                     jobDeskTitle(text: AppString.text_other),
                                     jobDeskCard(
-                                      cardIcon: CupertinoIcons.doc_text,
+                                      cardIcon: Images.note,
                                       cardText: AppString.text_about_this_app,
                                       onAction: () =>
                                           Get.toNamed(AppString.aboutPage),
                                     ),
                                     jobDeskCard(
-                                        cardIcon: Icons.logout,
+                                        cardIcon: Images.log_out,
                                         cardText: AppString.text_log_out,
                                         onAction: () => CustomAlertDialog(
                                             context: context,
                                             icon: Icons.logout,
+                                            yesText: AppString.text_log_out,
                                             iconBgColor: Colors.orange.shade50,
                                             yesAction: () =>
                                                 Get.find<LogoutController>()
-                                                    .logOut())),
+                                                    .logOut()),
+
+
+
+                                    ),
                                     languageCardView(
                                         langName: AppString.text_english,
                                         langText: AppString.text_language),

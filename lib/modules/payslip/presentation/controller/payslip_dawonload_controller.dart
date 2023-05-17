@@ -31,7 +31,6 @@ class PayslipDownlaodController extends GetxController with StateMixin {
       await file.writeAsBytes(bytes);
       if (response.statusCode == 200) {
         _showToast(AppString.text_payslip_download_successfully);
-        Get.back();
       } else {
         _showToast(AppString.text_something_wrong);
       }

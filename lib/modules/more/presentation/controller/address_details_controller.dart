@@ -10,7 +10,7 @@ class AddressDetailsController extends GetxController with StateMixin {
   getEmployeeAddressData() async {
     change(null, status: RxStatus.loading());
     await addressDetailsRepository.getAddressDetailsData().then((value) {
-      print(value);
+      print("Address details called ::: ${value}");
       addressDetailsModel = value;
     }, onError: (error) {
       print(error.message);

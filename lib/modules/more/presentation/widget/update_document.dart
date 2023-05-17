@@ -62,10 +62,6 @@ class _AddDocumentState extends State<UpdateDocument> {
     }
   }
 
-  UpdateDocumentController updateDocumentController =
-      Get.put(UpdateDocumentController());
-  DocumentController documentController = Get.put(DocumentController());
-
   @override
   Widget build(BuildContext context) {
     final _box=GetStorage();
@@ -83,11 +79,11 @@ class _AddDocumentState extends State<UpdateDocument> {
                 children: [
                   textFieldTitleText(titleText: AppString.text_name),
                   CustomTextFeild(
-                      hintText: _box.read(AppString.STORE_DOC_NAME)??
-                          "",
+                      hintText:
+                          _box.read(AppString.STORE_DOC_NAME_TEXT)??"",
                       inputType: TextInputType.text,
                       controller:
-                          updateDocumentController.docNameController.value),
+                          Get.find<UpdateDocumentController>().docNameController.value),
                 ],
               ),
               customSpacerHeight(height: 20),
@@ -106,8 +102,6 @@ class _AddDocumentState extends State<UpdateDocument> {
                             height: AppLayout.getHeight(100),
                             decoration: BoxDecoration(
                               color: AppColor.disableColor.withOpacity(0.4),
-                              //image: DecorationImage(image: Image.file(fileToDisplay.path.toString() as File).image)
-
                               image: DecorationImage(
                                   image: FileImage(
                                       File(fileToDisplay?.path ?? "").absolute),
@@ -119,9 +113,7 @@ class _AddDocumentState extends State<UpdateDocument> {
                             child: Column(
                               children: [
                                 _fileTitle(
-                                    text: documentController.documentModel.data
-                                            ?.documents?.first.name ??
-                                        "",
+                                    text: _box.read(AppString.STORE_DOC_NAME_TEXT)??"",
                                 ),
                                 customSpacerHeight(height: 16),
                                 _changeFile()
@@ -150,7 +142,7 @@ class _AddDocumentState extends State<UpdateDocument> {
               textButtonAction: () => Get.back(),
               elevatedButtonAction: (){
                 fileToDisplay?.path !=null?
-                updateDocumentController.uploadDocument(fileToDisplay!.path):_showToast(AppString.text_please_selected_document);
+                Get.find<UpdateDocumentController>().uploadDocument(fileToDisplay!.path):_showToast(AppString.text_please_selected_document);
               },
 
               textBtnText: AppString.text_cancel,

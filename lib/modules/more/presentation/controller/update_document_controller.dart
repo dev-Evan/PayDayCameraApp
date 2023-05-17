@@ -43,7 +43,7 @@ class UpdateDocumentController extends GetxController {
             Get.back();
 
     } else {
-      return 'Error update image: ${response.statusCode}';
+      return 'Error update image ::: ${response.statusCode}';
     }
   }
 

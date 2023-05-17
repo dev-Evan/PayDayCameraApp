@@ -124,6 +124,12 @@ class DocumentScreen extends GetView<DocumentController> {
                                                         index]
                                                             .id ??
                                                             "",
+                                                        docText: controller.documentModel
+                                                        .data
+                                                        ?.documents?[
+                                                    index]
+                                                        .name ??
+                                                        "",
                                                         context: context)),
                                               ],
                                             ),
@@ -188,9 +194,9 @@ Widget _documentPage({required imgUrl, required docText}) {
 Widget _selectedPage({required fullUrl, required docText}) {
   return fullUrl.endsWith(".pdf")
       ? ViewDocFile(
-          path: fullUrl,
-          pathName: docText,
-        )
+              path: fullUrl,
+              pathName: docText,
+            )
       : _documentPage(
           imgUrl: fullUrl,
           docText: docText,
@@ -213,7 +219,8 @@ Widget _fileIcon() {
 }
 
 Widget _cardImgTitle(
-    {required titleText, required sizeText,required id, required context}) {
+    {required titleText, required sizeText,required id,required docText,required context}) {
+  final box=GetStorage();
   return _sizedCardImgTitle(
       child: Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -233,6 +240,7 @@ Widget _cardImgTitle(
       ),
       IconButton(
           onPressed: () {
+         box.write(AppString.STORE_DOC_NAME_TEXT, docText);
             showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -254,7 +262,7 @@ Widget _cardImgTitle(
 }
 Widget _editDeletedActionRow({required context,required id}){
   final _box=GetStorage();
-  return     Row(
+  return Row(
     children: [
       InkWell(
         onTap: () => customButtomSheet(
@@ -305,9 +313,7 @@ Widget _fileTitleText({required totalFileText}) {
               color: AppColor.normalTextColor,
               fontSize: Dimensions.fontSizeMid),
         ),
-        SizedBox(
-          height: AppLayout.getHeight(4),
-        ),
+        customSpacerHeight(height: 4),
         Text(
           totalFileText,
           style: AppStyle.small_text.copyWith(
@@ -316,40 +322,6 @@ Widget _fileTitleText({required totalFileText}) {
       ],
     ),
   );
-}
-
-Widget _docEditAndDeleted({ required context, required docName,required id}) {
-  final _box=GetStorage();
-  _box.write(AppString.STORE_DOC_NAME, docName);
-  return Column(
-    children: [
-      bottomSheetAppbar(context: context, appbarTitle: ""),
-      customSpacerHeight(height: 10),
-      Row(
-        children: [
-          InkWell(
-            onTap: () => customButtomSheet(
-                context: context,
-                height: 0.9,
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: UpdateDocument(),
-                )),
-            child: _iconShape(icon: Icons.edit, text: AppString.text_edit),
-          ),
-          customSpacerWidth(width: 40),
-          InkWell(
-            onTap: (){
-              _box.write(AppString.STORE_DOC_Id, id);
-              Get.find<DeletedDocumentController>().deletedDocumentApi();
-            },
-            child: _iconShape(icon: Icons.delete, text: AppString.text_deleted),
-          )
-        ],
-      ),
-    ],
-  );
-//  updateDocument
 }
 
 Widget _iconShape({required icon, required text}) {

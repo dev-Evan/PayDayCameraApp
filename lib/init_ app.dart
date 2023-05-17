@@ -7,6 +7,7 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/change_passw
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/update_document_controller.dart';
 import 'common/controller/status_controller.dart';
 import 'modules/more/presentation/controller/address_details_controller.dart';
 import 'modules/more/presentation/controller/address_update_controller.dart';
@@ -48,6 +49,7 @@ Future<void> initApp() async {
    Get.lazyPut(() => DocumentUploadController(), fenix: true);
    Get.lazyPut(() => DeletedDocumentController(), fenix: true);
    Get.lazyPut(() => AddressUpdateController(), fenix: true);
+   Get.lazyPut(() => UpdateDocumentController(), fenix: true);
    Get.put(StatusController());
 
 

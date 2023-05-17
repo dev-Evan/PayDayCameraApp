@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
+import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/user_status.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -13,10 +14,10 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../../common/widget/custom_navigator.dart';
 import '../controller/change_profile_img_controller.dart';
 
-
-Widget profileCardLayOut({context, userName,final userImage, userEmail,statusText}) {
+Widget profileCardLayOut(
+    {context, userName, final userImage, userEmail, statusText}) {
   ImagePickerController imagePickerController =
-  Get.put(ImagePickerController());
+      Get.put(ImagePickerController());
   return Expanded(
       flex: 3,
       child: Container(
@@ -36,32 +37,16 @@ Widget profileCardLayOut({context, userName,final userImage, userEmail,statusTex
                   Row(
                     children: [
                       CircleAvatar(
-                        backgroundImage: imagePickerController.pickedImage.value == null
-                            ? userImage
-                            : Image.file(File(imagePickerController.pickedImage.value!.path))
-                            .image,                        radius: 28,
+                        backgroundImage:
+                            imagePickerController.pickedImage.value == null
+                                ? userImage
+                                : Image.file(File(imagePickerController
+                                        .pickedImage.value!.path))
+                                    .image,
+                        radius: 28,
                       ),
-
-                      
-                      SizedBox(
-                        width: AppLayout.getWidth(16),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            userName,
-                            style: AppStyle.mid_large_text
-                                .copyWith(fontWeight: FontWeight.w800),
-                          ),
-                          Text(
-                            userEmail,
-                            style: AppStyle.normal_text.copyWith(
-                                fontWeight: FontWeight.w400,
-                                fontSize: Dimensions.fontSizeDefault - 1),
-                          ),
-                        ],
-                      ),
+                      customSpacerWidth(width: 16),
+                      _userNameText(userName: userName, userEmail: userEmail)
                     ],
                   ),
                   userStatusView(statusText: statusText)
@@ -77,6 +62,27 @@ Widget profileCardLayOut({context, userName,final userImage, userEmail,statusTex
       ));
 }
 
+Widget _userNameText({required userName, required userEmail}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        userName,
+        style: AppStyle.mid_large_text
+            .copyWith(fontWeight: FontWeight.w800, letterSpacing: 0.2),
+      ),
+      customSpacerHeight(height: 2),
+      Text(
+        userEmail,
+        style: AppStyle.normal_text.copyWith(
+            fontWeight: FontWeight.w400,
+            fontSize: Dimensions.fontSizeDefault - 1,
+            letterSpacing: 0.2),
+      ),
+    ],
+  );
+}
+
 Widget _moveProfileView({onAction}) {
   return Center(
     child: InkWell(
@@ -84,14 +90,8 @@ Widget _moveProfileView({onAction}) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            AppString.text_view_profile,
-            style: AppStyle.small_text
-                .copyWith(fontSize: Dimensions.fontSizeDefault),
-          ),
-          SizedBox(
-            width: AppLayout.getWidth(8),
-          ),
+          _viewProfileText(),
+          customSpacerWidth(width: 8),
           Icon(
             Icons.arrow_forward,
             color: AppColor.cardColor,
@@ -102,4 +102,10 @@ Widget _moveProfileView({onAction}) {
     ),
   );
 }
-
+Widget _viewProfileText(){
+  return Text(
+    AppString.text_view_profile,
+    style: AppStyle.small_text
+        .copyWith(fontSize: Dimensions.fontSizeDefault),
+  );
+}

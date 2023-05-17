@@ -19,6 +19,8 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
 
   @override
   Widget build(BuildContext context) {
+      Get.find<SettingController>().getCurrencyData();
+
     return  Scaffold(
           appBar: const CustomAppbar(),
           body: controller.obx((state) =>
@@ -82,9 +84,7 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
 
 
 Widget _jobHisTitleView() {
-  SalaryOverviewController salaryOverviewController =
-      Get.put(SalaryOverviewController());
-  SettingController settingController = Get.put(SettingController());
+
 
   return Padding(
     padding: EdgeInsets.only(
@@ -92,7 +92,7 @@ Widget _jobHisTitleView() {
     child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: salaryOverviewController.salaryOverView.data?.length,
+      itemCount: Get.find<SalaryOverviewController>().salaryOverView.data?.length,
       itemBuilder: (context, index) {
         return Stack(
           alignment: Alignment.center,
@@ -107,20 +107,20 @@ Widget _jobHisTitleView() {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _salaryCardTitleView(
-                            titleText: salaryOverviewController
+                            titleText: Get.find<SalaryOverviewController>()
                                     .salaryOverView.data?[index].level ??
                                 "",
-                            dotIconColor: salaryOverviewController
+                            dotIconColor: Get.find<SalaryOverviewController>()
                                         .salaryOverView.data?[index] ==
                                     0
                                 ? AppColor.primaryColor
                                 : AppColor.disableColor),
                         customSpacerHeight(height: 6),
                         _salaryCardView(
-                            iconText: settingController
+                            iconText: Get.find<SettingController>()
                                     .basicInfo?.data.currencySymbol ??
                                 "",
-                            salaryText: salaryOverviewController
+                            salaryText: Get.find<SalaryOverviewController>()
                                     .salaryOverView.data?[index].amount
                                     .toString() ??
                                 ""),
@@ -161,7 +161,10 @@ Widget _salaryCardView({iconText, salaryText}) {
                   child: Text(
                     iconText ?? "",
                     style: TextStyle(
-                        color: AppColor.primaryColor.withOpacity(0.8)),
+                        color: AppColor.primaryColor.withOpacity(0.8),
+
+                    fontSize: Dimensions.fontSizeExtraLarge-4
+                    ),
                   ),
                 ),
               ),

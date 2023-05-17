@@ -22,7 +22,6 @@ class ViewDocFile extends StatelessWidget {
         children: [
           _body(docName: pathName),
           customSpacerHeight(height: 20),
-
           Expanded(
             child:  _fileView(url: path),
 

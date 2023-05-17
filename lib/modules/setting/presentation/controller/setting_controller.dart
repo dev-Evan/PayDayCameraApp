@@ -15,30 +15,29 @@ class SettingController extends GetxController with StateMixin{
   BasicInfo? basicInfo;
   @override
   void onInit() {
-    getUserData();
+    getCurrencyData();
     super.onInit();
   }
 
   SettingDataRepository settingDataRepository =
   SettingDataRepository(NetworkClient());
 
-  getUserData() async {
+  getCurrencyData() async {
     change(null, status: RxStatus.loading());
     try {
       await settingDataRepository.getSettingData().then((value) {
         print(value);
         basicInfo = value;
         _box.write(AppString.STORE_CURRENCY,basicInfo?.data.currencySymbol.toString() ??"");
-
-
       }, onError: (error) {
         print(error.message);
       });
 
-      change(null, status: RxStatus.success());
     } catch (ex) {
       print(ex.toString());
     }
+    change(null, status: RxStatus.success());
+
   }
 
 
