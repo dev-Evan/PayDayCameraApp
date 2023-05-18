@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/controller/connectivity_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_controller.dart';
@@ -10,12 +11,13 @@ import 'common/controller/status_controller.dart';
 
 Future<void> initApp() async {
   await GetStorage.init();
+
+  Get.put(ConnectivityController(),permanent: true);
+
   Get.lazyPut(() => AuthController());
   Get.lazyPut(() => AttendanceController(),fenix: true);
   Get.lazyPut(() => AttendanceLogsController(),fenix: true);
   Get.lazyPut(() => LeaveController());
   Get.lazyPut(() => NotificationController());
-  // Get.lazyPut(() => DateTimeController(), fenix: true);
-  // Get.lazyPut(() => StatusController(), fenix: true);
   Get.put(StatusController());
 }
