@@ -1,9 +1,9 @@
 import 'package:get/get_connect/http/src/response/response.dart';
+import 'package:pay_day_mobile/common/domain/error_model.dart';
 import 'package:pay_day_mobile/modules/more/domain/change_password.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
-import '../../../common/domain/error_model.dart';
 class ChangePassDataSource {
   final NetworkClient networkClient;
   ChangePassDataSource(this.networkClient);

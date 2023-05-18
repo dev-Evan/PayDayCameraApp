@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
-import '../../../../common/widget/custom_button.dart';
-
-
 
 Future profileCalenderDialog({context, child,dobSaveAction,double?  height,double?  width}) {
   return showDialog(
@@ -66,13 +63,7 @@ Future DocumentDialog({context, child,}) {
             ),
           ),
         ),
-        actions: [
-          // Center(
-          //     child: Padding(
-          //       padding: const EdgeInsets.only(bottom: 12.0, top: 12),
-          //       child: CustomSmallButton(AppString.text_save, ()=>dobSaveAction()),
-          //     )),
-        ],
+        actions: [],
       );
     },
   );

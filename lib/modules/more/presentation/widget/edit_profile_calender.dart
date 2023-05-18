@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
+import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../../../../utils/app_string.dart';
 import 'package:intl/intl.dart';
 
 class EditProfileCalender extends StatefulWidget {

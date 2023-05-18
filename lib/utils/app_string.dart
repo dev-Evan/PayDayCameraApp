@@ -83,6 +83,7 @@ class AppString {
   static String text_skip = "Skip";
   static String text_please_selected_date = "Please selected date";
   static String text_please_selected_document = "Please selected document";
+  static String text_field_is_requird = "Field is required !";
   static String text_alert = "Alert";
   static String text_next = "Next";
   static String text_search = "Search";
@@ -107,7 +108,6 @@ class AppString {
   static String text_leave = "Leave";
   static String text_payslip = "Payslip";
   static String text_more = "More";
-
   static String text_today = "Today";
   static String text_enter_phone_number = "Enter phone number";
   static String text_enter = "Enter";
@@ -115,7 +115,6 @@ class AppString {
   static String text_last_week = "Last Week";
   static String text_last_month = "Last Month";
   static String text_last_year = "Last Year";
-
   static String text_requstAttendance = "Request Attendance";
   static String text_attendance_log = "Attendance Logs";
   static String todays_log = "Today’s logs";
@@ -204,6 +203,14 @@ class AppString {
   static String text_hour = "Hour";
   static String text_2 = "2";
   static String text_included = "Included";
+  static String text_button_button = "Bottom Button!";
+  static String text_Enter_phone_number = "Enter phone Number";
+  static String text_enter_area = "Enter area";
+  static String text_enter_city = "Enter city";
+  static String text_enter_state = "Enter state";
+  static String text_enter_zip_code = "Enter zip code";
+  static String text_enter_address = "Enter zip address";
+  static String text_add_address = "Add Address";
 
   // More modules
   static const String text_user_name = "Steve Roggers";
@@ -324,12 +331,6 @@ class AppString {
   static String text_enter_new_password = "Enter new password";
   static String text_confirm_your_new_password = "Confirm your new password";
 
-
-  static String text_enter_address = "Enter Address";
-  static String text_enter_state = "Enter state";
-  static String text_enter_zip_code = "Enter zip code";
-  static String text_enter_area = "Enet area";
-  static String text_enter_city = "Enter city";
   static String text_this_enter_phone_number = "Enter phone Number";
   static String text_this_all_holiday = "All Holiday";
   static String text_calender_text = "Calender";

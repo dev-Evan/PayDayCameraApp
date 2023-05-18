@@ -23,7 +23,6 @@ import '../widget/documents_appbar.dart';
 
 class DocumentScreen extends GetView<DocumentController> {
   DocumentScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
@@ -41,9 +39,7 @@ Widget jodTitle({required jobTitleText, subTitleText, subEndText}) {
           ),
         ],
       ),
-      SizedBox(
-        height: AppLayout.getHeight(6),
-      ),
+      customSpacerHeight(height: 6),
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -116,9 +112,7 @@ Widget jodTitleRole({
           ),
         ],
       ),
-      SizedBox(
-        height: AppLayout.getHeight(6),
-      ),
+      customSpacerHeight(height: 6),
     ],
   );
 }

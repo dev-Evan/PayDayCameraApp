@@ -13,8 +13,6 @@ class DeletedDocumentController extends GetxController with StateMixin {
   final _box=GetStorage();
   final DeleteDocumentRepository deleteDocumentRepository =
   DeleteDocumentRepository(NetworkClient());
-
-
   void deletedDocumentApi() async {
     change(null, status: RxStatus.loading());
     try {

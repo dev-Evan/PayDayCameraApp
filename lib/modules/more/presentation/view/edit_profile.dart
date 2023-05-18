@@ -1,12 +1,15 @@
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
+import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
+import 'package:pay_day_mobile/common/widget/custom_button.dart';
+import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_drop_dawon_cnt.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/custom_text_field_dob.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/edit_profile_calender.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/profile_calender_dialog.dart';
@@ -16,11 +19,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-import '../../../../common/widget/custom_appbar.dart';
-import '../../../../common/widget/custom_button.dart';
-import '../../../../common/widget/text_field.dart';
-import '../controller/edit_profile_drop_dawon_cnt.dart';
-import '../widget/custom_text_field_dob.dart';
+
 
 class EditProfile extends StatelessWidget {
    EditProfile({Key? key}) : super(key: key);

@@ -4,21 +4,15 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/dotted_view.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/job_his_job_title.dart';
-import 'package:pay_day_mobile/utils/app_color.dart';
-import 'package:pay_day_mobile/utils/app_layout.dart';
-import 'package:pay_day_mobile/utils/app_style.dart';
-import 'package:pay_day_mobile/utils/dimensions.dart';
 
 Widget jobHisEmploymentView() {
-  JobHistoryController jobHistoryController = Get.put(JobHistoryController());
-
   return Padding(
     padding: const EdgeInsets.only(left: 44.0, bottom: 16),
     child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: jobHistoryController
-          .jobHistoryModel?.data?.employmentStatuses?.length,
+      itemCount: Get.find<JobHistoryController>()
+          .jobHistoryModel.data?.employmentStatuses?.length,
       itemBuilder: (context, index) {
         return Stack(
           alignment: Alignment.center,
@@ -27,13 +21,13 @@ Widget jobHisEmploymentView() {
             Positioned(
                 left: 23,
                 child: jodTitle(
-                    jobTitleText: jobHistoryController.jobHistoryModel?.data
+                    jobTitleText: Get.find<JobHistoryController>().jobHistoryModel.data
                             ?.employmentStatuses?[index].name ??
                         "",
-                    subTitleText: jobHistoryController.jobHistoryModel?.data
+                    subTitleText: Get.find<JobHistoryController>().jobHistoryModel.data
                             ?.employmentStatuses?[index].startDate ??
                         "",
-                    subEndText: jobHistoryController.jobHistoryModel?.data
+                    subEndText: Get.find<JobHistoryController>().jobHistoryModel.data
                             ?.employmentStatuses?[index].endDate ??
                         "")),
           ],
@@ -44,7 +38,6 @@ Widget jobHisEmploymentView() {
 }
 
 Widget jobHisDesignationView() {
-  JobHistoryController jobHistoryController = Get.put(JobHistoryController());
 
   return Padding(
     padding: const EdgeInsets.only(left: 44.0, bottom: 16),
@@ -52,7 +45,7 @@ Widget jobHisDesignationView() {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount:
-          jobHistoryController.jobHistoryModel?.data?.designations?.length,
+          Get.find<JobHistoryController>().jobHistoryModel.data?.designations?.length,
       itemBuilder: (context, index) {
         return Stack(
           alignment: Alignment.center,
@@ -61,13 +54,13 @@ Widget jobHisDesignationView() {
             Positioned(
                 left: 23,
                 child: jodTitle(
-                    jobTitleText: jobHistoryController
-                            .jobHistoryModel?.data?.designations?[index].name ??
+                    jobTitleText:  Get.find<JobHistoryController>()
+                            .jobHistoryModel.data?.designations?[index].name ??
                         "",
-                    subTitleText: jobHistoryController.jobHistoryModel?.data
+                    subTitleText:  Get.find<JobHistoryController>().jobHistoryModel.data
                             ?.designations?[index].startDate ??
                         "",
-                    subEndText: jobHistoryController.jobHistoryModel?.data
+                    subEndText:  Get.find<JobHistoryController>().jobHistoryModel.data
                             ?.designations?[index].endDate ??
                         "")),
           ],
@@ -78,7 +71,7 @@ Widget jobHisDesignationView() {
 }
 
 Widget jobHisDepartmentView() {
-  JobHistoryController jobHistoryController = Get.put(JobHistoryController());
+
 
   return Padding(
     padding: const EdgeInsets.only(left: 44.0, bottom: 16),
@@ -86,7 +79,7 @@ Widget jobHisDepartmentView() {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount:
-          jobHistoryController.jobHistoryModel?.data?.departments?.length,
+      Get.find<JobHistoryController>().jobHistoryModel.data?.departments?.length,
       itemBuilder: (context, index) {
         return Stack(
           alignment: Alignment.center,
@@ -95,13 +88,13 @@ Widget jobHisDepartmentView() {
             Positioned(
                 left: 23,
                 child: jodTitle(
-                    jobTitleText: jobHistoryController
-                            .jobHistoryModel?.data?.departments?[index].name ??
+                    jobTitleText: Get.find<JobHistoryController>()
+                            .jobHistoryModel.data?.departments?[index].name ??
                         "",
-                    subTitleText: jobHistoryController.jobHistoryModel?.data
+                    subTitleText:Get.find<JobHistoryController>().jobHistoryModel.data
                             ?.departments?[index].startDate ??
                         "",
-                    subEndText: jobHistoryController.jobHistoryModel?.data
+                    subEndText:Get.find<JobHistoryController>().jobHistoryModel.data
                             ?.departments?[index].endDate ??
                         "")),
           ],
@@ -112,14 +105,13 @@ Widget jobHisDepartmentView() {
 }
 
 Widget jobHisRoleView() {
-  JobHistoryController jobHistoryController = Get.put(JobHistoryController());
 
   return Padding(
     padding: const EdgeInsets.only(left: 44.0, bottom: 16),
     child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: jobHistoryController.jobHistoryModel?.data?.roles?.length,
+      itemCount: Get.find<JobHistoryController>().jobHistoryModel.data?.roles?.length,
       itemBuilder: (context, index) {
         return Stack(
           alignment: Alignment.center,
@@ -128,8 +120,8 @@ Widget jobHisRoleView() {
             Positioned(
                 left: 23,
                 child: jodTitleRole(
-                  jobTitleText: jobHistoryController
-                          .jobHistoryModel?.data?.roles?[index].name ??
+                  jobTitleText: Get.find<JobHistoryController>()
+                          .jobHistoryModel.data?.roles?[index].name ??
                       "",
                 )),
           ],
@@ -140,15 +132,13 @@ Widget jobHisRoleView() {
 }
 
 Widget jobHisWorkShiftView() {
-  JobHistoryController jobHistoryController = Get.put(JobHistoryController());
-
   return Padding(
     padding: const EdgeInsets.only(left: 44.0, bottom: 16),
     child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount:
-          jobHistoryController.jobHistoryModel?.data?.workingShifts?.length,
+      Get.find<JobHistoryController>().jobHistoryModel.data?.workingShifts?.length,
       itemBuilder: (context, index) {
         return Stack(
           alignment: Alignment.center,
@@ -157,13 +147,13 @@ Widget jobHisWorkShiftView() {
             Positioned(
                 left: 23,
                 child: jodTitle(
-                    jobTitleText: jobHistoryController.jobHistoryModel?.data
+                    jobTitleText:   Get.find<JobHistoryController>().jobHistoryModel.data
                             ?.workingShifts?[index].name ??
                         "",
-                    subTitleText: jobHistoryController.jobHistoryModel?.data
+                    subTitleText: Get.find<JobHistoryController>().jobHistoryModel.data
                             ?.workingShifts?[index].startDate ??
                         "",
-                    subEndText: jobHistoryController.jobHistoryModel?.data
+                    subEndText: Get.find<JobHistoryController>().jobHistoryModel.data
                             ?.workingShifts?[index].endDate ??
                         "")),
           ],

@@ -24,7 +24,9 @@ List<GetPage> getPage = [
     name: AppString.splashScreen,
     page: () => const SplashScreen(),
   ),
-  GetPage(name: AppString.signInScreen, page: () => const SignInScreen()),
+  GetPage(name: AppString.signInScreen,
+      transition: Transition.rightToLeft,
+      page: () => const SignInScreen()),
   GetPage(
     name: AppString.forgotScreen,
     page: () => const forgotScreen(),

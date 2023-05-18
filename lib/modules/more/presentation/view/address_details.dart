@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
@@ -12,11 +11,9 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/address_details_
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/edit_address.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
-import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-import 'package:pay_day_mobile/utils/images.dart';
 
 class AddressDetails extends GetView<AddressDetailsController> {
   AddressDetails({Key? key}) : super(key: key);

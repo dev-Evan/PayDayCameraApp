@@ -1,7 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/custom_spacer.dart';
+import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/salary_overview_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/dotted_view.dart';
 import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
@@ -10,9 +12,6 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-import '../../../../common/custom_spacer.dart';
-import '../../../../common/widget/custom_appbar.dart';
-import '../controller/salary_overview_controller.dart';
 
 class SalaryOverView extends GetView<SalaryOverviewController> {
   SalaryOverView({Key? key}) : super(key: key);
@@ -75,8 +74,6 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
             ),
           ),
               onLoading: const LoadingIndicator())
-
-
     );
 
   }
@@ -84,8 +81,6 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
 
 
 Widget _jobHisTitleView() {
-
-
   return Padding(
     padding: EdgeInsets.only(
         left: AppLayout.getWidth(8), bottom: AppLayout.getHeight(18)),

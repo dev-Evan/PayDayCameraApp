@@ -18,9 +18,6 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
 class MoreScreen extends GetView<ProfileDataController> {
-
-
-
   MoreScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -82,7 +79,6 @@ class MoreScreen extends GetView<ProfileDataController> {
                                           await Get.find<JobHistoryController>()
                                               .getJobHistoryData();
 
-
                                         }),
                                     jobDeskCard(
                                       cardIcon: Images.dollar,
@@ -92,8 +88,6 @@ class MoreScreen extends GetView<ProfileDataController> {
                                         await Get.find<SalaryOverviewController>()
                                             .getSalaryOveData();
                                         await  Get.find<SettingController>().getCurrencyData();
-
-
                                       },
                                     ),
                                     jobDeskCard(
@@ -106,9 +100,6 @@ class MoreScreen extends GetView<ProfileDataController> {
                                                   AddressDetailsController>()
                                               .getEmployeeAddressData();
                                         }
-
-
-
                                         ),
                                     customSpacerHeight(height: 20),
                                     jobDeskTitle(text: AppString.text_other),
@@ -128,11 +119,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                             iconBgColor: Colors.orange.shade50,
                                             yesAction: () =>
                                                 Get.find<LogoutController>()
-                                                    .logOut()),
-
-
-
-                                    ),
+                                                    .logOut()),),
                                     languageCardView(
                                         langName: AppString.text_english,
                                         langText: AppString.text_language),

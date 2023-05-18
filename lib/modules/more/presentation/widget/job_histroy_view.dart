@@ -17,19 +17,16 @@ import 'package:pay_day_mobile/utils/images.dart';
 
 class JobHistoryView extends StatefulWidget {
   const JobHistoryView({super.key});
-
   @override
   State<JobHistoryView> createState() => _JobHistoryViewState();
 }
 
 class _JobHistoryViewState extends State<JobHistoryView> {
-
   bool _designationIcon = false;
   bool _departmentIcon = false;
   bool _roleIcon = false;
   bool _workShiftIcon = false;
   bool _employmentIcon = false;
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -61,9 +58,7 @@ class _JobHistoryViewState extends State<JobHistoryView> {
           Padding(
             padding: const EdgeInsets.only(top: 12.0),
             child: ExpansionTile(
-
               trailing: _statusIcon(value: _departmentIcon),
-
               title: InkWell(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

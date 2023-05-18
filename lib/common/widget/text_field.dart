@@ -50,8 +50,10 @@ class CustomTextFeild extends StatelessWidget {
                   const BorderSide(width: 0.0, color: AppColor.primaryColor),
               borderRadius: BorderRadius.circular(Dimensions.radiusDefault+2),
             ),
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: AppColor.disableColor, width: 0.0),
+            enabledBorder:  OutlineInputBorder(
+              borderSide: const BorderSide(color: AppColor.disableColor, width: 0.0),
+              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+
             ),
             border: OutlineInputBorder(
               borderSide:
@@ -101,6 +103,8 @@ class _CustomTextFeildState extends State<CustomPasswordTextField> {
 
 
           ),
+
+
           hintText: widget.hintText,
           focusColor: AppColor.primaryColor,
           hintStyle: GoogleFonts.poppins(color: AppColor.hintColor,fontSize: Dimensions.fontSizeDefault+1),
@@ -127,9 +131,18 @@ class _CustomTextFeildState extends State<CustomPasswordTextField> {
                 const BorderSide(width: 0.0, color: AppColor.primaryColor),
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault+2),
           ),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: AppColor.disableColor, width: 0.0),
+          enabledBorder:  OutlineInputBorder(
+            borderSide: const BorderSide(color: AppColor.disableColor, width: 0.0),
+
+            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+
+
           ),
+
+
+
+
+
           border: OutlineInputBorder(
             borderSide:
                 const BorderSide(width: 0.0, color: AppColor.primaryColor),

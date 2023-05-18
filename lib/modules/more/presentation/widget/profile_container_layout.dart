@@ -1,22 +1,20 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
+import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/change_profile_img_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/user_status.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
-import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-import '../../../../common/widget/custom_navigator.dart';
-import '../controller/change_profile_img_controller.dart';
 
 Widget profileCardLayOut(
     {context, userName, final userImage, userEmail, statusText}) {
-  ImagePickerController imagePickerController =
+  ImagePickerController imagePickerControlle =
       Get.put(ImagePickerController());
   return Expanded(
       flex: 3,
@@ -38,9 +36,9 @@ Widget profileCardLayOut(
                     children: [
                       CircleAvatar(
                         backgroundImage:
-                            imagePickerController.pickedImage.value == null
+                            Get.find<ImagePickerController>().pickedImage.value == null
                                 ? userImage
-                                : Image.file(File(imagePickerController
+                                : Image.file(File(Get.find<ImagePickerController>()
                                         .pickedImage.value!.path))
                                     .image,
                         radius: 28,

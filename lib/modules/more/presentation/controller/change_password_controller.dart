@@ -1,23 +1,20 @@
 import 'package:get/get.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pay_day_mobile/common/widget/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/modules/more/data/change_password_repo.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
-import '../../../../common/widget/custom_alert_dialog.dart';
 
 class ChangePassController extends GetxController with StateMixin {
   final ChangePassDataSource changePassDataSource =
       ChangePassDataSource(NetworkClient());
-
   final oldPassController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-
   final GetStorage box = GetStorage();
   void changePassword() async {
     change(null, status: RxStatus.loading());
@@ -50,7 +47,6 @@ _showToast(message) => Fluttertoast.showToast(
     backgroundColor: AppColor.hintColor,
     textColor: Colors.white,
     fontSize: 16.0);
-
 
 Future _successDialog(){
   return CustomSuccessAlertDialog(

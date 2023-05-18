@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/documents.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-import '../view/documents.dart';
 
 class ViewDocFile extends StatelessWidget {
   final path;
@@ -45,15 +45,12 @@ Widget _body({required docName}) {
 Widget _fileView({required url}) {
   return Padding(
     padding:  EdgeInsets.only(
-
       left: AppLayout.getWidth(12),
       right: AppLayout.getWidth(12),
       top: AppLayout.getHeight(12),
       bottom: AppLayout.getHeight(12),
-
     ),
     child: SfPdfViewer.network(
-
         url,
         canShowScrollHead: false,
         canShowScrollStatus: false),

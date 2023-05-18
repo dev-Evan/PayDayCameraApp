@@ -7,7 +7,6 @@ class JobHistoryController extends GetxController with StateMixin {
   JobHistoryModel jobHistoryModel =JobHistoryModel();
   JobHistoryRepository jobHistoryRepository =
   JobHistoryRepository(NetworkClient());
-
   getJobHistoryData() async {
     change(null, status: RxStatus.loading());
     try {

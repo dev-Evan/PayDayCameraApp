@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -28,19 +29,17 @@ Widget _body(){
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Spacer(),
-        Center(child: Image(image: AssetImage(Images.logo))),
-        SizedBox(
-          height: AppLayout.getHeight(26),
-        ),
+        Center(child: logoView(url: Images.favIcon)),
+        customSpacerHeight(height: 26),
+
         Text(
           AppString.text_version_2_1_0_1,
           style: AppStyle.title_text.copyWith(
               color: AppColor.normalTextColor,
               fontSize: Dimensions.fontSizeMid),
         ),
-        SizedBox(
-          height: AppLayout.getHeight(4),
-        ),
+
+        customSpacerHeight(height: 4),
         Text(
           AppString.text_last_update_may_2023,
           style:

@@ -5,9 +5,9 @@ class Images {
   Images._();
 static String app_logo="assets/images/payday_logo.png";
 static String bg_no_log="assets/images/bg_no_log.png";
-static String logo = 'assets/images/logo.png';
 static String payday = 'assets/images/payday.png';
 static String calendar = 'assets/images/calendar.png';
+static String calendar2 = 'assets/images/calendar.svg';
 static String mobile = 'assets/images/mobile.png';
 static String user = 'assets/images/user.jpeg';
 static String edit = 'assets/images/edit.png';
@@ -29,6 +29,9 @@ static String open_arrow = 'assets/images/Icons=corner-right-down.svg';
 static String close_arrow = 'assets/images/Icons=corner-up-left.svg';
 static String allowance = 'assets/images/Icons=Allowance.svg';
 static String deduction = 'assets/images/Icons=Deduction.svg';
+static String favIcon = 'assets/images/favIcon.svg';
+static String logo = 'assets/images/logo.svg';
+static String easy_leave = 'assets/images/Asset 2.svg';
 
 
 }

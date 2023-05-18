@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
@@ -10,15 +11,12 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leadingWidth: AppLayout.getWidth(150),
-      toolbarHeight: AppLayout.getHeight(35),
+      leadingWidth: AppLayout.getWidth(140),
+      toolbarHeight: AppLayout.getHeight(50),
       backgroundColor: AppColor.cardColor,
       leading: Padding(
         padding: const EdgeInsets.only(left: 12.0),
-        child: Image.asset(
-          Images.app_logo,
-          fit: BoxFit.cover,
-        ),
+        child: logoView(height: 30,width: 30),
       ),
       actions: [
         IconButton(
@@ -33,7 +31,13 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
     );
   }
-
   @override
-  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(46));
+  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(52));
+}
+Widget logoView({ double? height, double ?width,String? url}) {
+  return SvgPicture.asset(
+    url ?? Images.logo,
+    width: AppLayout.getWidth(width =35),
+    height: AppLayout.getHeight(height =35),
+  );
 }

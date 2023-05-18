@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-
 import '../../../common/domain/error_model.dart';
 import '../../../utils/app_string.dart';
 import '../domain/user_profile.dart';

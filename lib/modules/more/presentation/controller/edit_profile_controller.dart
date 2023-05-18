@@ -26,7 +26,6 @@ class EditProfileDataController extends GetxController with StateMixin {
   final aboutMeController = TextEditingController();
   final addressController = TextEditingController();
 
-
   final GetStorage box = GetStorage();
   void editProfileData({selectedDate}) async {
     change(null, status: RxStatus.loading());
@@ -43,11 +42,8 @@ class EditProfileDataController extends GetxController with StateMixin {
         addressController.text,
       )
           .then((value) {
-
         Get.find<ProfileDataController>().getUserData();
         _successDialog();
-
-
       }, onError: (error) {
         print(error.toString());
       });

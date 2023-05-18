@@ -1,12 +1,12 @@
 import 'package:country_picker/country_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
+import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
+import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_update_controller.dart';
@@ -16,13 +16,8 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-import '../../../../common/widget/custom_double_button.dart';
-import '../../../../common/widget/text_field.dart';
-
 class AddCurrentAddress extends StatelessWidget {
   final  String typeKey;
-
-
   AddCurrentAddress({required this.typeKey});
   @override
   Widget build(BuildContext context) {
@@ -83,13 +78,8 @@ class AddCurrentAddress extends StatelessWidget {
                   onSelect: (Country country) {
                     _box.write(AppString.STORE_COUNTY, country.displayName);
                   }),
-
-
-
-
               child: _countyField(
                 text:
-
                 Get.find<AddressDetailsController>()
                             .addressDetailsModel.data!.isNotEmpty
                         ? Get.find<AddressDetailsController>()
@@ -101,7 +91,6 @@ class AddCurrentAddress extends StatelessWidget {
                                 ""
                             : _box.read(AppString.STORE_COUNTY)
                         : _box.read(AppString.STORE_COUNTY),
-
 
                 context: Get.context,
               ),
@@ -160,9 +149,7 @@ class AddCurrentAddress extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
-                  width: AppLayout.getWidth(18),
-                ),
+                customSpacerWidth(width: 18),
                 Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,10 +175,7 @@ class AddCurrentAddress extends StatelessWidget {
                 ),
               ],
             ),
-
             customSpacerHeight(height: 16),
-
-
             Row(
               children: [
                 Flexible(
@@ -243,7 +227,6 @@ class AddCurrentAddress extends StatelessWidget {
                 ),
               ],
             ),
-
             customSpacerHeight(height: 12),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

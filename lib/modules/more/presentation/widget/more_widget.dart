@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pay_day_mobile/common/custom_spacer.dart';
@@ -7,7 +6,6 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-import 'package:pay_day_mobile/utils/images.dart';
 
 Widget jobDeskTitle({required text}) {
   return Text(
@@ -18,7 +16,6 @@ Widget jobDeskTitle({required text}) {
         fontSize: Dimensions.fontSizeDefault + 2),
   );
 }
-
 Widget jobDeskCard({cardIcon, cardText, onAction}) {
   return Padding(
     padding: const EdgeInsets.only(top: 20.0),
