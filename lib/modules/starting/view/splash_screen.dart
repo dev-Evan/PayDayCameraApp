@@ -45,14 +45,14 @@ class _SplashScreenState extends State<SplashScreen> {
       isMove();
     });
 
-    Future.delayed( const Duration(milliseconds: 1650), () {
+    Future.delayed( const Duration(milliseconds: 1645), () {
       chooseScreen();
     });
 
     Future.delayed(const Duration(milliseconds: 900), () {
       setState(() {
        _width = AppLayout.getWidth(22.0);
-        _height = AppLayout.getHeight(32.0);
+        _height = AppLayout.getHeight(30.0);
       });
     });
     super.initState();
