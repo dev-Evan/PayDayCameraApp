@@ -324,10 +324,13 @@ class AppString {
   static String text_deleted_document_successfully = "Deleted document successfully";
   static String text_document_upload_successfully = "Document uploaded successfully!";
   static String text_document_update_successfully = "Document update successfully!";
+  static String no_internet_title_text = "No internet!!";
+  static String no_internet_subtitle_text = "Make sure your Wi-Fi or cellular data is turned on and then try again";
 
   static String text_enter_your_old_password = "Enter your old password";
   static String text_enter_new_password = "Enter new password";
   static String text_confirm_your_new_password = "Confirm your new password";
+  static String text_retry = "Retry";
 
 
   static String text_enter_address = "Enter Address";
@@ -386,4 +389,5 @@ class AppString {
   static const String leave = "/leave_screen";
   static const String profileView = "/profileView_screen";
   static const String updateDocument = "/updateDocument_screen";
+  static const String network_error = "/network_error";
 }

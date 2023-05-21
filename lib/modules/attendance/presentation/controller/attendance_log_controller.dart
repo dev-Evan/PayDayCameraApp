@@ -17,7 +17,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
 
   Rx<LogSummary> logSummaryByMonth = LogSummary().obs;
   Rx<LogSummary> logSummaryByYear = LogSummary().obs;
-  Rx<FilteredLogSummary> filteredLogSummary = FilteredLogSummary().obs;
+  FilteredLogSummary filteredLogSummary = FilteredLogSummary();
   final currentIndex = 0.obs;
   final tabIndex = 0.obs;
   LogSummaryOverview logSummaryOverview = LogSummaryOverview();
@@ -50,8 +50,8 @@ class AttendanceLogsController extends GetxController with StateMixin {
 
   void getAllFilteredLogSummary({String? queryParams}) async {
     change(null, status: RxStatus.loading());
-    await _attendanceLogsRepository.getAllFilteredLogs().then(
-        (value) => filteredLogSummary.value = value,
+    await _attendanceLogsRepository.getAllFilteredLogs(queryParams: queryParams ).then(
+        (value) => filteredLogSummary = value,
         onError: (error) => print(error.message));
     change(null, status: RxStatus.success());
   }

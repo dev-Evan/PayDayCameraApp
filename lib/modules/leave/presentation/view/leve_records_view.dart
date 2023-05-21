@@ -31,7 +31,9 @@ class LeaveRecordsView extends GetView<LeaveController> {
                   children: [
                     _containerView(),
                     Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppLayout.getWidth(20),
+                          vertical: AppLayout.getHeight(20)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [_customTexTitle(context)],

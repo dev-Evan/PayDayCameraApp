@@ -32,9 +32,12 @@ class Attendance extends GetView<AttendanceController> {
     controller.checkUserIsPunchedIn();
     controller.getDailyLog();
     return controller.obx(
-        (state) => Scaffold(
-              body: _body(context),
-            ),
+        (state) => WillPopScope(
+          onWillPop: () async=> false,
+          child: Scaffold(
+                body: _body(context),
+              ),
+        ),
         onLoading: const LoadingIndicator());
   }
 
