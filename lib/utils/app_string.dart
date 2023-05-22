@@ -2,7 +2,7 @@ class AppString {
   AppString._();
 
   // Apps url here
-  static String BASE_URL = "https://payday.php8.gainhq.com/api";
+  static String BASE_URL = "https://payday.api.php8.gainhq.com/api";
   static String LOG_IN = "/login";
   static String LOG_OUT = "/logout";
   static String PUNCH_IN = "/attendance/punch-in";
