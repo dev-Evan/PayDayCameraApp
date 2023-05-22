@@ -4,12 +4,13 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:pay_day_mobile/common/custom_spacer.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/apply_leave_button_layout.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/custom_text_field_dob.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -18,6 +19,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 import '../../../../common/widget/custom_double_button.dart';
+import '../../../../common/widget/input_note.dart';
 
 class ApplyLeaveView extends StatefulWidget {
   const ApplyLeaveView({Key? key}) : super(key: key);
@@ -37,12 +39,10 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
 
   File fileToDisplay = File('');
 
+  bool isFilePicked = false;
+
   void pickFile1() async {
     try {
-      setState(() {
-        isLoading = false;
-      });
-
       result = await FilePicker.platform.pickFiles(
         type: FileType.any,
         allowMultiple: false,
@@ -50,17 +50,17 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
 
       if (result != null) {
         setState(() {
-          fileName = result!.files.first.name;
-          pickFile = result!.files.first;
-          fileToDisplay = File(pickFile!.path.toString());
+          isFilePicked = true;
         });
       }
+      Get.find<LeaveController>().requestLeaveQueries["attachments[]"] =
+          result!.files.first.path.toString();
     } catch (e) {
       print(e);
     }
   }
 
-  final List<String> _locations = ['A', 'B', 'C', 'D'];
+  final _leaveType = Get.find<LeaveController>().leaveType;
   String? dropdownValue;
 
   @override
@@ -96,72 +96,10 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                 Padding(
                   padding: EdgeInsets.only(
                       top: AppLayout.getHeight(Dimensions.paddingDefault)),
-                  child: textFieldTitleText(titleText: AppString.text_phone),
+                  child:
+                      textFieldTitleText(titleText: AppString.text_leave_type),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: AppLayout.getHeight(Dimensions.paddingDefault)),
-                  child: Card(
-                    color: AppColor.cardColor,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(Dimensions.radiusDefault),
-                        side: const BorderSide(
-                            width: 0.0, color: AppColor.disableColor)),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          top: AppLayout.getHeight(
-                              Dimensions.paddingDefaultExtra+2),
-
-                      bottom: AppLayout.getHeight(
-                          Dimensions.paddingDefaultExtra+2),
-                      ),
-                      child: DropdownButton<String>(
-                        style: const TextStyle(fontWeight: FontWeight.w500),
-                        isDense: true,
-                        isExpanded: true,
-                        underline: const SizedBox.shrink(),
-                        icon: const Icon(Icons.expand_more),
-                        iconEnabledColor: AppColor.normalTextColor,
-                        hint: Padding(
-                          padding:  EdgeInsets.only(left: AppLayout.getWidth(Dimensions.paddingDefault),right: AppLayout.getWidth(Dimensions.paddingDefault)),
-                          child: Row(
-                            children: [
-                              _hintText(
-                                hintText: AppString.text_paid_casual,
-                              ),
-                              customSpacerWidth(width: 4),
-                              Text(
-                                '( 8d 7h)',
-                                style: AppStyle.normal_text.copyWith(
-                                    color: AppColor.hintColor,
-                                    fontSize: Dimensions.fontSizeDefault),
-                              ),
-                            ],
-                          ),
-                        ),
-                        value: dropdownValue,
-                        borderRadius:
-                            BorderRadius.circular(Dimensions.radiusDefault),
-                        items: _locations
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: _hintText(
-                              hintText: value,
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownValue = newValue!;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                ),
+                _leaveTypeDropDown(),
                 Padding(
                   padding: EdgeInsets.only(
                       top: AppLayout.getHeight(Dimensions.paddingDefault)),
@@ -190,11 +128,56 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                 customSpacerHeight(height: 24),
                 customDoubleButton(
                     context: context,
-                    elevatedBtnText:
-                        '${AppString.text_add} ${AppString.text_address}',
+                    elevatedBtnText: AppString.text_apply,
                     textBtnText: AppString.text_cancel,
-                    textButtonAction: () {},
-                    elevatedButtonAction: () {}),
+                    textButtonAction: () {
+                      Get.find<LeaveController>().requestLeaveQueries.clear();
+                      Get.find<LeaveController>().leaveNote.clear();
+                      Get.back();
+                    },
+                    elevatedButtonAction: () {
+                      switch (Get.find<LeaveController>()
+                          .leaveDurationIndex
+                          .value) {
+                        case 0:
+                          {
+                            _applySingleLeave();
+                            //clear queries after api call
+                            Get.find<LeaveController>()
+                                .requestLeaveQueries
+                                .clear();
+                          }
+                          break;
+                        case 1:
+                          {
+                            _applyMultiDayLeave();
+                            //clear queries after api call
+                            Get.find<LeaveController>()
+                                .requestLeaveQueries
+                                .clear();
+                          }
+                          break;
+                        case 2:
+                          {
+                            _applyHalfDayLeave();
+                            //clear queries after api call
+                            Get.find<LeaveController>()
+                                .requestLeaveQueries
+                                .clear();
+                          }
+                          break;
+                        case 3:
+                          {
+                            _applyHourLeave();
+                            //clear queries after api call
+                            Get.find<LeaveController>()
+                                .requestLeaveQueries
+                                .clear();
+                          }
+                          break;
+                      }
+                      Get.find<LeaveController>().leaveNote.clear();
+                    }),
               ],
             ),
           )
@@ -202,63 +185,283 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
       ),
     );
   }
+
+  _leaveTypeDropDown() => Padding(
+        padding: EdgeInsets.only(
+            top: AppLayout.getHeight(Dimensions.paddingDefault)),
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: AppLayout.getHeight(Dimensions.paddingDefaultExtra),
+            bottom: AppLayout.getHeight(Dimensions.paddingDefaultExtra),
+          ),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: AppLayout.getWidth(10)),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(8)),
+            child: DropdownButton<String>(
+              style: const TextStyle(fontWeight: FontWeight.w500),
+              isExpanded: true,
+              underline: const SizedBox.shrink(),
+              icon: const Icon(Icons.expand_more, color: Colors.grey),
+              iconEnabledColor: AppColor.normalTextColor,
+              hint: Row(
+                children: [
+                  _hintText(
+                    textColor: Colors.grey,
+                    hintText: AppString.text_paid_casual,
+                  ),
+                ],
+              ),
+              value: dropdownValue,
+              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+              items: _leaveType.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: _hintText(
+                    hintText: value,
+                  ),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                _setData(newValue);
+                setState(() {
+                  dropdownValue = newValue;
+                });
+              },
+            ),
+          ),
+        ),
+      );
+
+  void _setData(String? newValue) {
+    switch (newValue) {
+      case "Paid Casual":
+        {
+          Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] =
+              "1";
+        }
+        break;
+      case "Paid Sick":
+        {
+          Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] =
+              "2";
+        }
+        break;
+      case "Unpaid Casual":
+        {
+          Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] =
+              "3";
+        }
+        break;
+      case "Unpaid Sick":
+        {
+          Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] =
+              "4";
+        }
+    }
+  }
+
+  Widget _dottedBorder({onAction}) {
+    return DottedBorder(
+      radius: Radius.circular(Dimensions.radiusMid),
+      color: AppColor.disableColor,
+      strokeCap: StrokeCap.square,
+      dashPattern: [AppLayout.getHeight(8), AppLayout.getWidth(6)],
+      strokeWidth: 2,
+      child: InkWell(
+        onTap: () => onAction(),
+        child: isFilePicked == true
+            ? Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: AppLayout.getWidth(20),
+                    vertical: AppLayout.getHeight(20)),
+                color: AppColor.disableColor.withOpacity(0.4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(child: Text(result?.files.first.name ?? ""))
+                  ],
+                ),
+              )
+            : Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: AppLayout.getWidth(20),
+                    vertical: AppLayout.getHeight(20)),
+                color: AppColor.disableColor.withOpacity(0.4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(CupertinoIcons.link),
+                    customSpacerWidth(width: 6),
+                    Text(
+                      AppString.text_click,
+                      style: AppStyle.mid_large_text.copyWith(
+                          color: AppColor.primaryColor,
+                          fontSize: Dimensions.fontSizeDefault),
+                    ),
+                    customSpacerWidth(width: 6),
+                    Text(
+                      AppString.text_to_add_fils,
+                      style: AppStyle.mid_large_text.copyWith(
+                          color: AppColor.hintColor,
+                          fontSize: Dimensions.fontSizeDefault + 2),
+                    ),
+                  ],
+                ),
+              ),
+      ),
+    );
+  }
+
+  void _applySingleLeave() {
+    try {
+      if (!Get.find<LeaveController>()
+          .requestLeaveQueries
+          .containsKey("date")) {
+        Get.find<LeaveController>().requestLeaveQueries["date"] =
+            Get.find<DateTimeController>().requestedDate.value;
+      }
+      //check if leave duration is set
+      //its a mandatory
+      //set default if not set
+      if (!Get.find<LeaveController>()
+          .requestLeaveQueries
+          .containsKey("leave_duration")) {
+        Get.find<LeaveController>().requestLeaveQueries["leave_duration"] =
+            "single_day";
+      }
+      //check if leave type is set
+      //its a mandatory
+      //set default if not set
+      if (!Get.find<LeaveController>()
+          .requestLeaveQueries
+          .containsKey("leave_type_id")) {
+        Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] = "1";
+      }
+      //take the note value and set into map
+      Get.find<LeaveController>().requestLeaveQueries["note"] =
+          Get.find<LeaveController>().leaveNote.text;
+    } catch (e) {
+      print(e);
+    }
+    Get.find<LeaveController>().requestLeave(
+        leaveARequestQueries: Get.find<LeaveController>().requestLeaveQueries);
+
+    Get.back();
+  }
+
+  void _applyMultiDayLeave() {
+    try {
+      //check if leave duration is set
+      //its a mandatory
+      //set default if not set
+      if (!Get.find<LeaveController>()
+          .requestLeaveQueries
+          .containsKey("leave_duration")) {
+        Get.find<LeaveController>().requestLeaveQueries["leave_duration"] =
+            "multi_day";
+      }
+      //Add multiple date
+      Get.find<LeaveController>().requestLeaveQueries["start_date"] =
+          Get.find<LeaveController>().startDate.value;
+      Get.find<LeaveController>().requestLeaveQueries["end_date"] =
+          Get.find<LeaveController>().endDate.value;
+      //check if leave type is set
+      //its a mandatory
+      //set default if not set
+      if (!Get.find<LeaveController>()
+          .requestLeaveQueries
+          .containsKey("leave_type_id")) {
+        Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] = "1";
+      }
+      //take the note value and set into map
+      Get.find<LeaveController>().requestLeaveQueries["note"] =
+          Get.find<LeaveController>().leaveNote.text;
+    } catch (e) {
+      print(e);
+    }
+
+    Get.find<LeaveController>().requestLeave(
+        leaveARequestQueries: Get.find<LeaveController>().requestLeaveQueries);
+
+    Get.back();
+  }
+
+  void _applyHalfDayLeave() {
+    try {
+      if (!Get.find<LeaveController>()
+          .requestLeaveQueries
+          .containsKey("date")) {
+        Get.find<LeaveController>().requestLeaveQueries["date"] =
+            Get.find<DateTimeController>().requestedDate.value;
+      }
+
+      //check if leave type is set
+      //its a mandatory
+      //set default if not set
+      if (!Get.find<LeaveController>()
+          .requestLeaveQueries
+          .containsKey("leave_type_id")) {
+        Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] = "1";
+      }
+      //take the note value and set into map
+      Get.find<LeaveController>().requestLeaveQueries["note"] =
+          Get.find<LeaveController>().leaveNote.text;
+    } catch (e) {
+      print(e);
+    }
+    Get.find<LeaveController>().requestLeave(
+        leaveARequestQueries: Get.find<LeaveController>().requestLeaveQueries);
+
+    Get.back();
+  }
+
+  void _applyHourLeave() {
+    try {
+      if (!Get.find<LeaveController>()
+          .requestLeaveQueries
+          .containsKey("date")) {
+        Get.find<LeaveController>().requestLeaveQueries["date"] =
+            Get.find<DateTimeController>().requestedDate.value;
+      }
+
+      Get.find<LeaveController>()
+          .requestLeaveQueries["start_time"] = DateFormat(
+              "yyyy-MM-dd hh:mma")
+          .parse(
+              "${Get.find<DateTimeController>().requestedDate.value} ${Get.find<DateTimeController>().pickedInTime.value.replaceAll(" ", "")}")
+          .toString();
+
+      Get.find<LeaveController>().requestLeaveQueries["end_time"] = DateFormat(
+              "yyyy-MM-dd hh:mma")
+          .parse(
+              "${Get.find<DateTimeController>().requestedDate.value} ${Get.find<DateTimeController>().pickedOutTime.value.replaceAll(" ", "")}")
+          .toString();
+    } catch (e) {
+      print(e);
+    }
+    //check if leave type is set
+    //its a mandatory
+    //set default if not set
+    if (!Get.find<LeaveController>()
+        .requestLeaveQueries
+        .containsKey("leave_type_id")) {
+      Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] = "1";
+    }
+    //take the note value and set into map
+    Get.find<LeaveController>().requestLeaveQueries["note"] =
+        Get.find<LeaveController>().leaveNote.text;
+
+    Get.find<LeaveController>().requestLeave(
+        leaveARequestQueries: Get.find<LeaveController>().requestLeaveQueries);
+
+    Get.back();
+  }
 }
 
 Widget _noteTextField() {
-  return Container(
-    height: AppLayout.getHeight(80),
-    decoration: AppStyle.ContainerStyle.copyWith(
-        borderRadius: BorderRadius.circular(
-          Dimensions.radiusDefault,
-        ),
-        border: Border.all(width: 0.0, color: AppColor.disableColor)),
-    child: const TextField(
-      decoration: InputDecoration(
-        hintText: AppString.text_add_reason_note_here,
-        contentPadding: EdgeInsets.all(8),
-        border: InputBorder.none,
-      ),
-      maxLines: null,
-      expands: true,
-    ),
-  );
-}
-
-Widget _dottedBorder({onAction}) {
-  return DottedBorder(
-    radius: Radius.circular(Dimensions.radiusMid),
-    color: AppColor.disableColor,
-    strokeCap: StrokeCap.square,
-    dashPattern: [AppLayout.getHeight(8), AppLayout.getWidth(6)],
-    strokeWidth: 2,
-    child: InkWell(
-      onTap: () => onAction(),
-      child: Container(
-        height: AppLayout.getHeight(100),
-        color: AppColor.disableColor.withOpacity(0.4),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(CupertinoIcons.link),
-            customSpacerWidth(width: 6),
-            Text(
-              AppString.text_click,
-              style: AppStyle.mid_large_text.copyWith(
-                  color: AppColor.primaryColor,
-                  fontSize: Dimensions.fontSizeDefault),
-            ),
-            customSpacerWidth(width: 6),
-            Text(
-              AppString.text_to_add_fils,
-              style: AppStyle.mid_large_text.copyWith(
-                  color: AppColor.hintColor,
-                  fontSize: Dimensions.fontSizeDefault + 2),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
+  return inputNote(controller: Get.find<LeaveController>().leaveNote);
 }
 
 Widget _hintText({hintText, Color textColor = AppColor.normalTextColor}) {

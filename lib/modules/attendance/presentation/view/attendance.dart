@@ -26,7 +26,7 @@ class Attendance extends GetView<AttendanceController> {
   Widget build(BuildContext context) {
     bool value = Get.isRegistered<AttendanceController>();
     if (value) {
-      Get.lazyPut(() => AttendanceController(),fenix: true);
+      Get.lazyPut(() => AttendanceController(), fenix: true);
     }
     controller.checkUserIsPunchedIn();
     controller.getDailyLog();
@@ -73,8 +73,8 @@ class Attendance extends GetView<AttendanceController> {
                     SizedBox(
                         height: AppLayout.getHeight(Dimensions.paddingDefault)),
                     punchButton(() async {
-                      await _openBottomSheet();
                       await controller.getLatLong();
+                      _openBottomSheet();
                     }),
                     SizedBox(
                         height: AppLayout.getHeight(Dimensions.paddingMid)),

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
@@ -16,6 +15,8 @@ import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_c
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/images.dart';
+
+import '../../../../common/widget/custom_spacer.dart';
 
 class MoreScreen extends GetView<ProfileDataController> {
   MoreScreen({Key? key}) : super(key: key);

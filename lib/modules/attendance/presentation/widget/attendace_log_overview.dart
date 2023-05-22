@@ -11,13 +11,13 @@ import '../../../../utils/app_style.dart';
 import '../../../../utils/dimensions.dart';
 
 Widget attendanceLogsOverviewLayout(context) {
-  final _controller = Get.find<AttendanceLogsController>();
+  final controller = Get.find<AttendanceLogsController>();
   return SizedBox(
     width: double.infinity,
     height: AppLayout.getHeight(230),
     child: PageView(
       onPageChanged: (value) {
-        _controller.currentIndex.value = value;
+        controller.currentIndex.value = value;
       },
       children: [
         Column(
@@ -38,27 +38,27 @@ Widget attendanceLogsOverviewLayout(context) {
                     children: [
                       _logSummaryCard(
                           title: AppString.text_scheduled,
-                          count: _controller
+                          count: controller
                               .logSummaryByMonth.value.data?.scheduled),
                       _logSummaryCard(
                           title: AppString.text_worked,
                           count:
-                              _controller.logSummaryByMonth.value.data?.worked),
+                              controller.logSummaryByMonth.value.data?.worked),
                       _logSummaryCard(
                           title: AppString.text_balance,
-                          count: _controller
+                          count: controller
                               .logSummaryByMonth.value.data?.balance),
                       _logSummaryCard(
                           title: AppString.text_leave_hour,
-                          count: _controller
+                          count: controller
                               .logSummaryByMonth.value.data?.paidLeave),
                       _logSummaryCard(
                           title: AppString.text_behaviour,
-                          count: _controller
+                          count: controller
                               .logSummaryByMonth.value.data?.behavior),
                       _logSummaryCard(
                           title: AppString.text_availablity,
-                          count: _controller
+                          count: controller
                               .logSummaryByMonth.value.data?.availablity),
                     ]),
               ),
@@ -83,27 +83,27 @@ Widget attendanceLogsOverviewLayout(context) {
                     children: [
                       _logSummaryCard(
                           title: AppString.text_scheduled,
-                          count: _controller
+                          count: controller
                               .logSummaryByYear.value.data?.scheduled),
                       _logSummaryCard(
                           title: AppString.text_worked,
                           count:
-                              _controller.logSummaryByYear.value.data?.worked),
+                              controller.logSummaryByYear.value.data?.worked),
                       _logSummaryCard(
                           title: AppString.text_balance,
                           count:
-                              _controller.logSummaryByYear.value.data?.balance),
+                              controller.logSummaryByYear.value.data?.balance),
                       _logSummaryCard(
                           title: AppString.text_leave_hour,
-                          count: _controller
+                          count: controller
                               .logSummaryByYear.value.data?.paidLeave),
                       _logSummaryCard(
                           title: AppString.text_behaviour,
-                          count: _controller
+                          count: controller
                               .logSummaryByYear.value.data?.behavior),
                       _logSummaryCard(
                           title: AppString.text_availablity,
-                          count: _controller
+                          count: controller
                               .logSummaryByYear.value.data?.availablity),
                     ]),
               ),
@@ -169,17 +169,11 @@ Widget _logSummaryCard({String? count, String? title}) => SizedBox(
                 children: [
                   Text(
                     count ?? "",
-                    style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w600,
-                        fontSize: Dimensions.fontSizeLarge - 3,
-                        color: AppColor.cardColor.withOpacity(0.8)),
+                    style: AppStyle.large_text.copyWith(fontWeight: FontWeight.w600)
                   ),
                   Text(
                     title ?? "",
-                    style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w600,
-                        fontSize: Dimensions.fontSizeMid - 3,
-                        color: AppColor.cardColor.withOpacity(0.8)),
+                    style:AppStyle.small_text,
                   ),
                 ],
               ),

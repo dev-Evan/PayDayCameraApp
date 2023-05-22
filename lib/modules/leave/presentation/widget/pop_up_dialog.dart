@@ -32,13 +32,6 @@ Future popUpDialog({context, child,dobSaveAction,double?  height,double?  width}
             ),
           ),
         ),
-        actions: [
-          Center(
-              child: Padding(
-            padding: const EdgeInsets.only(bottom: 12.0, top: 12),
-            child: CustomSmallButton(AppString.text_save, ()=>dobSaveAction()),
-          )),
-        ],
       );
     },
   );

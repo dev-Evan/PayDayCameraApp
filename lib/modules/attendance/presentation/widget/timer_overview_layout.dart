@@ -125,7 +125,7 @@ inTimeLog() {
   return scheduledLogInfo(
       title: AppString.text_in,
       time: data != null && data.dailyLogs!.isNotEmpty
-          ? data.dailyLogs?.first.inTime
+          ? data.dailyLogs?.last.inTime
           : '');
 }
 

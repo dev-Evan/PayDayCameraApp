@@ -8,6 +8,8 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/document_con
 import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/update_document_controller.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
+import 'package:pay_day_mobile/modules/notification/presentation/controller/notication_controller.dart';
 import 'common/controller/status_controller.dart';
 import 'modules/more/presentation/controller/address_details_controller.dart';
 import 'modules/more/presentation/controller/address_update_controller.dart';
@@ -51,5 +53,9 @@ Future<void> initApp() async {
   Get.lazyPut(() => AddressUpdateController(), fenix: true);
   Get.lazyPut(() => UpdateDocumentController(), fenix: true);
   Get.lazyPut(() => AuthController(), fenix: true);
+  Get.put(StatusController());
+  Get.lazyPut(() => LeaveController());
+  Get.lazyPut(() => NotificationController());
+
   Get.put(StatusController());
 }

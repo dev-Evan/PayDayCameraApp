@@ -7,8 +7,8 @@ import '../../../../utils/color_picker_helper.dart';
 Widget getStatusButton(
     int index, int dataIndex, AttendanceLogsController controller) {
   String status = controller.filteredLogSummary.value.data!.data![dataIndex]
-      .details![index].statusName!;
-  return status.startsWith("status_approve")
+      .details![index].statusClass!;
+  return status.startsWith("success")
       ? Container()
       : CustomStatusButton(
           bgColor: Util.getChipBgColor(status),

@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class DateTimeController extends GetxController {
   RxBool isInTimeClicked = false.obs;
   String selectedInputHrs = '06';
   String selectedInputMins = '30';
   String clockHrsFormat = '';
-  RxString requestedDate = ''.obs;
-
+  RxString requestedDate =  DateFormat('yyyy-MM-dd').format(DateTime.now()).obs;
   RxString pickedInTime = ''.obs;
   RxString pickedOutTime = ''.obs;
   TextEditingController textEditingController = TextEditingController();

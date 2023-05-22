@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/dob_half_day_field.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/dob_hours_field.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/dob_multi_day_field.dart';
@@ -8,6 +10,8 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+
+import '../controller/leave_controller.dart';
 
 class ApplyLeaveButtonLayout extends StatefulWidget {
   const ApplyLeaveButtonLayout({Key? key}) : super(key: key);
@@ -29,7 +33,6 @@ class _ApplyLeaveButtonLayoutState extends State<ApplyLeaveButtonLayout> {
     const ApplyLeaveDobMultiDay(),
     const ApplyLeaveDobHalfDay(),
     const ApplyLeaveDobHours(),
-
   ];
 
   @override
@@ -48,6 +51,37 @@ class _ApplyLeaveButtonLayoutState extends State<ApplyLeaveButtonLayout> {
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
+                  Get.find<LeaveController>().requestLeaveQueries.clear();
+                  switch (index) {
+                    case 0:
+                      {
+                        Get.find<LeaveController>().leaveDurationIndex(0);
+                        Get.find<LeaveController>()
+                                .requestLeaveQueries["leave_duration"] =
+                            "single_day";
+                      }
+                      break;
+                    case 1:
+                      {
+                        Get.find<LeaveController>().leaveDurationIndex(1);
+                        Get.find<LeaveController>()
+                                .requestLeaveQueries["leave_duration"] =
+                            "multi_day";
+                      }
+                      break;
+                    case 2:
+                      {
+                        Get.find<LeaveController>().leaveDurationIndex(2);
+                      }
+                      break;
+                    case 3:
+                      {
+                        Get.find<LeaveController>().leaveDurationIndex(3);
+                        Get.find<LeaveController>()
+                            .requestLeaveQueries["leave_duration"] = "hours";
+                      }
+                      break;
+                  }
                   setState(() {
                     currentIndex = index;
                   });
@@ -55,7 +89,8 @@ class _ApplyLeaveButtonLayoutState extends State<ApplyLeaveButtonLayout> {
                 child: Card(
                   elevation: 0,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                      borderRadius:
+                          BorderRadius.circular(Dimensions.radiusDefault),
                       side: BorderSide(
                           color: currentIndex == index
                               ? AppColor.primaryColor
@@ -65,7 +100,7 @@ class _ApplyLeaveButtonLayoutState extends State<ApplyLeaveButtonLayout> {
                       : AppColor.disableColor.withOpacity(0.4),
                   child: Center(
                       child: Text(
-                        buttonText[index],
+                    buttonText[index],
                     style: AppStyle.small_text_black.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: Dimensions.fontSizeDefault,
@@ -79,7 +114,9 @@ class _ApplyLeaveButtonLayoutState extends State<ApplyLeaveButtonLayout> {
             },
           ),
         ),
-        SizedBox(height: AppLayout.getHeight(8),),
+        SizedBox(
+          height: AppLayout.getHeight(8),
+        ),
         Container(
           child: _dobField[currentIndex],
         )
@@ -87,5 +124,3 @@ class _ApplyLeaveButtonLayoutState extends State<ApplyLeaveButtonLayout> {
     );
   }
 }
-
-

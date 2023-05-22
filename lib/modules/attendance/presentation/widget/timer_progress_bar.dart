@@ -8,9 +8,9 @@ import 'dart:math' as math;
 import 'package:pay_day_mobile/utils/app_layout.dart';
 
 class TimerProgressBar extends StatefulWidget {
-  final double? lowerBound;
+  final double lowerBound;
 
-  const TimerProgressBar({super.key, this.lowerBound});
+  const TimerProgressBar({super.key, required this.lowerBound});
 
   @override
   State<TimerProgressBar> createState() => _TimerProgressBarState();
@@ -19,31 +19,22 @@ class TimerProgressBar extends StatefulWidget {
 class _TimerProgressBarState extends State<TimerProgressBar>
     with TickerProviderStateMixin {
   late Animation<double> animation;
-  late AttendanceController controller;
-  late Data? data;
+  late AnimationController animationController;
+
 
   @override
-  void initState() {
-    super.initState();
-    controller = Get.find<AttendanceController>();
-    data = controller.logs.value.data;
-    AnimationController animationController = AnimationController(
+  Widget build(BuildContext context) {
+    animationController = AnimationController(
         // timer value will be set here
-        lowerBound: widget.lowerBound ?? 0,
+        lowerBound: widget.lowerBound,
         upperBound: 1,
         vsync: this);
     final curveAnimation = CurvedAnimation(
         parent: animationController, curve: Curves.easeInOutCubic);
     animation = Tween<double>(begin: 0.0, end: 3.14).animate(curveAnimation)
-      ..addListener(() {
-        setState(() {});
-      });
+      ..addListener(() {});
     animationController.reset();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    print("animation.value ${animation.value}, ${controller.duration.value}");
+    print("animation.value ${animation.value}, ${Get.find<AttendanceController>().duration.value}");
     return SizedBox(
       height: AppLayout.getHeight(100),
       width: AppLayout.getWidth(160),
@@ -62,17 +53,12 @@ class _TimerProgressBarState extends State<TimerProgressBar>
       ),
     );
   }
-}
 
-double getWorkPercentage(AttendanceController controller, data) {
-  double value = controller.isPunchIn.isFalse
-      ? data.todayWorked.toDouble() / data.todayScheduled.toDouble()
-      : (controller.duration.value.inMinutes / 60);
-  if (value >= 1) {
-    return value = 1.00;
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
-  print(value);
-  return value;
 }
 
 class ProgressArc extends CustomPainter {
@@ -102,4 +88,7 @@ class ProgressArc extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
   }
+
 }
+
+

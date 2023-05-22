@@ -32,6 +32,7 @@ static String deduction = 'assets/images/Icons=Deduction.svg';
 static String favIcon = 'assets/images/favIcon.svg';
 static String logo = 'assets/images/logo.svg';
 static String easy_leave = 'assets/images/Asset 2.svg';
-
+static String attachment_file = 'assets/images/attachment_file.png';
+static String log_response_icon = 'assets/images/log_response_icon.png';
 
 }

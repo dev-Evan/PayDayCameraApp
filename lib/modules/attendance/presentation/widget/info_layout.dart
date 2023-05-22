@@ -29,7 +29,7 @@ Widget infoLayout() {
         controller.isPunchIn.isTrue && controller.logs.value.data != null
             ? CustomStatusButton(
                 bgColor: Util.getBtnBgColor(
-                    controller.logs.value.data!.behavior.toString()),
+                    controller.logs.value.data!.behavior.toString(), true),
                 text: controller.logs.value.data!.behavior.toString(),
                 textColor: Util.getBtnTextColor(
                   controller.logs.value.data!.behavior.toString(),
