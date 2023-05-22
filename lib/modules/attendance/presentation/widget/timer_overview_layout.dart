@@ -21,21 +21,18 @@ Widget timerOverviewLayout() {
       onPageChanged: (currentIndex) =>
           Get.find<AttendanceController>().currentIndex.value = currentIndex,
       children: [
-        Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              inTimeLog(),
-              outTimeLog(),
-              balanceTimeLog(),
-            ]),
+        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          Expanded(flex: 1, child: inTimeLog()),
+          Expanded(flex: 2, child: outTimeLog()),
+          Expanded(flex: 1, child: balanceTimeLog()),
+        ]),
         Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              scheduledTimeLog(),
-              remainingTimeLog(),
-              overtimeTimeLog(),
+              Expanded(flex: 1, child: scheduledTimeLog()),
+              Expanded(flex: 2, child: remainingTimeLog()),
+              Expanded(flex: 1, child: overtimeTimeLog()),
             ]),
       ],
     ),
@@ -45,9 +42,8 @@ Widget timerOverviewLayout() {
 overtimeTimeLog() {
   Data? data = Get.find<AttendanceController>().logs.value.data;
   return Row(
+    mainAxisAlignment: MainAxisAlignment.end,
     children: [
-      verticalDivider(),
-      customSpacerWidth(width: 16),
       logInfo(
           title: AppString.text_overtime,
           time: TimeCounterHelper.getTimeStringFromDouble(
@@ -59,36 +55,28 @@ overtimeTimeLog() {
 remainingTimeLog() {
   Data? data = Get.find<AttendanceController>().logs.value.data;
   return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      verticalDivider(),
       customSpacerWidth(width: 16),
       scheduledLogInfo(
           title: AppString.text_remaining,
           time: TimeCounterHelper.getTimeStringFromDouble(
               data?.todayShortage.toDouble() ?? 0.0)),
+      verticalDivider(),
     ],
   );
 }
 
 scheduledTimeLog() {
   Data? data = Get.find<AttendanceController>().logs.value.data;
-  return scheduledLogInfo(
-      title: AppString.text_scheduled,
-      time: TimeCounterHelper.getTimeStringFromDouble(
-          data?.todayScheduled.toDouble() ?? 0.0));
-}
-
-Widget balanceTimeLog() {
-  var data = Get.find<AttendanceController>().logs.value.data;
   return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      verticalDivider(),
-      customSpacerWidth(width: 16),
-      data != null
-          ? data.todayOvertime > 0
-              ? overTimedBalanceTime()
-              : normalBalanceTime()
-          : Container()
+      scheduledLogInfo(
+          title: AppString.text_scheduled,
+          time: TimeCounterHelper.getTimeStringFromDouble(
+              data?.todayScheduled.toDouble() ?? 0.0)),
+      verticalDivider()
     ],
   );
 }
@@ -121,8 +109,8 @@ outTimeLog() {
   AttendanceController controller = Get.find<AttendanceController>();
   Data? data = controller.logs.value.data;
   return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      verticalDivider(),
       customSpacerWidth(width: 16),
       scheduledLogInfo(
           title: AppString.text_out,
@@ -131,22 +119,43 @@ outTimeLog() {
                   data.dailyLogs!.isNotEmpty
               ? data.dailyLogs?.first.outTime
               : ''),
+      verticalDivider(),
     ],
   );
 }
 
 inTimeLog() {
   Data? data = Get.find<AttendanceController>().logs.value.data;
-  return scheduledLogInfo(
-      title: AppString.text_in,
-      time: data != null && data.dailyLogs!.isNotEmpty
-          ? data.dailyLogs?.last.inTime
-          : '');
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      scheduledLogInfo(
+          title: AppString.text_in,
+          time: data != null && data.dailyLogs!.isNotEmpty
+              ? data.dailyLogs?.last.inTime
+              : ''),
+      verticalDivider(),
+    ],
+  );
+}
+
+Widget balanceTimeLog() {
+  var data = Get.find<AttendanceController>().logs.value.data;
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+      data != null
+          ? data.todayOvertime > 0
+              ? overTimedBalanceTime()
+              : normalBalanceTime()
+          : Container()
+    ],
+  );
 }
 
 logInfo({required String title, required String time, Color? fontColor}) {
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Text(title,
@@ -168,7 +177,7 @@ logInfo({required String title, required String time, Color? fontColor}) {
 
 scheduledLogInfo({required String title, String? time, Color? fontColor}) {
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Text(title,

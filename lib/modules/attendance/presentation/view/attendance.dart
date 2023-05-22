@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_logs.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
@@ -99,17 +100,17 @@ class Attendance extends GetView<AttendanceController> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 infoLayout(),
-                SizedBox(
-                    height: AppLayout.getHeight(Dimensions.paddingExtraLarge)),
+                customSpacerHeight(height: 40),
                 Obx(() => timerLayout()),
                 Obx(() => timerOverviewLayout()),
+                customSpacerHeight(height: 30),
                 SizedBox(
                     height: AppLayout.getHeight(Dimensions.paddingDefault)),
                 punchButton(() async {
                   await controller.getLatLong();
                   _openBottomSheet();
                 }),
-                SizedBox(height: AppLayout.getHeight(Dimensions.paddingMid)),
+                customSpacerHeight(height: 20),
                 Obx(() => dotIndicator(controller.currentIndex.value)),
                 attendanceLogText(
                   text: AppString.text_attendance_log,

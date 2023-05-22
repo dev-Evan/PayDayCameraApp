@@ -10,20 +10,11 @@
 
 
     <application
-<<<<<<< HEAD
         android:name="${applicationName}"
+        android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/launcher_icon"
         android:label="PayDay">
-=======
 
-        android:requestLegacyExternalStorage="true"
-        android:label="pay_day_mobile">
-        android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
-
-
-
->>>>>>> lutfur
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
