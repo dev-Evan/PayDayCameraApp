@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/leave_details.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -213,9 +214,6 @@ _listCard(int index) => Padding(
 Widget _noDataImg() {
   return SizedBox(
     height: AppLayout.getHeight(120),
-    child: Image.asset(
-      Images.calendar,
-      fit: BoxFit.fitHeight,
-    ),
+    child: logoView(url: Images.calendar),
   );
 }

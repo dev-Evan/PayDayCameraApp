@@ -5,7 +5,6 @@ import 'package:pay_day_mobile/modules/notification/presentation/controller/noti
 import 'package:pay_day_mobile/modules/notification/presentation/view/notifications.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
-import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
 class CustomAppbar extends GetView<NotificationController>
@@ -15,48 +14,44 @@ class CustomAppbar extends GetView<NotificationController>
   @override
   Widget build(BuildContext context) {
 
-    
+
 
     return Obx(() => AppBar(
-          leadingWidth: AppLayout.getWidth(150),
-          toolbarHeight: AppLayout.getHeight(35),
-          backgroundColor: AppColor.cardColor,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 12.0),
-            child: Image.asset(
-              Images.app_logo,
-              fit: BoxFit.cover,
+      leadingWidth: AppLayout.getWidth(140),
+      toolbarHeight: AppLayout.getHeight(50),
+      backgroundColor: AppColor.cardColor,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 12.0),
+        child: logoView(height: 30,width: 30),
+      ),
+      actions: [
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            IconButton(
+              onPressed: () async {
+                _openBottomSheet(context);
+                await controller.getAllNotification();
+              },
+              icon: const Icon(
+                Icons.notifications_none,
+                color: AppColor.primaryColor,
+                size: 30,
+              ),
             ),
-
-          ),
-          actions: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                IconButton(
-                  onPressed: () async {
-                    _openBottomSheet(context);
-                    await controller.getAllNotification();
-                  },
-                  icon: const Icon(
-                    Icons.notifications_none,
-                    color: AppColor.primaryColor,
-                    size: 30,
-                  ),
-                ),
-                if (controller.length > 0)
-                  Positioned(
-                      left: AppLayout.getWidth(25),
-                      child: Icon(
-                        Icons.circle,
-                        color: Colors.red,
-                        size: AppLayout.getHeight(10),
-                      ))
-              ],
-            )
+            if (controller.length > 0)
+              Positioned(
+                  left: AppLayout.getWidth(25),
+                  child: Icon(
+                    Icons.circle,
+                    color: Colors.red,
+                    size: AppLayout.getHeight(10),
+                  ))
           ],
-          elevation: 0,
-        ));
+        )
+      ],
+      elevation: 0,
+    ));
   }
 
   Future? _openBottomSheet(BuildContext context) {

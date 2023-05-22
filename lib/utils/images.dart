@@ -6,8 +6,7 @@ class Images {
 static String app_logo="assets/images/payday_logo.png";
 static String bg_no_log="assets/images/bg_no_log.png";
 static String payday = 'assets/images/payday.png';
-static String calendar = 'assets/images/calendar.png';
-static String calendar2 = 'assets/images/calendar.svg';
+static String calendar = 'assets/images/calendar.svg';
 static String mobile = 'assets/images/mobile.png';
 static String user = 'assets/images/user.jpeg';
 static String edit = 'assets/images/edit.png';
