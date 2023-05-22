@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/common/custom_spacer.dart';
+import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
+import 'package:pay_day_mobile/common/widget/custom_button.dart';
+import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_drop_dawon_cnt.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/custom_text_field_dob.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/edit_profile_calender.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/profile_calender_dialog.dart';
@@ -16,11 +20,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-import '../../../../common/widget/custom_appbar.dart';
-import '../../../../common/widget/custom_button.dart';
-import '../../../../common/widget/text_field.dart';
-import '../controller/edit_profile_drop_dawon_cnt.dart';
-import '../widget/custom_text_field_dob.dart';
+
 
 class EditProfile extends StatelessWidget {
    EditProfile({Key? key}) : super(key: key);
@@ -55,8 +55,7 @@ class EditProfile extends StatelessWidget {
                                       .userProfile.data?.firstName ??
                                   AppString.text_first + AppString.text_name,
                               controller: Get.find<EditProfileDataController>()
-                                  .firstNameController
-                                  .value,
+                                  .firstNameController,
                             ),
                           ],
                         ),
@@ -74,8 +73,7 @@ class EditProfile extends StatelessWidget {
                                       .userProfile.data?.lastName ??
                                   AppString.text_last + AppString.text_name,
                               controller: Get.find<EditProfileDataController>()
-                                  .lastNameController
-                                  .value,
+                                  .lastNameController,
                             ),
                           ],
                         ),
@@ -90,8 +88,7 @@ class EditProfile extends StatelessWidget {
                     hintText: Get.find<ProfileDataController>().userProfile.data?.email ??
                         AppString.text_email,
                     controller: Get.find<EditProfileDataController>()
-                        .emailController
-                        .value,
+                        .emailController,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -167,8 +164,7 @@ class EditProfile extends StatelessWidget {
                         ),
                       ),
                       controller: Get.find<EditProfileDataController>()
-                          .contactController
-                          .value,
+                          .contactController,
                     ),
                   ),
                   Padding(
@@ -189,13 +185,12 @@ class EditProfile extends StatelessWidget {
                             width: 0.0, color: AppColor.disableColor)),
                     child: TextField(
                       controller: Get.find<EditProfileDataController>()
-                          .addressController
-                          .value,
+                          .addressController,
                       decoration: InputDecoration(
                         hintText:
                         Get.find<ProfileDataController>().userProfile.data?.address ??
                                 "",
-                        contentPadding: EdgeInsets.all(8),
+                        contentPadding: const EdgeInsets.all(8),
                         border: InputBorder.none,
                       ),
                       maxLines: null,
@@ -254,8 +249,7 @@ class EditProfile extends StatelessWidget {
                             width: 0.0, color: AppColor.disableColor)),
                     child: TextField(
                       controller: Get.find<EditProfileDataController>()
-                          .aboutMeController
-                          .value,
+                          .aboutMeController,
                       decoration: InputDecoration(
                         hintText:
                         Get.find<ProfileDataController>().userProfile.data?.aboutMe ??
@@ -273,8 +267,6 @@ class EditProfile extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: CustomButton(AppString.text_save, () {
-                // editProfileDataController.editProfileData();
-
                 Get.find<EditProfileDataController>().editProfileData(
                     selectedDate:
                         _box.read(AppString.STORE_DATE.toString() ?? ""));

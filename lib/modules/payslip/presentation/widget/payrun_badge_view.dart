@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
-
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import '../../../payslip/presentation/controller/payrun_badge_controller.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import 'package:pay_day_mobile/utils/images.dart';
 
 class PayRunBadgeView extends GetView<PayrunBadgeController> {
   PayRunBadgeView({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class PayRunBadgeView extends GetView<PayrunBadgeController> {
 
                 children: [
                   _cardTitle(
-                      icon: Icons.description_outlined,
+                      icon: Images.file,
                       titleText: AppString.text_payrun_details),
                   Padding(
                     padding:  EdgeInsets.only(left: AppLayout.getWidth(56), top: AppLayout.getHeight(8)),
@@ -122,7 +123,7 @@ class PayRunBadgeView extends GetView<PayrunBadgeController> {
                               ? Column(
                                   children: [
                                     _cardTitle(
-                                        icon: Icons.more_time,
+                                        icon: Images.allowance,
                                         titleText: AppString.text_allowances),
                                     Padding(
                                       padding: const EdgeInsets.only(
@@ -178,7 +179,7 @@ class PayRunBadgeView extends GetView<PayrunBadgeController> {
                               : Column(
                                   children: [
                                     _cardTitle(
-                                        icon: Icons.timelapse,
+                                        icon: Images.deduction,
                                         titleText: AppString.text_deductions),
                                     Padding(
                                       padding: const EdgeInsets.only(
@@ -251,10 +252,12 @@ Widget _cardTitle({icon, titleText}) {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
           child: Padding(
-            padding: const EdgeInsets.all(6.0),
+            padding: const EdgeInsets.all(8.0),
             child: Center(
-              child: Icon(
-                icon,
+              child:  SvgPicture.asset(
+                icon.toString(),
+                width: AppLayout.getWidth(20),
+                height: AppLayout.getWidth(20),
                 color: AppColor.primaryColor.withOpacity(0.8),
               ),
             ),

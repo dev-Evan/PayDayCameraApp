@@ -17,35 +17,33 @@ class EditProfileDataController extends GetxController with StateMixin {
   final EditProfileDataSource editProfileDataSource =
   EditProfileDataSource(NetworkClient());
 
-  final firstNameController = TextEditingController().obs;
-  final lastNameController = TextEditingController().obs;
-  final emailController = TextEditingController().obs;
-  final contactController = TextEditingController().obs;
-  final dobController = TextEditingController().obs;
-  final genderController = TextEditingController().obs;
-  final aboutMeController = TextEditingController().obs;
-  final addressController = TextEditingController().obs;
+  final TextEditingController firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final contactController = TextEditingController();
+  final dobController = TextEditingController();
+  final genderController = TextEditingController();
+  final aboutMeController = TextEditingController();
+  final addressController = TextEditingController();
+
   final GetStorage box = GetStorage();
   void editProfileData({selectedDate}) async {
     change(null, status: RxStatus.loading());
     try {
       await editProfileDataSource
           .editProfileRepo(
-        firstNameController.value.text,
-        lastNameController.value.text,
-        emailController.value.text,
-        contactController.value.text,
+        firstNameController.text,
+        lastNameController.text,
+        emailController.text,
+        contactController.text,
         selectedDate.toString(),
-        Get.find<DropdownBtnController>().dropdownValue.value.toString(),
-        aboutMeController.value.text,
-        addressController.value.text,
+        Get.find<DropdownBtnController>().dropdownValue.toString(),
+        aboutMeController.text,
+        addressController.text,
       )
           .then((value) {
-
         Get.find<ProfileDataController>().getUserData();
         _successDialog();
-
-
       }, onError: (error) {
         print(error.toString());
       });

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
@@ -16,15 +17,11 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
 
-
-
 class AddDocument extends StatefulWidget {
   const AddDocument({Key? key}) : super(key: key);
-
   @override
   State<AddDocument> createState() => _AddDocumentState();
 }
-
 class _AddDocumentState extends State<AddDocument> {
 
   FilePickerResult? result;
@@ -55,10 +52,6 @@ class _AddDocumentState extends State<AddDocument> {
       print(e);
     }
   }
-
-  DocumentUploadController documentUploadController =
-      Get.put(DocumentUploadController());
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -72,19 +65,15 @@ class _AddDocumentState extends State<AddDocument> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   textFieldTitleText(titleText:AppString.text_name ),
-
                   CustomTextFeild(
                       hintText: AppString.text_enter_document_name,
                       inputType: TextInputType.text,
                       controller:
-                          documentUploadController.fileNameController.value),
+                          Get.find<DocumentUploadController>().fileNameController),
                 ],
               ),
-
               customSpacerHeight(height: 20),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -151,7 +140,8 @@ class _AddDocumentState extends State<AddDocument> {
           child: customDoubleButton(
               textButtonAction: () => Get.back(),
               elevatedButtonAction: () =>
-                  documentUploadController.uploadImage(fileToDisplay!.path),
+              fileToDisplay?.path !=null?
+                  Get.find<DocumentUploadController>().uploadDocument(fileToDisplay!.path):_showToast(AppString.text_field_is_requird),
               textBtnText: AppString.text_cancel,
               elevatedBtnText: AppString.text_save,
               context: context),
@@ -160,6 +150,17 @@ class _AddDocumentState extends State<AddDocument> {
     );
   }
 }
+_showToast(message) => Fluttertoast.showToast(
+    msg: message,
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 1,
+    backgroundColor: AppColor.errorColor,
+    textColor: Colors.white,
+    fontSize: 16.0);
+
+
+
 
 Widget _dottedBorder({required child}){
   return  DottedBorder(

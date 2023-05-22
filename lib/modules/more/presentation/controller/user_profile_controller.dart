@@ -13,7 +13,7 @@ class ProfileDataController extends GetxController with StateMixin {
       userProfile = value;
       print(value);
     }, onError: (e) {
-      print(e.message);
+      print('User profile called ::: ${e.message}');
     });
     change(null, status: RxStatus.success());
   }

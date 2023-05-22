@@ -16,9 +16,9 @@ class SalaryOverviewController extends GetxController with StateMixin {
       }, onError: (error) {
         print(error.message);
       });
-      change(null, status: RxStatus.success());
     } catch (ex) {
       print(ex.toString());
     }
+    change(null, status: RxStatus.success());
   }
 }

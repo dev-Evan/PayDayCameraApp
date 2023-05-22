@@ -2,11 +2,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pay_day_mobile/common/widget/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/modules/more/data/deleted_document_repo.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import '../../../../common/widget/custom_alert_dialog.dart';
 
 class DeletedDocumentController extends GetxController with StateMixin {
   final _box=GetStorage();
@@ -17,9 +18,13 @@ class DeletedDocumentController extends GetxController with StateMixin {
     try {
       await deleteDocumentRepository
           .deletedDocRepo(
-        _box.read(AppString.ID_STORE).toString(),
+         _box.read(AppString.STORE_DOC_Id).toString(),
+
       ).then((value) {
         _successDialog();
+        Get.find<DocumentController>()
+            .getDocumentData();
+        Get.back();
       }, onError: (error) {
         print(error.toString());
       });
@@ -27,6 +32,8 @@ class DeletedDocumentController extends GetxController with StateMixin {
       _showToast(ex.toString());
     }
     change(null, status: RxStatus.success());
+
+
   }
 }
 

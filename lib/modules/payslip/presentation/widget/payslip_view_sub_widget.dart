@@ -159,31 +159,34 @@ Widget summaryTextCard({required subLeftText,required subRightText}) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-
-        Text(
-          subLeftText,
-          style: AppStyle.mid_large_text.copyWith(
-              color: AppColor.normalTextColor
-                  .withOpacity(0.9),
-              fontSize: Dimensions.fontSizeDefault,
-              fontWeight: FontWeight.w500),
-        ),
-
-
-        Text(
-          subRightText,
-          style: AppStyle.mid_large_text.copyWith(
-              color: AppColor.normalTextColor
-                  .withOpacity(0.9),
-              fontSize: Dimensions.fontSizeDefault,
-              fontWeight: FontWeight.w500),
-        ),
-
+        _subTextLeft(subLeftText: subLeftText),
+        _subTextRight(subRightText: subRightText)
       ],
     ),
   );
 }
 
+Widget _subTextLeft({required subLeftText }){
+  return Text(
+    subLeftText,
+    style: AppStyle.mid_large_text.copyWith(
+        color: AppColor.normalTextColor
+            .withOpacity(0.9),
+        fontSize: Dimensions.fontSizeDefault,
+        fontWeight: FontWeight.w500),
+  );
+}
+
+Widget _subTextRight({required subRightText }){
+  return  Text(
+    subRightText,
+    style: AppStyle.mid_large_text.copyWith(
+        color: AppColor.normalTextColor
+            .withOpacity(0.9),
+        fontSize: Dimensions.fontSizeDefault,
+        fontWeight: FontWeight.w500),
+  );
+}
 
 Widget totalRowView({required amount}){
   return  Padding(

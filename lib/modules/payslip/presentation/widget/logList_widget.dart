@@ -53,7 +53,7 @@ Widget logsList(
                 monthly: monthly),
           ),
         ),
-        _divider(context: Get.context),
+        _divider(context: Get.context,),
       ],
     ),
   );
@@ -89,7 +89,7 @@ Widget _divider({context}) {
   return Padding(
     padding: const EdgeInsets.only(top: 12.0),
     child: CustomDiveider(
-        AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
+        AppLayout.getHeight(0.4), MediaQuery.of(context).size.width),
   );
 }
 
@@ -130,7 +130,7 @@ Widget _cardMidText(
       ),
       customSpacerHeight(height: 8),
       _midTextRow(startDate: startDate, endDate: endDate, monthly: monthly),
-      customSpacerHeight(height: 6),
+      customSpacerHeight(height: 8),
       CustomStatusButton(
         bgColor: AppColor.successColor.withOpacity(0.2),
         text: statusText,

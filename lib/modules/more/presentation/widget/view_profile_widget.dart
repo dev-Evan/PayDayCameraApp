@@ -169,7 +169,7 @@ Widget designationText({required desText,required status}){
 }
 
 Widget aboutText({required text}){
-  return      Text(
+  return Text(
     text,
     style: AppStyle.small_text.copyWith(
         color: AppColor.normalTextColor,

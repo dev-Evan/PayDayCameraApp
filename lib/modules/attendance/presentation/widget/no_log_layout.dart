@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/images.dart';
@@ -14,11 +16,19 @@ Widget noLogLayout(){
           horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
       child: Column(
         children: [
-          Image.asset(Images.bg_no_log),
+          _logoView(logo: Images.logo),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
           Text(AppString.start_out_day,style: AppStyle.large_text_black,)
         ],
       ),
     ),
+  );
+}
+Widget _logoView({required logo}){
+  return  SvgPicture.asset(
+    logo.toString(),
+    width: AppLayout.getWidth(20),
+    height: AppLayout.getWidth(20),
+    color: AppColor.primaryColor.withOpacity(0.8),
   );
 }

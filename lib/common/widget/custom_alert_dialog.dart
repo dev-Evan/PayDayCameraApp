@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -27,15 +28,16 @@ Future CustomAlertDialog({
         ),
         icon: Center(
           child: Container(
-              width: AppLayout.getWidth(40),
-              height: AppLayout.getHeight(40),
+              width: AppLayout.getWidth(46),
+              height: AppLayout.getHeight(46),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
                 color: iconBgColor,
               ),
               child: Icon(
                 icon,
                 color: iconColor,
+                size: Dimensions.fontSizeDoubleLarge+2,
               )),
         ),
         content: Row(
@@ -47,15 +49,14 @@ Future CustomAlertDialog({
               size: Dimensions.fontSizeDefault + 4,
               color: AppColor.hintColor,
             ),
-            SizedBox(
-              width: AppLayout.getWidth(4),
-            ),
+
+            customSpacerWidth(width: 4),
             Flexible(
               child: Text(
                 contentText!,
                 style: AppStyle.mid_large_text.copyWith(
                     color: AppColor.hintColor,
-                    fontSize: Dimensions.fontSizeDefault-2 ),
+                    fontSize: Dimensions.fontSizeDefault ),
               ),
             ),
           ],
@@ -84,17 +85,15 @@ Future CustomAlertDialog({
                           AppString.text_no,
                           style: AppStyle.mid_large_text.copyWith(
                               color: AppColor.normalTextColor,
-                              fontSize: Dimensions.fontSizeMid),
+                              fontSize: Dimensions.fontSizeMid-2),
                         )),
                   ),
                 ),
-                SizedBox(
-                  width: AppLayout.getWidth(12),
-                ),
+
+                customSpacerWidth(width: 12),
                 Flexible(
                   child: SizedBox(
                     width: double.infinity,
-                    // width: MediaQuery.of(context).size.width / 1,
                     height: AppLayout.getHeight(40),
                     child: ElevatedButton(
                         onPressed: () => yesAction(),
@@ -108,7 +107,8 @@ Future CustomAlertDialog({
                           yesText!,
                           style: AppStyle.mid_large_text.copyWith(
                             color: AppColor.cardColor,
-                            fontSize: Dimensions.fontSizeMid,
+                            fontSize: Dimensions.fontSizeMid-3,
+                            fontWeight: FontWeight.w600
                           ),
                         )),
                   ),

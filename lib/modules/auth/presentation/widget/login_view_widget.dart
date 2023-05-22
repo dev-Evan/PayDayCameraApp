@@ -1,0 +1,85 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:pay_day_mobile/common/custom_spacer.dart';
+import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
+import 'package:pay_day_mobile/common/widget/custom_button.dart';
+import 'package:pay_day_mobile/utils/app_color.dart';
+import 'package:pay_day_mobile/utils/app_layout.dart';
+import 'package:pay_day_mobile/utils/app_string.dart';
+import 'package:pay_day_mobile/utils/app_style.dart';
+import 'package:pay_day_mobile/utils/dimensions.dart';
+import 'package:pay_day_mobile/utils/images.dart';
+
+
+Widget logInButton({required onAction}) {
+  return CustomButton(AppString.text_log_in, () => onAction());
+}
+
+Widget containerLayout({isLeft}) {
+  return Padding(
+    padding: EdgeInsets.only(
+        left: AppLayout.getWidth(20),
+        right: AppLayout.getWidth(20),
+        top: AppLayout.getHeight(20),
+        bottom: AppLayout.getHeight(20)),
+    child: animatedContainer(isLeft: isLeft),
+  );
+}
+
+Widget animatedContainer({required isLeft}) {
+  return AnimatedContainer(
+    duration: const Duration(milliseconds: 400),
+    alignment: isLeft ? Alignment.topCenter : Alignment.topRight,
+    curve: Curves.easeInOut,
+    child: logoView(),
+  );
+}
+
+
+Widget rememberText() {
+  return Text(
+    AppString.text_remember_me,
+    style: AppStyle.normal_text_grey.copyWith(
+      color: AppColor.normalTextColor.withOpacity(0.7),
+    ),
+  );
+}
+
+Widget forgotButton() {
+  return TextButton(
+      onPressed: () => Get.toNamed(AppString.forgotScreen),
+      child: Text(AppString.text_forgot_password,
+          style: GoogleFonts.poppins(
+              fontSize: Dimensions.fontSizeDefault,
+              color: AppColor.primaryColor)));
+}
+
+Widget bodyContent() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        AppString.login,
+        style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w600,
+            fontSize: Dimensions.fontSizeLarge+5),
+      ),
+      customSpacerHeight(height: Dimensions.fontSizeDefault-7),
+      titleSubText(),
+      customSpacerHeight(height: Dimensions.fontSizeLarge+6),
+    ],
+  );
+}
+
+Widget titleSubText() {
+  return Text(
+    AppString.hi_login_to_your_dashboard,
+    style: GoogleFonts.poppins(
+        fontWeight: FontWeight.w400,
+        fontSize: Dimensions.fontSizeMid - 2,
+        color: AppColor.hintColor,
+        letterSpacing: 0.3),
+  );
+}

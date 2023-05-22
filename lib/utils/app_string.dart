@@ -2,7 +2,7 @@ class AppString {
   AppString._();
 
   // Apps url here
-  static String BASE_URL = "https://payday.php8.gainhq.com/api";
+  static String BASE_URL = "https://payday.api.php8.gainhq.com/api";
   static String LOG_IN = "/login";
   static String LOG_OUT = "/logout";
   static String PUNCH_IN = "/attendance/punch-in";
@@ -97,6 +97,8 @@ class AppString {
   static String text_end_time = "End Time";
   static String text_skip = "Skip";
   static String text_please_selected_date = "Please selected date";
+  static String text_please_selected_document = "Please selected document";
+  static String text_field_is_requird = "Field is required !";
   static String text_alert = "Alert";
   static String text_next = "Next";
   static String text_search = "Search";
@@ -119,7 +121,10 @@ class AppString {
   static String text_remember_me = "Remember me";
   static String text_forgot_password = "Forgot password?";
   static String text_log_in = "Log In";
-
+  static String text_attendance = "Attendance";
+  static String text_leave = "Leave";
+  static String text_payslip = "Payslip";
+  static String text_more = "More";
   static String text_today = "Today";
   static String text_enter_phone_number = "Enter phone number";
   static String text_enter = "Enter";
@@ -128,6 +133,7 @@ class AppString {
   static String text_last_month = "Last Month";
   static String text_last_year = "Last Year";
   static String text_leave_response = "Leave Response";
+
   static String text_requstAttendance = "Request Attendance";
   static String text_attendance_log = "Attendance Logs";
   static String todays_log = "Today’s logs";
@@ -196,7 +202,6 @@ class AppString {
   //PaySlip modules string here
   static const String text_paid = "Paid";
   static const String text_unpaid = "Unpaid";
-  static const String text_payslip = "Payslip";
   static const String text_payslip_for = "Payslip for";
   static const String text_create_at = "Create at";
   static const String text_beneficiary = "Beneficiary";
@@ -218,6 +223,14 @@ class AppString {
   static String text_hour = "Hour";
   static String text_2 = "2";
   static String text_included = "Included";
+  static String text_button_button = "Bottom Button!";
+  static String text_Enter_phone_number = "Enter phone Number";
+  static String text_enter_area = "Enter area";
+  static String text_enter_city = "Enter city";
+  static String text_enter_state = "Enter state";
+  static String text_enter_zip_code = "Enter zip code";
+  static String text_enter_address = "Enter zip address";
+  static String text_add_address = "Add Address";
 
   // More modules
   static const String text_user_name = "Steve Roggers";
@@ -338,19 +351,11 @@ class AppString {
   static String text_enter_new_password = "Enter new password";
   static String text_confirm_your_new_password = "Confirm your new password";
 
-
-  static String text_enter_address = "Enter Address";
-  static String text_enter_state = "Enter state";
-  static String text_enter_zip_code = "Enter zip code";
-  static String text_enter_area = "Enet area";
-  static String text_enter_city = "Enter city";
   static String text_this_enter_phone_number = "Enter phone Number";
   static String text_this_all_holiday = "All Holiday";
   static String text_calender_text = "Calender";
   static String text_about_me_dec =
       "Hello. I am an UX/UI designer. I am in love with designing since my childhood. It gives me the freedom of my mind and helps me to express myself and my personality ";
-
-
 
 
 
@@ -371,7 +376,11 @@ class AppString {
   static const String STORE_CURRENCY = "storeCurrency";
   static const String STORE_PAYSLIP_LSIT_ID = "storePayslipListId";
   static const String STORE_DOC_NAME = "storeDocName";
+  static const String STORE_DOC_NAME_TEXT = "store_doc_text";
+  static const String STORE_DOC_Id = "store_doc_id";
   static const String PAYSLIP_DATE_RANGE = "payslip_date_range";
+
+
 
 // Auth String
 

@@ -35,8 +35,6 @@ Widget _payrunBadView() {
       right: AppLayout.getWidth(20),
       top: AppLayout.getHeight(20),
       bottom: AppLayout.getHeight(20)
-
-
     ),
     child: Column(
       children: [

@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/arrow_style.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -15,7 +16,6 @@ Widget jobDeskTitle({required text}) {
         fontSize: Dimensions.fontSizeDefault + 2),
   );
 }
-
 Widget jobDeskCard({cardIcon, cardText, onAction}) {
   return Padding(
     padding: const EdgeInsets.only(top: 20.0),
@@ -27,9 +27,7 @@ Widget jobDeskCard({cardIcon, cardText, onAction}) {
           Row(
             children: [
               cardShape(icon: cardIcon),
-              SizedBox(
-                width: AppLayout.getWidth(12),
-              ),
+              customSpacerWidth(width: 12),
               Text(
                 cardText,
                 style: AppStyle.small_text_black.copyWith(
@@ -52,10 +50,12 @@ Widget cardShape({icon}) {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
       child: Padding(
-        padding: const EdgeInsets.all(6.0),
+        padding: const EdgeInsets.all(8.0),
         child: Center(
-          child: Icon(
-            icon,
+          child:   SvgPicture.asset(
+            icon.toString(),
+            width: AppLayout.getWidth(20),
+            height: AppLayout.getWidth(20),
             color: AppColor.primaryColor.withOpacity(0.8),
           ),
         ),

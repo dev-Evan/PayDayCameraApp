@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/modules/more/data/log_out_repo.dart';
@@ -20,10 +19,10 @@ class LogoutController extends GetxController with StateMixin {
       }, onError: (error) {
         print(error.message);
       });
-      change(null, status: RxStatus.success());
     } catch (ex) {
       print(ex.toString());
     }
+    change(null, status: RxStatus.success());
   }
 
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/notification/presentation/controller/notication_controller.dart';
 import 'package:pay_day_mobile/modules/notification/presentation/view/notifications.dart';
@@ -13,6 +14,9 @@ class CustomAppbar extends GetView<NotificationController>
 
   @override
   Widget build(BuildContext context) {
+
+    
+
     return Obx(() => AppBar(
           leadingWidth: AppLayout.getWidth(150),
           toolbarHeight: AppLayout.getHeight(35),
@@ -23,6 +27,7 @@ class CustomAppbar extends GetView<NotificationController>
               Images.app_logo,
               fit: BoxFit.cover,
             ),
+
           ),
           actions: [
             Stack(
@@ -64,7 +69,13 @@ class CustomAppbar extends GetView<NotificationController>
       },
     );
   }
-
   @override
-  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(46));
+  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(52));
+}
+Widget logoView({ double? height, double ?width,String? url}) {
+  return SvgPicture.asset(
+    url ?? Images.logo,
+    width: AppLayout.getWidth(width =35),
+    height: AppLayout.getHeight(height =35),
+  );
 }

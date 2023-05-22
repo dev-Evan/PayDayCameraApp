@@ -7,7 +7,6 @@ class PayrunBadgeController extends GetxController with StateMixin {
   PayrunBadgeModel payrunBadgeModel =PayrunBadgeModel();
   PayslipDataRepository payrunBadgeRepository =
   PayslipDataRepository(NetworkClient());
-
   getPayrunBadgeData() async {
     change(null, status: RxStatus.loading());
     try {

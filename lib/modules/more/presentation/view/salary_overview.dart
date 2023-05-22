@@ -1,7 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/custom_spacer.dart';
+import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/salary_overview_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/dotted_view.dart';
 import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
@@ -14,11 +16,14 @@ import '../../../../common/widget/custom_spacer.dart';
 import '../../../../common/widget/custom_appbar.dart';
 import '../controller/salary_overview_controller.dart';
 
+
 class SalaryOverView extends GetView<SalaryOverviewController> {
   SalaryOverView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+      Get.find<SettingController>().getCurrencyData();
+
     return  Scaffold(
           appBar: const CustomAppbar(),
           body: controller.obx((state) =>
@@ -73,8 +78,6 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
             ),
           ),
               onLoading: const LoadingIndicator())
-
-
     );
 
   }
@@ -82,17 +85,13 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
 
 
 Widget _jobHisTitleView() {
-  SalaryOverviewController salaryOverviewController =
-      Get.put(SalaryOverviewController());
-  SettingController settingController = Get.put(SettingController());
-
   return Padding(
     padding: EdgeInsets.only(
         left: AppLayout.getWidth(8), bottom: AppLayout.getHeight(18)),
     child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: salaryOverviewController.salaryOverView.data?.length,
+      itemCount: Get.find<SalaryOverviewController>().salaryOverView.data?.length,
       itemBuilder: (context, index) {
         return Stack(
           alignment: Alignment.center,
@@ -107,20 +106,20 @@ Widget _jobHisTitleView() {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _salaryCardTitleView(
-                            titleText: salaryOverviewController
+                            titleText: Get.find<SalaryOverviewController>()
                                     .salaryOverView.data?[index].level ??
                                 "",
-                            dotIconColor: salaryOverviewController
+                            dotIconColor: Get.find<SalaryOverviewController>()
                                         .salaryOverView.data?[index] ==
                                     0
                                 ? AppColor.primaryColor
                                 : AppColor.disableColor),
                         customSpacerHeight(height: 6),
                         _salaryCardView(
-                            iconText: settingController
+                            iconText: Get.find<SettingController>()
                                     .basicInfo?.data.currencySymbol ??
                                 "",
-                            salaryText: salaryOverviewController
+                            salaryText: Get.find<SalaryOverviewController>()
                                     .salaryOverView.data?[index].amount
                                     .toString() ??
                                 ""),
@@ -161,7 +160,10 @@ Widget _salaryCardView({iconText, salaryText}) {
                   child: Text(
                     iconText ?? "",
                     style: TextStyle(
-                        color: AppColor.primaryColor.withOpacity(0.8)),
+                        color: AppColor.primaryColor.withOpacity(0.8),
+
+                    fontSize: Dimensions.fontSizeExtraLarge-4
+                    ),
                   ),
                 ),
               ),

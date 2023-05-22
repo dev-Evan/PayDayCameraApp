@@ -61,6 +61,8 @@ class AttendanceLogsRepository {
     }
   }
 
+
+
   Future<FilteredLogSummary> getAllFilteredLogs({String? queryParams}) async {
     queryParams ??= "within=thisMonth";
     try {

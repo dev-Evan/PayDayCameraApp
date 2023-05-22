@@ -63,6 +63,8 @@ class ViewProfile extends GetView<ProfileDataController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       customSpacerHeight(height: 8),
+                      controller.userProfile.data?.aboutMe !=null?
+
                       controller.userProfile.data!.aboutMe!.isEmpty
                           ? Container()
                           : Column(
@@ -75,7 +77,7 @@ class ViewProfile extends GetView<ProfileDataController> {
                                             .toString() ??
                                         ""),
                               ],
-                            ),
+                            ):Container(),
                       customSpacerHeight(height: 14),
                       textFieldTitleText(titleText: AppString.text_general),
                       controller.userProfile.data!.departmentName!.isEmpty

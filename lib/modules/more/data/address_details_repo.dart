@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/domain/error_model.dart';
 import 'package:pay_day_mobile/modules/more/domain/address_details_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
-import '../../../common/domain/error_model.dart';
 
 class AddressDetailsRepository {
   final NetworkClient networkClient;

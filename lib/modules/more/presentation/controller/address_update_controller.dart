@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/modules/more/data/address_update_repo.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
@@ -9,16 +8,14 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 
 class AddressUpdateController extends GetxController with StateMixin {
   final AddressUpdateDataSource addressUpdateDataSource = AddressUpdateDataSource(NetworkClient());
-
-
-  final areaController = TextEditingController().obs;
-  final cityController = TextEditingController().obs;
-  final countyController = TextEditingController().obs;
-  final detailsController = TextEditingController().obs;
-  final phoneNumberController = TextEditingController().obs;
-  final stateController = TextEditingController().obs;
-  final typeController = TextEditingController().obs;
-  final zipCodeController = TextEditingController().obs;
+  final areaController = TextEditingController();
+  final cityController = TextEditingController();
+  final countyController = TextEditingController();
+  final detailsController = TextEditingController();
+  final phoneNumberController = TextEditingController();
+  final stateController = TextEditingController();
+  final typeController = TextEditingController();
+  final zipCodeController = TextEditingController();
 
   void addressUpdate({required typeKey, required selectedCounty}) async {
     change(null, status: RxStatus.loading());
@@ -36,11 +33,9 @@ class AddressUpdateController extends GetxController with StateMixin {
       )
           .then((value) {
         Get.back();
-
         Get.find<AddressDetailsController>().getEmployeeAddressData();
         _showToast(value.message);
-
-        print("Address update ::: update done");
+        print("Address update called ::: $value");
       }, onError: (error) => _showToast(error.message));
     } catch (ex) {
 
