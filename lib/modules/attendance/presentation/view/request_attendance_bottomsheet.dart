@@ -244,7 +244,7 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
               .copyWith(color: Colors.grey, fontWeight: FontWeight.w600),
         ),
         SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
-        inputNote(
+        InputNote(
             controller:
                 Get.find<AttendanceLogsController>().textEditingController),
       ],

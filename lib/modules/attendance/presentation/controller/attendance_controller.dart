@@ -7,19 +7,14 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attendance_data_repository.dart';
-import 'package:pay_day_mobile/modules/attendance/domain/change_log/change_log.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_entry/log_entry_request.dart';
-import 'package:pay_day_mobile/common/domain/error_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_string.dart';
 import '../../domain/change_request/change_request_req_model.dart';
-import '../../domain/change_request/change_request_respose.dart';
-import '../../domain/check_entry_status/check_entry_status.dart';
 import '../../domain/daily_log/daily_log.dart';
-import '../../domain/log_entry/log_entry_response.dart';
 
 class AttendanceController extends GetxController with StateMixin {
   final AttendanceDataRepository _attendanceDataRepository =

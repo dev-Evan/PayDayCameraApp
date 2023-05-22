@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/daily_log/daily_log.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -22,29 +23,20 @@ Widget timerOverviewLayout() {
       children: [
         Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               inTimeLog(),
-              const Spacer(),
-              verticalDivider(),
-              const Spacer(),
               outTimeLog(),
-              const Spacer(),
-              verticalDivider(),
-              const Spacer(),
-              balanceTimeLog()
+              balanceTimeLog(),
             ]),
-        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          scheduledTimeLog(),
-          const Spacer(),
-          verticalDivider(),
-          const Spacer(),
-          remainingTimeLog(),
-          const Spacer(),
-          verticalDivider(),
-          const Spacer(),
-          overtimeTimeLog(),
-        ]),
+        Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              scheduledTimeLog(),
+              remainingTimeLog(),
+              overtimeTimeLog(),
+            ]),
       ],
     ),
   );
@@ -52,18 +44,30 @@ Widget timerOverviewLayout() {
 
 overtimeTimeLog() {
   Data? data = Get.find<AttendanceController>().logs.value.data;
-  return logInfo(
-      title: AppString.text_overtime,
-      time: TimeCounterHelper.getTimeStringFromDouble(
-          data?.todayOvertime.toDouble() ?? 0.0));
+  return Row(
+    children: [
+      verticalDivider(),
+      customSpacerWidth(width: 16),
+      logInfo(
+          title: AppString.text_overtime,
+          time: TimeCounterHelper.getTimeStringFromDouble(
+              data?.todayOvertime.toDouble() ?? 0.0))
+    ],
+  );
 }
 
 remainingTimeLog() {
   Data? data = Get.find<AttendanceController>().logs.value.data;
-  return scheduledLogInfo(
-      title: AppString.text_remaining,
-      time: TimeCounterHelper.getTimeStringFromDouble(
-          data?.todayShortage.toDouble() ?? 0.0));
+  return Row(
+    children: [
+      verticalDivider(),
+      customSpacerWidth(width: 16),
+      scheduledLogInfo(
+          title: AppString.text_remaining,
+          time: TimeCounterHelper.getTimeStringFromDouble(
+              data?.todayShortage.toDouble() ?? 0.0)),
+    ],
+  );
 }
 
 scheduledTimeLog() {
@@ -76,12 +80,17 @@ scheduledTimeLog() {
 
 Widget balanceTimeLog() {
   var data = Get.find<AttendanceController>().logs.value.data;
-  if (data != null) {
-    return data.todayOvertime > 0
-        ? overTimedBalanceTime()
-        : normalBalanceTime();
-  }
-  return Container();
+  return Row(
+    children: [
+      verticalDivider(),
+      customSpacerWidth(width: 16),
+      data != null
+          ? data.todayOvertime > 0
+              ? overTimedBalanceTime()
+              : normalBalanceTime()
+          : Container()
+    ],
+  );
 }
 
 overTimedBalanceTime() {
@@ -111,13 +120,19 @@ Widget normalBalanceTime() {
 outTimeLog() {
   AttendanceController controller = Get.find<AttendanceController>();
   Data? data = controller.logs.value.data;
-  return scheduledLogInfo(
-      title: AppString.text_out,
-      time: data != null &&
-              controller.isPunchIn.isFalse &&
-              data.dailyLogs!.isNotEmpty
-          ? data.dailyLogs?.first.outTime
-          : '');
+  return Row(
+    children: [
+      verticalDivider(),
+      customSpacerWidth(width: 16),
+      scheduledLogInfo(
+          title: AppString.text_out,
+          time: data != null &&
+                  controller.isPunchIn.isFalse &&
+                  data.dailyLogs!.isNotEmpty
+              ? data.dailyLogs?.first.outTime
+              : ''),
+    ],
+  );
 }
 
 inTimeLog() {

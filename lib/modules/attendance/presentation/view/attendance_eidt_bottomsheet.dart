@@ -185,7 +185,7 @@ class EditAttendanceBottomSheet extends StatelessWidget {
               .copyWith(color: Colors.grey, fontWeight: FontWeight.w600),
         ),
         SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
-        inputNote(
+        InputNote(
             controller: Get.find<DateTimeController>().textEditingController),
       ],
     );

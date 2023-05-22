@@ -25,19 +25,15 @@ class Attendance extends GetView<AttendanceController> {
 
   @override
   Widget build(BuildContext context) {
-    bool value = Get.isRegistered<AttendanceController>();
-    if (value) {
+    if (Get.isRegistered<AttendanceController>()) {
       Get.lazyPut(() => AttendanceController(), fenix: true);
     }
     controller.checkUserIsPunchedIn();
     controller.getDailyLog();
     return controller.obx(
-        (state) => WillPopScope(
-          onWillPop: () async=> false,
-          child: Scaffold(
-                body: _body(context),
-              ),
-        ),
+        (state) => Scaffold(
+              body: _body(context),
+            ),
         onLoading: const LoadingIndicator());
   }
 
@@ -50,49 +46,7 @@ class Attendance extends GetView<AttendanceController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(16),
-                  bottomRight: Radius.circular(16)),
-              gradient: LinearGradient(
-                  colors: [AppColor.gradient_blue1, AppColor.gradient_blue2]),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: AppLayout.getWidth(20),
-                vertical: AppLayout.getHeight(20),
-              ),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    infoLayout(),
-                    SizedBox(
-                        height:
-                            AppLayout.getHeight(Dimensions.paddingExtraLarge)),
-                    Obx(() => timerLayout()),
-                    Obx(() => timerOverviewLayout()),
-                    SizedBox(
-                        height: AppLayout.getHeight(Dimensions.paddingDefault)),
-                    punchButton(() async {
-                      await controller.getLatLong();
-                      _openBottomSheet();
-                    }),
-                    SizedBox(
-                        height: AppLayout.getHeight(Dimensions.paddingMid)),
-                    Obx(() => dotIndicator(controller.currentIndex.value)),
-                    attendanceLogText(
-                      context: context,
-                      text: AppString.text_attendance_log,
-                      onAction: () => CustomNavigator(
-                          context: context,
-                          pageName: const AttendanceLogsScreen()),
-                    ),
-                  ]),
-            ),
-          ),
+          _upperLayout(),
           Obx(
             () => (controller.logs.value.data != null &&
                     controller.logs.value.data!.dailyLogs!.isNotEmpty)
@@ -126,4 +80,45 @@ class Attendance extends GetView<AttendanceController> {
       builder: (context) => const LogEntryBottomSheet(),
     );
   }
+
+  _upperLayout() => Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(16),
+              bottomRight: Radius.circular(16)),
+          gradient: LinearGradient(
+              colors: [AppColor.gradient_blue1, AppColor.gradient_blue2]),
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: AppLayout.getWidth(20),
+            vertical: AppLayout.getHeight(20),
+          ),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                infoLayout(),
+                SizedBox(
+                    height: AppLayout.getHeight(Dimensions.paddingExtraLarge)),
+                Obx(() => timerLayout()),
+                Obx(() => timerOverviewLayout()),
+                SizedBox(
+                    height: AppLayout.getHeight(Dimensions.paddingDefault)),
+                punchButton(() async {
+                  await controller.getLatLong();
+                  _openBottomSheet();
+                }),
+                SizedBox(height: AppLayout.getHeight(Dimensions.paddingMid)),
+                Obx(() => dotIndicator(controller.currentIndex.value)),
+                attendanceLogText(
+                  text: AppString.text_attendance_log,
+                  onAction: () => CustomNavigator(
+                      context: Get.context!,
+                      pageName: const AttendanceLogsScreen()),
+                ),
+              ]),
+        ),
+      );
 }
