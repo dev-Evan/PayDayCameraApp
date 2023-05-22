@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -9,13 +9,11 @@ import 'package:pay_day_mobile/utils/images.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
-
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   bool _isLoad = false;
   final box = GetStorage();
 
@@ -38,40 +36,38 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-  var _width = AppLayout.getWidth(104.0);
+  var _width = AppLayout.getWidth(100.0);
   var _height = AppLayout.getHeight(70.0);
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(milliseconds: 810), () {
       isMove();
     });
 
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed( const Duration(milliseconds: 1645), () {
       chooseScreen();
     });
 
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(milliseconds: 900), () {
       setState(() {
-        _width = AppLayout.getWidth(28.0);
-        _height = AppLayout.getHeight(45.0);
+       _width = AppLayout.getWidth(22.0);
+        _height = AppLayout.getHeight(30.0);
       });
     });
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    double _bdHeight = MediaQuery.of(context).size.height;
-    double _bdWidth = MediaQuery.of(context).size.width;
-
+    double bodyH = MediaQuery.of(context).size.height;
+    double bodyW = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
       body: SafeArea(
         child: SizedBox(
-          width: _bdWidth,
-          height: _bdHeight,
+          width: bodyW,
+          height: bodyH,
           child: Stack(
             children: [
               _containerLayout(height: _height,width: _width,isLoad: _isLoad)
@@ -85,13 +81,26 @@ class _SplashScreenState extends State<SplashScreen> {
 
 Widget _containerLayout({isLoad,width,height}){
   return AnimatedContainer(
-    duration: const Duration(seconds: 2),
+    duration: const Duration(milliseconds: 900),
     alignment: isLoad ? Alignment.topCenter : Alignment.center,
-    child: AnimatedContainer(
-      duration: const Duration(seconds: 2),
-      width: width,
-      height: height,
-      child: Image.asset(Images.logo),
-    ),
+    child: _animatedLogo(height: height,width: width),
   );
 }
+
+Widget _animatedLogo({required height,required width}){
+  return AnimatedContainer(
+    duration:  const Duration(milliseconds: 900),
+    width: width,
+    height: height,
+    child: _logoView(logo: Images.favIcon)
+  );
+
+}
+
+Widget _logoView({required logo}){
+  return  SvgPicture.asset(
+    logo.toString(),
+
+  );
+}
+

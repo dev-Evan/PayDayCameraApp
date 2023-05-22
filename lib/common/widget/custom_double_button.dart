@@ -17,7 +17,7 @@ Widget customDoubleButton(
         Flexible(
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 18,
+            height: MediaQuery.of(context).size.height / 20,
             child: TextButton(
                 onPressed: () => textButtonAction(),
                 style: ElevatedButton.styleFrom(

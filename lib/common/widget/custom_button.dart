@@ -13,8 +13,7 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      // width: MediaQuery.of(context).size.width / 1,
-      height: MediaQuery.of(context).size.height / 18,
+      height: MediaQuery.of(context).size.height / 16,
       child: ElevatedButton(
           onPressed: () => onAction(),
           style: ElevatedButton.styleFrom(
@@ -25,7 +24,7 @@ class CustomButton extends StatelessWidget {
               elevation: 0),
           child: Text(
             text,
-            style: GoogleFonts.poppins(fontSize: Dimensions.fontSizeDefault),
+            style: GoogleFonts.poppins(fontSize: Dimensions.fontSizeMid-2,fontWeight: FontWeight.w600),
           )),
     );
   }

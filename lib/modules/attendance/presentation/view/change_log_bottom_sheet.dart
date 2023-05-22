@@ -35,7 +35,7 @@ class ChangeLogBottomSheet extends StatelessWidget {
             child: Align(
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
-                    onPressed: () {}, child: const Text('Bottom Button!'))))
+                    onPressed: () {}, child:  Text(AppString.text_button_button))))
       ],
     );
   }

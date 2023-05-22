@@ -28,7 +28,12 @@ class AppString {
   static String UPDATE_PROFILE_DATA = "/user/profile/update";
   static String DOCUMENT_UPLOAD = "/document/store";
   static String UPDATE_DOCUMENT = "/document/update";
+  static String PAYSLIP_LIST = "/payroll/payslip-list";
   static String POST = "POST";
+  static String PAYSLIP_SUMMARY = "/payroll/payslip-summary";
+  static String PAYSLIP_VIEW = "/payroll/payslip/";
+  static String PAYSLIP_DOWNLOAD = "/payroll/payslip/pdf/";
+  static String PAYRUN_BADGE = "/payroll/payrun-and-badge";
   static String DELETED_DOCUMENT = "/document/delete";
   static String USER_CHANGE_PICTURE = "/user/change-picture";
   static String SALARY_OVERVIEW = "/employee/salary-overview";
@@ -92,6 +97,8 @@ class AppString {
   static String text_end_time = "End Time";
   static String text_skip = "Skip";
   static String text_please_selected_date = "Please selected date";
+  static String text_please_selected_document = "Please selected document";
+  static String text_field_is_requird = "Field is required !";
   static String text_alert = "Alert";
   static String text_next = "Next";
   static String text_search = "Search";
@@ -114,7 +121,10 @@ class AppString {
   static String text_remember_me = "Remember me";
   static String text_forgot_password = "Forgot password?";
   static String text_log_in = "Log In";
-
+  static String text_attendance = "Attendance";
+  static String text_leave = "Leave";
+  static String text_payslip = "Payslip";
+  static String text_more = "More";
   static String text_today = "Today";
   static String text_enter_phone_number = "Enter phone number";
   static String text_enter = "Enter";
@@ -122,6 +132,7 @@ class AppString {
   static String text_last_week = "Last Week";
   static String text_last_month = "Last Month";
   static String text_leave_response = "Leave Response";
+  static String text_last_year = "Last Year";
   static String text_requstAttendance = "Request Attendance";
   static String text_attendance_log = "Attendance Logs";
   static String todays_log = "Today’s logs";
@@ -190,7 +201,6 @@ class AppString {
   //PaySlip modules string here
   static const String text_paid = "Paid";
   static const String text_unpaid = "Unpaid";
-  static const String text_payslip = "Payslip";
   static const String text_payslip_for = "Payslip for";
   static const String text_create_at = "Create at";
   static const String text_beneficiary = "Beneficiary";
@@ -208,9 +218,18 @@ class AppString {
   static String text_period = "Period";
   static String text_consider_type = "Consider Type";
   static String text_monthly = "Monthly";
+  static String text_no_included = "N/A";
   static String text_hour = "Hour";
   static String text_2 = "2";
   static String text_included = "Included";
+  static String text_button_button = "Bottom Button!";
+  static String text_Enter_phone_number = "Enter phone Number";
+  static String text_enter_area = "Enter area";
+  static String text_enter_city = "Enter city";
+  static String text_enter_state = "Enter state";
+  static String text_enter_zip_code = "Enter zip code";
+  static String text_enter_address = "Enter zip address";
+  static String text_add_address = "Add Address";
 
   // More modules
   static const String text_user_name = "Steve Roggers";
@@ -313,7 +332,7 @@ class AppString {
   static String text_payrun_badge = "Payrun & Badge";
   static String text_february_2022 = "February 2022";
   static String text_this_year = "This Year";
-  static String text_last_year = "Last Year";
+  static String text_this_year2 = "thisYear";
   static String text_caleder = "Calender";
   static String text_this_month = "This month";
   static String text_success = "Success";
@@ -324,20 +343,18 @@ class AppString {
   static String text_deleted_document_successfully = "Deleted document successfully";
   static String text_document_upload_successfully = "Document uploaded successfully!";
   static String text_document_update_successfully = "Document update successfully!";
+
   static String no_internet_title_text = "No internet!!";
   static String no_internet_subtitle_text = "Make sure your Wi-Fi or cellular data is turned on and then try again";
+
+  static String text_payslip_download_successfully = "Payslip download successfully!";
+  static String text_something_wrong = "Something wrong !";
 
   static String text_enter_your_old_password = "Enter your old password";
   static String text_enter_new_password = "Enter new password";
   static String text_confirm_your_new_password = "Confirm your new password";
   static String text_retry = "Retry";
 
-
-  static String text_enter_address = "Enter Address";
-  static String text_enter_state = "Enter state";
-  static String text_enter_zip_code = "Enter zip code";
-  static String text_enter_area = "Enet area";
-  static String text_enter_city = "Enter city";
   static String text_this_enter_phone_number = "Enter phone Number";
   static String text_this_all_holiday = "All Holiday";
   static String text_calender_text = "Calender";
@@ -346,12 +363,10 @@ class AppString {
 
 
 
-
-
   // Local store string here
   static const String ID_STORE = "store";
-  static String ACCESS_TOKEN = "access_token";
-  static String USERNAME = "full_name";
+  static const String ACCESS_TOKEN = "access_token";
+  static const String USERNAME = "full_name";
   static const String STORE_TOKEN = "storeToken";
   static const String LOGIN_CHECK_KEY = "loginCheckValue";
   static const String STORE_DATE = "storeData";
@@ -360,7 +375,16 @@ class AppString {
   static const String LOGIN_VALUE = "LogInValue";
   static const String REMEMBER_VALUE = "rememberValue";
   static const String REMEMBER_KEY = "rememberKey";
+  static const String CURRENT_DATE = "currentDate";
   static const String STORE_COUNTY = "storeCounty";
+  static const String STORE_CURRENCY = "storeCurrency";
+  static const String STORE_PAYSLIP_LSIT_ID = "storePayslipListId";
+  static const String STORE_DOC_NAME = "storeDocName";
+  static const String STORE_DOC_NAME_TEXT = "store_doc_text";
+  static const String STORE_DOC_Id = "store_doc_id";
+  static const String PAYSLIP_DATE_RANGE = "payslip_date_range";
+
+
 
 // Auth String
 
@@ -390,4 +414,11 @@ class AppString {
   static const String profileView = "/profileView_screen";
   static const String updateDocument = "/updateDocument_screen";
   static const String network_error = "/network_error";
+
+  static const String documentScreen = "/document_screen";
+  static const String jobHistory = "/jobHistory_screen";
+  static const String salaryOverView = "/salaryOverView_screen";
+  static const String addressDetails = "/addressDetails_screen";
+  static const String aboutPage = "/aboutPage_screen";
+  static const String payrunBage = "/payrunBage_screen";
 }

@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/more/domain/deleted_document_model.dart';
-import 'package:pay_day_mobile/modules/more/domain/logout_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import '../../../common/domain/error_model.dart';
 import '../../../utils/app_string.dart';

@@ -1,14 +1,8 @@
-import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:pay_day_mobile/modules/more/domain/logout_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import '../../../common/domain/error_model.dart';
 import '../../../utils/app_string.dart';
 import '../domain/deleted_address_model.dart';
-
-
-
-
 
 class DeletedAddRepository {
   final NetworkClient networkClient;
@@ -21,12 +15,10 @@ class DeletedAddRepository {
           "type":addressType,
         },
       );
-      print(response.body.toString());
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
-        print(response.body.toString());
-        print("done");
+        print("Deleted address Called ::: ${response.body}");
         return DeletedAddressModel.fromJson(response.body);
       }
     } catch (ex) {

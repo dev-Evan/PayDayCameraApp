@@ -24,6 +24,8 @@ class AttendanceLogsScreen extends GetView<AttendanceLogsController> {
     controller.getLogSummaryByYear();
     controller.getAllFilteredLogSummary();
     controller.getLogSummaryOverview();
+
+
     return controller.obx(
         (state) => Scaffold(
             backgroundColor: AppColor.backgroundColor,

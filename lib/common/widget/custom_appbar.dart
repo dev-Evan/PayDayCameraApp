@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/notification/presentation/controller/notication_controller.dart';
 import 'package:pay_day_mobile/modules/notification/presentation/view/notifications.dart';
-import 'package:pay_day_mobile/utils/app_color.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/images.dart';
+
+import '../../utils/app_color.dart';
 
 class CustomAppbar extends GetView<NotificationController>
     implements PreferredSizeWidget {
@@ -56,7 +58,13 @@ class CustomAppbar extends GetView<NotificationController>
   Future? _openBottomSheet(BuildContext context) {
     return Get.to(Notifications());
   }
-
   @override
-  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(60));
+  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(52));
+}
+Widget logoView({ double? height, double ?width,String? url}) {
+  return SvgPicture.asset(
+    url ?? Images.logo,
+    width: AppLayout.getWidth(width =35),
+    height: AppLayout.getHeight(height =35),
+  );
 }

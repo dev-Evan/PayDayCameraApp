@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:dart_ipify/dart_ipify.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -10,7 +9,6 @@ import 'package:pay_day_mobile/modules/attendance/data/attendance_data_repositor
 import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_entry/log_entry_request.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_string.dart';
 import '../../domain/change_request/change_request_req_model.dart';
@@ -19,6 +17,7 @@ import '../../domain/daily_log/daily_log.dart';
 class AttendanceController extends GetxController with StateMixin {
   final AttendanceDataRepository _attendanceDataRepository =
       AttendanceDataRepository(NetworkClient());
+
 
   @override
   void onInit() async {

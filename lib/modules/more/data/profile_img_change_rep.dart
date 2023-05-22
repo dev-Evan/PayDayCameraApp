@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-
 import '../../../common/domain/error_model.dart';
 import '../domain/change_profile_img.dart';
 

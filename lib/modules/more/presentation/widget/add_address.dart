@@ -8,10 +8,10 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+
+import '../../../../common/widget/custom_spacer.dart';
 class AddAddress extends StatefulWidget {
-
   AddAddress({super.key});
-
   @override
   State<AddAddress> createState() => _AddAddressState();
 }
@@ -19,15 +19,11 @@ class AddAddress extends StatefulWidget {
 class _AddAddressState extends State<AddAddress> {
   final List<String> _locations = ['A', 'B', 'C', 'D'];
   String? dropdownValue;
-
-
   final TextEditingController _areaController=TextEditingController();
   final TextEditingController _cityController=TextEditingController();
   final TextEditingController _stateController=TextEditingController();
   final TextEditingController _zipCodeController=TextEditingController();
   final TextEditingController _addDetailsController=TextEditingController();
-
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -37,7 +33,6 @@ class _AddAddressState extends State<AddAddress> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             bottomSheetAppbar(context: context,appbarTitle: AppString.text_add+AppString.text_address,),
-
             Padding(
               padding: const EdgeInsets.only(top: 12.0),
               child: Text(
@@ -49,7 +44,7 @@ class _AddAddressState extends State<AddAddress> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 8.0),
+              padding: const EdgeInsets.only(top: 12.0),
               child: Card(
                 color: AppColor.cardColor,
                 elevation: 0,
@@ -106,13 +101,13 @@ class _AddAddressState extends State<AddAddress> {
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: IntlPhoneField(
-                decoration: const InputDecoration(
-                  labelText: ' Enter phone Number',
-                  enabledBorder: OutlineInputBorder(
+                decoration:  InputDecoration(
+                  labelText: AppString.text_Enter_phone_number,
+                  enabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
                           width: 0.0, color: AppColor.disableColor)),
-                  contentPadding: EdgeInsets.all(7),
-                  border: OutlineInputBorder(
+                  contentPadding: const EdgeInsets.all(7),
+                  border: const OutlineInputBorder(
                     borderSide: BorderSide(
                         width: 0.0, color: AppColor.disableColor),
                   ),
@@ -134,7 +129,7 @@ class _AddAddressState extends State<AddAddress> {
                             fontWeight: FontWeight.w600,
                             fontSize: Dimensions.fontSizeDefault + 1),
                       ),
-                      CustomTextFeild(hintText: 'Enter area', controller:_areaController),
+                      CustomTextFeild(hintText: AppString.text_enter_area, controller:_areaController),
                     ],
                   ),
                 ),
@@ -150,13 +145,13 @@ class _AddAddressState extends State<AddAddress> {
                             fontWeight: FontWeight.w600,
                             fontSize: Dimensions.fontSizeDefault + 1),
                       ),
-                      CustomTextFeild(hintText: 'Enter city', controller:_cityController),
+                      CustomTextFeild(hintText: AppString.text_enter_city, controller:_cityController),
                     ],
                   ),
                 ),
               ],
             ),
-            SizedBox(height: AppLayout.getHeight(16),),
+            customSpacerHeight(height: 16),
             Row(
               children: [
                 Flexible(
@@ -170,7 +165,7 @@ class _AddAddressState extends State<AddAddress> {
                             fontWeight: FontWeight.w600,
                             fontSize: Dimensions.fontSizeDefault + 1),
                       ),
-                      CustomTextFeild(hintText: 'Enter state', controller:_stateController),
+                      CustomTextFeild(hintText: AppString.text_enter_state, controller:_stateController),
                     ],
                   ),
                 ),
@@ -186,15 +181,13 @@ class _AddAddressState extends State<AddAddress> {
                             fontWeight: FontWeight.w600,
                             fontSize: Dimensions.fontSizeDefault + 1),
                       ),
-                      CustomTextFeild(hintText: 'Enter zip code', controller:_zipCodeController),
+                      CustomTextFeild(hintText: AppString.text_enter_zip_code, controller:_zipCodeController),
                     ],
                   ),
                 ),
               ],
             ),
-            SizedBox(height: AppLayout.getHeight(12),),
-
-
+            customSpacerHeight(height: 12),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -205,16 +198,10 @@ class _AddAddressState extends State<AddAddress> {
                       fontWeight: FontWeight.w600,
                       fontSize: Dimensions.fontSizeDefault + 1),
                 ),
-                CustomTextFeild(hintText: 'Enter address', controller:_addDetailsController),
+                CustomTextFeild(hintText: AppString.text_enter_address, controller:_addDetailsController),
               ],
             ),
-            //   const Spacer(),
-
-            customDoubleButton(context: context,elevatedBtnText: 'Add Address',textBtnText: 'Cancel',textButtonAction: (){},elevatedButtonAction: (){}),
-
-
-
-
+            customDoubleButton(context: context,elevatedBtnText: AppString.text_add_address,textBtnText: AppString.text_cancel,textButtonAction: (){},elevatedButtonAction: (){}),
           ],
         ),
       ),

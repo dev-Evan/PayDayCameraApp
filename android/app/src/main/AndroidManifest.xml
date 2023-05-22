@@ -4,11 +4,26 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
 
     <application
+<<<<<<< HEAD
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon"
         android:label="PayDay">
+=======
+
+        android:requestLegacyExternalStorage="true"
+        android:label="pay_day_mobile">
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher">
+
+
+
+>>>>>>> lutfur
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

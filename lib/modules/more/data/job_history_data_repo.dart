@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/more/domain/job_history_model.dart';
-import 'package:pay_day_mobile/modules/more/domain/salary_overview.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import '../../../common/domain/error_model.dart';
 import '../../../utils/app_string.dart';

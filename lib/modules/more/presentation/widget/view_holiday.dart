@@ -11,13 +11,13 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
+import '../../../../common/widget/custom_spacer.dart';
+
 class ViewHoliday extends StatefulWidget {
   const ViewHoliday({Key? key}) : super(key: key);
-
   @override
   State<ViewHoliday> createState() => _ViewHolidayState();
 }
-
 class _ViewHolidayState extends State<ViewHoliday> {
   @override
   Widget build(BuildContext context) {
@@ -52,9 +52,8 @@ class _ViewHolidayState extends State<ViewHoliday> {
                                   fontSize: Dimensions.fontSizeMid - 3,
                                   fontWeight: FontWeight.w700),
                             ),
-                            SizedBox(
-                              width: AppLayout.getWidth(4),
-                            ),
+
+                            customSpacerWidth(width: 4),
                             const Icon(
                               Icons.expand_more,
                               color: AppColor.hintColor,
@@ -62,9 +61,7 @@ class _ViewHolidayState extends State<ViewHoliday> {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: AppLayout.getHeight(2),
-                      ),
+                      customSpacerHeight(height: 2),
                       Text(
                         AppString.text_2022,
                         style: AppStyle.small_text_black
@@ -93,9 +90,6 @@ Widget holidaysList() {
   return ListView.builder(
     itemCount: 33,
     shrinkWrap: true,
-
-    //physics: ClampingScrollPhysics(),
-
     physics: const NeverScrollableScrollPhysics(),
     itemBuilder: (context, index) {
       return Padding(
