@@ -107,7 +107,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
       children: [
         _noteText(),
         SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
-        inputNote(
+        InputNote(
             controller: Get.find<AttendanceController>().editTextController)
       ],
     );

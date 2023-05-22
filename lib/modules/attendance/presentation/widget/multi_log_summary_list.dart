@@ -21,7 +21,7 @@ Widget multiLogSummaryList(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "${controller.filteredLogSummary.value.data!.data![dataIndex].details?[index].inTime!} - ${controller.filteredLogSummary.value.data!.data![dataIndex].details?[index].outTime!}",
+              "${controller.filteredLogSummary.data!.data![dataIndex].details?[index].inTime!} - ${controller.filteredLogSummary.data!.data![dataIndex].details?[index].outTime!}",
               style: AppStyle.mid_large_text.copyWith(
                 color: AppColor.normalTextColor,
                 fontSize: Dimensions.fontSizeDefault + 2,
@@ -65,9 +65,9 @@ Widget multiLogSummaryList(
                   SizedBox(
                     width: AppLayout.getWidth(12),
                   ),
-                  controller.filteredLogSummary.value.data != null &&
+                  controller.filteredLogSummary.data != null &&
                           controller
-                              .filteredLogSummary.value.data!.data!.isNotEmpty
+                              .filteredLogSummary.data!.data!.isNotEmpty
                       ? getStatusButton(index, dataIndex, controller)
                       : Container(),
                 ],

@@ -20,10 +20,10 @@ Widget viewListViewLayout() {
   Data? data = Get.find<LeaveController>().leaveRecord.data;
   return data != null
       ? Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
+          padding: EdgeInsets.only(left: AppLayout.getWidth(20), right: AppLayout.getWidth(20), bottom: AppLayout.getHeight(20)),
           child: ListView.separated(
             separatorBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.only(top: 12.0),
+              padding: EdgeInsets.only(top: AppLayout.getHeight(20)),
               child: CustomDiveider(
                   AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
             ),

@@ -27,9 +27,9 @@ class LogsList extends GetView<AttendanceLogsController> {
             child: const Divider(),
           );
         },
-        itemCount: controller.filteredLogSummary.value.data?.data?.length ?? 0,
+        itemCount: controller.filteredLogSummary.data?.data?.length ?? 0,
         physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, dataIndex) => controller.filteredLogSummary.value
+        itemBuilder: (context, dataIndex) => controller.filteredLogSummary
                     .data!.data![dataIndex].details!.length >
                 1
             ? Theme(
@@ -41,9 +41,9 @@ class LogsList extends GetView<AttendanceLogsController> {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Obx(() => Expanded(flex: 3, child: _date(dataIndex))),
+                      Expanded(flex: 3, child: _date(dataIndex)),
                       SizedBox(width: AppLayout.getWidth(20)),
-                      Obx(() => _logInfo(dataIndex)),
+                      _logInfo(dataIndex),
                     ],
                   ),
                   trailing: CircleAvatar(
@@ -52,9 +52,9 @@ class LogsList extends GetView<AttendanceLogsController> {
                       child: Obx(() => _changeIcon())),
                   children: [
                     SizedBox(height: AppLayout.getHeight(16)),
-                    controller.filteredLogSummary.value.data != null &&
+                    controller.filteredLogSummary.data != null &&
                             controller
-                                .filteredLogSummary.value.data!.data!.isNotEmpty
+                                .filteredLogSummary.data!.data!.isNotEmpty
                         ? Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -71,7 +71,6 @@ class LogsList extends GetView<AttendanceLogsController> {
                                         const NeverScrollableScrollPhysics(),
                                     itemCount: controller
                                             .filteredLogSummary
-                                            .value
                                             .data
                                             ?.data?[dataIndex]
                                             .details!
@@ -83,7 +82,6 @@ class LogsList extends GetView<AttendanceLogsController> {
                                           await Get.find<AttendanceController>()
                                               .logDetails(controller
                                                   .filteredLogSummary
-                                                  .value
                                                   .data!
                                                   .data![dataIndex]
                                                   .details![index]
@@ -122,7 +120,7 @@ class LogsList extends GetView<AttendanceLogsController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                controller.filteredLogSummary.value.data?.data?[index]
+                controller.filteredLogSummary.data?.data?[index]
                         .dateInNumber ??
                     "",
                 style: AppStyle.mid_large_text.copyWith(
@@ -131,7 +129,7 @@ class LogsList extends GetView<AttendanceLogsController> {
                     fontWeight: FontWeight.w900),
               ),
               Text(
-                controller.filteredLogSummary.value.data?.data?[index].month ??
+                controller.filteredLogSummary.data?.data?[index].month ??
                     "",
                 style: AppStyle.small_text.copyWith(
                     color: AppColor.hintColor,
@@ -157,9 +155,9 @@ class LogsList extends GetView<AttendanceLogsController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            controller.filteredLogSummary.value.data != null
+            controller.filteredLogSummary.data != null
                 ? Text(
-                    "${controller.filteredLogSummary.value.data!.data?[dataIndex].details?.last.inTime} - ${controller.filteredLogSummary.value.data!.data?[dataIndex].details?.first.outTime}",
+                    "${controller.filteredLogSummary.data!.data?[dataIndex].details?.last.inTime} - ${controller.filteredLogSummary.data!.data?[dataIndex].details?.first.outTime}",
                     style: AppStyle.mid_large_text.copyWith(
                       color: AppColor.secondaryColor,
                       fontSize: Dimensions.fontSizeDefault + 2,
@@ -179,10 +177,10 @@ class LogsList extends GetView<AttendanceLogsController> {
                 SizedBox(
                   width: AppLayout.getWidth(3),
                 ),
-                controller.filteredLogSummary.value.data != null
+                controller.filteredLogSummary.data != null
                     ? Text(
                   //todo
-                        controller.filteredLogSummary.value.data!.data?[dataIndex].details!.length
+                        controller.filteredLogSummary.data!.data?[dataIndex].details!.length
                                 .toString() ??
                             "",
                         style: AppStyle.mid_large_text.copyWith(
@@ -219,13 +217,13 @@ class LogsList extends GetView<AttendanceLogsController> {
     return InkWell(
       onTap: () async {
         await Get.find<AttendanceController>().logDetails(controller
-            .filteredLogSummary.value.data!.data![dataIndex].details![0].id!);
+            .filteredLogSummary.data!.data![dataIndex].details![0].id!);
         await _openLogDetailsBottomSheet();
       },
       child: Row(children: [
-        Obx(() => Expanded(flex: 3, child: _date(dataIndex))),
+       Expanded(flex: 3, child: _date(dataIndex)),
         SizedBox(width: AppLayout.getWidth(20)),
-        Obx(() => _logInfo(dataIndex)),
+       _logInfo(dataIndex),
         CircleAvatar(
           radius: 14,
           backgroundColor: AppColor.hintColor.withOpacity(0.1),

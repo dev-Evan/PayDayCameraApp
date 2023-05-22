@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_divider.dart';
@@ -11,6 +10,8 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+
+import '../../../../common/widget/custom_spacer.dart';
 
 class ViewHoliday extends StatefulWidget {
   const ViewHoliday({Key? key}) : super(key: key);

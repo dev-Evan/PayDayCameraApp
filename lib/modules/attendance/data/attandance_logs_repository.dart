@@ -68,6 +68,7 @@ class AttendanceLogsRepository {
     try {
       Response response = await networkClient.getRequest(
           "${AppString.SUMMARY_ALL_LOG}$queryParams&timezone=${DateTime.now().timeZoneName}");
+      print("${AppString.SUMMARY_ALL_LOG}$queryParams&timezone=${DateTime.now().timeZoneName}");
       print("Filtered log:: ${response.body.toString()}");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));

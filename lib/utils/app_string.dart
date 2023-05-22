@@ -133,14 +133,13 @@ class AppString {
   static String text_last_month = "Last Month";
   static String text_last_year = "Last Year";
   static String text_leave_response = "Leave Response";
-
   static String text_requstAttendance = "Request Attendance";
   static String text_attendance_log = "Attendance Logs";
   static String todays_log = "Today’s logs";
   static String start_out_day = "Ready to start your day?";
   static String note_text = "Note (optional)";
   static String text_cancel = "Cancel";
-  static String text_log_details = "Log Degtails";
+  static String text_log_details = "Log Details";
   static String text_punch_in = "Punch In";
   static String text_punch_out = "Punch Out";
   static String text_my_location = "My Location";
@@ -346,10 +345,12 @@ class AppString {
   static String text_document_update_successfully = "Document update successfully!";
   static String text_payslip_download_successfully = "Payslip download successfully!";
   static String text_something_wrong = "Something wrong !";
-
+  static String no_internet_title_text = "No internet!!";
+  static String no_internet_subtitle_text = "Make sure your Wi-Fi or cellular data is turned on and then try again";
   static String text_enter_your_old_password = "Enter your old password";
   static String text_enter_new_password = "Enter new password";
   static String text_confirm_your_new_password = "Confirm your new password";
+  static String text_retry = "Retry";
 
   static String text_this_enter_phone_number = "Enter phone Number";
   static String text_this_all_holiday = "All Holiday";
@@ -415,4 +416,5 @@ class AppString {
   static const String addressDetails = "/addressDetails_screen";
   static const String aboutPage = "/aboutPage_screen";
   static const String payrunBage = "/payrunBage_screen";
+  static const String network_error = "/network_error";
 }

@@ -296,9 +296,12 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                       'start': DateFormat("yyyy-MM-dd").format(_rangeStartDay!),
                       'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
                     };
-                    String v = json.encode(queryParams);
+
+                    //todo
+                    String value = json.encode(queryParams);
                     Get.find<AttendanceLogsController>()
-                        .getAllFilteredLogSummary(queryParams: "date=$v");
+                        .getAllFilteredLogSummary(queryParams: "date_range=$value");
+                    print(value);
                   }
                   Navigator.pop(Get.context!);
 
@@ -309,13 +312,10 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                       'start': DateFormat("yyyy-MM-dd").format(_rangeStartDay!),
                       'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
                     };
-                    String v = json.encode(queryParams);
 
+                    String value= json.encode(queryParams);
                     Get.find<AttendanceLogsController>()
-                        .getLogSummaryOverview(queryParams: "date_range=$v");
-
-
-
+                        .getLogSummaryOverview(queryParams: "date_range=$value");
                   }
                   Navigator.pop(Get.context!);
                   break;

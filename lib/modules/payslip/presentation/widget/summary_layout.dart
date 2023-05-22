@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pay_day_mobile/common/custom_spacer.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
-import 'package:pay_day_mobile/modules/payslip/presentation/controller/payrun_badge_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/controller/payrun_badge_controller.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';

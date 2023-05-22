@@ -59,15 +59,8 @@ class CustomAppbar extends GetView<NotificationController>
         ));
   }
 
-  Future _openBottomSheet(BuildContext context) {
-    return showModalBottomSheet(
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      context: context,
-      builder: (context) {
-        return const Notifications();
-      },
-    );
+  Future? _openBottomSheet(BuildContext context) {
+    return Get.to(Notifications());
   }
   @override
   Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(52));
