@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attandance_logs_repository.dart';
@@ -12,6 +11,45 @@ import 'package:pay_day_mobile/network/network_client.dart';
 import '../../domain/all_log_summary/all_log_summay.dart';
 
 class AttendanceLogsController extends GetxController with StateMixin {
+  void _loadMoreFilteredLogSummary() async {
+    print("_loadMoreFilteredLogSummary :: Called");
+    if (filteredLogSummary.data != null) {
+      if (filteredLogSummary.data!.meta!.currentPage! <
+          filteredLogSummary.data!.meta!.totalPages!) {
+        isMoreDataLoading(true);
+        await _attendanceLogsRepository
+            .getAllFilteredLogs(
+                queryParams: queryString.value,
+                page: filteredLogSummary.data!.meta!.currentPage! + 1)
+            .then((value) {
+          value.data!.data!.map((e) => logList.add(e)).toList();
+          print("logList.length::: ${logList.length}");
+          print("getAllFiltered More data::: called");
+          filteredLogSummary = value;
+        }, onError: (error) => print(error.message));
+        isMoreDataLoading(false);
+      } else {
+        queryString("within=thisMonth");
+      }
+    }
+  }
+
+  @override
+  void onInit() {
+    scrollController = ScrollController()
+      ..addListener(() {
+        if (scrollController.position.pixels ==
+            scrollController.position.maxScrollExtent) {
+          _loadMoreFilteredLogSummary();
+        }
+      });
+    super.onInit();
+  }
+
+  late ScrollController scrollController;
+
+  final queryString = "within=thisMonth".obs;
+
   final AttendanceLogsRepository _attendanceLogsRepository =
       AttendanceLogsRepository(NetworkClient());
 
@@ -20,15 +58,16 @@ class AttendanceLogsController extends GetxController with StateMixin {
   FilteredLogSummary filteredLogSummary = FilteredLogSummary();
   final currentIndex = 0.obs;
   final tabIndex = 0.obs;
+  final RxList logList = [].obs;
   LogSummaryOverview logSummaryOverview = LogSummaryOverview();
-
+  final isMoreDataLoading = false.obs;
   final TextEditingController textEditingController = TextEditingController();
 
   void getLogSummaryByMonth() async {
     change(null, status: RxStatus.loading());
     await _attendanceLogsRepository.getLogSummaryByThisMonth().then(
         (logSummaryByMonth) {
-      print(logSummaryByMonth);
+      print("getLogSummaryByMonth:: called");
       this.logSummaryByMonth.value = logSummaryByMonth;
     }, onError: (error) {
       print(error);
@@ -40,7 +79,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
     change(null, status: RxStatus.loading());
     await _attendanceLogsRepository.getLogSummaryByThisYear().then(
         (logSummaryByYear) {
-      print(logSummaryByYear);
+      print("getLogSummaryByYear:: called");
       this.logSummaryByYear.value = logSummaryByYear;
     }, onError: (error) {
       print(error);
@@ -48,11 +87,21 @@ class AttendanceLogsController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  void getAllFilteredLogSummary({String? queryParams}) async {
+  void getAllFilteredLogSummary({String? queryParams, int? page}) async {
     change(null, status: RxStatus.loading());
-    await _attendanceLogsRepository.getAllFilteredLogs(queryParams: queryParams ).then(
-        (value) => filteredLogSummary = value,
-        onError: (error) => print(error.message));
+    await _attendanceLogsRepository
+        .getAllFilteredLogs(queryParams: queryString.value)
+        .then((value) {
+      filteredLogSummary = value;
+      logList.clear();
+      value.data!.data!.map((e) => logList.add(e)).toList();
+      print("logList.length::: ${logList.length}");
+      print("getAllFilteredLogSummary::: called");
+      if (filteredLogSummary.data!.meta!.currentPage! ==
+          filteredLogSummary.data!.meta!.totalPages!) {
+        queryString("within=thisMonth");
+      }
+    }, onError: (error) => print(error.message));
     change(null, status: RxStatus.success());
   }
 
@@ -82,5 +131,4 @@ class AttendanceLogsController extends GetxController with StateMixin {
     });
     change(null, status: RxStatus.success());
   }
-
 }

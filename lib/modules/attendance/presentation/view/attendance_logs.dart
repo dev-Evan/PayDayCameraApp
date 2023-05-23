@@ -20,12 +20,6 @@ class AttendanceLogsScreen extends GetView<AttendanceLogsController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.getLogSummaryByMonth();
-    controller.getLogSummaryByYear();
-    controller.getAllFilteredLogSummary();
-    controller.getLogSummaryOverview();
-
-
     return controller.obx(
         (state) => Scaffold(
             backgroundColor: AppColor.backgroundColor,
@@ -51,18 +45,15 @@ class AttendanceLogsScreen extends GetView<AttendanceLogsController> {
                             bottomRight: Radius.circular(Dimensions.radiusMid),
                           ),
                         ),
-                        child: SingleChildScrollView(
-                          physics: const PageScrollPhysics(),
-                          child: Column(
-                            children: [
-                              customMoreAppbar(
-                                  titleText: AppString.text_attendance_log,
-                                  bgColor: AppColor.primaryColor,
-                                  textColor: Colors.white),
-                              attendanceLogsOverviewLayout(context),
-                              Obx(() => dotIndicator(controller.currentIndex.value)),
-                            ],
-                          ),
+                        child: Column(
+                          children: [
+                            customMoreAppbar(
+                                titleText: AppString.text_attendance_log,
+                                bgColor: AppColor.primaryColor,
+                                textColor: Colors.white),
+                            attendanceLogsOverviewLayout(context),
+                            Obx(() => dotIndicator(controller.currentIndex.value)),
+                          ],
                         ),
                       ),
                       SizedBox(

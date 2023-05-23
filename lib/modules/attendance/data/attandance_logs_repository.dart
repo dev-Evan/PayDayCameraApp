@@ -50,7 +50,6 @@ class AttendanceLogsRepository {
     try {
       Response response = await networkClient
           .getRequest("${AppString.DETAILS_SUMMARY}$queryParams");
-      print("LogSummaryOverview:: ${response.body.toString()}");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -61,15 +60,12 @@ class AttendanceLogsRepository {
     }
   }
 
-
-
-  Future<FilteredLogSummary> getAllFilteredLogs({String? queryParams}) async {
-    queryParams ??= "within=thisMonth";
+  Future<FilteredLogSummary> getAllFilteredLogs(
+      {required String queryParams, int? page = 1}) async {
     try {
       Response response = await networkClient.getRequest(
-          "${AppString.SUMMARY_ALL_LOG}$queryParams&timezone=${DateTime.now().timeZoneName}");
-      print("${AppString.SUMMARY_ALL_LOG}$queryParams&timezone=${DateTime.now().timeZoneName}");
-      print("Filtered log:: ${response.body.toString()}");
+          "${AppString.SUMMARY_ALL_LOG}$queryParams&timezone=${DateTime.now().timeZoneName}&per_page=10&page=$page");
+      print("${AppString.SUMMARY_ALL_LOG}$queryParams&timezone=${DateTime.now().timeZoneName}&page=$page");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -86,7 +82,6 @@ class AttendanceLogsRepository {
       Response response = await networkClient.postRequest(
           AppString.REQUEST_ATTENDANCE,
           json.encode(attendanceChangeReq.toJson()));
-      print(" request attendance :::: ${response.body}");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

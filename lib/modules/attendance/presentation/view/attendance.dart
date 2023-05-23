@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_logs.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -113,11 +114,20 @@ class Attendance extends GetView<AttendanceController> {
                 customSpacerHeight(height: 20),
                 Obx(() => dotIndicator(controller.currentIndex.value)),
                 attendanceLogText(
-                  text: AppString.text_attendance_log,
-                  onAction: () => CustomNavigator(
-                      context: Get.context!,
-                      pageName: const AttendanceLogsScreen()),
-                ),
+                    text: AppString.text_attendance_log,
+                    onAction: () {
+                      Get.find<AttendanceLogsController>()
+                          .getLogSummaryByMonth();
+                      Get.find<AttendanceLogsController>()
+                          .getLogSummaryByYear();
+                      Get.find<AttendanceLogsController>()
+                          .getAllFilteredLogSummary();
+                      Get.find<AttendanceLogsController>()
+                          .getLogSummaryOverview();
+                      CustomNavigator(
+                          context: Get.context!,
+                          pageName: const AttendanceLogsScreen());
+                    }),
               ]),
         ),
       );

@@ -109,10 +109,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                   Padding(
                     padding: const EdgeInsets.only(top: 16.0, bottom: 16),
                     child:
-                    CustomDiveider(0.7, MediaQuery
-                        .of(context)
-                        .size
-                        .width),
+                        CustomDiveider(0.7, MediaQuery.of(context).size.width),
                   ),
 
                   SizedBox(
@@ -123,7 +120,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                       //check the calendar type
                       //show selection button accordingly
                       itemCount: widget.rangeCalendarMethodImp ==
-                          RangeCalendarMethodImp.LEAVE_RECORD
+                              RangeCalendarMethodImp.LEAVE_RECORD
                           ? leave.length
                           : dateTime.length,
                       scrollDirection: Axis.horizontal,
@@ -140,15 +137,14 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                   left: 12.0, right: 12, top: 8, bottom: 8),
                               child: Center(
                                   child: Text(
-                                    widget.rangeCalendarMethodImp ==
+                                widget.rangeCalendarMethodImp ==
                                         RangeCalendarMethodImp.LEAVE_RECORD
-                                        ? leave[index]
-                                        : dateTime[index],
-                                    style: AppStyle.mid_large_text.copyWith(
-                                        color: AppColor.normalTextColor,
-                                        fontSize: Dimensions.fontSizeDefault +
-                                            3),
-                                  )),
+                                    ? leave[index]
+                                    : dateTime[index],
+                                style: AppStyle.mid_large_text.copyWith(
+                                    color: AppColor.normalTextColor,
+                                    fontSize: Dimensions.fontSizeDefault + 3),
+                              )),
                             ),
                           ),
                           onTap: () {
@@ -212,7 +208,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                     RangeCalendarMethodImp.LEAVE_RECORD) {
                                   setDateToController(
                                       rangeStartDate:
-                                      DateTime.utc(today.year - 1, 1),
+                                          DateTime.utc(today.year - 1, 1),
                                       rangeEndDate: DateTime.utc(today.year,
                                           today.month - today.month + 1, 0),
                                       rangeName: AppString.text_last_year);
@@ -239,7 +235,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                     RangeCalendarMethodImp.LEAVE_RECORD) {
                                   setDateToController(
                                       rangeStartDate:
-                                      DateTime.utc(today.year, 1),
+                                          DateTime.utc(today.year, 1),
                                       rangeEndDate: DateTime.utc(today.year + 1,
                                           today.month - today.month + 1, 0),
                                       rangeName: AppString.text_total);
@@ -284,10 +280,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
             elevatedBtnText: 'Apply',
             elevatedButtonAction: () {
               print(
-                  "start ::: ${DateFormat("yyyy-MM-dd").format(
-                      _rangeStartDay!)} End ::: ${DateFormat("yyyy-MM-dd")
-                      .format(_rangeEndDate!)}");
-
+                  "start ::: ${DateFormat("yyyy-MM-dd").format(_rangeStartDay!)} End ::: ${DateFormat("yyyy-MM-dd").format(_rangeEndDate!)}");
 
               switch (widget.rangeCalendarMethodImp) {
                 case RangeCalendarMethodImp.ALL_LOG:
@@ -299,12 +292,13 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                       'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
                     };
 
-                    //todo
-                    String value = json.encode(queryParams);
+                    Get.find<AttendanceLogsController>().queryString.value =
+                        "date_range=${json.encode(queryParams)}";
                     Get.find<AttendanceLogsController>()
                         .getAllFilteredLogSummary(
-                        queryParams: "date_range=$value");
-                    print(value);
+                            queryParams: Get.find<AttendanceLogsController>()
+                                .queryString
+                                .value);
                   }
                   Navigator.pop(Get.context!);
 
@@ -315,47 +309,45 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                       'start': DateFormat("yyyy-MM-dd").format(_rangeStartDay!),
                       'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
                     };
-              String value= json.encode(queryParams);
-              Get.find<AttendanceLogsController>()
-                  .getLogSummaryOverview(queryParams: "date_range=$value");
+                    String value = json.encode(queryParams);
+                    Get.find<AttendanceLogsController>().getLogSummaryOverview(
+                        queryParams: "date_range=$value");
+                  }
+                  Navigator.pop(Get.context!);
+                  break;
+                case RangeCalendarMethodImp.VIEW_HOLIDAY:
+                  // TODO: Handle this case.
+                  break;
+                case RangeCalendarMethodImp.PAYSLIP:
+                  if (_rangeStartDay != null && _rangeEndDate != null) {
+                    Map<String, String> queryParams = {
+                      'start': DateFormat("yyyy-MM-dd").format(_rangeStartDay!),
+                      'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
+                    };
+                    String v = json.encode(queryParams);
+
+                    Get.find<AttendanceLogsController>()
+                        .getLogSummaryOverview(queryParams: "date_range=$v");
+                  }
+                  Navigator.pop(Get.context!);
+
+                  break;
+                case RangeCalendarMethodImp.LEAVE_RECORD:
+                  if (_rangeStartDay != null && _rangeEndDate != null) {
+                    Map<String, String> queryParams = {
+                      'start': DateFormat("yyyy-MM-dd").format(_rangeStartDay!),
+                      'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
+                    };
+                    String value = json.encode(queryParams);
+                    // Get.find<AttendanceLogsController>()
+                    //     .getLogSummaryOverview(queryParams: "date_range=$value");
+                    print("QueryParams: $queryParams ::: value:::: $value");
+                    Get.find<LeaveController>()
+                        .getLeaveRecord(params: "&date_range=$value");
+                  }
+                  Navigator.pop(Get.context!);
+                  break;
               }
-              Navigator.pop(Get.context!);
-              break;
-              case RangeCalendarMethodImp.VIEW_HOLIDAY:
-              // TODO: Handle this case.
-              break;
-              case RangeCalendarMethodImp.PAYSLIP:
-
-              if (_rangeStartDay != null && _rangeEndDate != null) {
-              Map<String, String> queryParams = {
-              'start': DateFormat("yyyy-MM-dd").format(_rangeStartDay!),
-              'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
-              };
-              String v = json.encode(queryParams);
-
-              Get.find<AttendanceLogsController>()
-                  .getLogSummaryOverview(queryParams: "date_range=$v");
-
-              }
-              Navigator.pop(Get.context!);
-
-              break;
-              case RangeCalendarMethodImp.LEAVE_RECORD:
-              if (_rangeStartDay != null && _rangeEndDate != null) {
-              Map<String, String> queryParams = {
-              'start': DateFormat("yyyy-MM-dd").format(_rangeStartDay!),
-              'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
-              };
-              String value = json.encode(queryParams);
-              // Get.find<AttendanceLogsController>()
-              //     .getLogSummaryOverview(queryParams: "date_range=$value");
-              print("QueryParams: $queryParams ::: value:::: $value");
-              Get.find<LeaveController>()
-                  .getLeaveRecord(params: "&date_range=$value");
-              }
-              Navigator.pop(Get.context!);
-              break;
-            }
             })
       ],
     );
@@ -393,46 +385,21 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
     );
   }
 
-  setDateToController({required DateTime rangeStartDate,
-    required DateTime rangeEndDate,
-    required String rangeName}) {
-    Get
-        .find<LeaveController>()
-        .rangeName
-        .value = rangeName;
-    Get
-        .find<LeaveController>()
-        .rangeStartDay
-        .value = rangeStartDate;
-    Get
-        .find<LeaveController>()
-        .rangeEndDate
-        .value = rangeEndDate;
+  setDateToController(
+      {required DateTime rangeStartDate,
+      required DateTime rangeEndDate,
+      required String rangeName}) {
+    Get.find<LeaveController>().rangeName.value = rangeName;
+    Get.find<LeaveController>().rangeStartDay.value = rangeStartDate;
+    Get.find<LeaveController>().rangeEndDate.value = rangeEndDate;
   }
 
   void clearData() {
-    Get
-        .find<LeaveController>()
-        .rangeName
-        .value = AppString.text_this_month;
-    Get
-        .find<LeaveController>()
-        .rangeStartDay
-        .value =
-        DateTime.utc(DateTime
-            .now()
-            .year, DateTime
-            .now()
-            .month, 1);
-    Get
-        .find<LeaveController>()
-        .rangeEndDate
-        .value =
-        DateTime.utc(DateTime
-            .now()
-            .year, DateTime
-            .now()
-            .month + 1, 0);
+    Get.find<LeaveController>().rangeName.value = AppString.text_this_month;
+    Get.find<LeaveController>().rangeStartDay.value =
+        DateTime.utc(DateTime.now().year, DateTime.now().month, 1);
+    Get.find<LeaveController>().rangeEndDate.value =
+        DateTime.utc(DateTime.now().year, DateTime.now().month + 1, 0);
   }
 }
 
