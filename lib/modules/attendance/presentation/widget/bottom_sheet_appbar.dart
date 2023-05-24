@@ -9,7 +9,7 @@ Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle,}) 
   return Container(
     padding: EdgeInsets.symmetric(
         horizontal: AppLayout.getWidth(Dimensions.paddingDefault),
-        vertical: AppLayout.getHeight(Dimensions.paddingDefault-6)),
+        vertical: AppLayout.getHeight(Dimensions.paddingDefault-8)),
     decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(16), topRight: Radius.circular(16)),

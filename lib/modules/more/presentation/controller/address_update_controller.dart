@@ -35,6 +35,7 @@ class AddressUpdateController extends GetxController with StateMixin {
         Get.back();
         Get.find<AddressDetailsController>().getEmployeeAddressData();
         _showToast(value.message);
+        _fieldClear();
         print("Address update called ::: $value");
       }, onError: (error) => _showToast(error.message));
     } catch (ex) {
@@ -52,4 +53,19 @@ class AddressUpdateController extends GetxController with StateMixin {
       backgroundColor: AppColor.hintColor,
       textColor: Colors.white,
       fontSize: 16.0);
+}
+
+_fieldClear(){
+  Get.find<AddressUpdateController>()
+      .phoneNumberController.clear();
+  Get.find<AddressUpdateController>()
+      .areaController.clear();
+  Get.find<AddressUpdateController>()
+      .cityController.clear();
+  Get.find<AddressUpdateController>()
+      .stateController.clear();
+  Get.find<AddressUpdateController>()
+      .zipCodeController.clear();
+  Get.find<AddressUpdateController>()
+      .detailsController.clear();
 }

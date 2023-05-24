@@ -1,11 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:get_storage/get_storage.dart';
-
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_deleted_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/view_doc_file.dart';
@@ -154,22 +151,27 @@ class DocumentScreen extends GetView<DocumentController> {
                         color: AppColor.normalTextColor,
                         fontSize: Dimensions.fontSizeDefault),
                   )),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: AppLayout.getWidth(8),
-                  right: AppLayout.getWidth(8),
-                  top: AppLayout.getHeight(8),
-                  bottom: AppLayout.getHeight(8)),
-              child: CustomButton(AppString.text_add_documents, () {
-                customButtomSheet(
-                    context: context, height: 0.9, child: const AddDocument());
-              }),
-            ),
+            _addDocumentBtn()
           ],
         ),
       ),
     );
   }
+
+  Widget _addDocumentBtn(){
+    return Padding(
+      padding: EdgeInsets.only(
+          left: AppLayout.getWidth(8),
+          right: AppLayout.getWidth(8),
+          top: AppLayout.getHeight(8),
+          bottom: AppLayout.getHeight(8)),
+      child: CustomButton(AppString.text_add_documents, () {
+        customButtomSheet(
+            context: Get.context, height: 0.9, child: const AddDocument());
+      }),
+    );
+  }
+
 
   Widget _cardImage({required imageUrl}) {
     return imageUrl.endsWith(".pdf")

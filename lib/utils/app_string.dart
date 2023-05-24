@@ -81,6 +81,7 @@ class AppString {
   static const String text_rejected = "Rejected";
   static const String text_rejection = "Rejection";
   static const String text_hours = "Hours";
+  static const String text_add_note_here = "Add Note Here";
   static const String text_note = "Note";
   static const String text_single_day = "Single Day";
   static const String text_multi_day = "Multi Day";

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/utils/app_color.dart';
+import 'package:pay_day_mobile/utils/app_string.dart';
+import 'package:pay_day_mobile/utils/dimensions.dart';
 
 import '../../utils/app_style.dart';
 
@@ -6,8 +9,11 @@ import '../../utils/app_style.dart';
 class InputNote extends StatelessWidget {
 
   final TextEditingController controller;
+  String hintText;
 
-  const InputNote({super.key, required this.controller});
+  InputNote(
+      {required this.controller,
+       this.hintText =AppString.text_add_note_here});  // const InputNote({super.key, required this.controller,required hintText});
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +27,20 @@ class InputNote extends StatelessWidget {
       keyboardType: TextInputType.multiline,
       controller: controller,
       decoration: InputDecoration(
-          hintText: "Add Note Here",
+          hintText: hintText,
           hintStyle: AppStyle.normal_text
-              .copyWith(color: Colors.grey, fontWeight: FontWeight.w400),
+              .copyWith(color: AppColor.solidGray, fontWeight: FontWeight.w400),
           isDense: true,
-          focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey)),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey),
-          ),
+          focusedBorder:  OutlineInputBorder(
+              borderSide: BorderSide(color: AppColor.primaryColor),
+              borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
+
+          enabledBorder:  OutlineInputBorder(
+            borderSide: BorderSide(color: AppColor.solidGray),
+              borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
+
           border: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey))),
+              borderSide: BorderSide(color:AppColor.solidGray))),
       maxLines: 5,
       minLines: 3,
     );

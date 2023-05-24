@@ -6,6 +6,7 @@ import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_control
 import 'package:pay_day_mobile/modules/auth/presentation/widget/login_view_widget.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
+import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:get/get.dart';
@@ -50,65 +51,71 @@ class _SignInScreenState extends State<SignInScreen> {
       body: SafeArea(
         child: Form(
             key: _formKey,
-            child: Padding(
-              padding: EdgeInsets.all(Dimensions.paddingLarge),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    customSpacerHeight(height: 30),
-                    SizedBox(
-                        height: _height,
-                        width: _width,
-                        child: Stack(
-                          children: [
-                            containerLayout(isLeft: _isLeft),
-                          ],
-                        )),
-                    bodyContent(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        textFieldTitleText(titleText: AppString.email),
-                        customSpacerHeight(height: 4),
-                        CustomTextFeild(
-                          hintText: AppString.enterYourEmail,
-                          inputType: TextInputType.emailAddress,
-                          controller: _emailController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return AppString.fieldIsRequired;
-                            }
-                            return null;
-                          },
-                        ),
-                      ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(Dimensions.paddingLarge),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          customSpacerHeight(height: 20),
+                          SizedBox(
+                              height: _height,
+                              width: _width,
+                              child: Stack(
+                                children: [
+                                  containerLayout(isLeft: _isLeft),
+                                ],
+                              )),
+                          bodyContent(),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              textFieldTitleText(titleText: AppString.email),
+                              CustomTextFeild(
+                                hintText: AppString.enterYourEmail,
+                                inputType: TextInputType.emailAddress,
+                                controller: _emailController,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return AppString.fieldIsRequired;
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              textFieldTitleText(titleText: AppString.password),
+                              CustomPasswordTextField(
+                                hintText: AppString.enterYourPassword,
+                                inputType: TextInputType.emailAddress,
+                                controller: _passwordController,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return AppString.fieldIsRequired;
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ],
+                          ),
+
+                        ],
+                      ),
                     ),
-                    customSpacerHeight(height: Dimensions.fontSizeLarge),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        textFieldTitleText(titleText: AppString.password),
-                        customSpacerHeight(height: 8),
-                        CustomPasswordTextField(
-                          hintText: AppString.enterYourPassword,
-                          inputType: TextInputType.emailAddress,
-                          controller: _passwordController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return AppString.fieldIsRequired;
-                            }
-                            return null;
-                          },
-                        ),
-                      ],
-                    ),
-                    customSpacerHeight(height: Dimensions.fontSizeDefault),
-                    Row(
+                  ),
+                  Padding(
+                    padding:  EdgeInsets.only(left: AppLayout.getWidth(13),right: AppLayout.getWidth(13)),
+                    child: Row(
                       children: [
                         Checkbox(
                           visualDensity:
-                              const VisualDensity(horizontal: -4, vertical: -4),
+                           VisualDensity(horizontal: -4, vertical: -4),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                   Dimensions.radiusSmall)),
@@ -128,12 +135,14 @@ class _SignInScreenState extends State<SignInScreen> {
                         forgotButton()
                       ],
                     ),
-                    customSpacerHeight(height: Dimensions.fontSizeExtraLarge),
-                    logInButton(
-                        onAction: () => Get.find<AuthController>().logIn(
-                            _emailController.text, _passwordController.text))
-                  ],
-                ),
+                  ),
+                  customSpacerHeight(height: Dimensions.fontSizeDefault-3),
+
+                  customSpacerHeight(height: Dimensions.fontSizeExtraLarge),
+                  logInButton(
+                      onAction: () => Get.find<AuthController>().logIn(
+                          _emailController.text, _passwordController.text))
+                ],
               ),
             )),
       ),

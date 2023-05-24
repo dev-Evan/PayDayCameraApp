@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -22,11 +24,11 @@ class _SplashScreenState extends State<SplashScreen> {
     dynamic remValue = box.read(AppString.REMEMBER_KEY);
     dynamic logValue = box.read(AppString.LOGIN_CHECK_KEY);
     if (idStore == null) {
-      Get.offNamed(AppString.onboardScreen);
+      Get.toNamed(AppString.onboardScreen);
     } else if (logValue != null && remValue != null) {
-      Get.offNamed(AppString.home);
+      Get.toNamed(AppString.home);
     } else {
-      Get.offNamed(AppString.signInScreen);
+      Get.toNamed(AppString.signInScreen);
     }
   }
 
@@ -41,22 +43,34 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    Future.delayed(const Duration(milliseconds: 810), () {
+    logoSwipe();
+    nextPage();
+    logoSwipeHW();
+    super.initState();
+  }
+
+
+  logoSwipe() async{
+    await  Future.delayed(const Duration(milliseconds: 810), () {
       isMove();
     });
-
-    Future.delayed( const Duration(milliseconds: 1645), () {
+  }
+  nextPage() async{
+    await  Future.delayed( const Duration(milliseconds: 1645), () {
       chooseScreen();
     });
+  }
 
-    Future.delayed(const Duration(milliseconds: 900), () {
+  logoSwipeHW() async{
+    await  Future.delayed(const Duration(milliseconds: 900), () {
       setState(() {
-       _width = AppLayout.getWidth(22.0);
+        _width = AppLayout.getWidth(22.0);
         _height = AppLayout.getHeight(30.0);
       });
     });
-    super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +83,7 @@ class _SplashScreenState extends State<SplashScreen> {
           width: bodyW,
           height: bodyH,
           child: Stack(
-            children: [
-              _containerLayout(height: _height,width: _width,isLoad: _isLoad)
-            ],
+            children: [_containerLayout(height: _height,width: _width,isLoad: _isLoad)],
           ),
         ),
       ),
@@ -89,10 +101,10 @@ Widget _containerLayout({isLoad,width,height}){
 
 Widget _animatedLogo({required height,required width}){
   return AnimatedContainer(
-    duration:  const Duration(milliseconds: 900),
-    width: width,
-    height: height,
-    child: _logoView(logo: Images.favIcon)
+      duration:  const Duration(milliseconds: 900),
+      width: width,
+      height: height,
+      child: _logoView(logo: Images.favIcon)
   );
 
 }

@@ -460,12 +460,10 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
   }
 }
 
-// Widget _noteTextField() {
-//   return inputNote(controller: Get.find<LeaveController>().leaveNote);
-// }
+
 
 Widget _noteTextField() {
-  return InputNote(controller: Get.find<LeaveController>().leaveNote,);
+  return InputNote(controller: Get.find<LeaveController>().leaveNote);
 }
 
 Widget _hintText({hintText, Color textColor = AppColor.normalTextColor}) {

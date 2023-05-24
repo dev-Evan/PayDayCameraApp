@@ -34,7 +34,7 @@ class ViewProfile extends GetView<ProfileDataController> {
                         null
                     ? AssetImage(Images.user)
                     : NetworkImage(
-                        controller.userProfile.data?.profilePictureUrl ?? ""),
+                    controller.userProfile.data?.profilePictureUrl ?? ""),
               ),
             ),
             customSpacerHeight(height: 10),

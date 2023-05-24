@@ -18,8 +18,8 @@ class PayslipDataRepository {
       "date_range": selectedType.isEmpty ? thisYarKey() : selectedType,
     };
     try {
-      Response response = await networkClient.postRequest(
-          AppString.PAYSLIP_LIST,queryParams);
+      Response response = await networkClient.getQueryRequest(
+      apiEndPoint:  AppString.PAYSLIP_LIST,query:queryParams);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

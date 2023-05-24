@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
@@ -212,8 +213,11 @@ _listCard(int index) => Padding(
     );
 
 Widget _noDataImg() {
-  return SizedBox(
-    height: AppLayout.getHeight(120),
-    child: logoView(url: Images.calendar),
+  return logoView(
+    url: Images.calendar,
+    width: 180,
+    height: 180
   );
+
+
 }

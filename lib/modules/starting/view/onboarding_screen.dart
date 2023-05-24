@@ -176,7 +176,7 @@ Widget _onboardTitleText({text}) {
     text,
     style: GoogleFonts.poppins(
         fontWeight: FontWeight.bold,
-        fontSize: Dimensions.fontSizeLarge,
+        fontSize: Dimensions.fontSizeLarge+7,
         color: AppColor.normalTextColor),
   );
 }
