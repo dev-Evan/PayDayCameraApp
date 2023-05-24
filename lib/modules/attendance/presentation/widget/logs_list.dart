@@ -20,97 +20,85 @@ class LogsList extends GetView<AttendanceLogsController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
+    return Obx(() => ListView.separated(
         separatorBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.symmetric(vertical: AppLayout.getHeight(8)),
             child: const Divider(),
           );
         },
-        itemCount: controller.filteredLogSummary.data?.data?.length ?? 0,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, dataIndex) => controller.filteredLogSummary
-                    .data!.data![dataIndex].details!.length >
-                1
+        shrinkWrap: true,
+        controller: controller.scrollController,
+        itemCount: controller.logList.length,
+        itemBuilder: (context, dataIndex) => controller
+            .logList[dataIndex].details.length >
+            1
             ? Theme(
-                data: Theme.of(context)
-                    .copyWith(dividerColor: Colors.transparent),
-                child: ExpansionTile(
-                  tilePadding: const EdgeInsets.all(0),
-                  onExpansionChanged: (value) => isExpanded.value = value,
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(flex: 3, child: _date(dataIndex)),
-                      SizedBox(width: AppLayout.getWidth(20)),
-                      _logInfo(dataIndex),
-                    ],
-                  ),
-                  trailing: CircleAvatar(
-                      radius: 14,
-                      backgroundColor: AppColor.hintColor.withOpacity(0.1),
-                      child: Obx(() => _changeIcon())),
+            data: Theme.of(context)
+                .copyWith(dividerColor: Colors.transparent),
+            child: ExpansionTile(
+              tilePadding: const EdgeInsets.all(0),
+              onExpansionChanged: (value) => isExpanded.value = value,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(flex: 3, child: _date(dataIndex)),
+                  SizedBox(width: AppLayout.getWidth(20)),
+                  _logInfo(dataIndex),
+                ],
+              ),
+              trailing: CircleAvatar(
+                  radius: 14,
+                  backgroundColor: AppColor.hintColor.withOpacity(0.1),
+                  child: Obx(() => _changeIcon())),
+              children: [
+                SizedBox(height: AppLayout.getHeight(16)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(height: AppLayout.getHeight(16)),
-                    controller.filteredLogSummary.data != null &&
-                            controller
-                                .filteredLogSummary.data!.data!.isNotEmpty
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Spacer(flex: 2),
-                              Expanded(
-                                  flex: 11,
-                                  child: ListView.separated(
-                                    separatorBuilder: (context, index) =>
-                                        SizedBox(
-                                            height: AppLayout.getHeight(
-                                                Dimensions.paddingMid)),
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount: controller
-                                            .filteredLogSummary
-                                            .data
-                                            ?.data?[dataIndex]
-                                            .details!
-                                            .length ??
-                                        0,
-                                    itemBuilder: (context, index) {
-                                      return InkWell(
-                                        onTap: () async {
-                                          await Get.find<AttendanceController>()
-                                              .logDetails(controller
-                                                  .filteredLogSummary
-                                                  .data!
-                                                  .data![dataIndex]
-                                                  .details![index]
-                                                  .id!);
-                                          await _openLogDetailsBottomSheet();
-                                        },
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            _dottedBorder(),
-                                            SizedBox(
-                                                width: AppLayout.getWidth(
-                                                    Dimensions.paddingDefault)),
-                                            multiLogSummaryList(
-                                                index: index,
-                                                dataIndex: dataIndex,
-                                                controller: controller),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  ))
-                            ],
-                          )
-                        : Container()
+                    const Spacer(flex: 2),
+                    Expanded(
+                        flex: 11,
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) => SizedBox(
+                              height: AppLayout.getHeight(
+                                  Dimensions.paddingMid)),
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: controller
+                              .logList[dataIndex].details.length ??
+                              0,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () async {
+                                await Get.find<AttendanceController>()
+                                    .logDetails(controller
+                                    .logList[dataIndex]
+                                    .details[index]
+                                    .id);
+                                await _openLogDetailsBottomSheet();
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  _dottedBorder(),
+                                  SizedBox(
+                                      width: AppLayout.getWidth(
+                                          Dimensions.paddingDefault)),
+                                  multiLogSummaryList(
+                                      index: index,
+                                      dataIndex: dataIndex,
+                                      controller: controller),
+                                ],
+                              ),
+                            );
+                          },
+                        ))
                   ],
-                ))
-            : _normalLogInfoCard(dataIndex));
+                )
+              ],
+            ))
+            : _normalLogInfoCard(dataIndex)));
   }
 
   _date(int index) => Row(
@@ -120,17 +108,14 @@ class LogsList extends GetView<AttendanceLogsController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                controller.filteredLogSummary.data?.data?[index]
-                        .dateInNumber ??
-                    "",
+                controller.logList[index].dateInNumber ?? "",
                 style: AppStyle.mid_large_text.copyWith(
                     color: AppColor.normalTextColor,
                     fontSize: Dimensions.fontSizeExtraLarge,
                     fontWeight: FontWeight.w900),
               ),
               Text(
-                controller.filteredLogSummary.data?.data?[index].month ??
-                    "",
+                controller.logList[index].month ?? "",
                 style: AppStyle.small_text.copyWith(
                     color: AppColor.hintColor,
                     fontSize: Dimensions.fontSizeSmall),
@@ -155,15 +140,13 @@ class LogsList extends GetView<AttendanceLogsController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            controller.filteredLogSummary.data != null
-                ? Text(
-                    "${controller.filteredLogSummary.data!.data?[dataIndex].details?.last.inTime} - ${controller.filteredLogSummary.data!.data?[dataIndex].details?.first.outTime}",
-                    style: AppStyle.mid_large_text.copyWith(
-                      color: AppColor.secondaryColor,
-                      fontSize: Dimensions.fontSizeDefault + 2,
-                    ),
-                  )
-                : Container(),
+            Text(
+              "${controller.logList[dataIndex].details?.last.inTime} - ${controller.logList[dataIndex].details?.first.outTime}",
+              style: AppStyle.mid_large_text.copyWith(
+                color: AppColor.secondaryColor,
+                fontSize: Dimensions.fontSizeDefault + 2,
+              ),
+            ),
             SizedBox(
               height: AppLayout.getHeight(6),
             ),
@@ -179,10 +162,10 @@ class LogsList extends GetView<AttendanceLogsController> {
                 ),
                 controller.filteredLogSummary.data != null
                     ? Text(
-                  //todo
-                        controller.filteredLogSummary.data!.data?[dataIndex].details!.length
-                                .toString() ??
-                            "",
+                        //todo
+                  controller.logList[dataIndex]
+                                .details!.length
+                                .toString(),
                         style: AppStyle.mid_large_text.copyWith(
                             color: AppColor.hintColor.withOpacity(0.7),
                             fontSize: Dimensions.fontSizeDefault + 2,
@@ -216,14 +199,13 @@ class LogsList extends GetView<AttendanceLogsController> {
   _normalLogInfoCard(int dataIndex) {
     return InkWell(
       onTap: () async {
-        await Get.find<AttendanceController>().logDetails(controller
-            .filteredLogSummary.data!.data![dataIndex].details![0].id!);
+        await Get.find<AttendanceController>().logDetails(controller.logList[dataIndex].details![0].id!);
         await _openLogDetailsBottomSheet();
       },
       child: Row(children: [
-       Expanded(flex: 3, child: _date(dataIndex)),
+        Expanded(flex: 3, child: _date(dataIndex)),
         SizedBox(width: AppLayout.getWidth(20)),
-       _logInfo(dataIndex),
+        _logInfo(dataIndex),
         CircleAvatar(
           radius: 14,
           backgroundColor: AppColor.hintColor.withOpacity(0.1),

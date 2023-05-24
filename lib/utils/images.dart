@@ -13,6 +13,9 @@ static String user = 'assets/images/user.jpeg';
 static String edit = 'assets/images/edit.png';
 static String documents = 'assets/images/document.jpeg';
 static String error_alert_logo = 'assets/images/error_alert_logo.png';
+static String attachment_file = 'assets/images/attachment_file.png';
+static String log_response_icon = 'assets/images/log_response_icon.png';
+static String network_error = 'assets/images/network_error.svg';
 static String dollar = 'assets/images/Icons=Dollar.svg';
 static String file = 'assets/images/Icons=File.svg';
 static String clock = 'assets/images/Icons=Clock.svg';
@@ -32,7 +35,5 @@ static String deduction = 'assets/images/Icons=Deduction.svg';
 static String favIcon = 'assets/images/favIcon.svg';
 static String logo = 'assets/images/logo.svg';
 static String easy_leave = 'assets/images/Asset 2.svg';
-static String attachment_file = 'assets/images/attachment_file.png';
-static String log_response_icon = 'assets/images/log_response_icon.png';
-static String network_error = 'assets/images/network_error.svg';
+
 }

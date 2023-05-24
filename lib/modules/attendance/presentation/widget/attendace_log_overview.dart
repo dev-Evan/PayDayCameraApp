@@ -28,7 +28,7 @@ Widget attendanceLogsOverviewLayout(context) {
               height: AppLayout.getHeight(210),
               child: Padding(
                 padding:
-                    const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+                     EdgeInsets.only(left:AppLayout.getWidth(20), right:AppLayout.getWidth(20), top:AppLayout.getHeight(10)),
                 child: GridView.count(
                     childAspectRatio:
                         AppLayout.getWidth(90) / AppLayout.getHeight(65),
@@ -154,9 +154,9 @@ Widget _logSummaryCard({String? count, String? title}) => SizedBox(
         elevation: 0,
         color: AppColor.cardColor.withOpacity(0.1),
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+            borderRadius: BorderRadius.circular(Dimensions.radiusDefault+2),
             side: BorderSide(
-                width: 2, color: AppColor.cardColor.withOpacity(0.2))),
+                width: 1, color: AppColor.cardColor.withOpacity(0.2))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -173,7 +173,7 @@ Widget _logSummaryCard({String? count, String? title}) => SizedBox(
                   ),
                   Text(
                     title ?? "",
-                    style:AppStyle.small_text,
+                    style:AppStyle.normal_text.copyWith(fontSize: Dimensions.fontSizeDefault-1.5),
                   ),
                 ],
               ),

@@ -14,6 +14,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
+
 class ViewProfile extends GetView<ProfileDataController> {
   @override
   Widget build(BuildContext context) {

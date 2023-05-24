@@ -7,6 +7,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
+
 class CustomAppbar extends GetView<NotificationController>
     implements PreferredSizeWidget {
   const CustomAppbar({Key? key}) : super(key: key);

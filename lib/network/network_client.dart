@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
 
 class NetworkClient extends GetConnect {
   Future<Response> getRequest(String apiEndPoint) async {
@@ -26,6 +25,7 @@ class NetworkClient extends GetConnect {
 
     return response;
   }
+
   Future<Response> getQueryRequest({required String apiEndPoint, query}) async {
     return await get(_getRequestUrl(apiEndPoint), query: query, headers: {
       "Content-Type": "application/json",

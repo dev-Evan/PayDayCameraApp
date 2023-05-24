@@ -16,7 +16,6 @@ class ImagePickerController extends GetxController {
     }
   }
 
-
   uploadDocument(XFile image) async{
     await changeProfileImageRepo.changeImageRepo(
       image: image,
@@ -25,6 +24,5 @@ class ImagePickerController extends GetxController {
     }, onError: (error) {
       print(error.message);
     });
-
   }
 }

@@ -10,6 +10,8 @@ import '../../../../common/widget/custom_spacer.dart';
 import '../view/documents.dart';
 
 
+import '../../../../common/widget/custom_spacer.dart';
+
 class ViewDocFile extends StatelessWidget {
   final path;
   final pathName;

@@ -8,7 +8,9 @@ Widget CustomTextFieldDob(
   return Container(
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
+
     child: TextField(
+
       readOnly: true,
       onTap: ()=>dobIconAction(),
       decoration: InputDecoration(
@@ -40,7 +42,10 @@ Widget CustomTextFieldDob(
             onPressed: ()=>dobIconAction(),icon: Icon(dobIcon),
           )
 
+
+        ),
+
       ),
-    ),
+
   );
 }

@@ -1,3 +1,4 @@
+// interface implementation will be here
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/auth/domain/login_res.dart';
 import 'package:pay_day_mobile/common/domain/error_model.dart';

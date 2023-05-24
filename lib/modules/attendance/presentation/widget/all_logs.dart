@@ -33,7 +33,9 @@ class AllLogsScreen extends GetView<AttendanceLogsController> {
                   onTap: () => customButtomSheet(
                       context: context,
                       height: 0.9,
-                      child: SelectRangeCalender(rangeCalendarMethodImp: RangeCalendarMethodImp.ALL_LOG)),
+                      child: SelectRangeCalender(
+                          rangeCalendarMethodImp:
+                              RangeCalendarMethodImp.ALL_LOG)),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -122,6 +124,13 @@ class AllLogsScreen extends GetView<AttendanceLogsController> {
           height: AppLayout.getHeight(12),
         ),
         Expanded(child: LogsList()),
+        Obx(
+          () => controller.isMoreDataLoading.isTrue
+              ? Center(
+            child: CircularProgressIndicator(),
+          )
+              : Container(),
+        ),
       ],
     );
   }

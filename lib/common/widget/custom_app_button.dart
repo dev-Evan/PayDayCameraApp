@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/utils/app_style.dart';
 
-import '../../utils/app_style.dart';
 
 class AppButton extends StatelessWidget {
   final bool? hasOutline;

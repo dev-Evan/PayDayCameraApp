@@ -30,7 +30,7 @@ Widget paySlipOverviewLayout(
         SizedBox(
           height: AppLayout.getHeight(100),
           child: Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+            padding:  EdgeInsets.only(left:AppLayout.getWidth(20), right:AppLayout.getWidth(20), top: AppLayout.getHeight(10)),
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,

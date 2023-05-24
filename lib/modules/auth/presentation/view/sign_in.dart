@@ -109,8 +109,10 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                   ),
+
+
                   Padding(
-                    padding:  EdgeInsets.only(left: AppLayout.getWidth(13),right: AppLayout.getWidth(13)),
+                    padding:  EdgeInsets.only(left: AppLayout.getWidth(13),right: AppLayout.getWidth(18),top: 0),
                     child: Row(
                       children: [
                         Checkbox(

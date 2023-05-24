@@ -46,15 +46,21 @@ Widget rememberText() {
     style: AppStyle.normal_text_grey.copyWith(
       color: AppColor.normalTextColor.withOpacity(0.7),
       letterSpacing: 0.2,
-      fontWeight: FontWeight.w600
+      fontWeight: FontWeight.w600,
+
     ),
   );
 }
 
 Widget forgotButton() {
   return TextButton(
+      style: TextButton.styleFrom(
+          padding: EdgeInsets.zero,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          alignment: Alignment.centerLeft),
       onPressed: () => Get.toNamed(AppString.forgotScreen),
-      child: Text(AppString.text_forgot_password,
+      child: Text(
+          AppString.text_forgot_password,
           style: GoogleFonts.poppins(
               fontSize: Dimensions.fontSizeDefault,
               color: AppColor.primaryColor,fontWeight: FontWeight.w500,letterSpacing: 0.2)));

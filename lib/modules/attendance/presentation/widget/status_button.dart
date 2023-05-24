@@ -6,7 +6,7 @@ import '../../../../utils/color_picker_helper.dart';
 
 Widget getStatusButton(
     int index, int dataIndex, AttendanceLogsController controller) {
-  String status = controller.filteredLogSummary.data!.data![dataIndex]
+  String status = controller.logList[dataIndex]
       .details![index].statusClass!;
   return status.startsWith("success")
       ? Container()

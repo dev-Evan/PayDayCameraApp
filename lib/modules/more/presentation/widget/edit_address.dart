@@ -385,40 +385,7 @@ Widget _fieldText({required text}) {
   );
 }
 
-// Widget _phoneAndCountyField() {
-//   return IntlPhoneField(
-//     decoration: InputDecoration(
-//       labelText:
-//           Get.find<AddressDetailsController>().addressDetailsModel.data !=
-//                       null &&
-//                   Get.find<AddressDetailsController>()
-//                       .addressDetailsModel
-//                       .data!
-//                       .isNotEmpty
-//               ? Get.find<AddressDetailsController>()
-//                           .addressDetailsModel
-//                           .data
-//                           ?.first
-//                           .key ==
-//                       AppString.text_permanent_address
-//                   ? Get.find<AddressDetailsController>()
-//                       .addressDetailsModel
-//                       .data
-//                       ?.first
-//                       .value
-//                       ?.phoneNumber
-//                   : AppString.text_enter_phone_number
-//               : "",
-//       enabledBorder: OutlineInputBorder(
-//           borderSide: BorderSide(color: AppColor.solidGray),
-//           borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
-//       border: OutlineInputBorder(
-//           borderSide: BorderSide(width: 0.0, color: AppColor.disableColor),
-//           borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
-//     ),
-//     controller: Get.find<AddressUpdateController>().phoneNumberController,
-//   );
-// }
+
 Widget phoneAndCountyField({required hintText,required controller}) {
   return IntlPhoneField(
     decoration: InputDecoration(

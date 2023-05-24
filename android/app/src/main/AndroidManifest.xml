@@ -10,9 +10,8 @@
 
     <application
 
-
-        android:requestLegacyExternalStorage="true"
         android:name="${applicationName}"
+        android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/launcher_icon"
         android:label="PayDay">
 

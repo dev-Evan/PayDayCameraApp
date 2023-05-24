@@ -15,7 +15,10 @@ import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/widget/custom_spacer.dart';
 
 
+
 class SalaryOverView extends GetView<SalaryOverviewController> {
+
+
   SalaryOverView({Key? key}) : super(key: key);
 
   @override
