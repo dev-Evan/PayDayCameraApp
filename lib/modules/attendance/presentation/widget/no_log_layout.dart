@@ -8,7 +8,7 @@ import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/dimensions.dart';
 
-Widget noLogLayout(){
+Widget noLogLayout() {
   return Center(
     child: Container(
       padding: EdgeInsets.symmetric(
@@ -16,19 +16,22 @@ Widget noLogLayout(){
           horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
       child: Column(
         children: [
-          _logoView(logo: Images.logo),
+          _logoView(logo: Images.start_your_day_image),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-          Text(AppString.start_out_day,style: AppStyle.large_text_black,)
+          Text(
+            AppString.start_out_day,
+            style: AppStyle.large_text_black,
+          )
         ],
       ),
     ),
   );
 }
-Widget _logoView({required logo}){
-  return  SvgPicture.asset(
-    logo.toString(),
-    width: AppLayout.getWidth(20),
-    height: AppLayout.getWidth(20),
-    color: AppColor.primaryColor.withOpacity(0.8),
+
+Widget _logoView({required logo}) {
+  return SvgPicture.asset(
+    Images.start_your_day_image,
+    width: AppLayout.getWidth(90),
+    height: AppLayout.getWidth(90),
   );
 }

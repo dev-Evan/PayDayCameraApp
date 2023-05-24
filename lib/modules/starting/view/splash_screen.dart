@@ -18,15 +18,13 @@ class _SplashScreenState extends State<SplashScreen> {
   final box = GetStorage();
 
   Future chooseScreen() async {
-    final idStore = box.read(AppString.ID_STORE);
     dynamic remValue = box.read(AppString.REMEMBER_KEY);
     dynamic logValue = box.read(AppString.LOGIN_CHECK_KEY);
-    if (idStore == null) {
-      Get.toNamed(AppString.onboardScreen);
-    } else if (logValue != null && remValue != null) {
-      Get.toNamed(AppString.home);
+
+   if (logValue != null && remValue != null) {
+      Get.offNamed(AppString.home);
     } else {
-      Get.toNamed(AppString.signInScreen);
+      Get.offNamed(AppString.signInScreen);
     }
   }
 

@@ -101,7 +101,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
 Widget _skipButton({context}) {
   return TextButton(
-    onPressed: () => Get.toNamed(AppString.signInScreen),
+    onPressed: () => Get.offAllNamed(AppString.signInScreen),
     child: Text(
       AppString.text_skip,
       style: GoogleFonts.poppins(
@@ -119,7 +119,7 @@ Widget _buttonLayout({context, currentIndex, titleText}) {
       _skipButton(context: context),
       CustomSmallButton(AppString.text_next, () {
         if (currentIndex == titleText.length - 1) {
-          Get.toNamed(AppString.signInScreen);
+          Get.offNamed(AppString.signInScreen);
         } else {
           currentIndex + 1;
         }
