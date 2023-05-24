@@ -35,21 +35,16 @@ class PaySlip extends GetView<PayslipListController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
-
-
                     summaryLayout(
-                        paid: controller.summaryModel.data?.summary?.paid
+                        sent: controller.summaryModel.data?.summary?.sent
                                 .toString() ??
                             "",
-                        unpaid: controller.summaryModel.data?.summary?.unpaid
+                        conflicted: controller.summaryModel.data?.summary?.conflicted
                                 .toString() ??
                             "",
                         total: controller.summaryModel.data?.summary?.total
                                 .toString() ??
                             ""),
-
-
-
 
                     vertical(child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

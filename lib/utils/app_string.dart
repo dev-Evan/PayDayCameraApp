@@ -200,8 +200,10 @@ class AppString {
    static const String text_add_reason_note_here = "Add reason note here";
 
   //PaySlip modules string here
-  static const String text_paid = "Paid";
-  static const String text_unpaid = "Unpaid";
+  static const String text_paid = "Sent";
+  static const String text_unpaid = "Conflicted";
+  static const String text_conflicted = "Conflicted";
+  static const String text_sent = "Sent";
   static const String text_payslip_for = "Payslip for";
   static const String text_create_at = "Create at";
   static const String text_beneficiary = "Beneficiary";
@@ -364,7 +366,8 @@ class AppString {
   // Local store string here
   static const String ID_STORE = "store";
   static const String ACCESS_TOKEN = "access_token";
-  static const String USERNAME = "full_name";
+  static const String USER_FIRST_NAME = "first_name";
+  static const String USER_LAST_NAME = "last_name";
   static const String STORE_TOKEN = "storeToken";
   static const String LOGIN_CHECK_KEY = "loginCheckValue";
   static const String STORE_DATE = "storeData";

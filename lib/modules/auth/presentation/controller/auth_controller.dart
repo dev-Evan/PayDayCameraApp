@@ -29,7 +29,8 @@ class AuthController extends GetxController with StateMixin{
 
   void _writeUserInfo(Login? login ){
     box.write(AppString.ID_STORE, login?.data!.id);
-    box.write(AppString.USERNAME, login?.data!.firstName);
+    box.write(AppString.USER_FIRST_NAME, login?.data!.firstName);
+    box.write(AppString.USER_LAST_NAME, login?.data!.lastName);
     box.write(AppString.ACCESS_TOKEN, login?.data!.token);
     box.write(AppString.LOGIN_CHECK_KEY, AppString.LOGIN_VALUE);
   }

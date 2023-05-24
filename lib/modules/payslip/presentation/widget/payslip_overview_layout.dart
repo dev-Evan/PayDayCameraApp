@@ -10,9 +10,10 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 Widget paySlipOverviewLayout(
     {required context, required total, required paid, required unpaid}) {
   List countTitleText = [
-    AppString.text_paid,
-    AppString.text_unpaid,
     AppString.text_total,
+    AppString.text_sent,
+    AppString.text_conflicted,
+
   ];
 
   List countNumber = [

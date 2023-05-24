@@ -21,6 +21,7 @@ class PaySlipView extends GetView<PayslipViewController> {
   @override
   Widget build(BuildContext context) {
     controller.getPayslipViewData();
+    final _box = GetStorage();
     return controller.obx(
         (state) => SingleChildScrollView(
               child: Column(
@@ -50,7 +51,9 @@ class PaySlipView extends GetView<PayslipViewController> {
                                   .data
                                   ?.fullName
                                   .toString() ??
-                              "",
+                              _box.read(AppString.USER_FIRST_NAME) +
+                                  " " +
+                                  _box.read(AppString.USER_LAST_NAME),
                           userEmail: Get.find<ProfileDataController>()
                                   .userProfile
                                   .data
@@ -160,15 +163,14 @@ class PaySlipView extends GetView<PayslipViewController> {
                         const Divider(height: 1),
                         totalRowView(
                             amount:
-                                "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.payslip?.netSalary.toString() ?? ""}"
-
-
-
-                        ),
+                                "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.payslip?.netSalary.toString() ?? ""}"),
                       ],
                     ),
                   ),
-                  _payslipDownloadBtn(payslipDateRange:'${controller.payslipViewModel.data?.payslip?.createdAt ?? ""} - ${controller.payslipViewModel.data?.payslip?.endDate ?? ""}', ),
+                  _payslipDownloadBtn(
+                    payslipDateRange:
+                        '${controller.payslipViewModel.data?.payslip?.createdAt ?? ""} - ${controller.payslipViewModel.data?.payslip?.endDate ?? ""}',
+                  ),
                   customSpacerHeight(height: 26)
                 ],
               ),
@@ -178,16 +180,18 @@ class PaySlipView extends GetView<PayslipViewController> {
 }
 
 Widget _payslipDownloadBtn({required payslipDateRange}) {
-  final box=GetStorage();
-   var id=box.read(AppString.STORE_PAYSLIP_LSIT_ID);
-   var token=box.read(AppString.ACCESS_TOKEN);
+  final box = GetStorage();
+  var id = box.read(AppString.STORE_PAYSLIP_LSIT_ID);
+  var token = box.read(AppString.ACCESS_TOKEN);
   return Padding(
     padding: EdgeInsets.only(
         left: AppLayout.getWidth(20),
         right: AppLayout.getWidth(20),
         top: AppLayout.getHeight(8),
         bottom: AppLayout.getHeight(12)),
-    child: CustomButton(AppString.text_download_payslip,
-        () => Get.find<PayslipDownlaodController>().payslipDownload(id: id,token:token,date: payslipDateRange)),
+    child: CustomButton(
+        AppString.text_download_payslip,
+        () => Get.find<PayslipDownlaodController>()
+            .payslipDownload(id: id, token: token, date: payslipDateRange)),
   );
 }

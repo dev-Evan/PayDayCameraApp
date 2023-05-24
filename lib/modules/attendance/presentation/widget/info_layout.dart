@@ -43,7 +43,7 @@ Widget infoLayout() {
 
 _userName() {
   return Text(
-    "Hi, ${GetStorage().read(AppString.USERNAME)}",
+    "Hi, ${GetStorage().read(AppString.USER_FIRST_NAME)}",
     style: AppStyle.title_text,
   );
 }
