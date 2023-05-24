@@ -43,7 +43,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double _height = MediaQuery.of(context).size.height / 5;
+    double _height = MediaQuery.of(context).size.height / 6;
     double _width = MediaQuery.of(context).size.width;
     final box = GetStorage();
     return Scaffold(
@@ -55,12 +55,16 @@ class _SignInScreenState extends State<SignInScreen> {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(Dimensions.paddingLarge),
+                    padding: EdgeInsets.only(
+                        left: Dimensions.paddingLarge,
+                        right: Dimensions.paddingLarge,
+                        bottom: Dimensions.paddingDefault + 4,
+                        top: Dimensions.paddingDefaultExtra + 3),
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          customSpacerHeight(height: 20),
+                          customSpacerHeight(height: 26),
                           SizedBox(
                               height: _height,
                               width: _width,
@@ -104,20 +108,20 @@ class _SignInScreenState extends State<SignInScreen> {
                               ),
                             ],
                           ),
-
                         ],
                       ),
                     ),
                   ),
-
-
                   Padding(
-                    padding:  EdgeInsets.only(left: AppLayout.getWidth(13),right: AppLayout.getWidth(18),top: 0),
+                    padding: EdgeInsets.only(
+                        left: AppLayout.getWidth(13),
+                        right: AppLayout.getWidth(18),
+                        top: 0),
                     child: Row(
                       children: [
                         Checkbox(
                           visualDensity:
-                           VisualDensity(horizontal: -4, vertical: -4),
+                              VisualDensity(horizontal: -4, vertical: -4),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                   Dimensions.radiusSmall)),
@@ -138,9 +142,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ],
                     ),
                   ),
-                  customSpacerHeight(height: Dimensions.fontSizeDefault-3),
-
-                  customSpacerHeight(height: Dimensions.fontSizeExtraLarge),
+                  customSpacerHeight(height: Dimensions.fontSizeDefault + 4),
                   logInButton(
                       onAction: () => Get.find<AuthController>().logIn(
                           _emailController.text, _passwordController.text))
