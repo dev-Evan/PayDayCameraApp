@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/notification/data/notification_repository.dart';
 import 'package:pay_day_mobile/modules/notification/domain/notifications.dart';
@@ -7,21 +8,63 @@ class NotificationController extends GetxController with StateMixin {
   @override
   void onInit() async {
     await getAllUnreadNotification();
+    scrollController = ScrollController()
+      ..addListener(() {
+        if (scrollController.position.pixels ==
+            scrollController.position.maxScrollExtent) {
+          _loadMoreData();
+          ;
+        }
+      });
     super.onInit();
   }
 
+  final isMoreDataLoading = false.obs;
+
+  void _loadMoreData() async {
+    print("loadMoreData :: Called");
+    if (this.notifications.data != null) {
+      if (notifications.data!.meta!.currentPage! <
+          notifications.data!.meta!.totalPages!) {
+        isMoreDataLoading(true);
+        await _notificationRepository
+            .getAllNotification(
+                page: this.notifications.data!.meta!.currentPage! + 1)
+            .then((notifications) {
+          notifications.data!.data!
+              .map((NotificationData notificationData) =>
+                  allNotifications.add(notificationData))
+              .toList(growable: true);
+          print(allNotifications.length);
+          this.notifications = notifications;
+        }, onError: (error) => print(error.message));
+        isMoreDataLoading(false);
+      }
+    }
+  }
+
+  late ScrollController scrollController;
+
   final NotificationRepository _notificationRepository =
-  NotificationRepository(NetworkClient());
+      NotificationRepository(NetworkClient());
 
   Notifications notifications = Notifications();
 
   final length = 0.obs;
+  final allNotifications = [].obs;
 
   getAllNotification() async {
     change(null, status: RxStatus.loading());
-    await _notificationRepository.getAllNotification().then((value) {
+    await _notificationRepository.getAllNotification().then((notifications) {
       print("getAllNotification ::: called");
-      notifications = value;
+      allNotifications.clear();
+      notifications.data!.data!
+          .map((NotificationData notificationData) =>
+              allNotifications.add(notificationData))
+          .toList(growable: true);
+      print(allNotifications.length);
+      this.notifications = notifications;
+      print(notifications.data!.meta!.total);
     }, onError: (error) => print("getAllNotification ${error.message}"));
 
     change(null, status: RxStatus.success());

@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
 
 class NetworkClient extends GetConnect {
   Future<Response> getRequest(String apiEndPoint) async {

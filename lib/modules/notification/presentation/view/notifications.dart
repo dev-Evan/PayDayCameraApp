@@ -8,7 +8,6 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
-import '../../../attendance/presentation/widget/bottom_sheet_appbar.dart';
 import '../controller/notication_controller.dart';
 
 class Notifications extends GetView<NotificationController> {
@@ -17,17 +16,16 @@ class Notifications extends GetView<NotificationController> {
   @override
   Widget build(BuildContext context) {
     return controller.obx(
-            (state) =>
-            Scaffold(
+        (state) => Scaffold(
               body: Container(
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius:
-                    BorderRadius.vertical(top: Radius.circular(16))),
+                        BorderRadius.vertical(top: Radius.circular(16))),
                 child: ListView(
+                  controller: controller.scrollController,
                   children: [
-                    customMoreAppbar(
-                        titleText: AppString.text_notications),
+                    customMoreAppbar(titleText: AppString.text_notications),
                     _contentLayout(),
                   ],
                 ),
@@ -36,8 +34,7 @@ class Notifications extends GetView<NotificationController> {
         onLoading: const LoadingIndicator());
   }
 
-  _contentLayout() =>
-      Column(
+  _contentLayout() => Column(
         children: [
           InkWell(
             onTap: () => controller.notificationAaALLRead(),
@@ -50,32 +47,37 @@ class Notifications extends GetView<NotificationController> {
                 alignment: Alignment.centerRight,
                 child: Text(
                   controller.notifications.data != null &&
-                      controller.notifications.data!.data!.length > 0 ? AppString.mark_read:"",
+                          controller.notifications.data!.data!.length > 0
+                      ? AppString.mark_read
+                      : "",
                   style: AppStyle.normal_text
                       .copyWith(color: AppColor.primary_blue),
                 ),
               ),
             ),
           ),
-          ListView.builder(
-            itemCount: controller.notifications.data?.data?.length ?? 0,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) =>
-                InkWell(
-                  onTap: () =>
-                      controller.notificationAsRead(
-                          controller.notifications.data?.data?[index].id ?? ""),
+          Obx(() => ListView.builder(
+                itemCount: controller.allNotifications.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) => InkWell(
+                  onTap: () => controller.notificationAsRead(
+                      controller.notifications.data?.data?[index].id ?? ""),
                   child: _notificationCard(index),
                 ),
-          ),
+              )),
+          Obx(() => controller.isMoreDataLoading.isTrue
+              ? Center(
+                  child: const CircularProgressIndicator(),
+                )
+              : Container())
         ],
       );
 
   _notificationCard(int index) {
     return Container(
       decoration: BoxDecoration(
-          color: controller.notifications.data?.data?[index].read ?? false
+          color: controller.allNotifications[index].read ?? false
               ? Colors.transparent
               : AppColor.primary_blue.withOpacity(.15),
           border: Border(
@@ -86,13 +88,12 @@ class Notifications extends GetView<NotificationController> {
           horizontal: AppLayout.getWidth(20)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         HtmlWidget(
-          controller.notifications.data?.data?[index].title ?? "",
+          controller.allNotifications[index].title ?? "",
           textStyle: AppStyle.normal_text_black,
         ),
         customSpacerHeight(height: 4),
         Text(
-          "${controller.notifications.data?.data?[index].date ??
-              ""} ${controller.notifications.data?.data?[index].time ?? ""}",
+          "${controller.allNotifications[index].date ?? ""} ${controller.allNotifications[index].time ?? ""}",
           style: AppStyle.normal_text_grey,
         ),
       ]),

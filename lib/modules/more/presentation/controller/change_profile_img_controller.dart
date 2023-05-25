@@ -15,6 +15,7 @@ class ImagePickerController extends GetxController {
       await uploadDocument(image);
     }
   }
+
   uploadDocument(XFile image) async{
     await changeProfileImageRepo.changeImageRepo(
       image: image,
@@ -24,33 +25,4 @@ class ImagePickerController extends GetxController {
       print(error.message);
     });
   }
-
-
-
-
-
-
-
-
-
-
-
-  // Future<void> sendImage(XFile image) async {
-  //   try {
-  //     final request = http.MultipartRequest('POST', Uri.parse(baseUrl));
-  //     request.headers['Authorization'] =
-  //         'Bearer $accessToken';
-  //     request.fields['profile_picture'];
-  //     request.files.add(
-  //         await http.MultipartFile.fromPath('profile_picture', image.path));
-  //     final response = await request.send();
-  //     if (response.statusCode == HttpStatus.ok) {
-  //       print('Image uploaded successfully!');
-  //     } else {
-  //       print('Failed to upload image!');
-  //     }
-  //   } catch (ex) {
-  //     print(ex.toString());
-  //   }
-  // }
 }

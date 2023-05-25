@@ -6,14 +6,13 @@ class Images {
 static String app_logo="assets/images/payday_logo.png";
 static String bg_no_log="assets/images/bg_no_log.png";
 static String payday = 'assets/images/payday.png';
-static String calendar = 'assets/images/calendar.png';
-static String calendar2 = 'assets/images/calendar.svg';
+static String calendar = 'assets/images/calendar.svg';
 static String mobile = 'assets/images/mobile.png';
+static String no_data_found = 'assets/images/No data found.svg';
 static String user = 'assets/images/user.jpeg';
 static String edit = 'assets/images/edit.png';
 static String documents = 'assets/images/document.jpeg';
 static String error_alert_logo = 'assets/images/error_alert_logo.png';
-
 static String attachment_file = 'assets/images/attachment_file.png';
 static String log_response_icon = 'assets/images/log_response_icon.png';
 static String network_error = 'assets/images/network_error.svg';

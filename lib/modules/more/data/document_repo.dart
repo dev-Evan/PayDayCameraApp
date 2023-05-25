@@ -14,9 +14,9 @@ class DocumentRepository {
       'page': _box.read(AppString.ID_STORE).toString(),
     };
     try {
-
       Response response = await networkClient.getQueryRequest(
           apiEndPoint: AppString.DOCUMENT_LIST, query: queryParams);
+
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -27,5 +27,4 @@ class DocumentRepository {
       return Future.error(ErrorModel(message: e.toString()));
     }
   }
-
 }

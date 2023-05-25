@@ -8,12 +8,12 @@ Widget CustomTextFieldDob(
   return Container(
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
-    child: Padding(
-      padding: const EdgeInsets.only(top: 8.0),
-      child: TextField(
+
+    child: TextField(
+
       readOnly: true,
-        onTap: ()=>dobIconAction(),
-        decoration: InputDecoration(
+      onTap: ()=>dobIconAction(),
+      decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(16),
           hintText: hintText,
           focusColor: AppColor.primaryColor,
@@ -28,12 +28,13 @@ Widget CustomTextFieldDob(
             const BorderSide(width: 0.0, color: AppColor.primaryColor),
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
           ),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: AppColor.disableColor, width: 0.0),
+          enabledBorder:  OutlineInputBorder(
+            borderSide: BorderSide(color: AppColor.solidGray, width: 1.0),
+            borderRadius: BorderRadius.circular(Dimensions.radiusDefault)
           ),
           border: OutlineInputBorder(
             borderSide:
-            const BorderSide(width: 0.0, color: AppColor.primaryColor),
+            const BorderSide(width: 0.0, color: AppColor.solidGray),
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
           ),
 
@@ -41,8 +42,10 @@ Widget CustomTextFieldDob(
             onPressed: ()=>dobIconAction(),icon: Icon(dobIcon),
           )
 
+
         ),
+
       ),
-    ),
+
   );
 }

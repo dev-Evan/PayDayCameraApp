@@ -81,6 +81,7 @@ class AppString {
   static const String text_rejected = "Rejected";
   static const String text_rejection = "Rejection";
   static const String text_hours = "Hours";
+  static const String text_add_note_here = "Add Note Here";
   static const String text_note = "Note";
   static const String text_single_day = "Single Day";
   static const String text_multi_day = "Multi Day";
@@ -131,8 +132,8 @@ class AppString {
   static String text_this_week = "This Week";
   static String text_last_week = "Last Week";
   static String text_last_month = "Last Month";
-  static String text_leave_response = "Leave Response";
   static String text_last_year = "Last Year";
+  static String text_leave_response = "Leave Response";
   static String text_requstAttendance = "Request Attendance";
   static String text_attendance_log = "Attendance Logs";
   static String todays_log = "Today’s logs";
@@ -199,8 +200,10 @@ class AppString {
    static const String text_add_reason_note_here = "Add reason note here";
 
   //PaySlip modules string here
-  static const String text_paid = "Paid";
-  static const String text_unpaid = "Unpaid";
+  static const String text_paid = "Sent";
+  static const String text_unpaid = "Conflicted";
+  static const String text_conflicted = "Conflicted";
+  static const String text_sent = "Sent";
   static const String text_payslip_for = "Payslip for";
   static const String text_create_at = "Create at";
   static const String text_beneficiary = "Beneficiary";
@@ -343,13 +346,10 @@ class AppString {
   static String text_deleted_document_successfully = "Deleted document successfully";
   static String text_document_upload_successfully = "Document uploaded successfully!";
   static String text_document_update_successfully = "Document update successfully!";
-
-  static String no_internet_title_text = "No internet!!";
-  static String no_internet_subtitle_text = "Make sure your Wi-Fi or cellular data is turned on and then try again";
-
   static String text_payslip_download_successfully = "Payslip download successfully!";
   static String text_something_wrong = "Something wrong !";
-
+  static String no_internet_title_text = "No internet!!";
+  static String no_internet_subtitle_text = "Make sure your Wi-Fi or cellular data is turned on and then try again";
   static String text_enter_your_old_password = "Enter your old password";
   static String text_enter_new_password = "Enter new password";
   static String text_confirm_your_new_password = "Confirm your new password";
@@ -366,7 +366,8 @@ class AppString {
   // Local store string here
   static const String ID_STORE = "store";
   static const String ACCESS_TOKEN = "access_token";
-  static const String USERNAME = "full_name";
+  static const String USER_FIRST_NAME = "first_name";
+  static const String USER_LAST_NAME = "last_name";
   static const String STORE_TOKEN = "storeToken";
   static const String LOGIN_CHECK_KEY = "loginCheckValue";
   static const String STORE_DATE = "storeData";
@@ -414,11 +415,11 @@ class AppString {
   static const String profileView = "/profileView_screen";
   static const String updateDocument = "/updateDocument_screen";
   static const String network_error = "/network_error";
-
   static const String documentScreen = "/document_screen";
   static const String jobHistory = "/jobHistory_screen";
   static const String salaryOverView = "/salaryOverView_screen";
   static const String addressDetails = "/addressDetails_screen";
   static const String aboutPage = "/aboutPage_screen";
   static const String payrunBage = "/payrunBage_screen";
+
 }

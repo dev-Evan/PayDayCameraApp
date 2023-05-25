@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,7 +16,6 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
 import '../../../../common/widget/custom_double_button.dart';
 import '../../../../common/widget/input_note.dart';
 
@@ -460,12 +458,10 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
   }
 }
 
-// Widget _noteTextField() {
-//   return inputNote(controller: Get.find<LeaveController>().leaveNote);
-// }
+
 
 Widget _noteTextField() {
-  return InputNote(controller: Get.find<LeaveController>().leaveNote,);
+  return InputNote(controller: Get.find<LeaveController>().leaveNote);
 }
 
 Widget _hintText({hintText, Color textColor = AppColor.normalTextColor}) {

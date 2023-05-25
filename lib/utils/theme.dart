@@ -3,23 +3,22 @@ import 'package:flutter/services.dart';
 
 import 'app_color.dart';
 
-
 ThemeData get appTheme => _themeData;
 
 ThemeData _themeData = ThemeData(
-
   appBarTheme: const AppBarTheme(
-    systemOverlayStyle: SystemUiOverlayStyle(
-      // Status bar color
-      //statusBarColor: Colors.black12,
-    ),
-  ),
 
+    iconTheme: IconThemeData(color: Colors.black),
+     color: Colors.deepPurpleAccent,
+     foregroundColor: Colors.black,
+
+    systemOverlayStyle: SystemUiOverlayStyle(
+    statusBarColor: AppColor.disableColor,),
+  ),
   // scaffoldBG, applicable for aLL PAGES
-  scaffoldBackgroundColor: AppColor.cardColor,
+  scaffoldBackgroundColor: AppColor.backgroundColor,
   //primary color for the application
   colorScheme: ColorScheme.fromSwatch().copyWith(
-    primary: AppColor.primaryColor                                                ,
-
+    primary: AppColor.primaryColor,
   ),
 );

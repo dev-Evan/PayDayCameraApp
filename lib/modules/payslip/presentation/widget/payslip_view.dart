@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
@@ -11,7 +12,6 @@ import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_c
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-import '../../../../common/widget/custom_spacer.dart';
 import '../controller/payslip_dawonload_controller.dart';
 
 class PaySlipView extends GetView<PayslipViewController> {
@@ -21,6 +21,7 @@ class PaySlipView extends GetView<PayslipViewController> {
   @override
   Widget build(BuildContext context) {
     controller.getPayslipViewData();
+    final _box = GetStorage();
     return controller.obx(
         (state) => SingleChildScrollView(
               child: Column(
@@ -50,7 +51,9 @@ class PaySlipView extends GetView<PayslipViewController> {
                                   .data
                                   ?.fullName
                                   .toString() ??
-                              "",
+                              _box.read(AppString.USER_FIRST_NAME) +
+                                  " " +
+                                  _box.read(AppString.USER_LAST_NAME),
                           userEmail: Get.find<ProfileDataController>()
                                   .userProfile
                                   .data
@@ -160,15 +163,14 @@ class PaySlipView extends GetView<PayslipViewController> {
                         const Divider(height: 1),
                         totalRowView(
                             amount:
-                                "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.payslip?.netSalary.toString() ?? ""}"
-
-
-
-                        ),
+                                "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.payslip?.netSalary.toString() ?? ""}"),
                       ],
                     ),
                   ),
-                  _payslipDownloadBtn(payslipDateRange:'${controller.payslipViewModel.data?.payslip?.createdAt ?? ""} - ${controller.payslipViewModel.data?.payslip?.endDate ?? ""}', ),
+                  _payslipDownloadBtn(
+                    payslipDateRange:
+                        '${controller.payslipViewModel.data?.payslip?.createdAt ?? ""} - ${controller.payslipViewModel.data?.payslip?.endDate ?? ""}',
+                  ),
                   customSpacerHeight(height: 26)
                 ],
               ),
@@ -178,16 +180,18 @@ class PaySlipView extends GetView<PayslipViewController> {
 }
 
 Widget _payslipDownloadBtn({required payslipDateRange}) {
-  final box=GetStorage();
-   var id=box.read(AppString.STORE_PAYSLIP_LSIT_ID);
-   var token=box.read(AppString.ACCESS_TOKEN);
+  final box = GetStorage();
+  var id = box.read(AppString.STORE_PAYSLIP_LSIT_ID);
+  var token = box.read(AppString.ACCESS_TOKEN);
   return Padding(
     padding: EdgeInsets.only(
         left: AppLayout.getWidth(20),
         right: AppLayout.getWidth(20),
         top: AppLayout.getHeight(8),
         bottom: AppLayout.getHeight(12)),
-    child: CustomButton(AppString.text_download_payslip,
-        () => Get.find<PayslipDownlaodController>().payslipDownload(id: id,token:token,date: payslipDateRange)),
+    child: CustomButton(
+        AppString.text_download_payslip,
+        () => Get.find<PayslipDownlaodController>()
+            .payslipDownload(id: id, token: token, date: payslipDateRange)),
   );
 }

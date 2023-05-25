@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
@@ -20,7 +19,7 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List _onboardImage = [
-    Images.calendar2,
+    Images.calendar,
     Images.easy_leave,
   ];
   final List _title = [
@@ -177,7 +176,7 @@ Widget _onboardTitleText({text}) {
     text,
     style: GoogleFonts.poppins(
         fontWeight: FontWeight.bold,
-        fontSize: Dimensions.fontSizeLarge,
+        fontSize: Dimensions.fontSizeLarge+7,
         color: AppColor.normalTextColor),
   );
 }

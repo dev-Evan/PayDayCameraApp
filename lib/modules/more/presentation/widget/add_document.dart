@@ -3,9 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
-
+import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
@@ -68,6 +67,8 @@ class _AddDocumentState extends State<AddDocument> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   textFieldTitleText(titleText:AppString.text_name ),
+                  customSpacerHeight(height: 8),
+
                   CustomTextFeild(
                       hintText: AppString.text_enter_document_name,
                       inputType: TextInputType.text,
@@ -75,12 +76,12 @@ class _AddDocumentState extends State<AddDocument> {
                           Get.find<DocumentUploadController>().fileNameController),
                 ],
               ),
-              customSpacerHeight(height: 20),
+              customSpacerHeight(height: 8),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   textFieldTitleText(titleText: AppString.text_documents,),
-                  customSpacerHeight(height: 20),
+                  customSpacerHeight(height: 8),
                   _dottedBorder(child:InkWell(
                     onTap: () => pickFile1(),
                     child: fileToDisplay != null
@@ -88,8 +89,6 @@ class _AddDocumentState extends State<AddDocument> {
                       height: AppLayout.getHeight(100),
                       decoration: BoxDecoration(
                         color: AppColor.disableColor.withOpacity(0.4),
-                        //image: DecorationImage(image: Image.file(fileToDisplay.path.toString() as File).image)
-
                         image: DecorationImage(
                             image: FileImage(
                                 File(fileToDisplay?.path ?? "")
@@ -110,9 +109,8 @@ class _AddDocumentState extends State<AddDocument> {
                               color: AppColor.primaryColor,
                               fontSize: Dimensions.fontSizeDefault),
                         ),
-                        SizedBox(
-                          width: AppLayout.getWidth(6),
-                        ),
+
+                        customSpacerWidth(width: 6),
                         Text(
                           AppString.text_to_add_fils,
                           style: AppStyle.mid_large_text.copyWith(

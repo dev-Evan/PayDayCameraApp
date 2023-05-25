@@ -29,7 +29,7 @@ Widget _body(){
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Spacer(),
-        Center(child: logoView(url: Images.favIcon)),
+        Center(child: logoView(url: Images.favIcon,width: 68,height: 68)),
         customSpacerHeight(height: 26),
 
         Text(

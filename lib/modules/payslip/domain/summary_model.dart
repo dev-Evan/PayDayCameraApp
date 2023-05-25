@@ -43,22 +43,22 @@ class Data {
 
 class Summary {
   int? total;
-  int? paid;
-  int? unpaid;
+  int? sent;
+  int? conflicted;
 
-  Summary({this.total, this.paid, this.unpaid});
+  Summary({this.total, this.sent, this.conflicted});
 
   Summary.fromJson(Map<String, dynamic> json) {
     total = json['total'];
-    paid = json['paid'];
-    unpaid = json['unpaid'];
+    sent = json['sent'];
+    conflicted = json['conflicted'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['total'] = this.total;
-    data['paid'] = this.paid;
-    data['unpaid'] = this.unpaid;
+    data['sent'] = this.sent;
+    data['conflicted'] = this.conflicted;
     return data;
   }
 }

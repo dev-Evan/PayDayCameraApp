@@ -220,6 +220,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                   });
                                 } else {
                                   setState(() {
+
                                     _rangeStartDay = getDate(today.subtract(
                                         Duration(days: today.weekday + 6)));
                                     _rangeEndDate = getDate(today.add(Duration(
@@ -309,9 +310,12 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                       'start': DateFormat("yyyy-MM-dd").format(_rangeStartDay!),
                       'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
                     };
+
+
                     String value = json.encode(queryParams);
                     Get.find<AttendanceLogsController>().getLogSummaryOverview(
                         queryParams: "date_range=$value");
+
                   }
                   Navigator.pop(Get.context!);
                   break;
@@ -319,6 +323,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                   // TODO: Handle this case.
                   break;
                 case RangeCalendarMethodImp.PAYSLIP:
+
                   if (_rangeStartDay != null && _rangeEndDate != null) {
                     Map<String, String> queryParams = {
                       'start': DateFormat("yyyy-MM-dd").format(_rangeStartDay!),
@@ -331,6 +336,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                   }
                   Navigator.pop(Get.context!);
 
+
                   break;
                 case RangeCalendarMethodImp.LEAVE_RECORD:
                   if (_rangeStartDay != null && _rangeEndDate != null) {
@@ -339,8 +345,6 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                       'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
                     };
                     String value = json.encode(queryParams);
-                    // Get.find<AttendanceLogsController>()
-                    //     .getLogSummaryOverview(queryParams: "date_range=$value");
                     print("QueryParams: $queryParams ::: value:::: $value");
                     Get.find<LeaveController>()
                         .getLeaveRecord(params: "&date_range=$value");

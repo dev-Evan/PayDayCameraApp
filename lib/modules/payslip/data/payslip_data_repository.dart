@@ -19,7 +19,7 @@ class PayslipDataRepository {
     };
     try {
       Response response = await networkClient.getQueryRequest(
-          apiEndPoint: AppString.PAYSLIP_LIST, query: queryParams);
+      apiEndPoint:  AppString.PAYSLIP_LIST,query:queryParams);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -49,8 +49,12 @@ class PayslipDataRepository {
 
   Future<SummaryModel> getSummaryViewData() async {
     try {
+      var queryParams = {
+        "within": "total",
+      };
+
       Response response =
-          await networkClient.getRequest(AppString.PAYSLIP_SUMMARY);
+          await networkClient.getQueryRequest(apiEndPoint:AppString.PAYSLIP_SUMMARY,query: queryParams);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

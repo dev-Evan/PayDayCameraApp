@@ -6,6 +6,9 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import '../../../../common/widget/custom_spacer.dart';
+import '../view/documents.dart';
+
 
 import '../../../../common/widget/custom_spacer.dart';
 

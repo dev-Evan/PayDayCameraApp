@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
@@ -13,7 +14,6 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
-import '../../../../common/widget/custom_spacer.dart';
 
 class ViewProfile extends GetView<ProfileDataController> {
   @override
@@ -35,7 +35,7 @@ class ViewProfile extends GetView<ProfileDataController> {
                         null
                     ? AssetImage(Images.user)
                     : NetworkImage(
-                        controller.userProfile.data?.profilePictureUrl ?? ""),
+                    controller.userProfile.data?.profilePictureUrl ?? ""),
               ),
             ),
             customSpacerHeight(height: 10),

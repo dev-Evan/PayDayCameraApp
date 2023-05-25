@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/request_attendance_bottomsheet.dart';
@@ -29,6 +30,7 @@ class AttendanceLogsScreen extends GetView<AttendanceLogsController> {
                 _openRequestAttendanceBottomSheet(context: context);
               }),
             ),
+
             appBar: const CustomAppbar(),
             body: CustomScrollView(
               slivers: [
@@ -56,9 +58,7 @@ class AttendanceLogsScreen extends GetView<AttendanceLogsController> {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: AppLayout.getHeight(2),
-                      ),
+                      customSpacerHeight(height: 2),
                       SingleChildScrollView(
                         child: SizedBox(
                           height: MediaQuery.of(context).size.height,

@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       initialRoute:
           idStore != null ? AppString.splashScreen : AppString.onboardScreen,
       getPages: getPage,
+
     );
   }
 }

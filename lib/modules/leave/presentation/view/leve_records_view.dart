@@ -118,19 +118,3 @@ class LeaveRecordsView extends GetView<LeaveController> {
     );
   }
 }
-
-Widget _filterStyle(context) {
-  return Column(
-    children: [
-      InkWell(
-          onTap: () => customButtomSheet(
-              context: context,
-              height: 0.9,
-              child: const LeaveDurationFilter()),
-          child: const Icon(
-            Icons.filter_alt,
-            color: AppColor.hintColor,
-          )),
-    ],
-  );
-}

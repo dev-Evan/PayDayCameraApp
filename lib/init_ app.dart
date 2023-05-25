@@ -6,7 +6,6 @@ import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_control
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/modules/notification/presentation/controller/notication_controller.dart';
-
 import 'package:pay_day_mobile/modules/more/presentation/controller/change_password_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_controller.dart';
@@ -35,6 +34,7 @@ Future<void> initApp() async {
   Get.put(ConnectivityController(), permanent: true);
   Get.put(StatusController(),permanent: true);
 
+  Get.put(ConnectivityController(), permanent: true);
   Get.lazyPut(() => AuthController());
   Get.lazyPut(() => AttendanceController(), fenix: true);
   Get.lazyPut(() => AttendanceLogsController(), fenix: true);
@@ -62,5 +62,7 @@ Future<void> initApp() async {
   Get.lazyPut(() => DeletedDocumentController(), fenix: true);
   Get.lazyPut(() => AddressUpdateController(), fenix: true);
   Get.lazyPut(() => UpdateDocumentController(), fenix: true);
+  Get.lazyPut(() => NotificationController(), fenix: true);
   Get.lazyPut(() => AuthController(), fenix: true);
+  Get.lazyPut(() => LeaveController());
 }

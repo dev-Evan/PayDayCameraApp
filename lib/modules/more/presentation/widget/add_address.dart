@@ -1,210 +1,395 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
+import 'package:pay_day_mobile/common/widget/input_note.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/address_update_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-import '../../../../common/widget/custom_spacer.dart';
-class AddAddress extends StatefulWidget {
-  AddAddress({super.key});
-  @override
-  State<AddAddress> createState() => _AddAddressState();
-}
 
-class _AddAddressState extends State<AddAddress> {
-  final List<String> _locations = ['A', 'B', 'C', 'D'];
-  String? dropdownValue;
-  final TextEditingController _areaController=TextEditingController();
-  final TextEditingController _cityController=TextEditingController();
-  final TextEditingController _stateController=TextEditingController();
-  final TextEditingController _zipCodeController=TextEditingController();
-  final TextEditingController _addDetailsController=TextEditingController();
+class AddAddress extends StatelessWidget {
+
+  final String typeText;
+  AddAddress(this.typeText);
   @override
   Widget build(BuildContext context) {
+    final _box = GetStorage();
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: EdgeInsets.only(
+          left: AppLayout.getWidth(20), right: AppLayout.getWidth(20)),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            bottomSheetAppbar(context: context,appbarTitle: AppString.text_add+AppString.text_address,),
-            Padding(
-              padding: const EdgeInsets.only(top: 12.0),
-              child: Text(
-                AppString.text_county,
-                style: AppStyle.small_text.copyWith(
-                    color: AppColor.hintColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: Dimensions.fontSizeDefault + 1),
-              ),
+            bottomSheetAppbar(
+              context: context,
+              appbarTitle: (Get.find<AddressDetailsController>()
+                  .addressDetailsModel
+                  .data !=
+                  null &&
+                  Get.find<AddressDetailsController>()
+                      .addressDetailsModel
+                      .data!
+                      .isNotEmpty)
+                  ? Get.find<AddressDetailsController>()
+                  .addressDetailsModel
+                  .data
+                  ?.first
+                  .key ==
+                  AppString.text_permanent_address
+                  ? "${AppString.text_edit} ${AppString.text_address}"
+                  : "${AppString.text_add} ${AppString.text_address}"
+                  : "",
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 12.0),
-              child: Card(
-                color: AppColor.cardColor,
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                    BorderRadius.circular(Dimensions.radiusDefault),
-                    side: const BorderSide(
-                        width: 0.0, color: AppColor.disableColor)),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: DropdownButton<String>(
-                    style: const TextStyle(fontWeight: FontWeight.w500),
-                    isDense: true,
-                    isExpanded: true,
-                    underline: const SizedBox.shrink(),
-                    icon: const Icon(Icons.expand_more),
-                    iconEnabledColor: AppColor.normalTextColor,
-                    hint: Text(
-                      AppString.text_select_county,
-                      style: AppStyle.normal_text
-                          .copyWith(color: AppColor.normalTextColor),
+            customSpacerHeight(height: 8),
+            textFieldTitleText(titleText: AppString.text_county),
+            InkWell(
+              onTap: () {
+                showCountryPicker(
+                    context: context,
+                    countryListTheme: CountryListThemeData(
+                      flagSize: 24,
+                      backgroundColor: AppColor.cardColor,
+                      textStyle: const TextStyle(
+                          fontSize: 16, color: AppColor.normalTextColor),
+                      bottomSheetHeight: AppLayout.getHeight(554),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(Dimensions.radiusMid),
+                        topRight: Radius.circular(Dimensions.radiusMid),
+                      ),
+                      inputDecoration: InputDecoration(
+                          hintText: AppString.text_search,
+                          hintStyle: AppStyle.normal_text.copyWith(
+                              color: Colors.grey, fontWeight: FontWeight.w400),
+                          isDense: true,
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey)),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          border: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey))),
                     ),
-                    value: dropdownValue,
-                    borderRadius:
-                    BorderRadius.circular(Dimensions.radiusDefault),
-                    items: _locations
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value,
-                            style: AppStyle.normal_text.copyWith(
-                                color: AppColor.normalTextColor)),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownValue = newValue!;
-                      });
-                    },
-                  ),
-                ),
+                    onSelect: (Country country) {
+                      _box.write(AppString.STORE_COUNTY, country.displayName);
+                    });
+              },
+              child: _countyField(
+                text: _box.read(AppString.STORE_COUNTY) ??
+                    (Get.find<AddressDetailsController>()
+                        .addressDetailsModel
+                        .data !=
+                        null &&
+                        Get.find<AddressDetailsController>()
+                            .addressDetailsModel
+                            .data!
+                            .isNotEmpty
+                        ? Get.find<AddressDetailsController>()
+                        .addressDetailsModel
+                        .data
+                        ?.first
+                        .key ==
+                        AppString.text_permanent_address
+                        ? Get.find<AddressDetailsController>()
+                        .addressDetailsModel
+                        .data
+                        ?.last
+                        .value
+                        ?.country
+                        .toString() ??
+                        ""
+                        : AppString.text_select_county
+                        : _box.read(AppString.STORE_COUNTY)),
+                context: context,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Text(
-                AppString.text_phone,
-                style: AppStyle.small_text.copyWith(
-                    color: AppColor.hintColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: Dimensions.fontSizeDefault + 1),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: IntlPhoneField(
-                decoration:  InputDecoration(
-                  labelText: AppString.text_Enter_phone_number,
-                  enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                          width: 0.0, color: AppColor.disableColor)),
-                  contentPadding: const EdgeInsets.all(7),
-                  border: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                        width: 0.0, color: AppColor.disableColor),
-                  ),
-                ),
-              ),
-            ),
-
-
+            textFieldTitleText(titleText: AppString.text_phone),
+            _phoneAndCountyField(),
             Row(
               children: [
                 Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        AppString.text_area,
-                        style: AppStyle.small_text.copyWith(
-                            color: AppColor.hintColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: Dimensions.fontSizeDefault + 1),
+                      textFieldTitleText2(titleText: AppString.text_area),
+                      CustomTextFeild(
+                        hintText: Get.find<AddressDetailsController>()
+                            .addressDetailsModel
+                            .data !=
+                            null &&
+                            Get.find<AddressDetailsController>()
+                                .addressDetailsModel
+                                .data!
+                                .isNotEmpty
+                            ? Get.find<AddressDetailsController>()
+                            .addressDetailsModel
+                            .data
+                            ?.first
+                            .key ==
+                            AppString.text_permanent_address
+                            ? Get.find<AddressDetailsController>()
+                            .addressDetailsModel
+                            .data
+                            ?.first
+                            .value
+                            ?.area
+                            .toString() ??
+                            ""
+                            : AppString.text_enter_area
+                            : "",
+                        controller:
+                        Get.find<AddressUpdateController>().areaController,
                       ),
-                      CustomTextFeild(hintText: AppString.text_enter_area, controller:_areaController),
                     ],
                   ),
                 ),
-                SizedBox(width: AppLayout.getWidth(18),),
+                customSpacerWidth(width: 18),
                 Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        AppString.text_city,
-                        style: AppStyle.small_text.copyWith(
-                            color: AppColor.hintColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: Dimensions.fontSizeDefault + 1),
-                      ),
-                      CustomTextFeild(hintText: AppString.text_enter_city, controller:_cityController),
+                      textFieldTitleText2(titleText: AppString.text_city),
+                      CustomTextFeild(
+                          hintText: Get.find<AddressDetailsController>()
+                              .addressDetailsModel
+                              .data !=
+                              null &&
+                              Get.find<AddressDetailsController>()
+                                  .addressDetailsModel
+                                  .data!
+                                  .isNotEmpty
+                              ? Get.find<AddressDetailsController>()
+                              .addressDetailsModel
+                              .data
+                              ?.first
+                              .key ==
+                              AppString.text_permanent_address
+                              ? Get.find<AddressDetailsController>()
+                              .addressDetailsModel
+                              .data
+                              ?.first
+                              .value
+                              ?.city
+                              .toString() ??
+                              ""
+                              : AppString.text_enter_city
+                              : "",
+                          controller: Get.find<AddressUpdateController>()
+                              .cityController),
                     ],
                   ),
                 ),
               ],
             ),
-            customSpacerHeight(height: 16),
             Row(
               children: [
                 Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        AppString.text_state,
-                        style: AppStyle.small_text.copyWith(
-                            color: AppColor.hintColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: Dimensions.fontSizeDefault + 1),
-                      ),
-                      CustomTextFeild(hintText: AppString.text_enter_state, controller:_stateController),
+                      textFieldTitleText(titleText: AppString.text_state),
+                      CustomTextFeild(
+                          hintText: Get.find<AddressDetailsController>()
+                              .addressDetailsModel
+                              .data !=
+                              null &&
+                              Get.find<AddressDetailsController>()
+                                  .addressDetailsModel
+                                  .data!
+                                  .isNotEmpty
+                              ? Get.find<AddressDetailsController>()
+                              .addressDetailsModel
+                              .data
+                              ?.first
+                              .key ==
+                              AppString.text_permanent_address
+                              ? Get.find<AddressDetailsController>()
+                              .addressDetailsModel
+                              .data
+                              ?.first
+                              .value
+                              ?.state
+                              .toString() ??
+                              ""
+                              : AppString.text_enter_state
+                              : "",
+                          controller: Get.find<AddressUpdateController>()
+                              .stateController),
                     ],
                   ),
                 ),
-                SizedBox(width: AppLayout.getWidth(18),),
+                customSpacerWidth(width: 18),
                 Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        AppString.text_zip_code,
-                        style: AppStyle.small_text.copyWith(
-                            color: AppColor.hintColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: Dimensions.fontSizeDefault + 1),
-                      ),
-                      CustomTextFeild(hintText: AppString.text_enter_zip_code, controller:_zipCodeController),
+                      textFieldTitleText(titleText: AppString.text_zip_code),
+                      CustomTextFeild(
+                          hintText: Get.find<AddressDetailsController>()
+                              .addressDetailsModel
+                              .data !=
+                              null &&
+                              Get.find<AddressDetailsController>()
+                                  .addressDetailsModel
+                                  .data!
+                                  .isNotEmpty
+                              ? Get.find<AddressDetailsController>()
+                              .addressDetailsModel
+                              .data
+                              ?.first
+                              .key ==
+                              AppString.text_permanent_address
+                              ? Get.find<AddressDetailsController>()
+                              .addressDetailsModel
+                              .data
+                              ?.first
+                              .value
+                              ?.zipCode
+                              .toString() ??
+                              ""
+                              : AppString.text_enter_zip_code
+                              : "",
+                          controller: Get.find<AddressUpdateController>()
+                              .zipCodeController),
                     ],
                   ),
                 ),
               ],
             ),
-            customSpacerHeight(height: 12),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  AppString.text_address+AppString.text_details,
-                  style: AppStyle.small_text.copyWith(
-                      color: AppColor.hintColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: Dimensions.fontSizeDefault + 1),
+                textFieldTitleText(
+                    titleText: AppString.text_address + AppString.text_details),
+                InputNote(
+                  controller:
+                  Get.find<AddressUpdateController>().detailsController,
+                  hintText: Get.find<AddressDetailsController>()
+                      .addressDetailsModel
+                      .data !=
+                      null &&
+                      Get.find<AddressDetailsController>()
+                          .addressDetailsModel
+                          .data!
+                          .isNotEmpty
+                      ? Get.find<AddressDetailsController>()
+                      .addressDetailsModel
+                      .data
+                      ?.first
+                      .key ==
+                      AppString.text_permanent_address
+                      ? Get.find<AddressDetailsController>()
+                      .addressDetailsModel
+                      .data
+                      ?.first
+                      .value
+                      ?.details
+                      .toString() ??
+                      ""
+                      : "${AppString.text_add}${AppString.text_address_details}"
+                      : "",
                 ),
-                CustomTextFeild(hintText: AppString.text_enter_address, controller:_addDetailsController),
               ],
             ),
-            customDoubleButton(context: context,elevatedBtnText: AppString.text_add_address,textBtnText: AppString.text_cancel,textButtonAction: (){},elevatedButtonAction: (){}),
+            customSpacerHeight(height: 24),
+            customDoubleButton(
+                context: context,
+                elevatedBtnText:
+                '${AppString.text_add} ${AppString.text_address}',
+                textBtnText: AppString.text_cancel,
+                textButtonAction: () => Get.back(),
+                elevatedButtonAction: () {
+                  Get.find<AddressUpdateController>().addressUpdate(
+                    typeKey: typeText.toString(),
+                    selectedCounty: _box.read(AppString.STORE_COUNTY),
+                  );
+                  print(_box.read(AppString.STORE_ADDRESS).toString());
+                }),
+            customSpacerHeight(height: 250)
           ],
         ),
       ),
     );
   }
+}
+
+Widget _countyField({text, context}) {
+  return Container(
+    width: MediaQuery.of(context).size.width / 1,
+    height: AppLayout.getHeight(56),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+        border: Border.all(width: 1, color: AppColor.solidGray)),
+    child: Padding(
+      padding: EdgeInsets.only(
+          left: AppLayout.getWidth(12),
+          top: AppLayout.getHeight(12),
+          bottom: AppLayout.getHeight(12),
+          right: AppLayout.getWidth(12)),
+      child: _fieldText(text: text),
+    ),
+  );
+}
+
+Widget _fieldText({required text}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text(
+        text ?? "",
+        style: AppStyle.normal_text
+            .copyWith(color: Colors.grey, fontWeight: FontWeight.w400),
+      ),
+      const Icon(
+        Icons.keyboard_arrow_down_rounded,
+        color: AppColor.normalTextColor,
+      ),
+    ],
+  );
+}
+
+Widget _phoneAndCountyField() {
+  return IntlPhoneField(
+    decoration: InputDecoration(
+      labelText:
+      Get.find<AddressDetailsController>().addressDetailsModel.data !=
+          null &&
+          Get.find<AddressDetailsController>()
+              .addressDetailsModel
+              .data!
+              .isNotEmpty
+          ? Get.find<AddressDetailsController>()
+          .addressDetailsModel
+          .data
+          ?.first
+          .key ==
+          AppString.text_permanent_address
+          ? Get.find<AddressDetailsController>()
+          .addressDetailsModel
+          .data
+          ?.first
+          .value
+          ?.phoneNumber
+          : AppString.text_enter_phone_number
+          : "",
+      enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColor.solidGray),
+          borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
+      border: OutlineInputBorder(
+          borderSide: BorderSide(width: 0.0, color: AppColor.disableColor),
+          borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
+    ),
+    controller: Get.find<AddressUpdateController>().phoneNumberController,
+  );
 }

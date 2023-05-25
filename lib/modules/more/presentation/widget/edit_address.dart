@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
+import 'package:pay_day_mobile/common/widget/input_note.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
@@ -14,17 +15,18 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
+import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class EditAddress extends StatelessWidget {
   final String typeText;
   EditAddress(this.typeText);
-
   @override
   Widget build(BuildContext context) {
     final _box = GetStorage();
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: EdgeInsets.only(
+          left: AppLayout.getWidth(20), right: AppLayout.getWidth(20)),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,10 +51,8 @@ class EditAddress extends StatelessWidget {
                       : "${AppString.text_add} ${AppString.text_address}"
                   : "",
             ),
-            Padding(
-              padding: EdgeInsets.only(top: AppLayout.getHeight(12)),
-              child: textFieldTitleText(titleText: AppString.text_county),
-            ),
+            customSpacerHeight(height: 8),
+            textFieldTitleText(titleText: AppString.text_county),
             InkWell(
               onTap: () {
                 showCountryPicker(
@@ -68,22 +68,23 @@ class EditAddress extends StatelessWidget {
                         topRight: Radius.circular(Dimensions.radiusMid),
                       ),
                       inputDecoration: InputDecoration(
-                        labelText: AppString.text_search,
-                        hintText: AppString.text_search_typing_to_search,
-                        prefixIcon: const Icon(Icons.search),
-                        border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: AppColor.hintColor,
-                            ),
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.radiusMid)),
-                      ),
+                          hintText: AppString.text_search,
+                          hintStyle: AppStyle.normal_text.copyWith(
+                              color: AppColor.solidGray, fontWeight: FontWeight.w400),
+                          isDense: true,
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColor.solidGray)),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: AppColor.solidGray),
+                          ),
+                          border: const OutlineInputBorder(
+                              borderSide: BorderSide(color: AppColor.solidGray))),
                     ),
                     onSelect: (Country country) {
                       _box.write(AppString.STORE_COUNTY, country.displayName);
                     });
               },
-              child: _countyField(
+              child: countyField(
                 text: _box.read(AppString.STORE_COUNTY) ??
                     (Get.find<AddressDetailsController>()
                                     .addressDetailsModel
@@ -112,48 +113,34 @@ class EditAddress extends StatelessWidget {
                 context: context,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: textFieldTitleText(titleText: AppString.text_phone),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: IntlPhoneField(
-                decoration: InputDecoration(
-                  labelText: Get.find<AddressDetailsController>()
-                                  .addressDetailsModel
-                                  .data !=
-                              null &&
-                          Get.find<AddressDetailsController>()
-                              .addressDetailsModel
-                              .data!
-                              .isNotEmpty
-                      ? Get.find<AddressDetailsController>()
-                                  .addressDetailsModel
-                                  .data
-                                  ?.first
-                                  .key ==
-                              AppString.text_permanent_address
-                          ? Get.find<AddressDetailsController>()
-                              .addressDetailsModel
-                              .data
-                              ?.first
-                              .value
-                              ?.phoneNumber
-                          : AppString.text_enter_phone_number
-                      : "",
-                  enabledBorder: const OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 0.0, color: AppColor.disableColor)),
-                  contentPadding: const EdgeInsets.all(7),
-                  border: const OutlineInputBorder(
-                    borderSide:
-                        BorderSide(width: 0.0, color: AppColor.disableColor),
-                  ),
-                ),
-                controller:
-                    Get.find<AddressUpdateController>().phoneNumberController,
-              ),
+            textFieldTitleText(titleText: AppString.text_phone),
+            phoneAndCountyField(
+
+              hintText:  Get.find<AddressDetailsController>().addressDetailsModel.data !=
+                  null &&
+                  Get.find<AddressDetailsController>()
+                      .addressDetailsModel
+                      .data!
+                      .isNotEmpty
+                  ? Get.find<AddressDetailsController>()
+                  .addressDetailsModel
+                  .data
+                  ?.first
+                  .key ==
+                  AppString.text_permanent_address
+                  ? Get.find<AddressDetailsController>()
+                  .addressDetailsModel
+                  .data
+                  ?.first
+                  .value
+                  ?.phoneNumber
+                  : AppString.text_enter_phone_number
+                  : "",
+
+              controller: Get.find<AddressUpdateController>().phoneNumberController,
+
+
+
             ),
             Row(
               children: [
@@ -161,7 +148,7 @@ class EditAddress extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      textFieldTitleText(titleText: AppString.text_area),
+                      textFieldTitleText2(titleText: AppString.text_area),
                       CustomTextFeild(
                         hintText: Get.find<AddressDetailsController>()
                                         .addressDetailsModel
@@ -193,14 +180,12 @@ class EditAddress extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
-                  width: AppLayout.getWidth(18),
-                ),
+                customSpacerWidth(width: 18),
                 Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      textFieldTitleText(titleText: AppString.text_city),
+                      textFieldTitleText2(titleText: AppString.text_city),
                       CustomTextFeild(
                           hintText: Get.find<AddressDetailsController>()
                                           .addressDetailsModel
@@ -233,7 +218,6 @@ class EditAddress extends StatelessWidget {
                 ),
               ],
             ),
-            customSpacerHeight(height: 16),
             Row(
               children: [
                 Flexible(
@@ -271,9 +255,7 @@ class EditAddress extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
-                  width: AppLayout.getWidth(18),
-                ),
+                customSpacerWidth(width: 18),
                 Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -311,41 +293,42 @@ class EditAddress extends StatelessWidget {
                 ),
               ],
             ),
-            customSpacerHeight(height: 12),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 textFieldTitleText(
                     titleText: AppString.text_address + AppString.text_details),
-                CustomTextFeild(
-                    hintText: Get.find<AddressDetailsController>()
-                                    .addressDetailsModel
-                                    .data !=
-                                null &&
-                            Get.find<AddressDetailsController>()
-                                .addressDetailsModel
-                                .data!
-                                .isNotEmpty
-                        ? Get.find<AddressDetailsController>()
-                                    .addressDetailsModel
-                                    .data
-                                    ?.first
-                                    .key ==
-                                AppString.text_permanent_address
-                            ? Get.find<AddressDetailsController>()
-                                    .addressDetailsModel
-                                    .data
-                                    ?.first
-                                    .value
-                                    ?.details
-                                    .toString() ??
-                                ""
-                            : "${AppString.text_add}${AppString.text_address_details}"
-                        : "",
-                    controller:
-                        Get.find<AddressUpdateController>().detailsController),
+                InputNote(
+                  controller:
+                      Get.find<AddressUpdateController>().detailsController,
+                  hintText: Get.find<AddressDetailsController>()
+                                  .addressDetailsModel
+                                  .data !=
+                              null &&
+                          Get.find<AddressDetailsController>()
+                              .addressDetailsModel
+                              .data!
+                              .isNotEmpty
+                      ? Get.find<AddressDetailsController>()
+                                  .addressDetailsModel
+                                  .data
+                                  ?.first
+                                  .key ==
+                              AppString.text_permanent_address
+                          ? Get.find<AddressDetailsController>()
+                                  .addressDetailsModel
+                                  .data
+                                  ?.first
+                                  .value
+                                  ?.details
+                                  .toString() ??
+                              ""
+                          : "${AppString.text_add}${AppString.text_address_details}"
+                      : "",
+                ),
               ],
             ),
+            customSpacerHeight(height: 24),
             customDoubleButton(
                 context: context,
                 elevatedBtnText:
@@ -367,19 +350,19 @@ class EditAddress extends StatelessWidget {
   }
 }
 
-Widget _countyField({text, context}) {
+Widget countyField({text, context}) {
   return Container(
     width: MediaQuery.of(context).size.width / 1,
-    height: AppLayout.getHeight(50),
+    height: AppLayout.getHeight(56),
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-        border: Border.all(width: 0, color: AppColor.disableColor)),
+        border: Border.all(width: 1, color: AppColor.solidGray)),
     child: Padding(
       padding: EdgeInsets.only(
-          left: AppLayout.getWidth(8),
-          top: AppLayout.getHeight(8),
-          bottom: AppLayout.getHeight(8),
-          right: AppLayout.getWidth(8)),
+          left: AppLayout.getWidth(12),
+          top: AppLayout.getHeight(12),
+          bottom: AppLayout.getHeight(12),
+          right: AppLayout.getWidth(12)),
       child: _fieldText(text: text),
     ),
   );
@@ -391,12 +374,30 @@ Widget _fieldText({required text}) {
     children: [
       Text(
         text ?? "",
-        style: GoogleFonts.poppins(color: AppColor.hintColor),
+        style: AppStyle.normal_text
+            .copyWith(color: Colors.grey, fontWeight: FontWeight.w400),
       ),
       const Icon(
         Icons.keyboard_arrow_down_rounded,
         color: AppColor.normalTextColor,
       ),
     ],
+  );
+}
+
+
+Widget phoneAndCountyField({required hintText,required controller}) {
+  return IntlPhoneField(
+    decoration: InputDecoration(
+      labelText:
+      hintText,
+      enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColor.solidGray),
+          borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
+      border: OutlineInputBorder(
+          borderSide: BorderSide(width: 0.0, color: AppColor.disableColor),
+          borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
+    ),
+    controller: controller,
   );
 }
