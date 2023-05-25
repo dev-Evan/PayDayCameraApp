@@ -10,6 +10,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -19,8 +20,7 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+
 
   bool _isLeft = false;
   bool _rememberMe = false;
@@ -45,6 +45,7 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height / 6;
     double _width = MediaQuery.of(context).size.width;
+    Get.find<AuthController>().restPassword();
     final box = GetStorage();
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
@@ -81,7 +82,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               CustomTextFeild(
                                 hintText: AppString.enterYourEmail,
                                 inputType: TextInputType.emailAddress,
-                                controller: _emailController,
+                                controller: Get.find<AuthController>().emailController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return AppString.fieldIsRequired;
@@ -98,7 +99,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               CustomPasswordTextField(
                                 hintText: AppString.enterYourPassword,
                                 inputType: TextInputType.emailAddress,
-                                controller: _passwordController,
+                                controller: Get.find<AuthController>().passwordController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return AppString.fieldIsRequired;
@@ -138,18 +139,25 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         rememberText(),
                         const Spacer(),
-                        forgotButton()
+                        forgotButton(onAction: () => _launchUrl()),
                       ],
                     ),
                   ),
                   customSpacerHeight(height: Dimensions.fontSizeDefault + 4),
                   logInButton(
                       onAction: () => Get.find<AuthController>().logIn(
-                          _emailController.text, _passwordController.text))
+                          Get.find<AuthController>().emailController.text, Get.find<AuthController>().passwordController.text))
                 ],
               ),
             )),
       ),
     );
+  }
+
+  Future<void> _launchUrl() async {
+    var url = Get.find<AuthController>().resetPasswordModel.data?.url;
+    if (!await launchUrl(Uri.parse(url ?? ""))) {
+      throw Exception('Could not launch $url');
+    }
   }
 }

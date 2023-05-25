@@ -33,7 +33,6 @@ Future<void> initApp() async {
 
 
   Get.put(ConnectivityController(), permanent: true);
-  Get.lazyPut(() => AuthController());
   Get.lazyPut(() => AttendanceController(), fenix: true);
   Get.lazyPut(() => AttendanceLogsController(), fenix: true);
   Get.lazyPut(() => LeaveController());
@@ -61,7 +60,8 @@ Future<void> initApp() async {
   Get.lazyPut(() => AddressUpdateController(), fenix: true);
   Get.lazyPut(() => UpdateDocumentController(), fenix: true);
   Get.lazyPut(() => NotificationController(), fenix: true);
-  Get.lazyPut(() => AuthController(), fenix: true);
+  Get.lazyPut(()=>NotificationController());
+  Get.lazyPut(() => AuthController(), fenix: false);
   Get.put(StatusController());
   Get.lazyPut(() => LeaveController());
 }

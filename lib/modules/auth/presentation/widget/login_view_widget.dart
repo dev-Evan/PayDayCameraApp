@@ -52,13 +52,13 @@ Widget rememberText() {
   );
 }
 
-Widget forgotButton() {
+Widget forgotButton({required onAction}) {
   return TextButton(
       style: TextButton.styleFrom(
           padding: EdgeInsets.zero,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           alignment: Alignment.centerLeft),
-      onPressed: () => Get.toNamed(AppString.forgotScreen),
+      onPressed: () => onAction(),
       child: Text(
           AppString.text_forgot_password,
           style: GoogleFonts.poppins(

@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pay_day_mobile/modules/auth/presentation/view/sign_in.dart';
+import 'package:pay_day_mobile/modules/home/presentation/home.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/images.dart';
+
+import 'onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -25,11 +29,26 @@ class _SplashScreenState extends State<SplashScreen> {
     dynamic logValue = box.read(AppString.LOGIN_CHECK_KEY);
     if (idStore == null) {
       Get.toNamed(AppString.onboardScreen);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => OnboardingScreen()),
+      );
     } else if (logValue != null && remValue != null) {
-      Get.toNamed(AppString.home);
+      //Get.toNamed(AppString.home);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Home()),
+      );
     } else {
-      Get.toNamed(AppString.signInScreen);
-    }
+
+
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SignInScreen()),
+      );    }
   }
 
   isMove() {
@@ -49,28 +68,26 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-
-  logoSwipe() async{
-    await  Future.delayed(const Duration(milliseconds: 810), () {
+  logoSwipe() async {
+    await Future.delayed(const Duration(milliseconds: 810), () {
       isMove();
     });
   }
-  nextPage() async{
-    await  Future.delayed( const Duration(milliseconds: 1645), () {
+
+  nextPage() async {
+    await Future.delayed(const Duration(milliseconds: 1645), () {
       chooseScreen();
     });
   }
 
-  logoSwipeHW() async{
-    await  Future.delayed(const Duration(milliseconds: 900), () {
+  logoSwipeHW() async {
+    await Future.delayed(const Duration(milliseconds: 900), () {
       setState(() {
         _width = AppLayout.getWidth(22.0);
         _height = AppLayout.getHeight(30.0);
       });
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +100,9 @@ class _SplashScreenState extends State<SplashScreen> {
           width: bodyW,
           height: bodyH,
           child: Stack(
-            children: [_containerLayout(height: _height,width: _width,isLoad: _isLoad)],
+            children: [
+              _containerLayout(height: _height, width: _width, isLoad: _isLoad)
+            ],
           ),
         ),
       ),
@@ -91,28 +110,24 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-Widget _containerLayout({isLoad,width,height}){
+Widget _containerLayout({isLoad, width, height}) {
   return AnimatedContainer(
     duration: const Duration(milliseconds: 900),
     alignment: isLoad ? Alignment.topCenter : Alignment.center,
-    child: _animatedLogo(height: height,width: width),
+    child: _animatedLogo(height: height, width: width),
   );
 }
 
-Widget _animatedLogo({required height,required width}){
+Widget _animatedLogo({required height, required width}) {
   return AnimatedContainer(
-      duration:  const Duration(milliseconds: 900),
+      duration: const Duration(milliseconds: 900),
       width: width,
       height: height,
-      child: _logoView(logo: Images.favIcon)
-  );
-
+      child: _logoView(logo: Images.favIcon));
 }
 
-Widget _logoView({required logo}){
-  return  SvgPicture.asset(
+Widget _logoView({required logo}) {
+  return SvgPicture.asset(
     logo.toString(),
-
   );
 }
-

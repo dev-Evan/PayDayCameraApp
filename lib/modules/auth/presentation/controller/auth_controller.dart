@@ -4,14 +4,19 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/modules/auth/data/auth_data_repository.dart';
 import 'package:pay_day_mobile/modules/auth/domain/login_res.dart';
+import 'package:pay_day_mobile/modules/auth/domain/reset_password_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
-class AuthController extends GetxController with StateMixin{
+class AuthController extends GetxController with StateMixin {
   final AuthDataSource _authDataSource = AuthDataSource(NetworkClient());
-
+  ResetPasswordModel resetPasswordModel = ResetPasswordModel();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final GetStorage box = GetStorage();
+
+
 
   void logIn(String email, String password) {
     try {
@@ -24,10 +29,10 @@ class AuthController extends GetxController with StateMixin{
       print(ex.toString());
       _showToast(ex.toString());
     }
-    change(null,status: RxStatus.success());
+    change(null, status: RxStatus.success());
   }
 
-  void _writeUserInfo(Login? login ){
+  void _writeUserInfo(Login? login) {
     box.write(AppString.ID_STORE, login?.data!.id);
     box.write(AppString.USER_FIRST_NAME, login?.data!.firstName);
     box.write(AppString.USER_LAST_NAME, login?.data!.lastName);
@@ -43,4 +48,19 @@ class AuthController extends GetxController with StateMixin{
       backgroundColor: AppColor.hintColor,
       textColor: Colors.white,
       fontSize: 16.0);
+
+  void restPassword() async {
+    change(null, status: RxStatus.loading());
+    try {
+      await _authDataSource.restPasswordRepo().then((value) {
+        print(value);
+        resetPasswordModel = value;
+      }, onError: (error) {
+        print(error.message);
+      });
+      change(null, status: RxStatus.success());
+    } catch (ex) {
+      print(ex.toString());
+    }
+  }
 }
