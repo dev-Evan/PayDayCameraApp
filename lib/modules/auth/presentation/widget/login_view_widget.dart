@@ -35,7 +35,7 @@ Widget animatedContainer({required isLeft}) {
     duration: const Duration(milliseconds: 400),
     alignment: isLeft ? Alignment.topCenter : Alignment.topRight,
     curve: Curves.easeInOut,
-    child: logoView(),
+    child: logoView(width: 44,height: 44),
   );
 }
 
@@ -52,13 +52,13 @@ Widget rememberText() {
   );
 }
 
-Widget forgotButton() {
+Widget forgotButton({required onAction}) {
   return TextButton(
       style: TextButton.styleFrom(
           padding: EdgeInsets.zero,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           alignment: Alignment.centerLeft),
-      onPressed: () => Get.toNamed(AppString.forgotScreen),
+      onPressed: () => onAction(),
       child: Text(
           AppString.text_forgot_password,
           style: GoogleFonts.poppins(

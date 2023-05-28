@@ -10,6 +10,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -19,8 +20,7 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+
 
   bool _isLeft = false;
   bool _rememberMe = false;
@@ -43,7 +43,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double _height = MediaQuery.of(context).size.height / 5;
+    double _height = MediaQuery.of(context).size.height / 6;
     double _width = MediaQuery.of(context).size.width;
     final box = GetStorage();
     return Scaffold(
@@ -55,12 +55,16 @@ class _SignInScreenState extends State<SignInScreen> {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(Dimensions.paddingLarge),
+                    padding: EdgeInsets.only(
+                        left: Dimensions.paddingLarge,
+                        right: Dimensions.paddingLarge,
+                        bottom: Dimensions.paddingDefault + 4,
+                        top: Dimensions.paddingDefaultExtra + 3),
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          customSpacerHeight(height: 20),
+                          customSpacerHeight(height: 26),
                           SizedBox(
                               height: _height,
                               width: _width,
@@ -77,7 +81,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               CustomTextFeild(
                                 hintText: AppString.enterYourEmail,
                                 inputType: TextInputType.emailAddress,
-                                controller: _emailController,
+                                controller: Get.find<AuthController>().emailController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return AppString.fieldIsRequired;
@@ -94,7 +98,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               CustomPasswordTextField(
                                 hintText: AppString.enterYourPassword,
                                 inputType: TextInputType.emailAddress,
-                                controller: _passwordController,
+                                controller: Get.find<AuthController>().passwordController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return AppString.fieldIsRequired;
@@ -104,20 +108,20 @@ class _SignInScreenState extends State<SignInScreen> {
                               ),
                             ],
                           ),
-
                         ],
                       ),
                     ),
                   ),
-
-
                   Padding(
-                    padding:  EdgeInsets.only(left: AppLayout.getWidth(13),right: AppLayout.getWidth(18),top: 0),
+                    padding: EdgeInsets.only(
+                        left: AppLayout.getWidth(13),
+                        right: AppLayout.getWidth(18),
+                        top: 0),
                     child: Row(
                       children: [
                         Checkbox(
                           visualDensity:
-                           VisualDensity(horizontal: -4, vertical: -4),
+                              VisualDensity(horizontal: -4, vertical: -4),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                   Dimensions.radiusSmall)),
@@ -134,20 +138,25 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         rememberText(),
                         const Spacer(),
-                        forgotButton()
+                        forgotButton(onAction: () => _launchUrl()),
                       ],
                     ),
                   ),
-                  customSpacerHeight(height: Dimensions.fontSizeDefault-3),
-
-                  customSpacerHeight(height: Dimensions.fontSizeExtraLarge),
+                  customSpacerHeight(height: Dimensions.fontSizeDefault + 4),
                   logInButton(
                       onAction: () => Get.find<AuthController>().logIn(
-                          _emailController.text, _passwordController.text))
+                          Get.find<AuthController>().emailController.text, Get.find<AuthController>().passwordController.text))
                 ],
               ),
             )),
       ),
     );
+  }
+
+  Future<void> _launchUrl() async {
+    var url = Get.find<AuthController>().resetPasswordModel.data?.url;
+    if (!await launchUrl(Uri.parse(url ?? ""))) {
+      throw Exception('Could not launch $url');
+    }
   }
 }

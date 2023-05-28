@@ -16,7 +16,7 @@ Widget noLogLayout() {
           horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
       child: Column(
         children: [
-          _logoView(logo: Images.start_your_day_image),
+          _logoView(logo: Images.no_data),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
           Text(
             AppString.start_out_day,
@@ -27,10 +27,9 @@ Widget noLogLayout() {
     ),
   );
 }
-
-Widget _logoView({required logo}) {
-  return SvgPicture.asset(
-    Images.start_your_day_image,
+Widget _logoView({required logo}){
+  return  SvgPicture.asset(
+    logo.toString(),
     width: AppLayout.getWidth(90),
     height: AppLayout.getWidth(90),
   );

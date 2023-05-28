@@ -100,7 +100,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
 Widget _skipButton({context}) {
   return TextButton(
-    onPressed: () => Get.offAllNamed(AppString.signInScreen),
+    onPressed: () => Get.toNamed(AppString.signInScreen),
     child: Text(
       AppString.text_skip,
       style: GoogleFonts.poppins(

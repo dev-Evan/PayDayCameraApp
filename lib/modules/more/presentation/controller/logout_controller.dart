@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_controller.dart';
 import 'package:pay_day_mobile/modules/more/data/log_out_repo.dart';
 import 'package:pay_day_mobile/modules/more/domain/logout_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
@@ -16,6 +17,7 @@ class LogoutController extends GetxController with StateMixin {
         logoutModel = value;
           _box.remove(AppString.STORE_TOKEN);
         Get.offNamed(AppString.signInScreen);
+        Get.put(AuthController());
       }, onError: (error) {
         print(error.message);
       });

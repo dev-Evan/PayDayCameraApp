@@ -2,13 +2,15 @@
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/auth/domain/login_res.dart';
 import 'package:pay_day_mobile/common/domain/error_model.dart';
+import 'package:pay_day_mobile/modules/auth/domain/reset_password_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
 class AuthDataSource {
-  final NetworkClient networkClient;
 
+  final NetworkClient networkClient;
   AuthDataSource(this.networkClient);
+
   Future<Login> loginIntoAccount(String email, String password) async {
     try {
       Response response = await networkClient.postRequest(
@@ -27,5 +29,26 @@ class AuthDataSource {
       return Future.error(ex.toString());
     }
   }
+
+
+  Future<ResetPasswordModel> restPasswordRepo() async {
+    try {
+      Response response =
+      await networkClient.getRequest(AppString.RESET_PASSWORD);
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
+      } else {
+        print(response.body);
+        return ResetPasswordModel.fromJson(response.body);
+      }
+    } catch (e) {
+      return Future.error(ErrorModel(message: e.toString()));
+    }
+  }
+
+
+
+
+
 }
 
