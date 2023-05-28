@@ -66,8 +66,6 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _cancelButton(context),
-          SizedBox(width: AppLayout.getWidth(10)),
           _editButton(context),
         ],
       ),

@@ -17,18 +17,12 @@ class Notifications extends GetView<NotificationController> {
   Widget build(BuildContext context) {
     return controller.obx(
         (state) => Scaffold(
-              body: Container(
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(16))),
-                child: ListView(
-                  controller: controller.scrollController,
-                  children: [
-                    customMoreAppbar(titleText: AppString.text_notications),
-                    _contentLayout(),
-                  ],
-                ),
+              body: ListView(
+                controller: controller.scrollController,
+                children: [
+                  _notificationAppbar(),
+                  _contentLayout(),
+                ],
               ),
             ),
         onLoading: const LoadingIndicator());
@@ -36,26 +30,6 @@ class Notifications extends GetView<NotificationController> {
 
   _contentLayout() => Column(
         children: [
-          InkWell(
-            onTap: () => controller.notificationAaALLRead(),
-            child: Padding(
-              padding: EdgeInsets.only(
-                  top: AppLayout.getHeight(10),
-                  right: AppLayout.getWidth(20),
-                  bottom: AppLayout.getHeight(10)),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  controller.notifications.data != null &&
-                          controller.notifications.data!.data!.length > 0
-                      ? AppString.mark_read
-                      : "",
-                  style: AppStyle.normal_text
-                      .copyWith(color: AppColor.primary_blue),
-                ),
-              ),
-            ),
-          ),
           Obx(() => ListView.builder(
                 itemCount: controller.allNotifications.length,
                 shrinkWrap: true,
@@ -97,6 +71,49 @@ class Notifications extends GetView<NotificationController> {
           style: AppStyle.normal_text_grey,
         ),
       ]),
+    );
+  }
+
+  _notificationAppbar() {
+    return AppBar(
+      backgroundColor: Colors.white,
+      elevation: .5,
+      leading: IconButton(
+        onPressed: () {
+          Get.back();
+        },
+        icon: Icon(
+          Icons.arrow_back,
+          color: Colors.black,
+        ),
+      ),
+      centerTitle: true,
+      title: Text(
+        AppString.notification,
+        style: AppStyle.title_text.copyWith(color: Colors.black, fontSize: 16),
+      ),
+      actions: [
+        InkWell(
+          onTap: () => controller.notificationAaALLRead(),
+          child: Padding(
+            padding: EdgeInsets.only(
+                top: AppLayout.getHeight(2),
+                right: AppLayout.getWidth(20),
+            ),
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                controller.notifications.data != null &&
+                    controller.notifications.data!.data!.length > 0
+                    ? AppString.mark_read
+                    : "",
+                style: AppStyle.normal_text
+                    .copyWith(color: AppColor.primary_blue,fontSize: 14),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

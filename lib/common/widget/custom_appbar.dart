@@ -14,6 +14,7 @@ class CustomAppbar extends GetView<NotificationController>
   @override
   Widget build(BuildContext context) {
     return Obx(() => AppBar(
+          scrolledUnderElevation: .5,
           leadingWidth: AppLayout.getWidth(140),
           toolbarHeight: AppLayout.getHeight(50),
           backgroundColor: AppColor.cardColor,
@@ -47,7 +48,7 @@ class CustomAppbar extends GetView<NotificationController>
               ],
             )
           ],
-          elevation: 0,
+          elevation: .5,
         ));
   }
 

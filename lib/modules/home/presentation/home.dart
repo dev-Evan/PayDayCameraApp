@@ -63,7 +63,7 @@ class _HomeState extends State<Home> {
         unselectedFontSize: Dimensions.fontSizeDefault - 1,
         showUnselectedLabels: true,
         items: _items,
-        elevation: 3,
+        elevation: 6,
         backgroundColor: AppColor.bgColor,
         currentIndex: currentIndex,
         onTap: (index) => onTap(index),

@@ -12,7 +12,7 @@ Widget customMoreAppbar({
   Function ? onAction ,
 }) {
   return AppBar(
-    elevation: 0,
+    elevation: .5,
     leading: IconButton(
       onPressed: (){
         if(onAction !=null){
