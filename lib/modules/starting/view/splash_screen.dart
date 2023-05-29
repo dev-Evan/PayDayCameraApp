@@ -31,13 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (idStore == null) {
       Get.toNamed(AppString.onboardScreen);
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => OnboardingScreen()),
-      );
     } else if (logValue != null && remValue != null) {
-      //Get.toNamed(AppString.home);
       Get.toNamed(AppString.home);
     } else {
       Get.toNamed(AppString.signInScreen);
@@ -56,8 +50,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     logoSwipe();
-    nextPage();
     logoSwipeHW();
+    nextPage();
     super.initState();
   }
 
@@ -114,8 +108,6 @@ Widget _containerLayout({isLoad, width, height}) {
 Widget _animatedLogo({required height, required width}) {
   return AnimatedContainer(
       duration: const Duration(milliseconds: 900),
-      width: width,
-      height: height,
       child: _logoView(logo: Images.favIcon));
 }
 
