@@ -44,14 +44,14 @@ class _ApplyLevPopUpCalendarState extends State<ApplyLevPopUpCalendar> {
           rowHeight: 38,
           calendarStyle: CalendarStyle(
               selectedDecoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: AppColor.primary_blue),
+                  shape: BoxShape.circle, color: AppColor.primaryBlue),
               todayDecoration: const BoxDecoration(
                   shape: BoxShape.circle, color: Colors.transparent),
               todayTextStyle: AppStyle.extra_large_text_black.copyWith(
-                  color: AppColor.primary_blue, fontWeight: FontWeight.bold)),
+                  color: AppColor.primaryBlue, fontWeight: FontWeight.bold)),
           headerStyle: HeaderStyle(
               titleTextStyle: AppStyle.normal_text.copyWith(
-                  color: AppColor.primary_blue, fontWeight: FontWeight.bold),
+                  color: AppColor.primaryBlue, fontWeight: FontWeight.bold),
               titleCentered: true,
               formatButtonVisible: false),
           availableGestures: AvailableGestures.all,

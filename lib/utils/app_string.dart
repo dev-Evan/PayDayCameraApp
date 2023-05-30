@@ -425,5 +425,6 @@ class AppString {
   static const String addressDetails = "/addressDetails_screen";
   static const String aboutPage = "/aboutPage_screen";
   static const String payrunBage = "/payrunBage_screen";
+  static const String notification_screen = "/notification_screen";
 
 }

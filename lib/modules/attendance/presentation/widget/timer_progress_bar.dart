@@ -42,7 +42,7 @@ class _TimerProgressBarState extends State<TimerProgressBar>
         children: [
           CustomPaint(
             painter:
-                ProgressArc(arc: null, progressColor: AppColor.primary_blue),
+                ProgressArc(arc: null, progressColor: AppColor.primaryBlue),
           ),
           CustomPaint(
             painter:

@@ -128,11 +128,11 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
         children: [
           _inTimeLog(),
           const Spacer(),
-          verticalDivider(dividerColor: AppColor.grey_drak),
+          verticalDivider(dividerColor: AppColor.greyDark),
           const Spacer(),
           _outTimeLog(),
           const Spacer(),
-          verticalDivider(dividerColor: AppColor.grey_drak),
+          verticalDivider(dividerColor: AppColor.greyDark),
           const Spacer(),
           _totalTimeLog(),
         ]);
@@ -200,8 +200,8 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
     final controller = Get.find<AttendanceController>();
     return Obx(() => AppButton(
           buttonColor: controller.isPunchIn.value
-              ? AppColor.primary_orange
-              : AppColor.primary_green,
+              ? AppColor.primaryOrange
+              : AppColor.primaryGreen,
           buttonText: controller.isPunchIn.value
               ? AppString.text_punch_out
               : AppString.text_punch_in,

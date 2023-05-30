@@ -46,14 +46,14 @@ class _SingleDatePickerState extends State<SingleDatePicker> {
           TableCalendar(
             calendarStyle: CalendarStyle(
                 selectedDecoration: const BoxDecoration(
-                    shape: BoxShape.circle, color: AppColor.primary_blue),
+                    shape: BoxShape.circle, color: AppColor.primaryBlue),
                 todayDecoration: const BoxDecoration(
                     shape: BoxShape.circle, color: Colors.transparent),
                 todayTextStyle: AppStyle.extra_large_text_black.copyWith(
-                    color: AppColor.primary_blue, fontWeight: FontWeight.bold)),
+                    color: AppColor.primaryBlue, fontWeight: FontWeight.bold)),
             headerStyle: HeaderStyle(
                 titleTextStyle: AppStyle.normal_text.copyWith(
-                    color: AppColor.primary_blue, fontWeight: FontWeight.bold),
+                    color: AppColor.primaryBlue, fontWeight: FontWeight.bold),
                 titleCentered: true,
                 formatButtonVisible: false),
             focusedDay: today,
@@ -79,7 +79,7 @@ class _SingleDatePickerState extends State<SingleDatePicker> {
                 Get.find<LeaveController>().requestLeaveQueries["date"]=DateFormat('yyyy-MM-dd').format(today);
               },
               isButtonExpanded: false,
-              buttonColor: AppColor.primary_blue,
+              buttonColor: AppColor.primaryBlue,
             ),
           ),
           const Spacer(),

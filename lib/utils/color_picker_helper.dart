@@ -7,26 +7,35 @@ import 'app_color.dart';
 class Util {
   Util._();
 
-  static Color getBtnBgColor(String behaviour, bool isColorWhite) {
-    if (behaviour.startsWith("late")) {
-      return AppColor.errorColor;
-    } else if (behaviour.startsWith("regular")) {
-      return isColorWhite
-          ? Colors.white
-          : AppColor.primary_green.withOpacity(.15);
-    } else {
-      return AppColor.primary_orange;
+
+  static Color getBtnBgColor(
+      {required String behaviour, required bool isBgColorWhite}) {
+    if (!isBgColorWhite) {
+      if (behaviour.toLowerCase() == EntryBehaviour.early) {
+        return AppColor.primaryOrange;
+      } else if (behaviour.toLowerCase() == EntryBehaviour.regular) {
+        return AppColor.primaryGreen;
+      } else {
+        return AppColor.primaryRed;
+      }
     }
+
+    return Colors.white;
   }
 
-  static Color getBtnTextColor(String behaviour) {
-    if (behaviour.startsWith("late")) {
-      return Colors.white;
-    } else if (behaviour.startsWith("regular")) {
-      return AppColor.primary_green;
-    } else {
-      return Colors.white;
+  static Color getBtnTextColor(
+      {required String behaviour, required bool isBgColorWhite}) {
+    if (isBgColorWhite) {
+      if (behaviour.toLowerCase() == EntryBehaviour.early) {
+        return AppColor.primaryOrange;
+      } else if (behaviour.toLowerCase() == EntryBehaviour.regular) {
+        return AppColor.primaryGreen;
+      } else {
+        return AppColor.primaryRed;
+      }
     }
+
+    return Colors.white;
   }
 
   static Color getChipBgColor(String status) {
@@ -34,7 +43,7 @@ class Util {
       case "warning":
         return AppColor.pendingBgColor.withOpacity(.15);
       case "success":
-        return AppColor.primary_green.withOpacity(.15);
+        return AppColor.primaryGreen.withOpacity(.15);
       default:
         return AppColor.errorColor.withOpacity(.15);
     }
@@ -45,7 +54,7 @@ class Util {
       case "warning":
         return AppColor.pendingBgColor;
       case "success":
-        return AppColor.primary_green;
+        return AppColor.primaryGreen;
       default:
         return AppColor.errorColor;
     }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/logs_list.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/selected_range_calender.dart';
@@ -30,12 +29,7 @@ class AllLogsScreen extends GetView<AttendanceLogsController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWell(
-                  onTap: () => customButtomSheet(
-                      context: context,
-                      height: 0.9,
-                      child: SelectRangeCalender(
-                          rangeCalendarMethodImp:
-                              RangeCalendarMethodImp.ALL_LOG)),
+                  onTap: () => _openBottomSheet(),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -132,6 +126,19 @@ class AllLogsScreen extends GetView<AttendanceLogsController> {
               : Container(),
         ),
       ],
+    );
+  }
+
+  Future _openBottomSheet() {
+    return showModalBottomSheet(
+      enableDrag: false,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: Get.context!,
+      builder: (context) =>
+          SelectRangeCalender(
+              rangeCalendarMethodImp:
+              RangeCalendarMethodImp.ALL_LOG),
     );
   }
 }

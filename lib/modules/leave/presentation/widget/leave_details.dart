@@ -188,7 +188,7 @@ class LeaveDetails extends GetView<LeaveController> {
             child: const LogResponse());
       },
       buttonText: AppString.text_log_response,
-      buttonColor: AppColor.primary_blue,
+      buttonColor: AppColor.primaryBlue,
       textColor: Colors.white,
     );
   }

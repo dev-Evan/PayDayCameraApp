@@ -60,7 +60,7 @@ Future errorAlertPopup(Function onReloadClicked) {
                 child: TextButton.icon(
                   icon: const Icon(Icons.refresh),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColor.primary_blue,
+                    backgroundColor: AppColor.primaryBlue,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
                   ),

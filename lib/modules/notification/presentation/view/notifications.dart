@@ -3,7 +3,6 @@ import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -11,7 +10,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import '../controller/notication_controller.dart';
 
 class Notifications extends GetView<NotificationController> {
-  const Notifications({Key? key}) : super(key: key);
+  const  Notifications({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +52,7 @@ class Notifications extends GetView<NotificationController> {
       decoration: BoxDecoration(
           color: controller.allNotifications[index].read ?? false
               ? Colors.transparent
-              : AppColor.primary_blue.withOpacity(.15),
+              : AppColor.primaryBlue.withOpacity(.15),
           border: Border(
               bottom: BorderSide(color: Colors.grey.shade500, width: .5))),
       width: double.infinity,
@@ -87,11 +86,11 @@ class Notifications extends GetView<NotificationController> {
           color: Colors.black,
         ),
       ),
-      centerTitle: true,
       title: Text(
         AppString.notification,
         style: AppStyle.title_text.copyWith(color: Colors.black, fontSize: 16),
       ),
+      titleSpacing: 0,
       actions: [
         InkWell(
           onTap: () => controller.notificationAaALLRead(),
@@ -102,13 +101,9 @@ class Notifications extends GetView<NotificationController> {
             ),
             child: Align(
               alignment: Alignment.center,
-              child: Text(
-                controller.notifications.data != null &&
-                    controller.notifications.data!.data!.length > 0
-                    ? AppString.mark_read
-                    : "",
+              child: Text(AppString.mark_read,
                 style: AppStyle.normal_text
-                    .copyWith(color: AppColor.primary_blue,fontSize: 14),
+                    .copyWith(color: AppColor.primaryBlue,fontSize: 16),
               ),
             ),
           ),

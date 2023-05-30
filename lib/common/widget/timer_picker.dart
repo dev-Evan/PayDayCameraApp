@@ -72,7 +72,7 @@ _openClock() {
             child: Text(
               " : ",
               style: AppStyle.large_text_black.copyWith(
-                  color: AppColor.primary_blue,
+                  color: AppColor.primaryBlue,
                   fontSize: 24,
                   fontWeight: FontWeight.bold),
             ),
@@ -130,7 +130,7 @@ _saveButton(BuildContext context) {
           ));
         }
       },
-      buttonColor: AppColor.primary_blue,
+      buttonColor: AppColor.primaryBlue,
     ),
   );
 }

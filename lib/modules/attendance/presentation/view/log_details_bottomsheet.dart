@@ -74,7 +74,7 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
 
   _editButton(BuildContext context) {
     return AppButton(
-      buttonColor: AppColor.primary_blue,
+      buttonColor: AppColor.primaryBlue,
       buttonText: AppString.text_edit,
       onPressed: () => _openEditBottomSheet(),
     );

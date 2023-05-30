@@ -8,6 +8,7 @@ class NotificationController extends GetxController with StateMixin {
   @override
   void onInit() async {
     await getAllUnreadNotification();
+    await getAllNotification();
     scrollController = ScrollController()
       ..addListener(() {
         if (scrollController.position.pixels ==

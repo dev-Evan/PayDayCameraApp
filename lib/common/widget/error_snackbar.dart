@@ -13,7 +13,7 @@ SnackbarController errorSnackbar({required String errorMessage}) =>
       snackPosition: SnackPosition.BOTTOM,
       borderRadius: 4,
       snackStyle: SnackStyle.FLOATING,
-      backgroundColor: AppColor.primary_blue,
+      backgroundColor: AppColor.primaryBlue,
       isDismissible: false,
       duration: Duration(seconds: 3),
       forwardAnimationCurve: Curves.easeInOut,

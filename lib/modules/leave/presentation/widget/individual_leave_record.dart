@@ -82,7 +82,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
           selectedTextStyle: AppStyle.normal_text_black
               .copyWith(fontSize: 30, color: Colors.white),
           selectedDecoration:
-              defaultTableDecoration.copyWith(color: AppColor.primary_blue),
+              defaultTableDecoration.copyWith(color: AppColor.primaryBlue),
           todayDecoration: const BoxDecoration(color: Colors.transparent),
           todayTextStyle: AppStyle.normal_text_black.copyWith(fontSize: 30)),
       onHeaderTapped: (focusedDay) {
@@ -91,7 +91,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
       headerStyle: HeaderStyle(
           titleTextStyle: AppStyle.normal_text.copyWith(
               fontSize: 24,
-              color: AppColor.primary_blue,
+              color: AppColor.primaryBlue,
               fontWeight: FontWeight.bold),
           titleCentered: true,
           formatButtonVisible: false),

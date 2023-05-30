@@ -45,7 +45,7 @@ Future networkErrorAlertPopup() {
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      color: AppColor.primary_blue,
+                      color: AppColor.primaryBlue,
                       borderRadius: BorderRadius.circular(8)),
                   padding: EdgeInsets.symmetric(vertical: AppLayout.getHeight(8)),
                   child:

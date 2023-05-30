@@ -32,12 +32,12 @@ class _CustomWheelPickerMinsState extends State<CustomWheelPickerMins> {
           border: Border(
             top: BorderSide(
               //<--- top side
-              color: AppColor.primary_blue,
+              color: AppColor.primaryBlue,
               width: 1.0,
             ),
             bottom: BorderSide(
               //  <--- top side
-              color: AppColor.primary_blue,
+              color: AppColor.primaryBlue,
               width: 1.0,
             ),
           ),
@@ -53,7 +53,7 @@ class _CustomWheelPickerMinsState extends State<CustomWheelPickerMins> {
         return Text("${widget.list[index]}",
             style: currentIndex == index
                 ? AppStyle.large_text_black.copyWith(
-                    fontWeight: FontWeight.w600, color: AppColor.primary_blue)
+                    fontWeight: FontWeight.w600, color: AppColor.primaryBlue)
                 : AppStyle.large_text_black.copyWith(
                     fontWeight: FontWeight.w400,
                   ));
