@@ -32,6 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (idStore == null) {
       Get.toNamed(AppString.onboardScreen);
     } else if (logValue != null && remValue != null) {
+
       Get.toNamed(AppString.home);
     } else {
       Get.toNamed(AppString.signInScreen);

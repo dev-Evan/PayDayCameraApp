@@ -343,6 +343,9 @@ class AppString {
   static String text_caleder = "Calender";
   static String text_this_month = "This month";
   static String text_success = "Success";
+  static String text_enter_your_about = "Enter your about";
+  static String text_enter_your_address = "Enter your address";
+
   static String text_back = "Back";
   static String text_enter_massage = "Enter message";
   static String text_password_change_successfully = "Password changed successfully";

@@ -17,8 +17,7 @@ class CustomAppbar extends GetView<NotificationController>
   Widget build(BuildContext context) {
     return Obx(() => AppBar(
           scrolledUnderElevation: .5,
-          leadingWidth: AppLayout.getWidth(140),
-          toolbarHeight: AppLayout.getHeight(50),
+        
           backgroundColor: AppColor.cardColor,
           leading: Padding(
             padding: const EdgeInsets.only(left: 12.0),
@@ -57,7 +56,7 @@ class CustomAppbar extends GetView<NotificationController>
   }
 
   @override
-  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(52));
+  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(58));
 }
 
 Widget logoView({double? height = 35, double? width = 35, String? url}) {

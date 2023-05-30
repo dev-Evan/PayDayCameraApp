@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/widget/custom_status_button.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 
 import '../../../../utils/app_string.dart';
@@ -44,11 +45,12 @@ Widget infoLayout() {
 
 _userName() {
   return Text(
-    "Hi, ${GetStorage().read(AppString.USER_FIRST_NAME)}",
+    "Hi, ${ Get.find<ProfileDataController>().userProfile.data?.fullName
+        .toString() ??
+        GetStorage().read(AppString.USER_FIRST_NAME)}",
     style: AppStyle.title_text,
   );
 }
-
 _getCurrentDate() {
   return Text(
     DateFormat.MMMMEEEEd().format(DateTime.now()),

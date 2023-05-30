@@ -143,9 +143,10 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ),
                   customSpacerHeight(height: Dimensions.fontSizeDefault + 4),
-                  logInButton(
-                      onAction: () => Get.find<AuthController>().logIn(
-                          Get.find<AuthController>().emailController.text, Get.find<AuthController>().passwordController.text))
+          logInButton(
+            onAction: () => Get.find<AuthController>().logIn(
+                Get.find<AuthController>().emailController.text, Get.find<AuthController>().passwordController.text))
+
                 ],
               ),
             )),

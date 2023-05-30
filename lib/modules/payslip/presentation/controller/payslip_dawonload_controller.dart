@@ -23,9 +23,9 @@ class PayslipDownlaodController extends GetxController with StateMixin {
         uri,
         headers: {'Authorization': 'Bearer $token'},
       );
-     // final directory = await getExternalStorageDirectory();
-      final directory = await getTemporaryDirectory();
-      final path = '${directory.path}/Payslip for $date.pdf';
+      final directory = await getExternalStorageDirectory();
+      //final directory = await getApplicationDocumentsDirectory();
+      final path = '${directory?.path}/Payslip for $date.pdf';
       final bytes = response.bodyBytes;
       final file = File(path);
       await file.writeAsBytes(bytes);
