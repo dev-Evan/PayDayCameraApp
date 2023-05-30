@@ -11,6 +11,7 @@ import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/widget/custom_alert_dialog.dart';
+import '../../../../common/widget/error_snackbar.dart';
 import 'edit_profile_drop_dawon_cnt.dart';
 
 class EditProfileDataController extends GetxController with StateMixin {
@@ -46,9 +47,12 @@ class EditProfileDataController extends GetxController with StateMixin {
         _successDialog();
       }, onError: (error) {
         print(error.toString());
+        errorSnackBar(errorMessage: error.toString());
+
       });
     } catch (ex) {
-      _showToast(ex.toString());
+      errorSnackBar(errorMessage: ex.toString());
+      //_showToast(ex.toString());
     }
     change(null, status: RxStatus.success());
   }

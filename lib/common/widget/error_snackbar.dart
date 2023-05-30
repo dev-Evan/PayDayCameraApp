@@ -4,7 +4,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 
 import '../../utils/app_string.dart';
 
-SnackbarController errorSnackbar({required String errorMessage}) =>
+SnackbarController errorSnackBar({required String errorMessage}) =>
     Get.snackbar(
       AppString.text_error,
       errorMessage,

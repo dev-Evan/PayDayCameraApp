@@ -12,7 +12,7 @@ Widget textFieldTitleText({titleText}) {
     child: Text(
       titleText,
       style: AppStyle.small_text.copyWith(
-          color: AppColor.hintColor,
+          color: AppColor.normalTextColor,
           fontWeight: FontWeight.w600,
           fontSize: Dimensions.fontSizeDefault+1),
     ),
@@ -25,7 +25,7 @@ Widget textFieldTitleText2({titleText}) {
     child: Text(
       titleText,
       style: AppStyle.small_text.copyWith(
-          color: AppColor.hintColor,
+          color: AppColor.normalTextColor,
           fontWeight: FontWeight.w600,
           fontSize: Dimensions.fontSizeDefault),
     ),

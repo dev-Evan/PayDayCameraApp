@@ -20,8 +20,6 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-
-
   bool _isLeft = false;
   bool _rememberMe = false;
 
@@ -81,7 +79,8 @@ class _SignInScreenState extends State<SignInScreen> {
                               CustomTextFeild(
                                 hintText: AppString.enterYourEmail,
                                 inputType: TextInputType.emailAddress,
-                                controller: Get.find<AuthController>().emailController,
+                                controller:
+                                    Get.find<AuthController>().emailController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return AppString.fieldIsRequired;
@@ -98,7 +97,8 @@ class _SignInScreenState extends State<SignInScreen> {
                               CustomPasswordTextField(
                                 hintText: AppString.enterYourPassword,
                                 inputType: TextInputType.emailAddress,
-                                controller: Get.find<AuthController>().passwordController,
+                                controller: Get.find<AuthController>()
+                                    .passwordController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return AppString.fieldIsRequired;
@@ -143,10 +143,11 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ),
                   customSpacerHeight(height: Dimensions.fontSizeDefault + 4),
-          logInButton(
-            onAction: () => Get.find<AuthController>().logIn(
-                Get.find<AuthController>().emailController.text, Get.find<AuthController>().passwordController.text))
-
+                  logInButton(onAction: () {
+                    if (_formKey.currentState!.validate()) {
+                      Get.find<AuthController>().logIn();
+                    }
+                  })
                 ],
               ),
             )),

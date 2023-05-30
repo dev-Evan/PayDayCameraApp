@@ -246,7 +246,10 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
         SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
         InputNote(
             controller:
-                Get.find<AttendanceLogsController>().textEditingController),
+                Get.find<AttendanceLogsController>().textEditingController,
+
+
+        ),
       ],
     );
   }

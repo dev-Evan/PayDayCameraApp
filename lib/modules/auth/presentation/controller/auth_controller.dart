@@ -11,20 +11,38 @@ import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
+
 class AuthController extends GetxController with StateMixin {
   final AuthDataSource _authDataSource = AuthDataSource(NetworkClient());
   ResetPasswordModel resetPasswordModel = ResetPasswordModel();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final GetStorage box = GetStorage();
+  @override
+  void onInit() {
+    restPassword();
+    super.onInit();
+  }
 
-  void logIn(String email, String password) {
+  void logIn() {
+    Get.dialog(Center(child: CircularProgressIndicator()));
     try {
-      _authDataSource.loginIntoAccount(email, password).then((value) {
+      _authDataSource
+          .loginIntoAccount(emailController.text, passwordController.text)
+          .then((value) {
         print(value);
         _writeUserInfo(value);
+        Get.back();
         Get.offAllNamed(AppString.home);
-      }, onError: (error) => _showToast(error.message));
+      }, onError: (error) {
+        Get.back();
+        _showToast(error.message);
+
+      }
+
+
+
+      );
     } catch (ex) {
       print(ex.toString());
       _showToast(ex.toString());
@@ -48,7 +66,7 @@ class AuthController extends GetxController with StateMixin {
       textColor: Colors.white,
       fontSize: 16.0);
 
-  restPassword() async {
+  void restPassword() async {
     change(null, status: RxStatus.loading());
     try {
       await _authDataSource.restPasswordRepo().then((value) {

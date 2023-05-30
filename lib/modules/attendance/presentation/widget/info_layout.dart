@@ -45,9 +45,7 @@ Widget infoLayout() {
 
 _userName() {
   return Text(
-    "Hi, ${ Get.find<ProfileDataController>().userProfile.data?.fullName
-        .toString() ??
-        GetStorage().read(AppString.USER_FIRST_NAME)}",
+    "Hi, ${GetStorage().read(AppString.USER_FIRST_NAME)}",
     style: AppStyle.title_text,
   );
 }

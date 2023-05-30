@@ -81,6 +81,9 @@ class ViewProfile extends GetView<ProfileDataController> {
                             ):Container(),
                       customSpacerHeight(height: 14),
                       textFieldTitleText(titleText: AppString.text_general),
+
+                      controller.userProfile.data?.departmentName !=
+                          null &&
                       controller.userProfile.data!.departmentName!.isEmpty
                           ? Container()
                           : cardView(
@@ -90,16 +93,25 @@ class ViewProfile extends GetView<ProfileDataController> {
                                   "",
                               titleText: AppString.text_department,
                               icon: Icons.work_outline_outlined),
+
+                      controller.userProfile.data?.workingShiftType !=
+                          null &&
                       controller.userProfile.data!.workingShiftType!.isEmpty
                           ? Container()
                           : cardView(
-                              titleText: AppString.text_shift,
+                              titleText: AppString.text_workShift,
                               dynamicText: controller
                                       .userProfile.data?.workingShiftType
                                       .toString() ??
                                   "",
                               icon: Icons.access_time_outlined),
-                      controller.userProfile.data!.email!.isEmpty
+
+
+                      controller.userProfile.data?.email !=
+                          null &&
+                          controller.userProfile.data!.email!.isEmpty
+
+
                           ? Container()
                           : cardView(
                               dynamicText: controller.userProfile.data?.email
@@ -107,7 +119,14 @@ class ViewProfile extends GetView<ProfileDataController> {
                                   "",
                               titleText: AppString.text_email,
                               icon: CupertinoIcons.mail),
-                      controller.userProfile.data!.contact!.isEmpty
+
+
+                      controller.userProfile.data?.contact !=
+                          null &&
+                          controller.userProfile.data!.contact!.isEmpty
+
+
+
                           ? Container()
                           : cardView(
                               dynamicText: controller.userProfile.data?.contact
@@ -117,7 +136,13 @@ class ViewProfile extends GetView<ProfileDataController> {
                               icon: CupertinoIcons.phone),
                       customSpacerHeight(height: 14),
                       textFieldTitleText(titleText: AppString.text_personal),
-                      controller.userProfile.data!.address!.isEmpty
+
+                      controller.userProfile.data?.address !=
+                          null &&
+                          controller.userProfile.data!.address!.isEmpty
+
+
+
                           ? Container()
                           : cardView(
                               dynamicText: controller.userProfile.data?.address
@@ -125,7 +150,12 @@ class ViewProfile extends GetView<ProfileDataController> {
                                   "",
                               titleText: AppString.text_address,
                               icon: CupertinoIcons.home),
-                      controller.userProfile.data!.dateOfBirth!.isEmpty
+                      controller.userProfile.data?.dateOfBirth !=
+                          null &&
+                          controller.userProfile.data!.dateOfBirth!.isEmpty
+
+
+
                           ? Container()
                           : cardView(
                               dynamicText: controller
@@ -134,7 +164,12 @@ class ViewProfile extends GetView<ProfileDataController> {
                                   "",
                               titleText: AppString.text_birthday,
                               icon: Icons.card_giftcard),
-                      controller.userProfile.data!.gender!.isEmpty
+
+                      controller.userProfile.data?.gender !=
+                          null &&
+                          controller.userProfile.data!.gender!.isEmpty
+
+
                           ? Container()
                           : cardView(
                               dynamicText: controller.userProfile.data?.gender

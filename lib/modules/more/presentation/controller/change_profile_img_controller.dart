@@ -1,10 +1,10 @@
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pay_day_mobile/modules/more/data/change_profile_image_repo.dart';
 
 
-class ImagePickerController extends GetxController {
+class ImagePickerController extends GetxController with StateMixin{
   ChangeProfileImageRepo changeProfileImageRepo =ChangeProfileImageRepo();
 
   var pickedImage = Rx<XFile?>(null);
@@ -15,14 +15,20 @@ class ImagePickerController extends GetxController {
       await uploadDocument(image);
     }
   }
-
   uploadDocument(XFile image) async{
+    change(null, status: RxStatus.loading());
+    Get.dialog(Center(child: CircularProgressIndicator()));
     await changeProfileImageRepo.changeImageRepo(
       image: image,
     ).then((value) {
+      Get.back();
       print(value.toString());
     }, onError: (error) {
       print(error.message);
     });
+
+    change(null, status: RxStatus.success());
+
+
   }
 }
