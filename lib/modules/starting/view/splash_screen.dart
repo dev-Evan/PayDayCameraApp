@@ -36,19 +36,16 @@ class _SplashScreenState extends State<SplashScreen> {
       );
     } else if (logValue != null && remValue != null) {
       //Get.toNamed(AppString.home);
-
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const Home()),
       );
     } else {
-
-
-
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => SignInScreen()),
-      );    }
+      );
+    }
   }
 
   isMove() {

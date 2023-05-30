@@ -34,18 +34,12 @@ Widget vertical({required child}) {
 
 Widget dropDawnBtnCard({required child}) {
   return Padding(
-    padding: EdgeInsets.only(top: AppLayout.getHeight(8)),
-    child: Card(
-      color: AppColor.cardColor,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-          side: const BorderSide(width: 0.0, color: Colors.transparent)),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: child,
-      ),
-    ),
+    padding: EdgeInsets.only(
+        left: AppLayout.getWidth(18),
+        right: AppLayout.getWidth(8),
+        top: AppLayout.getHeight(12),
+        bottom: AppLayout.getHeight(8)),
+    child: child,
   );
 }
 

@@ -163,7 +163,7 @@ class EditProfile extends StatelessWidget {
                             .userProfile
                             .data
                             ?.address ??
-                        "",
+                        AppString.text_enter_your_address,
                     controller:
                         Get.find<EditProfileDataController>().addressController,
                   ),
@@ -175,7 +175,7 @@ class EditProfile extends StatelessWidget {
                                   .userProfile
                                   .data
                                   ?.dateOfBirth ??
-                              "",
+                              "YYY-MM-DD",
                       dobIcon: Icons.calendar_month,
                       dobIconAction: () {
                         profileCalenderDialog(
@@ -199,7 +199,7 @@ class EditProfile extends StatelessWidget {
                             .userProfile
                             .data
                             ?.aboutMe ??
-                        "",
+                        AppString.text_enter_your_about,
                     controller:
                         Get.find<EditProfileDataController>().aboutMeController,
                   )

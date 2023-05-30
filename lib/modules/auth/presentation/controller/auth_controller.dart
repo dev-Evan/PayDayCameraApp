@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -16,8 +18,6 @@ class AuthController extends GetxController with StateMixin {
   final TextEditingController passwordController = TextEditingController();
   final GetStorage box = GetStorage();
 
-
-
   void logIn(String email, String password) {
     try {
       _authDataSource.loginIntoAccount(email, password).then((value) {
@@ -29,7 +29,6 @@ class AuthController extends GetxController with StateMixin {
       print(ex.toString());
       _showToast(ex.toString());
     }
-    change(null, status: RxStatus.success());
   }
 
   void _writeUserInfo(Login? login) {
