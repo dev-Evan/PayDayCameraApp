@@ -118,10 +118,10 @@ _leaves({required List<Leaves> leaves}) {
                         ),
                         CustomStatusButton(
                           bgColor: Util.getChipBgColor(
-                              leaves[index].leaveStatusClass!),
+                              status: leaves[index].leaveStatusClass!),
                           text: leaves[index].leaveStatus,
                           textColor: Util.getChipTextColor(
-                              leaves[index].leaveStatusClass!),
+                              status: leaves[index].leaveStatusClass!),
                         ),
                       ],
                     )

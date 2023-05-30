@@ -7,13 +7,12 @@ import 'app_color.dart';
 class Util {
   Util._();
 
-
   static Color getBtnBgColor(
       {required String behaviour, required bool isBgColorWhite}) {
     if (!isBgColorWhite) {
-      if (behaviour.toLowerCase() == EntryBehaviour.early) {
+      if (behaviour.toLowerCase() == EntryBehaviour.early.name) {
         return AppColor.primaryOrange;
-      } else if (behaviour.toLowerCase() == EntryBehaviour.regular) {
+      } else if (behaviour.toLowerCase() == EntryBehaviour.regular.name) {
         return AppColor.primaryGreen;
       } else {
         return AppColor.primaryRed;
@@ -26,9 +25,9 @@ class Util {
   static Color getBtnTextColor(
       {required String behaviour, required bool isBgColorWhite}) {
     if (isBgColorWhite) {
-      if (behaviour.toLowerCase() == EntryBehaviour.early) {
+      if (behaviour.toLowerCase() == EntryBehaviour.early.name) {
         return AppColor.primaryOrange;
-      } else if (behaviour.toLowerCase() == EntryBehaviour.regular) {
+      } else if (behaviour.toLowerCase() == EntryBehaviour.regular.name) {
         return AppColor.primaryGreen;
       } else {
         return AppColor.primaryRed;
@@ -38,32 +37,30 @@ class Util {
     return Colors.white;
   }
 
-  static Color getChipBgColor(String status) {
-    switch (status) {
-      case "warning":
-        return AppColor.pendingBgColor.withOpacity(.15);
-      case "success":
-        return AppColor.primaryGreen.withOpacity(.15);
-      default:
-        return AppColor.errorColor.withOpacity(.15);
+  static Color getChipBgColor({required String status}) {
+    if (status.toLowerCase() == ApprovalStatus.warning.name) {
+      return AppColor.primaryYellow.withOpacity(.15);
+    } else if (status.toLowerCase() == ApprovalStatus.danger.name) {
+      return AppColor.primaryRed.withOpacity(.15);
+    } else {
+      return AppColor.primaryRed.withOpacity(.15);
     }
   }
 
-  static Color getChipTextColor(String status) {
-    switch (status) {
-      case "warning":
-        return AppColor.pendingBgColor;
-      case "success":
-        return AppColor.primaryGreen;
-      default:
-        return AppColor.errorColor;
+  static Color getChipTextColor({required String status}) {
+    if (status.toLowerCase() == "secondary") {
+      return AppColor.primaryYellow;
+    } else if (status.toLowerCase() == ApprovalStatus.danger.name) {
+      return AppColor.primaryRed;
+    } else {
+      return AppColor.primaryRed;
     }
   }
 
   static String getChipText(String status) {
-    if (status.startsWith("warning")) {
+    if (status.toLowerCase() == ApprovalStatus.warning.name) {
       return AppString.text_pending;
-    } else if (status.startsWith("status_reject")) {
+    } else if (status.toLowerCase() == ApprovalStatus.danger.name) {
       return AppString.text_rejected;
     }
     return "";

@@ -38,7 +38,7 @@ Future<void> initApp() async {
   Get.lazyPut(() => AttendanceController(), fenix: true);
   Get.lazyPut(() => AttendanceLogsController(), fenix: true);
   Get.lazyPut(() => LeaveController());
-  Get.lazyPut(() => NotificationController());
+  Get.lazyPut(() => NotificationController(),fenix: true);
   Get.lazyPut(() => AttendanceController(), fenix: true);
   Get.lazyPut(() => AttendanceLogsController(), fenix: true);
   Get.lazyPut(() => PayslipListController(), fenix: true);

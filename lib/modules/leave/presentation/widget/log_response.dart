@@ -98,9 +98,9 @@ class LogResponse extends GetView<LeaveController> {
         ),
         CustomStatusButton(
             bgColor: Util.getChipBgColor(
-                controller.leaveDetails.data!.leaveStatusClass!),
+                status: controller.leaveDetails.data!.leaveStatusClass!),
             textColor: Util.getChipTextColor(
-                controller.leaveDetails.data!.leaveStatusClass!),
+                status: controller.leaveDetails.data!.leaveStatusClass!),
             text: controller.leaveDetails.data?.leaveStatus),
       ],
     );
