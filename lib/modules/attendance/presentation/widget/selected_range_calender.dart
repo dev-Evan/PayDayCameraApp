@@ -49,311 +49,351 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        bottomSheetAppbar(
-            appbarTitle: AppString.text_select_time_range, context: context),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  TableCalendar(
-                    locale: "en_US",
-                    rowHeight: 43,
-                    rangeStartDay: _rangeStartDay,
-                    rangeEndDay: _rangeEndDate,
-                    availableGestures: AvailableGestures.all,
-                    firstDay: firstDate,
-                    lastDay: lastDate,
-                    focusedDay: today,
-                    calendarStyle: CalendarStyle(
-                        selectedDecoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColor.primary_blue),
-                        todayDecoration: const BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.transparent),
-                        todayTextStyle: AppStyle.normal_text_black),
-                    headerStyle: HeaderStyle(
-                        titleTextStyle: AppStyle.normal_text.copyWith(
-                            color: AppColor.primary_blue,
-                            fontWeight: FontWeight.bold),
-                        titleCentered: true,
-                        formatButtonVisible: false),
-                    onDaySelected: (selectedDay, focusedDay) {
-                      if (widget.rangeCalendarMethodImp !=
-                          RangeCalendarMethodImp.LEAVE_RECORD) {
-                        setState(() {
-                          if (_rangeStartDay == null) {
-                            _rangeStartDay = selectedDay;
-                            isStartDaySelected = true;
-                          }
-                          if (_rangeStartDay != null &&
-                              isStartDaySelected == true) {
-                            _rangeEndDate = selectedDay;
-                          }
-                        });
-                      }
-                    },
-                  ),
-                  // const Spacer(),
-                  Row(
+    return DraggableScrollableSheet(
+      initialChildSize: .75,
+      minChildSize: .65,
+      maxChildSize: .8,
+      builder: (context, scrollController) => Container(
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+        child: Stack(
+          children: [
+            ListView(
+              controller: scrollController,
+              children: [
+                bottomSheetAppbar(
+                    appbarTitle: AppString.text_select_time_range,
+                    context: context),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
                     children: [
-                      Expanded(child: _dateRangeFromText()),
-                      const Text('  -  '),
-                      Expanded(child: _dateRangeToText()),
+                      TableCalendar(
+                        locale: "en_US",
+                        rowHeight: 43,
+                        rangeStartDay: _rangeStartDay,
+                        rangeEndDay: _rangeEndDate,
+                        availableGestures: AvailableGestures.all,
+                        firstDay: firstDate,
+                        lastDay: lastDate,
+                        focusedDay: today,
+                        calendarStyle: CalendarStyle(
+                            selectedDecoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColor.primaryBlue),
+                            todayDecoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.transparent),
+                            todayTextStyle: AppStyle.normal_text_black),
+                        headerStyle: HeaderStyle(
+                            titleTextStyle: AppStyle.normal_text.copyWith(
+                                color: AppColor.primaryBlue,
+                                fontWeight: FontWeight.bold),
+                            titleCentered: true,
+                            formatButtonVisible: false),
+                        onDaySelected: (selectedDay, focusedDay) {
+                          if (widget.rangeCalendarMethodImp !=
+                              RangeCalendarMethodImp.LEAVE_RECORD) {
+                            setState(() {
+                              if (_rangeStartDay == null) {
+                                _rangeStartDay = selectedDay;
+                                isStartDaySelected = true;
+                              }
+                              if (_rangeStartDay != null &&
+                                  isStartDaySelected == true) {
+                                _rangeEndDate = selectedDay;
+                              }
+                            });
+                          }
+                        },
+                      ),
+                      // const Spacer(),
+                      Row(
+                        children: [
+                          Expanded(child: _dateRangeFromText()),
+                          const Text('  -  '),
+                          Expanded(child: _dateRangeToText()),
+                        ],
+                      ),
+                      // const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16.0, bottom: 16),
+                        child: CustomDiveider(
+                            0.7, MediaQuery.of(context).size.width),
+                      ),
+
+                      SizedBox(
+                        height: AppLayout.getHeight(56),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          //check the calendar type
+                          //show selection button accordingly
+                          itemCount: widget.rangeCalendarMethodImp ==
+                              RangeCalendarMethodImp.LEAVE_RECORD
+                              ? leave.length
+                              : dateTime.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              child: Card(
+                                elevation: 0,
+                                color: Colors.grey.shade100,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        Dimensions.radiusDefault)),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 12.0, right: 12, top: 8, bottom: 8),
+                                  child: Center(
+                                      child: Text(
+                                        widget.rangeCalendarMethodImp ==
+                                            RangeCalendarMethodImp.LEAVE_RECORD
+                                            ? leave[index]
+                                            : dateTime[index],
+                                        style: AppStyle.mid_large_text.copyWith(
+                                            color: AppColor.normalTextColor,
+                                            fontSize:
+                                            Dimensions.fontSizeDefault + 3),
+                                      )),
+                                ),
+                              ),
+                              onTap: () {
+                                switch (index) {
+                                  case 0:
+                                    {
+                                      if (widget.rangeCalendarMethodImp ==
+                                          RangeCalendarMethodImp.LEAVE_RECORD) {
+                                        setDateToController(
+                                            rangeName:
+                                            AppString.text_this_month,
+                                            rangeStartDate: _rangeStartDay =
+                                                DateTime.utc(
+                                                    today.year, today.month, 1),
+                                            rangeEndDate: DateTime.utc(
+                                                today.year,
+                                                today.month + 1,
+                                                0));
+
+                                        setState(() {
+                                          _rangeStartDay = DateTime.utc(
+                                              today.year, today.month, 1);
+                                          _rangeEndDate = DateTime.utc(
+                                              today.year, today.month + 1, 0);
+                                        });
+                                      } else {
+                                        setState(() {
+                                          _rangeStartDay = today;
+                                          _rangeEndDate = today;
+                                        });
+                                      }
+                                      break;
+                                    }
+                                  case 1:
+                                    {
+                                      if (widget.rangeCalendarMethodImp ==
+                                          RangeCalendarMethodImp.LEAVE_RECORD) {
+                                        setDateToController(
+                                            rangeStartDate: DateTime.utc(
+                                                today.year, today.month - 1, 1),
+                                            rangeEndDate: DateTime.utc(
+                                                today.year, today.month, 0),
+                                            rangeName:
+                                            AppString.text_last_month);
+                                        setState(() {
+                                          _rangeStartDay = DateTime.utc(
+                                              today.year, today.month - 1, 1);
+                                          _rangeEndDate = DateTime.utc(
+                                              today.year, today.month, 0);
+                                        });
+                                      } else {
+                                        setState(() {
+                                          _rangeStartDay = getDate(
+                                              today.subtract(Duration(
+                                                  days: today.weekday - 1)));
+                                          _rangeEndDate = getDate(today.add(
+                                              Duration(
+                                                  days: DateTime.daysPerWeek -
+                                                      today.weekday)));
+                                        });
+                                      }
+                                    }
+                                    break;
+                                  case 2:
+                                    if (widget.rangeCalendarMethodImp ==
+                                        RangeCalendarMethodImp.LEAVE_RECORD) {
+                                      setDateToController(
+                                          rangeStartDate:
+                                          DateTime.utc(today.year - 1, 1),
+                                          rangeEndDate: DateTime.utc(today.year,
+                                              today.month - today.month + 1, 0),
+                                          rangeName: AppString.text_last_year);
+                                      setState(() {
+                                        _rangeStartDay =
+                                            DateTime.utc(today.year - 1, 1);
+                                        _rangeEndDate = DateTime.utc(today.year,
+                                            today.month - today.month + 1, 0);
+                                      });
+                                    } else {
+                                      setState(() {
+                                        _rangeStartDay = getDate(today.subtract(
+                                            Duration(days: today.weekday + 6)));
+                                        _rangeEndDate = getDate(today.add(
+                                            Duration(
+                                                days: DateTime.daysPerWeek -
+                                                    7 -
+                                                    today.weekday)));
+                                      });
+                                    }
+
+                                    break;
+                                  case 3:
+                                    if (widget.rangeCalendarMethodImp ==
+                                        RangeCalendarMethodImp.LEAVE_RECORD) {
+                                      setDateToController(
+                                          rangeStartDate:
+                                          DateTime.utc(today.year, 1),
+                                          rangeEndDate: DateTime.utc(
+                                              today.year + 1,
+                                              today.month - today.month + 1,
+                                              0),
+                                          rangeName: AppString.text_total);
+                                      setState(() {
+                                        _rangeStartDay =
+                                            DateTime.utc(today.year, 1);
+                                        _rangeEndDate = DateTime.utc(
+                                            today.year + 1,
+                                            today.month - today.month + 1,
+                                            0);
+                                      });
+                                    } else {
+                                      setState(() {
+                                        _rangeStartDay = DateTime.utc(
+                                            today.year, today.month - 1, 1);
+                                        _rangeEndDate = DateTime.utc(
+                                            today.year, today.month, 0);
+                                      });
+                                    }
+
+                                    break;
+                                }
+                              },
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   ),
-                  // const Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16.0, bottom: 16),
-                    child:
-                        CustomDiveider(0.7, MediaQuery.of(context).size.width),
-                  ),
-
-                  SizedBox(
-                    height: AppLayout.getHeight(56),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      //check the calendar type
-                      //show selection button accordingly
-                      itemCount: widget.rangeCalendarMethodImp ==
-                              RangeCalendarMethodImp.LEAVE_RECORD
-                          ? leave.length
-                          : dateTime.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          child: Card(
-                            elevation: 0,
-                            color: Colors.grey.shade100,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    Dimensions.radiusDefault)),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 12.0, right: 12, top: 8, bottom: 8),
-                              child: Center(
-                                  child: Text(
-                                widget.rangeCalendarMethodImp ==
-                                        RangeCalendarMethodImp.LEAVE_RECORD
-                                    ? leave[index]
-                                    : dateTime[index],
-                                style: AppStyle.mid_large_text.copyWith(
-                                    color: AppColor.normalTextColor,
-                                    fontSize: Dimensions.fontSizeDefault + 3),
-                              )),
-                            ),
-                          ),
-                          onTap: () {
-                            switch (index) {
-                              case 0:
-                                {
-                                  if (widget.rangeCalendarMethodImp ==
-                                      RangeCalendarMethodImp.LEAVE_RECORD) {
-                                    setDateToController(
-                                        rangeName: AppString.text_this_month,
-                                        rangeStartDate: _rangeStartDay =
-                                            DateTime.utc(
-                                                today.year, today.month, 1),
-                                        rangeEndDate: DateTime.utc(
-                                            today.year, today.month + 1, 0));
-
-                                    setState(() {
-                                      _rangeStartDay = DateTime.utc(
-                                          today.year, today.month, 1);
-                                      _rangeEndDate = DateTime.utc(
-                                          today.year, today.month + 1, 0);
-                                    });
-                                  } else {
-                                    setState(() {
-                                      _rangeStartDay = today;
-                                      _rangeEndDate = today;
-                                    });
-                                  }
-                                  break;
-                                }
-                              case 1:
-                                {
-                                  if (widget.rangeCalendarMethodImp ==
-                                      RangeCalendarMethodImp.LEAVE_RECORD) {
-                                    setDateToController(
-                                        rangeStartDate: DateTime.utc(
-                                            today.year, today.month - 1, 1),
-                                        rangeEndDate: DateTime.utc(
-                                            today.year, today.month, 0),
-                                        rangeName: AppString.text_last_month);
-                                    setState(() {
-                                      _rangeStartDay = DateTime.utc(
-                                          today.year, today.month - 1, 1);
-                                      _rangeEndDate = DateTime.utc(
-                                          today.year, today.month, 0);
-                                    });
-                                  } else {
-                                    setState(() {
-                                      _rangeStartDay = getDate(today.subtract(
-                                          Duration(days: today.weekday - 1)));
-                                      _rangeEndDate = getDate(today.add(
-                                          Duration(
-                                              days: DateTime.daysPerWeek -
-                                                  today.weekday)));
-                                    });
-                                  }
-                                }
-                                break;
-                              case 2:
-                                if (widget.rangeCalendarMethodImp ==
-                                    RangeCalendarMethodImp.LEAVE_RECORD) {
-                                  setDateToController(
-                                      rangeStartDate:
-                                          DateTime.utc(today.year - 1, 1),
-                                      rangeEndDate: DateTime.utc(today.year,
-                                          today.month - today.month + 1, 0),
-                                      rangeName: AppString.text_last_year);
-                                  setState(() {
-                                    _rangeStartDay =
-                                        DateTime.utc(today.year - 1, 1);
-                                    _rangeEndDate = DateTime.utc(today.year,
-                                        today.month - today.month + 1, 0);
-                                  });
-                                } else {
-                                  setState(() {
-
-                                    _rangeStartDay = getDate(today.subtract(
-                                        Duration(days: today.weekday + 6)));
-                                    _rangeEndDate = getDate(today.add(Duration(
-                                        days: DateTime.daysPerWeek -
-                                            7 -
-                                            today.weekday)));
-                                  });
-                                }
-
-                                break;
-                              case 3:
-                                if (widget.rangeCalendarMethodImp ==
-                                    RangeCalendarMethodImp.LEAVE_RECORD) {
-                                  setDateToController(
-                                      rangeStartDate:
-                                          DateTime.utc(today.year, 1),
-                                      rangeEndDate: DateTime.utc(today.year + 1,
-                                          today.month - today.month + 1, 0),
-                                      rangeName: AppString.text_total);
-                                  setState(() {
-                                    _rangeStartDay =
-                                        DateTime.utc(today.year, 1);
-                                    _rangeEndDate = DateTime.utc(today.year + 1,
-                                        today.month - today.month + 1, 0);
-                                  });
-                                } else {
-                                  setState(() {
-                                    _rangeStartDay = DateTime.utc(
-                                        today.year, today.month - 1, 1);
-                                    _rangeEndDate = DateTime.utc(
-                                        today.year, today.month, 0);
-                                  });
-                                }
-
-                                break;
-                            }
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                // const Spacer(),
+              ],
             ),
-          ),
-        ),
-        // const Spacer(),
-        customDoubleButton(
-            context: context,
-            textBtnText: 'Clear',
-            textButtonAction: () {
-              clearData();
-              setState(() {
-                _rangeStartDay = null;
-                _rangeEndDate = null;
-              });
-            },
-            elevatedBtnText: 'Apply',
-            elevatedButtonAction: () {
-              print(
-                  "start ::: ${DateFormat("yyyy-MM-dd").format(_rangeStartDay!)} End ::: ${DateFormat("yyyy-MM-dd").format(_rangeEndDate!)}");
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: AppLayout.getWidth(20),
+                    vertical: AppLayout.getWidth(20)),
+                child: customDoubleButton(
+                    context: context,
+                    textBtnText: 'Clear',
+                    textButtonAction: () {
+                      clearData();
+                      setState(() {
+                        _rangeStartDay = null;
+                        _rangeEndDate = null;
+                      });
+                    },
+                    elevatedBtnText: 'Apply',
+                    elevatedButtonAction: () {
+                      print(
+                          "start ::: ${DateFormat("yyyy-MM-dd").format(_rangeStartDay!)} End ::: ${DateFormat("yyyy-MM-dd").format(_rangeEndDate!)}");
 
-              switch (widget.rangeCalendarMethodImp) {
-                case RangeCalendarMethodImp.ALL_LOG:
-                  print(RangeCalendarMethodImp.ALL_LOG);
+                      switch (widget.rangeCalendarMethodImp) {
+                        case RangeCalendarMethodImp.ALL_LOG:
+                          print(RangeCalendarMethodImp.ALL_LOG);
 
-                  if (_rangeStartDay != null && _rangeEndDate != null) {
-                    Map<String, String> queryParams = {
-                      'start': DateFormat("yyyy-MM-dd").format(_rangeStartDay!),
-                      'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
-                    };
+                          if (_rangeStartDay != null && _rangeEndDate != null) {
+                            Map<String, String> queryParams = {
+                              'start': DateFormat("yyyy-MM-dd")
+                                  .format(_rangeStartDay!),
+                              'end':
+                              DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
+                            };
 
-                    Get.find<AttendanceLogsController>().queryString.value =
-                        "date_range=${json.encode(queryParams)}";
-                    Get.find<AttendanceLogsController>()
-                        .getAllFilteredLogSummary(
-                            queryParams: Get.find<AttendanceLogsController>()
+                            Get.find<AttendanceLogsController>()
                                 .queryString
-                                .value);
-                  }
-                  Navigator.pop(Get.context!);
+                                .value = "date_range=${json.encode(queryParams)}";
+                            Get.find<AttendanceLogsController>()
+                                .getAllFilteredLogSummary(
+                                queryParams:
+                                Get.find<AttendanceLogsController>()
+                                    .queryString
+                                    .value);
+                          }
+                          Navigator.pop(Get.context!);
 
-                  break;
-                case RangeCalendarMethodImp.LOG_SUMMARY:
-                  if (_rangeStartDay != null && _rangeEndDate != null) {
-                    Map<String, String> queryParams = {
-                      'start': DateFormat("yyyy-MM-dd").format(_rangeStartDay!),
-                      'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
-                    };
+                          break;
+                        case RangeCalendarMethodImp.LOG_SUMMARY:
+                          if (_rangeStartDay != null && _rangeEndDate != null) {
+                            Map<String, String> queryParams = {
+                              'start': DateFormat("yyyy-MM-dd")
+                                  .format(_rangeStartDay!),
+                              'end':
+                              DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
+                            };
 
+                            String value = json.encode(queryParams);
+                            Get.find<AttendanceLogsController>()
+                                .getLogSummaryOverview(
+                                queryParams: "date_range=$value");
+                          }
+                          Navigator.pop(Get.context!);
+                          break;
+                        case RangeCalendarMethodImp.VIEW_HOLIDAY:
+                        // TODO: Handle this case.
+                          break;
+                        case RangeCalendarMethodImp.PAYSLIP:
+                          if (_rangeStartDay != null && _rangeEndDate != null) {
+                            Map<String, String> queryParams = {
+                              'start': DateFormat("yyyy-MM-dd")
+                                  .format(_rangeStartDay!),
+                              'end':
+                              DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
+                            };
+                            String v = json.encode(queryParams);
 
-                    String value = json.encode(queryParams);
-                    Get.find<AttendanceLogsController>().getLogSummaryOverview(
-                        queryParams: "date_range=$value");
+                            Get.find<AttendanceLogsController>()
+                                .getLogSummaryOverview(
+                                queryParams: "date_range=$v");
+                          }
+                          Navigator.pop(Get.context!);
 
-                  }
-                  Navigator.pop(Get.context!);
-                  break;
-                case RangeCalendarMethodImp.VIEW_HOLIDAY:
-                  // TODO: Handle this case.
-                  break;
-                case RangeCalendarMethodImp.PAYSLIP:
-
-                  if (_rangeStartDay != null && _rangeEndDate != null) {
-                    Map<String, String> queryParams = {
-                      'start': DateFormat("yyyy-MM-dd").format(_rangeStartDay!),
-                      'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
-                    };
-                    String v = json.encode(queryParams);
-
-                    Get.find<AttendanceLogsController>()
-                        .getLogSummaryOverview(queryParams: "date_range=$v");
-                  }
-                  Navigator.pop(Get.context!);
-
-
-                  break;
-                case RangeCalendarMethodImp.LEAVE_RECORD:
-                  if (_rangeStartDay != null && _rangeEndDate != null) {
-                    Map<String, String> queryParams = {
-                      'start': DateFormat("yyyy-MM-dd").format(_rangeStartDay!),
-                      'end': DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
-                    };
-                    String value = json.encode(queryParams);
-                    print("QueryParams: $queryParams ::: value:::: $value");
-                    Get.find<LeaveController>()
-                        .getLeaveRecord(params: "&date_range=$value");
-                  }
-                  Navigator.pop(Get.context!);
-                  break;
-              }
-            })
-      ],
+                          break;
+                        case RangeCalendarMethodImp.LEAVE_RECORD:
+                          if (_rangeStartDay != null && _rangeEndDate != null) {
+                            Map<String, String> queryParams = {
+                              'start': DateFormat("yyyy-MM-dd")
+                                  .format(_rangeStartDay!),
+                              'end':
+                              DateFormat("yyyy-MM-dd").format(_rangeEndDate!)
+                            };
+                            String value = json.encode(queryParams);
+                            print(
+                                "QueryParams: $queryParams ::: value:::: $value");
+                            Get.find<LeaveController>()
+                                .getLeaveRecord(params: "&date_range=$value");
+                          }
+                          Navigator.pop(Get.context!);
+                          break;
+                      }
+                    }),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 

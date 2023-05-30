@@ -38,11 +38,11 @@ class _AmPmToggleButtonState extends State<AmPmToggleButton> {
     return OutlinedButton(
       style: value == index
           ? OutlinedButton.styleFrom(
-              backgroundColor: AppColor.primary_blue.withOpacity(.15),
+              backgroundColor: AppColor.primaryBlue.withOpacity(.15),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              side: const BorderSide(width: .5, color: AppColor.primary_blue),
+              side: const BorderSide(width: .5, color: AppColor.primaryBlue),
             )
           : OutlinedButton.styleFrom(
               backgroundColor: Colors.grey.withOpacity(.15),
@@ -61,7 +61,7 @@ class _AmPmToggleButtonState extends State<AmPmToggleButton> {
       child: Text(
         text,
         style: TextStyle(
-          color: value == index ? AppColor.primary_blue : Colors.black,
+          color: value == index ? AppColor.primaryBlue : Colors.black,
         ),
       ),
     );

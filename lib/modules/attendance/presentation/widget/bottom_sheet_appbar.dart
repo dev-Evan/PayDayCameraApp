@@ -22,8 +22,8 @@ Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle,}) 
         ]),
     child: AppBar(
       backgroundColor: Colors.transparent,
-      elevation: 0,
       centerTitle: true,
+      elevation: 0,
       automaticallyImplyLeading: false,
       title: Text(
         appbarTitle ?? "Punch In",

@@ -105,7 +105,7 @@ class _ApplyLeaveDobHalfDayState extends State<ApplyLeaveDobHalfDay> {
             horizontal: AppLayout.getWidth(12)),
         decoration: BoxDecoration(
             color: index == _selectedValueIndex
-                ? AppColor.primary_blue
+                ? AppColor.primaryBlue
                 : Colors.white,
             borderRadius: BorderRadius.circular(8),
             border: index == _selectedValueIndex

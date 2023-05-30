@@ -48,7 +48,7 @@ class AuthController extends GetxController with StateMixin {
       textColor: Colors.white,
       fontSize: 16.0);
 
-  void restPassword() async {
+  restPassword() async {
     change(null, status: RxStatus.loading());
     try {
       await _authDataSource.restPasswordRepo().then((value) {

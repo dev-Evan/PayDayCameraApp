@@ -5,6 +5,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attendance_data_repository.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_entry/log_entry_request.dart';
@@ -17,7 +18,6 @@ import '../../domain/daily_log/daily_log.dart';
 class AttendanceController extends GetxController with StateMixin {
   final AttendanceDataRepository _attendanceDataRepository =
       AttendanceDataRepository(NetworkClient());
-
 
   @override
   void onInit() async {
@@ -56,9 +56,8 @@ class AttendanceController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  punchIn(LogEntryRequest punchInRequest) {
+  punchIn(LogEntryRequest punchInRequest) async {
     change(null, status: RxStatus.loading());
-
     _attendanceDataRepository.punchIn(punchInRequest: punchInRequest).then(
         (value) async {
       await checkUserIsPunchedIn();
@@ -67,13 +66,14 @@ class AttendanceController extends GetxController with StateMixin {
       print("punchIn :: ${value.message}");
     }, onError: (error) {
       print("punchIn :: ${error.message}");
+      errorSnackbar(errorMessage: error.message);
     });
     change(null, status: RxStatus.success());
   }
 
-  punchOut(LogEntryRequest punchOutRequest) async {
+  punchOut(LogEntryRequest punchOutRequest) {
     change(null, status: RxStatus.loading());
-    await _attendanceDataRepository
+    _attendanceDataRepository
         .punchOut(
       punchOutRequest: punchOutRequest,
     )
@@ -86,6 +86,8 @@ class AttendanceController extends GetxController with StateMixin {
       },
       onError: (error) {
         print("punchOut :: ${error.message}");
+        errorSnackbar(errorMessage: error.message);
+        ;
       },
     );
     change(null, status: RxStatus.success());
@@ -131,8 +133,10 @@ class AttendanceController extends GetxController with StateMixin {
     change(null, status: RxStatus.loading());
     await _attendanceDataRepository
         .changeAttendanceRequest(logId, changeRequestReqModel)
-        .then((value) => print("changeAttendance :: called"),
-            onError: (error) => print(error.message));
+        .then((value) => print("changeAttendance :: called"), onError: (error) {
+      print(error.message);
+      errorSnackbar(errorMessage: error.message);
+    });
     change(null, status: RxStatus.success());
   }
 

@@ -31,6 +31,8 @@ import 'modules/setting/presentation/controller/setting_controller.dart';
 Future<void> initApp() async {
   await GetStorage.init();
 
+  Get.put(ConnectivityController(), permanent: true);
+  Get.put(StatusController(),permanent: true);
 
   Get.put(ConnectivityController(), permanent: true);
   Get.lazyPut(() => AttendanceController(), fenix: true);
@@ -59,9 +61,6 @@ Future<void> initApp() async {
   Get.lazyPut(() => DeletedDocumentController(), fenix: true);
   Get.lazyPut(() => AddressUpdateController(), fenix: true);
   Get.lazyPut(() => UpdateDocumentController(), fenix: true);
-  Get.lazyPut(() => NotificationController(), fenix: true);
-  Get.lazyPut(()=>NotificationController());
-  Get.lazyPut(() => AuthController(), fenix: false);
-  Get.put(StatusController());
+  Get.lazyPut(() => AuthController(), fenix: true);
   Get.lazyPut(() => LeaveController());
 }

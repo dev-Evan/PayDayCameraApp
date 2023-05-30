@@ -7,6 +7,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
+import '../../utils/app_string.dart';
 
 class CustomAppbar extends GetView<NotificationController>
     implements PreferredSizeWidget {
@@ -15,8 +16,8 @@ class CustomAppbar extends GetView<NotificationController>
   @override
   Widget build(BuildContext context) {
     return Obx(() => AppBar(
-          leadingWidth: AppLayout.getWidth(135),
-          toolbarHeight: AppLayout.getHeight(60),
+          scrolledUnderElevation: .5,
+        
           backgroundColor: AppColor.cardColor,
           leading: Padding(
             padding: const EdgeInsets.only(left: 12.0),
@@ -28,8 +29,10 @@ class CustomAppbar extends GetView<NotificationController>
               children: [
                 IconButton(
                   onPressed: () async {
-                    _openBottomSheet(context);
-                    await controller.getAllNotification();
+                    if (!Get.isRegistered<NotificationController>()) {
+                      Get.put(NotificationController());
+                    }
+                    Get.toNamed(AppString.notification_screen);
                   },
                   icon: const Icon(
                     Icons.notifications_none,
@@ -48,12 +51,8 @@ class CustomAppbar extends GetView<NotificationController>
               ],
             )
           ],
-          elevation: 0,
+          elevation: .5,
         ));
-  }
-
-  Future? _openBottomSheet(BuildContext context) {
-    return Get.to(Notifications());
   }
 
   @override

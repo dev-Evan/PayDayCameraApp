@@ -447,7 +447,7 @@ class _CustomCalendarTimelineState extends State<CustomCalendarTimeline> {
     return Text(
       monthName,
       style: AppStyle.extra_large_text_black
-          .copyWith(color: AppColor.primary_blue, fontWeight: FontWeight.bold),
+          .copyWith(color: AppColor.primaryBlue, fontWeight: FontWeight.bold),
     );
   }
 

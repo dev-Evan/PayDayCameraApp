@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_divider.dart';
@@ -15,9 +16,11 @@ import '../../../../common/widget/custom_spacer.dart';
 
 class ViewHoliday extends StatefulWidget {
   const ViewHoliday({Key? key}) : super(key: key);
+
   @override
   State<ViewHoliday> createState() => _ViewHolidayState();
 }
+
 class _ViewHolidayState extends State<ViewHoliday> {
   @override
   Widget build(BuildContext context) {
@@ -36,13 +39,7 @@ class _ViewHolidayState extends State<ViewHoliday> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InkWell(
-                        onTap: () => customButtomSheet(
-                            context: context,
-                            height: 0.9,
-                            child: SelectRangeCalender(
-                              rangeCalendarMethodImp:
-                                  RangeCalendarMethodImp.VIEW_HOLIDAY,
-                            )),
+                        onTap: () => _openBottomSheet(),
                         child: Row(
                           children: [
                             Text(
@@ -52,7 +49,6 @@ class _ViewHolidayState extends State<ViewHoliday> {
                                   fontSize: Dimensions.fontSizeMid - 3,
                                   fontWeight: FontWeight.w700),
                             ),
-
                             customSpacerWidth(width: 4),
                             const Icon(
                               Icons.expand_more,
@@ -84,6 +80,18 @@ class _ViewHolidayState extends State<ViewHoliday> {
       ),
     );
   }
+}
+
+Future _openBottomSheet() {
+  return showModalBottomSheet(
+    enableDrag: false,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    context: Get.context!,
+    builder: (context) => SelectRangeCalender(
+      rangeCalendarMethodImp: RangeCalendarMethodImp.VIEW_HOLIDAY,
+    ),
+  );
 }
 
 Widget holidaysList() {

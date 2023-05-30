@@ -96,14 +96,21 @@ class LeaveRecordsView extends GetView<LeaveController> {
     );
   }
 
+  Future _openBottomSheet() {
+    return showModalBottomSheet(
+      enableDrag: false,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: Get.context!,
+      builder: (context) => SelectRangeCalender(
+        rangeCalendarMethodImp: RangeCalendarMethodImp.LEAVE_RECORD,
+      ),
+    );
+  }
+
   Widget _customTexTitle(context) {
     return InkWell(
-      onTap: () => customButtomSheet(
-          context: context,
-          height: 0.9,
-          child: SelectRangeCalender(
-            rangeCalendarMethodImp: RangeCalendarMethodImp.LEAVE_RECORD,
-          )),
+      onTap: () => _openBottomSheet(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

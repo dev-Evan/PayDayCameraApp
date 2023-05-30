@@ -62,6 +62,8 @@ class AppString {
   static const String text_year = "Year";
   static const String text_yes = "Yes";
   static const String text_no = "No";
+  static const String text_error = "Error!";
+  static const String notification = "Notification";
   static const String text_log_out = "Log Out";
   static const String text_all_logs = "All Logs";
   static const String text_summary = "Summary";
@@ -92,6 +94,7 @@ class AppString {
   static const String text_export_attendance = "Export Attendance?";
   static const String text_dialog_dec = "If you do this, you cannot turn back";
   static const String text_dialog_dec_pdf = "December Attendance.pdf";
+
   static String error_text = "Something went wrong! Please try again";
   static String text_reload = "Reload";
   static String text_change_log = "Change Log";
@@ -425,5 +428,6 @@ class AppString {
   static const String addressDetails = "/addressDetails_screen";
   static const String aboutPage = "/aboutPage_screen";
   static const String payrunBage = "/payrunBage_screen";
+  static const String notification_screen = "/notification_screen";
 
 }

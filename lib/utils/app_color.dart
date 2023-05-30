@@ -18,12 +18,13 @@ class AppColor {
   static const Color bgColor = Color(0xFFFFFFFF);
   static const Color solidGray = Colors.grey;
 
-  static const Color primary_blue = Color(0xFF019AFF);
-  static const Color primary_green = Color(0xFF3EAC55);
-  static const Color primary_orange = Color(0xFFFF6347);
-  static const Color gradient_blue1 = Color(0xFF008EEC);
-  static const Color gradient_blue2 = Color(0xFF019AFF);
-  static const Color light_grey = Color(0xFFDFDFDF);
-  static const Color grey_drak = Color(0xFF9397A0);
+  static const Color primaryBlue = Color(0xFF019AFF);
+  static const Color primaryGreen = Color(0xFF3EAC55);
+  static const Color primaryOrange = Color(0xFFEF780A);
+  static const Color primaryRed = Color(0xFFFF6347);
+  static const Color gradientBlueOne = Color(0xFF008EEC);
+  static const Color gradientBlueTwo = Color(0xFF019AFF);
+  static const Color lightGrey = Color(0xFFDFDFDF);
+  static const Color greyDark = Color(0xFF9397A0);
 
 }

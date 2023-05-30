@@ -66,8 +66,6 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _cancelButton(context),
-          SizedBox(width: AppLayout.getWidth(10)),
           _editButton(context),
         ],
       ),
@@ -76,7 +74,7 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
 
   _editButton(BuildContext context) {
     return AppButton(
-      buttonColor: AppColor.primary_blue,
+      buttonColor: AppColor.primaryBlue,
       buttonText: AppString.text_edit,
       onPressed: () => _openEditBottomSheet(),
     );

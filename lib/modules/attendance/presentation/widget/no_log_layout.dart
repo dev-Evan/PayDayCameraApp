@@ -8,7 +8,7 @@ import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/dimensions.dart';
 
-Widget noLogLayout(){
+Widget noLogLayout() {
   return Center(
     child: Container(
       padding: EdgeInsets.symmetric(
@@ -18,7 +18,10 @@ Widget noLogLayout(){
         children: [
           _logoView(logo: Images.no_data),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-          Text(AppString.start_out_day,style: AppStyle.large_text_black,)
+          Text(
+            AppString.start_out_day,
+            style: AppStyle.large_text_black,
+          )
         ],
       ),
     ),

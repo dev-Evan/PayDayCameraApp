@@ -15,6 +15,7 @@ import 'onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
+
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
@@ -24,27 +25,17 @@ class _SplashScreenState extends State<SplashScreen> {
   final box = GetStorage();
 
   Future chooseScreen() async {
-    final idStore = box.read(AppString.ID_STORE);
+    dynamic idStore = box.read(AppString.ID_STORE);
     dynamic remValue = box.read(AppString.REMEMBER_KEY);
     dynamic logValue = box.read(AppString.LOGIN_CHECK_KEY);
+
     if (idStore == null) {
       Get.toNamed(AppString.onboardScreen);
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => OnboardingScreen()),
-      );
     } else if (logValue != null && remValue != null) {
-      //Get.toNamed(AppString.home);
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const Home()),
-      );
+
+      Get.toNamed(AppString.home);
     } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => SignInScreen()),
-      );
+      Get.toNamed(AppString.signInScreen);
     }
   }
 
@@ -60,8 +51,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     logoSwipe();
-    nextPage();
     logoSwipeHW();
+    nextPage();
     super.initState();
   }
 
@@ -118,13 +109,13 @@ Widget _containerLayout({isLoad, width, height}) {
 Widget _animatedLogo({required height, required width}) {
   return AnimatedContainer(
       duration: const Duration(milliseconds: 900),
-      width: width,
-      height: height,
       child: _logoView(logo: Images.favIcon));
 }
 
 Widget _logoView({required logo}) {
   return SvgPicture.asset(
     logo.toString(),
+    width: 40,
+    height: 40,
   );
 }

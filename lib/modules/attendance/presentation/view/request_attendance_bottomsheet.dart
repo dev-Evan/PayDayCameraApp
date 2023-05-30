@@ -97,7 +97,7 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
   _requestButton(BuildContext context) {
     var controller = Get.find<DateTimeController>();
     return AppButton(
-      buttonColor: AppColor.primary_blue,
+      buttonColor: AppColor.primaryBlue,
       buttonText: AppString.text_request,
       onPressed: () {
         if (controller.requestedDate.isNotEmpty &&
@@ -149,7 +149,7 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-          border: Border.all(color: AppColor.light_grey, width: 1),
+          border: Border.all(color: AppColor.lightGrey, width: 1),
         ),
         padding: EdgeInsets.symmetric(
           horizontal: AppLayout.getWidth(Dimensions.paddingDefaultExtra),

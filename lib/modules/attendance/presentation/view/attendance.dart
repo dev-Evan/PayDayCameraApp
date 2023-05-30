@@ -89,7 +89,7 @@ class Attendance extends GetView<AttendanceController> {
               bottomLeft: Radius.circular(16),
               bottomRight: Radius.circular(16)),
           gradient: LinearGradient(
-              colors: [AppColor.gradient_blue1, AppColor.gradient_blue2]),
+              colors: [AppColor.gradientBlueOne, AppColor.gradientBlueTwo]),
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(

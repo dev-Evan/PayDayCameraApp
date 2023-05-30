@@ -194,7 +194,7 @@ class EditAttendanceBottomSheet extends StatelessWidget {
 
 _saveButton() {
   return AppButton(
-    buttonColor: AppColor.primary_blue,
+    buttonColor: AppColor.primaryBlue,
     buttonText: AppString.text_save,
     onPressed: () async {
       await Get.find<AttendanceController>().changeAttendance(

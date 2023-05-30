@@ -31,12 +31,12 @@ class _CustomWheelPickerHrsState extends State<CustomWheelPickerHrs> {
           border: Border(
             top: BorderSide(
               //<--- top side
-              color: AppColor.primary_blue,
+              color: AppColor.primaryBlue,
               width: 1.0,
             ),
             bottom: BorderSide(
               //  <--- top side
-              color: AppColor.primary_blue,
+              color: AppColor.primaryBlue,
               width: 1.0,
             ),
           ),
@@ -52,7 +52,7 @@ class _CustomWheelPickerHrsState extends State<CustomWheelPickerHrs> {
         return Text("${widget.list[index]}",
             style: currentIndex == index
                 ? AppStyle.large_text_black.copyWith(
-                    fontWeight: FontWeight.w600, color: AppColor.primary_blue)
+                    fontWeight: FontWeight.w600, color: AppColor.primaryBlue)
                 : AppStyle.large_text_black.copyWith(
                     fontWeight: FontWeight.w400,
                   ));

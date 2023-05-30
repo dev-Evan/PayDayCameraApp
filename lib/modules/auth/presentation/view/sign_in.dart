@@ -45,7 +45,6 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height / 6;
     double _width = MediaQuery.of(context).size.width;
-    Get.find<AuthController>().restPassword();
     final box = GetStorage();
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,

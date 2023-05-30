@@ -11,10 +11,12 @@ class NotificationRepository {
 
   NotificationRepository(this.networkClient);
 
-  Future<Notifications> getAllNotification() async {
+  Future<Notifications> getAllNotification({int? page = 1}) async {
     try {
       Response response = await networkClient.getRequest(
-          "${AppString.ALL_NOTIFICATION}?timezone=${DateTime.now().toUtc().timeZoneName}");
+          "${AppString.ALL_NOTIFICATION}?timezone=${DateTime.now().toUtc().timeZoneName}&page=$page&per_page=8");
+      print(
+          "${AppString.ALL_NOTIFICATION}?timezone=${DateTime.now().toUtc().timeZoneName}&page=$page&per_page=8");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

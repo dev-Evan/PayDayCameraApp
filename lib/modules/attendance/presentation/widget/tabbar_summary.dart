@@ -27,13 +27,7 @@ class SummaryScreen extends GetView<AttendanceLogsController> {
               children: [
                 SizedBox(height: AppLayout.getHeight(12)),
                 InkWell(
-                  onTap: () => customButtomSheet(
-                      context: context,
-                      height: 0.9,
-                      child: SelectRangeCalender(
-                        rangeCalendarMethodImp:
-                            RangeCalendarMethodImp.LOG_SUMMARY,
-                      )),
+                  onTap: () => _openBottomSheet(),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -184,3 +178,15 @@ _logOverviewInfos({required String title, required String count}) => Row(
         ),
       ],
     );
+
+Future _openBottomSheet() {
+  return showModalBottomSheet(
+    enableDrag: false,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    context: Get.context!,
+    builder: (context) => SelectRangeCalender(
+      rangeCalendarMethodImp: RangeCalendarMethodImp.LOG_SUMMARY,
+    ),
+  );
+}

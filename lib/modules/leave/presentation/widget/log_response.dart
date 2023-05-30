@@ -204,7 +204,7 @@ class LogResponse extends GetView<LeaveController> {
           onPressed: () => Get.back(),
           isButtonExpanded: true,
           buttonText: AppString.text_back,
-          buttonColor: AppColor.primary_blue,
+          buttonColor: AppColor.primaryBlue,
           textColor: Colors.white,
         ),
       ],

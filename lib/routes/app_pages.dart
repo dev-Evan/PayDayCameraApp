@@ -11,6 +11,7 @@ import 'package:pay_day_mobile/modules/more/presentation/view/jod_history.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/salary_overview.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/update_document.dart';
+import 'package:pay_day_mobile/modules/notification/presentation/view/notifications.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/view/payrun_badge.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/view/payslip.dart';
 import 'package:pay_day_mobile/modules/starting/view/onboarding_screen.dart';
@@ -24,7 +25,8 @@ List<GetPage> getPage = [
     name: AppString.splashScreen,
     page: () => const SplashScreen(),
   ),
-  GetPage(name: AppString.signInScreen,
+  GetPage(
+      name: AppString.signInScreen,
       transition: Transition.rightToLeft,
       page: () => const SignInScreen()),
   GetPage(
@@ -55,59 +57,60 @@ List<GetPage> getPage = [
     name: AppString.home,
     page: () => const Home(),
   ),
-
   GetPage(
     name: AppString.payslip,
-    page: () =>  PaySlip(),
+    page: () => PaySlip(),
   ),
   GetPage(
     name: AppString.leave,
     page: () => const Leave(),
   ),
-
   GetPage(
     name: AppString.leave,
     page: () => const Leave(),
   ),
-
   GetPage(
     name: AppString.profileView,
     transition: Transition.rightToLeft,
-    page: () =>  ViewProfile(),
+    page: () => ViewProfile(),
   ),
   GetPage(
     name: AppString.updateDocument,
-    page: () =>  const UpdateDocument(),
+    page: () => const UpdateDocument(),
   ),
   GetPage(
     name: AppString.documentScreen,
     transition: Transition.rightToLeft,
-    page: () =>   DocumentScreen(),
+    page: () => DocumentScreen(),
   ),
   GetPage(
     name: AppString.jobHistory,
     transition: Transition.rightToLeft,
-    page: () =>   JodHistory(),
+    page: () => JodHistory(),
   ),
-
   GetPage(
     name: AppString.salaryOverView,
     transition: Transition.rightToLeft,
-    page: () =>   SalaryOverView(),
+    page: () => SalaryOverView(),
   ),
   GetPage(
     name: AppString.addressDetails,
     transition: Transition.rightToLeft,
-    page: () =>   AddressDetails(),
+    page: () => AddressDetails(),
   ),
-
   GetPage(
     name: AppString.aboutPage,
     transition: Transition.rightToLeft,
-    page: () =>   const AboutThisApp(),
-  ), GetPage(
+    page: () => const AboutThisApp(),
+  ),
+  GetPage(
     name: AppString.payrunBage,
     transition: Transition.rightToLeft,
-    page: () =>    PayRunBadge(),
+    page: () => PayRunBadge(),
+  ),
+  GetPage(
+    name: AppString.notification_screen,
+    transition: Transition.rightToLeft,
+    page: () => Notifications(),
   ),
 ];

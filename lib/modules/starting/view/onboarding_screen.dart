@@ -118,7 +118,7 @@ Widget _buttonLayout({context, currentIndex, titleText}) {
       _skipButton(context: context),
       CustomSmallButton(AppString.text_next, () {
         if (currentIndex == titleText.length - 1) {
-          Get.offAndToNamed(AppString.signInScreen);
+          Get.offNamed(AppString.signInScreen);
         } else {
           currentIndex + 1;
         }

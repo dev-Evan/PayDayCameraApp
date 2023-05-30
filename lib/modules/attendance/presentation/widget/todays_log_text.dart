@@ -9,6 +9,6 @@ Widget todaysLogIntroText() {
   return Text(
     AppString.todays_log,
     style: AppStyle.mid_large_text
-        .copyWith(color: AppColor.grey_drak, fontWeight: FontWeight.w600),
+        .copyWith(color: AppColor.greyDark, fontWeight: FontWeight.w600),
   );
 }

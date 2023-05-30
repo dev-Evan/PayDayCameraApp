@@ -65,13 +65,17 @@ _logDate() {
 _entryBehaviour() {
   return CustomStatusButton(
       bgColor: Util.getBtnBgColor(
-          Get.find<AttendanceController>().logDetailsById.data?.behavior ?? "",
-          false),
+          behaviour:
+              Get.find<AttendanceController>().logDetailsById.data?.behavior ??
+                  "",
+          isBgColorWhite: false),
       text:
           Get.find<AttendanceController>().logDetailsById.data?.behavior ?? "",
       textColor: Util.getBtnTextColor(
-          Get.find<AttendanceController>().logDetailsById.data?.behavior ??
-              ""));
+          behaviour:
+              Get.find<AttendanceController>().logDetailsById.data?.behavior ??
+                  "",
+          isBgColorWhite: false));
 }
 
 _logTimeLayout() {
@@ -81,11 +85,11 @@ _logTimeLayout() {
       children: [
         _inTimeLog(),
         const Spacer(),
-        verticalDivider(dividerColor: AppColor.grey_drak),
+        verticalDivider(dividerColor: AppColor.greyDark),
         const Spacer(),
         _outTimeLog(),
         const Spacer(),
-        verticalDivider(dividerColor: AppColor.grey_drak),
+        verticalDivider(dividerColor: AppColor.greyDark),
         const Spacer(),
         _totalTimeLog(),
       ]);

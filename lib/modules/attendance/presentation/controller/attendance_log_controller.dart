@@ -8,6 +8,7 @@ import 'package:pay_day_mobile/modules/attendance/domain/log_summary/log_summary
 import 'package:pay_day_mobile/modules/attendance/domain/request_attendance/request_attendance.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 
+import '../../../../common/widget/error_snackbar.dart';
 import '../../domain/all_log_summary/all_log_summay.dart';
 
 class AttendanceLogsController extends GetxController with StateMixin {
@@ -101,7 +102,9 @@ class AttendanceLogsController extends GetxController with StateMixin {
           filteredLogSummary.data!.meta!.totalPages!) {
         queryString("within=thisMonth");
       }
-    }, onError: (error) => print(error.message));
+    }, onError: (error) {
+      print(error.message);
+    });
     change(null, status: RxStatus.success());
   }
 
@@ -109,8 +112,9 @@ class AttendanceLogsController extends GetxController with StateMixin {
     change(null, status: RxStatus.loading());
     await _attendanceLogsRepository
         .getLogSummaryOverview(queryParams: queryParams)
-        .then((value) => logSummaryOverview = value,
-            onError: (error) => print(error.message));
+        .then((value) => logSummaryOverview = value, onError: (error) {
+      print(error.message);
+    });
     change(null, status: RxStatus.success());
   }
 
@@ -128,6 +132,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
     ))
         .then((value) => print(value.toString()), onError: (error) {
       print(error.message);
+      errorSnackbar(errorMessage: error.message);
     });
     change(null, status: RxStatus.success());
   }
