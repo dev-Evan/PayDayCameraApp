@@ -24,51 +24,48 @@ class AttendanceLogsScreen extends GetView<AttendanceLogsController> {
     return controller.obx(
         (state) => Scaffold(
             backgroundColor: AppColor.backgroundColor,
-            floatingActionButton: Padding(
-              padding: EdgeInsets.only(left: AppLayout.getWidth(30)),
-              child: CustomButton(AppString.text_requstAttendance, () {
-                _openRequestAttendanceBottomSheet(context: context);
-              }),
-            ),
-
+            floatingActionButton: Visibility(
+                visible: controller.isFloatingActionVisible.value,
+                child: Padding(
+                  padding: EdgeInsets.only(left: AppLayout.getWidth(30)),
+                  child: CustomButton(AppString.text_requstAttendance, () {
+                    _openRequestAttendanceBottomSheet(context: context);
+                  }),
+                )),
             appBar: const CustomAppbar(),
-            body: CustomScrollView(
-              slivers: [
-                SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: Column(
-                    children: [
-                      Container(
-                        height: AppLayout.getHeight(305),
-                        decoration: BoxDecoration(
-                          color: AppColor.primaryColor,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(Dimensions.radiusMid),
-                            bottomRight: Radius.circular(Dimensions.radiusMid),
-                          ),
-                        ),
-                        child: Column(
-                          children: [
-                            customMoreAppbar(
-                                titleText: AppString.text_attendance_log,
-                                bgColor: AppColor.primaryColor,
-                                textColor: Colors.white),
-                            attendanceLogsOverviewLayout(context),
-                            Obx(() => dotIndicator(controller.currentIndex.value)),
-                          ],
-                        ),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    height: AppLayout.getHeight(305),
+                    decoration: BoxDecoration(
+                      color: AppColor.primaryColor,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(Dimensions.radiusMid),
+                        bottomRight: Radius.circular(Dimensions.radiusMid),
                       ),
-                      customSpacerHeight(height: 2),
-                      SingleChildScrollView(
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height,
-                          child: logSummaryTabBar(),
-                        ),
-                      ),
-                    ],
+                    ),
+                    child: Column(
+                      children: [
+                        customMoreAppbar(
+                            titleText: AppString.text_attendance_log,
+                            bgColor: AppColor.primaryColor,
+                            textColor: Colors.white),
+                        attendanceLogsOverviewLayout(context),
+                        Obx(() =>
+                            dotIndicator(controller.currentIndex.value)),
+                      ],
+                    ),
                   ),
-                )
-              ],
+                  customSpacerHeight(height: 2),
+                  SingleChildScrollView(
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      child: logSummaryTabBar(),
+                    ),
+                  ),
+                ],
+              ),
             )),
         onLoading: const LoadingIndicator());
   }

@@ -72,110 +72,84 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
             appbarTitle: AppString.text_apply_leve,
           ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.symmetric(horizontal: AppLayout.getWidth(20)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: EdgeInsets.only(
                       top: AppLayout.getHeight(Dimensions.paddingDefaultExtra),
-                      bottom:
-                          AppLayout.getHeight(Dimensions.paddingDefaultExtra)),
-                  child: Text(
-                    AppString.text_leave_duration,
-                    style: AppStyle.small_text.copyWith(
-                        color: AppColor.hintColor,
-                        fontWeight: FontWeight.w600,
-                        fontSize: Dimensions.fontSizeDefault + 1),
-                  ),
+                      bottom: AppLayout.getHeight(10)),
+                  child: Text(AppString.text_leave_duration,
+                      style: AppStyle.normal_text_black),
                 ),
                 const ApplyLeaveButtonLayout(),
-                customSpacerHeight(height: 20),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: AppLayout.getHeight(Dimensions.paddingDefault)),
-                  child:
-                      textFieldTitleText(titleText: AppString.text_leave_type),
-                ),
+                customSpacerHeight(height: 10),
+                textFieldTitleText(titleText: AppString.text_leave_type),
                 _leaveTypeDropDown(),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: AppLayout.getHeight(Dimensions.paddingDefault)),
-                  child: textFieldTitleText(titleText: AppString.text_note),
-                ),
-                customSpacerHeight(height: 8),
+                customSpacerHeight(height: 20),
+                _leaveCount(),
+                customSpacerHeight(height: 10),
+                textFieldTitleText(titleText: AppString.text_note),
                 _noteTextField(),
                 customSpacerHeight(height: 8),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    textFieldTitleText(
-                        titleText:
-                            '${AppString.text_attachments} ${AppString.text_if_any}'),
-                    customSpacerHeight(height: 20),
-                    _dottedBorder(onAction: () => pickFile1()),
-                    customSpacerHeight(height: 8),
-                    Text(
-                      AppString.text_jpeg_jpg_png_etc,
-                      style: AppStyle.mid_large_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontSize: Dimensions.fontSizeDefault - 2),
-                    ),
-                  ],
-                ),
+                _addAttachment(),
                 customSpacerHeight(height: 24),
-                customDoubleButton(
-                    context: context,
-                    elevatedBtnText: AppString.text_apply,
-                    textBtnText: AppString.text_cancel,
-                    textButtonAction: () {
-                      Get.find<LeaveController>().requestLeaveQueries.clear();
-                      Get.find<LeaveController>().leaveNote.clear();
-                      Get.back();
-                    },
-                    elevatedButtonAction: () {
-                      switch (Get.find<LeaveController>()
-                          .leaveDurationIndex
-                          .value) {
-                        case 0:
-                          {
-                            _applySingleLeave();
-                            //clear queries after api call
-                            Get.find<LeaveController>()
-                                .requestLeaveQueries
-                                .clear();
-                          }
-                          break;
-                        case 1:
-                          {
-                            _applyMultiDayLeave();
-                            //clear queries after api call
-                            Get.find<LeaveController>()
-                                .requestLeaveQueries
-                                .clear();
-                          }
-                          break;
-                        case 2:
-                          {
-                            _applyHalfDayLeave();
-                            //clear queries after api call
-                            Get.find<LeaveController>()
-                                .requestLeaveQueries
-                                .clear();
-                          }
-                          break;
-                        case 3:
-                          {
-                            _applyHourLeave();
-                            //clear queries after api call
-                            Get.find<LeaveController>()
-                                .requestLeaveQueries
-                                .clear();
-                          }
-                          break;
-                      }
-                      Get.find<LeaveController>().leaveNote.clear();
-                    }),
+                Padding(
+                  padding: EdgeInsets.only(bottom: AppLayout.getHeight(20)),
+                  child: customDoubleButton(
+                      context: context,
+                      elevatedBtnText: AppString.text_apply,
+                      textBtnText: AppString.text_cancel,
+                      textButtonAction: () {
+                        Get.find<LeaveController>().requestLeaveQueries.clear();
+                        Get.find<LeaveController>().leaveNote.clear();
+                        Get.back();
+                      },
+                      elevatedButtonAction: () {
+                        switch (Get.find<LeaveController>()
+                            .leaveDurationIndex
+                            .value) {
+                          case 0:
+                            {
+                              _applySingleLeave();
+                              //clear queries after api call
+                              Get.find<LeaveController>()
+                                  .requestLeaveQueries
+                                  .clear();
+                            }
+                            break;
+                          case 1:
+                            {
+                              _applyMultiDayLeave();
+                              //clear queries after api call
+                              Get.find<LeaveController>()
+                                  .requestLeaveQueries
+                                  .clear();
+                            }
+                            break;
+                          case 2:
+                            {
+                              _applyHalfDayLeave();
+                              //clear queries after api call
+                              Get.find<LeaveController>()
+                                  .requestLeaveQueries
+                                  .clear();
+                            }
+                            break;
+                          case 3:
+                            {
+                              _applyHourLeave();
+                              //clear queries after api call
+                              Get.find<LeaveController>()
+                                  .requestLeaveQueries
+                                  .clear();
+                            }
+                            break;
+                        }
+                        Get.find<LeaveController>().leaveNote.clear();
+                      }),
+                ),
               ],
             ),
           )
@@ -184,51 +158,41 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
     );
   }
 
-  _leaveTypeDropDown() => Padding(
-        padding: EdgeInsets.only(
-            top: AppLayout.getHeight(Dimensions.paddingDefault)),
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: AppLayout.getHeight(Dimensions.paddingDefaultExtra),
-            bottom: AppLayout.getHeight(Dimensions.paddingDefaultExtra),
-          ),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: AppLayout.getWidth(10)),
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8)),
-            child: DropdownButton<String>(
-              style: const TextStyle(fontWeight: FontWeight.w500),
-              isExpanded: true,
-              underline: const SizedBox.shrink(),
-              icon: const Icon(Icons.expand_more, color: Colors.grey),
-              iconEnabledColor: AppColor.normalTextColor,
-              hint: Row(
-                children: [
-                  _hintText(
-                    textColor: Colors.grey,
-                    hintText: AppString.text_paid_casual,
-                  ),
-                ],
+  _leaveTypeDropDown() => Container(
+        padding: EdgeInsets.symmetric(horizontal: AppLayout.getWidth(10)),
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey),
+            borderRadius: BorderRadius.circular(8)),
+        child: DropdownButton<String>(
+          style: const TextStyle(fontWeight: FontWeight.w500),
+          isExpanded: true,
+          underline: const SizedBox.shrink(),
+          icon: const Icon(Icons.expand_more, color: Colors.grey),
+          iconEnabledColor: AppColor.normalTextColor,
+          hint: Row(
+            children: [
+              _hintText(
+                textColor: Colors.grey,
+                hintText: AppString.text_paid_casual,
               ),
-              value: dropdownValue,
-              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-              items: _leaveType.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: _hintText(
-                    hintText: value,
-                  ),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                _setData(newValue);
-                setState(() {
-                  dropdownValue = newValue;
-                });
-              },
-            ),
+            ],
           ),
+          value: dropdownValue,
+          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+          items: _leaveType.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: _hintText(
+                hintText: value,
+              ),
+            );
+          }).toList(),
+          onChanged: (String? newValue) {
+            _setData(newValue);
+            setState(() {
+              dropdownValue = newValue;
+            });
+          },
         ),
       );
 
@@ -456,9 +420,77 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
 
     Get.back();
   }
+
+  _addAttachment() => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          textFieldTitleText(
+              titleText:
+                  '${AppString.text_attachments} ${AppString.text_if_any}'),
+          _dottedBorder(onAction: () => pickFile1()),
+          customSpacerHeight(height: 8),
+          Text(
+            AppString.text_jpeg_jpg_png_etc,
+            style: AppStyle.mid_large_text.copyWith(
+                color: AppColor.hintColor,
+                fontSize: Dimensions.fontSizeDefault - 2),
+          ),
+        ],
+      );
+
+  _leaveCount() {
+    var data = Get.find<LeaveController>().leaveAllowance.data;
+    return Container(
+      padding: EdgeInsets.symmetric(
+          horizontal: AppLayout.getWidth(20),
+          vertical: AppLayout.getHeight(10)),
+      decoration: BoxDecoration(
+          color: AppColor.primaryBlue.withOpacity(.1),
+          borderRadius: BorderRadius.circular(16)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          textFieldTitleText(titleText: AppString.text_available),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                      flex: 2,
+                      child: Text(
+                          "${data?.casual?.paid?.availability} ${AppString.text_paid_casual}")),
+                  Spacer(flex: 1),
+                  Expanded(
+                      flex: 2,
+                      child: Text(
+                          "${data?.sick?.paid?.availability} ${AppString.text_paid_sick}"))
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                        "${data?.casual?.unpaid?.availability} ${AppString.text_unpaid_casual}"),
+                  ),
+                  Spacer(flex: 1),
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                        "${data?.sick?.unpaid?.availability} ${AppString.text_unpaid_sick}"),
+                  )
+                ],
+              ),
+              customSpacerHeight(height: 20),
+            ],
+          )
+        ],
+      ),
+    );
+  }
 }
-
-
 
 Widget _noteTextField() {
   return InputNote(controller: Get.find<LeaveController>().leaveNote);

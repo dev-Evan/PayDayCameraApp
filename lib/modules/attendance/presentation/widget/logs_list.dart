@@ -3,8 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_divider.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/widget/approve_status.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/multi_log_summary_list.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -14,6 +16,7 @@ import 'package:pay_day_mobile/utils/color_picker_helper.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/time_counter_helper.dart';
 
+import '../../../../enum/status.dart';
 import '../view/log_details_bottomsheet.dart';
 
 class LogsList extends GetView<AttendanceLogsController> {
@@ -156,6 +159,13 @@ class LogsList extends GetView<AttendanceLogsController> {
                 _timeCounter(dataIndex),
                 controller.logList[dataIndex].details!.length > 0
                     ? _noteCounter(dataIndex)
+                    : Container(),
+                customSpacerWidth(width: 12),
+                controller.logList[dataIndex].details.first.statusClass !=
+                        ApprovalStatus.success.name
+                    ? approveStatus(
+                        status: controller
+                            .logList[dataIndex].details.first.statusClass)
                     : Container(),
               ],
             ),

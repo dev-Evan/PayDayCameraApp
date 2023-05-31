@@ -12,6 +12,53 @@ import '../../../../common/widget/error_snackbar.dart';
 import '../../domain/all_log_summary/all_log_summay.dart';
 
 class AttendanceLogsController extends GetxController with StateMixin {
+  @override
+  void onInit() {
+    floatingScrollController = ScrollController()
+      ..addListener(() {
+        print("Called:: floatingScrollController");
+        if (floatingScrollController.position.atEdge) {
+          if (floatingScrollController.position.pixels > 0) {
+            if (isFloatingActionVisible.isTrue) {
+              isFloatingActionVisible(false);
+            }
+          }
+        } else {
+          if (isFloatingActionVisible.isFalse) {
+            isFloatingActionVisible(true);
+          }
+        }
+      });
+    scrollController = ScrollController()
+      ..addListener(() {
+        if (scrollController.position.pixels ==
+            scrollController.position.maxScrollExtent) {
+          _loadMoreFilteredLogSummary();
+        }
+      });
+    super.onInit();
+  }
+
+  late ScrollController scrollController;
+  late ScrollController floatingScrollController;
+
+  final RxBool isFloatingActionVisible = true.obs;
+
+  final queryString = "within=thisMonth".obs;
+
+  final AttendanceLogsRepository _attendanceLogsRepository =
+      AttendanceLogsRepository(NetworkClient());
+
+  Rx<LogSummary> logSummaryByMonth = LogSummary().obs;
+  Rx<LogSummary> logSummaryByYear = LogSummary().obs;
+  FilteredLogSummary filteredLogSummary = FilteredLogSummary();
+  final currentIndex = 0.obs;
+  final tabIndex = 0.obs;
+  final RxList logList = [].obs;
+  LogSummaryOverview logSummaryOverview = LogSummaryOverview();
+  final isMoreDataLoading = false.obs;
+  final TextEditingController textEditingController = TextEditingController();
+
   void _loadMoreFilteredLogSummary() async {
     print("_loadMoreFilteredLogSummary :: Called");
     if (filteredLogSummary.data != null) {
@@ -34,35 +81,6 @@ class AttendanceLogsController extends GetxController with StateMixin {
       }
     }
   }
-
-  @override
-  void onInit() {
-    scrollController = ScrollController()
-      ..addListener(() {
-        if (scrollController.position.pixels ==
-            scrollController.position.maxScrollExtent) {
-          _loadMoreFilteredLogSummary();
-        }
-      });
-    super.onInit();
-  }
-
-  late ScrollController scrollController;
-
-  final queryString = "within=thisMonth".obs;
-
-  final AttendanceLogsRepository _attendanceLogsRepository =
-      AttendanceLogsRepository(NetworkClient());
-
-  Rx<LogSummary> logSummaryByMonth = LogSummary().obs;
-  Rx<LogSummary> logSummaryByYear = LogSummary().obs;
-  FilteredLogSummary filteredLogSummary = FilteredLogSummary();
-  final currentIndex = 0.obs;
-  final tabIndex = 0.obs;
-  final RxList logList = [].obs;
-  LogSummaryOverview logSummaryOverview = LogSummaryOverview();
-  final isMoreDataLoading = false.obs;
-  final TextEditingController textEditingController = TextEditingController();
 
   void getLogSummaryByMonth() async {
     change(null, status: RxStatus.loading());

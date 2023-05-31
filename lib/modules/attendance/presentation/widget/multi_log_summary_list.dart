@@ -3,10 +3,13 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/utils/time_counter_helper.dart';
 
+import '../../../../common/widget/custom_spacer.dart';
+import '../../../../enum/status.dart';
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_style.dart';
 import '../../../../utils/dimensions.dart';
+import 'approve_status.dart';
 
 Widget multiLogSummaryList(
     {required int index,
@@ -20,7 +23,7 @@ Widget multiLogSummaryList(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "${controller.logList[dataIndex].details?[index].inTime!} - ${controller.logList[dataIndex].details?[index].outTime!}",
+              "${controller.logList[dataIndex].details?[index].inTime} - ${controller.logList[dataIndex].details?[index].outTime!}",
               style: AppStyle.mid_large_text.copyWith(
                 color: AppColor.normalTextColor,
                 fontSize: Dimensions.fontSizeDefault + 2,
@@ -51,6 +54,13 @@ Widget multiLogSummaryList(
                   controller.logList[dataIndex].details[index].comments.length >
                           0
                       ? _noteCounterMulti(dataIndex: dataIndex, index: index)
+                      : Container(),
+                  customSpacerWidth(width: 12),
+                  controller.logList[dataIndex].details[index].statusClass !=
+                          ApprovalStatus.success.name
+                      ? approveStatus(
+                          status: controller
+                              .logList[dataIndex].details[index].statusClass)
                       : Container(),
                 ],
               ),

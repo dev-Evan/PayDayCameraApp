@@ -43,17 +43,17 @@ class Util {
     } else if (status.toLowerCase() == ApprovalStatus.danger.name) {
       return AppColor.primaryRed.withOpacity(.15);
     } else {
-      return AppColor.primaryRed.withOpacity(.15);
+      return Colors.transparent;
     }
   }
 
   static Color getChipTextColor({required String status}) {
-    if (status.toLowerCase() == "secondary") {
+    if (status.toLowerCase() == ApprovalStatus.warning.name) {
       return AppColor.primaryYellow;
     } else if (status.toLowerCase() == ApprovalStatus.danger.name) {
       return AppColor.primaryRed;
     } else {
-      return AppColor.primaryRed;
+      return Colors.transparent;
     }
   }
 

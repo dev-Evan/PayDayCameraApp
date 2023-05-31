@@ -178,6 +178,7 @@ class AppString {
   static const String text_taken = "Taken";
   static const String text_casual = "Casual";
   static const String text_sick = "Sick";
+  static const String text_paid_sick = "Paid Sick";
   static const String text_apply_leve = "Apply Leave";
   static const String text_apply = "Apply";
   static const String text_leave_records = "Leave Records";
@@ -206,6 +207,8 @@ class AppString {
   //PaySlip modules string here
   static const String text_paid = "Sent";
   static const String text_unpaid = "Conflicted";
+  static const String text_unpaid_casual = "Unpaid Casual";
+  static const String text_unpaid_sick = "Unpaid Sick";
   static const String text_conflicted = "Conflicted";
   static const String text_sent = "Sent";
   static const String text_payslip_for = "Payslip for";
@@ -275,6 +278,7 @@ class AppString {
   static String text_leave_hour = "Leave Hour";
   static String text_behaviour = "Behaviour";
   static String text_availablity = "Availability";
+  static String text_available = "Available";
 
   // static String text_address_details = "Permanent";
 
