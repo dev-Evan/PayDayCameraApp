@@ -99,7 +99,7 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                           style: AppStyle.mid_large_text
                                               .copyWith(
                                                   color: AppColor.hintColor
-                                                      .withOpacity(0.7),
+                                                      .withOpacity(0.9),
                                                   fontSize: Dimensions
                                                           .fontSizeDefault +
                                                       2,
@@ -115,7 +115,7 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                               .copyWith(
                                                   color: AppColor
                                                       .normalTextColor
-                                                      .withOpacity(0.7),
+                                                      ,
                                                   fontSize: Dimensions
                                                       .fontSizeDefault,
                                                   fontWeight: FontWeight.w500),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
@@ -13,12 +14,9 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/widget/custom_spacer.dart';
-
-
+import '../widget/more_widget.dart';
 
 class SalaryOverView extends GetView<SalaryOverviewController> {
-
-
   SalaryOverView({Key? key}) : super(key: key);
 
   @override
@@ -77,8 +75,8 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
                                 children: [
                                   customSpacerHeight(height: 158),
                                   logoView(
-                                    height: 150,
-                                    width: 150,
+                                    height: 190,
+                                    width: 190,
                                     url: Images.no_data_found,
                                   ),
                                 ],
@@ -131,7 +129,7 @@ Widget _jobHisTitleView() {
                                     .basicInfo
                                     ?.data
                                     .currencySymbol ??
-                                "",
+                                "\$",
                             salaryText: Get.find<SalaryOverviewController>()
                                     .salaryOverView
                                     .data?[index]
@@ -154,43 +152,29 @@ Widget _salaryCardView({iconText, salaryText}) {
     padding: EdgeInsets.only(left: AppLayout.getWidth(16)),
     child: Row(
       children: [
-        Card(
-            elevation: 0,
-            color: AppColor.primaryColor.withOpacity(0.1),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
-            child: Padding(
-              padding: EdgeInsets.only(
-                  left: AppLayout.getWidth(6),
-                  right: AppLayout.getWidth(6),
-                  top: AppLayout.getHeight(6),
-                  bottom: AppLayout.getHeight(6)),
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      left: AppLayout.getWidth(8),
-                      right: AppLayout.getWidth(8),
-                      top: AppLayout.getHeight(4),
-                      bottom: AppLayout.getHeight(4)),
-                  child: Text(
-                    iconText ?? "",
-                    style: TextStyle(
-                        color: AppColor.primaryColor.withOpacity(0.8),
-                        fontSize: Dimensions.fontSizeExtraLarge - 4),
-                  ),
-                ),
-              ),
-            )),
-        customSpacerWidth(width: 3),
+        cardShape(icon: Images.credit_card),
+        customSpacerWidth(width: 5),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              salaryText,
-              style: AppStyle.mid_large_text.copyWith(
-                  color: AppColor.normalTextColor.withOpacity(0.7),
-                  fontSize: Dimensions.fontSizeDefault + 2,
-                  fontWeight: FontWeight.w800),
+            Row(
+              children: [
+                Text(
+                  iconText,
+                  style: AppStyle.mid_large_text.copyWith(
+                      color: AppColor.normalTextColor.withOpacity(0.7),
+                      fontSize: Dimensions.fontSizeDefault + 2,
+                      fontWeight: FontWeight.w800),
+                ),
+                customSpacerWidth(width: 4),
+                Text(
+                  salaryText,
+                  style: AppStyle.mid_large_text.copyWith(
+                      color: AppColor.normalTextColor.withOpacity(0.7),
+                      fontSize: Dimensions.fontSizeDefault + 2,
+                      fontWeight: FontWeight.w800),
+                ),
+              ],
             ),
           ],
         ),

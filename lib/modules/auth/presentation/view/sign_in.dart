@@ -39,6 +39,8 @@ class _SignInScreenState extends State<SignInScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
+
+
   @override
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height / 6;
@@ -138,7 +140,9 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         rememberText(),
                         const Spacer(),
-                        forgotButton(onAction: () => _launchUrl()),
+                        forgotButton(onAction:    _launchURL
+
+                        ),
                       ],
                     ),
                   ),
@@ -154,11 +158,14 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
   }
-
-  Future<void> _launchUrl() async {
+  
+  void _launchURL() async {
     var url = Get.find<AuthController>().resetPasswordModel.data?.url;
-    if (!await launchUrl(Uri.parse(url ?? ""))) {
-      throw Exception('Could not launch $url');
+    if (await canLaunch(url ??"")) {
+      await launch(url ??"");
+    } else {
+      print('Could not launch $url');
     }
   }
+
 }

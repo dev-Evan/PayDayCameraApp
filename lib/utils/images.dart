@@ -24,6 +24,7 @@ static String log_out = 'assets/images/Icons=Punch out.svg';
 static String location = 'assets/images/Icons=Navigation.svg';
 static String right_arrow = 'assets/images/Icons=Cheveron- right.svg';
 static String note = 'assets/images/Icons=File.svg';
+static String credit_card = 'assets/images/Icons=Credit-card.svg';
 static String designation = 'assets/images/Icons=Badge.svg';
 static String flag = 'assets/images/Icons=flag.svg';
 static String department = 'assets/images/Icons=Briefcase.svg';

@@ -12,7 +12,7 @@ class LogoutController extends GetxController with StateMixin {
   final _box=GetStorage();
   LogoutModel  logoutModel =LogoutModel();
   logOut() async {
-     Get.dialog(Center(child: CircularProgressIndicator()));
+    waitingLoader();
     try {
       await logoutRepository.getLogoutRepoData().then((value) {
         logoutModel = value;
@@ -30,5 +30,7 @@ class LogoutController extends GetxController with StateMixin {
   }
 
 }
+Future waitingLoader(){
+  return Get.dialog(Center(child: CircularProgressIndicator()));
 
-
+}

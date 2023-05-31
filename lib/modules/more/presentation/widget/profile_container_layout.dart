@@ -61,7 +61,8 @@ Widget profileCardLayOut(
 }
 
 Widget _userNameText({required userName, required userEmail}) {
-  GetStorage().write(AppString.USER_FIRST_NAME,userName.toString());
+  GetStorage().write(AppString.USER_NAME,userName.toString());
+
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [

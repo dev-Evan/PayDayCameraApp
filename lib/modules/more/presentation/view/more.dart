@@ -82,13 +82,24 @@ class MoreScreen extends GetView<ProfileDataController> {
 
                                         }),
                                     jobDeskCard(
-                                      cardIcon: Images.dollar,
+                                      cardIcon: Images.credit_card,
                                       cardText: AppString.text_salary_overview,
                                       onAction: () async {
                                         Get.toNamed(AppString.salaryOverView);
                                         await Get.find<SalaryOverviewController>()
                                             .getSalaryOveData();
                                         await  Get.find<SettingController>().getCurrencyData();
+                                      },
+                                    ),
+
+                                    jobDeskCard(
+                                      cardIcon: Images.department,
+                                      cardText: AppString.text_bank_details,
+                                      onAction: ()  {
+                                        Get.toNamed(AppString.bankDetails);
+                                        // await Get.find<SalaryOverviewController>()
+                                        //     .getSalaryOveData();
+                                        // await  Get.find<SettingController>().getCurrencyData();
                                       },
                                     ),
                                     jobDeskCard(

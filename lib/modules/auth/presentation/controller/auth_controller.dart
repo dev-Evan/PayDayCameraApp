@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -10,7 +8,6 @@ import 'package:pay_day_mobile/modules/auth/domain/reset_password_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-
 
 class AuthController extends GetxController with StateMixin {
   final AuthDataSource _authDataSource = AuthDataSource(NetworkClient());
@@ -37,12 +34,7 @@ class AuthController extends GetxController with StateMixin {
       }, onError: (error) {
         Get.back();
         _showToast(error.message);
-
-      }
-
-
-
-      );
+      });
     } catch (ex) {
       print(ex.toString());
       _showToast(ex.toString());
@@ -50,6 +42,10 @@ class AuthController extends GetxController with StateMixin {
   }
 
   void _writeUserInfo(Login? login) {
+    var userName = GetStorage().read(AppString.USER_FIRST_NAME) +
+        " " +
+        GetStorage().read(AppString.USER_LAST_NAME);
+    GetStorage().write(AppString.USER_NAME, userName.toString());
     box.write(AppString.ID_STORE, login?.data!.id);
     box.write(AppString.USER_FIRST_NAME, login?.data!.firstName);
     box.write(AppString.USER_LAST_NAME, login?.data!.lastName);
@@ -61,7 +57,7 @@ class AuthController extends GetxController with StateMixin {
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
+      timeInSecForIosWeb: 5,
       backgroundColor: AppColor.hintColor,
       textColor: Colors.white,
       fontSize: 16.0);

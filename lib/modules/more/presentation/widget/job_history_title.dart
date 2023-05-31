@@ -12,7 +12,7 @@ Widget jobHisEmploymentView() {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: Get.find<JobHistoryController>()
-          .jobHistoryModel.data?.employmentStatuses?.length,
+          .jobHistoryModel.data?.employmentStatuses?.length ??0,
       itemBuilder: (context, index) {
         return Stack(
           alignment: Alignment.center,
@@ -45,7 +45,7 @@ Widget jobHisDesignationView() {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount:
-          Get.find<JobHistoryController>().jobHistoryModel.data?.designations?.length,
+          Get.find<JobHistoryController>().jobHistoryModel.data?.designations?.length ??0,
       itemBuilder: (context, index) {
         return Stack(
           alignment: Alignment.center,
@@ -79,7 +79,7 @@ Widget jobHisDepartmentView() {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount:
-      Get.find<JobHistoryController>().jobHistoryModel.data?.departments?.length,
+      Get.find<JobHistoryController>().jobHistoryModel.data?.departments?.length??0,
       itemBuilder: (context, index) {
         return Stack(
           alignment: Alignment.center,
@@ -111,7 +111,7 @@ Widget jobHisRoleView() {
     child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: Get.find<JobHistoryController>().jobHistoryModel.data?.roles?.length,
+      itemCount: Get.find<JobHistoryController>().jobHistoryModel.data?.roles?.length ??0,
       itemBuilder: (context, index) {
         return Stack(
           alignment: Alignment.center,
@@ -138,7 +138,7 @@ Widget jobHisWorkShiftView() {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount:
-      Get.find<JobHistoryController>().jobHistoryModel.data?.workingShifts?.length,
+      Get.find<JobHistoryController>().jobHistoryModel.data?.workingShifts?.length??0,
       itemBuilder: (context, index) {
         return Stack(
           alignment: Alignment.center,

@@ -32,8 +32,11 @@ class _JobHistoryViewState extends State<JobHistoryView> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 12.0),
+          customSpacerHeight(height: 12),
+
+          Theme(
+            data: Theme.of(context)
+                .copyWith(dividerColor: Colors.transparent),
             child: ExpansionTile(
               trailing: _statusIcon(value: _designationIcon),
               title: InkWell(
@@ -55,8 +58,11 @@ class _JobHistoryViewState extends State<JobHistoryView> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 12.0),
+          customSpacerHeight(height: 12),
+
+          Theme(
+            data: Theme.of(context)
+                .copyWith(dividerColor: Colors.transparent),
             child: ExpansionTile(
               trailing: _statusIcon(value: _departmentIcon),
               title: InkWell(
@@ -78,8 +84,11 @@ class _JobHistoryViewState extends State<JobHistoryView> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 12.0),
+          customSpacerHeight(height: 12),
+
+          Theme(
+            data: Theme.of(context)
+                .copyWith(dividerColor: Colors.transparent),
             child: ExpansionTile(
               trailing: _statusIcon(value: _roleIcon),
               title: InkWell(
@@ -98,8 +107,11 @@ class _JobHistoryViewState extends State<JobHistoryView> {
               children: [customSpacerHeight(height: 18), jobHisRoleView()],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 12.0),
+          customSpacerHeight(height: 12),
+
+          Theme(
+            data: Theme.of(context)
+                .copyWith(dividerColor: Colors.transparent),
             child: ExpansionTile(
               trailing: _statusIcon(value: _workShiftIcon),
               title: InkWell(
@@ -119,8 +131,10 @@ class _JobHistoryViewState extends State<JobHistoryView> {
               children: [customSpacerHeight(height: 18), jobHisWorkShiftView()],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 12.0),
+          customSpacerHeight(height: 12),
+          Theme(
+            data: Theme.of(context)
+                .copyWith(dividerColor: Colors.transparent),
             child: ExpansionTile(
               trailing: _statusIcon(value: _employmentIcon),
               title: InkWell(

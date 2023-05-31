@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pay_day_mobile/common/widget/custom_alert_dialog.dart';
+import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
 import 'package:pay_day_mobile/modules/more/data/deleted_address_repo.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -11,33 +12,27 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 class DeletedAddController extends GetxController with StateMixin {
   final DeletedAddRepository deletedAddRepository = DeletedAddRepository(NetworkClient());
   void deletedAddressApi({required addressType}) async {
-    change(null, status: RxStatus.loading());
+    waitingLoader();
     try {
       await deletedAddRepository
           .deletedAddressRepo(
         addressType.toString(),
       )
           .then((value) {
+            Get.back();
         _successDialog();
         Get.find<AddressDetailsController>().getEmployeeAddressData();
       }, onError: (error) {
-        print(error.toString());
+            Get.back();
+      print(error.toString());
       });
     } catch (ex) {
-      _showToast(ex.toString());
+      Get.back();
+      errorSnackBar(errorMessage: ex.toString());
     }
-    change(null, status: RxStatus.success());
+    Get.back();
   }
 }
-
-_showToast(message) => Fluttertoast.showToast(
-    msg: message,
-    toastLength: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.BOTTOM,
-    timeInSecForIosWeb: 1,
-    backgroundColor: AppColor.hintColor,
-    textColor: Colors.white,
-    fontSize: 16.0);
 
 
 Future _successDialog(){
@@ -48,6 +43,6 @@ Future _successDialog(){
     iconColor: AppColor.successColor,
     iconBgColor: AppColor.successColor.withOpacity(0.2),
     contentText: AppString.text_deleted_address_successfully,
-    popupAction: (){},
+    popupAction: ()=>Future.delayed(Duration(seconds: 1),()=>Get.back()),
   );
 }

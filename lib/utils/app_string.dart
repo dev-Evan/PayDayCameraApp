@@ -256,6 +256,7 @@ class AppString {
   static const String text_calender = "Calender";
   static const String text_job_history = "Job History";
   static const String text_salary_overview = "Salary Overview";
+  static const String text_bank_details = "Bank Details";
   static const String text_address_details = "Address Details";
   static const String text_other = "Other";
   static const String text_enter_document_name = "Enter document name";
@@ -348,8 +349,22 @@ class AppString {
   static String text_success = "Success";
   static String text_enter_your_about = "Enter your about";
   static String text_enter_your_address = "Enter your address";
-
   static String text_back = "Back";
+
+
+  static String text_branch = "Branch";
+  static String text_bank_code = "Bank Code";
+  static String text_account_holder = "Account Holder";
+  static String text_account_number = "Account Number";
+  static String text_tax_payer_id = "Tax Payer ID";
+  static String text_account_title = "Account Title";
+
+
+
+
+
+
+
   static String text_enter_massage = "Enter message";
   static String text_password_change_successfully = "Password changed successfully";
   static String text_deleted_address_successfully = "Deleted address successfully";
@@ -378,6 +393,7 @@ class AppString {
   static const String ACCESS_TOKEN = "access_token";
   static const String USER_FIRST_NAME = "first_name";
   static const String USER_LAST_NAME = "last_name";
+  static const String USER_NAME = "user_name";
   static const String STORE_TOKEN = "storeToken";
   static const String LOGIN_CHECK_KEY = "loginCheckValue";
   static const String STORE_DATE = "storeData";
@@ -428,6 +444,7 @@ class AppString {
   static const String documentScreen = "/document_screen";
   static const String jobHistory = "/jobHistory_screen";
   static const String salaryOverView = "/salaryOverView_screen";
+  static const String bankDetails = "/bankDetails_screen";
   static const String addressDetails = "/addressDetails_screen";
   static const String aboutPage = "/aboutPage_screen";
   static const String payrunBage = "/payrunBage_screen";

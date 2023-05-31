@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pay_day_mobile/modules/more/data/change_profile_image_repo.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 
 
 class ImagePickerController extends GetxController with StateMixin{
@@ -17,7 +18,7 @@ class ImagePickerController extends GetxController with StateMixin{
   }
   uploadDocument(XFile image) async{
     change(null, status: RxStatus.loading());
-    Get.dialog(Center(child: CircularProgressIndicator()));
+    waitingLoader()  ;
     await changeProfileImageRepo.changeImageRepo(
       image: image,
     ).then((value) {

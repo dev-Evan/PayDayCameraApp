@@ -23,7 +23,7 @@ Future CustomAlertDialog({
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: Text(titleText!),
+        title: Text(titleText!,style: AppStyle.large_text.copyWith(fontSize: Dimensions.fontSizeLarge,color: AppColor.normalTextColor,fontWeight: FontWeight.w600),),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Dimensions.radiusMid - 2),
         ),
@@ -57,7 +57,7 @@ Future CustomAlertDialog({
                 contentText!,
                 style: AppStyle.mid_large_text.copyWith(
                     color: AppColor.hintColor,
-                    fontSize: Dimensions.fontSizeDefault ),
+                    fontSize: Dimensions.fontSizeDefault),
               ),
             ),
           ],

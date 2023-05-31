@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/widget/custom_status_button.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/view_profile_widget.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 
 import '../../../../utils/app_string.dart';
@@ -25,8 +26,6 @@ Widget infoLayout() {
             _getCurrentDate(),
           ],
         ),
-        //check if user is punched in
-        // has data to show
         controller.isPunchIn.isTrue && controller.logs.value.data != null
             ? CustomStatusButton(
                 bgColor: Util.getBtnBgColor(
@@ -45,7 +44,7 @@ Widget infoLayout() {
 
 _userName() {
   return Text(
-    "Hi, ${GetStorage().read(AppString.USER_FIRST_NAME)}",
+    "Hi, ${GetStorage().read(AppString.USER_NAME)}",
     style: AppStyle.title_text,
   );
 }
