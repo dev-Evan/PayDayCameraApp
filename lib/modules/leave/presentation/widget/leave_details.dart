@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
-import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/custom_status_button.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
-import 'package:pay_day_mobile/modules/leave/presentation/widget/edit_details.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/log_response.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import 'package:pay_day_mobile/common/controller/downloader_helper.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -25,7 +24,8 @@ class LeaveDetails extends GetView<LeaveController> {
   @override
   Widget build(BuildContext context) {
     return controller.obx(
-        (state) => Stack(
+            (state) =>
+            Stack(
               children: [
                 SingleChildScrollView(
                   child: Column(
@@ -69,27 +69,15 @@ class LeaveDetails extends GetView<LeaveController> {
                                       color: AppColor.hintColor,
                                       fontSize: Dimensions.fontSizeDefault),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Icon(
-                                    Icons.circle,
-                                    size: 6,
-                                    color: AppColor.hintColor,
-                                  ),
-                                ),
-                                Text(
-                                  '11.00 am - 1.00 pm',
-                                  style: AppStyle.normal_text.copyWith(
-                                      color: AppColor.hintColor,
-                                      fontSize: Dimensions.fontSizeDefault),
-                                ),
                               ],
                             ),
                             SizedBox(
                               height: AppLayout.getHeight(12),
                             ),
                             Text(
-                              "${controller.leaveDetails.data?.startAt ?? ""} - ${controller.leaveDetails.data?.startAt ?? ""}",
+                              "${controller.leaveDetails.data?.startAt ??
+                                  ""} - ${controller.leaveDetails.data
+                                  ?.startAt ?? ""}",
                               style: AppStyle.title_text.copyWith(
                                   color: AppColor.normalTextColor,
                                   fontSize: Dimensions.fontSizeDefault),
@@ -107,7 +95,8 @@ class LeaveDetails extends GetView<LeaveController> {
                               height: AppLayout.getHeight(28),
                             ),
                             Text(
-                              "${controller.leaveDetails.data?.attachmentCount.toString() ?? ''} Attachments",
+                              "${controller.leaveDetails.data?.attachmentCount
+                                  .toString() ?? ''} Attachments",
                               style: AppStyle.title_text.copyWith(
                                   color: AppColor.hintColor,
                                   fontSize: Dimensions.fontSizeDefault - 1),
@@ -119,15 +108,17 @@ class LeaveDetails extends GetView<LeaveController> {
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: controller
-                                      .leaveDetails.data?.attachments?.length ??
+                                  .leaveDetails.data?.attachments?.length ??
                                   0,
                               gridDelegate:
-                                  SliverGridDelegateWithMaxCrossAxisExtent(
-                                      maxCrossAxisExtent:
-                                          AppLayout.getSize(context).width * .5,
-                                      childAspectRatio: 3 / 2,
-                                      crossAxisSpacing: 20,
-                                      mainAxisSpacing: 20),
+                              SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent:
+                                  AppLayout
+                                      .getSize(context)
+                                      .width * .5,
+                                  childAspectRatio: 3 / 2,
+                                  crossAxisSpacing: 20,
+                                  mainAxisSpacing: 20),
                               itemBuilder: (context, index) =>
                                   _attachmentCard(index),
                             )
@@ -169,7 +160,8 @@ class LeaveDetails extends GetView<LeaveController> {
 
   _cancelButton() {
     return AppButton(
-      onPressed: () async => await controller.cancelLeave(
+      onPressed: () async =>
+      await controller.cancelLeave(
           id: controller.leaveDetails.data?.id ?? 0),
       buttonText: AppString.text_cancel_leave,
       buttonColor: Colors.transparent,
@@ -195,9 +187,13 @@ class LeaveDetails extends GetView<LeaveController> {
 
   _attachmentCard(int index) {
     return InkWell(
-      child: Image.asset(Images.documents),
-      onTap: () => launchUrl(Uri.parse(
-          controller.leaveDetails.data?.attachments?[index].fullUrl ?? '')),
+        child: Image.asset(Images.documents),
+        onTap: () =>
+            Get.find<DownloadHelper>().downloadFile(
+                url: controller.leaveDetails.data?.attachments?[index]
+                    .fullUrl ?? '')
     );
   }
+
+
 }
