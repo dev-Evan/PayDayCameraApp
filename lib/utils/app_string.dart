@@ -38,8 +38,10 @@ class AppString {
   static String DELETED_DOCUMENT = "/document/delete";
   static String USER_CHANGE_PICTURE = "/user/change-picture";
   static String SALARY_OVERVIEW = "/employee/salary-overview";
-  static String LOG_SUMMARY_BY_THIS_MONTH = "/attendance/summary?within=thisMonth";
-  static String LOG_SUMMARY_BY_THIS_YEAR = "/attendance/summary?within=thisYear";
+  static String LOG_SUMMARY_BY_THIS_MONTH =
+      "/attendance/summary?within=thisMonth";
+  static String LOG_SUMMARY_BY_THIS_YEAR =
+      "/attendance/summary?within=thisYear";
   static String LEAVE_ALLOWANCE = "/leave/allowance";
   static String LEAVE_SUMMARY = "/leave/summary";
   static String LEAVE_RECORD = "/leave/record?per_page=50";
@@ -203,9 +205,9 @@ class AppString {
   static const String text_interval = "Interval";
   static const String text_last = "Last";
   static const String text_first = "First";
-   static const String text_if_any = "(if any)";
-   static const String text_attachments = "Attachments";
-   static const String text_add_reason_note_here = "Add reason note here";
+  static const String text_if_any = "(if any)";
+  static const String text_attachments = "Attachments";
+  static const String text_add_reason_note_here = "Add reason note here";
 
   //PaySlip modules string here
 
@@ -285,8 +287,6 @@ class AppString {
   static String text_availablity = "Availability";
   static String text_available = "Available";
 
-  // static String text_address_details = "Permanent";
-
   static String text_permanent = "Permanent ";
   static String text_permanent_address = "permanent_address";
   static String text_present_address = "present_address";
@@ -358,7 +358,6 @@ class AppString {
   static String text_enter_your_address = "Enter your address";
   static String text_back = "Back";
 
-
   static String text_branch = "Branch";
   static String text_bank_code = "Bank Code";
   static String text_account_holder = "Account Holder";
@@ -376,22 +375,23 @@ class AppString {
   static String text_enter_title = "Enter title";
   static String text_enter_id = "Enter ID";
 
-
-
-
-
-
-
   static String text_enter_massage = "Enter message";
-  static String text_password_change_successfully = "Password changed successfully";
-  static String text_deleted_address_successfully = "Deleted address successfully";
-  static String text_deleted_document_successfully = "Deleted document successfully";
-  static String text_document_upload_successfully = "Document uploaded successfully!";
-  static String text_document_update_successfully = "Document update successfully!";
-  static String text_payslip_download_successfully = "Payslip download successfully!";
+  static String text_password_change_successfully =
+      "Password changed successfully";
+  static String text_deleted_address_successfully =
+      "Deleted address successfully";
+  static String text_deleted_document_successfully =
+      "Deleted document successfully";
+  static String text_document_upload_successfully =
+      "Document uploaded successfully!";
+  static String text_document_update_successfully =
+      "Document update successfully!";
+  static String text_payslip_download_successfully =
+      "Payslip download successfully!";
   static String text_something_wrong = "Something wrong !";
   static String no_internet_title_text = "No internet!!";
-  static String no_internet_subtitle_text = "Make sure your Wi-Fi or cellular data is turned on and then try again";
+  static String no_internet_subtitle_text =
+      "Make sure your Wi-Fi or cellular data is turned on and then try again";
   static String text_enter_your_old_password = "Enter your old password";
   static String text_enter_new_password = "Enter new password";
   static String text_confirm_your_new_password = "Confirm your new password";
@@ -402,8 +402,6 @@ class AppString {
   static String text_calender_text = "Calender";
   static String text_about_me_dec =
       "Hello. I am an UX/UI designer. I am in love with designing since my childhood. It gives me the freedom of my mind and helps me to express myself and my personality ";
-
-
 
   // Local store string here
   static const String ID_STORE = "store";
@@ -426,8 +424,6 @@ class AppString {
   static const String STORE_DOC_Id = "store_doc_id";
   static const String BANK_USER_ID_STORE = "bank_user_id";
   static const String PAYSLIP_DATE_RANGE = "payslip_date_range";
-
-
 
 // Auth String
 
@@ -465,5 +461,4 @@ class AppString {
   static const String aboutPage = "/aboutPage_screen";
   static const String payrunBage = "/payrunBage_screen";
   static const String notification_screen = "/notification_screen";
-
 }
