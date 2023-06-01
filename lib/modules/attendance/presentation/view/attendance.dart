@@ -82,53 +82,57 @@ class Attendance extends GetView<AttendanceController> {
     );
   }
 
-  _upperLayout() => Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(16),
-              bottomRight: Radius.circular(16)),
-          gradient: LinearGradient(
-              colors: [AppColor.gradientBlueOne, AppColor.gradientBlueTwo]),
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: AppLayout.getWidth(20),
-            vertical: AppLayout.getHeight(20),
-          ),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                infoLayout(),
-                customSpacerHeight(height: 40),
-                Obx(() => timerLayout()),
-                Obx(() => timerOverviewLayout()),
-                customSpacerHeight(height: 30),
-                SizedBox(
-                    height: AppLayout.getHeight(Dimensions.paddingDefault)),
-                punchButton(() async {
-                  await controller.getLatLong();
-                  _openBottomSheet();
+  _upperLayout() => Obx(() => Container(
+    width: double.infinity,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(16),
+          bottomRight: Radius.circular(16)),
+      gradient: controller.logs.value.data != null &&
+          controller.logs.value.data!.todayOvertime.toDouble() > 0
+          ? LinearGradient(
+          colors: [AppColor.overTimeGradientOne, AppColor.overTimeGradientTwo])
+          : LinearGradient(
+          colors: [AppColor.balanceTimeGradientOne, AppColor.balanceTimeGradientTwo]),
+    ),
+    child: Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: AppLayout.getWidth(20),
+        vertical: AppLayout.getHeight(20),
+      ),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            infoLayout(),
+            customSpacerHeight(height: 40),
+            Obx(() => timerLayout()),
+            Obx(() => timerOverviewLayout()),
+            customSpacerHeight(height: 30),
+            SizedBox(
+                height: AppLayout.getHeight(Dimensions.paddingDefault)),
+            punchButton(() async {
+              await controller.getLatLong();
+              _openBottomSheet();
+            }),
+            customSpacerHeight(height: 20),
+            Obx(() => dotIndicator(controller.currentIndex.value)),
+            attendanceLogText(
+                text: AppString.text_attendance_log,
+                onAction: () {
+                  Get.find<AttendanceLogsController>()
+                      .getLogSummaryByMonth();
+                  Get.find<AttendanceLogsController>()
+                      .getLogSummaryByYear();
+                  Get.find<AttendanceLogsController>()
+                      .getAllFilteredLogSummary();
+                  Get.find<AttendanceLogsController>()
+                      .getLogSummaryOverview();
+                  CustomNavigator(
+                      context: Get.context!,
+                      pageName: const AttendanceLogsScreen());
                 }),
-                customSpacerHeight(height: 20),
-                Obx(() => dotIndicator(controller.currentIndex.value)),
-                attendanceLogText(
-                    text: AppString.text_attendance_log,
-                    onAction: () {
-                      Get.find<AttendanceLogsController>()
-                          .getLogSummaryByMonth();
-                      Get.find<AttendanceLogsController>()
-                          .getLogSummaryByYear();
-                      Get.find<AttendanceLogsController>()
-                          .getAllFilteredLogSummary();
-                      Get.find<AttendanceLogsController>()
-                          .getLogSummaryOverview();
-                      CustomNavigator(
-                          context: Get.context!,
-                          pageName: const AttendanceLogsScreen());
-                    }),
-              ]),
-        ),
-      );
+          ]),
+    ),
+  ));
 }
