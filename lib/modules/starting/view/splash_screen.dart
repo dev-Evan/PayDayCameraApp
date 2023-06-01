@@ -52,8 +52,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Future.delayed(const Duration(milliseconds: 900), () {
       setState(() {
-        _width = AppLayout.getWidth(24.0);
-        _height = AppLayout.getHeight(24.0);
+        _width = AppLayout.getWidth(20.0);
+        _height = AppLayout.getHeight(20.0);
       });
     });
     super.initState();

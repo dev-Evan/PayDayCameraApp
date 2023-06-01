@@ -49,24 +49,23 @@ Widget addButton({onAction}) {
   );
 }
 
-Widget editDetBtn({context, onAction, required editAction}) {
-  return InkWell(
-    onTap: () =>
-        customButtomSheet(context: context, height: 0.9, child: editAction),
-    child: Row(
-      children: [
-        editIcon(),
-        customSpacerWidth(width: 28),
-        InkWell(
-          onTap: () => onAction(),
-          child: const Icon(
-            CupertinoIcons.delete,
-            color: AppColor.hintColor,
-            size: 20,
-          ),
+Widget editDetBtn({ required context, onAction, required editAction}) {
+  return Row(
+    children: [
+      InkWell(
+          onTap: () => customButtomSheet(context: context, height: 0.9, child: editAction),
+
+          child: editIcon()),
+      customSpacerWidth(width: 28),
+      InkWell(
+        onTap: () => onAction(),
+        child: const Icon(
+          CupertinoIcons.delete,
+          color: AppColor.hintColor,
+          size: 20,
         ),
-      ],
-    ),
+      ),
+    ],
   );
 }
 

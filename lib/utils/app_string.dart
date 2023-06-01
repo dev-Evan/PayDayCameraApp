@@ -50,8 +50,10 @@ class AppString {
   static String REQUEST_LEAVE = "/leave/store";
   static String ALL_NOTIFICATION = "/notifications";
   static String ALL_UNREAD_NOTIFICATION = "/notifications?unread=true";
-  static String NOTICATION_AS_READ = "/notification/read";
+  static String NOTIFICATION_AS_READ = "/notification/read";
   static String NOTIFICATION_AS_ALL_READ = "/notification/all/read";
+  static String EMPLOYEE_BANK_INFORMATION = "/employee/bank-information";
+  //static String EMPLOYEE_BANK_INFORMATION = "/employee/bank-information";
 
   // Apps string here
   static const String exampleText = "";
@@ -116,6 +118,7 @@ class AppString {
   static const String text_attendance_behavior = "Attendance Behavior";
   static const String text_single = "Single";
   static const String text_multi = "Multi";
+  static const String text_bank_name = "Bank Name";
   static const String text_enrly = "Early";
   static const String text_no_document_found = "No Document Found";
   static const String text_regular = "Regular";
@@ -337,6 +340,7 @@ class AppString {
   static String text_768 = "768";
   static String text_usa = "USA";
   static String text_add = "Add ";
+  static String text_save_changes = "Save Changes ";
   static String text_texas = "Texas";
   static String text_current_address = "Current Address";
   static String text_2022 = "2022";
@@ -358,6 +362,16 @@ class AppString {
   static String text_account_number = "Account Number";
   static String text_tax_payer_id = "Tax Payer ID";
   static String text_account_title = "Account Title";
+  static String text_add_bank_details = "Add Bank Details";
+  static String text_edit_bank_details = "Edit Bank Details";
+
+  static String text_enter_bank_name = "Enter bank name";
+  static String text_enter_branch = "Enter branch";
+  static String text_enter_bank_code = "Enter bank code";
+  static String text_enter_name = "Enter name";
+  static String text_enter_account_number = "Enter account number";
+  static String text_enter_title = "Enter title";
+  static String text_enter_id = "Enter ID";
 
 
 
@@ -391,8 +405,6 @@ class AppString {
   // Local store string here
   static const String ID_STORE = "store";
   static const String ACCESS_TOKEN = "access_token";
-  static const String USER_FIRST_NAME = "first_name";
-  static const String USER_LAST_NAME = "last_name";
   static const String USER_NAME = "user_name";
   static const String STORE_TOKEN = "storeToken";
   static const String LOGIN_CHECK_KEY = "loginCheckValue";
@@ -405,10 +417,11 @@ class AppString {
   static const String CURRENT_DATE = "currentDate";
   static const String STORE_COUNTY = "storeCounty";
   static const String STORE_CURRENCY = "storeCurrency";
-  static const String STORE_PAYSLIP_LSIT_ID = "storePayslipListId";
+  static const String STORE_PAYSLIP_LIST_ID = "storePayslipListId";
   static const String STORE_DOC_NAME = "storeDocName";
   static const String STORE_DOC_NAME_TEXT = "store_doc_text";
   static const String STORE_DOC_Id = "store_doc_id";
+  static const String BANK_USER_ID_STORE = "bank_user_id";
   static const String PAYSLIP_DATE_RANGE = "payslip_date_range";
 
 

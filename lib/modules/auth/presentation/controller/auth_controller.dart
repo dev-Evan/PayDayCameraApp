@@ -24,8 +24,7 @@ class AuthController extends GetxController with StateMixin {
   void logIn() {
     Get.dialog(Center(child: CircularProgressIndicator()));
     try {
-      _authDataSource
-          .loginIntoAccount(emailController.text, passwordController.text)
+      _authDataSource.loginIntoAccount(emailController.text, passwordController.text)
           .then((value) {
         print(value);
         _writeUserInfo(value);
@@ -42,13 +41,8 @@ class AuthController extends GetxController with StateMixin {
   }
 
   void _writeUserInfo(Login? login) {
-    var userName = GetStorage().read(AppString.USER_FIRST_NAME) +
-        " " +
-        GetStorage().read(AppString.USER_LAST_NAME);
-    GetStorage().write(AppString.USER_NAME, userName.toString());
     box.write(AppString.ID_STORE, login?.data!.id);
-    box.write(AppString.USER_FIRST_NAME, login?.data!.firstName);
-    box.write(AppString.USER_LAST_NAME, login?.data!.lastName);
+    box.write(AppString.USER_NAME, login?.data!.fullName);
     box.write(AppString.ACCESS_TOKEN, login?.data!.token);
     box.write(AppString.LOGIN_CHECK_KEY, AppString.LOGIN_VALUE);
   }

@@ -68,7 +68,7 @@ class PayslipDataRepository {
 
   Future<PayslipViewModel> getPayslipViewData()async {
     final box=GetStorage();
-    var id=box.read(AppString.STORE_PAYSLIP_LSIT_ID);
+    var id=box.read(AppString.STORE_PAYSLIP_LIST_ID);
     try {
       Response response = await networkClient.getRequest(AppString.PAYSLIP_VIEW+id.toString());
       if (response.status.hasError) {

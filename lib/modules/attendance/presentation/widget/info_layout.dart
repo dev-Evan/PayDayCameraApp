@@ -29,12 +29,12 @@ Widget infoLayout() {
         controller.isPunchIn.isTrue && controller.logs.value.data != null
             ? CustomStatusButton(
                 bgColor: Util.getBtnBgColor(
-                   behaviour:  controller.logs.value.data!.behavior.toString(),isBgColorWhite:  true),
+                    behaviour: controller.logs.value.data!.behavior.toString(),
+                    isBgColorWhite: true),
                 text: controller.logs.value.data!.behavior.toString(),
                 textColor: Util.getBtnTextColor(
-                  behaviour: controller.logs.value.data!.behavior.toString(),
-                    isBgColorWhite: true
-                ),
+                    behaviour: controller.logs.value.data!.behavior.toString(),
+                    isBgColorWhite: true),
               )
             : Container()
       ],
@@ -48,6 +48,7 @@ _userName() {
     style: AppStyle.title_text,
   );
 }
+
 _getCurrentDate() {
   return Text(
     DateFormat.MMMMEEEEd().format(DateTime.now()),

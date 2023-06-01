@@ -26,6 +26,7 @@ static String right_arrow = 'assets/images/Icons=Cheveron- right.svg';
 static String note = 'assets/images/Icons=File.svg';
 static String credit_card = 'assets/images/Icons=Credit-card.svg';
 static String designation = 'assets/images/Icons=Badge.svg';
+static String error_404 = 'assets/images/404 error.svg';
 static String flag = 'assets/images/Icons=flag.svg';
 static String department = 'assets/images/Icons=Briefcase.svg';
 static String user_status = 'assets/images/Icons=User-check.svg';

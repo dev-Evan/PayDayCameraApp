@@ -51,9 +51,7 @@ class PaySlipView extends GetView<PayslipViewController> {
                                   .data
                                   ?.fullName
                                   .toString() ??
-                              _box.read(AppString.USER_FIRST_NAME) +
-                                  " " +
-                                  _box.read(AppString.USER_LAST_NAME),
+                              _box.read(AppString.USER_NAME),
                           userEmail: Get.find<ProfileDataController>()
                                   .userProfile
                                   .data
@@ -181,7 +179,7 @@ class PaySlipView extends GetView<PayslipViewController> {
 
 Widget _payslipDownloadBtn({required payslipDateRange}) {
   final box = GetStorage();
-  var id = box.read(AppString.STORE_PAYSLIP_LSIT_ID);
+  var id = box.read(AppString.STORE_PAYSLIP_LIST_ID);
   var token = box.read(AppString.ACCESS_TOKEN);
   return Padding(
     padding: EdgeInsets.only(

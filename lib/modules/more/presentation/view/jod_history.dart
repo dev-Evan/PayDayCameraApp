@@ -54,9 +54,9 @@ class JodHistory extends GetView<JobHistoryController> {
                     children: [
                       customSpacerHeight(height: 158),
                       logoView(
-                        height: 190,
-                        width: 190,
-                        url: Images.no_data_found,
+                        height: 140,
+                        width: 140,
+                        url: Images.error_404,
                       ),
                     ],
                   ),
