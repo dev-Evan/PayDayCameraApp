@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -17,14 +15,25 @@ class AuthController extends GetxController with StateMixin {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final GetStorage box = GetStorage();
+  @override
+  void onInit() {
+    restPassword();
+    super.onInit();
+  }
 
-  void logIn(String email, String password) {
+  void logIn() {
+    Get.dialog(Center(child: CircularProgressIndicator()));
     try {
-      _authDataSource.loginIntoAccount(email, password).then((value) {
+      _authDataSource.loginIntoAccount(emailController.text, passwordController.text)
+          .then((value) {
         print(value);
         _writeUserInfo(value);
+        Get.back();
         Get.offAllNamed(AppString.home);
-      }, onError: (error) => _showToast(error.message));
+      }, onError: (error) {
+        Get.back();
+        _showToast(error.message);
+      });
     } catch (ex) {
       print(ex.toString());
       _showToast(ex.toString());
@@ -33,8 +42,7 @@ class AuthController extends GetxController with StateMixin {
 
   void _writeUserInfo(Login? login) {
     box.write(AppString.ID_STORE, login?.data!.id);
-    box.write(AppString.USER_FIRST_NAME, login?.data!.firstName);
-    box.write(AppString.USER_LAST_NAME, login?.data!.lastName);
+    box.write(AppString.USER_NAME, login?.data!.fullName);
     box.write(AppString.ACCESS_TOKEN, login?.data!.token);
     box.write(AppString.LOGIN_CHECK_KEY, AppString.LOGIN_VALUE);
   }
@@ -43,12 +51,12 @@ class AuthController extends GetxController with StateMixin {
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
+      timeInSecForIosWeb: 5,
       backgroundColor: AppColor.hintColor,
       textColor: Colors.white,
       fontSize: 16.0);
 
-  restPassword() async {
+  void restPassword() async {
     change(null, status: RxStatus.loading());
     try {
       await _authDataSource.restPasswordRepo().then((value) {

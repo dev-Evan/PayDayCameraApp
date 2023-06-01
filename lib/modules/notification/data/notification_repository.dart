@@ -44,7 +44,7 @@ class NotificationRepository {
   Future<SuccessModel> notificationAsRead(String id) async {
     try {
       Response response =
-          await networkClient.getRequest("${AppString.NOTICATION_AS_READ}/$id");
+          await networkClient.getRequest("${AppString.NOTIFICATION_AS_READ}/$id");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

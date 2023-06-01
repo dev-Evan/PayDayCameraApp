@@ -18,6 +18,7 @@ import 'package:pay_day_mobile/modules/starting/view/onboarding_screen.dart';
 import 'package:pay_day_mobile/modules/starting/view/splash_screen.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../modules/home/presentation/home.dart';
+import '../modules/more/presentation/view/bank_details.dart';
 import '../modules/more/presentation/view/more.dart';
 
 List<GetPage> getPage = [
@@ -108,9 +109,18 @@ List<GetPage> getPage = [
     transition: Transition.rightToLeft,
     page: () => PayRunBadge(),
   ),
+
+
   GetPage(
     name: AppString.notification_screen,
     transition: Transition.rightToLeft,
     page: () => Notifications(),
   ),
+  GetPage(
+    name: AppString.bankDetails,
+    transition: Transition.rightToLeft,
+    page: () => BankDetails(),
+  ),
+
+
 ];

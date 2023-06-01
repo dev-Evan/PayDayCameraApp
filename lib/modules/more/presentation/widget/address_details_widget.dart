@@ -14,12 +14,11 @@ Widget textTitle({titleText}) {
   return Text(
     titleText,
     style: AppStyle.mid_large_text.copyWith(
-        color: AppColor.hintColor.withOpacity(0.7),
-        fontSize: Dimensions.fontSizeDefault + 1,
-        fontWeight: FontWeight.w500),
+        color: AppColor.hintColor.withOpacity(0.9),
+        fontSize: Dimensions.fontSizeDefault-1,
+        fontWeight: FontWeight.w200),
   );
 }
-
 Widget textSubTitle({subTitleText}) {
   return Text(
     subTitleText,
@@ -29,7 +28,6 @@ Widget textSubTitle({subTitleText}) {
         fontWeight: FontWeight.w500),
   );
 }
-
 Widget addButton({onAction}) {
   return Row(
     children: [
@@ -51,24 +49,23 @@ Widget addButton({onAction}) {
   );
 }
 
-Widget editDetBtn({context, onAction, required editAction}) {
-  return InkWell(
-    onTap: () =>
-        customButtomSheet(context: context, height: 0.9, child: editAction),
-    child: Row(
-      children: [
-        editIcon(),
-        customSpacerWidth(width: 14),
-        InkWell(
-          onTap: () => onAction(),
-          child: const Icon(
-            CupertinoIcons.delete,
-            color: AppColor.hintColor,
-            size: 20,
-          ),
+Widget editDetBtn({ required context, onAction, required editAction}) {
+  return Row(
+    children: [
+      InkWell(
+          onTap: () => customButtomSheet(context: context, height: 0.9, child: editAction),
+
+          child: editIcon()),
+      customSpacerWidth(width: 28),
+      InkWell(
+        onTap: () => onAction(),
+        child: const Icon(
+          CupertinoIcons.delete,
+          color: AppColor.hintColor,
+          size: 20,
         ),
-      ],
-    ),
+      ),
+    ],
   );
 }
 

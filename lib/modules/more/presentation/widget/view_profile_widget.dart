@@ -45,6 +45,7 @@ Widget circleAvatarStyle({final userImage}) {
 
   return Stack(
     children: [
+
       CircleAvatar(
         radius: 34,
         backgroundColor: AppColor.primaryColor,

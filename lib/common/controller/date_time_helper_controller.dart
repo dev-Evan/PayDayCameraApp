@@ -22,6 +22,7 @@ class DateTimeController extends GetxController {
     }
     print("in time: $pickedInTime  out time: $pickedOutTime");
     isInTimeClicked.value = !isInTimeClicked.value;
+
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_controller.dart';
@@ -11,11 +12,12 @@ class LogoutController extends GetxController with StateMixin {
   final _box=GetStorage();
   LogoutModel  logoutModel =LogoutModel();
   logOut() async {
-    change(null, status: RxStatus.loading());
+    waitingLoader();
     try {
       await logoutRepository.getLogoutRepoData().then((value) {
         logoutModel = value;
           _box.remove(AppString.STORE_TOKEN);
+        Get.back();
         Get.offNamed(AppString.signInScreen);
         Get.put(AuthController());
       }, onError: (error) {
@@ -28,5 +30,7 @@ class LogoutController extends GetxController with StateMixin {
   }
 
 }
+Future waitingLoader(){
+  return Get.dialog(Center(child: CircularProgressIndicator()));
 
-
+}

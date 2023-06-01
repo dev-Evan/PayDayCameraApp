@@ -148,9 +148,16 @@ class AttendanceLogsController extends GetxController with StateMixin {
       outTime:
           "${DateFormat("yyyy-MM-dd hh:mm a").parse("${controller.requestedDate.value} ${controller.pickedOutTime.value}")}",
     ))
-        .then((value) => print(value.toString()), onError: (error) {
+        .then((value){
+      print(value.toString());
+      textEditingController.clear();
+
+    } ,
+
+        onError: (error) {
       print(error.message);
-      errorSnackbar(errorMessage: error.message);
+      textEditingController.clear();
+      errorSnackBar(errorMessage: error.message);
     });
     change(null, status: RxStatus.success());
   }

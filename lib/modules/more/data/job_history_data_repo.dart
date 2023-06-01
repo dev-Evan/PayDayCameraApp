@@ -17,11 +17,11 @@ class JobHistoryRepository {
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
-        print(response.body);
+        print("Job History Called ::: ${response.body}");
         return JobHistoryModel.fromJson(response.body);
       }
-    } catch (e) {
-      return Future.error(ErrorModel(message: e.toString()));
+    } catch (ex) {
+      return Future.error(ErrorModel(message: ex.toString()));
     }
   }
 }

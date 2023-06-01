@@ -7,6 +7,7 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/address_deta
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/more_data_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/salary_overview_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/more_widget.dart';
@@ -82,13 +83,23 @@ class MoreScreen extends GetView<ProfileDataController> {
 
                                         }),
                                     jobDeskCard(
-                                      cardIcon: Images.dollar,
+                                      cardIcon: Images.credit_card,
                                       cardText: AppString.text_salary_overview,
                                       onAction: () async {
                                         Get.toNamed(AppString.salaryOverView);
                                         await Get.find<SalaryOverviewController>()
                                             .getSalaryOveData();
                                         await  Get.find<SettingController>().getCurrencyData();
+                                      },
+                                    ),
+
+                                    jobDeskCard(
+                                      cardIcon: Images.department,
+                                      cardText: AppString.text_bank_details,
+                                      onAction: () async {
+                                        Get.toNamed(AppString.bankDetails);
+                                        await Get.find<MoreDataController>()
+                                            .getBankInfo();
                                       },
                                     ),
                                     jobDeskCard(

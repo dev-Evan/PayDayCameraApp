@@ -11,7 +11,12 @@ Widget textFieldTitleText({titleText}) {
     padding:  EdgeInsets.only(top: AppLayout.getHeight(10),bottom:AppLayout.getHeight(10) ),
     child: Text(
       titleText,
-      style: AppStyle.normal_text_black),
+      style: AppStyle.small_text.copyWith(
+          color: AppColor.normalTextColor,
+          fontWeight: FontWeight.w600,
+          fontSize: Dimensions.fontSizeDefault+1),
+    ),
+
   );
 }
 
@@ -21,7 +26,7 @@ Widget textFieldTitleText2({titleText}) {
     child: Text(
       titleText,
       style: AppStyle.small_text.copyWith(
-          color: AppColor.hintColor,
+          color: AppColor.normalTextColor,
           fontWeight: FontWeight.w600,
           fontSize: Dimensions.fontSizeDefault),
     ),

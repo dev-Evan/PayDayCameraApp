@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
@@ -10,6 +11,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import 'package:pay_day_mobile/utils/images.dart';
 
 class JodHistory extends GetView<JobHistoryController> {
   JodHistory({Key? key}) : super(key: key);
@@ -23,6 +25,8 @@ class JodHistory extends GetView<JobHistoryController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 customMoreAppbar(titleText: AppString.text_job_history),
+                controller.jobHistoryModel.data !=null?
+
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -44,6 +48,18 @@ class JodHistory extends GetView<JobHistoryController> {
                     ),
                     const JobHistoryView(),
                   ],
+                ):Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      customSpacerHeight(height: 158),
+                      logoView(
+                        height: 140,
+                        width: 140,
+                        url: Images.error_404,
+                      ),
+                    ],
+                  ),
                 )
               ],
             ),

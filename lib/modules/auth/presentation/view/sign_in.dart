@@ -20,8 +20,6 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-
-
   bool _isLeft = false;
   bool _rememberMe = false;
 
@@ -40,6 +38,8 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   final _formKey = GlobalKey<FormState>();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,8 @@ class _SignInScreenState extends State<SignInScreen> {
                               CustomTextFeild(
                                 hintText: AppString.enterYourEmail,
                                 inputType: TextInputType.emailAddress,
-                                controller: Get.find<AuthController>().emailController,
+                                controller:
+                                    Get.find<AuthController>().emailController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return AppString.fieldIsRequired;
@@ -98,7 +99,8 @@ class _SignInScreenState extends State<SignInScreen> {
                               CustomPasswordTextField(
                                 hintText: AppString.enterYourPassword,
                                 inputType: TextInputType.emailAddress,
-                                controller: Get.find<AuthController>().passwordController,
+                                controller: Get.find<AuthController>()
+                                    .passwordController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     return AppString.fieldIsRequired;
@@ -138,26 +140,32 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         rememberText(),
                         const Spacer(),
-                        forgotButton(onAction: () => _launchUrl()),
+                        forgotButton(onAction:    _launchURL
+
+                        ),
                       ],
                     ),
                   ),
                   customSpacerHeight(height: Dimensions.fontSizeDefault + 4),
-          logInButton(
-            onAction: () => Get.find<AuthController>().logIn(
-                Get.find<AuthController>().emailController.text, Get.find<AuthController>().passwordController.text))
-
+                  logInButton(onAction: () {
+                    if (_formKey.currentState!.validate()) {
+                      Get.find<AuthController>().logIn();
+                    }
+                  })
                 ],
               ),
             )),
       ),
     );
   }
-
-  Future<void> _launchUrl() async {
+  
+  void _launchURL() async {
     var url = Get.find<AuthController>().resetPasswordModel.data?.url;
-    if (!await launchUrl(Uri.parse(url ?? ""))) {
-      throw Exception('Could not launch $url');
+    if (await canLaunch(url ??"")) {
+      await launch(url ??"");
+    } else {
+      print('Could not launch $url');
     }
   }
+
 }

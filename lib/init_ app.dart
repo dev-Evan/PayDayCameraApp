@@ -23,6 +23,7 @@ import 'modules/more/presentation/controller/document_deleted_controller.dart';
 import 'modules/more/presentation/controller/document_upload_controller.dart';
 import 'modules/more/presentation/controller/edit_profile_drop_dawon_cnt.dart';
 import 'modules/more/presentation/controller/logout_controller.dart';
+import 'modules/more/presentation/controller/more_data_controller.dart';
 import 'modules/more/presentation/controller/salary_overview_controller.dart';
 import 'modules/more/presentation/controller/user_profile_controller.dart';
 import 'modules/payslip/presentation/controller/payrun_badge_controller.dart';
@@ -35,7 +36,6 @@ Future<void> initApp() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize();
-
   Get.put(ConnectivityController(), permanent: true);
   Get.lazyPut(() => DownloadHelper(), fenix: true);
   Get.put(StatusController(), permanent: true);
@@ -67,5 +67,6 @@ Future<void> initApp() async {
   Get.lazyPut(() => AddressUpdateController(), fenix: true);
   Get.lazyPut(() => UpdateDocumentController(), fenix: true);
   Get.lazyPut(() => AuthController(), fenix: true);
+  Get.lazyPut(() => MoreDataController(), fenix: true);
   Get.lazyPut(() => LeaveController());
 }

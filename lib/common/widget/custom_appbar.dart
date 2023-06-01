@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/notification/presentation/controller/notication_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
+import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
 import '../../utils/app_string.dart';
@@ -16,11 +17,13 @@ class CustomAppbar extends GetView<NotificationController>
   Widget build(BuildContext context) {
     return Obx(() => AppBar(
           scrolledUnderElevation: .5,
+      leadingWidth: AppLayout.getWidth(140),
+      toolbarHeight: AppLayout.getHeight(60),
         
           backgroundColor: AppColor.cardColor,
           leading: Padding(
             padding: const EdgeInsets.only(left: 12.0),
-            child: logoView(height: 30, width: 30),
+            child: logoView(height: 26, width: 26),
           ),
           actions: [
             Stack(
@@ -28,15 +31,13 @@ class CustomAppbar extends GetView<NotificationController>
               children: [
                 IconButton(
                   onPressed: () async {
-                    if (!Get.isRegistered<NotificationController>()) {
-                      Get.put(NotificationController());
-                    }
+
                     Get.toNamed(AppString.notification_screen);
                   },
-                  icon: const Icon(
+                  icon:  Icon(
                     Icons.notifications_none,
                     color: AppColor.primaryColor,
-                    size: 30,
+                    size: Dimensions.fontSizeExtraLarge+6,
                   ),
                 ),
                 if (controller.length > 0)
@@ -55,7 +56,7 @@ class CustomAppbar extends GetView<NotificationController>
   }
 
   @override
-  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(58));
+  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(60));
 }
 
 Widget logoView({double? height = 35, double? width = 35, String? url}) {

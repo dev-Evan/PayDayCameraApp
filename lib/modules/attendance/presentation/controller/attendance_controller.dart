@@ -66,7 +66,7 @@ class AttendanceController extends GetxController with StateMixin {
       print("punchIn :: ${value.message}");
     }, onError: (error) {
       print("punchIn :: ${error.message}");
-      errorSnackbar(errorMessage: error.message);
+      errorSnackBar(errorMessage: error.message);
     });
     change(null, status: RxStatus.success());
   }
@@ -86,7 +86,7 @@ class AttendanceController extends GetxController with StateMixin {
       },
       onError: (error) {
         print("punchOut :: ${error.message}");
-        errorSnackbar(errorMessage: error.message);
+        errorSnackBar(errorMessage: error.message);
         ;
       },
     );
@@ -135,7 +135,7 @@ class AttendanceController extends GetxController with StateMixin {
         .changeAttendanceRequest(logId, changeRequestReqModel)
         .then((value) => print("changeAttendance :: called"), onError: (error) {
       print(error.message);
-      errorSnackbar(errorMessage: error.message);
+      errorSnackBar(errorMessage: error.message);
     });
     change(null, status: RxStatus.success());
   }

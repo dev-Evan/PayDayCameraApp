@@ -52,7 +52,7 @@ class Notifications extends GetView<NotificationController> {
       decoration: BoxDecoration(
           color: controller.allNotifications[index].read ?? false
               ? Colors.transparent
-              : AppColor.primaryBlue.withOpacity(.15),
+              : AppColor.primaryColor.withOpacity(.15),
           border: Border(
               bottom: BorderSide(color: Colors.grey.shade500, width: .5))),
       width: double.infinity,

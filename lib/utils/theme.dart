@@ -13,7 +13,11 @@ ThemeData _themeData = ThemeData(
      foregroundColor: Colors.black,
 
     systemOverlayStyle: SystemUiOverlayStyle(
-    statusBarColor: AppColor.disableColor,),
+    //statusBarColor: Colors.black12,
+
+
+    ),
+
   ),
   // scaffoldBG, applicable for aLL PAGES
   scaffoldBackgroundColor: AppColor.backgroundColor,

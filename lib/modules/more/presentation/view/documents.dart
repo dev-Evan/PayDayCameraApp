@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
-import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_deleted_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/view_doc_file.dart';
@@ -63,19 +61,18 @@ class DocumentScreen extends GetView<DocumentController> {
                                         onTap: () => CustomNavigator(
                                             context: context,
                                             pageName: _selectedPage(
-                                                    fullUrl: controller
-                                                            .documentModel
-                                                            .data
-                                                            ?.documents?[index]
-                                                            .fullUrl ??
-                                                      "",
-                                                    docText: controller
-                                                            .documentModel
-                                                            .data
-                                                            ?.documents?[index]
-                                                            .name ??
-                                                        AppString
-                                                            .text_documents)),
+                                                fullUrl: controller
+                                                        .documentModel
+                                                        .data
+                                                        ?.documents?[index]
+                                                        .fullUrl ??
+                                                    "",
+                                                docText: controller
+                                                        .documentModel
+                                                        .data
+                                                        ?.documents?[index]
+                                                        .name ??
+                                                    AppString.text_documents)),
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Card(
@@ -108,28 +105,28 @@ class DocumentScreen extends GetView<DocumentController> {
                                                 Expanded(
                                                     flex: 8,
                                                     child: _cardImgTitle(
-                                                        titleText:
-                                                        controller
-                                                                    .documentModel
-                                                                    .data
-                                                                    ?.documents?[
-                                                                        index]
-                                                                    .name ??
-                                                                "",
-                                                        sizeText: "",
-                                                        id:   controller
-                                                            .documentModel
-                                                            .data
-                                                            ?.documents?[
-                                                        index]
-                                                            .id ??
+                                                        titleText: controller
+                                                                .documentModel
+                                                                .data
+                                                                ?.documents?[
+                                                                    index]
+                                                                .name ??
                                                             "",
-                                                        docText: controller.documentModel
-                                                        .data
-                                                        ?.documents?[
-                                                    index]
-                                                        .name ??
-                                                        "",
+                                                        sizeText: "",
+                                                        id: controller
+                                                                .documentModel
+                                                                .data
+                                                                ?.documents?[
+                                                                    index]
+                                                                .id ??
+                                                            "",
+                                                        docText: controller
+                                                                .documentModel
+                                                                .data
+                                                                ?.documents?[
+                                                                    index]
+                                                                .name ??
+                                                            "",
                                                         context: context)),
                                               ],
                                             ),
@@ -153,14 +150,15 @@ class DocumentScreen extends GetView<DocumentController> {
                         color: AppColor.normalTextColor,
                         fontSize: Dimensions.fontSizeDefault),
                   )),
-            _addDocumentBtn()
+            _addDocumentBtn(),
+            customSpacerHeight(height: 14),
           ],
         ),
       ),
     );
   }
 
-  Widget _addDocumentBtn(){
+  Widget _addDocumentBtn() {
     return Padding(
       padding: EdgeInsets.only(
           left: AppLayout.getWidth(8),
@@ -173,7 +171,6 @@ class DocumentScreen extends GetView<DocumentController> {
       }),
     );
   }
-
 
   Widget _cardImage({required imageUrl}) {
     return imageUrl.endsWith(".pdf")
@@ -199,9 +196,9 @@ Widget _documentPage({required imgUrl, required docText}) {
 Widget _selectedPage({required fullUrl, required docText}) {
   return fullUrl.endsWith(".pdf")
       ? ViewDocFile(
-              path: fullUrl,
-              pathName: docText,
-            )
+          path: fullUrl,
+          pathName: docText,
+        )
       : _documentPage(
           imgUrl: fullUrl,
           docText: docText,
@@ -224,8 +221,12 @@ Widget _fileIcon() {
 }
 
 Widget _cardImgTitle(
-    {required titleText, required sizeText,required id,required docText,required context}) {
-  final box=GetStorage();
+    {required titleText,
+    required sizeText,
+    required id,
+    required docText,
+    required context}) {
+  final box = GetStorage();
   return _sizedCardImgTitle(
       child: Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -245,28 +246,29 @@ Widget _cardImgTitle(
       ),
       IconButton(
           onPressed: () {
-         box.write(AppString.STORE_DOC_NAME_TEXT, docText);
+            box.write(AppString.STORE_DOC_NAME_TEXT, docText);
             showDialog(
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                    borderRadius:
+                        BorderRadius.circular(Dimensions.radiusDefault),
                   ),
                   actions: [
-                    _editDeletedActionRow(context: context,id: id),
+                    _editDeletedActionRow(context: context, id: id),
                   ],
                 );
               },
             );
-
           },
           icon: const Icon(Icons.more_vert))
     ],
   ));
 }
-Widget _editDeletedActionRow({required context,required id}){
-  final _box=GetStorage();
+
+Widget _editDeletedActionRow({required context, required id}) {
+  final _box = GetStorage();
   return Row(
     children: [
       InkWell(
@@ -281,12 +283,12 @@ Widget _editDeletedActionRow({required context,required id}){
       ),
       customSpacerWidth(width: 40),
       InkWell(
-        onTap: (){
+        onTap: () {
           _box.write(AppString.STORE_DOC_Id, id);
           Get.find<DeletedDocumentController>().deletedDocumentApi();
           Future.delayed(
-              const Duration(seconds: 10),
-              ()=> Get.back(),
+            const Duration(seconds: 10),
+            () => Get.back(),
           );
         },
         child: _iconShape(icon: Icons.delete, text: AppString.text_deleted),
