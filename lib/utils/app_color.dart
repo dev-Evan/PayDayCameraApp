@@ -21,6 +21,7 @@ class AppColor {
   static const Color primaryBlue = Color(0xFF019AFF);
   static const Color primaryGreen = Color(0xFF3EAC55);
   static const Color primaryOrange = Color(0xFFEF780A);
+  static const Color primaryYellow = Color(0xFFF3C568);
   static const Color primaryRed = Color(0xFFFF6347);
   static const Color gradientBlueOne = Color(0xFF008EEC);
   static const Color gradientBlueTwo = Color(0xFF019AFF);

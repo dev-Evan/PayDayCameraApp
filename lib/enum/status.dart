@@ -1,3 +1,3 @@
-enum ApprovalStatus {warning,success,danger,dark}
-enum EntryBehaviour { early, regular, late }
+enum ApprovalStatus { warning, success, danger, dark, secondary }
 
+enum EntryBehaviour { early, regular, late }

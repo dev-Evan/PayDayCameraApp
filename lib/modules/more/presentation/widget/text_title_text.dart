@@ -16,6 +16,7 @@ Widget textFieldTitleText({titleText}) {
           fontWeight: FontWeight.w600,
           fontSize: Dimensions.fontSizeDefault+1),
     ),
+
   );
 }
 

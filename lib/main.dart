@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/init_%20app.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      initialRoute:AppString.splashScreen,
+      initialRoute: AppString.splashScreen,
       getPages: getPage,
       // home: DownloadController(),
     );

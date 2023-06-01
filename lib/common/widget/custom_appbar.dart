@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/notification/presentation/controller/notication_controller.dart';
-import 'package:pay_day_mobile/modules/notification/presentation/view/notifications.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
