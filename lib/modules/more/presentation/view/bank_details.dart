@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/add_bank_info.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/address_details_widget.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
@@ -30,57 +32,57 @@ class BankDetails extends GetView<MoreDataController> {
                     (controller.bankInfoModel.data?.accountTitle != null &&
                             controller
                                 .bankInfoModel.data!.accountTitle!.isNotEmpty)
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              customMoreAppbar(
-                                  titleText: AppString.text_bank_details),
-                              _bankTitleRow(
-                                  bankTitleText: controller
-                                          .bankInfoModel.data?.name
-                                          ?.toString() ??
-                                      "",
-                                context: context
-
-                              ),
-                              _bankUserInfo(
-                                  infoTitleText: AppString.text_branch,
-                                  infoDetailsText: controller
-                                          .bankInfoModel.data?.branchName
-                                          ?.toString() ??
-                                      ""),
-                              _bankUserInfo(
-                                  infoTitleText: AppString.text_bank_code,
-                                  infoDetailsText: controller
-                                          .bankInfoModel.data?.code
-                                          ?.toString() ??
-                                      ""),
-                              _bankUserInfo(
-                                  infoTitleText: AppString.text_account_holder,
-                                  infoDetailsText: controller
-                                          .bankInfoModel.data?.accountHolderName
-                                          ?.toString() ??
-                                      ""),
-                              _bankUserInfo(
-                                  infoTitleText: AppString.text_account_number,
-                                  infoDetailsText: controller
-                                          .bankInfoModel.data?.accountNumber
-                                          ?.toString() ??
-                                      ""),
-                              _bankUserInfo(
-                                  infoTitleText: AppString.text_account_title,
-                                  infoDetailsText: controller
-                                          .bankInfoModel.data?.accountTitle
-                                          ?.toString() ??
-                                      ""),
-                              _bankUserInfo(
-                                  infoTitleText: AppString.text_tax_payer_id,
-                                  infoDetailsText: controller
-                                          .bankInfoModel.data?.taxPayerId
-                                          ?.toString() ??
-                                      "")
-                            ],
-                          )
+                        ? SingleChildScrollView(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                customMoreAppbar(
+                                    titleText: AppString.text_bank_details),
+                                _bankTitleRow(
+                                    bankTitleText: controller
+                                            .bankInfoModel.data?.name
+                                            ?.toString() ??
+                                        "",
+                                    context: context),
+                                _bankUserInfo(
+                                    infoTitleText: AppString.text_branch,
+                                    infoDetailsText: controller
+                                            .bankInfoModel.data?.branchName
+                                            ?.toString() ??
+                                        ""),
+                                _bankUserInfo(
+                                    infoTitleText: AppString.text_bank_code,
+                                    infoDetailsText: controller
+                                            .bankInfoModel.data?.code
+                                            ?.toString() ??
+                                        ""),
+                                _bankUserInfo(
+                                    infoTitleText: AppString.text_account_holder,
+                                    infoDetailsText: controller
+                                            .bankInfoModel.data?.accountHolderName
+                                            ?.toString() ??
+                                        ""),
+                                _bankUserInfo(
+                                    infoTitleText: AppString.text_account_number,
+                                    infoDetailsText: controller
+                                            .bankInfoModel.data?.accountNumber
+                                            ?.toString() ??
+                                        ""),
+                                _bankUserInfo(
+                                    infoTitleText: AppString.text_account_title,
+                                    infoDetailsText: controller
+                                            .bankInfoModel.data?.accountTitle
+                                            ?.toString() ??
+                                        ""),
+                                _bankUserInfo(
+                                    infoTitleText: AppString.text_tax_payer_id,
+                                    infoDetailsText: controller
+                                            .bankInfoModel.data?.taxPayerId
+                                            ?.toString() ??
+                                        "")
+                              ],
+                            ),
+                        )
                         : Column(
                             children: [
                               Center(
@@ -101,9 +103,7 @@ class BankDetails extends GetView<MoreDataController> {
                                 customButtomSheet(
                                     context: context,
                                     height: 0.9,
-                                    child:AddBankInfo());
-
-
+                                    child: AddBankInfo());
                               }),
                               customSpacerHeight(height: 25)
                             ],
@@ -116,7 +116,7 @@ class BankDetails extends GetView<MoreDataController> {
   }
 }
 
-Widget _bankTitleRow({required bankTitleText,required context}) {
+Widget _bankTitleRow({required bankTitleText, required context}) {
   return Padding(
     padding: EdgeInsets.only(
         left: AppLayout.getWidth(20),
@@ -127,11 +127,92 @@ Widget _bankTitleRow({required bankTitleText,required context}) {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _bankTitleText(bankText: bankTitleText),
-        editDetBtn(onAction: () {
-          Get.find<MoreDataController>().deletedBankInfoApi();
-        }, editAction: EditBankInfo(),context: context),
+        _editDeleteBtn(
+            onAction: () => Get.find<MoreDataController>().deletedBankInfoApi(),
+            editAction: () {
+              customButtomSheet(
+                context: context,
+                height: 0.9,
+                child: EditBankInfo(),
+              );
+              Get.find<CustomTextEditingController>().bankNameController.text =
+                  Get.find<MoreDataController>()
+                          .bankInfoModel
+                          .data
+                          ?.name
+                          ?.toString() ??
+                      "";
+              Get.find<CustomTextEditingController>()
+                  .branchNameController
+                  .text = Get.find<MoreDataController>()
+                      .bankInfoModel
+                      .data
+                      ?.branchName
+                      ?.toString() ??
+                  "";
+
+              Get.find<CustomTextEditingController>().bankCodeController.text =
+                  Get.find<MoreDataController>()
+                          .bankInfoModel
+                          .data
+                          ?.code
+                          ?.toString() ??
+                      "";
+              Get.find<CustomTextEditingController>()
+                  .accountHolderNameController
+                  .text = Get.find<MoreDataController>()
+                      .bankInfoModel
+                      .data
+                      ?.accountHolderName
+                      ?.toString() ??
+                  "";
+
+              Get.find<CustomTextEditingController>()
+                  .accountNumberController
+                  .text = Get.find<MoreDataController>()
+                      .bankInfoModel
+                      .data
+                      ?.accountNumber
+                      ?.toString() ??
+                  "";
+
+              Get.find<CustomTextEditingController>()
+                  .accountTitleController
+                  .text = Get.find<MoreDataController>()
+                      .bankInfoModel
+                      .data
+                      ?.accountTitle
+                      ?.toString() ??
+                  "";
+              Get.find<CustomTextEditingController>()
+                  .taxPayerIdController
+                  .text = Get.find<MoreDataController>()
+                      .bankInfoModel
+                      .data
+                      ?.taxPayerId
+                      ?.toString() ??
+                  "";
+            },
+            context: context),
       ],
     ),
+  );
+}
+
+Widget _editDeleteBtn({required context, onAction, required editAction}) {
+  return Row(
+    children: [
+      InkWell(onTap: () => editAction(), child: editIcon()),
+      customSpacerWidth(width: 28),
+      InkWell(
+        onTap: () => onAction(),
+        child: const Icon(
+          CupertinoIcons.delete,
+          color: AppColor.hintColor,
+          size: 20,
+        ),
+      ),
+    ],
   );
 }
 

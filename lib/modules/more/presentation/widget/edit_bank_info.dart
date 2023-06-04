@@ -98,7 +98,7 @@ class EditBankInfo extends StatelessWidget {
                 textBtnText: AppString.text_cancel,
                 textButtonAction: () => Get.back(),
                 elevatedButtonAction: () {
-                 // Get.find<MoreDataController>().addBankInfo(context: context);
+                  Get.find<MoreDataController>().updateBankInfo(context: context);
                 }),
             customSpacerHeight(height: 250)
           ],

@@ -79,4 +79,33 @@ class MoreDataController extends GetxController with StateMixin {
   void _bankInfo(BankInfoModel? info) {
     box.write(AppString.BANK_USER_ID_STORE, info?.data!.id);
   }
+
+
+  updateBankInfo({required context}) async {
+    waitingLoader();
+    await moreDataRepository.UpdateBankInfoRepo(
+      textEditingController.bankNameController.text,
+      textEditingController.bankCodeController.text,
+      textEditingController.branchNameController.text,
+      textEditingController.accountTitleController.text,
+      textEditingController.accountHolderNameController.text,
+      textEditingController.accountNumberController.text,
+      textEditingController.taxPayerIdController.text,
+    ).then((value) {
+      print("BANK INFO UPDATED ::: $value");
+      Get.back();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => BankDetails(),
+        ),
+      );
+      getBankInfo();
+      clearData();
+    }, onError: (error) {
+      Get.back();
+      print("BANK INFO UPDATED ::: $error");
+    });
+  }
+
 }

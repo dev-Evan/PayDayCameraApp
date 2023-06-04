@@ -4,6 +4,7 @@ import 'package:pay_day_mobile/common/domain/error_model.dart';
 import 'package:pay_day_mobile/modules/more/domain/add_bank_info_model.dart';
 import 'package:pay_day_mobile/modules/more/domain/bank_info_deleted_model.dart';
 import 'package:pay_day_mobile/modules/more/domain/bank_info_model.dart';
+import 'package:pay_day_mobile/modules/more/domain/bank_info_updated_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
@@ -72,11 +73,32 @@ class MoreDataRepository {
     }
   }
 
-
-
-
-
-
-
+  Future<BankInfoUpdated> UpdateBankInfoRepo(String bankName, String code, String branchName, String accountTitle, String accountHolderName, String accountNumber, String taxPayerId,
+      ) async {
+    try {
+      Response response = await networkClient.patchRequest(
+        AppString.EMPLOYEE_BANK_INFORMATION +"/${box.read(AppString.BANK_USER_ID_STORE)}",
+        {
+          "key": "bank_details",
+          "name": bankName,
+          "code": code,
+          "branch_name": branchName,
+          "account_title": accountTitle,
+          "account_holder_name": accountHolderName,
+          "account_number": accountNumber,
+          "tax_payer_id": taxPayerId,
+        },
+      );
+      print("UPDATE BANK INFO REPO :::: ${response.body.toString()}");
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
+      } else {
+        print(response.body.toString());
+        return BankInfoUpdated.fromJson(response.body);
+      }
+    } catch (ex) {
+      return Future.error(ex.toString());
+    }
+  }
 
 }

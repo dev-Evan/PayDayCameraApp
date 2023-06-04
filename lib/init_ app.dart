@@ -70,5 +70,5 @@ Future<void> initApp() async {
   Get.lazyPut(() => UpdateDocumentController(), fenix: true);
   Get.lazyPut(() => AuthController(), fenix: true);
   Get.lazyPut(() => MoreDataController(), fenix: true);
-  Get.lazyPut(() => LeaveController());
+  Get.lazyPut(() => LeaveController(),fenix: true);
 }
