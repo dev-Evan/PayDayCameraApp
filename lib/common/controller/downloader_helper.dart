@@ -2,7 +2,9 @@ import 'dart:isolate';
 import 'dart:ui';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class DownloadHelper extends GetxController {
@@ -19,7 +21,14 @@ class DownloadHelper extends GetxController {
     if (status.isGranted) {
       final baseStorage = await getExternalStorageDirectory();
       final id = await FlutterDownloader.enqueue(
-          url: url, savedDir: baseStorage!.path, fileName: "File");
+
+          url: url, savedDir: baseStorage!.path, fileName: "File",
+        headers: {'Authorization': 'Bearer ${GetStorage().read(AppString.ACCESS_TOKEN)}'},
+
+
+      );
+
+
     } else {
       print("No Permission");
     }

@@ -91,8 +91,8 @@ class BankDetails extends GetView<MoreDataController> {
                                   children: [
                                     customSpacerHeight(height: 158),
                                     logoView(
-                                      height: 190,
-                                      width: 190,
+                                      height: 160,
+                                      width: 160,
                                       url: Images.no_data_found,
                                     ),
                                   ],

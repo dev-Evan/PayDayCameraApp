@@ -8,7 +8,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
+import 'package:pay_day_mobile/modules/more/data/document_upload_repo.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_upload_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -55,6 +57,8 @@ class _AddDocumentState extends State<AddDocument> {
   }
   @override
   Widget build(BuildContext context) {
+    DocumentUploadRepo documentRepository = DocumentUploadRepo();
+
     return Column(
       children: [
         bottomSheetAppbar(
@@ -73,7 +77,7 @@ class _AddDocumentState extends State<AddDocument> {
                       hintText: AppString.text_enter_document_name,
                       inputType: TextInputType.text,
                       controller:
-                          Get.find<DocumentUploadController>().fileNameController),
+                      Get.find<CustomTextEditingController>().docFileNameController),
                 ],
               ),
               customSpacerHeight(height: 8),
@@ -83,7 +87,10 @@ class _AddDocumentState extends State<AddDocument> {
                   textFieldTitleText(titleText: AppString.text_documents,),
                   customSpacerHeight(height: 8),
                   _dottedBorder(child:InkWell(
-                    onTap: () => pickFile1(),
+                    onTap: (){
+                      Get.find<FileUploadController>().pickFile();
+
+                    },
                     child: fileToDisplay != null
                         ? Container(
                       height: AppLayout.getHeight(100),
@@ -135,13 +142,13 @@ class _AddDocumentState extends State<AddDocument> {
           ),
         ),
         const Spacer(),
+
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: customDoubleButton(
               textButtonAction: () => Get.back(),
               elevatedButtonAction: () =>
-              fileToDisplay?.path !=null?
-                  Get.find<DocumentUploadController>().uploadDocument(fileToDisplay!.path):_showToast(AppString.text_field_is_requird),
+                  Get.find<FileUploadController>().uploadFile(context: context),
               textBtnText: AppString.text_cancel,
               elevatedBtnText: AppString.text_save,
               context: context),

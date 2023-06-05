@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_deleted_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/update_document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/view_doc_file.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/update_document.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -12,6 +13,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/widget/custom_appbar.dart';
 import '../../../../common/widget/custom_buttom_sheet.dart';
 import '../../../../common/widget/custom_button.dart';
@@ -25,147 +27,164 @@ class DocumentScreen extends GetView<DocumentController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppbar(),
-      body: controller.obx(
-        (state) => Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            customMoreAppbar(
-                titleText: controller.documentModel.message ??
-                    AppString.text_documents,
-                onAction: () => Get.back()),
-            controller.documentModel.data?.documents != null
-                ? Expanded(
-                    child: Container(
-                      color: AppColor.backgroundColor,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _fileTitleText(
-                              totalFileText: controller
-                                      .documentModel.data?.meta?.total
-                                      .toString() ??
-                                  ""),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Column(
-                                children: [
-                                  Expanded(
-                                      child: ListView.builder(
-                                    itemCount: controller
-                                        .documentModel.data?.documents?.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return InkWell(
-                                        onTap: () => CustomNavigator(
-                                            context: context,
-                                            pageName: _selectedPage(
-                                                fullUrl: controller
-                                                        .documentModel
-                                                        .data
-                                                        ?.documents?[index]
-                                                        .fullUrl ??
-                                                    "",
-                                                docText: controller
-                                                        .documentModel
-                                                        .data
-                                                        ?.documents?[index]
-                                                        .name ??
-                                                    AppString.text_documents)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Card(
-                                            elevation: 0,
-                                            shape: RoundedRectangleBorder(
-                                                side: BorderSide(
-                                                    width:
-                                                        AppLayout.getWidth(0.3),
-                                                    color: AppColor.hintColor),
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        Dimensions
-                                                            .radiusDefault)),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  flex: 3,
-                                                  child: _cardImage(
-                                                    imageUrl: controller
-                                                            .documentModel
-                                                            .data
-                                                            ?.documents?[index]
-                                                            .fullUrl ??
-                                                        "",
+        appBar: const CustomAppbar(),
+        body: controller.obx(
+          (state) => Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              customMoreAppbar(
+                  titleText: controller.documentModel.message ??
+                      AppString.text_documents,
+                  onAction: () => Get.back()),
+
+              controller.documentModel.data?.documents != null &&
+                      controller.documentModel.data!.documents!.isNotEmpty
+                  ? Expanded(
+                      child: Container(
+                        color: AppColor.backgroundColor,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _fileTitleText(
+                                totalFileText: controller
+                                        .documentModel.data?.meta?.total
+                                        .toString() ??
+                                    ""),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                        child: ListView.builder(
+                                      itemCount: controller.documentModel.data
+                                          ?.documents?.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return InkWell(
+                                          onTap: () => CustomNavigator(
+                                              context: context,
+                                              pageName: _selectedPage(
+                                                  fullUrl: controller
+                                                          .documentModel
+                                                          .data
+                                                          ?.documents?[index]
+                                                          .fullUrl ??
+                                                      "",
+                                                  docText: controller
+                                                          .documentModel
+                                                          .data
+                                                          ?.documents?[index]
+                                                          .name ??
+                                                      AppString
+                                                          .text_documents)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Card(
+                                              elevation: 0,
+                                              shape: RoundedRectangleBorder(
+                                                  side: BorderSide(
+                                                      width: AppLayout.getWidth(
+                                                          0.3),
+                                                      color:
+                                                          AppColor.hintColor),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          Dimensions
+                                                              .radiusDefault)),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: _cardImage(
+                                                      imageUrl: controller
+                                                              .documentModel
+                                                              .data
+                                                              ?.documents?[
+                                                                  index]
+                                                              .fullUrl ??
+                                                          "",
+                                                    ),
                                                   ),
-                                                ),
-                                                Expanded(
-                                                    flex: 8,
-                                                    child: _cardImgTitle(
-                                                        titleText: controller
-                                                                .documentModel
-                                                                .data
-                                                                ?.documents?[
-                                                                    index]
-                                                                .name ??
-                                                            "",
-                                                        sizeText: "",
-                                                        id: controller
-                                                                .documentModel
-                                                                .data
-                                                                ?.documents?[
-                                                                    index]
-                                                                .id ??
-                                                            "",
-                                                        docText: controller
-                                                                .documentModel
-                                                                .data
-                                                                ?.documents?[
-                                                                    index]
-                                                                .name ??
-                                                            "",
-                                                        context: context)),
-                                              ],
+                                                  Expanded(
+                                                      flex: 8,
+                                                      child: _cardImgTitle(
+                                                          titleText: controller
+                                                                  .documentModel
+                                                                  .data
+                                                                  ?.documents?[
+                                                                      index]
+                                                                  .name ??
+                                                              "",
+                                                          sizeText: "",
+                                                          id: controller
+                                                                  .documentModel
+                                                                  .data
+                                                                  ?.documents?[
+                                                                      index]
+                                                                  .id ??
+                                                              "",
+                                                          docText: controller
+                                                                  .documentModel
+                                                                  .data
+                                                                  ?.documents?[
+                                                                      index]
+                                                                  .name ??
+                                                              "",
+                                                          context: context)),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                  )),
-                                ],
+                                        );
+                                      },
+                                    )),
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  : Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+
+                          logoView(
+                            height: 160,
+                            width: 160,
+                            url: Images.no_data_found,
+                          ),
                         ],
                       ),
                     ),
-                  )
-                : Center(
-                    child: Text(
-                    AppString.text_no_document_found,
-                    style: AppStyle.title_text.copyWith(
-                        color: AppColor.normalTextColor,
-                        fontSize: Dimensions.fontSizeDefault),
-                  )),
-            _addDocumentBtn(),
-            customSpacerHeight(height: 14),
-          ],
+
+
+
+              customSpacerHeight(height: 125)
+            ],
+          ),
         ),
-      ),
+        floatingActionButton: _addDocumentBtn()
+
+
     );
   }
 
   Widget _addDocumentBtn() {
     return Padding(
       padding: EdgeInsets.only(
-          left: AppLayout.getWidth(8),
-          right: AppLayout.getWidth(8),
+          left: AppLayout.getWidth(30),
           top: AppLayout.getHeight(8),
           bottom: AppLayout.getHeight(8)),
       child: CustomButton(AppString.text_add_documents, () {
+
         customButtomSheet(
             context: Get.context, height: 0.9, child: const AddDocument());
       }),
@@ -181,7 +200,7 @@ class DocumentScreen extends GetView<DocumentController> {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(Dimensions.radiusMid - 4),
                     bottomLeft: Radius.circular(Dimensions.radiusMid - 4)),
-                image: DecorationImage(image: NetworkImage(imageUrl))),
+                image: DecorationImage(image: NetworkImage(imageUrl),fit: BoxFit.cover)),
           );
   }
 }
@@ -220,12 +239,7 @@ Widget _fileIcon() {
   );
 }
 
-Widget _cardImgTitle(
-    {required titleText,
-    required sizeText,
-    required id,
-    required docText,
-    required context}) {
+Widget _cardImgTitle({required titleText, required sizeText, required id, required docText, required context}) {
   final box = GetStorage();
   return _sizedCardImgTitle(
       child: Row(
@@ -257,10 +271,13 @@ Widget _cardImgTitle(
                   ),
                   actions: [
                     _editDeletedActionRow(context: context, id: id),
+
                   ],
                 );
               },
-            );
+            ).then((value){
+              Navigator.pop(context);
+            });
           },
           icon: const Icon(Icons.more_vert))
     ],
@@ -272,13 +289,19 @@ Widget _editDeletedActionRow({required context, required id}) {
   return Row(
     children: [
       InkWell(
-        onTap: () => customButtomSheet(
-            context: context,
-            height: 0.9,
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: UpdateDocument(),
-            )),
+        onTap: () {
+          customButtomSheet(
+              context: context,
+              height: 0.9,
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: UpdateDocument(),
+              ));
+          _box.write(AppString.STORE_DOC_Id, id);
+
+          Get.find<UpdateDocumentController>().docNameController.value.text =
+              _box.read(AppString.STORE_DOC_NAME_TEXT) ?? "";
+        },
         child: _iconShape(icon: Icons.edit, text: AppString.text_edit),
       ),
       customSpacerWidth(width: 40),
@@ -286,10 +309,6 @@ Widget _editDeletedActionRow({required context, required id}) {
         onTap: () {
           _box.write(AppString.STORE_DOC_Id, id);
           Get.find<DeletedDocumentController>().deletedDocumentApi();
-          Future.delayed(
-            const Duration(seconds: 10),
-            () => Get.back(),
-          );
         },
         child: _iconShape(icon: Icons.delete, text: AppString.text_deleted),
       )

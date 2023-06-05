@@ -9,4 +9,6 @@ class CustomTextEditingController extends GetxController {
   final TextEditingController accountNumberController = TextEditingController();
   final TextEditingController accountTitleController = TextEditingController();
   final TextEditingController taxPayerIdController = TextEditingController();
+  final TextEditingController docFileNameController = TextEditingController();
+
 }

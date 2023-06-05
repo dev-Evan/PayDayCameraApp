@@ -8,6 +8,7 @@ import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/change_profile_img_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/update_document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -82,9 +83,10 @@ class _AddDocumentState extends State<UpdateDocument> {
                     titleText: AppString.text_documents,
                   ),
                   customSpacerHeight(height: 20),
+
                   _dottedBorder(
                       child: InkWell(
-                    onTap: () => pickFile1(),
+                    onTap: () => Get.find<UpdateDocumentController>().pickFile(),
                     child: fileToDisplay != null
                         ? Container(
                             height: AppLayout.getHeight(100),
@@ -129,8 +131,9 @@ class _AddDocumentState extends State<UpdateDocument> {
           child: customDoubleButton(
               textButtonAction: () => Get.back(),
               elevatedButtonAction: (){
-                fileToDisplay?.path !=null?
-                Get.find<UpdateDocumentController>().uploadDocument(fileToDisplay!.path):_showToast(AppString.text_please_selected_document);
+
+                Get.find<UpdateDocumentController>().uploadDocument(context: context);
+
               },
 
               textBtnText: AppString.text_cancel,
