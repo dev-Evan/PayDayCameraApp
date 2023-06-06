@@ -174,7 +174,7 @@ class LeaveDetails extends GetView<LeaveController> {
   _logResponseButton() {
     return AppButton(
       onPressed: () {
-        customButtomSheet(
+        customButtonSheet(
             context: Get.context!,
             height: 0.9,
             child: const LogResponse());

@@ -29,12 +29,4 @@ class ChangeProfileImageRepo{
   }
 
 
-
-
-
-
-
-
-
-
 }

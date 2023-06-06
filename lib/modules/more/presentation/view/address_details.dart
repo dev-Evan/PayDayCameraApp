@@ -4,13 +4,10 @@ import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
-import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
-import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
-import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
-import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/deleted_address_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/add_%20current_address.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/add_address.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/address_details_widget.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/edit_address.dart';
@@ -39,18 +36,15 @@ class AddressDetails extends GetView<AddressDetailsController> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               perTitleText(),
-
-
                               (controller.addressDetailsModel.data != null &&
                                       controller
                                           .addressDetailsModel.data!.isNotEmpty)
                                   ? controller.addressDetailsModel.data?.first
                                                   .key ==
-                                              AppString
-                                                  .text_permanent_address ||
+                                              "permanent_address" ||
                                           controller.addressDetailsModel.data
                                                   ?.last.key ==
-                                              AppString.text_permanent_address
+                                              "permanent_address"
                                       ? editDetBtn(
                                           context: context,
                                           onAction: () =>
@@ -61,22 +55,22 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                                           .data
                                                           ?.first
                                                           .key),
-                                          editAction: EditAddress(
-                                              AppString.text_permanent_address),
-                                        )
+                                          editAction:
+                                              EditAddress("permanent_address"),
+                                          type: "permanent_address")
                                       : addButton(onAction: () {
-                                          customButtomSheet(
+                                          customButtonSheet(
                                               context: context,
                                               height: 0.9,
-                                              child: EditAddress(AppString
-                                                  .text_permanent_address));
+                                              child: AddAddress(
+                                                  "permanent_address"));
                                         })
                                   : addButton(onAction: () {
-                                      customButtomSheet(
+                                      customButtonSheet(
                                           context: context,
                                           height: 0.9,
-                                          child: EditAddress(AppString
-                                              .text_permanent_address));
+                                          child:
+                                              AddAddress("permanent_address"));
                                     }),
                             ],
                           ),
@@ -85,10 +79,10 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                       .addressDetailsModel.data!.isNotEmpty)
                               ? controller.addressDetailsModel.data?.first
                                               .key ==
-                                          AppString.text_permanent_address ||
+                                          "permanent_address" ||
                                       controller.addressDetailsModel.data?.last
                                               .key ==
-                                          AppString.text_permanent_address
+                                          "permanent_address"
                                   ? Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -113,9 +107,8 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                               "",
                                           style: AppStyle.mid_large_text
                                               .copyWith(
-                                                  color: AppColor
-                                                      .normalTextColor
-                                                      ,
+                                                  color:
+                                                      AppColor.normalTextColor,
                                                   fontSize: Dimensions
                                                       .fontSizeDefault,
                                                   fontWeight: FontWeight.w500),
@@ -240,36 +233,33 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                           .addressDetailsModel.data!.isNotEmpty)
                                   ? controller.addressDetailsModel.data?.last
                                                   .key ==
-                                              AppString.text_present_address ||
+                                              "present_address" ||
                                           controller.addressDetailsModel.data
                                                   ?.first.key ==
-                                              AppString.text_present_address
+                                              "present_address"
                                       ? editDetBtn(
                                           context: context,
-                                          onAction: () => Get.find<
-                                                  DeletedAddController>()
-                                              .deletedAddressApi(
-                                                  addressType: AppString
-                                                      .text_present_address),
-                                          editAction: AddCurrentAddress(
-                                              typeKey: AppString
-                                                  .text_present_address),
-                                        )
+                                          onAction: () =>
+                                              Get.find<DeletedAddController>()
+                                                  .deletedAddressApi(
+                                                      addressType:
+                                                          "present_address"),
+                                          editAction:
+                                              EditAddress("present_address"),
+                                          type: "present_address")
                                       : addButton(onAction: () {
-                                          customButtomSheet(
+                                          customButtonSheet(
                                               context: context,
                                               height: 0.9,
                                               child: AddCurrentAddress(
-                                                  typeKey: AppString
-                                                      .text_present_address));
+                                                  typeKey: "present_address"));
                                         })
                                   : addButton(onAction: () {
-                                      customButtomSheet(
+                                      customButtonSheet(
                                           context: context,
                                           height: 0.9,
                                           child: AddCurrentAddress(
-                                              typeKey: AppString
-                                                  .text_present_address));
+                                              typeKey: "present_address"));
                                     }),
                             ],
                           ),
@@ -277,10 +267,7 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                   controller
                                       .addressDetailsModel.data!.isNotEmpty)
                               ? controller.addressDetailsModel.data?.last.key ==
-                                          AppString.text_present_address ||
-                                      controller.addressDetailsModel.data?.first
-                                              .key ==
-                                          AppString.text_present_address
+                                      "present_address"
                                   ? Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,

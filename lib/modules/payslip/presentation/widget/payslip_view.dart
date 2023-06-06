@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pay_day_mobile/common/controller/downloader_helper.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
@@ -189,7 +190,12 @@ Widget _payslipDownloadBtn({required payslipDateRange}) {
         bottom: AppLayout.getHeight(12)),
     child: CustomButton(
         AppString.text_download_payslip,
-        () => Get.find<PayslipDownlaodController>()
-            .payslipDownload(id: id, token: token, date: payslipDateRange)),
+        () =>
+
+            Get.find<PayslipDownlaodController>()
+            .payslipDownload(id: id, token: token, date: payslipDateRange)
+
+
+    ),
   );
 }

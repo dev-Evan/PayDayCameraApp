@@ -49,7 +49,7 @@ class Leave extends GetView<LeaveController> {
       padding: EdgeInsets.symmetric(vertical: AppLayout.getHeight(12),horizontal: AppLayout.getWidth(12)),
       child: CustomButton(AppString.text_apply_leve, () async {
         await controller.getLeaveType();
-        customButtomSheet(
+        customButtonSheet(
             context: context, height: 0.9, child: const ApplyLeaveView());
       }),
     );

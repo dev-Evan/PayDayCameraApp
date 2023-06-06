@@ -55,7 +55,7 @@ Widget _titleText({required text}) {
 
 Widget _leading() {
   return IconButton(
-    onPressed: () => Get.to(DocumentScreen()),
+    onPressed: () => Get.back(),
     icon: const Icon(
       Icons.arrow_back,
       color: AppColor.cardColor,

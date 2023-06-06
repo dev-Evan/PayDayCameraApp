@@ -27,7 +27,7 @@ class EditBankInfo extends StatelessWidget {
             customSpacerHeight(height: 8),
             textFieldTitleText(titleText: AppString.text_bank_name),
             CustomTextFeild(
-              hintText: Get.find<MoreDataController>().bankInfoModel.data?.name ??AppString.text_enter_bank_name,
+              hintText: AppString.text_enter_bank_name,
               controller:
               Get.find<CustomTextEditingController>().bankNameController,
             ),
@@ -40,7 +40,7 @@ class EditBankInfo extends StatelessWidget {
                     children: [
                       textFieldTitleText(titleText: AppString.text_branch),
                       CustomTextFeild(
-                        hintText:Get.find<MoreDataController>().bankInfoModel.data?.branchName ?? AppString.text_enter_branch,
+                        hintText:AppString.text_enter_branch,
                         controller: Get.find<CustomTextEditingController>()
                             .branchNameController,
                       ),
@@ -54,7 +54,7 @@ class EditBankInfo extends StatelessWidget {
                     children: [
                       textFieldTitleText(titleText: AppString.text_bank_code),
                       CustomTextFeild(
-                          hintText: Get.find<MoreDataController>().bankInfoModel.data?.code ??AppString.text_enter_bank_code,
+                          hintText:AppString.text_enter_bank_code,
                           controller: Get.find<CustomTextEditingController>()
                               .bankCodeController),
                     ],
@@ -65,28 +65,28 @@ class EditBankInfo extends StatelessWidget {
             customSpacerHeight(height: 8),
             textFieldTitleText(titleText: AppString.text_account_holder),
             CustomTextFeild(
-              hintText: Get.find<MoreDataController>().bankInfoModel.data?.accountHolderName ?? AppString.text_enter_name,
+              hintText:  AppString.text_enter_name,
               controller: Get.find<CustomTextEditingController>()
                   .accountHolderNameController,
             ),
             customSpacerHeight(height: 8),
             textFieldTitleText(titleText: AppString.text_account_number),
             CustomTextFeild(
-              hintText:Get.find<MoreDataController>().bankInfoModel.data?.accountNumber ?? AppString.text_enter_account_number,
+              hintText: AppString.text_enter_account_number,
               controller: Get.find<CustomTextEditingController>()
                   .accountNumberController,
             ),
             customSpacerHeight(height: 8),
             textFieldTitleText(titleText: AppString.text_account_title),
             CustomTextFeild(
-              hintText: Get.find<MoreDataController>().bankInfoModel.data?.accountTitle ??AppString.text_enter_title,
+              hintText: AppString.text_enter_title,
               controller: Get.find<CustomTextEditingController>()
                   .accountTitleController,
             ),
             customSpacerHeight(height: 8),
             textFieldTitleText(titleText: AppString.text_tax_payer_id),
             CustomTextFeild(
-              hintText: Get.find<MoreDataController>().bankInfoModel.data?.taxPayerId ??AppString.text_enter_id,
+              hintText: AppString.text_enter_id,
               controller:
               Get.find<CustomTextEditingController>().taxPayerIdController,
             ),
@@ -98,7 +98,7 @@ class EditBankInfo extends StatelessWidget {
                 textBtnText: AppString.text_cancel,
                 textButtonAction: () => Get.back(),
                 elevatedButtonAction: () {
-                 // Get.find<MoreDataController>().addBankInfo(context: context);
+                  Get.find<MoreDataController>().updateBankInfo(context: context);
                 }),
             customSpacerHeight(height: 250)
           ],

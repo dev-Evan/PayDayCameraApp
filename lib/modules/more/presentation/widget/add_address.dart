@@ -10,6 +10,8 @@ import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_update_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -47,7 +49,7 @@ class AddAddress extends StatelessWidget {
                   .data
                   ?.first
                   .key ==
-                  AppString.text_permanent_address
+               "permanent_address"
                   ? "${AppString.text_edit} ${AppString.text_address}"
                   : "${AppString.text_add} ${AppString.text_address}"
                   : "",
@@ -100,7 +102,7 @@ class AddAddress extends StatelessWidget {
                         .data
                         ?.first
                         .key ==
-                        AppString.text_permanent_address
+                        "permanent_address"
                         ? Get.find<AddressDetailsController>()
                         .addressDetailsModel
                         .data
@@ -137,7 +139,7 @@ class AddAddress extends StatelessWidget {
                             .data
                             ?.first
                             .key ==
-                            AppString.text_permanent_address
+                            "permanent_address"
                             ? Get.find<AddressDetailsController>()
                             .addressDetailsModel
                             .data
@@ -149,7 +151,7 @@ class AddAddress extends StatelessWidget {
                             : AppString.text_enter_area
                             : "",
                         controller:
-                        Get.find<AddressUpdateController>().areaController,
+                        Get.find<CustomTextEditingController>().areaController,
                       ),
                     ],
                   ),
@@ -174,7 +176,7 @@ class AddAddress extends StatelessWidget {
                               .data
                               ?.first
                               .key ==
-                              AppString.text_permanent_address
+                              "permanent_address"
                               ? Get.find<AddressDetailsController>()
                               .addressDetailsModel
                               .data
@@ -185,7 +187,7 @@ class AddAddress extends StatelessWidget {
                               ""
                               : AppString.text_enter_city
                               : "",
-                          controller: Get.find<AddressUpdateController>()
+                          controller: Get.find<CustomTextEditingController>()
                               .cityController),
                     ],
                   ),
@@ -213,7 +215,7 @@ class AddAddress extends StatelessWidget {
                               .data
                               ?.first
                               .key ==
-                              AppString.text_permanent_address
+                             "permanent_address"
                               ? Get.find<AddressDetailsController>()
                               .addressDetailsModel
                               .data
@@ -224,7 +226,7 @@ class AddAddress extends StatelessWidget {
                               ""
                               : AppString.text_enter_state
                               : "",
-                          controller: Get.find<AddressUpdateController>()
+                          controller: Get.find<CustomTextEditingController>()
                               .stateController),
                     ],
                   ),
@@ -249,7 +251,7 @@ class AddAddress extends StatelessWidget {
                               .data
                               ?.first
                               .key ==
-                              AppString.text_permanent_address
+                              "permanent_address"
                               ? Get.find<AddressDetailsController>()
                               .addressDetailsModel
                               .data
@@ -260,8 +262,8 @@ class AddAddress extends StatelessWidget {
                               ""
                               : AppString.text_enter_zip_code
                               : "",
-                          controller: Get.find<AddressUpdateController>()
-                              .zipCodeController),
+                          controller: Get.find<CustomTextEditingController>()
+                              .addZipCodeController),
                     ],
                   ),
                 ),
@@ -274,7 +276,7 @@ class AddAddress extends StatelessWidget {
                     titleText: AppString.text_address + AppString.text_details),
                 InputNote(
                   controller:
-                  Get.find<AddressUpdateController>().detailsController,
+                  Get.find<CustomTextEditingController>().detailsController,
                   hintText: Get.find<AddressDetailsController>()
                       .addressDetailsModel
                       .data !=
@@ -288,7 +290,7 @@ class AddAddress extends StatelessWidget {
                       .data
                       ?.first
                       .key ==
-                      AppString.text_permanent_address
+                      "permanent_address"
                       ? Get.find<AddressDetailsController>()
                       .addressDetailsModel
                       .data
@@ -310,6 +312,8 @@ class AddAddress extends StatelessWidget {
                 textBtnText: AppString.text_cancel,
                 textButtonAction: () => Get.back(),
                 elevatedButtonAction: () {
+                  Get.find<AddressUpdateController>().status.isLoading?
+                      waitingLoader():
                   Get.find<AddressUpdateController>().addressUpdate(
                     typeKey: typeText.toString(),
                     selectedCounty: _box.read(AppString.STORE_COUNTY),
@@ -374,7 +378,7 @@ Widget _phoneAndCountyField() {
           .data
           ?.first
           .key ==
-          AppString.text_permanent_address
+          "permanent_address"
           ? Get.find<AddressDetailsController>()
           .addressDetailsModel
           .data
@@ -390,6 +394,6 @@ Widget _phoneAndCountyField() {
           borderSide: BorderSide(width: 0.0, color: AppColor.disableColor),
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
     ),
-    controller: Get.find<AddressUpdateController>().phoneNumberController,
+    controller: Get.find<CustomTextEditingController>().phoneNumberController,
   );
 }

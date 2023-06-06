@@ -8,6 +8,7 @@ import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/update_document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -68,10 +69,9 @@ class _AddDocumentState extends State<UpdateDocument> {
                   textFieldTitleText(titleText: AppString.text_name),
                   CustomTextFeild(
                       hintText:
-                          _box.read(AppString.STORE_DOC_NAME_TEXT)??"",
+                      _box.read(AppString.STORE_DOC_NAME_TEXT)??"",
                       inputType: TextInputType.text,
-                      controller:
-                          Get.find<UpdateDocumentController>().docNameController.value),
+                      controller: Get.find<CustomTextEditingController>().docFileNameController),
                 ],
               ),
               customSpacerHeight(height: 20),
@@ -83,41 +83,44 @@ class _AddDocumentState extends State<UpdateDocument> {
                   ),
                   customSpacerHeight(height: 20),
                   _dottedBorder(
-                      child: InkWell(
-                    onTap: () => pickFile1(),
-                    child: fileToDisplay != null
-                        ? Container(
-                            height: AppLayout.getHeight(100),
-                            decoration: BoxDecoration(
-                              color: AppColor.disableColor.withOpacity(0.4),
-                              image: DecorationImage(
-                                  image: FileImage(
-                                      File(fileToDisplay?.path ?? "").absolute),
-                                  fit: BoxFit.cover),
-                            ),
-                          )
-                        : Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                _fileTitle(
-                                    text: _box.read(AppString.STORE_DOC_NAME_TEXT)??"",
-                                ),
-                                customSpacerHeight(height: 16),
-                                _changeFile()
-                              ],
-                            ),
+                      child: Obx(() => InkWell(
+                        onTap: () => Get.find<UpdateDocumentController>().pickFile(),
+                        child: Get.find<UpdateDocumentController>().filePath.isNotEmpty
+                            ? Container(
+                          height: AppLayout.getHeight(100),
+                          decoration: BoxDecoration(
+                            color: AppColor.disableColor.withOpacity(0.4),
+                            image: DecorationImage(
+                                image: FileImage(
+                                    File(Get.find<UpdateDocumentController>().filePath.value.toString()).absolute),
+                                fit: BoxFit.cover),
                           ),
-                  )),
-                  customSpacerHeight(height: 8),
-                  fileName != null
-                      ? Text(
-                          fileName.toString(),
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.hintColor,
-                              fontSize: Dimensions.fontSizeDefault - 2),
                         )
-                      : const Text(""),
+                            : Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              _fileTitle(
+                                text: _box.read(AppString.STORE_DOC_NAME_TEXT)??"",
+                              ),
+                              customSpacerHeight(height: 16),
+                              _changeFile()
+                            ],
+                          ),
+                        ),
+                      ))
+
+                  ),
+                  customSpacerHeight(height: 8),
+                  Obx(() => Get.find<UpdateDocumentController>().filePath.value.isNotEmpty
+                      ? Text(
+                    Get.find<UpdateDocumentController>().filePath.value.toString(),
+                    style: AppStyle.mid_large_text.copyWith(
+                        color: AppColor.hintColor,
+                        fontSize: Dimensions.fontSizeDefault - 2),
+                  )
+                      : const Text(""))
+                  ,
                 ],
               ),
             ],
@@ -129,8 +132,8 @@ class _AddDocumentState extends State<UpdateDocument> {
           child: customDoubleButton(
               textButtonAction: () => Get.back(),
               elevatedButtonAction: (){
-                fileToDisplay?.path !=null?
-                Get.find<UpdateDocumentController>().uploadDocument(fileToDisplay!.path):_showToast(AppString.text_please_selected_document);
+
+                Get.find<UpdateDocumentController>().updateDocFile(context: context);
               },
 
               textBtnText: AppString.text_cancel,
@@ -141,24 +144,13 @@ class _AddDocumentState extends State<UpdateDocument> {
     );
   }
 }
-_showToast(message) => Fluttertoast.showToast(
-    msg: message,
-    toastLength: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.BOTTOM,
-    timeInSecForIosWeb: 1,
-    backgroundColor: AppColor.errorColor,
-    textColor: Colors.white,
-    fontSize: 16.0);
-
-
-
 
 Widget _fileTitle({required text}) {
   return Center(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-     const Icon(CupertinoIcons.doc_fill,color: AppColor.primaryColor,),
+        const Icon(CupertinoIcons.doc_fill,color: AppColor.primaryColor,),
 
         customSpacerWidth(width: 8),
         Text(

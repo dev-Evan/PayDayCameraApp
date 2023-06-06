@@ -51,6 +51,23 @@ class NetworkClient extends GetConnect {
   }
 
 
+  Future<Response> patchRequest(String apiEndPoint, dynamic body) async {
+    Response response =
+    await patch(_getRequestUrl(apiEndPoint), body, headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json; charset=UTF-8",
+      "Authorization": GetStorage().read(AppString.ACCESS_TOKEN) != null
+          ? "Bearer ${GetStorage().read(AppString.ACCESS_TOKEN)}"
+          : ""
+    }).timeout(const Duration(seconds: 20));
+
+    return response;
+  }
+
+
+
+
   String _getRequestUrl(String apiEndPoint) => AppString.BASE_URL + apiEndPoint;
 
 }
+

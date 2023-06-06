@@ -7,20 +7,22 @@ import '../../../utils/app_string.dart';
 class DeleteDocumentRepository {
   final NetworkClient networkClient;
   DeleteDocumentRepository(this.networkClient);
-  Future<DeletedDocModel> deletedDocRepo(String id,) async {
+  Future<DeletedDocModel> deletedDocRepo(
+    String id,
+  ) async {
     try {
-      Response  response = await networkClient.postRequest(
+      Response response = await networkClient.postRequest(
         AppString.DELETED_DOCUMENT,
         {
-          "id":id,
+          "id": id,
         },
       );
       print(response.body.toString());
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
-        print(response.body.toString());
-        print("done");
+        print("Deleted document ::: ${response.body}");
+
         return DeletedDocModel.fromJson(response.body);
       }
     } catch (ex) {
@@ -28,4 +30,3 @@ class DeleteDocumentRepository {
     }
   }
 }
-

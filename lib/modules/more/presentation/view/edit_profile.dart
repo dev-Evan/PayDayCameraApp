@@ -9,6 +9,7 @@ import 'package:pay_day_mobile/common/widget/input_note.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_drop_dawon_cnt.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/custom_text_field_dob.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
@@ -57,7 +58,7 @@ class EditProfile extends StatelessWidget {
                                       .data
                                       ?.firstName ??
                                   AppString.text_first + AppString.text_name,
-                              controller: Get.find<EditProfileDataController>()
+                              controller: Get.find<CustomTextEditingController>()
                                   .firstNameController,
                             ),
                           ],
@@ -77,7 +78,7 @@ class EditProfile extends StatelessWidget {
                                       .data
                                       ?.lastName ??
                                   AppString.text_last + AppString.text_name,
-                              controller: Get.find<EditProfileDataController>()
+                              controller: Get.find<CustomTextEditingController>()
                                   .lastNameController,
                             ),
                           ],
@@ -93,7 +94,7 @@ class EditProfile extends StatelessWidget {
                             ?.email ??
                         AppString.text_email,
                     controller:
-                        Get.find<EditProfileDataController>().emailController,
+                        Get.find<CustomTextEditingController>().emailController,
                   ),
                   textFieldTitleText(titleText: AppString.text_gender_text),
                   Obx(
@@ -155,7 +156,7 @@ class EditProfile extends StatelessWidget {
                             ?.contact ??
                         "",
                     controller:
-                        Get.find<EditProfileDataController>().contactController,
+                        Get.find<CustomTextEditingController>().contactController,
                   ),
                   textFieldTitleText(titleText: AppString.text_address_details),
                   InputNote(
@@ -165,7 +166,7 @@ class EditProfile extends StatelessWidget {
                             ?.address ??
                         AppString.text_enter_your_address,
                     controller:
-                        Get.find<EditProfileDataController>().addressController,
+                        Get.find<CustomTextEditingController>().addressController,
                   ),
                   textFieldTitleText(titleText: AppString.text_date_of_birth),
                   CustomTextFieldDob(
@@ -201,7 +202,7 @@ class EditProfile extends StatelessWidget {
                             ?.aboutMe ??
                         AppString.text_enter_your_about,
                     controller:
-                        Get.find<EditProfileDataController>().aboutMeController,
+                        Get.find<CustomTextEditingController>().aboutMeController,
                   )
                 ],
               ),
