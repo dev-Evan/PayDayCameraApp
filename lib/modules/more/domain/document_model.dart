@@ -1,5 +1,11 @@
 class DocumentModel {
   bool? status;
+
+  @override
+  String toString() {
+    return 'DocumentModel{status: $status, message: $message, data: $data}';
+  }
+
   String? message;
   Data? data;
 
@@ -58,11 +64,17 @@ class Data {
 class Documents {
   int? id;
   int? userId;
+
+  @override
+  String toString() {
+    return 'Documents{id: $id, userId: $userId, name: $name, path: $path, fullUrl: $fullUrl, createdAt: $createdAt, updatedAt: $updatedAt, createdBy: $createdBy}';
+  }
+
   String? name;
   String? path;
   String? fullUrl;
-  Null? createdAt;
-  Null? updatedAt;
+  String? createdAt;
+  String? updatedAt;
   CreatedBy? createdBy;
 
   Documents(
@@ -132,8 +144,8 @@ class CreatedBy {
 class Links {
   String? first;
   String? last;
-  Null? prev;
-  Null? next;
+  String? prev;
+  String? next;
 
   Links({this.first, this.last, this.prev, this.next});
 

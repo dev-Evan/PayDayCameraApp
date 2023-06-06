@@ -8,19 +8,14 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 class DocumentRepository {
   final NetworkClient networkClient;
   DocumentRepository(this.networkClient);
-  final _box = GetStorage();
   Future<DocumentModel> getDocumentRepoData() async {
-    var queryParams = {
-      'page': _box.read(AppString.ID_STORE).toString(),
-    };
     try {
-      Response response = await networkClient.getQueryRequest(
-          apiEndPoint: AppString.DOCUMENT_LIST, query: queryParams);
-
+      Response response = await networkClient.getRequest(
+           AppString.DOCUMENT_LIST, );
+      print("Document list called ${response.body}");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
-        print(response.body);
         return DocumentModel.fromJson(response.body);
       }
     } catch (e) {

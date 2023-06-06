@@ -1,23 +1,21 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/input_note.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/date_of_birth_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_drop_dawon_cnt.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/custom_text_field_dob.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/defult_date_of_birth_field.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/edit_profile_calender.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/profile_calender_dialog.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
-import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
@@ -50,16 +48,20 @@ class EditProfile extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             textFieldTitleText(
-                                titleText:
-                                    AppString.text_first + AppString.text_name),
+                                titleText: AppString.text_first +
+                                    " " +
+                                    AppString.text_name),
                             CustomTextFeild(
                               hintText: Get.find<ProfileDataController>()
                                       .userProfile
                                       .data
                                       ?.firstName ??
-                                  AppString.text_first + AppString.text_name,
-                              controller: Get.find<CustomTextEditingController>()
-                                  .firstNameController,
+                                  AppString.text_first +
+                                      " " +
+                                      AppString.text_name,
+                              controller:
+                                  Get.find<CustomTextEditingController>()
+                                      .firstNameController,
                             ),
                           ],
                         ),
@@ -70,16 +72,20 @@ class EditProfile extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             textFieldTitleText(
-                                titleText:
-                                    AppString.text_first + AppString.text_name),
+                                titleText: AppString.text_last +
+                                    " " +
+                                    AppString.text_name),
                             CustomTextFeild(
                               hintText: Get.find<ProfileDataController>()
                                       .userProfile
                                       .data
                                       ?.lastName ??
-                                  AppString.text_last + AppString.text_name,
-                              controller: Get.find<CustomTextEditingController>()
-                                  .lastNameController,
+                                  AppString.text_last +
+                                      " " +
+                                      AppString.text_name,
+                              controller:
+                                  Get.find<CustomTextEditingController>()
+                                      .lastNameController,
                             ),
                           ],
                         ),
@@ -140,9 +146,8 @@ class EditProfile extends StatelessWidget {
                           }).toList(),
                           onChanged: (newValue) {
                             Get.find<DropdownBtnController>()
-                                .onValueChanged(newValue);
-
-                            // print(newValue.toString());
+                                .onValueChanged(newValue!);
+                            print(newValue.toString());
                           },
                         ),
                       ),
@@ -155,8 +160,8 @@ class EditProfile extends StatelessWidget {
                             .data
                             ?.contact ??
                         "",
-                    controller:
-                        Get.find<CustomTextEditingController>().contactController,
+                    controller: Get.find<CustomTextEditingController>()
+                        .contactController,
                   ),
                   textFieldTitleText(titleText: AppString.text_address_details),
                   InputNote(
@@ -165,35 +170,11 @@ class EditProfile extends StatelessWidget {
                             .data
                             ?.address ??
                         AppString.text_enter_your_address,
-                    controller:
-                        Get.find<CustomTextEditingController>().addressController,
+                    controller: Get.find<CustomTextEditingController>()
+                        .addressController,
                   ),
                   textFieldTitleText(titleText: AppString.text_date_of_birth),
-                  CustomTextFieldDob(
-                      hintText:
-                          _box.read(AppString.STORE_DATE.toString()) ??
-                              Get.find<ProfileDataController>()
-                                  .userProfile
-                                  .data
-                                  ?.dateOfBirth ??
-                              "YYY-MM-DD",
-                      dobIcon: Icons.calendar_month,
-                      dobIconAction: () {
-                        profileCalenderDialog(
-                            context: context,
-                            height: AppLayout.getHeight(72),
-                            child: const EditProfileCalender(),
-                            dobSaveAction: () {
-                              if (_box.read(
-                                      AppString.STORE_DATE.toString() ?? "") ==
-                                  null) {
-                                Get.snackbar(AppString.text_alert,
-                                    AppString.text_please_selected_date);
-                              } else {
-                                Get.back();
-                              }
-                            });
-                      }),
+                  Obx(() => dateOfBirthField(context:context)),
                   textFieldTitleText(titleText: AppString.text_about_me),
                   InputNote(
                     hintText: Get.find<ProfileDataController>()
@@ -201,8 +182,8 @@ class EditProfile extends StatelessWidget {
                             .data
                             ?.aboutMe ??
                         AppString.text_enter_your_about,
-                    controller:
-                        Get.find<CustomTextEditingController>().aboutMeController,
+                    controller: Get.find<CustomTextEditingController>()
+                        .aboutMeController,
                   )
                 ],
               ),
@@ -221,3 +202,5 @@ class EditProfile extends StatelessWidget {
     );
   }
 }
+
+

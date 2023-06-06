@@ -28,9 +28,10 @@ class ChangePassController extends GetxController with StateMixin {
       )
           .then((value) {
         _successDialog();
-        Get.back();
+        Get.back();  Get.back();Get.back();
       }, onError: (error) {
         print(error.toString());
+        Get.back();
         _showToast(error.toString());
 
       });

@@ -27,6 +27,7 @@ class AppString {
   static String BASIC_INFO = "/basic-information";
   static String UPDATE_PROFILE_DATA = "/user/profile/update";
   static String DOCUMENT_UPLOAD = "/document/store";
+  static String DOCUMENT_STORE = "/document/index";
   static String UPDATE_DOCUMENT = "/document/update";
   static String PAYSLIP_LIST = "/payroll/payslip-list";
   static String POST = "POST";
@@ -331,8 +332,8 @@ class AppString {
   static String text_old_password = "Old Password";
   static String text_new_password = "New Password";
   static String text_confirm_password = "Confirm Password";
-  static String text_male = "male";
-  static String text_female = "female";
+  static String text_male = "Male";
+  static String text_female = "Female";
   static String text_holiday = "Holidays";
   static String text_area = "Area";
   static String text_city = "City";

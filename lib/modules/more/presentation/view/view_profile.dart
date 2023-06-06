@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/date_of_birth_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_drop_dawon_cnt.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
@@ -14,6 +15,7 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.
 import 'package:pay_day_mobile/modules/more/presentation/widget/view_profile_widget.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
+import 'package:pay_day_mobile/utils/color_picker_helper.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
 class ViewProfile extends GetView<ProfileDataController> {
@@ -69,6 +71,15 @@ class ViewProfile extends GetView<ProfileDataController> {
                           .userProfile
                           .data
                           ?.address ??
+                      "";
+
+                  Get.find<DatePickerController>()
+                      .dobDateController
+                      .value
+                      .text = Get.find<ProfileDataController>()
+                          .userProfile
+                          .data
+                          ?.dateOfBirth ??
                       "";
                   CustomNavigator(context: context, pageName: EditProfile());
                 }),
@@ -191,9 +202,10 @@ class ViewProfile extends GetView<ProfileDataController> {
                               controller.userProfile.data!.gender!.isEmpty
                           ? Container()
                           : cardView(
-                              dynamicText: controller.userProfile.data?.gender
+                              dynamicText: capitalize(controller
+                                      .userProfile.data?.gender
                                       .toString() ??
-                                  "",
+                                  ""),
                               titleText: AppString.text_gender,
                               icon: CupertinoIcons.person),
                     ],

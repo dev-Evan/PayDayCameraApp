@@ -12,10 +12,11 @@ class DocumentController extends GetxController with StateMixin {
       await documentRepository.getDocumentRepoData().then((value) {
         documentModel = value;
       }, onError: (error) {
-        print(error.message);
+       print( "Document Called ::: ${error.toString()}");
+
       });
     } catch (ex) {
-      print(ex.toString());
+      print("Document Called ex ::: ${ex.toString()}");
     }
     change(null, status: RxStatus.success());
   }

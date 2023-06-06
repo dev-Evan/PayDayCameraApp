@@ -18,23 +18,25 @@ Widget cardView({icon, dynamicText, titleText}) {
       children: [
         cardIconView(cardIcon: icon),
       customSpacerWidth(width: 8),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              dynamicText,
-              style: AppStyle.small_text_black.copyWith(
-                  fontSize: Dimensions.fontSizeSmall + 3,
-                  color: AppColor.normalTextColor),
-            ),
-            Text(
-              titleText,
-              style: AppStyle.small_text.copyWith(
-                color: AppColor.hintColor,
-                fontSize: Dimensions.fontSizeDefault - 1,
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                dynamicText,
+                style: AppStyle.small_text_black.copyWith(
+                    fontSize: Dimensions.fontSizeSmall + 3,
+                    color: AppColor.normalTextColor),
               ),
-            ),
-          ],
+              Text(
+                titleText,
+                style: AppStyle.small_text.copyWith(
+                  color: AppColor.hintColor,
+                  fontSize: Dimensions.fontSizeDefault - 1,
+                ),
+              ),
+            ],
+          ),
         )
       ],
     ),
