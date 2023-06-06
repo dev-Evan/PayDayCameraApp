@@ -56,7 +56,6 @@ class AppString {
   static String NOTIFICATION_AS_ALL_READ = "/notification/all/read";
   static String EMPLOYEE_BANK_INFORMATION = "/employee/bank-information";
 
-
   // Apps string here
   static const String exampleText = "";
   static const String text_in = "In";
@@ -270,6 +269,7 @@ class AppString {
   static const String text_name = "Name";
   static const String text_click = "Click";
   static const String text_to_add_fils = "to add files";
+  static const String text_to_replace_fil = "to replace files";
   static const String text_jpeg_jpg_png_etc =
       "jpeg, jpg, png, pdf, txt, doc, docx, csv. (Max file size is 5MB)";
   static const String text_change_password = "Change Password";
@@ -288,8 +288,8 @@ class AppString {
   static String text_available = "Available";
 
   static String text_permanent = "Permanent ";
-  static String text_permanent_address = "permanent_address";
-  static String text_present_address = "present_address";
+  //static String text_permanent_address = "permanent_address";
+ // static String text_present_address = "present_address";
   static String text_about_me = "About me";
   static String text_about_this_app = "About This App";
   static String text_version_2_1_0_1 = "Version: 2.1.0.1";
@@ -386,6 +386,8 @@ class AppString {
       "Document uploaded successfully!";
   static String text_document_update_successfully =
       "Document update successfully!";
+  static String text_profile_update_successfully =
+      "Document Profile successfully!";
   static String text_payslip_download_successfully =
       "Payslip download successfully!";
   static String text_something_wrong = "Something wrong !";

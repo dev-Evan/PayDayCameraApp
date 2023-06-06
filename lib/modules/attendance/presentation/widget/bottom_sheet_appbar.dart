@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 import '../../../../utils/app_layout.dart';
 
-Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle,}) {
+Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle}) {
   return Container(
     padding: EdgeInsets.symmetric(
         horizontal: AppLayout.getWidth(Dimensions.paddingDefault),
-        vertical: AppLayout.getHeight(Dimensions.paddingDefault-8)),
+        vertical: AppLayout.getHeight(Dimensions.paddingDefault - 8)),
     decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(16), topRight: Radius.circular(16)),
@@ -27,14 +29,20 @@ Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle,}) 
       automaticallyImplyLeading: false,
       title: Text(
         appbarTitle ?? "Punch In",
-        style: AppStyle.normal_text_black.copyWith(fontWeight: FontWeight.w600,fontSize: Dimensions.fontSizeDefault+2),
+        style: AppStyle.normal_text_black.copyWith(
+            fontWeight: FontWeight.w600,
+            fontSize: Dimensions.fontSizeDefault + 2),
       ),
       actions: [
-      IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon:  Icon(
+        IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+            GetStorage().remove("Doc");
+          },
+          icon: Icon(
             Icons.close,
-            size: Dimensions.fontSizeLarge,color: AppColor.secondaryColor,
+            size: Dimensions.fontSizeLarge,
+            color: AppColor.secondaryColor,
           ),
         ),
       ],

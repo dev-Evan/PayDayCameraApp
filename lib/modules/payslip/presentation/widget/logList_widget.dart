@@ -37,7 +37,7 @@ Widget logsList(
         InkWell(
           onTap: () {
             box.write(AppString.STORE_PAYSLIP_LIST_ID, indexId);
-            customButtomSheet(
+            customButtonSheet(
                 context: Get.context,
                 height: 0.9,
                 child: PaySlipView(indexVal: indexId));

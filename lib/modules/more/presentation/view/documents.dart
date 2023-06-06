@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_deleted_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/update_document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/view_doc_file.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/update_document.dart';
@@ -37,7 +38,6 @@ class DocumentScreen extends GetView<DocumentController> {
                   titleText: controller.documentModel.message ??
                       AppString.text_documents,
                   onAction: () => Get.back()),
-
               controller.documentModel.data?.documents != null &&
                       controller.documentModel.data!.documents!.isNotEmpty
                   ? Expanded(
@@ -155,7 +155,6 @@ class DocumentScreen extends GetView<DocumentController> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-
                           logoView(
                             height: 160,
                             width: 160,
@@ -164,17 +163,11 @@ class DocumentScreen extends GetView<DocumentController> {
                         ],
                       ),
                     ),
-
-
-
               customSpacerHeight(height: 125)
             ],
           ),
         ),
-        floatingActionButton: _addDocumentBtn()
-
-
-    );
+        floatingActionButton: _addDocumentBtn());
   }
 
   Widget _addDocumentBtn() {
@@ -184,8 +177,7 @@ class DocumentScreen extends GetView<DocumentController> {
           top: AppLayout.getHeight(8),
           bottom: AppLayout.getHeight(8)),
       child: CustomButton(AppString.text_add_documents, () {
-
-        customButtomSheet(
+        customButtonSheet(
             context: Get.context, height: 0.9, child: const AddDocument());
       }),
     );
@@ -200,7 +192,8 @@ class DocumentScreen extends GetView<DocumentController> {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(Dimensions.radiusMid - 4),
                     bottomLeft: Radius.circular(Dimensions.radiusMid - 4)),
-                image: DecorationImage(image: NetworkImage(imageUrl),fit: BoxFit.cover)),
+                image: DecorationImage(
+                    image: NetworkImage(imageUrl), fit: BoxFit.cover)),
           );
   }
 }
@@ -233,13 +226,18 @@ Widget _fileIcon() {
           bottomLeft: Radius.circular(Dimensions.radiusMid - 4)),
     ),
     child: const Icon(
-      CupertinoIcons.doc_fill,
+      CupertinoIcons.doc,
       color: AppColor.primaryColor,
     ),
   );
 }
 
-Widget _cardImgTitle({required titleText, required sizeText, required id, required docText, required context}) {
+Widget _cardImgTitle(
+    {required titleText,
+    required sizeText,
+    required id,
+    required docText,
+    required context}) {
   final box = GetStorage();
   return _sizedCardImgTitle(
       child: Row(
@@ -271,11 +269,10 @@ Widget _cardImgTitle({required titleText, required sizeText, required id, requir
                   ),
                   actions: [
                     _editDeletedActionRow(context: context, id: id),
-
                   ],
                 );
               },
-            ).then((value){
+            ).then((value) {
               Navigator.pop(context);
             });
           },
@@ -290,7 +287,7 @@ Widget _editDeletedActionRow({required context, required id}) {
     children: [
       InkWell(
         onTap: () {
-          customButtomSheet(
+          customButtonSheet(
               context: context,
               height: 0.9,
               child: const Padding(
@@ -299,7 +296,7 @@ Widget _editDeletedActionRow({required context, required id}) {
               ));
           _box.write(AppString.STORE_DOC_Id, id);
 
-          Get.find<UpdateDocumentController>().docNameController.value.text =
+          Get.find<CustomTextEditingController>().docFileNameController.text =
               _box.read(AppString.STORE_DOC_NAME_TEXT) ?? "";
         },
         child: _iconShape(icon: Icons.edit, text: AppString.text_edit),

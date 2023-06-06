@@ -14,14 +14,18 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 
 class FileUploadController extends GetxController {
   Rx<File?> selectedFile = Rx<File?>(null);
+  RxString filePath = ''.obs;
   final _box=GetStorage();
   Future<void> pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
       File file = File(result.files.single.path!);
       selectedFile.value = file;
+      _box.write("Doc", file.path);
+      filePath.value = result.files.single.path!;
     }
   }
+
 
   var baseUrl = AppString.BASE_URL + AppString.DOCUMENT_UPLOAD;
   late var accessToken = _box.read(AppString.ACCESS_TOKEN);

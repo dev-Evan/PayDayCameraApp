@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
@@ -25,40 +26,10 @@ class AddDocument extends StatefulWidget {
   @override
   State<AddDocument> createState() => _AddDocumentState();
 }
+
 class _AddDocumentState extends State<AddDocument> {
-
-  FilePickerResult? result;
-  String? fileName;
-  PlatformFile? pickFile;
-  bool isLoading = false;
-  File? fileToDisplay;
-
-  void pickFile1() async {
-    try {
-      setState(() {
-        isLoading = false;
-      });
-
-      result = await FilePicker.platform.pickFiles(
-        type: FileType.any,
-        allowMultiple: false,
-      );
-
-      if (result != null) {
-        setState(() {
-          fileName = result!.files.first.name;
-          pickFile = result!.files.first;
-          fileToDisplay = File(pickFile!.path.toString());
-        });
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
   @override
   Widget build(BuildContext context) {
-    DocumentUploadRepo documentRepository = DocumentUploadRepo();
-
     return Column(
       children: [
         bottomSheetAppbar(
@@ -70,79 +41,189 @@ class _AddDocumentState extends State<AddDocument> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  textFieldTitleText(titleText:AppString.text_name ),
+                  textFieldTitleText(titleText: AppString.text_name),
                   customSpacerHeight(height: 8),
-
                   CustomTextFeild(
                       hintText: AppString.text_enter_document_name,
                       inputType: TextInputType.text,
-                      controller:
-                      Get.find<CustomTextEditingController>().docFileNameController),
+                      controller: Get.find<CustomTextEditingController>()
+                          .docFileNameController),
                 ],
               ),
               customSpacerHeight(height: 8),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  textFieldTitleText(titleText: AppString.text_documents,),
-                  customSpacerHeight(height: 8),
-                  _dottedBorder(child:InkWell(
-                    onTap: (){
-                      Get.find<FileUploadController>().pickFile();
-
-                    },
-                    child: fileToDisplay != null
-                        ? Container(
-                      height: AppLayout.getHeight(100),
-                      decoration: BoxDecoration(
-                        color: AppColor.disableColor.withOpacity(0.4),
-                        image: DecorationImage(
-                            image: FileImage(
-                                File(fileToDisplay?.path ?? "")
-                                    .absolute),
-                            fit: BoxFit.cover),
-                      ),
-                    )
-                        : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(CupertinoIcons.link),
-                        SizedBox(
-                          width: AppLayout.getWidth(6),
-                        ),
-                        Text(
-                          AppString.text_click,
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.primaryColor,
-                              fontSize: Dimensions.fontSizeDefault),
-                        ),
-
-                        customSpacerWidth(width: 6),
-                        Text(
-                          AppString.text_to_add_fils,
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.hintColor,
-                              fontSize: Dimensions.fontSizeDefault + 2),
-                        ),
-                      ],
-                    ),
-                  ) ),
-
+                  textFieldTitleText(
+                    titleText: AppString.text_documents,
+                  ),
                   customSpacerHeight(height: 8),
 
-                 fileName !=null? Text(
-                    fileName.toString(),
-                    style: AppStyle.mid_large_text.copyWith(
-                        color: AppColor.hintColor,
-                        fontSize: Dimensions.fontSizeDefault - 2),
-                  ):const Text(""),
+                  _dottedBorder(
+                      child: InkWell(
+                          onTap: () {
+                            Get.find<FileUploadController>().pickFile();
+                          },
+                          child: Obx(() => Get.find<FileUploadController>()
+                                  .filePath
+                                  .isNotEmpty
+                              ? Get.find<FileUploadController>()
+                                      .filePath
+                                      .endsWith(".pdf")
+                                  ? Container(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Icon(
+                                            Icons.picture_as_pdf,
+                                            color: AppColor.primaryColor,
+                                          ),
+                                          SizedBox(
+                                            width: AppLayout.getWidth(6),
+                                          ),
+                                          Text(
+                                            AppString.text_click,
+                                            style: AppStyle.mid_large_text
+                                                .copyWith(
+                                                    color:
+                                                        AppColor.primaryColor,
+                                                    fontSize: Dimensions
+                                                        .fontSizeDefault),
+                                          ),
+                                          customSpacerWidth(width: 6),
+                                          Text(
+                                            AppString.text_to_replace_fil,
+                                            style: AppStyle.mid_large_text
+                                                .copyWith(
+                                                    color: AppColor.hintColor,
+                                                    fontSize: Dimensions
+                                                            .fontSizeDefault +
+                                                        2),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : Container(
+                                      height: AppLayout.getHeight(100),
+                                      decoration: BoxDecoration(
+                                        color: AppColor.disableColor
+                                            .withOpacity(0.4),
+                                        image: DecorationImage(
+                                            image: FileImage(File(Get.find<
+                                                            FileUploadController>()
+                                                        .filePath
+                                                        .value ??
+                                                    "")
+                                                .absolute),
+                                            fit: BoxFit.cover),
+                                      ),
+                                    )
+                              : Container(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(
+                                        CupertinoIcons.doc,
+                                        color: AppColor.primaryColor,
+                                      ),
+                                      SizedBox(
+                                        width: AppLayout.getWidth(6),
+                                      ),
+                                      Text(
+                                        AppString.text_click,
+                                        style: AppStyle.mid_large_text.copyWith(
+                                            color: AppColor.primaryColor,
+                                            fontSize:
+                                                Dimensions.fontSizeDefault),
+                                      ),
+                                      customSpacerWidth(width: 6),
+                                      Text(
+                                        AppString.text_to_add_fils,
+                                        style: AppStyle.mid_large_text.copyWith(
+                                            color: AppColor.hintColor,
+                                            fontSize:
+                                                Dimensions.fontSizeDefault + 2),
+                                      ),
+                                    ],
+                                  ),
+                                ))
+
+                          // Obx(() =>  Get.find<FileUploadController>().filePath.value.isNotEmpty
+                          //
+                          //     ? Container(
+                          //   height: AppLayout.getHeight(100),
+                          //   decoration: BoxDecoration(
+                          //     color: AppColor.disableColor.withOpacity(0.4),
+                          //     image: DecorationImage(
+                          //         image: FileImage(
+                          //             File(Get.find<FileUploadController>().filePath.value ??"")
+                          //                 .absolute),
+                          //         fit: BoxFit.cover),
+                          //   ),
+                          // )
+
+                          //      : Row(
+                          //    mainAxisAlignment: MainAxisAlignment.center,
+                          //    children: [
+                          //      const Icon(CupertinoIcons.link),
+                          //      SizedBox(
+                          //        width: AppLayout.getWidth(6),
+                          //      ),
+                          //      Text(
+                          //        AppString.text_click,
+                          //        style: AppStyle.mid_large_text.copyWith(
+                          //            color: AppColor.primaryColor,
+                          //            fontSize: Dimensions.fontSizeDefault),
+                          //      ),
+                          //
+                          //      customSpacerWidth(width: 6),
+                          //      Text(
+                          //        AppString.text_to_add_fils,
+                          //        style: AppStyle.mid_large_text.copyWith(
+                          //            color: AppColor.hintColor,
+                          //            fontSize: Dimensions.fontSizeDefault + 2),
+                          //      ),
+                          //    ],
+                          //  ),):Container(
+                          //     child: Row(
+                          //       mainAxisAlignment: MainAxisAlignment.center,
+                          //       children: [
+                          //         const Icon(Icons.picture_as_pdf,color: AppColor.primaryColor,),
+                          //         SizedBox(
+                          //           width: AppLayout.getWidth(6),
+                          //         ),
+                          //         Text(
+                          //           AppString.text_click,
+                          //           style: AppStyle.mid_large_text.copyWith(
+                          //               color: AppColor.primaryColor,
+                          //               fontSize: Dimensions.fontSizeDefault),
+                          //         ),
+                          //
+                          //         customSpacerWidth(width: 6),
+                          //         Text(
+                          //           AppString.text_to_replace_fil,
+                          //           style: AppStyle.mid_large_text.copyWith(
+                          //               color: AppColor.hintColor,
+                          //               fontSize: Dimensions.fontSizeDefault + 2),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   )
+                          )), //),
+
+                  customSpacerHeight(height: 8),
+                  Obx(() => Text(
+                      Get.find<FileUploadController>().filePath.value,
+                      style: AppStyle.mid_large_text.copyWith(
+                          color: AppColor.hintColor,
+                          fontSize: Dimensions.fontSizeDefault - 2))),
                 ],
               ),
             ],
           ),
         ),
         const Spacer(),
-
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: customDoubleButton(
@@ -157,6 +238,7 @@ class _AddDocumentState extends State<AddDocument> {
     );
   }
 }
+
 _showToast(message) => Fluttertoast.showToast(
     msg: message,
     toastLength: Toast.LENGTH_SHORT,
@@ -166,11 +248,8 @@ _showToast(message) => Fluttertoast.showToast(
     textColor: Colors.white,
     fontSize: 16.0);
 
-
-
-
-Widget _dottedBorder({required child}){
-  return  DottedBorder(
+Widget _dottedBorder({required child}) {
+  return DottedBorder(
     radius: Radius.circular(Dimensions.radiusMid),
     color: AppColor.disableColor,
     strokeCap: StrokeCap.square,

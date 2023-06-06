@@ -5,6 +5,8 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/change_profile_img_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_drop_dawon_cnt.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/user_status.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -52,8 +54,13 @@ Widget profileCardLayOut(
               ),
               const Spacer(),
               _moveProfileView(
-                  onAction: () => CustomNavigator(
-                      context: context, pageName: ViewProfile())),
+
+                  onAction: ()=>
+
+
+                    CustomNavigator(
+                    context: context, pageName: ViewProfile()),
+                  ),
             ],
           ),
         ),

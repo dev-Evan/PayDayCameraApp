@@ -3,46 +3,49 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/more/data/address_update_repo.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 
 class AddressUpdateController extends GetxController with StateMixin {
-  final AddressUpdateDataSource addressUpdateDataSource = AddressUpdateDataSource(NetworkClient());
-  final areaController = TextEditingController();
-  final cityController = TextEditingController();
-  final countyController = TextEditingController();
-  final detailsController = TextEditingController();
-  final phoneNumberController = TextEditingController();
-  final stateController = TextEditingController();
-  final typeController = TextEditingController();
-  final zipCodeController = TextEditingController();
+  final AddressUpdateDataSource addressUpdateDataSource =
+      AddressUpdateDataSource(NetworkClient());
 
   void addressUpdate({required typeKey, required selectedCounty}) async {
-    change(null, status: RxStatus.loading());
+    waitingLoader();
     try {
       await addressUpdateDataSource
           .getAddressUpdate(
-        areaController.value.text,
-        cityController.value.text,
+        Get.find<CustomTextEditingController>().areaController.value.text,
+        Get.find<CustomTextEditingController>().cityController.value.text,
         selectedCounty.toString(),
-        detailsController.value.text,
-        phoneNumberController.value.text,
-        stateController.value.text,
+        Get.find<CustomTextEditingController>().detailsController.value.text,
+        Get.find<CustomTextEditingController>()
+            .phoneNumberController
+            .value
+            .text,
+        Get.find<CustomTextEditingController>().stateController.value.text,
         typeKey.toString(),
-        zipCodeController.value.text,
+        Get.find<CustomTextEditingController>().zipCodeController.value.text,
       )
           .then((value) {
+        Get.back();
         Get.back();
         Get.find<AddressDetailsController>().getEmployeeAddressData();
         _showToast(value.message);
         _fieldClear();
-        print("Address update called ::: $value");
-      }, onError: (error) => _showToast(error.message));
-    } catch (ex) {
 
+        print("Address update called ::: $value");
+      }, onError: (error) {
+        Get.back();
+
+        _showToast(error.message);
+      });
+    } catch (ex) {
+      Get.back();
       _showToast(ex.toString());
     }
-    change(null, status: RxStatus.success());
   }
 
   _showToast(message) => Fluttertoast.showToast(
@@ -55,17 +58,11 @@ class AddressUpdateController extends GetxController with StateMixin {
       fontSize: 16.0);
 }
 
-_fieldClear(){
-  Get.find<AddressUpdateController>()
-      .phoneNumberController.clear();
-  Get.find<AddressUpdateController>()
-      .areaController.clear();
-  Get.find<AddressUpdateController>()
-      .cityController.clear();
-  Get.find<AddressUpdateController>()
-      .stateController.clear();
-  Get.find<AddressUpdateController>()
-      .zipCodeController.clear();
-  Get.find<AddressUpdateController>()
-      .detailsController.clear();
+_fieldClear() {
+  Get.find<CustomTextEditingController>().phoneNumberController.clear();
+  Get.find<CustomTextEditingController>().areaController.clear();
+  Get.find<CustomTextEditingController>().cityController.clear();
+  Get.find<CustomTextEditingController>().stateController.clear();
+  Get.find<CustomTextEditingController>().zipCodeController.clear();
+  Get.find<CustomTextEditingController>().detailsController.clear();
 }

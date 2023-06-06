@@ -74,8 +74,7 @@ class _SingleDatePickerState extends State<SingleDatePicker> {
               onPressed: () {
                 Navigator.pop(Get.context!);
                 print("Pressed");
-                Get.find<DateTimeController>().requestedDate.value =
-                    DateFormat('yyyy-MM-dd').format(today);
+                Get.find<DateTimeController>().requestedDate.value = DateFormat('yyyy-MM-dd').format(today);
                 Get.find<LeaveController>().requestLeaveQueries["date"]=DateFormat('yyyy-MM-dd').format(today);
               },
               isButtonExpanded: false,

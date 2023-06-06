@@ -100,7 +100,7 @@ class BankDetails extends GetView<MoreDataController> {
                               ),
                               Spacer(),
                               _addBankInfo(onAction: () {
-                                customButtomSheet(
+                                customButtonSheet(
                                     context: context,
                                     height: 0.9,
                                     child: AddBankInfo());
@@ -130,7 +130,7 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
         _editDeleteBtn(
             onAction: () => Get.find<MoreDataController>().deletedBankInfoApi(),
             editAction: () {
-              customButtomSheet(
+              customButtonSheet(
                 context: context,
                 height: 0.9,
                 child: EditBankInfo(),

@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -15,10 +19,11 @@ Widget textTitle({titleText}) {
     titleText,
     style: AppStyle.mid_large_text.copyWith(
         color: AppColor.hintColor.withOpacity(0.9),
-        fontSize: Dimensions.fontSizeDefault-1,
+        fontSize: Dimensions.fontSizeDefault - 1,
         fontWeight: FontWeight.w200),
   );
 }
+
 Widget textSubTitle({subTitleText}) {
   return Text(
     subTitleText,
@@ -28,6 +33,7 @@ Widget textSubTitle({subTitleText}) {
         fontWeight: FontWeight.w500),
   );
 }
+
 Widget addButton({onAction}) {
   return Row(
     children: [
@@ -49,12 +55,128 @@ Widget addButton({onAction}) {
   );
 }
 
-Widget editDetBtn({ required context, onAction, required editAction}) {
+Widget editDetBtn(
+    {required context, onAction, required editAction, required type}) {
   return Row(
     children: [
       InkWell(
-          onTap: () => customButtomSheet(context: context, height: 0.9, child: editAction),
+          onTap: () {
+            customButtonSheet(context: context, height: 0.9, child: editAction);
 
+            Get.find<CustomTextEditingController>().areaController.text =
+                type == "permanent_address"
+                    ? Get.find<AddressDetailsController>()
+                            .addressDetailsModel
+                            .data
+                            ?.first
+                            .value
+                            ?.area
+                            .toString() ??
+                        ""
+                    : Get.find<AddressDetailsController>()
+                            .addressDetailsModel
+                            .data
+                            ?.last
+                            .value
+                            ?.area
+                            .toString() ??
+                        "";
+
+            Get.find<CustomTextEditingController>().cityController.text =
+                type == "permanent_address"
+                    ? Get.find<AddressDetailsController>()
+                            .addressDetailsModel
+                            .data
+                            ?.first
+                            .value
+                            ?.city
+                            .toString() ??
+                        ""
+                    : Get.find<AddressDetailsController>()
+                            .addressDetailsModel
+                            .data
+                            ?.last
+                            .value
+                            ?.city
+                            .toString() ??
+                        "";
+
+            Get.find<CustomTextEditingController>().detailsController.text =
+                type == "permanent_address"
+                    ? Get.find<AddressDetailsController>()
+                            .addressDetailsModel
+                            .data
+                            ?.first
+                            .value
+                            ?.details
+                            .toString() ??
+                        ""
+                    : Get.find<AddressDetailsController>()
+                            .addressDetailsModel
+                            .data
+                            ?.last
+                            .value
+                            ?.details
+                            .toString() ??
+                        "";
+
+            Get.find<CustomTextEditingController>().phoneNumberController.text =
+                type == "permanent_address"
+                    ? Get.find<AddressDetailsController>()
+                            .addressDetailsModel
+                            .data
+                            ?.first
+                            .value
+                            ?.phoneNumber
+                            .toString() ??
+                        ""
+                    : Get.find<AddressDetailsController>()
+                            .addressDetailsModel
+                            .data
+                            ?.last
+                            .value
+                            ?.phoneNumber
+                            .toString() ??
+                        "";
+
+            Get.find<CustomTextEditingController>().stateController.text =
+                type == "permanent_address"
+                    ? Get.find<AddressDetailsController>()
+                            .addressDetailsModel
+                            .data
+                            ?.first
+                            .value
+                            ?.state
+                            .toString() ??
+                        ""
+                    : Get.find<AddressDetailsController>()
+                            .addressDetailsModel
+                            .data
+                            ?.last
+                            .value
+                            ?.state
+                            .toString() ??
+                        "";
+
+            Get.find<CustomTextEditingController>().zipCodeController.text =
+                type == "permanent_address"
+                    ? Get.find<AddressDetailsController>()
+                            .addressDetailsModel
+                            .data
+                            ?.first
+                            .value
+                            ?.zipCode
+                            .toString() ??
+                        ""
+                    : Get.find<AddressDetailsController>()
+                            .addressDetailsModel
+                            .data
+                            ?.last
+                            .value
+                            ?.zipCode
+                            .toString() ??
+                        "";
+          },
           child: editIcon()),
       customSpacerWidth(width: 28),
       InkWell(
@@ -68,8 +190,6 @@ Widget editDetBtn({ required context, onAction, required editAction}) {
     ],
   );
 }
-
-
 
 Widget editIcon() {
   return SizedBox(

@@ -11,15 +11,19 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
 class DeletedDocumentController extends GetxController with StateMixin {
-  final _box=GetStorage();
-  final DeleteDocumentRepository deleteDocumentRepository = DeleteDocumentRepository(NetworkClient());
+  final _box = GetStorage();
+  final DeleteDocumentRepository deleteDocumentRepository =
+      DeleteDocumentRepository(NetworkClient());
   void deletedDocumentApi() async {
     waitingLoader();
     try {
-      await deleteDocumentRepository.deletedDocRepo(_box.read(AppString.STORE_DOC_Id).toString(),
-      ).then((value) {
+      await deleteDocumentRepository
+          .deletedDocRepo(
+        _box.read(AppString.STORE_DOC_Id).toString(),
+      )
+          .then((value) {
         Get.back();
-        _successDialog(onAction: ()=>Get.back());
+        _successDialog(onAction: () => Get.back());
         Get.back();
         Get.find<DocumentController>().getDocumentData();
       }, onError: (error) {
@@ -30,20 +34,17 @@ class DeletedDocumentController extends GetxController with StateMixin {
       print("Deleted document ::: ${ex}");
     }
     change(null, status: RxStatus.success());
-
-
   }
 }
 
-
-Future _successDialog({required onAction}){
+Future _successDialog({required onAction}) {
   return CustomSuccessAlertDialog(
     context: Get.context,
     titleText: AppString.text_success,
-    icon:Icons.check,
+    icon: Icons.check,
     iconColor: AppColor.successColor,
     iconBgColor: AppColor.successColor.withOpacity(0.2),
     contentText: AppString.text_deleted_document_successfully,
-    popupAction: ()=>onAction(),
+    popupAction: () => onAction(),
   );
 }

@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/modules/more/data/change_password_repo.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -17,7 +18,7 @@ class ChangePassController extends GetxController with StateMixin {
   final confirmPasswordController = TextEditingController();
   final GetStorage box = GetStorage();
   void changePassword() async {
-    change(null, status: RxStatus.loading());
+    waitingLoader();
     try {
       await changePassDataSource
           .changePassIntoAccount(
@@ -27,15 +28,16 @@ class ChangePassController extends GetxController with StateMixin {
       )
           .then((value) {
         _successDialog();
+        Get.back();
       }, onError: (error) {
         print(error.toString());
         _showToast(error.toString());
 
       });
     } catch (ex) {
+      Get.back();
       _showToast(ex.toString());
     }
-    change(null, status: RxStatus.success());
   }
 }
 

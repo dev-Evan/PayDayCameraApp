@@ -59,7 +59,7 @@ _leaves({required List<Leaves> leaves}) {
     separatorBuilder: (context, index) => customSpacerHeight(height: 20),
     itemBuilder: (context, index) => InkWell(
       onTap: () async {
-        customButtomSheet(context: context, height: 0.9, child: LeaveDetails());
+        customButtonSheet(context: context, height: 0.9, child: LeaveDetails());
         await Get.find<LeaveController>()
             .getILeaveDetails(id: leaves[index].id!);
       },

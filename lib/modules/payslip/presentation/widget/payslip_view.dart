@@ -182,7 +182,6 @@ Widget _payslipDownloadBtn({required payslipDateRange}) {
   final box = GetStorage();
   var id = box.read(AppString.STORE_PAYSLIP_LIST_ID);
   var token = box.read(AppString.ACCESS_TOKEN);
-  var url = AppString.BASE_URL +"/payroll/payslip/pdf/1?download=true";
   return Padding(
     padding: EdgeInsets.only(
         left: AppLayout.getWidth(20),
@@ -192,10 +191,9 @@ Widget _payslipDownloadBtn({required payslipDateRange}) {
     child: CustomButton(
         AppString.text_download_payslip,
         () =>
-            Get.find<DownloadHelper>().downloadFile(url:url.toString() )
 
-            // Get.find<PayslipDownlaodController>()
-            // .payslipDownload(id: id, token: token, date: payslipDateRange)
+            Get.find<PayslipDownlaodController>()
+            .payslipDownload(id: id, token: token, date: payslipDateRange)
 
 
     ),

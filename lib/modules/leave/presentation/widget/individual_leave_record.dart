@@ -136,7 +136,7 @@ _individualDateLeaveRecordList() => Padding(
         separatorBuilder: (context, index) => const Divider(),
         itemBuilder: (context, index) => InkWell(
           onTap: () async {
-            customButtomSheet(
+            customButtonSheet(
                 context: Get.context!, height: 0.9, child: LeaveDetails());
             await Get.find<LeaveController>().getILeaveDetails(
                 id: Get.find<LeaveController>()
