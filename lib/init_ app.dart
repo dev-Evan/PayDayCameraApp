@@ -38,7 +38,6 @@ Future<void> initApp() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize();
 
-
   Get.put(ConnectivityController(), permanent: true);
   Get.lazyPut(() => DownloadHelper(), fenix: true);
   Get.put(StatusController(),permanent: true);

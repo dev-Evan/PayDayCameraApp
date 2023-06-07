@@ -148,68 +148,6 @@ class _AddDocumentState extends State<AddDocument> {
                                     ],
                                   ),
                                 ))
-
-                          // Obx(() =>  Get.find<FileUploadController>().filePath.value.isNotEmpty
-                          //
-                          //     ? Container(
-                          //   height: AppLayout.getHeight(100),
-                          //   decoration: BoxDecoration(
-                          //     color: AppColor.disableColor.withOpacity(0.4),
-                          //     image: DecorationImage(
-                          //         image: FileImage(
-                          //             File(Get.find<FileUploadController>().filePath.value ??"")
-                          //                 .absolute),
-                          //         fit: BoxFit.cover),
-                          //   ),
-                          // )
-
-                          //      : Row(
-                          //    mainAxisAlignment: MainAxisAlignment.center,
-                          //    children: [
-                          //      const Icon(CupertinoIcons.link),
-                          //      SizedBox(
-                          //        width: AppLayout.getWidth(6),
-                          //      ),
-                          //      Text(
-                          //        AppString.text_click,
-                          //        style: AppStyle.mid_large_text.copyWith(
-                          //            color: AppColor.primaryColor,
-                          //            fontSize: Dimensions.fontSizeDefault),
-                          //      ),
-                          //
-                          //      customSpacerWidth(width: 6),
-                          //      Text(
-                          //        AppString.text_to_add_fils,
-                          //        style: AppStyle.mid_large_text.copyWith(
-                          //            color: AppColor.hintColor,
-                          //            fontSize: Dimensions.fontSizeDefault + 2),
-                          //      ),
-                          //    ],
-                          //  ),):Container(
-                          //     child: Row(
-                          //       mainAxisAlignment: MainAxisAlignment.center,
-                          //       children: [
-                          //         const Icon(Icons.picture_as_pdf,color: AppColor.primaryColor,),
-                          //         SizedBox(
-                          //           width: AppLayout.getWidth(6),
-                          //         ),
-                          //         Text(
-                          //           AppString.text_click,
-                          //           style: AppStyle.mid_large_text.copyWith(
-                          //               color: AppColor.primaryColor,
-                          //               fontSize: Dimensions.fontSizeDefault),
-                          //         ),
-                          //
-                          //         customSpacerWidth(width: 6),
-                          //         Text(
-                          //           AppString.text_to_replace_fil,
-                          //           style: AppStyle.mid_large_text.copyWith(
-                          //               color: AppColor.hintColor,
-                          //               fontSize: Dimensions.fontSizeDefault + 2),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   )
                           )), //),
 
                   customSpacerHeight(height: 8),
@@ -239,14 +177,7 @@ class _AddDocumentState extends State<AddDocument> {
   }
 }
 
-_showToast(message) => Fluttertoast.showToast(
-    msg: message,
-    toastLength: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.BOTTOM,
-    timeInSecForIosWeb: 1,
-    backgroundColor: AppColor.errorColor,
-    textColor: Colors.white,
-    fontSize: 16.0);
+
 
 Widget _dottedBorder({required child}) {
   return DottedBorder(

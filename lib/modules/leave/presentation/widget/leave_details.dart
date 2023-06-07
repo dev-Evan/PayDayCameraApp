@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_status_button.dart';
@@ -14,6 +16,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/common/controller/downloader_helper.dart';
 import 'package:pay_day_mobile/utils/images.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../common/widget/custom_app_button.dart';
@@ -24,8 +27,7 @@ class LeaveDetails extends GetView<LeaveController> {
   @override
   Widget build(BuildContext context) {
     return controller.obx(
-            (state) =>
-            Stack(
+        (state) => Stack(
               children: [
                 SingleChildScrollView(
                   child: Column(
@@ -42,8 +44,7 @@ class LeaveDetails extends GetView<LeaveController> {
                             Row(
                               children: [
                                 Text(
-                                  controller.leaveDetails.data?.leaveType ??
-                                      "",
+                                  controller.leaveDetails.data?.leaveType ?? "",
                                   style: AppStyle.title_text.copyWith(
                                       color: AppColor.normalTextColor,
                                       fontSize: Dimensions.fontSizeMid),
@@ -54,8 +55,8 @@ class LeaveDetails extends GetView<LeaveController> {
                                 CustomStatusButton(
                                   //todo
                                   textColor: AppColor.pendingTextColor,
-                                  bgColor: AppColor.pendingBgColor
-                                      .withOpacity(0.2),
+                                  bgColor:
+                                      AppColor.pendingBgColor.withOpacity(0.2),
                                   text: AppString.text_pending,
                                 ),
                               ],
@@ -75,9 +76,7 @@ class LeaveDetails extends GetView<LeaveController> {
                               height: AppLayout.getHeight(12),
                             ),
                             Text(
-                              "${controller.leaveDetails.data?.startAt ??
-                                  ""} - ${controller.leaveDetails.data
-                                  ?.startAt ?? ""}",
+                              "${controller.leaveDetails.data?.startAt ?? ""} - ${controller.leaveDetails.data?.startAt ?? ""}",
                               style: AppStyle.title_text.copyWith(
                                   color: AppColor.normalTextColor,
                                   fontSize: Dimensions.fontSizeDefault),
@@ -95,8 +94,7 @@ class LeaveDetails extends GetView<LeaveController> {
                               height: AppLayout.getHeight(28),
                             ),
                             Text(
-                              "${controller.leaveDetails.data?.attachmentCount
-                                  .toString() ?? ''} Attachments",
+                              "${controller.leaveDetails.data?.attachmentCount.toString() ?? ''} Attachments",
                               style: AppStyle.title_text.copyWith(
                                   color: AppColor.hintColor,
                                   fontSize: Dimensions.fontSizeDefault - 1),
@@ -108,17 +106,15 @@ class LeaveDetails extends GetView<LeaveController> {
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: controller
-                                  .leaveDetails.data?.attachments?.length ??
+                                      .leaveDetails.data?.attachments?.length ??
                                   0,
                               gridDelegate:
-                              SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent:
-                                  AppLayout
-                                      .getSize(context)
-                                      .width * .5,
-                                  childAspectRatio: 3 / 2,
-                                  crossAxisSpacing: 20,
-                                  mainAxisSpacing: 20),
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                      maxCrossAxisExtent:
+                                          AppLayout.getSize(context).width * .5,
+                                      childAspectRatio: 3 / 2,
+                                      crossAxisSpacing: 20,
+                                      mainAxisSpacing: 20),
                               itemBuilder: (context, index) =>
                                   _attachmentCard(index),
                             )
@@ -160,8 +156,7 @@ class LeaveDetails extends GetView<LeaveController> {
 
   _cancelButton() {
     return AppButton(
-      onPressed: () async =>
-      await controller.cancelLeave(
+      onPressed: () async => await controller.cancelLeave(
           id: controller.leaveDetails.data?.id ?? 0),
       buttonText: AppString.text_cancel_leave,
       buttonColor: Colors.transparent,
@@ -175,9 +170,7 @@ class LeaveDetails extends GetView<LeaveController> {
     return AppButton(
       onPressed: () {
         customButtonSheet(
-            context: Get.context!,
-            height: 0.9,
-            child: const LogResponse());
+            context: Get.context!, height: 0.9, child: const LogResponse());
       },
       buttonText: AppString.text_log_response,
       buttonColor: AppColor.primaryBlue,
@@ -185,15 +178,34 @@ class LeaveDetails extends GetView<LeaveController> {
     );
   }
 
+  // _attachmentCard(int index) {
+  //   return InkWell(
+  //       child: Image.asset(Images.documents),
+  //       onTap: () => downloadFile(
+  //           url: controller.leaveDetails.data?.attachments?[index].fullUrl ??
+  //               ""));
+  // }
   _attachmentCard(int index) {
     return InkWell(
         child: Image.asset(Images.documents),
-        onTap: () =>
-            Get.find<DownloadHelper>().downloadFile(
-                url: controller.leaveDetails.data?.attachments?[index]
-                    .fullUrl ?? '')
-    );
+        onTap: () => Get.find<DownloadHelper>().downloadFile(
+            url: controller.leaveDetails.data?.attachments?[index].fullUrl ??
+                ""));
   }
+}
 
-
+downloadFile({required String url}) async {
+  final status = await Permission.storage.request();
+  if (status.isGranted) {
+    final baseStorage = await getExternalStorageDirectory();
+    final id = await FlutterDownloader.enqueue(
+      url: url,
+      savedDir: baseStorage!.path,
+      fileName: "File",
+    )
+        .then((value) => print(value))
+        .catchError((error) => print(error.toString()));
+  } else {
+    print("No Permission");
+  }
 }
