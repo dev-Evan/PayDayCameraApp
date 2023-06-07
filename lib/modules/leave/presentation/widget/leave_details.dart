@@ -178,13 +178,6 @@ class LeaveDetails extends GetView<LeaveController> {
     );
   }
 
-  // _attachmentCard(int index) {
-  //   return InkWell(
-  //       child: Image.asset(Images.documents),
-  //       onTap: () => downloadFile(
-  //           url: controller.leaveDetails.data?.attachments?[index].fullUrl ??
-  //               ""));
-  // }
   _attachmentCard(int index) {
     return InkWell(
         child: Image.asset(Images.documents),

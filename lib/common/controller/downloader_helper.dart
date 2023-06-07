@@ -2,8 +2,11 @@ import 'dart:isolate';
 import 'dart:ui';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import '../../utils/app_string.dart';
 
 class DownloadHelper extends GetxController {
   @override
@@ -24,6 +27,7 @@ class DownloadHelper extends GetxController {
         url: url,
         savedDir: baseStorage!.path,
         fileName: "File",
+        headers: _setHeaders(),
         showNotification: true,
         openFileFromNotification: true,
       );
@@ -31,6 +35,14 @@ class DownloadHelper extends GetxController {
       print("No Permission");
     }
   }
+
+  var token = GetStorage().read(AppString.ACCESS_TOKEN);
+
+  _setHeaders() => {
+    'Authorization' : 'Bearer $token',
+    'Accept' : '*/*',
+  };
+
   @override
   void dispose() {
     print("dispose called");
