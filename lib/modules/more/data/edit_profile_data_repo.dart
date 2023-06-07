@@ -36,11 +36,12 @@ class EditProfileDataSource {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
         print('Edit profile called ::: ${response.body.toString()}');
-        print("done");
+
         return EditProfileModel.fromJson(response.body);
       }
     } catch (ex) {
-      return Future.error(ex.toString());
+      return Future.error(ErrorModel(message: ex.toString()));
+
     }
   }
 }

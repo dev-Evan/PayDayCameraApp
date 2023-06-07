@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/more/data/edit_profile_data_repo.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/date_of_birth_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
@@ -36,14 +35,16 @@ class EditProfileDataController extends GetxController with StateMixin {
       )
           .then((value) {
         Get.back() ;
-        Get.back() ;
         _successDialog(onAction: ()=> Get.back());
+        showCustomSnackBar(message: AppString.text_profile_update_successfully);
         Get.find<ProfileDataController>().getUserData();
 
       }, onError: (error) {
-        print(error.toString());
+
+
+
         Get.back() ;
-        errorSnackBar(errorMessage: error.toString());
+        errorSnackBar(errorMessage: error.message);
       });
     } catch (ex) {
       Get.back() ;
@@ -60,7 +61,7 @@ Future _successDialog({required onAction}) {
   return CustomSuccessAlertDialog(
     context: Get.context,
     titleText: AppString.text_success,
-    icon: Icons.check,
+    icon: CupertinoIcons.checkmark_alt,
     iconColor: AppColor.successColor,
     iconBgColor: AppColor.successColor.withOpacity(0.2),
     contentText: AppString.text_profile_update_successfully,

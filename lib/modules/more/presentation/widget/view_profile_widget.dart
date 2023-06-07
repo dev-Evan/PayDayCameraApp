@@ -128,12 +128,15 @@ Widget moveChangePassword({
 
 Widget userName({required text}){
   return   Center(
-    child: Text(
-      text,
-      style: AppStyle.mid_large_text.copyWith(
-          fontWeight: FontWeight.w800,
-          color: AppColor.normalTextColor,
-          fontSize: Dimensions.fontSizeMid + 1),
+    child: Padding(
+      padding:  EdgeInsets.only(left: AppLayout.getWidth(12)),
+      child: Text(
+        text,
+        style: AppStyle.mid_large_text.copyWith(
+            fontWeight: FontWeight.w800,
+            color: AppColor.normalTextColor,
+            fontSize: Dimensions.fontSizeMid + 1),
+      ),
     ),
   );
 }

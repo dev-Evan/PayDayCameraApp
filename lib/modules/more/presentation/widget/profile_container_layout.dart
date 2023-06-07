@@ -21,8 +21,7 @@ import '../../../../common/widget/custom_spacer.dart';
 Widget profileCardLayOut(
     {context, userName, final userImage, userEmail, statusText}) {
   return Expanded(
-    flex: 3,
-
+      flex: 3,
       child: Container(
         decoration: AppStyle.ContainerStyle.copyWith(
             color: AppColor.primaryColor,
@@ -30,54 +29,51 @@ Widget profileCardLayOut(
                 bottomLeft: Radius.circular(Dimensions.radiusMid + 4),
                 bottomRight: Radius.circular(Dimensions.radiusMid + 4))),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CircleAvatar(
                     backgroundImage:
-                    Get.find<ImagePickerController>().pickedImage.value == null
-                        ? userImage
-                        : Image.file(File(Get.find<ImagePickerController>()
-                        .pickedImage.value!.path))
-                        .image,
+                        Get.find<ImagePickerController>().pickedImage.value ==
+                                null
+                            ? userImage
+                            : Image.file(File(Get.find<ImagePickerController>()
+                                    .pickedImage
+                                    .value!
+                                    .path))
+                                .image,
                     radius: 28,
                   ),
-                 customSpacerWidth(width: 14),
-                 Expanded(
-
-                   child: Column(
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       _userNameText(userName: userName),
-                       customSpacerHeight(height: 6),
-                       _userEmail(userEmail: userEmail)
-                     ],
-                   ),
-                 ),
-
-
-
-
-
+                  customSpacerWidth(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _userNameText(userName: userName),
+                        customSpacerHeight(height: 2),
+                        _userEmail(userEmail: userEmail)
+                      ],
+                    ),
+                  ),
                   userStatusView(statusText: statusText)
                 ],
               ),
               const Spacer(),
-              _moveProfileView(onAction: ()=> Get.toNamed(AppString.profileView)),
-
+              _moveProfileView(
+                  onAction: () => Get.toNamed(AppString.profileView)),
+              customSpacerHeight(height: 8),
             ],
           ),
         ),
-  ));
+      ));
 }
 
 Widget _userNameText({required userName}) {
-  GetStorage().write(AppString.USER_NAME,userName.toString());
+  GetStorage().write(AppString.USER_NAME, userName.toString());
 
   return Text(
     userName,
@@ -85,7 +81,8 @@ Widget _userNameText({required userName}) {
         .copyWith(fontWeight: FontWeight.w800, letterSpacing: 0.2),
   );
 }
-Widget _userEmail({required userEmail}){
+
+Widget _userEmail({required userEmail}) {
   return Text(
     userEmail,
     style: AppStyle.normal_text.copyWith(
@@ -94,6 +91,7 @@ Widget _userEmail({required userEmail}){
         letterSpacing: 0.2),
   );
 }
+
 Widget _moveProfileView({onAction}) {
   return Center(
     child: InkWell(
@@ -113,10 +111,10 @@ Widget _moveProfileView({onAction}) {
     ),
   );
 }
-Widget _viewProfileText(){
+
+Widget _viewProfileText() {
   return Text(
     AppString.text_view_profile,
-    style: AppStyle.small_text
-        .copyWith(fontSize: Dimensions.fontSizeDefault),
+    style: AppStyle.small_text.copyWith(fontSize: Dimensions.fontSizeDefault),
   );
 }

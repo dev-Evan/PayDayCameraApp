@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/controller/connectivity_controller.dart';
@@ -75,4 +76,11 @@ Future<void> initApp() async {
   Get.lazyPut(() => LeaveController(),fenix: true);
   Get.lazyPut(() => CustomTextEditingController(),fenix: true);
   Get.lazyPut(() => DatePickerController(),fenix: true);
+
+  SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark));
+
+
 }

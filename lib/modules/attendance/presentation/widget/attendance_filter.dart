@@ -175,7 +175,7 @@ class _AttendanceFilterState extends State<AttendanceFilter> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      AppString.text_enrly,
+                      AppString.text_early,
                       style: AppStyle.extra_large_text.copyWith(
                           color: AppColor.normalTextColor,
                           fontSize: Dimensions.fontSizeDefault),

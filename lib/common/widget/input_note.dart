@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
+import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
@@ -28,7 +29,11 @@ class InputNote extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: AppStyle.normal_text
+          contentPadding: EdgeInsets.only(
+              left: AppLayout.getWidth(16),
+              right: AppLayout.getWidth(20),
+              top: AppLayout.getHeight(16),
+              bottom: AppLayout.getHeight(16)),          hintStyle: AppStyle.normal_text
               .copyWith(color: AppColor.solidGray, fontWeight: FontWeight.w400),
           isDense: true,
           focusedBorder:  OutlineInputBorder(

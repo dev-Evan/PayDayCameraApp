@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/widget/custom_status_button.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
+import 'package:pay_day_mobile/utils/app_layout.dart';
 import '../../../../utils/app_string.dart';
 import '../../../../utils/app_style.dart';
 import '../../../../utils/color_picker_helper.dart';
@@ -41,9 +42,12 @@ Widget infoLayout() {
 }
 
 _userName() {
-  return Text(
-    "Hi, ${GetStorage().read(AppString.USER_NAME)}",
-    style: AppStyle.title_text,
+  return Padding(
+    padding:EdgeInsets.only(right: AppLayout.getWidth(4.0)),
+    child: Text(
+      "Hi, ${GetStorage().read(AppString.USER_NAME)}",
+      style: AppStyle.title_text,
+    ),
   );
 }
 

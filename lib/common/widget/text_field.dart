@@ -37,7 +37,7 @@ class CustomTextFeild extends StatelessWidget {
         validator: validator,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(
-              left: AppLayout.getWidth(20),
+              left: AppLayout.getWidth(16),
               right: AppLayout.getWidth(20),
               top: AppLayout.getHeight(16),
               bottom: AppLayout.getHeight(16)),

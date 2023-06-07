@@ -5,6 +5,7 @@ import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/change_password_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -38,10 +39,10 @@ class ChangePassword extends StatelessWidget {
                     CustomPasswordTextField(
                       hintText: AppString.text_enter_your_old_password,
                       inputType: TextInputType.text,
-                      controller: Get.find<ChangePassController>().oldPassController,
+                      controller: Get.find<CustomTextEditingController>().oldPassController,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return AppString.fieldIsRequired;
+                          return AppString.the_old_password_field_is_required;
                         }
                         return null;
                       },
@@ -54,10 +55,10 @@ class ChangePassword extends StatelessWidget {
                     CustomPasswordTextField(
                       hintText: AppString.text_enter_new_password,
                       inputType: TextInputType.text,
-                      controller: Get.find<ChangePassController>().passwordController,
+                      controller: Get.find<CustomTextEditingController>().passwordController,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return AppString.fieldIsRequired;
+                          return AppString.the_new_password_field_is_required;
                         }
                         return null;
                       },
@@ -70,10 +71,10 @@ class ChangePassword extends StatelessWidget {
                     CustomPasswordTextField(
                       hintText: AppString.text_confirm_your_new_password,
                       inputType: TextInputType.text,
-                      controller: Get.find<ChangePassController>().confirmPasswordController,
+                      controller: Get.find<CustomTextEditingController>().confirmPasswordController,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return AppString.fieldIsRequired;
+                          return AppString.the_confirm_password_field_is_required;
                         }
                         return null;
                       },
