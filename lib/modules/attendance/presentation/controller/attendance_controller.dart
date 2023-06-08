@@ -9,6 +9,7 @@ import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attendance_data_repository.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_entry/log_entry_request.dart';
+import 'package:pay_day_mobile/modules/attendance/domain/log_entry/log_entry_response.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_string.dart';
@@ -71,26 +72,30 @@ class AttendanceController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  punchOut(LogEntryRequest punchOutRequest) {
+  bool punchOut(LogEntryRequest punchOutRequest) {
+    var v = false;
     change(null, status: RxStatus.loading());
     _attendanceDataRepository
         .punchOut(
       punchOutRequest: punchOutRequest,
     )
         .then(
-      (value) async {
+      (LogEntryResponse value) async {
         await checkUserIsPunchedIn();
         await getDailyLog();
         stopTimer();
         print("punchOut :: ${value.message}");
+        v=true;
       },
       onError: (error) {
         print("punchOut :: ${error.message}");
         errorSnackBar(errorMessage: error.message);
-        ;
+        v=false;
       },
     );
     change(null, status: RxStatus.success());
+    print("Return v:: $v");
+    return v;
   }
 
   getDailyLog() async {
