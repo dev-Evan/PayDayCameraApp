@@ -11,6 +11,8 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
+import '../../../routes/app_pages.dart';
+
 class OnboardingScreen extends StatefulWidget {
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
@@ -100,7 +102,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
 Widget _skipButton({context}) {
   return TextButton(
-    onPressed: () => Get.toNamed(AppString.signInScreen),
+    onPressed: () => Get.offNamed(Routes.SIGN_IN),
     child: Text(
       AppString.text_skip,
       style: GoogleFonts.poppins(
@@ -118,7 +120,7 @@ Widget _buttonLayout({context, currentIndex, titleText}) {
       _skipButton(context: context),
       CustomSmallButton(AppString.text_next, () {
         if (currentIndex == titleText.length - 1) {
-          Get.offNamed(AppString.signInScreen);
+          Get.offNamed(Routes.SIGN_IN);
         } else {
           currentIndex + 1;
         }

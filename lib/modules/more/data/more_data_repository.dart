@@ -6,6 +6,7 @@ import 'package:pay_day_mobile/modules/more/domain/bank_info_deleted_model.dart'
 import 'package:pay_day_mobile/modules/more/domain/bank_info_model.dart';
 import 'package:pay_day_mobile/modules/more/domain/bank_info_updated_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
+import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
 class MoreDataRepository {
@@ -16,7 +17,7 @@ class MoreDataRepository {
   Future<BankInfoModel> bankInfoRepo() async {
     try {
       Response response =
-          await networkClient.getRequest(AppString.EMPLOYEE_BANK_INFORMATION);
+          await networkClient.getRequest(Api.EMPLOYEE_BANK_INFORMATION);
       print(response.body);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
@@ -34,7 +35,7 @@ class MoreDataRepository {
   ) async {
     try {
       Response response = await networkClient.postRequest(
-        AppString.EMPLOYEE_BANK_INFORMATION,
+        Api.EMPLOYEE_BANK_INFORMATION,
         {
           "key": "bank_details",
           "name": bankName,
@@ -61,7 +62,7 @@ class MoreDataRepository {
   Future<AddBankInfoDeletedModel> deletedBankInfoRepo() async {
     try {
       Response  response = await networkClient.deletedRequest(
-        AppString.EMPLOYEE_BANK_INFORMATION+"/${box.read(AppString.ID_STORE)}?contact_id=${box.read(AppString.BANK_USER_ID_STORE)}");
+        Api.EMPLOYEE_BANK_INFORMATION+"/${box.read(AppString.ID_STORE)}?contact_id=${box.read(AppString.BANK_USER_ID_STORE)}");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -77,7 +78,7 @@ class MoreDataRepository {
       ) async {
     try {
       Response response = await networkClient.patchRequest(
-        AppString.EMPLOYEE_BANK_INFORMATION +"/${box.read(AppString.BANK_USER_ID_STORE)}",
+        Api.EMPLOYEE_BANK_INFORMATION +"/${box.read(AppString.BANK_USER_ID_STORE)}",
         {
           "key": "bank_details",
           "name": bankName,

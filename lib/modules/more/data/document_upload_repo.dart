@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/document_upload_controller.dart';
+import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../presentation/controller/document_controller.dart';
 import 'package:http/http.dart' as http;
@@ -11,7 +10,7 @@ import 'package:file_picker/file_picker.dart';
 
 class DocumentUploadRepo{
   final _box = GetStorage();
-  var baseUrl = AppString.BASE_URL + AppString.DOCUMENT_UPLOAD;
+  var baseUrl = Api.BASE_URL + Api.DOCUMENT_UPLOAD;
   late var accessToken = _box.read(AppString.ACCESS_TOKEN);
   Rx<File?> selectedFile = Rx<File?>(null);
   Future<void> pickFile() async {

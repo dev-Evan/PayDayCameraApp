@@ -11,8 +11,8 @@ import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details
 import 'package:pay_day_mobile/modules/attendance/domain/log_entry/log_entry_request.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_entry/log_entry_response.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../../utils/app_color.dart';
-import '../../../../utils/app_string.dart';
 import '../../domain/change_request/change_request_req_model.dart';
 import '../../domain/daily_log/daily_log.dart';
 
@@ -49,7 +49,7 @@ class AttendanceController extends GetxController with StateMixin {
       print("checkUserIsPunchedIn :: ${isPunchIn.value}");
     }, onError: (error) {
       if (error.message.startsWith("Unauthenticated")) {
-        Get.toNamed(AppString.signInScreen);
+        Get.toNamed(Routes.SIGN_IN);
         Get.delete<AttendanceController>();
       }
       print("checkUserIsPunchedIn :: ${error.message}");
@@ -85,12 +85,12 @@ class AttendanceController extends GetxController with StateMixin {
         await getDailyLog();
         stopTimer();
         print("punchOut :: ${value.message}");
-        v=true;
+        v = true;
       },
       onError: (error) {
         print("punchOut :: ${error.message}");
         errorSnackBar(errorMessage: error.message);
-        v=false;
+        v = false;
       },
     );
     change(null, status: RxStatus.success());

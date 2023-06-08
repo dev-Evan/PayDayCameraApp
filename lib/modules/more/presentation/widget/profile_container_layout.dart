@@ -1,22 +1,16 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/get_instance.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/change_profile_img_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_drop_dawon_cnt.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/user_status.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
-import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 import '../../../../common/widget/custom_spacer.dart';
+import '../../../../routes/app_pages.dart';
 
 Widget profileCardLayOut(
     {context, userName, final userImage, userEmail, statusText}) {
@@ -64,7 +58,7 @@ Widget profileCardLayOut(
               ),
               const Spacer(),
               _moveProfileView(
-                  onAction: () => Get.toNamed(AppString.profileView)),
+                  onAction: () => Get.toNamed(Routes.PROFILE_VIEW)),
               customSpacerHeight(height: 8),
             ],
           ),

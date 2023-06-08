@@ -12,6 +12,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/widget/custom_alert_dialog.dart';
 import '../../../../common/widget/error_snackbar.dart';
+import '../../../../routes/app_pages.dart';
 import 'edit_profile_drop_dawon_cnt.dart';
 
 class EditProfileDataController extends GetxController with StateMixin {
@@ -67,7 +68,7 @@ Future _successDialog({required onAction}) {
     contentText: AppString.text_profile_update_successfully,
     popupAction: () {
      onAction();
-      Get.toNamed(AppString.profileView);
+      Get.toNamed(Routes.PROFILE_VIEW);
     },
   );
 }

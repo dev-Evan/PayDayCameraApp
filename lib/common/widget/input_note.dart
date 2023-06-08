@@ -10,7 +10,7 @@ import '../../utils/app_style.dart';
 class InputNote extends StatelessWidget {
 
   final TextEditingController controller;
-  String hintText;
+  final String? hintText;
 
   InputNote(
       {required this.controller,

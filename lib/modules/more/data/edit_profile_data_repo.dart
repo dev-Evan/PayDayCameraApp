@@ -2,7 +2,7 @@ import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:pay_day_mobile/common/domain/error_model.dart';
 import 'package:pay_day_mobile/modules/more/domain/edit_profile_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
+import 'package:pay_day_mobile/utils/api_endpoints.dart';
 
 
 class EditProfileDataSource {
@@ -20,7 +20,7 @@ class EditProfileDataSource {
   ) async {
     try {
       Response response = await networkClient.postRequest(
-        AppString.UPDATE_PROFILE_DATA,
+        Api.UPDATE_PROFILE_DATA,
         {
           "first_name": firstName,
           "last_name": lastName,

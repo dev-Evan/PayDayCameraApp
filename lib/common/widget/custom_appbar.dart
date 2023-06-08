@@ -7,6 +7,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
+import '../../routes/app_pages.dart';
 import '../../utils/app_string.dart';
 
 class CustomAppbar extends GetView<NotificationController>
@@ -21,7 +22,8 @@ class CustomAppbar extends GetView<NotificationController>
           toolbarHeight: AppLayout.getHeight(40),
           backgroundColor: AppColor.cardColor,
           leading: Padding(
-            padding:  EdgeInsets.only(left: 12.0,bottom: AppLayout.getHeight(8)),
+            padding:
+                EdgeInsets.only(left: 12.0, bottom: AppLayout.getHeight(8)),
             child: logoView(height: 20, width: 20),
           ),
           actions: [
@@ -31,7 +33,7 @@ class CustomAppbar extends GetView<NotificationController>
                 IconButton(
                   padding: EdgeInsets.only(bottom: AppLayout.getHeight(8)),
                   onPressed: () async {
-                    Get.toNamed(AppString.notification_screen);
+                    Get.toNamed(Routes.NOTIFICATION_SCREEN);
                   },
                   icon: Icon(
                     Icons.notifications_none,

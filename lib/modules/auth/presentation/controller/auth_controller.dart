@@ -9,6 +9,8 @@ import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
+import '../../../../routes/app_pages.dart';
+
 class AuthController extends GetxController with StateMixin {
   final AuthDataSource _authDataSource = AuthDataSource(NetworkClient());
   ResetPasswordModel resetPasswordModel = ResetPasswordModel();
@@ -29,7 +31,7 @@ class AuthController extends GetxController with StateMixin {
         print(value);
         _writeUserInfo(value);
         Get.back();
-        Get.offAllNamed(AppString.home);
+        Get.offAllNamed(Routes.HOME);
       }, onError: (error) {
         Get.back();
         _showToast(error.message);

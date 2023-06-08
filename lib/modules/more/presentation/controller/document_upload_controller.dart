@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io';
@@ -9,6 +8,7 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/document_con
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/documents.dart';
+import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
 
@@ -27,7 +27,7 @@ class FileUploadController extends GetxController {
   }
 
 
-  var baseUrl = AppString.BASE_URL + AppString.DOCUMENT_STORE;
+  var baseUrl = Api.BASE_URL + Api.DOCUMENT_STORE;
   late var accessToken = _box.read(AppString.ACCESS_TOKEN);
 
 

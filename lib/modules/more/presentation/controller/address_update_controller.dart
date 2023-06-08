@@ -9,7 +9,7 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/logout_contr
 import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import 'package:pay_day_mobile/utils/color_picker_helper.dart';
+import 'package:pay_day_mobile/utils/utils.dart';
 
 class AddressUpdateController extends GetxController with StateMixin {
   final AddressUpdateDataSource addressUpdateDataSource =

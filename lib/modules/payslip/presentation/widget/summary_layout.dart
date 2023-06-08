@@ -10,6 +10,8 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
+import '../../../../routes/app_pages.dart';
+
 
 Widget summaryLayout({required total, required sent, required conflicted}) {
   return SizedBox(
@@ -31,7 +33,7 @@ Widget summaryLayout({required total, required sent, required conflicted}) {
                 context: Get.context,
                 text: AppString.text_payrun_badge,
                 onAction: () async {
-                  Get.toNamed(AppString.payrunBage);
+                  Get.toNamed(Routes.PAYRAN_BAGE);
                   await Get.find<PayrunBadgeController>().getPayrunBadgeData();
                 }),
           ],

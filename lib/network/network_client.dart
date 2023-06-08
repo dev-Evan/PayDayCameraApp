@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -14,9 +15,8 @@ class NetworkClient extends GetConnect {
   }
 
   Future<Response> postRequest(String apiEndPoint, dynamic body) async {
-    Response response =
-        await post(_getRequestUrl(apiEndPoint), body, headers: {
-       "Content-Type": "application/json",
+    Response response = await post(_getRequestUrl(apiEndPoint), body, headers: {
+      "Content-Type": "application/json",
       "Accept": "application/json; charset=UTF-8",
       "Authorization": GetStorage().read(AppString.ACCESS_TOKEN) != null
           ? "Bearer ${GetStorage().read(AppString.ACCESS_TOKEN)}"
@@ -36,10 +36,8 @@ class NetworkClient extends GetConnect {
     }).timeout(const Duration(seconds: 20));
   }
 
-
   Future<Response> deletedRequest(String apiEndPoint) async {
-    Response response =
-    await delete(_getRequestUrl(apiEndPoint), headers: {
+    Response response = await delete(_getRequestUrl(apiEndPoint), headers: {
       "Content-Type": "application/json",
       "Accept": "application/json; charset=UTF-8",
       "Authorization": GetStorage().read(AppString.ACCESS_TOKEN) != null
@@ -49,11 +47,10 @@ class NetworkClient extends GetConnect {
 
     return response;
   }
-
 
   Future<Response> patchRequest(String apiEndPoint, dynamic body) async {
     Response response =
-    await patch(_getRequestUrl(apiEndPoint), body, headers: {
+        await patch(_getRequestUrl(apiEndPoint), body, headers: {
       "Content-Type": "application/json",
       "Accept": "application/json; charset=UTF-8",
       "Authorization": GetStorage().read(AppString.ACCESS_TOKEN) != null
@@ -64,10 +61,5 @@ class NetworkClient extends GetConnect {
     return response;
   }
 
-
-
-
-  String _getRequestUrl(String apiEndPoint) => AppString.BASE_URL + apiEndPoint;
-
+  String _getRequestUrl(String apiEndPoint) => Api.BASE_URL + apiEndPoint;
 }
-

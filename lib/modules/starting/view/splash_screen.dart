@@ -8,6 +8,8 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
+import '../../../routes/app_pages.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
   @override
@@ -23,11 +25,11 @@ class _SplashScreenState extends State<SplashScreen> {
     dynamic remValue = box.read(AppString.REMEMBER_KEY);
     dynamic logValue = box.read(AppString.LOGIN_CHECK_KEY);
     if (idStore == null) {
-      Get.toNamed(AppString.onboardScreen);
+      Get.toNamed(Routes.ONBOARD_SCREEN);
     } else if (logValue != null && remValue != null) {
-      Get.toNamed(AppString.home);
+      Get.toNamed(Routes.HOME);
     } else {
-      Get.toNamed(AppString.signInScreen);
+      Get.toNamed(Routes.SIGN_IN);
     }
   }
 

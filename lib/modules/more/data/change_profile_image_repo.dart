@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:http/http.dart' as http;
 
 class ChangeProfileImageRepo{
-  var baseUrl = AppString.BASE_URL + AppString.USER_CHANGE_PICTURE;
+  var baseUrl = Api.BASE_URL + Api.USER_CHANGE_PICTURE;
   final _box = GetStorage();
   late var accessToken = _box.read(AppString.ACCESS_TOKEN);
 
