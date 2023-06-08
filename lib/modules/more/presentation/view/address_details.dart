@@ -23,413 +23,413 @@ class AddressDetails extends GetView<AddressDetailsController> {
     return Scaffold(
       appBar: const CustomAppbar(),
       body: controller.obx(
-          (state) => SingleChildScrollView(
-                child: Column(
-                  children: [
-                    customMoreAppbar(titleText: AppString.text_address_details),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              (state) => SingleChildScrollView(
+            child: Column(
+              children: [
+                customMoreAppbar(titleText: AppString.text_address_details),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              perTitleText(),
-                              (controller.addressDetailsModel.data != null &&
-                                      controller
-                                          .addressDetailsModel.data!.isNotEmpty)
-                                  ? controller.addressDetailsModel.data?.first
-                                                  .key ==
-                                              "permanent_address" ||
-                                          controller.addressDetailsModel.data
-                                                  ?.last.key ==
-                                              "permanent_address"
-                                      ? editDetBtn(
-                                          context: context,
-                                          onAction: () =>
-                                              Get.find<DeletedAddController>()
-                                                  .deletedAddressApi(
-                                                      addressType: controller
-                                                          .addressDetailsModel
-                                                          .data
-                                                          ?.first
-                                                          .key),
-                                          editAction:
-                                              EditAddress("permanent_address"),
-                                          type: "permanent_address")
-                                      : addButton(onAction: () {
-                                          customButtonSheet(
-                                              context: context,
-                                              height: 0.9,
-                                              child: AddAddress(
-                                                  "permanent_address"));
-                                        })
-                                  : addButton(onAction: () {
-                                      customButtonSheet(
-                                          context: context,
-                                          height: 0.9,
-                                          child:
-                                              AddAddress("permanent_address"));
-                                    }),
-                            ],
-                          ),
+                          perTitleText(),
                           (controller.addressDetailsModel.data != null &&
-                                  controller
-                                      .addressDetailsModel.data!.isNotEmpty)
+                              controller
+                                  .addressDetailsModel.data!.isNotEmpty)
                               ? controller.addressDetailsModel.data?.first
-                                              .key ==
-                                          "permanent_address" ||
-                                      controller.addressDetailsModel.data?.last
-                                              .key ==
-                                          "permanent_address"
-                                  ? Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        customSpacerHeight(height: 20),
-                                        Text(
-                                          AppString.text_details,
-                                          style: AppStyle.mid_large_text
-                                              .copyWith(
-                                                  color: AppColor.hintColor
-                                                      .withOpacity(0.9),
-                                                  fontSize: Dimensions
-                                                          .fontSizeDefault +
-                                                      2,
-                                                  fontWeight: FontWeight.w500),
-                                        ),
-                                        customSpacerHeight(height: 8),
-                                        Text(
-                                          controller.addressDetailsModel.data
-                                                  ?.first.value?.details
-                                                  .toString() ??
-                                              "",
-                                          style: AppStyle.mid_large_text
-                                              .copyWith(
-                                                  color:
-                                                      AppColor.normalTextColor,
-                                                  fontSize: Dimensions
-                                                      .fontSizeDefault,
-                                                  fontWeight: FontWeight.w500),
-                                        ),
-                                        customSpacerHeight(height: 12),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    customSpacerHeight(
-                                                        height: 12),
-                                                    textTitle(
-                                                        titleText: AppString
-                                                            .text_area),
-                                                    textSubTitle(
-                                                      subTitleText: controller
-                                                              .addressDetailsModel
-                                                              .data
-                                                              ?.first
-                                                              .value
-                                                              ?.area ??
-                                                          "",
-                                                    ),
-                                                    customSpacerHeight(
-                                                        height: 16),
-                                                    textTitle(
-                                                        titleText: AppString
-                                                            .text_state),
-                                                    textSubTitle(
-                                                      subTitleText: controller
-                                                              .addressDetailsModel
-                                                              .data
-                                                              ?.first
-                                                              .value
-                                                              ?.state ??
-                                                          "",
-                                                    ),
-                                                    customSpacerHeight(
-                                                        height: 16),
-                                                    textTitle(
-                                                        titleText: AppString
-                                                            .text_county),
-                                                    textSubTitle(
-                                                        subTitleText: controller
-                                                                .addressDetailsModel
-                                                                .data
-                                                                ?.first
-                                                                .value
-                                                                ?.country ??
-                                                            ""),
-                                                  ],
-                                                ),
-                                                Expanded(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
-                                                    children: [
-                                                      customSpacerHeight(
-                                                          height: 12),
-
-
-                                                      test(titleText: AppString
-                                                          .text_city, subTitleText: controller
-                                                          .addressDetailsModel
-                                                          .data
-                                                          ?.first
-                                                          .value
-                                                          ?.city ??
-                                                          ""),
-
-
-
-
-
-
-                                                      customSpacerHeight(
-                                                          height: 16),
-                                                      textTitle(
-                                                          titleText: AppString
-                                                              .text_zip_code),
-                                                      textSubTitle(
-                                                          subTitleText: controller
-                                                                  .addressDetailsModel
-                                                                  .data
-                                                                  ?.first
-                                                                  .value
-                                                                  ?.zipCode ??
-                                                              ""),
-                                                      customSpacerHeight(
-                                                          height: 16),
-                                                      textTitle(
-                                                          titleText: AppString
-                                                              .text_phone),
-                                                      textSubTitle(
-                                                          subTitleText: controller
-                                                                  .addressDetailsModel
-                                                                  .data
-                                                                  ?.first
-                                                                  .value
-                                                                  ?.phoneNumber ??
-                                                              "")
-                                                    ],
-                                                  ),
-                                                ),
-
-
-
-
-
-
-
-
-                                              ],
-                                            ),
-                                            customSpacerHeight(height: 24),
-                                          ],
-                                        ),
-                                      ],
-                                    )
-                                  : Container()
-                              : Container(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              currTitleText(),
-                              (controller.addressDetailsModel.data != null &&
-                                      controller
-                                          .addressDetailsModel.data!.isNotEmpty)
-                                  ? controller.addressDetailsModel.data?.last
-                                                  .key ==
-                                              "present_address" ||
-                                          controller.addressDetailsModel.data
-                                                  ?.first.key ==
-                                              "present_address"
-                                      ? editDetBtn(
-                                          context: context,
-                                          onAction: () =>
-                                              Get.find<DeletedAddController>()
-                                                  .deletedAddressApi(
-                                                      addressType:
-                                                          "present_address"),
-                                          editAction:
-                                              EditAddress("present_address"),
-                                          type: "present_address")
-                                      : addButton(onAction: () {
-                                          customButtonSheet(
-                                              context: context,
-                                              height: 0.9,
-                                              child: AddCurrentAddress(
-                                                  typeKey: "present_address"));
-                                        })
-                                  : addButton(onAction: () {
-                                      customButtonSheet(
-                                          context: context,
-                                          height: 0.9,
-                                          child: AddCurrentAddress(
-                                              typeKey: "present_address"));
-                                    }),
-                            ],
-                          ),
-                          (controller.addressDetailsModel.data != null &&
-                                  controller
-                                      .addressDetailsModel.data!.isNotEmpty)
-                              ? controller.addressDetailsModel.data?.last.key ==
-                                      "present_address"
-                                  ? Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        customSpacerHeight(height: 20),
-                                        Text(
-                                          AppString.text_details,
-                                          style: AppStyle.mid_large_text
-                                              .copyWith(
-                                                  color: AppColor.hintColor
-                                                      .withOpacity(0.7),
-                                                  fontSize: Dimensions
-                                                          .fontSizeDefault -
-                                                      2,
-                                                  fontWeight: FontWeight.w500),
-                                        ),
-                                        customSpacerHeight(height: 8),
-                                        Text(
-                                          controller.addressDetailsModel.data
-                                                  ?.last.value?.details
-                                                  .toString() ??
-                                              "",
-                                          style: AppStyle.mid_large_text
-                                              .copyWith(
-                                                  color: AppColor
-                                                      .normalTextColor,
-                                                  fontSize: Dimensions
-                                                      .fontSizeDefault,
-                                                  fontWeight: FontWeight.w500),
-                                        ),
-                                        customSpacerHeight(height: 12),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    customSpacerHeight(
-                                                        height: 12),
-                                                    textTitle(
-                                                        titleText: AppString
-                                                            .text_area),
-                                                    textSubTitle(
-                                                      subTitleText: controller
-                                                              .addressDetailsModel
-                                                              .data
-                                                              ?.last
-                                                              .value
-                                                              ?.area ??
-                                                          "",
-                                                    ),
-                                                    customSpacerHeight(
-                                                        height: 16),
-                                                    textTitle(
-                                                        titleText: AppString
-                                                            .text_state),
-                                                    textSubTitle(
-                                                      subTitleText: controller
-                                                              .addressDetailsModel
-                                                              .data
-                                                              ?.last
-                                                              .value
-                                                              ?.state ??
-                                                          "",
-                                                    ),
-                                                    customSpacerHeight(
-                                                        height: 16),
-                                                    textTitle(
-                                                        titleText: AppString
-                                                            .text_county),
-                                                    textSubTitle(
-                                                        subTitleText: controller
-                                                                .addressDetailsModel
-                                                                .data
-                                                                ?.last
-                                                                .value
-                                                                ?.country ??
-                                                            ""),
-                                                  ],
-                                                ),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    customSpacerHeight(
-                                                        height: 12),
-                                                    textTitle(
-                                                        titleText: AppString
-                                                            .text_city),
-                                                    textSubTitle(
-                                                        subTitleText: controller
-                                                                .addressDetailsModel
-                                                                .data
-                                                                ?.last
-                                                                .value
-                                                                ?.city ??
-                                                            ""),
-                                                    customSpacerHeight(
-                                                        height: 16),
-                                                    textTitle(
-                                                        titleText: AppString
-                                                            .text_zip_code),
-                                                    textSubTitle(
-                                                        subTitleText: controller
-                                                                .addressDetailsModel
-                                                                .data
-                                                                ?.last
-                                                                .value
-                                                                ?.zipCode ??
-                                                            ""),
-                                                    customSpacerHeight(
-                                                        height: 16),
-                                                    textTitle(
-                                                        titleText: AppString
-                                                            .text_phone),
-                                                    textSubTitle(
-                                                        subTitleText: controller
-                                                                .addressDetailsModel
-                                                                .data
-                                                                ?.last
-                                                                .value
-                                                                ?.phoneNumber ??
-                                                            "")
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            customSpacerHeight(height: 24),
-                                          ],
-                                        ),
-                                      ],
-                                    )
-                                  : Container()
-                              : Container()
+                              .key ==
+                              "permanent_address" ||
+                              controller.addressDetailsModel.data
+                                  ?.last.key ==
+                                  "permanent_address"
+                              ? editDetBtn(
+                              context: context,
+                              onAction: () =>
+                                  Get.find<DeletedAddController>()
+                                      .deletedAddressApi(
+                                      addressType: controller
+                                          .addressDetailsModel
+                                          .data
+                                          ?.first
+                                          .key),
+                              editAction:
+                              EditAddress("permanent_address"),
+                              type: "permanent_address")
+                              : addButton(onAction: () {
+                            customButtonSheet(
+                                context: context,
+                                height: 0.9,
+                                child: AddAddress(
+                                    "permanent_address"));
+                          })
+                              : addButton(onAction: () {
+                            customButtonSheet(
+                                context: context,
+                                height: 0.9,
+                                child:
+                                AddAddress("permanent_address"));
+                          }),
                         ],
                       ),
-                    ),
-                  ],
+                      (controller.addressDetailsModel.data != null &&
+                          controller
+                              .addressDetailsModel.data!.isNotEmpty)
+                          ? controller.addressDetailsModel.data?.first
+                          .key ==
+                          "permanent_address" ||
+                          controller.addressDetailsModel.data?.last
+                              .key ==
+                              "permanent_address"
+                          ? Column(
+                        crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                        children: [
+                          customSpacerHeight(height: 20),
+                          Text(
+                            AppString.text_details,
+                            style: AppStyle.mid_large_text
+                                .copyWith(
+                                color: AppColor.hintColor
+                                    .withOpacity(0.9),
+                                fontSize: Dimensions
+                                    .fontSizeDefault +
+                                    2,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          customSpacerHeight(height: 8),
+                          Text(
+                            controller.addressDetailsModel.data
+                                ?.first.value?.details
+                                .toString() ??
+                                "",
+                            style: AppStyle.mid_large_text
+                                .copyWith(
+                                color:
+                                AppColor.normalTextColor,
+                                fontSize: Dimensions
+                                    .fontSizeDefault,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          customSpacerHeight(height: 12),
+                          Column(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment
+                                    .spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      customSpacerHeight(
+                                          height: 12),
+                                      textTitle(
+                                          titleText: AppString
+                                              .text_area),
+                                      textSubTitle(
+                                        subTitleText: controller
+                                            .addressDetailsModel
+                                            .data
+                                            ?.first
+                                            .value
+                                            ?.area ??
+                                            "",
+                                      ),
+                                      customSpacerHeight(
+                                          height: 16),
+                                      textTitle(
+                                          titleText: AppString
+                                              .text_state),
+                                      textSubTitle(
+                                        subTitleText: controller
+                                            .addressDetailsModel
+                                            .data
+                                            ?.first
+                                            .value
+                                            ?.state ??
+                                            "",
+                                      ),
+                                      customSpacerHeight(
+                                          height: 16),
+                                      textTitle(
+                                          titleText: AppString
+                                              .text_county),
+                                      textSubTitle(
+                                          subTitleText: controller
+                                              .addressDetailsModel
+                                              .data
+                                              ?.first
+                                              .value
+                                              ?.country ??
+                                              ""),
+                                    ],
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        customSpacerHeight(
+                                            height: 12),
+
+
+                                        test(titleText: AppString
+                                            .text_city, subTitleText: controller
+                                            .addressDetailsModel
+                                            .data
+                                            ?.first
+                                            .value
+                                            ?.city ??
+                                            ""),
+
+
+
+
+
+
+                                        customSpacerHeight(
+                                            height: 16),
+                                        textTitle(
+                                            titleText: AppString
+                                                .text_zip_code),
+                                        textSubTitle(
+                                            subTitleText: controller
+                                                .addressDetailsModel
+                                                .data
+                                                ?.first
+                                                .value
+                                                ?.zipCode ??
+                                                ""),
+                                        customSpacerHeight(
+                                            height: 16),
+                                        textTitle(
+                                            titleText: AppString
+                                                .text_phone),
+                                        textSubTitle(
+                                            subTitleText: controller
+                                                .addressDetailsModel
+                                                .data
+                                                ?.first
+                                                .value
+                                                ?.phoneNumber ??
+                                                "")
+                                      ],
+                                    ),
+                                  ),
+
+
+
+
+
+
+
+
+                                ],
+                              ),
+                              customSpacerHeight(height: 24),
+                            ],
+                          ),
+                        ],
+                      )
+                          : Container()
+                          : Container(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          currTitleText(),
+                          (controller.addressDetailsModel.data != null &&
+                              controller
+                                  .addressDetailsModel.data!.isNotEmpty)
+                              ? controller.addressDetailsModel.data?.last
+                              .key ==
+                              "present_address" ||
+                              controller.addressDetailsModel.data
+                                  ?.first.key ==
+                                  "permanent_address"
+                              ? editDetBtn(
+                              context: context,
+                              onAction: () =>
+                                  Get.find<DeletedAddController>()
+                                      .deletedAddressApi(
+                                      addressType:
+                                      "present_address"),
+                              editAction:
+                              EditAddress("present_address"),
+                              type: "present_address")
+                              : addButton(onAction: () {
+                            customButtonSheet(
+                                context: context,
+                                height: 0.9,
+                                child: AddCurrentAddress(
+                                    typeKey: "present_address"));
+                          })
+                              : addButton(onAction: () {
+                            customButtonSheet(
+                                context: context,
+                                height: 0.9,
+                                child: AddCurrentAddress(
+                                    typeKey: "present_address"));
+                          }),
+                        ],
+                      ),
+                      (controller.addressDetailsModel.data != null &&
+                          controller
+                              .addressDetailsModel.data!.isNotEmpty)
+                          ? controller.addressDetailsModel.data?.last.key ==
+                          "present_address"
+                          ? Column(
+                        crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                        children: [
+                          customSpacerHeight(height: 20),
+                          Text(
+                            AppString.text_details,
+                            style: AppStyle.mid_large_text
+                                .copyWith(
+                                color: AppColor.hintColor
+                                    .withOpacity(0.7),
+                                fontSize: Dimensions
+                                    .fontSizeDefault -
+                                    2,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          customSpacerHeight(height: 8),
+                          Text(
+                            controller.addressDetailsModel.data
+                                ?.last.value?.details
+                                .toString() ??
+                                "",
+                            style: AppStyle.mid_large_text
+                                .copyWith(
+                                color: AppColor
+                                    .normalTextColor,
+                                fontSize: Dimensions
+                                    .fontSizeDefault,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          customSpacerHeight(height: 12),
+                          Column(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment
+                                    .spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      customSpacerHeight(
+                                          height: 12),
+                                      textTitle(
+                                          titleText: AppString
+                                              .text_area),
+                                      textSubTitle(
+                                        subTitleText: controller
+                                            .addressDetailsModel
+                                            .data
+                                            ?.last
+                                            .value
+                                            ?.area ??
+                                            "",
+                                      ),
+                                      customSpacerHeight(
+                                          height: 16),
+                                      textTitle(
+                                          titleText: AppString
+                                              .text_state),
+                                      textSubTitle(
+                                        subTitleText: controller
+                                            .addressDetailsModel
+                                            .data
+                                            ?.last
+                                            .value
+                                            ?.state ??
+                                            "",
+                                      ),
+                                      customSpacerHeight(
+                                          height: 16),
+                                      textTitle(
+                                          titleText: AppString
+                                              .text_county),
+                                      textSubTitle(
+                                          subTitleText: controller
+                                              .addressDetailsModel
+                                              .data
+                                              ?.last
+                                              .value
+                                              ?.country ??
+                                              ""),
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      customSpacerHeight(
+                                          height: 12),
+                                      textTitle(
+                                          titleText: AppString
+                                              .text_city),
+                                      textSubTitle(
+                                          subTitleText: controller
+                                              .addressDetailsModel
+                                              .data
+                                              ?.last
+                                              .value
+                                              ?.city ??
+                                              ""),
+                                      customSpacerHeight(
+                                          height: 16),
+                                      textTitle(
+                                          titleText: AppString
+                                              .text_zip_code),
+                                      textSubTitle(
+                                          subTitleText: controller
+                                              .addressDetailsModel
+                                              .data
+                                              ?.last
+                                              .value
+                                              ?.zipCode ??
+                                              ""),
+                                      customSpacerHeight(
+                                          height: 16),
+                                      textTitle(
+                                          titleText: AppString
+                                              .text_phone),
+                                      textSubTitle(
+                                          subTitleText: controller
+                                              .addressDetailsModel
+                                              .data
+                                              ?.last
+                                              .value
+                                              ?.phoneNumber ??
+                                              "")
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              customSpacerHeight(height: 24),
+                            ],
+                          ),
+                        ],
+                      )
+                          : Container()
+                          : Container()
+                    ],
+                  ),
                 ),
-              ),
+              ],
+            ),
+          ),
           onLoading: const LoadingIndicator()),
     );
   }

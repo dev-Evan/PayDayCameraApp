@@ -34,10 +34,12 @@ class DocumentScreen extends GetView<DocumentController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              customMoreAppbar(titleText: controller.documentModel.message ?? AppString.text_documents, onAction: () => Get.back()),
-
-              controller.documentModel.data?.documents != null &&
-                      controller.documentModel.data!.documents!.isNotEmpty
+              customMoreAppbar(
+                  titleText: controller.documentModel.message ??
+                      AppString.text_documents,
+                  onAction: () => Get.back()),
+             ( controller.documentModel.data?.documents != null &&
+                      controller.documentModel.data!.documents!.isNotEmpty)
                   ? Expanded(
                       child: Container(
                         color: AppColor.backgroundColor,
@@ -151,17 +153,17 @@ class DocumentScreen extends GetView<DocumentController> {
                     )
                   : Center(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           logoView(
                             height: 160,
                             width: 160,
                             url: Images.no_data_found,
                           ),
+                          SizedBox(height: MediaQuery.of(context).size.height/2.5,)
                         ],
                       ),
                     ),
-              customSpacerHeight(height: 125)
             ],
           ),
         ),
@@ -270,9 +272,7 @@ Widget _cardImgTitle(
                   ],
                 );
               },
-            ).then((value) {
-              Navigator.pop(context);
-            });
+            );
           },
           icon: const Icon(Icons.more_vert))
     ],
@@ -285,6 +285,13 @@ Widget _editDeletedActionRow({required context, required id}) {
     children: [
       InkWell(
         onTap: () {
+
+          if (Get.find<UpdateDocumentController>().newValue.toString().isNotEmpty) {
+            Navigator.pop(context);
+          } else {
+            Navigator.pop(context);
+          }
+
           customButtonSheet(
               context: context,
               height: 0.9,
@@ -302,6 +309,12 @@ Widget _editDeletedActionRow({required context, required id}) {
       customSpacerWidth(width: 40),
       InkWell(
         onTap: () {
+
+          if (Get.find<DeletedDocumentController>().newValue.toString().isNotEmpty) {
+            Navigator.pop(context);
+          } else {
+            Navigator.pop(context);
+          }
           _box.write(AppString.STORE_DOC_Id, id);
           Get.find<DeletedDocumentController>().deletedDocumentApi();
         },

@@ -47,9 +47,11 @@ class CustomTextEditingController extends GetxController {
 
 // Change password
   final TextEditingController oldPassController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController newPasswordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
 
 
 
 }
+
+

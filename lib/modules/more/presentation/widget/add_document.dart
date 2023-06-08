@@ -147,10 +147,7 @@ class _AddDocumentState extends State<AddDocument> {
                                       ),
                                     ],
                                   ),
-                                ))
-
-
-                          )), //),
+                                )))), //),
 
                   customSpacerHeight(height: 8),
                   Obx(() => Text(
@@ -167,9 +164,15 @@ class _AddDocumentState extends State<AddDocument> {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: customDoubleButton(
-              textButtonAction: () => Get.back(),
+              textButtonAction: () {
+                if (Get.find<FileUploadController>().newValue.toString().isNotEmpty) {
+                  Navigator.pop(context);
+                } else {
+                  Navigator.pop(context);
+                }
+              },
               elevatedButtonAction: () =>
-                  Get.find<FileUploadController>().uploadFile(context: context),
+                  Get.find<FileUploadController>().uploadFile(),
               textBtnText: AppString.text_cancel,
               elevatedBtnText: AppString.text_save,
               context: context),
@@ -178,15 +181,6 @@ class _AddDocumentState extends State<AddDocument> {
     );
   }
 }
-
-_showToast(message) => Fluttertoast.showToast(
-    msg: message,
-    toastLength: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.BOTTOM,
-    timeInSecForIosWeb: 1,
-    backgroundColor: AppColor.errorColor,
-    textColor: Colors.white,
-    fontSize: 16.0);
 
 Widget _dottedBorder({required child}) {
   return DottedBorder(

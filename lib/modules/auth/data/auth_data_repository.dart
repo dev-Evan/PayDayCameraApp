@@ -27,7 +27,7 @@ class AuthDataSource {
         return Login.fromJson(response.body);
       }
     } catch (ex) {
-      return Future.error(ex.toString());
+      return Future.error(ErrorModel(message: ex.toString()));
     }
   }
 

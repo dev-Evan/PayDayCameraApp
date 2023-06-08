@@ -19,38 +19,8 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
 
-class UpdateDocument extends StatefulWidget {
+class UpdateDocument extends StatelessWidget {
   const UpdateDocument({Key? key}) : super(key: key);
-  @override
-  State<UpdateDocument> createState() => _AddDocumentState();
-}
-
-class _AddDocumentState extends State<UpdateDocument> {
-  FilePickerResult? result;
-  String? fileName;
-  PlatformFile? pickFile;
-  bool isLoading = false;
-  File? fileToDisplay;
-  void pickFile1() async {
-    try {
-      setState(() {
-        isLoading = false;
-      });
-      result = await FilePicker.platform.pickFiles(
-        type: FileType.any,
-        allowMultiple: false,
-      );
-      if (result != null) {
-        setState(() {
-          fileName = result!.files.first.name;
-          pickFile = result!.files.first;
-          fileToDisplay = File(pickFile!.path.toString());
-        });
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
   @override
   Widget build(BuildContext context) {
     final _box=GetStorage();

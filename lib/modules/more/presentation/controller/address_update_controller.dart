@@ -29,6 +29,7 @@ class AddressUpdateController extends GetxController with StateMixin {
         Get.find<CustomTextEditingController>().zipCodeController.value.text,
       ).then((value) {
         Get.find<AddressDetailsController>().getEmployeeAddressData();
+        Get.back();
         FutureDelayed(onAction: () => showCustomSnackBar(message: AppString.text_address_update_successfully));
         _fieldClear();
 

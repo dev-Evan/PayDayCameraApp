@@ -400,6 +400,12 @@ class AppString {
       "Profile update successfully!";
   static String text_profile_picture_update_successfully =
       "Profile picture has been updated successfully";
+  static String text_file_upload_update_successfully =
+      "File upload has been updated successfully";
+  static String text_bank_details_deleted_successfully =
+      "Bank details has been deleted successfully";
+  static String text_bank_details_update_successfully =
+      "Bank details has been update successfully";
   static String text_address_deleted_successfully =
       "Address deleted successfully";
   static String text_password_update_successfully =
@@ -444,6 +450,7 @@ class AppString {
   static const String STORE_DOC_Id = "store_doc_id";
   static const String BANK_USER_ID_STORE = "bank_user_id";
   static const String PAYSLIP_DATE_RANGE = "payslip_date_range";
+  static const String STORE_CURRENT_PASSWORD = "store_current_password";
 
 // Auth String
 
@@ -451,11 +458,21 @@ class AppString {
   static const String rememberMe = "Remember me";
   static const String fieldIsRequired = "Field is required !";
   static const String the_first_name_field_is_required = "The first name field is required.";
+  static const String the_password_field_is_required = "The password field is required.";
+  static const String please_insert_a_valid_email_address = "Please insert a valid email address";
+  static const String incorrect_user_or_password = "Incorrect user or password";
+  static const String old_password_incorrect = "Old password is incorrect";
 
 
   static const String the_old_password_field_is_required = "The old password field is required.";
   static const String the_new_password_field_is_required = "The new password field is required.";
   static const String the_confirm_password_field_is_required = "The confirm password field is required.";
+
+  static const String the_old_password_must_be_at_least_6_character= "The old password must be at least 6 characters.";
+  static const String cant_not_be_correct_please_follow_this= "Can't be correct please follow this  ( r#AG!3c4 )";
+  static const String password_must_contains_number_and_etc= "Password must contains number, lowercase, uppercase and special character";
+  static const String the_password_must_be_at_least_8_character= "The password must be at least 8 characters.";
+  static const String the_password_confirmation_does_not_match= "The password confirmation does not match.";
 
 
 

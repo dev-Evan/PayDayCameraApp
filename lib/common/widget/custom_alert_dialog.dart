@@ -18,19 +18,20 @@ Future CustomAlertDialog({
   Color? buttonColor = Colors.orange,
   Color? iconBgColor = AppColor.alertDgIconBgColor,
   Color? iconColor = Colors.orange,
+  backAction
 }) {
   return showDialog(
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: Text(titleText!,style: AppStyle.large_text.copyWith(fontSize: Dimensions.fontSizeLarge,color: AppColor.normalTextColor,fontWeight: FontWeight.w600),),
+        title: Text(titleText!,style: AppStyle.large_text.copyWith(fontSize: Dimensions.fontSizeLarge-1,color: AppColor.normalTextColor,fontWeight: FontWeight.w600),),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Dimensions.radiusMid - 2),
         ),
         icon: Center(
           child: Container(
-              width: AppLayout.getWidth(46),
-              height: AppLayout.getHeight(46),
+              width: AppLayout.getWidth(50),
+              height: AppLayout.getHeight(50),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
                 color: iconBgColor,
@@ -57,7 +58,7 @@ Future CustomAlertDialog({
                 contentText!,
                 style: AppStyle.mid_large_text.copyWith(
                     color: AppColor.hintColor,
-                    fontSize: Dimensions.fontSizeDefault),
+                    fontSize: Dimensions.fontSizeDefault-1),
               ),
             ),
           ],
@@ -73,7 +74,13 @@ Future CustomAlertDialog({
                     width: MediaQuery.of(context).size.width,
                     height: AppLayout.getHeight(40),
                     child: TextButton(
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: (){
+                          if(backAction !=null){
+                            backAction();
+                          }else{
+                      Navigator.pop(context);
+                          }
+                        },
                         style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),

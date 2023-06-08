@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/widget/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
@@ -33,7 +34,7 @@ class BankDetails extends GetView<MoreDataController> {
                             controller
                                 .bankInfoModel.data!.accountTitle!.isNotEmpty)
                         ? SingleChildScrollView(
-                          child: Column(
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 customMoreAppbar(
@@ -57,13 +58,15 @@ class BankDetails extends GetView<MoreDataController> {
                                             ?.toString() ??
                                         ""),
                                 _bankUserInfo(
-                                    infoTitleText: AppString.text_account_holder,
-                                    infoDetailsText: controller
-                                            .bankInfoModel.data?.accountHolderName
+                                    infoTitleText:
+                                        AppString.text_account_holder,
+                                    infoDetailsText: controller.bankInfoModel
+                                            .data?.accountHolderName
                                             ?.toString() ??
                                         ""),
                                 _bankUserInfo(
-                                    infoTitleText: AppString.text_account_number,
+                                    infoTitleText:
+                                        AppString.text_account_number,
                                     infoDetailsText: controller
                                             .bankInfoModel.data?.accountNumber
                                             ?.toString() ??
@@ -82,14 +85,13 @@ class BankDetails extends GetView<MoreDataController> {
                                         "")
                               ],
                             ),
-                        )
+                          )
                         : Column(
                             children: [
                               Center(
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    customSpacerHeight(height: 158),
+                                    customSpacerHeight(height: 230),
                                     logoView(
                                       height: 160,
                                       width: 160,
@@ -128,7 +130,11 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
       children: [
         _bankTitleText(bankText: bankTitleText),
         _editDeleteBtn(
-            onAction: () => Get.find<MoreDataController>().deletedBankInfoApi(),
+            onAction: () => _deletedAlert(
+                  context: context,
+                  onAction: () =>
+                      Get.find<MoreDataController>().deletedBankInfoApi(),
+                ),
             editAction: () {
               customButtonSheet(
                 context: context,
@@ -214,6 +220,21 @@ Widget _editDeleteBtn({required context, onAction, required editAction}) {
       ),
     ],
   );
+}
+
+Future _deletedAlert({required context, onAction}) {
+  return CustomAlertDialog(
+      context: context,
+      icon: CupertinoIcons.delete,
+      backAction: () {
+        if (Get.find<MoreDataController>().newValue.toString().isNotEmpty) {
+          Navigator.pop(context);
+        } else {
+           Navigator.pop(context);
+        }
+      },
+      iconBgColor: Colors.orange.shade50,
+      yesAction: () => onAction());
 }
 
 Widget _bankTitleText({required bankText}) {

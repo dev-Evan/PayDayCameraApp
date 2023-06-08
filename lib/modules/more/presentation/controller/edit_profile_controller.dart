@@ -35,9 +35,9 @@ class EditProfileDataController extends GetxController with StateMixin {
       )
           .then((value) {
         Get.back() ;
+        Get.find<ProfileDataController>().getUserData();
         _successDialog(onAction: ()=> Get.back());
         showCustomSnackBar(message: AppString.text_profile_update_successfully);
-        Get.find<ProfileDataController>().getUserData();
 
       }, onError: (error) {
 

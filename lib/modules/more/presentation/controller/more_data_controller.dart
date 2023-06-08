@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
+import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/more/data/more_data_repository.dart';
 import 'package:pay_day_mobile/modules/more/domain/bank_info_model.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
@@ -59,12 +60,15 @@ class MoreDataController extends GetxController with StateMixin {
       print("Add BankInfo ::: $error");
     });
   }
-
+  var newValue="";
   void deletedBankInfoApi() async {
     waitingLoader();
     try {
       await moreDataRepository.deletedBankInfoRepo().then((value) {
         getBankInfo();
+        showCustomSnackBar(message: AppString.text_bank_details_deleted_successfully);
+        newValue="value";
+        Get.back();
       }, onError: (error) {
         Get.back();
         print(error.toString());
@@ -80,7 +84,6 @@ class MoreDataController extends GetxController with StateMixin {
     box.write(AppString.BANK_USER_ID_STORE, info?.data!.id);
   }
 
-
   updateBankInfo({required context}) async {
     waitingLoader();
     await moreDataRepository.UpdateBankInfoRepo(
@@ -94,6 +97,7 @@ class MoreDataController extends GetxController with StateMixin {
     ).then((value) {
       print("BANK INFO UPDATED ::: $value");
       Get.back();
+      showCustomSnackBar(message: AppString.text_bank_details_update_successfully);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
