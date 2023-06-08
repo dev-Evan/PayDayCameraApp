@@ -34,10 +34,8 @@ class DocumentScreen extends GetView<DocumentController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              customMoreAppbar(
-                  titleText: controller.documentModel.message ??
-                      AppString.text_documents,
-                  onAction: () => Get.back()),
+              customMoreAppbar(titleText: controller.documentModel.message ?? AppString.text_documents, onAction: () => Get.back()),
+
               controller.documentModel.data?.documents != null &&
                       controller.documentModel.data!.documents!.isNotEmpty
                   ? Expanded(

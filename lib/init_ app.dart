@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/controller/connectivity_controller.dart';
@@ -18,6 +19,7 @@ import 'common/controller/status_controller.dart';
 import 'modules/more/presentation/controller/address_details_controller.dart';
 import 'modules/more/presentation/controller/address_update_controller.dart';
 import 'modules/more/presentation/controller/change_profile_img_controller.dart';
+import 'modules/more/presentation/controller/date_of_birth_controller.dart';
 import 'modules/more/presentation/controller/deleted_address_controller.dart';
 import 'modules/more/presentation/controller/document_deleted_controller.dart';
 import 'modules/more/presentation/controller/document_upload_controller.dart';
@@ -72,4 +74,12 @@ Future<void> initApp() async {
   Get.lazyPut(() => MoreDataController(), fenix: true);
   Get.lazyPut(() => LeaveController(),fenix: true);
   Get.lazyPut(() => CustomTextEditingController(),fenix: true);
+  Get.lazyPut(() => DatePickerController(),fenix: true);
+
+  SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark));
+
+
 }

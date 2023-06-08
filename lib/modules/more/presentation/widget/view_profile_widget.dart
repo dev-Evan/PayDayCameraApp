@@ -18,23 +18,25 @@ Widget cardView({icon, dynamicText, titleText}) {
       children: [
         cardIconView(cardIcon: icon),
       customSpacerWidth(width: 8),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              dynamicText,
-              style: AppStyle.small_text_black.copyWith(
-                  fontSize: Dimensions.fontSizeSmall + 3,
-                  color: AppColor.normalTextColor),
-            ),
-            Text(
-              titleText,
-              style: AppStyle.small_text.copyWith(
-                color: AppColor.hintColor,
-                fontSize: Dimensions.fontSizeDefault - 1,
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                dynamicText,
+                style: AppStyle.small_text_black.copyWith(
+                    fontSize: Dimensions.fontSizeSmall + 3,
+                    color: AppColor.normalTextColor),
               ),
-            ),
-          ],
+              Text(
+                titleText,
+                style: AppStyle.small_text.copyWith(
+                  color: AppColor.hintColor,
+                  fontSize: Dimensions.fontSizeDefault - 1,
+                ),
+              ),
+            ],
+          ),
         )
       ],
     ),
@@ -126,12 +128,15 @@ Widget moveChangePassword({
 
 Widget userName({required text}){
   return   Center(
-    child: Text(
-      text,
-      style: AppStyle.mid_large_text.copyWith(
-          fontWeight: FontWeight.w800,
-          color: AppColor.normalTextColor,
-          fontSize: Dimensions.fontSizeMid + 1),
+    child: Padding(
+      padding:  EdgeInsets.only(left: AppLayout.getWidth(12)),
+      child: Text(
+        text,
+        style: AppStyle.mid_large_text.copyWith(
+            fontWeight: FontWeight.w800,
+            color: AppColor.normalTextColor,
+            fontSize: Dimensions.fontSizeMid + 1),
+      ),
     ),
   );
 }

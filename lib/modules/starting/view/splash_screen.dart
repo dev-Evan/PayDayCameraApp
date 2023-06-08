@@ -37,8 +37,8 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-  var _width = AppLayout.getWidth(100.0);
-  var _height = AppLayout.getHeight(70.0);
+  var _width = AppLayout.getWidth(94.0);
+  var _height = AppLayout.getHeight(94.0);
 
   @override
   void initState() {
@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
       isMove();
     });
 
-    Future.delayed( const Duration(milliseconds: 1650), () {
+    Future.delayed( const Duration(milliseconds: 1659), () {
       chooseScreen();
     });
 

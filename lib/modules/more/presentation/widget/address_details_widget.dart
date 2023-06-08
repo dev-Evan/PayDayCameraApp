@@ -14,7 +14,24 @@ import 'package:pay_day_mobile/utils/images.dart';
 
 import '../../../../common/widget/custom_spacer.dart';
 
-Widget textTitle({titleText}) {
+
+
+Widget test({required titleText,required subTitleText}){
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Column(
+        children: [
+
+          textTitle(titleText: titleText),
+        ],
+      ),
+      textSubTitle(subTitleText: subTitleText)
+    ],
+  );
+}
+
+Widget textTitle({ required titleText}) {
   return Text(
     titleText,
     style: AppStyle.mid_large_text.copyWith(
@@ -24,7 +41,7 @@ Widget textTitle({titleText}) {
   );
 }
 
-Widget textSubTitle({subTitleText}) {
+Widget textSubTitle({required subTitleText}) {
   return Text(
     subTitleText,
     style: AppStyle.mid_large_text.copyWith(
@@ -33,6 +50,15 @@ Widget textSubTitle({subTitleText}) {
         fontWeight: FontWeight.w500),
   );
 }
+
+
+
+
+
+
+
+
+
 
 Widget addButton({onAction}) {
   return Row(

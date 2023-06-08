@@ -27,6 +27,7 @@ class AppString {
   static String BASIC_INFO = "/basic-information";
   static String UPDATE_PROFILE_DATA = "/user/profile/update";
   static String DOCUMENT_UPLOAD = "/document/store";
+  static String DOCUMENT_STORE = "/document/index";
   static String UPDATE_DOCUMENT = "/document/update";
   static String PAYSLIP_LIST = "/payroll/payslip-list";
   static String POST = "POST";
@@ -120,7 +121,7 @@ class AppString {
   static const String text_single = "Single";
   static const String text_multi = "Multi";
   static const String text_bank_name = "Bank Name";
-  static const String text_enrly = "Early";
+  static const String text_early = "Early";
   static const String text_no_document_found = "No Document Found";
   static const String text_regular = "Regular";
   static String text_scheduled = "Scheduled";
@@ -204,6 +205,15 @@ class AppString {
   static const String text_interval = "Interval";
   static const String text_last = "Last";
   static const String text_first = "First";
+
+  static const String text_enter_first_name = "Enter first name";
+  static const String text_enter_last_name = "Enter last name";
+  static const String text_enter_email = "Enter email";
+  static const String text_not_added_yet = "Not added yet";
+  static const String text_add_about_me_here = "Add about me here";
+
+
+
   static const String text_if_any = "(if any)";
   static const String text_attachments = "Attachments";
   static const String text_add_reason_note_here = "Add reason note here";
@@ -331,8 +341,8 @@ class AppString {
   static String text_old_password = "Old Password";
   static String text_new_password = "New Password";
   static String text_confirm_password = "Confirm Password";
-  static String text_male = "male";
-  static String text_female = "female";
+  static String text_male = "Male";
+  static String text_female = "Female";
   static String text_holiday = "Holidays";
   static String text_area = "Area";
   static String text_city = "City";
@@ -387,7 +397,15 @@ class AppString {
   static String text_document_update_successfully =
       "Document update successfully!";
   static String text_profile_update_successfully =
-      "Document Profile successfully!";
+      "Profile update successfully!";
+  static String text_profile_picture_update_successfully =
+      "Profile picture has been updated successfully";
+  static String text_address_deleted_successfully =
+      "Address deleted successfully";
+  static String text_password_update_successfully =
+      "Password has been updated successfully";
+  static String text_address_update_successfully =
+      "Address has been updated successfully";
   static String text_payslip_download_successfully =
       "Payslip download successfully!";
   static String text_something_wrong = "Something wrong !";
@@ -432,6 +450,19 @@ class AppString {
   static const String forgotPassword = "Forgot password?";
   static const String rememberMe = "Remember me";
   static const String fieldIsRequired = "Field is required !";
+  static const String the_first_name_field_is_required = "The first name field is required.";
+
+
+  static const String the_old_password_field_is_required = "The old password field is required.";
+  static const String the_new_password_field_is_required = "The new password field is required.";
+  static const String the_confirm_password_field_is_required = "The confirm password field is required.";
+
+
+
+
+
+  static const String the_email_field_is_required = "The email field is required.";
+  static const String the_gender_field_is_required = "The gender field is required.";
   static const String enterYourPassword = "Enter your password";
   static const String enterYourEmail = "Enter your email";
   static const String password = "Password";

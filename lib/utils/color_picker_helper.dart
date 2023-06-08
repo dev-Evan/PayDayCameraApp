@@ -4,6 +4,9 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 
 import 'app_color.dart';
 
+
+String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
+
 class Util {
   Util._();
 
@@ -65,4 +68,7 @@ class Util {
     }
     return "";
   }
+}
+Future<Null> FutureDelayed({required onAction}) {
+  return Future.delayed(Duration(seconds: 1), () => onAction());
 }

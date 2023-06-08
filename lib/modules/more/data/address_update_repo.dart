@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/domain/error_model.dart';
+import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/more/domain/address_update_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -29,7 +30,10 @@ class AddressUpdateDataSource {
         return AddressUpdateModel.fromJson(response.body);
       }
     } catch (ex) {
-      return Future.error(ex.toString());
+
+
+      return Future.error(ErrorModel(message: ex.toString()));
+
     }
   }
 }

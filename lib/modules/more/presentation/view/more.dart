@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_alert_dialog.dart';
@@ -23,7 +22,7 @@ class MoreScreen extends GetView<ProfileDataController> {
   MoreScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-     controller.getUserData();
+    controller.getUserData();
     return controller.obx(
         (state) => Scaffold(
               body: CustomScrollView(
@@ -63,8 +62,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    jobDeskTitle(
-                                        text: AppString.text_job_desk),
+                                    jobDeskTitle(text: AppString.text_job_desk),
                                     jobDeskCard(
                                         cardIcon: Images.folder,
                                         cardText: AppString.text_documents,
@@ -80,19 +78,19 @@ class MoreScreen extends GetView<ProfileDataController> {
                                           Get.toNamed(AppString.jobHistory);
                                           await Get.find<JobHistoryController>()
                                               .getJobHistoryData();
-
                                         }),
                                     jobDeskCard(
                                       cardIcon: Images.credit_card,
                                       cardText: AppString.text_salary_overview,
                                       onAction: () async {
                                         Get.toNamed(AppString.salaryOverView);
-                                        await Get.find<SalaryOverviewController>()
+                                        await Get.find<
+                                                SalaryOverviewController>()
                                             .getSalaryOveData();
-                                        await  Get.find<SettingController>().getCurrencyData();
+                                        await Get.find<SettingController>()
+                                            .getCurrencyData();
                                       },
                                     ),
-
                                     jobDeskCard(
                                       cardIcon: Images.department,
                                       cardText: AppString.text_bank_details,
@@ -111,8 +109,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                           await Get.find<
                                                   AddressDetailsController>()
                                               .getEmployeeAddressData();
-                                        }
-                                        ),
+                                        }),
                                     customSpacerHeight(height: 20),
                                     jobDeskTitle(text: AppString.text_other),
                                     jobDeskCard(
@@ -122,16 +119,17 @@ class MoreScreen extends GetView<ProfileDataController> {
                                           Get.toNamed(AppString.aboutPage),
                                     ),
                                     jobDeskCard(
-                                        cardIcon: Images.log_out,
-                                        cardText: AppString.text_log_out,
-                                        onAction: () => CustomAlertDialog(
-                                            context: context,
-                                            icon: Icons.logout,
-                                            yesText: AppString.text_log_out,
-                                            iconBgColor: Colors.orange.shade50,
-                                            yesAction: () =>
-                                                Get.find<LogoutController>()
-                                                    .logOut()),),
+                                      cardIcon: Images.log_out,
+                                      cardText: AppString.text_log_out,
+                                      onAction: () => CustomAlertDialog(
+                                          context: context,
+                                          icon: Icons.logout,
+                                          yesText: AppString.text_log_out,
+                                          iconBgColor: Colors.orange.shade50,
+                                          yesAction: () =>
+                                              Get.find<LogoutController>()
+                                                  .logOut()),
+                                    ),
                                     languageCardView(
                                         langName: AppString.text_english,
                                         langText: AppString.text_language),
@@ -149,5 +147,3 @@ class MoreScreen extends GetView<ProfileDataController> {
         onLoading: const LoadingIndicator());
   }
 }
-
-

@@ -25,4 +25,7 @@ ThemeData _themeData = ThemeData(
   colorScheme: ColorScheme.fromSwatch().copyWith(
     primary: AppColor.primaryColor,
   ),
+
+
+
 );

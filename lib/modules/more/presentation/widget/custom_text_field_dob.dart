@@ -16,7 +16,9 @@ Widget CustomTextFieldDob(
       decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(16),
           hintText: hintText,
+
           focusColor: AppColor.primaryColor,
+
           hintStyle: GoogleFonts.poppins(color: AppColor.hintColor,fontSize: Dimensions.fontSizeDefault),
           filled: false,
           fillColor: AppColor.backgroundColor,
@@ -32,6 +34,7 @@ Widget CustomTextFieldDob(
             borderSide: BorderSide(color: AppColor.solidGray, width: 1.0),
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault)
           ),
+
           border: OutlineInputBorder(
             borderSide:
             const BorderSide(width: 0.0, color: AppColor.solidGray),
@@ -40,7 +43,8 @@ Widget CustomTextFieldDob(
 
           suffixIcon: IconButton(
             onPressed: ()=>dobIconAction(),icon: Icon(dobIcon),
-          )
+          ),
+
 
 
         ),

@@ -170,51 +170,66 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                                             ""),
                                                   ],
                                                 ),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    customSpacerHeight(
-                                                        height: 12),
-                                                    textTitle(
-                                                        titleText: AppString
-                                                            .text_city),
-                                                    textSubTitle(
-                                                        subTitleText: controller
-                                                                .addressDetailsModel
-                                                                .data
-                                                                ?.first
-                                                                .value
-                                                                ?.city ??
-                                                            ""),
-                                                    customSpacerHeight(
-                                                        height: 16),
-                                                    textTitle(
-                                                        titleText: AppString
-                                                            .text_zip_code),
-                                                    textSubTitle(
-                                                        subTitleText: controller
-                                                                .addressDetailsModel
-                                                                .data
-                                                                ?.first
-                                                                .value
-                                                                ?.zipCode ??
-                                                            ""),
-                                                    customSpacerHeight(
-                                                        height: 16),
-                                                    textTitle(
-                                                        titleText: AppString
-                                                            .text_phone),
-                                                    textSubTitle(
-                                                        subTitleText: controller
-                                                                .addressDetailsModel
-                                                                .data
-                                                                ?.first
-                                                                .value
-                                                                ?.phoneNumber ??
-                                                            "")
-                                                  ],
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      customSpacerHeight(
+                                                          height: 12),
+
+
+                                                      test(titleText: AppString
+                                                          .text_city, subTitleText: controller
+                                                          .addressDetailsModel
+                                                          .data
+                                                          ?.first
+                                                          .value
+                                                          ?.city ??
+                                                          ""),
+
+
+
+
+
+
+                                                      customSpacerHeight(
+                                                          height: 16),
+                                                      textTitle(
+                                                          titleText: AppString
+                                                              .text_zip_code),
+                                                      textSubTitle(
+                                                          subTitleText: controller
+                                                                  .addressDetailsModel
+                                                                  .data
+                                                                  ?.first
+                                                                  .value
+                                                                  ?.zipCode ??
+                                                              ""),
+                                                      customSpacerHeight(
+                                                          height: 16),
+                                                      textTitle(
+                                                          titleText: AppString
+                                                              .text_phone),
+                                                      textSubTitle(
+                                                          subTitleText: controller
+                                                                  .addressDetailsModel
+                                                                  .data
+                                                                  ?.first
+                                                                  .value
+                                                                  ?.phoneNumber ??
+                                                              "")
+                                                    ],
+                                                  ),
                                                 ),
+
+
+
+
+
+
+
+
                                               ],
                                             ),
                                             customSpacerHeight(height: 24),
@@ -293,8 +308,7 @@ class AddressDetails extends GetView<AddressDetailsController> {
                                           style: AppStyle.mid_large_text
                                               .copyWith(
                                                   color: AppColor
-                                                      .normalTextColor
-                                                      .withOpacity(0.7),
+                                                      .normalTextColor,
                                                   fontSize: Dimensions
                                                       .fontSizeDefault,
                                                   fontWeight: FontWeight.w500),

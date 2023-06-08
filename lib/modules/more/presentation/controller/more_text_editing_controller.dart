@@ -45,7 +45,10 @@ class CustomTextEditingController extends GetxController {
   final TextEditingController addZipCodeController = TextEditingController();
 
 
-
+// Change password
+  final TextEditingController oldPassController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
 
 
 

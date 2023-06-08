@@ -27,7 +27,7 @@ class FileUploadController extends GetxController {
   }
 
 
-  var baseUrl = AppString.BASE_URL + AppString.DOCUMENT_UPLOAD;
+  var baseUrl = AppString.BASE_URL + AppString.DOCUMENT_STORE;
   late var accessToken = _box.read(AppString.ACCESS_TOKEN);
 
 
@@ -41,9 +41,13 @@ class FileUploadController extends GetxController {
     var request = http.MultipartRequest('POST', url);
     request.fields['name'] = Get.find<CustomTextEditingController>().docFileNameController.text;
     request.fields['file'] = file.path;
-    request.fields['user_id'] = _box.read(AppString.ID_STORE).toString();
-    request.headers['Authorization'] = 'Bearer ${accessToken}';
+    request.fields['user_id'] = "4";
+    request.headers['Authorization'] = 'Bearer $accessToken';
+
     request.files.add(await http.MultipartFile.fromPath('file', file.path));
+
+
+
     var response = await request.send();
 
     if (response.statusCode == 200) {

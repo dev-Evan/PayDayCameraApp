@@ -22,11 +22,10 @@ class ChangePassDataSource {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
         print(response.body.toString());
-
         return ChangePasswordModel.fromJson(response.body);
       }
     } catch (ex) {
-      return Future.error(ex.toString());
+      return Future.error(ErrorModel(message: ex.toString()));
     }
   }
 }
