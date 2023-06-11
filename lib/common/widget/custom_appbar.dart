@@ -6,9 +6,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-
 import '../../routes/app_pages.dart';
-import '../../utils/app_string.dart';
 
 class CustomAppbar extends GetView<NotificationController>
     implements PreferredSizeWidget {
@@ -23,7 +21,7 @@ class CustomAppbar extends GetView<NotificationController>
           backgroundColor: AppColor.cardColor,
           leading: Padding(
             padding:
-                EdgeInsets.only(left: 12.0, bottom: AppLayout.getHeight(8)),
+                EdgeInsets.only(left: AppLayout.getWidth(18), bottom: AppLayout.getHeight(8)),
             child: logoView(height: 20, width: 20),
           ),
           actions: [

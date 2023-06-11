@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
+import 'package:pay_day_mobile/modules/leave/domain/leave_allowance.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/apply_leave_button_layout.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
@@ -440,6 +441,13 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
 
   _leaveCount() {
     var data = Get.find<LeaveController>().leaveAllowance.data;
+    late List<List<Values>?> dataValue;
+    if (data != null) {
+      dataValue = data
+          .where((element) => element.leaveStatus!.startsWith("Availability"))
+          .map((e) => e.values)
+          .toList();
+    }
     return Container(
       padding: EdgeInsets.symmetric(
           horizontal: AppLayout.getWidth(20),
@@ -452,42 +460,47 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           textFieldTitleText(titleText: AppString.text_available),
-          Column(
+          Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Expanded(
-                      flex: 2,
-                      child: Text(
-                          "${data?.casual?.paid?.availability} ${AppString.text_paid_casual}")),
-                  Spacer(flex: 1),
-                  Expanded(
-                      flex: 2,
-                      child: Text(
-                          "${data?.sick?.paid?.availability} ${AppString.text_paid_sick}"))
-                ],
+              Expanded(
+                child: Column(
+                  children: dataValue.first!
+                      .map((e) => _leaveCounter(
+                          leaveType: e.leaveType, leaveValue: e.value))
+                      .toList(),
+                ),
               ),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                        "${data?.casual?.unpaid?.availability} ${AppString.text_unpaid_casual}"),
-                  ),
-                  Spacer(flex: 1),
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                        "${data?.sick?.unpaid?.availability} ${AppString.text_unpaid_sick}"),
-                  )
-                ],
-              ),
-              customSpacerHeight(height: 20),
+              customSpacerWidth(width: 10),
+              Expanded(
+                child: Column(
+                  children: dataValue.last!
+                      .map((e) => _leaveCounter(
+                          leaveType: e.leaveType, leaveValue: e.value))
+                      .toList(),
+                ),
+              )
             ],
           )
         ],
       ),
+    );
+  }
+
+  Widget _leaveCounter({String? leaveType, String? leaveValue}) {
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            leaveType ?? '',
+            style: AppStyle.small_text_black,
+          ),
+        ),
+        Text(
+          leaveValue ?? "",
+          style: AppStyle.small_text_black.copyWith(color: Colors.grey),
+        )
+      ],
     );
   }
 }
