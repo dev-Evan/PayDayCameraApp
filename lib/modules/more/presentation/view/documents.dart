@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_deleted_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/document_upload_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/update_document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/view_doc_file.dart';
@@ -38,7 +39,7 @@ class DocumentScreen extends GetView<DocumentController> {
                   titleText: controller.documentModel.message ??
                       AppString.text_documents,
                   onAction: () => Get.back()),
-             ( controller.documentModel.data?.documents != null &&
+              (controller.documentModel.data?.documents != null &&
                       controller.documentModel.data!.documents!.isNotEmpty)
                   ? Expanded(
                       child: Container(
@@ -160,7 +161,9 @@ class DocumentScreen extends GetView<DocumentController> {
                             width: 160,
                             url: Images.no_data_found,
                           ),
-                          SizedBox(height: MediaQuery.of(context).size.height/2.5,)
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 2.5,
+                          )
                         ],
                       ),
                     ),
@@ -184,6 +187,8 @@ class DocumentScreen extends GetView<DocumentController> {
   }
 
   Widget _cardImage({required imageUrl}) {
+    GetStorage().write("key", imageUrl);
+
     return imageUrl.endsWith(".pdf")
         ? _fileIcon()
         : Container(
@@ -285,12 +290,17 @@ Widget _editDeletedActionRow({required context, required id}) {
     children: [
       InkWell(
         onTap: () {
-
-          if (Get.find<UpdateDocumentController>().newValue.toString().isNotEmpty) {
+          if (Get.find<UpdateDocumentController>()
+              .newValue
+              .toString()
+              .isNotEmpty) {
             Navigator.pop(context);
           } else {
             Navigator.pop(context);
           }
+
+          Get.find<UpdateDocumentController>().filePath.value =
+              _box.read("key");
 
           customButtonSheet(
               context: context,
@@ -309,8 +319,10 @@ Widget _editDeletedActionRow({required context, required id}) {
       customSpacerWidth(width: 40),
       InkWell(
         onTap: () {
-
-          if (Get.find<DeletedDocumentController>().newValue.toString().isNotEmpty) {
+          if (Get.find<DeletedDocumentController>()
+              .newValue
+              .toString()
+              .isNotEmpty) {
             Navigator.pop(context);
           } else {
             Navigator.pop(context);

@@ -52,6 +52,34 @@ Widget textSubTitle({required subTitleText}) {
 }
 
 
+Widget detailsTextLayout({required leftTitleText,required leftSubtext,required rightTitleText,required rightSubtext}){
+  return Container(
+    margin: EdgeInsets.only(top: AppLayout.getHeight(16)),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            textTitle(titleText: leftTitleText),
+            customSpacerHeight(height: 4),
+            textSubTitle(subTitleText: leftSubtext)
+          ],
+        )),
+
+        Expanded(child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+            textTitle(titleText: rightTitleText),
+            customSpacerHeight(height: 4),
+            textSubTitle(subTitleText: rightSubtext)
+          ],
+        )),              ],
+    ),
+  );
+}
 
 
 

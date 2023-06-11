@@ -108,6 +108,7 @@ class AppString {
   static String text_please_selected_date = "Please selected date";
   static String text_please_selected_document = "Please selected document";
   static String text_field_is_requird = "Field is required !";
+  static String text_document_name_is_required = "Document name is required !";
   static String text_alert = "Alert";
   static String text_next = "Next";
   static String text_search = "Search";
@@ -401,7 +402,8 @@ class AppString {
   static String text_profile_picture_update_successfully =
       "Profile picture has been updated successfully";
   static String text_file_upload_update_successfully =
-      "File upload has been updated successfully";
+      "File upload has been updated successfully";  static String text_file_upload_file =
+      "Failed to upload file";
   static String text_bank_details_deleted_successfully =
       "Bank details has been deleted successfully";
   static String text_bank_details_update_successfully =
@@ -462,6 +464,7 @@ class AppString {
   static const String please_insert_a_valid_email_address = "Please insert a valid email address";
   static const String incorrect_user_or_password = "Incorrect user or password";
   static const String old_password_incorrect = "Old password is incorrect";
+  static const String please_add_permanent_address = "Please add permanent address";
 
 
   static const String the_old_password_field_is_required = "The old password field is required.";

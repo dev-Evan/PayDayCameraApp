@@ -10,6 +10,7 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/document_con
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/documents.dart';
+import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
 class FileUploadController extends GetxController {
@@ -38,25 +39,29 @@ class FileUploadController extends GetxController {
     }
     final url = Uri.parse(baseUrl);
     var request = http.MultipartRequest('POST', url);
-    request.fields['name'] =
-        Get.find<CustomTextEditingController>().docFileNameController.text;
+    request.fields['name'] = Get.find<CustomTextEditingController>().docFileNameController.text;
     request.fields['file'] = file.path;
     request.fields['user_id'] = accessId.toString();
     request.headers['Authorization'] = 'Bearer $accessToken';
     request.files.add(await http.MultipartFile.fromPath('file', file.path));
     var response = await request.send();
     if (response.statusCode == 200) {
+      newValue = "newValue";
       Get.back();
       print("Document upload ::: ${response}");
       newValue = "newValue";
       Get.find<DocumentController>().getDocumentData();
+      Get.back();
       showCustomSnackBar(
           message: AppString.text_file_upload_update_successfully);
 
       Get.find<CustomTextEditingController>().docFileNameController.clear();
     } else {
       Get.back();
+      showCustomSnackBar(
+          message: AppString.text_file_upload_file,color: AppColor.errorColor);
       print('Failed to upload file');
     }
   }
+
 }

@@ -64,17 +64,17 @@ class Data {
 
 
 class Payslip {
-  int? id;
-  int? useId;
-  int? payrunId;
-  int? tenantId;
+  dynamic id;
+  dynamic useId;
+  dynamic payrunId;
+  dynamic tenantId;
   String? startDate;
   String? endDate;
   String? createdAt;
   String? netSalary;
   String? basicSalary;
   String? period;
-  int? considerOvertime;
+  dynamic considerOvertime;
   String? considerType;
   String? totalAllowance;
   String? totalDeduction;
@@ -167,8 +167,8 @@ class Status {
 class Allowances {
   String? name;
   String? type;
-  int? value;
-  int? isPercentage;
+  dynamic value;
+  dynamic isPercentage;
   String? amount;
 
   Allowances(
@@ -197,9 +197,9 @@ class Allowances {
 class Deductions {
   String? name;
   String? type;
-  int? value;
+  dynamic value;
   int? isPercentage;
-  String? amount;
+  dynamic amount;
 
   Deductions(
       {this.name, this.type, this.value, this.isPercentage, this.amount});

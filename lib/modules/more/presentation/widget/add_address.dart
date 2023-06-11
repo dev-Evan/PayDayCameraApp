@@ -24,6 +24,8 @@ class AddAddress extends StatelessWidget {
 
   final String typeText;
   AddAddress(this.typeText);
+
+  TextEditingController _controller=TextEditingController();
   @override
   Widget build(BuildContext context) {
     final _box = GetStorage();
@@ -36,23 +38,7 @@ class AddAddress extends StatelessWidget {
           children: [
             bottomSheetAppbar(
               context: context,
-              appbarTitle: (Get.find<AddressDetailsController>()
-                  .addressDetailsModel
-                  .data !=
-                  null &&
-                  Get.find<AddressDetailsController>()
-                      .addressDetailsModel
-                      .data!
-                      .isNotEmpty)
-                  ? Get.find<AddressDetailsController>()
-                  .addressDetailsModel
-                  .data
-                  ?.first
-                  .key ==
-               "permanent_address"
-                  ? "${AppString.text_edit} ${AppString.text_address}"
-                  : "${AppString.text_add} ${AppString.text_address}"
-                  : "",
+              appbarTitle:AppString.text_add_address,
             ),
             customSpacerHeight(height: 8),
             textFieldTitleText(titleText: AppString.text_county),
@@ -84,35 +70,13 @@ class AddAddress extends StatelessWidget {
                               borderSide: BorderSide(color: Colors.grey))),
                     ),
                     onSelect: (Country country) {
-                      _box.write(AppString.STORE_COUNTY, country.displayName);
+                     _controller.text=country.displayName.toString();
                     });
               },
+
               child: _countyField(
-                text: _box.read(AppString.STORE_COUNTY) ??
-                    (Get.find<AddressDetailsController>()
-                        .addressDetailsModel
-                        .data !=
-                        null &&
-                        Get.find<AddressDetailsController>()
-                            .addressDetailsModel
-                            .data!
-                            .isNotEmpty
-                        ? Get.find<AddressDetailsController>()
-                        .addressDetailsModel
-                        .data
-                        ?.first
-                        .key ==
-                        "permanent_address"
-                        ? Get.find<AddressDetailsController>()
-                        .addressDetailsModel
-                        .data
-                        ?.last
-                        .value
-                        ?.country
-                        .toString() ??
-                        ""
-                        : AppString.text_select_county
-                        : _box.read(AppString.STORE_COUNTY)),
+                text: _controller.text,
+
                 context: context,
               ),
             ),
@@ -328,7 +292,7 @@ class AddAddress extends StatelessWidget {
   }
 }
 
-Widget _countyField({text, context}) {
+Widget _countyField({text, context,}) {
   return Container(
     width: MediaQuery.of(context).size.width / 1,
     height: AppLayout.getHeight(56),
@@ -346,7 +310,7 @@ Widget _countyField({text, context}) {
   );
 }
 
-Widget _fieldText({required text}) {
+Widget _fieldText({required text,}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [

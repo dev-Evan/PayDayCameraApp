@@ -23,7 +23,7 @@ class UpdateDocument extends StatelessWidget {
   const UpdateDocument({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final _box=GetStorage();
+    final _box = GetStorage();
     return Column(
       children: [
         bottomSheetAppbar(
@@ -38,10 +38,10 @@ class UpdateDocument extends StatelessWidget {
                 children: [
                   textFieldTitleText(titleText: AppString.text_name),
                   CustomTextFeild(
-                      hintText:
-                      _box.read(AppString.STORE_DOC_NAME_TEXT)??"",
+                      hintText: _box.read(AppString.STORE_DOC_NAME_TEXT) ?? "",
                       inputType: TextInputType.text,
-                      controller: Get.find<CustomTextEditingController>().docFileNameController),
+                      controller: Get.find<CustomTextEditingController>()
+                          .docFileNameController),
                 ],
               ),
               customSpacerHeight(height: 20),
@@ -54,43 +54,56 @@ class UpdateDocument extends StatelessWidget {
                   customSpacerHeight(height: 20),
                   _dottedBorder(
                       child: Obx(() => InkWell(
-                        onTap: () => Get.find<UpdateDocumentController>().pickFile(),
-                        child: Get.find<UpdateDocumentController>().filePath.isNotEmpty
-                            ? Container(
-                          height: AppLayout.getHeight(100),
-                          decoration: BoxDecoration(
-                            color: AppColor.disableColor.withOpacity(0.4),
-                            image: DecorationImage(
-                                image: FileImage(
-                                    File(Get.find<UpdateDocumentController>().filePath.value.toString()).absolute),
-                                fit: BoxFit.cover),
-                          ),
-                        )
-                            : Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              _fileTitle(
-                                text: _box.read(AppString.STORE_DOC_NAME_TEXT)??"",
-                              ),
-                              customSpacerHeight(height: 16),
-                              _changeFile()
-                            ],
-                          ),
-                        ),
-                      ))
-
-                  ),
+                            onTap: () =>
+                                Get.find<UpdateDocumentController>().pickFile(),
+                            child: Get.find<UpdateDocumentController>()
+                                    .filePath
+                                    .isNotEmpty
+                                ? Container(
+                                    height: AppLayout.getHeight(100),
+                                    decoration: BoxDecoration(
+                                      color: AppColor.disableColor
+                                          .withOpacity(0.4),
+                                      image: DecorationImage(
+                                          image: FileImage(File(Get.find<
+                                                      UpdateDocumentController>()
+                                                  .filePath
+                                                  .value
+                                                  .toString())
+                                              .absolute),
+                                          fit: BoxFit.cover),
+                                    ),
+                                  )
+                                : Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        _fileTitle(
+                                          text: _box.read(AppString
+                                                  .STORE_DOC_NAME_TEXT) ??
+                                              "",
+                                        ),
+                                        customSpacerHeight(height: 16),
+                                        _changeFile()
+                                      ],
+                                    ),
+                                  ),
+                          ))),
                   customSpacerHeight(height: 8),
-                  Obx(() => Get.find<UpdateDocumentController>().filePath.value.isNotEmpty
+                  Obx(() => Get.find<UpdateDocumentController>()
+                          .filePath
+                          .value
+                          .isNotEmpty
                       ? Text(
-                    Get.find<UpdateDocumentController>().filePath.value.toString(),
-                    style: AppStyle.mid_large_text.copyWith(
-                        color: AppColor.hintColor,
-                        fontSize: Dimensions.fontSizeDefault - 2),
-                  )
-                      : const Text(""))
-                  ,
+                          Get.find<UpdateDocumentController>()
+                              .filePath
+                              .value
+                              .toString(),
+                          style: AppStyle.mid_large_text.copyWith(
+                              color: AppColor.hintColor,
+                              fontSize: Dimensions.fontSizeDefault - 2),
+                        )
+                      : const Text("")),
                 ],
               ),
             ],
@@ -101,11 +114,10 @@ class UpdateDocument extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: customDoubleButton(
               textButtonAction: () => Get.back(),
-              elevatedButtonAction: (){
-
-                Get.find<UpdateDocumentController>().updateDocFile(context: context);
+              elevatedButtonAction: () {
+                Get.find<UpdateDocumentController>()
+                    .updateDocFile(context: context);
               },
-
               textBtnText: AppString.text_cancel,
               elevatedBtnText: AppString.text_save,
               context: context),
@@ -120,8 +132,10 @@ Widget _fileTitle({required text}) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Icon(CupertinoIcons.doc_fill,color: AppColor.primaryColor,),
-
+        const Icon(
+          CupertinoIcons.doc_fill,
+          color: AppColor.primaryColor,
+        ),
         customSpacerWidth(width: 8),
         Text(
           text,

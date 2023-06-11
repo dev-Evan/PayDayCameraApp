@@ -1,6 +1,3 @@
-// To parse this JSON data, do
-//
-//     final payrunBadgeModel = payrunBadgeModelFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -59,8 +56,8 @@ class Data {
 class DefaultPayrun {
   int? id;
   String? name;
-  int? isDefault;
-  int? tenantId;
+  dynamic isDefault;
+  dynamic tenantId;
   DateTime? createdAt;
   DateTime? updatedAt;
   Setting? setting;
@@ -103,10 +100,10 @@ class DefaultPayrun {
 class PayrunBeneficiaryElement {
   int? id;
   String? beneficiaryValuableType;
-  int? beneficiaryValuableId;
-  int? beneficiaryId;
+  dynamic beneficiaryValuableId;
+  dynamic beneficiaryId;
   double? amount;
-  int? isPercentage;
+  dynamic isPercentage;
   DateTime? createdAt;
   DateTime? updatedAt;
   PayrunBeneficiaryBeneficiary? beneficiary;
@@ -152,9 +149,9 @@ class PayrunBeneficiaryBeneficiary {
   int? id;
   String? name;
   String? type;
-  int? isActive;
+  dynamic isActive;
   dynamic description;
-  int? tenantId;
+  dynamic tenantId;
   dynamic createdAt;
   dynamic updatedAt;
 
@@ -198,10 +195,10 @@ class PayrunBeneficiaryBeneficiary {
 class Setting {
   int? id;
   String? payrunSettingableType;
-  int? payrunSettingableId;
+  dynamic payrunSettingableId;
   String? payrunPeriod;
   String? considerType;
-  int? considerOvertime;
+  dynamic considerOvertime;
   DateTime? createdAt;
   DateTime? updatedAt;
 
