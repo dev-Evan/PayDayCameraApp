@@ -44,7 +44,7 @@ class _AddDocumentState extends State<AddDocument> {
                 children: [
                   textFieldTitleText(titleText: AppString.text_name),
                   customSpacerHeight(height: 8),
-                  CustomTextFeild(
+                  CustomTextField(
                       hintText: AppString.text_enter_document_name,
                       inputType: TextInputType.text,
                       controller: Get.find<CustomTextEditingController>()

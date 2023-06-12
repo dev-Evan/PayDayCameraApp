@@ -73,7 +73,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               textFieldTitleText(titleText: AppString.email),
-                              CustomTextFeild(
+                              CustomTextField(
                                 hintText: AppString.enterYourEmail,
                                 inputType: TextInputType.emailAddress,
                                 controller:

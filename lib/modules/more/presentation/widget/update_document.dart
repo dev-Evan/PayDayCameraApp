@@ -37,7 +37,7 @@ class UpdateDocument extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   textFieldTitleText(titleText: AppString.text_name),
-                  CustomTextFeild(
+                  CustomTextField(
                       hintText: _box.read(AppString.STORE_DOC_NAME_TEXT) ?? "",
                       inputType: TextInputType.text,
                       controller: Get.find<CustomTextEditingController>()

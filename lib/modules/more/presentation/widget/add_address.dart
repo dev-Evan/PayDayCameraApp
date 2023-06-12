@@ -12,6 +12,7 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/address_deta
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_update_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/address_details_widget.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -19,345 +20,214 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-
-class AddAddress extends StatelessWidget {
-
+class AddAddress extends StatefulWidget {
   final String typeText;
   AddAddress(this.typeText);
 
-  TextEditingController _controller=TextEditingController();
+  @override
+  State<AddAddress> createState() => _AddAddressState();
+}
+
+class _AddAddressState extends State<AddAddress> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    final _box = GetStorage();
-    return Padding(
-      padding: EdgeInsets.only(
-          left: AppLayout.getWidth(20), right: AppLayout.getWidth(20)),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            bottomSheetAppbar(
-              context: context,
-              appbarTitle:AppString.text_add_address,
-            ),
-            customSpacerHeight(height: 8),
-            textFieldTitleText(titleText: AppString.text_county),
-            InkWell(
-              onTap: () {
-                showCountryPicker(
-                    context: context,
-                    countryListTheme: CountryListThemeData(
-                      flagSize: 24,
-                      backgroundColor: AppColor.cardColor,
-                      textStyle: const TextStyle(
-                          fontSize: 16, color: AppColor.normalTextColor),
-                      bottomSheetHeight: AppLayout.getHeight(554),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(Dimensions.radiusMid),
-                        topRight: Radius.circular(Dimensions.radiusMid),
-                      ),
-                      inputDecoration: InputDecoration(
-                          hintText: AppString.text_search,
-                          hintStyle: AppStyle.normal_text.copyWith(
-                              color: Colors.grey, fontWeight: FontWeight.w400),
-                          isDense: true,
-                          focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey)),
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                          border: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey))),
-                    ),
-                    onSelect: (Country country) {
-                     _controller.text=country.displayName.toString();
-                    });
-              },
-
-              child: _countyField(
-                text: _controller.text,
-
-                context: context,
-              ),
-            ),
-            textFieldTitleText(titleText: AppString.text_phone),
-            _phoneAndCountyField(),
-            Row(
-              children: [
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      textFieldTitleText2(titleText: AppString.text_area),
-                      CustomTextFeild(
-                        hintText: Get.find<AddressDetailsController>()
-                            .addressDetailsModel
-                            .data !=
-                            null &&
-                            Get.find<AddressDetailsController>()
-                                .addressDetailsModel
-                                .data!
-                                .isNotEmpty
-                            ? Get.find<AddressDetailsController>()
-                            .addressDetailsModel
-                            .data
-                            ?.first
-                            .key ==
-                            "permanent_address"
-                            ? Get.find<AddressDetailsController>()
-                            .addressDetailsModel
-                            .data
-                            ?.first
-                            .value
-                            ?.area
-                            .toString() ??
-                            ""
-                            : AppString.text_enter_area
-                            : "",
-                        controller:
-                        Get.find<CustomTextEditingController>().areaController,
-                      ),
-                    ],
-                  ),
-                ),
-                customSpacerWidth(width: 18),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      textFieldTitleText2(titleText: AppString.text_city),
-                      CustomTextFeild(
-                          hintText: Get.find<AddressDetailsController>()
-                              .addressDetailsModel
-                              .data !=
-                              null &&
-                              Get.find<AddressDetailsController>()
-                                  .addressDetailsModel
-                                  .data!
-                                  .isNotEmpty
-                              ? Get.find<AddressDetailsController>()
-                              .addressDetailsModel
-                              .data
-                              ?.first
-                              .key ==
-                              "permanent_address"
-                              ? Get.find<AddressDetailsController>()
-                              .addressDetailsModel
-                              .data
-                              ?.first
-                              .value
-                              ?.city
-                              .toString() ??
-                              ""
-                              : AppString.text_enter_city
-                              : "",
-                          controller: Get.find<CustomTextEditingController>()
-                              .cityController),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      textFieldTitleText(titleText: AppString.text_state),
-                      CustomTextFeild(
-                          hintText: Get.find<AddressDetailsController>()
-                              .addressDetailsModel
-                              .data !=
-                              null &&
-                              Get.find<AddressDetailsController>()
-                                  .addressDetailsModel
-                                  .data!
-                                  .isNotEmpty
-                              ? Get.find<AddressDetailsController>()
-                              .addressDetailsModel
-                              .data
-                              ?.first
-                              .key ==
-                             "permanent_address"
-                              ? Get.find<AddressDetailsController>()
-                              .addressDetailsModel
-                              .data
-                              ?.first
-                              .value
-                              ?.state
-                              .toString() ??
-                              ""
-                              : AppString.text_enter_state
-                              : "",
-                          controller: Get.find<CustomTextEditingController>()
-                              .stateController),
-                    ],
-                  ),
-                ),
-                customSpacerWidth(width: 18),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      textFieldTitleText(titleText: AppString.text_zip_code),
-                      CustomTextFeild(
-                          hintText: Get.find<AddressDetailsController>()
-                              .addressDetailsModel
-                              .data !=
-                              null &&
-                              Get.find<AddressDetailsController>()
-                                  .addressDetailsModel
-                                  .data!
-                                  .isNotEmpty
-                              ? Get.find<AddressDetailsController>()
-                              .addressDetailsModel
-                              .data
-                              ?.first
-                              .key ==
-                              "permanent_address"
-                              ? Get.find<AddressDetailsController>()
-                              .addressDetailsModel
-                              .data
-                              ?.first
-                              .value
-                              ?.zipCode
-                              .toString() ??
-                              ""
-                              : AppString.text_enter_zip_code
-                              : "",
-                          controller: Get.find<CustomTextEditingController>()
-                              .addZipCodeController),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Column(
+    return Form(
+        key: _formKey,
+        child: Padding(
+          padding: EdgeInsets.only(
+              left: AppLayout.getWidth(20), right: AppLayout.getWidth(20)),
+          child: SingleChildScrollView(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                textFieldTitleText(
-                    titleText: AppString.text_address + AppString.text_details),
-                InputNote(
-                  controller:
-                  Get.find<CustomTextEditingController>().detailsController,
-                  hintText: Get.find<AddressDetailsController>()
-                      .addressDetailsModel
-                      .data !=
-                      null &&
-                      Get.find<AddressDetailsController>()
-                          .addressDetailsModel
-                          .data!
-                          .isNotEmpty
-                      ? Get.find<AddressDetailsController>()
-                      .addressDetailsModel
-                      .data
-                      ?.first
-                      .key ==
-                      "permanent_address"
-                      ? Get.find<AddressDetailsController>()
-                      .addressDetailsModel
-                      .data
-                      ?.first
-                      .value
-                      ?.details
-                      .toString() ??
-                      ""
-                      : "${AppString.text_add}${AppString.text_address_details}"
-                      : "",
+                bottomSheetAppbar(
+                  context: context,
+                  appbarTitle: AppString.text_add_address,
+
                 ),
+                customSpacerHeight(height: 8),
+                textFieldTitleText(titleText: AppString.text_county),
+                countyField(
+                  context: context,
+                  controller: Get.find<CustomTextEditingController>().addCountyController,
+                  onAction: () {
+                    showCountryPicker(
+                        context: context,
+                        countryListTheme: CountryListThemeData(
+                          flagSize: 24,
+                          backgroundColor: AppColor.cardColor,
+                          textStyle: countyTextStyle,
+                          bottomSheetHeight: AppLayout.getHeight(554),
+                          borderRadius: countyFieldRadius,
+                          inputDecoration: countryDecoration,
+                        ),
+                        onSelect: (Country country) {
+                          setState(() {
+                            Get.find<CustomTextEditingController>()
+                                .addCountyController
+                                .text = country.displayName.toString();
+                          });
+                        });
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return AppString.fieldIsRequired;
+                    }
+                    return null;
+                  },
+                ),
+                textFieldTitleText(titleText: AppString.text_phone),
+                phoneAndCountyField(controller:Get.find<CustomTextEditingController>().addPhoneNumberController,
+                ),
+                Row(
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          textFieldTitleText2(titleText: AppString.text_area),
+                          CustomTextField(
+                            hintText
+                                : AppString.text_enter_area,
+                            controller: Get.find<CustomTextEditingController>()
+                                .addAreaController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return AppString.fieldIsRequired;
+                              }
+                              return null;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    customSpacerWidth(width: 18),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          textFieldTitleText2(titleText: AppString.text_city),
+                          CustomTextField(
+                            hintText: AppString.text_enter_city,
+                            controller: Get.find<CustomTextEditingController>()
+                                .addCityController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return AppString.fieldIsRequired;
+                              }
+                              return null;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          textFieldTitleText(titleText: AppString.text_state),
+                          CustomTextField(
+                            hintText: AppString.text_enter_state,
+                            controller: Get.find<CustomTextEditingController>()
+                                .addStateController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return AppString.fieldIsRequired;
+                              }
+                              return null;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    customSpacerWidth(width: 18),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          textFieldTitleText(
+                              titleText: AppString.text_zip_code),
+                          CustomTextField(
+                            hintText: AppString.text_enter_zip_code,
+                            controller: Get.find<CustomTextEditingController>()
+                                .addZipCodeController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return AppString.fieldIsRequired;
+                              }
+                              return null;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    textFieldTitleText(
+                        titleText:
+                            AppString.text_address + AppString.text_details),
+                    InputNote(
+                      controller: Get.find<CustomTextEditingController>()
+                          .addDetailsController,
+                      hintText:  "${AppString.text_add}${AppString.text_address_details}",
+                      validator: (value) {
+
+                        if (value!.isEmpty) {
+                          return AppString.fieldIsRequired;
+                        } else if (value.length < 3) {
+                          return AppString.the_details_must_be_at_least_3_character;
+                        }else{
+                          return null;
+                        }
+
+
+                        return null;
+                      },
+                    ),
+                  ],
+                ),
+                customSpacerHeight(height: 24),
+                customDoubleButton(
+                    context: context,
+                    elevatedBtnText:
+                        '${AppString.text_add} ${AppString.text_address}',
+                    textBtnText: AppString.text_cancel,
+                    textButtonAction: () => Get.back(),
+                    elevatedButtonAction: () {
+                      if (_formKey.currentState!.validate()) {
+                             Get.find<AddressUpdateController>().addressUpdate(
+                                typeKey: widget.typeText.toString(),context: context,
+                               area: Get.find<CustomTextEditingController>().addAreaController.value.text,
+                               city: Get.find<CustomTextEditingController>().addCityController.value.text,
+                               country: Get.find<CustomTextEditingController>().addCountyController.value.text,
+                               details: Get.find<CustomTextEditingController>().addDetailsController.value.text,
+                               phone: Get.find<CustomTextEditingController>().addPhoneNumberController.value.text,
+                               state: Get.find<CustomTextEditingController>().addStateController.value.text,
+                               zipcode: Get.find<CustomTextEditingController>().addZipCodeController.value.text,
+                               message:   AppString.text_address_added_successfully,
+
+
+
+
+
+                              );
+                      }
+                    }),
+                customSpacerHeight(height: 250)
               ],
             ),
-            customSpacerHeight(height: 24),
-            customDoubleButton(
-                context: context,
-                elevatedBtnText:
-                '${AppString.text_add} ${AppString.text_address}',
-                textBtnText: AppString.text_cancel,
-                textButtonAction: () => Get.back(),
-                elevatedButtonAction: () {
-                  Get.find<AddressUpdateController>().status.isLoading?
-                      waitingLoader():
-                  Get.find<AddressUpdateController>().addressUpdate(
-                    typeKey: typeText.toString(),
-                    selectedCounty: _box.read(AppString.STORE_COUNTY),
-                  );
-                  print(_box.read(AppString.STORE_ADDRESS).toString());
-                }),
-            customSpacerHeight(height: 250)
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
-}
-
-Widget _countyField({text, context,}) {
-  return Container(
-    width: MediaQuery.of(context).size.width / 1,
-    height: AppLayout.getHeight(56),
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-        border: Border.all(width: 1, color: AppColor.solidGray)),
-    child: Padding(
-      padding: EdgeInsets.only(
-          left: AppLayout.getWidth(12),
-          top: AppLayout.getHeight(12),
-          bottom: AppLayout.getHeight(12),
-          right: AppLayout.getWidth(12)),
-      child: _fieldText(text: text),
-    ),
-  );
-}
-
-Widget _fieldText({required text,}) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Text(
-        text ?? "",
-        style: AppStyle.normal_text
-            .copyWith(color: Colors.grey, fontWeight: FontWeight.w400),
-      ),
-      const Icon(
-        Icons.keyboard_arrow_down_rounded,
-        color: AppColor.normalTextColor,
-      ),
-    ],
-  );
-}
-
-Widget _phoneAndCountyField() {
-  return IntlPhoneField(
-    decoration: InputDecoration(
-      labelText:
-      Get.find<AddressDetailsController>().addressDetailsModel.data !=
-          null &&
-          Get.find<AddressDetailsController>()
-              .addressDetailsModel
-              .data!
-              .isNotEmpty
-          ? Get.find<AddressDetailsController>()
-          .addressDetailsModel
-          .data
-          ?.first
-          .key ==
-          "permanent_address"
-          ? Get.find<AddressDetailsController>()
-          .addressDetailsModel
-          .data
-          ?.first
-          .value
-          ?.phoneNumber
-          : AppString.text_enter_phone_number
-          : "",
-      enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColor.solidGray),
-          borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
-      border: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0, color: AppColor.disableColor),
-          borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
-    ),
-    controller: Get.find<CustomTextEditingController>().phoneNumberController,
-  );
 }

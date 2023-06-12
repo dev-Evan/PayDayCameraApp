@@ -48,7 +48,7 @@ class EditProfile extends StatelessWidget {
                                   titleText: AppString.text_first +
                                       " " +
                                       AppString.text_name),
-                              CustomTextFeild(
+                              CustomTextField(
                                 hintText: AppString.text_enter_first_name,
                                 controller:
                                     Get.find<CustomTextEditingController>()
@@ -73,7 +73,7 @@ class EditProfile extends StatelessWidget {
                                   titleText: AppString.text_last +
                                       " " +
                                       AppString.text_name),
-                              CustomTextFeild(
+                              CustomTextField(
                                 hintText: AppString.text_enter_last_name,
                                 controller:
                                     Get.find<CustomTextEditingController>()
@@ -85,7 +85,7 @@ class EditProfile extends StatelessWidget {
                       ],
                     ),
                     textFieldTitleText(titleText: AppString.text_email),
-                    CustomTextFeild(
+                    CustomTextField(
                       hintText: AppString.text_enter_email,
                       controller: Get.find<CustomTextEditingController>()
                           .emailController,
@@ -99,11 +99,11 @@ class EditProfile extends StatelessWidget {
                     textFieldTitleText(titleText: AppString.text_gender_text),
                     Obx(() => dropDownField(context: context, locations: _locations)),
                     textFieldTitleText(titleText: AppString.text_phone),
-                    phoneAndCountyField(
-                      hintText: AppString.text_not_added_yet,
-                      controller: Get.find<CustomTextEditingController>()
-                          .contactController,
-                    ),
+                    // phoneAndCountyField(
+                    //   hintText: AppString.text_not_added_yet,
+                    //   controller: Get.find<CustomTextEditingController>()
+                    //       .contactController,
+                    // ),
                     textFieldTitleText(
                         titleText: AppString.text_address_details),
                     InputNote(

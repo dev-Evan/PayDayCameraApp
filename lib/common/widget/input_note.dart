@@ -11,10 +11,11 @@ class InputNote extends StatelessWidget {
 
   final TextEditingController controller;
   String hintText;
+  final String? Function(String?)? validator;
 
   InputNote(
       {required this.controller,
-       this.hintText =AppString.text_add_note_here});  // const InputNote({super.key, required this.controller,required hintText});
+       this.hintText =AppString.text_add_note_here, this.validator});  // const InputNote({super.key, required this.controller,required hintText});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +25,10 @@ class InputNote extends StatelessWidget {
       duration: const Duration(milliseconds: 100),
       curve: Curves.easeOut,
     ));
-    return TextField(
+    return TextFormField(
       keyboardType: TextInputType.multiline,
       controller: controller,
+      validator: validator,
       decoration: InputDecoration(
           hintText: hintText,
           contentPadding: EdgeInsets.only(

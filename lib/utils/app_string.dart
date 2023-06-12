@@ -413,7 +413,8 @@ class AppString {
   static String text_password_update_successfully =
       "Password has been updated successfully";
   static String text_address_update_successfully =
-      "Address has been updated successfully";
+      "Address has been updated successfully";static String text_address_added_successfully =
+      "Address has been added successfully";
   static String text_payslip_download_successfully =
       "Payslip download successfully!";
   static String text_something_wrong = "Something wrong !";
@@ -463,6 +464,7 @@ class AppString {
   static const String the_password_field_is_required = "The password field is required.";
   static const String please_insert_a_valid_email_address = "Please insert a valid email address";
   static const String incorrect_user_or_password = "Incorrect user or password";
+  static const String the_details_must_be_at_least_3_character = "The details must be at least 3 characters";
   static const String old_password_incorrect = "Old password is incorrect";
   static const String please_add_permanent_address = "Please add permanent address";
 

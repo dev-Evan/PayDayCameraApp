@@ -50,6 +50,10 @@ class CustomTextEditingController extends GetxController {
   final TextEditingController newPasswordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
 
+  //Country field
+  final TextEditingController countyTextController = TextEditingController();
+
+
 
 
 }

@@ -134,6 +134,7 @@ Widget subTextCard({required subLeftText,required subRightText, isPercentage}) {
                   fontSize: Dimensions.fontSizeDefault,
                   fontWeight: FontWeight.w500),
             ),
+            customSpacerWidth(width: 3),
             Text(isPercentage.toString() == "1" ? "%" : "tk"),
 
           ],

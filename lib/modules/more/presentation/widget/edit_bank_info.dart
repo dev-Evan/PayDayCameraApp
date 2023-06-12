@@ -26,7 +26,7 @@ class EditBankInfo extends StatelessWidget {
             ),
             customSpacerHeight(height: 8),
             textFieldTitleText(titleText: AppString.text_bank_name),
-            CustomTextFeild(
+            CustomTextField(
               hintText: AppString.text_enter_bank_name,
               controller:
               Get.find<CustomTextEditingController>().bankNameController,
@@ -39,7 +39,7 @@ class EditBankInfo extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       textFieldTitleText(titleText: AppString.text_branch),
-                      CustomTextFeild(
+                      CustomTextField(
                         hintText:AppString.text_enter_branch,
                         controller: Get.find<CustomTextEditingController>()
                             .branchNameController,
@@ -53,7 +53,7 @@ class EditBankInfo extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       textFieldTitleText(titleText: AppString.text_bank_code),
-                      CustomTextFeild(
+                      CustomTextField(
                           hintText:AppString.text_enter_bank_code,
                           controller: Get.find<CustomTextEditingController>()
                               .bankCodeController),
@@ -64,28 +64,28 @@ class EditBankInfo extends StatelessWidget {
             ),
             customSpacerHeight(height: 8),
             textFieldTitleText(titleText: AppString.text_account_holder),
-            CustomTextFeild(
+            CustomTextField(
               hintText:  AppString.text_enter_name,
               controller: Get.find<CustomTextEditingController>()
                   .accountHolderNameController,
             ),
             customSpacerHeight(height: 8),
             textFieldTitleText(titleText: AppString.text_account_number),
-            CustomTextFeild(
+            CustomTextField(
               hintText: AppString.text_enter_account_number,
               controller: Get.find<CustomTextEditingController>()
                   .accountNumberController,
             ),
             customSpacerHeight(height: 8),
             textFieldTitleText(titleText: AppString.text_account_title),
-            CustomTextFeild(
+            CustomTextField(
               hintText: AppString.text_enter_title,
               controller: Get.find<CustomTextEditingController>()
                   .accountTitleController,
             ),
             customSpacerHeight(height: 8),
             textFieldTitleText(titleText: AppString.text_tax_payer_id),
-            CustomTextFeild(
+            CustomTextField(
               hintText: AppString.text_enter_id,
               controller:
               Get.find<CustomTextEditingController>().taxPayerIdController,

@@ -117,7 +117,7 @@ class _receiveScreenState extends State<receiveScreen> {
                           fontWeight: FontWeight.w600,
                           color: AppColor.hintColor),
                     ),
-                    CustomTextFeild(
+                    CustomTextField(
                       hintText: 'Enter email',
                       inputType: TextInputType.emailAddress,
                       controller: _emailController,

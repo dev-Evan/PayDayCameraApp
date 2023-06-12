@@ -93,9 +93,9 @@ class PaySlipView extends GetView<PayslipViewController> {
                               children: [
                                 subTextCard(
                                     subLeftText:
-                                        "${controller.payslipViewModel.data?.allowances?[index].name.toString() ?? ""} ${controller.payslipViewModel.data?.allowances?[index].value.toString() ?? ""}",
+                                        "${controller.payslipViewModel.data?.allowances?[index].name.toString() ?? ""} ${""} ${controller.payslipViewModel.data?.allowances?[index].value.toString() ?? ""}",
                                     subRightText:
-                                        "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.allowances?[index].amount.toString() ?? ""}",
+                                        "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${""} ${controller.payslipViewModel.data?.allowances?[index].amount.toString() ?? ""}",
                                     isPercentage: controller
                                             .payslipViewModel
                                             .data
@@ -116,7 +116,8 @@ class PaySlipView extends GetView<PayslipViewController> {
                             rightText: AppString.text_total),
                         ListView.builder(
                           itemCount: controller
-                              .payslipViewModel.data?.allowances?.length,
+                                  .payslipViewModel.data?.deductions?.length ??
+                              0,
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
@@ -124,15 +125,15 @@ class PaySlipView extends GetView<PayslipViewController> {
                               children: [
                                 subTextCard(
                                     subLeftText:
-                                        "${controller.payslipViewModel.data?.deductions?[index].name.toString() ?? ""} ${controller.payslipViewModel.data?.deductions?[index].value.toString() ?? ""}",
+                                    "${controller.payslipViewModel.data?.deductions?[index].name.toString() ?? ""} ${""} ${controller.payslipViewModel.data?.deductions?[index].value.toString() ?? ""}",
                                     subRightText:
-                                        "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${controller.payslipViewModel.data?.deductions?[index].amount.toString() ?? ""}",
+                                    "${Get.find<SettingController>().basicInfo?.data.currencySymbol.toString() ?? ""} ${""} ${controller.payslipViewModel.data?.deductions?[index].amount.toString() ?? ""}",
                                     isPercentage: controller
-                                            .payslipViewModel
-                                            .data
-                                            ?.allowances?[index]
-                                            .isPercentage
-                                            .toString() ??
+                                        .payslipViewModel
+                                        .data
+                                        ?.allowances?[index]
+                                        .isPercentage
+                                        .toString() ??
                                         "")
                               ],
                             );
@@ -190,12 +191,7 @@ Widget _payslipDownloadBtn({required payslipDateRange}) {
         bottom: AppLayout.getHeight(12)),
     child: CustomButton(
         AppString.text_download_payslip,
-        () =>
-
-            Get.find<PayslipDownlaodController>()
-            .payslipDownload(id: id, token: token, date: payslipDateRange)
-
-
-    ),
+        () => Get.find<PayslipDownlaodController>()
+            .payslipDownload(id: id, token: token, date: payslipDateRange)),
   );
 }
