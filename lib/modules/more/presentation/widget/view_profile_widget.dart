@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,6 +11,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import 'package:pay_day_mobile/utils/images.dart';
 
 Widget cardView({icon, dynamicText, titleText}) {
   return Padding(
@@ -47,19 +49,38 @@ Widget circleAvatarStyle({final userImage}) {
 
   return Stack(
     children: [
-
-      CircleAvatar(
-        radius: 34,
-        backgroundColor: AppColor.primaryColor,
-        child: CircleAvatar(
-          radius: 34,
-          backgroundColor: AppColor.primaryColor,
-          backgroundImage: Get.find<ImagePickerController>().pickedImage.value == null
-              ? userImage
-              : Image.file(File(Get.find<ImagePickerController>().pickedImage.value!.path))
-              .image,
+      Container(
+        height: AppLayout.getHeight(70),
+        width: AppLayout.getWidth(70),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.transparent,
+        ),
+        child: ClipOval(
+          child: FadeInImage(
+            image: NetworkImage(userImage.toString()),
+            placeholder: AssetImage(
+              Get.find<ImagePickerController>().filePath.isEmpty
+                  ? Images.placeholder
+                  : Get.find<ImagePickerController>()
+                  .filePath
+                  .value,
+            ),
+            imageErrorBuilder: (context, error, stackTrace) {
+              return Image.asset(
+                Get.find<ImagePickerController>().filePath.isEmpty
+                    ? Images.placeholder
+                    : Get.find<ImagePickerController>()
+                    .filePath
+                    .value,
+                fit: BoxFit.cover,
+              );
+            },
+            fit: BoxFit.cover,
+          ),
         ),
       ),
+
       Positioned(
           right: 0,
           bottom: 0,

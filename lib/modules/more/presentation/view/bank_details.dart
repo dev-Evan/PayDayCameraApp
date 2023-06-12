@@ -38,7 +38,15 @@ class BankDetails extends GetView<MoreDataController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 customMoreAppbar(
-                                    titleText: AppString.text_bank_details),
+                                    titleText:
+                                    controller
+                                        .bankInfoModel.data?.name !=null?
+
+                                    AppString.text_bank_details:""
+
+
+
+                                ),
                                 _bankTitleRow(
                                     bankTitleText: controller
                                             .bankInfoModel.data?.name
@@ -46,39 +54,58 @@ class BankDetails extends GetView<MoreDataController> {
                                         "",
                                     context: context),
                                 _bankUserInfo(
-                                    infoTitleText: AppString.text_branch,
+                                    infoTitleText:
+                                    controller
+                                        .bankInfoModel.data?.branchName !=null?
+
+
+                                    AppString.text_branch:"",
                                     infoDetailsText: controller
                                             .bankInfoModel.data?.branchName
                                             ?.toString() ??
                                         ""),
                                 _bankUserInfo(
-                                    infoTitleText: AppString.text_bank_code,
+                                    infoTitleText: controller
+                                        .bankInfoModel.data?.code !=null?
+
+
+                                    AppString.text_bank_code:"",
                                     infoDetailsText: controller
                                             .bankInfoModel.data?.code
                                             ?.toString() ??
                                         ""),
                                 _bankUserInfo(
-                                    infoTitleText:
-                                        AppString.text_account_holder,
+                                    infoTitleText:controller
+                                        .bankInfoModel.data?.accountHolderName !=null?
+                                        AppString.text_account_holder:"",
                                     infoDetailsText: controller.bankInfoModel
                                             .data?.accountHolderName
                                             ?.toString() ??
                                         ""),
                                 _bankUserInfo(
-                                    infoTitleText:
-                                        AppString.text_account_number,
+                                    infoTitleText:controller
+                                        .bankInfoModel.data?.accountNumber !=null?
+                                        AppString.text_account_number:"",
                                     infoDetailsText: controller
                                             .bankInfoModel.data?.accountNumber
                                             ?.toString() ??
                                         ""),
                                 _bankUserInfo(
-                                    infoTitleText: AppString.text_account_title,
+                                    infoTitleText:
+                                    controller
+                                        .bankInfoModel.data?.accountTitle !=null?
+
+                                    AppString.text_account_title:"",
                                     infoDetailsText: controller
                                             .bankInfoModel.data?.accountTitle
                                             ?.toString() ??
                                         ""),
                                 _bankUserInfo(
-                                    infoTitleText: AppString.text_tax_payer_id,
+                                    infoTitleText:
+                                    controller
+                                        .bankInfoModel.data?.taxPayerId !=null?
+
+                                    AppString.text_tax_payer_id:"",
                                     infoDetailsText: controller
                                             .bankInfoModel.data?.taxPayerId
                                             ?.toString() ??

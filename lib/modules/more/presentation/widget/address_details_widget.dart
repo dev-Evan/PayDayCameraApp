@@ -52,9 +52,9 @@ Widget textSubTitle({required subTitleText}) {
 
 Widget detailsTextLayout(
     {required leftTitleText,
-    required leftSubtext,
-    required rightTitleText,
-    required rightSubtext}) {
+      required leftSubtext,
+      required rightTitleText,
+      required rightSubtext}) {
   return Container(
     margin: EdgeInsets.only(top: AppLayout.getHeight(12)),
     child: Row(
@@ -63,24 +63,24 @@ Widget detailsTextLayout(
       children: [
         Expanded(
             child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            textTitle(titleText: leftTitleText),
-            customSpacerHeight(height: 3),
-            textSubTitle(subTitleText: leftSubtext)
-          ],
-        )),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                textTitle(titleText: leftTitleText),
+                customSpacerHeight(height: 3),
+                textSubTitle(subTitleText: leftSubtext)
+              ],
+            )),
         customSpacerWidth(width: 20),
 
         Expanded(
             child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            textTitle(titleText: rightTitleText),
-            customSpacerHeight(height: 3),
-            textSubTitle(subTitleText: rightSubtext)
-          ],
-        )),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                textTitle(titleText: rightTitleText),
+                customSpacerHeight(height: 3),
+                textSubTitle(subTitleText: rightSubtext)
+              ],
+            )),
       ],
     ),
   );
@@ -117,116 +117,116 @@ Widget editDetBtn(
             customButtonSheet(context: context, height: 0.9, child: editAction);
 
             Get.find<CustomTextEditingController>().areaController.text =
-                type == "permanent_address"
-                    ? Get.find<AddressDetailsController>()
-                            .addressDetailsModel
-                            .data
-                            ?.permanentAddress
-                            ?.area
-                            .toString() ??
-                        ""
-                    : Get.find<AddressDetailsController>()
-                            .addressDetailsModel
-                            .data
-                            ?.presentAddress
-                            ?.area
-                            .toString() ??
-                        "";
+            type == "permanent_address"
+                ? Get.find<AddressDetailsController>()
+                .addressDetailsModel
+                .data
+                ?.permanentAddress
+                ?.area
+                .toString() ??
+                ""
+                : Get.find<AddressDetailsController>()
+                .addressDetailsModel
+                .data
+                ?.presentAddress
+                ?.area
+                .toString() ??
+                "";
 
             Get.find<CustomTextEditingController>().cityController.text =
-                type == "permanent_address"
-                    ? Get.find<AddressDetailsController>()
-                            .addressDetailsModel
-                            .data
-                            ?.permanentAddress
+            type == "permanent_address"
+                ? Get.find<AddressDetailsController>()
+                .addressDetailsModel
+                .data
+                ?.permanentAddress
 
-                            ?.city
-                            .toString() ??
-                        ""
-                    : Get.find<AddressDetailsController>()
-                            .addressDetailsModel
-                            .data
-                            ?.presentAddress
+                ?.city
+                .toString() ??
+                ""
+                : Get.find<AddressDetailsController>()
+                .addressDetailsModel
+                .data
+                ?.presentAddress
 
-                            ?.city
-                            .toString() ??
-                        "";
+                ?.city
+                .toString() ??
+                "";
 
             Get.find<CustomTextEditingController>().detailsController.text =
-                type == "permanent_address"
-                    ? Get.find<AddressDetailsController>()
-                            .addressDetailsModel
-                            .data
-                            ?.permanentAddress
+            type == "permanent_address"
+                ? Get.find<AddressDetailsController>()
+                .addressDetailsModel
+                .data
+                ?.permanentAddress
 
-                            ?.details
-                            .toString() ??
-                        ""
-                    : Get.find<AddressDetailsController>()
-                            .addressDetailsModel
-                            .data
-                            ?.presentAddress
+                ?.details
+                .toString() ??
+                ""
+                : Get.find<AddressDetailsController>()
+                .addressDetailsModel
+                .data
+                ?.presentAddress
 
-                            ?.details
-                            .toString() ??
-                        "";
+                ?.details
+                .toString() ??
+                "";
 
             Get.find<CustomTextEditingController>().phoneNumberController.text =
-                type == "permanent_address"
-                    ? Get.find<AddressDetailsController>()
-                            .addressDetailsModel
-                            .data
-                            ?.permanentAddress
+            type == "permanent_address"
+                ? Get.find<AddressDetailsController>()
+                .addressDetailsModel
+                .data
+                ?.permanentAddress
 
-                            ?.phoneNumber
-                            .toString() ??
-                        ""
-                    : Get.find<AddressDetailsController>()
-                            .addressDetailsModel
-                            .data
-                            ?.presentAddress
+                ?.phoneNumber
+                .toString() ??
+                ""
+                : Get.find<AddressDetailsController>()
+                .addressDetailsModel
+                .data
+                ?.presentAddress
 
-                            ?.phoneNumber
-                            .toString() ??
-                        "";
+                ?.phoneNumber
+                .toString() ??
+                "";
 
             Get.find<CustomTextEditingController>().stateController.text =
-                type == "permanent_address"
-                    ? Get.find<AddressDetailsController>()
-                            .addressDetailsModel
-                            .data
-                            ?.permanentAddress
+            type == "permanent_address"
+                ? Get.find<AddressDetailsController>()
+                .addressDetailsModel
+                .data
+                ?.permanentAddress
 
-                            ?.state
-                            .toString() ??
-                        ""
-                    : Get.find<AddressDetailsController>()
-                            .addressDetailsModel
-                            .data
-                            ?.presentAddress
+                ?.state
+                .toString() ??
+                ""
+                : Get.find<AddressDetailsController>()
+                .addressDetailsModel
+                .data
+                ?.presentAddress
 
-                            ?.state
-                            .toString() ??
-                        "";
+                ?.state
+                .toString() ??
+                "";
 
             Get.find<CustomTextEditingController>().zipCodeController.text =
-                type == "permanent_address"
-                    ? Get.find<AddressDetailsController>()
-                            .addressDetailsModel
-                            .data
-                            ?.permanentAddress
+            type == "permanent_address"
+                ? Get.find<AddressDetailsController>()
+                .addressDetailsModel
+                .data
+                ?.permanentAddress
 
-                            ?.zipCode
-                            .toString() ??
-                        ""
-                    : Get.find<AddressDetailsController>()
-                            .addressDetailsModel
-                            .data
-                            ?.presentAddress
+                ?.zipCode
+                .toString() ??
+                ""
+                : Get.find<AddressDetailsController>()
+                .addressDetailsModel
+                .data
+                ?.presentAddress
 
-                            ?.zipCode
-                            .toString() ??
-                        "";
+                ?.zipCode
+                .toString() ??
+                "";
 
 
             Get.find<CustomTextEditingController>().countyTextController.text =
@@ -333,7 +333,7 @@ Widget countyField({context, onAction, String? Function(String?)? validator,requ
             color: AppColor.hintColor,
             fontSize: Dimensions.fontSizeDefault + 1),
         filled: false,
-          suffixIcon: Icon(Icons.keyboard_arrow_down,color: controller.text.isNotEmpty?AppColor.normalTextColor:AppColor.hintColor,),
+        suffixIcon: Icon(Icons.keyboard_arrow_down,color: controller.text.isNotEmpty?AppColor.normalTextColor:AppColor.hintColor,),
 
         fillColor: AppColor.backgroundColor,
         disabledBorder: OutlineInputBorder(
@@ -341,7 +341,7 @@ Widget countyField({context, onAction, String? Function(String?)? validator,requ
         ),
         focusedBorder: OutlineInputBorder(
           borderSide:
-              const BorderSide(width: 0.0, color: AppColor.primaryColor),
+          const BorderSide(width: 0.0, color: AppColor.primaryColor),
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault + 2),
         ),
         enabledBorder: OutlineInputBorder(
@@ -349,7 +349,7 @@ Widget countyField({context, onAction, String? Function(String?)? validator,requ
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
         border: OutlineInputBorder(
           borderSide:
-              const BorderSide(width: 0.0, color: AppColor.primaryColor),
+          const BorderSide(width: 0.0, color: AppColor.primaryColor),
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault + 2),
         ),
       ),
@@ -359,16 +359,16 @@ Widget countyField({context, onAction, String? Function(String?)? validator,requ
 
 Widget phoneAndCountyField({required TextEditingController controller}) {
   return IntlPhoneField(
-    decoration: InputDecoration(
-      labelText: AppString.text_not_added_yet,
-      enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColor.solidGray),
-          borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
-      border: OutlineInputBorder(
-          borderSide: BorderSide(width: 0.0, color: AppColor.disableColor),
-          borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
-    ),
-    controller:controller
+      decoration: InputDecoration(
+        labelText: AppString.text_not_added_yet,
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: AppColor.solidGray),
+            borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
+        border: OutlineInputBorder(
+            borderSide: BorderSide(width: 0.0, color: AppColor.disableColor),
+            borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
+      ),
+      controller:controller
 
   );
 }
@@ -382,12 +382,12 @@ InputDecoration get countryDecoration {
       hintText: AppString.text_search,
       isDense: true,
       focusedBorder:
-          const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+      const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
       enabledBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: Colors.grey),
       ),
       border:
-          const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)));
+      const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)));
 }
 
 BorderRadius get countyFieldRadius {

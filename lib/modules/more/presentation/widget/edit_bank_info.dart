@@ -11,97 +11,151 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
 class EditBankInfo extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-          left: AppLayout.getWidth(20), right: AppLayout.getWidth(20)),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            bottomSheetAppbar(
-              context: context,
-              appbarTitle: AppString.text_edit_bank_details,
-            ),
-            customSpacerHeight(height: 8),
-            textFieldTitleText(titleText: AppString.text_bank_name),
-            CustomTextField(
-              hintText: AppString.text_enter_bank_name,
-              controller:
-              Get.find<CustomTextEditingController>().bankNameController,
-            ),
-            customSpacerHeight(height: 8),
-            Row(
-              children: [
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      textFieldTitleText(titleText: AppString.text_branch),
-                      CustomTextField(
-                        hintText:AppString.text_enter_branch,
-                        controller: Get.find<CustomTextEditingController>()
-                            .branchNameController,
-                      ),
-                    ],
-                  ),
-                ),
-                customSpacerWidth(width: 18),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      textFieldTitleText(titleText: AppString.text_bank_code),
-                      CustomTextField(
-                          hintText:AppString.text_enter_bank_code,
-                          controller: Get.find<CustomTextEditingController>()
-                              .bankCodeController),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            customSpacerHeight(height: 8),
-            textFieldTitleText(titleText: AppString.text_account_holder),
-            CustomTextField(
-              hintText:  AppString.text_enter_name,
-              controller: Get.find<CustomTextEditingController>()
-                  .accountHolderNameController,
-            ),
-            customSpacerHeight(height: 8),
-            textFieldTitleText(titleText: AppString.text_account_number),
-            CustomTextField(
-              hintText: AppString.text_enter_account_number,
-              controller: Get.find<CustomTextEditingController>()
-                  .accountNumberController,
-            ),
-            customSpacerHeight(height: 8),
-            textFieldTitleText(titleText: AppString.text_account_title),
-            CustomTextField(
-              hintText: AppString.text_enter_title,
-              controller: Get.find<CustomTextEditingController>()
-                  .accountTitleController,
-            ),
-            customSpacerHeight(height: 8),
-            textFieldTitleText(titleText: AppString.text_tax_payer_id),
-            CustomTextField(
-              hintText: AppString.text_enter_id,
-              controller:
-              Get.find<CustomTextEditingController>().taxPayerIdController,
-            ),
-            customSpacerHeight(height: 50),
-            customDoubleButton(
+    return Form(
+      key: _formKey,
+      child: Padding(
+        padding: EdgeInsets.only(
+            left: AppLayout.getWidth(20), right: AppLayout.getWidth(20)),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              bottomSheetAppbar(
                 context: context,
-                elevatedBtnText:
-                '${AppString.text_save_changes}',
-                textBtnText: AppString.text_cancel,
-                textButtonAction: () => Get.back(),
-                elevatedButtonAction: () {
-                  Get.find<MoreDataController>().updateBankInfo(context: context);
-                }),
-            customSpacerHeight(height: 250)
-          ],
+                appbarTitle: AppString.text_edit_bank_details,
+              ),
+              customSpacerHeight(height: 8),
+              textFieldTitleText(titleText: AppString.text_bank_name),
+              CustomTextField(
+                hintText: AppString.text_enter_bank_name,
+                controller:
+                Get.find<CustomTextEditingController>().bankNameController,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return AppString.fieldIsRequired;
+                  }
+                  return null;
+                },
+              ),
+              customSpacerHeight(height: 8),
+              Row(
+                children: [
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        textFieldTitleText(titleText: AppString.text_branch),
+                        CustomTextField(
+                          hintText:AppString.text_enter_branch,
+                          controller: Get.find<CustomTextEditingController>()
+                              .branchNameController,
+
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return AppString.fieldIsRequired;
+                            }
+                            return null;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  customSpacerWidth(width: 18),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        textFieldTitleText(titleText: AppString.text_bank_code),
+                        CustomTextField(
+                            hintText:AppString.text_enter_bank_code,
+                            controller: Get.find<CustomTextEditingController>()
+                                .bankCodeController,
+
+
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return AppString.fieldIsRequired;
+                            }
+                            return null;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              customSpacerHeight(height: 8),
+              textFieldTitleText(titleText: AppString.text_account_holder),
+              CustomTextField(
+                hintText:  AppString.text_enter_name,
+                controller: Get.find<CustomTextEditingController>()
+                    .accountHolderNameController,
+
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return AppString.fieldIsRequired;
+                  }
+                  return null;
+                },
+              ),
+              customSpacerHeight(height: 8),
+              textFieldTitleText(titleText: AppString.text_account_number),
+              CustomTextField(
+                hintText: AppString.text_enter_account_number,
+                controller: Get.find<CustomTextEditingController>()
+                    .accountNumberController,
+
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return AppString.fieldIsRequired;
+                  }
+                  return null;
+                },
+              ),
+              customSpacerHeight(height: 8),
+              textFieldTitleText(titleText: AppString.text_account_title),
+              CustomTextField(
+                hintText: AppString.text_enter_title,
+                controller: Get.find<CustomTextEditingController>()
+                    .accountTitleController,
+
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return AppString.fieldIsRequired;
+                  }
+                  return null;
+                },
+              ),
+              customSpacerHeight(height: 8),
+              textFieldTitleText(titleText: AppString.text_tax_payer_id),
+              CustomTextField(
+                hintText: AppString.text_enter_id,
+                controller:
+                Get.find<CustomTextEditingController>().taxPayerIdController,
+
+
+              ),
+              customSpacerHeight(height: 50),
+              customDoubleButton(
+                  context: context,
+                  elevatedBtnText:
+                  '${AppString.text_save_changes}',
+                  textBtnText: AppString.text_cancel,
+                  textButtonAction: () => Get.back(),
+                  elevatedButtonAction: () {
+
+    if (_formKey.currentState!.validate()) {
+      Get.find<MoreDataController>().updateBankInfo(context: context);
+
+    }
+
+                  }),
+              customSpacerHeight(height: 250)
+            ],
+          ),
         ),
       ),
     );

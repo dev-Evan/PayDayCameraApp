@@ -16,7 +16,7 @@ class MoreDataRepository {
   Future<BankInfoModel> bankInfoRepo() async {
     try {
       Response response =
-          await networkClient.getRequest(AppString.EMPLOYEE_BANK_INFORMATION);
+      await networkClient.getRequest(AppString.EMPLOYEE_BANK_INFORMATION);
       print(response.body);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
@@ -31,7 +31,7 @@ class MoreDataRepository {
   }
 
   Future<AddBankInfoModel> AddBankInfoRepo(String bankName, String code, String branchName, String accountTitle, String accountHolderName, String accountNumber, String taxPayerId,
-  ) async {
+      ) async {
     try {
       Response response = await networkClient.postRequest(
         AppString.EMPLOYEE_BANK_INFORMATION,
@@ -61,7 +61,7 @@ class MoreDataRepository {
   Future<AddBankInfoDeletedModel> deletedBankInfoRepo() async {
     try {
       Response  response = await networkClient.deletedRequest(
-        AppString.EMPLOYEE_BANK_INFORMATION+"/${box.read(AppString.ID_STORE)}?contact_id=${box.read(AppString.BANK_USER_ID_STORE)}");
+          AppString.EMPLOYEE_BANK_INFORMATION+"/${box.read(AppString.ID_STORE)}?contact_id=${box.read(AppString.BANK_USER_ID_STORE)}");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

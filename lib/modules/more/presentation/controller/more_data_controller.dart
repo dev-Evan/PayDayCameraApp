@@ -18,7 +18,7 @@ class MoreDataController extends GetxController with StateMixin {
   BankInfoModel bankInfoModel = BankInfoModel();
   MoreDataRepository moreDataRepository = MoreDataRepository(NetworkClient());
   CustomTextEditingController textEditingController =
-      Get.put(CustomTextEditingController());
+  Get.put(CustomTextEditingController());
 
   getBankInfo() async {
     change(null, status: RxStatus.loading());

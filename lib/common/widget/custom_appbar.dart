@@ -58,9 +58,10 @@ class CustomAppbar extends GetView<NotificationController>
   Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(43));
 }
 
-Widget logoView({double? height = 35, double? width = 35, String? url}) {
+Widget logoView({double? height = 35, double? width = 35, String? url,Color?color } ) {
   return SvgPicture.asset(
     url ?? Images.logo,
+    color:color ,
     width: AppLayout.getWidth(width!),
     height: AppLayout.getHeight(height!),
   );

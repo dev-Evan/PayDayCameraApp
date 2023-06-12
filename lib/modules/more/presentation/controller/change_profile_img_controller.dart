@@ -8,10 +8,14 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 class ImagePickerController extends GetxController with StateMixin {
   ChangeProfileImageRepo changeProfileImageRepo = ChangeProfileImageRepo();
   var pickedImage = Rx<XFile?>(null);
+  RxString filePath = ''.obs;
+
   Future<void> pickImage(ImageSource source) async {
     XFile? image = await ImagePicker().pickImage(source: source);
     if (image != null) {
       pickedImage.value = image;
+      filePath.value = image.path;
+
       await changeProfileImage(image);
     }
   }

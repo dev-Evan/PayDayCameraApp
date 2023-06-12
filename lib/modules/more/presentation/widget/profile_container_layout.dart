@@ -17,6 +17,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 import '../../../../common/widget/custom_spacer.dart';
+import '../../../../utils/images.dart';
 
 Widget profileCardLayOut(
     {context, userName, final userImage, userEmail, statusText}) {
@@ -36,17 +37,36 @@ Widget profileCardLayOut(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    backgroundImage:
-                        Get.find<ImagePickerController>().pickedImage.value ==
-                                null
-                            ? userImage
-                            : Image.file(File(Get.find<ImagePickerController>()
-                                    .pickedImage
-                                    .value!
-                                    .path))
-                                .image,
-                    radius: 28,
+                  Container(
+                    height: AppLayout.getHeight(54),
+                    width: AppLayout.getWidth(54),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.transparent,
+                    ),
+                    child: ClipOval(
+                      child: FadeInImage(
+                        image: NetworkImage(userImage),
+                        placeholder: AssetImage(
+                          Get.find<ImagePickerController>().filePath.isEmpty
+                              ? Images.placeholder
+                              : Get.find<ImagePickerController>()
+                                  .filePath
+                                  .value,
+                        ),
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            Get.find<ImagePickerController>().filePath.isEmpty
+                                ? Images.placeholder
+                                : Get.find<ImagePickerController>()
+                                    .filePath
+                                    .value,
+                            fit: BoxFit.cover,
+                          );
+                        },
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                   customSpacerWidth(width: 14),
                   Expanded(

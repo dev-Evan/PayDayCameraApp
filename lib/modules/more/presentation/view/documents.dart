@@ -190,16 +190,29 @@ class DocumentScreen extends GetView<DocumentController> {
     GetStorage().write("key", imageUrl);
 
     return imageUrl.endsWith(".pdf")
-        ? _fileIcon()
-        : Container(
-            height: AppLayout.getHeight(66),
-            decoration: AppStyle.ContainerStyle.copyWith(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(Dimensions.radiusMid - 4),
-                    bottomLeft: Radius.circular(Dimensions.radiusMid - 4)),
-                image: DecorationImage(
-                    image: NetworkImage(imageUrl), fit: BoxFit.cover)),
-          );
+        ? _fileIcon(): FadeInImage(
+      image: NetworkImage(imageUrl),
+
+      placeholder: AssetImage(
+
+          Images.placeholder
+
+
+      ),
+      imageErrorBuilder:
+          (context, error, stackTrace) {
+        return Container(
+                height: AppLayout.getHeight(66),
+                decoration: AppStyle.ContainerStyle.copyWith(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(Dimensions.radiusMid - 4),
+                        bottomLeft: Radius.circular(Dimensions.radiusMid - 4)),
+                    image: DecorationImage(
+                        image: AssetImage(Images.placeholder), fit: BoxFit.cover)),
+              );
+      },
+      fit: BoxFit.cover,
+    );
   }
 }
 
@@ -226,12 +239,14 @@ Widget _fileIcon() {
   return Container(
     height: AppLayout.getHeight(66),
     decoration: AppStyle.ContainerStyle.copyWith(
+      color: AppColor.primaryColor.withOpacity(0.1),
       borderRadius: BorderRadius.only(
           topLeft: Radius.circular(Dimensions.radiusMid - 4),
           bottomLeft: Radius.circular(Dimensions.radiusMid - 4)),
     ),
     child: const Icon(
       CupertinoIcons.doc,
+      size: 30,
       color: AppColor.primaryColor,
     ),
   );
