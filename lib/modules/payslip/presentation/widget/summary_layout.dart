@@ -33,6 +33,7 @@ Widget summaryLayout({required total, required sent, required conflicted}) {
                 onAction: () async {
                   Get.toNamed(AppString.payrunBage);
                   await Get.find<PayrunBadgeController>().getPayrunBadgeData();
+
                 }),
           ],
         ),

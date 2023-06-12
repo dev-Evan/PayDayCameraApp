@@ -16,230 +16,228 @@ class PayRunBadgeView extends GetView<PayrunBadgeController> {
 
   @override
   Widget build(BuildContext context) {
-    return controller.obx(
-        (state) => SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+    return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
 
-                children: [
-                  _cardTitle(
-                      icon: Images.file,
-                      titleText: AppString.text_payrun_details),
-                  Padding(
-                    padding:  EdgeInsets.only(left: AppLayout.getWidth(56), top: AppLayout.getHeight(8)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _cardTitle(
+                  icon: Images.file,
+                  titleText: AppString.text_payrun_details),
+              Padding(
+                padding:  EdgeInsets.only(left: AppLayout.getWidth(56), top: AppLayout.getHeight(8)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _subTextLeft(subTitleText: AppString.text_period),
-                            _subTextLeft(
-                                subTitleText: AppString.text_consider_type),
-                            _subTextLeft(subTitleText: AppString.text_overtime),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _subTextRight(
-                                subTextRight: controller.payrunBadgeModel.data
-                                            ?.payrunSetting !=
-                                        null
-                                    ? controller.payrunBadgeModel.data
-                                            ?.payrunSetting?.payrunPeriod
-                                            .toString() ??
-                                        ""
-                                    : controller
-                                            .payrunBadgeModel
-                                            .data
-                                            ?.defaultPayrun
-                                            ?.setting
-                                            ?.payrunPeriod
-                                            .toString() ??
-                                        ""),
-                            _subTextRight(
-                                subTextRight: controller.payrunBadgeModel.data
-                                            ?.payrunSetting !=
-                                        null
-                                    ? controller.payrunBadgeModel.data
-                                            ?.payrunSetting?.considerType
-                                            .toString() ??
-                                        ""
-                                    : controller
-                                            .payrunBadgeModel
-                                            .data
-                                            ?.defaultPayrun
-                                            ?.setting
-                                            ?.considerType
-                                            .toString() ??
-                                        ""),
-                            _subTextRight(
-                                subTextRight: controller.payrunBadgeModel.data
-                                            ?.payrunSetting !=
-                                        null
-                                    ? controller
-                                                .payrunBadgeModel
-                                                .data
-                                                ?.payrunSetting
-                                                ?.considerOvertime
-                                                .toString() ==
-                                            "0"
-                                        ? AppString.text_no_included
-                                        : AppString.text_included
-                                    : controller
-                                                .payrunBadgeModel
-                                                .data
-                                                ?.defaultPayrun
-                                                ?.setting
-                                                ?.considerOvertime
-                                                .toString() ==
-                                            "0"
-                                        ? AppString.text_no_included
-                                        : AppString.text_included)
-                          ],
-                        ),
+                        _subTextLeft(subTitleText: AppString.text_period),
+                        _subTextLeft(
+                            subTitleText: AppString.text_consider_type),
+                        _subTextLeft(subTitleText: AppString.text_overtime),
                       ],
                     ),
-                  ),
-                  ListView.builder(
-                    itemCount: controller.payrunBadgeModel.data?.defaultPayrun
-                        ?.beneficiaries?.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    primary: false,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _subTextRight(
+                            subTextRight: controller.payrunBadgeModel.data
+                                ?.payrunSetting !=
+                                null
+                                ? controller.payrunBadgeModel.data
+                                ?.payrunSetting?.payrunPeriod
+                                .toString() ??
+                                ""
+                                : controller
+                                .payrunBadgeModel
+                                .data
+                                ?.defaultPayrun
+                                ?.setting
+                                ?.payrunPeriod
+                                .toString() ??
+                                ""),
+                        _subTextRight(
+                            subTextRight: controller.payrunBadgeModel.data
+                                ?.payrunSetting !=
+                                null
+                                ? controller.payrunBadgeModel.data
+                                ?.payrunSetting?.considerType
+                                .toString() ??
+                                ""
+                                : controller
+                                .payrunBadgeModel
+                                .data
+                                ?.defaultPayrun
+                                ?.setting
+                                ?.considerType
+                                .toString() ??
+                                ""),
+                        _subTextRight(
+                            subTextRight: controller.payrunBadgeModel.data
+                                ?.payrunSetting !=
+                                null
+                                ? controller
+                                .payrunBadgeModel
+                                .data
+                                ?.payrunSetting
+                                ?.considerOvertime
+                                .toString() ==
+                                "0"
+                                ? AppString.text_no_included
+                                : AppString.text_included
+                                : controller
+                                .payrunBadgeModel
+                                .data
+                                ?.defaultPayrun
+                                ?.setting
+                                ?.considerOvertime
+                                .toString() ==
+                                "0"
+                                ? AppString.text_no_included
+                                : AppString.text_included)
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              ListView.builder(
+                itemCount: controller.payrunBadgeModel.data?.defaultPayrun
+                    ?.beneficiaries?.length,
+                physics: const NeverScrollableScrollPhysics(),
+                primary: false,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      controller
+                          .payrunBadgeModel
+                          .data
+                          ?.defaultPayrun
+                          ?.beneficiaries?[index]
+                          .beneficiary
+                          ?.type ==
+                          "allowance"
+                          ? Column(
                         children: [
-                          controller
-                                      .payrunBadgeModel
-                                      .data
-                                      ?.defaultPayrun
-                                      ?.beneficiaries?[index]
-                                      .beneficiary
-                                      ?.type ==
-                                  "allowance"
-                              ? Column(
+                          _cardTitle(
+                              icon: Images.allowance,
+                              titleText: AppString.text_allowances),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 56.0, top: 8),
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
                                   children: [
-                                    _cardTitle(
-                                        icon: Images.allowance,
-                                        titleText: AppString.text_allowances),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 56.0, top: 8),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              _subTextLeft(
-                                                  subTitleText: controller
-                                                          .payrunBadgeModel
-                                                          .data
-                                                          ?.defaultPayrun
-                                                          ?.beneficiaries?[
-                                                              index]
-                                                          .beneficiary
-                                                          ?.name ??
-                                                      ""),
-                                            ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              _subTextRightBtn(
-                                                  subTextRight: controller
-                                                          .payrunBadgeModel
-                                                          .data
-                                                          ?.defaultPayrun
-                                                          ?.beneficiaries?[
-                                                              index]
-                                                          .amount
-                                                          .toString() ??
-                                                      "",
-                                                  isPercentage: controller
-                                                      .payrunBadgeModel
-                                                      .data
-                                                      ?.defaultPayrun
-                                                      ?.beneficiaries?[index]
-                                                      .isPercentage
-                                                      ?.toInt()),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              : Column(
-                                  children: [
-                                    _cardTitle(
-                                        icon: Images.deduction,
-                                        titleText: AppString.text_deductions),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 56.0, top: 8),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              _subTextLeft(
-                                                  subTitleText: controller
-                                                          .payrunBadgeModel
-                                                          .data
-                                                          ?.defaultPayrun
-                                                          ?.beneficiaries?[
-                                                              index]
-                                                          .beneficiary
-                                                          ?.name ??
-                                                      ""),
-                                            ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              _subTextRightBtn(
-                                                  subTextRight: controller
-                                                          .payrunBadgeModel
-                                                          .data
-                                                          ?.defaultPayrun
-                                                          ?.beneficiaries?[
-                                                              index]
-                                                          .amount
-                                                          .toString() ??
-                                                      "",
-                                                  isPercentage: controller
-                                                      .payrunBadgeModel
-                                                      .data
-                                                      ?.defaultPayrun
-                                                      ?.beneficiaries?[index]
-                                                      .isPercentage
-                                                      ?.toInt()),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                    _subTextLeft(
+                                        subTitleText: controller
+                                            .payrunBadgeModel
+                                            .data
+                                            ?.defaultPayrun
+                                            ?.beneficiaries?[
+                                        index]
+                                            .beneficiary
+                                            ?.name ??
+                                            ""),
                                   ],
                                 ),
+                                Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    _subTextRightBtn(
+                                        subTextRight: controller
+                                            .payrunBadgeModel
+                                            .data
+                                            ?.defaultPayrun
+                                            ?.beneficiaries?[
+                                        index]
+                                            .amount
+                                            .toString() ??
+                                            "",
+                                        isPercentage: controller
+                                            .payrunBadgeModel
+                                            .data
+                                            ?.defaultPayrun
+                                            ?.beneficiaries?[index]
+                                            .isPercentage
+                                            ?.toInt()),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
-                      );
-                    },
-                  ),
-                ],
+                      )
+                          : Column(
+                        children: [
+                          _cardTitle(
+                              icon: Images.deduction,
+                              titleText: AppString.text_deductions),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 56.0, top: 8),
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    _subTextLeft(
+                                        subTitleText: controller
+                                            .payrunBadgeModel
+                                            .data
+                                            ?.defaultPayrun
+                                            ?.beneficiaries?[
+                                        index]
+                                            .beneficiary
+                                            ?.name ??
+                                            ""),
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    _subTextRightBtn(
+                                        subTextRight: controller
+                                            .payrunBadgeModel
+                                            .data
+                                            ?.defaultPayrun
+                                            ?.beneficiaries?[
+                                        index]
+                                            .amount
+                                            .toString() ??
+                                            "",
+                                        isPercentage: controller
+                                            .payrunBadgeModel
+                                            .data
+                                            ?.defaultPayrun
+                                            ?.beneficiaries?[index]
+                                            .isPercentage
+                                            ?.toInt()),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                },
               ),
-            ),
-        onLoading: const LoadingIndicator());
+            ],
+          ),
+        );
   }
 }
 
