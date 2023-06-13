@@ -20,9 +20,13 @@ import '../../../../common/widget/custom_spacer.dart';
 
 class MoreScreen extends GetView<ProfileDataController> {
   MoreScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    controller.getUserData();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      controller.getUserData();
+
+    });
     return controller.obx(
             (state) => Scaffold(
           body: CustomScrollView(
@@ -37,11 +41,6 @@ class MoreScreen extends GetView<ProfileDataController> {
                         userImage: controller
                             .userProfile.data?.profilePictureUrl.toString() ??
                             "",
-
-
-
-
-
                         userName: controller.userProfile.data?.fullName
                             .toString() ??
                             "",
@@ -50,9 +49,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                             "",
                         statusText: controller.userProfile.data?.userStatus
                             .toString() ??
-                            "",
-                      ),
-
+                            ""),
                     Expanded(
                         flex: 14,
                         child: Container(
@@ -87,8 +84,6 @@ class MoreScreen extends GetView<ProfileDataController> {
                                     await Get.find<
                                         SalaryOverviewController>()
                                         .getSalaryOveData();
-                                    await Get.find<SettingController>()
-                                        .getCurrencyData();
                                   },
                                 ),
                                 jobDeskCard(

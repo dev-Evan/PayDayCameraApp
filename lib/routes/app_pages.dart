@@ -77,7 +77,7 @@ List<GetPage> getPage = [
   ),
   GetPage(
     name: AppString.updateDocument,
-    page: () => const UpdateDocument(),
+    page: () =>  UpdateDocument(),
   ),
   GetPage(
     name: AppString.documentScreen,

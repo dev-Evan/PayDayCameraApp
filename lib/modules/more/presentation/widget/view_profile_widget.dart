@@ -50,8 +50,8 @@ Widget circleAvatarStyle({final userImage}) {
   return Stack(
     children: [
       Container(
-        height: AppLayout.getHeight(70),
-        width: AppLayout.getWidth(70),
+        height: AppLayout.getHeight(74),
+        width: AppLayout.getWidth(74),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.transparent,
@@ -65,7 +65,7 @@ Widget circleAvatarStyle({final userImage}) {
       .image,
             imageErrorBuilder: (context, error, stackTrace) {
               return   CircleAvatar(
-                radius: 34,
+                radius: 40,
                 backgroundColor: Colors.transparent,
                 backgroundImage: Get.find<ImagePickerController>().pickedImage.value ==null
                     ? placeholderImages
@@ -98,7 +98,7 @@ Widget circleAvatarStyle({final userImage}) {
 }
 
 AssetImage get placeholderImages {
-  return AssetImage(Images.placeholder);
+  return AssetImage(Images.user);
 }
 
 Widget cardIconView({cardIcon}) {

@@ -13,7 +13,6 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-
 Widget logsList(
     {required titleDate,
     required titleMonth,
@@ -54,7 +53,9 @@ Widget logsList(
                 monthly: monthly),
           ),
         ),
-        _divider(context: Get.context,),
+        _divider(
+          context: Get.context,
+        ),
       ],
     ),
   );
@@ -71,16 +72,21 @@ Widget _logListRow(
   final _box = GetStorage();
   var currency = _box.read(AppString.STORE_CURRENCY) ?? "\$";
   return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       _dateTitle(dateText: titleDate, monthText: titleMonth),
-      CustomDiveider(25, 0.5),
-      _cardMidText(
-          amountText: currency + " " + basicSalary.toString(),
-          startDate: startDate,
-          endDate: endDate,
-          monthly: monthly,
-          statusText: statusText.toString()),
+      customSpacerWidth(width: 30),
+      CustomDiveider(40, 0.7),
+      customSpacerWidth(width: 30),
+      Expanded(
+        flex: 0,
+        child: _cardMidText(
+            amountText: currency + " " + basicSalary.toString(),
+            startDate: startDate,
+            endDate: endDate,
+            monthly: monthly,
+            statusText: statusText.toString()),
+      ),
+      Spacer(),
       avatarArrowIcon(),
     ],
   );
@@ -90,7 +96,7 @@ Widget _divider({context}) {
   return Padding(
     padding: const EdgeInsets.only(top: 12.0),
     child: CustomDiveider(
-        AppLayout.getHeight(0.4), MediaQuery.of(context).size.width),
+        AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
   );
 }
 

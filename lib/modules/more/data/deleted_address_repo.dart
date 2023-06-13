@@ -16,6 +16,7 @@ class DeletedAddRepository {
           "type":addressType,
         },
       );
+      print(response.body);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

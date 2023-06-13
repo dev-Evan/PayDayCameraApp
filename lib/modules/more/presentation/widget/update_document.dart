@@ -20,7 +20,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
 
 class UpdateDocument extends StatelessWidget {
-  const UpdateDocument({Key? key}) : super(key: key);
+
+   UpdateDocument({Key? key,}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final _box = GetStorage();
@@ -28,7 +29,7 @@ class UpdateDocument extends StatelessWidget {
       children: [
         bottomSheetAppbar(
             context: context,
-            appbarTitle: "${AppString.text_edit} ${AppString.text_documents}"),
+            appbarTitle: "${AppString.text_edit} ${AppString.text_documents}",),
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
@@ -52,21 +53,41 @@ class UpdateDocument extends StatelessWidget {
                     titleText: AppString.text_documents,
                   ),
                   customSpacerHeight(height: 20),
+
                   _dottedBorder(
                       child: Obx(() => InkWell(
-                            onTap: () =>
-                                Get.find<UpdateDocumentController>().pickFile(),
+                            onTap: () => Get.find<UpdateDocumentController>().pickFile(),
+
                             child: Get.find<UpdateDocumentController>()
                                     .filePath
                                     .isNotEmpty
-                                ? Container(
+                                ? Get.find<UpdateDocumentController>().filePath.startsWith("https://")?
+
+                            Container(
+                              height: AppLayout.getHeight(100),
+                              decoration: BoxDecoration(
+                                color: AppColor.errorColor
+                                    .withOpacity(0.4),
+                                image: DecorationImage(
+                                    image:
+
+                                    networkImage(path: Get.find<UpdateDocumentController>()
+                                        .filePath
+                                        .value
+                                        .toString()),
+                                    fit: BoxFit.cover),
+                              ),
+                            ):
+
+                            Container(
                                     height: AppLayout.getHeight(100),
                                     decoration: BoxDecoration(
-                                      color: AppColor.disableColor
+                                      color: AppColor.errorColor
                                           .withOpacity(0.4),
                                       image: DecorationImage(
-                                          image: FileImage(File(Get.find<
-                                                      UpdateDocumentController>()
+                                          image:
+
+                                          FileImage(File(Get.find<UpdateDocumentController>()
                                                   .filePath
                                                   .value
                                                   .toString())
@@ -78,11 +99,11 @@ class UpdateDocument extends StatelessWidget {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
                                       children: [
-                                        _fileTitle(
-                                          text: _box.read(AppString
-                                                  .STORE_DOC_NAME_TEXT) ??
-                                              "",
-                                        ),
+                                        // _fileTitle(
+                                        //   text: _box.read(AppString
+                                        //           .STORE_DOC_NAME_TEXT) ??
+                                        //       "",
+                                        // ),
                                         customSpacerHeight(height: 16),
                                         _changeFile()
                                       ],
@@ -176,4 +197,8 @@ Widget _changeFile() {
       ),
     ],
   );
+}
+
+NetworkImage networkImage({required path}){
+  return NetworkImage(path);
 }

@@ -21,7 +21,6 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.find<SettingController>().getCurrencyData();
 
     return Scaffold(
         appBar: const CustomAppbar(),

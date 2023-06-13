@@ -237,6 +237,7 @@ class AppString {
   static const String text_percent = " 2\%";
   static const String text_transport = "Transport";
   static const String text_deductions = "Deductions";
+  static const String text_payslip_id = "PAYSLIP ID";
   static const String text_tax = "Tax";
   static const String text_total_summary = "Total Summary";
   static const String text_download_payslip = "Download Payslip";
@@ -454,6 +455,7 @@ class AppString {
   static const String BANK_USER_ID_STORE = "bank_user_id";
   static const String PAYSLIP_DATE_RANGE = "payslip_date_range";
   static const String STORE_CURRENT_PASSWORD = "store_current_password";
+  static const String STORE_CURRENT_EMAIL = "store_current_email";
 
 // Auth String
 

@@ -60,6 +60,10 @@ class MoreDataController extends GetxController with StateMixin {
       print("Add BankInfo ::: $error");
     });
   }
+
+
+
+
   var newValue="";
   void deletedBankInfoApi() async {
     waitingLoader();
@@ -83,6 +87,11 @@ class MoreDataController extends GetxController with StateMixin {
   void _bankInfo(BankInfoModel? info) {
     box.write(AppString.BANK_USER_ID_STORE, info?.data!.id);
   }
+
+
+
+
+
 
   updateBankInfo({required context}) async {
     waitingLoader();

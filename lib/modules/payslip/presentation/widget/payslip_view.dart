@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pay_day_mobile/common/controller/downloader_helper.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
@@ -12,7 +11,6 @@ import 'package:pay_day_mobile/modules/payslip/presentation/widget/payslip_view_
 import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import 'package:pay_day_mobile/utils/images.dart';
 import '../controller/payslip_dawonload_controller.dart';
 
 class PaySlipView extends GetView<PayslipViewController> {
@@ -36,17 +34,6 @@ class PaySlipView extends GetView<PayslipViewController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         profileCard(
-                          imgUrl: Get.find<ProfileDataController>()
-                                      .userProfile
-                                      .data
-                                      ?.profilePictureUrl ==
-                                  null
-                              ? AssetImage(Images.user)
-                              : NetworkImage(Get.find<ProfileDataController>()
-                                      .userProfile
-                                      .data
-                                      ?.profilePictureUrl ??
-                                  ""),
                           nameText: Get.find<ProfileDataController>()
                                   .userProfile
                                   .data
@@ -58,7 +45,10 @@ class PaySlipView extends GetView<PayslipViewController> {
                                   .data
                                   ?.email
                                   .toString() ??
-                              "",
+                              "${GetStorage().read(AppString.STORE_CURRENT_EMAIL).toString()}",
+                          payslipId: controller.payslipViewModel.data?.payslip?.payslipId
+                              .toString() ??
+                              ""
                         ),
                         customSpacerHeight(height: 8),
                         Row(
@@ -74,7 +64,7 @@ class PaySlipView extends GetView<PayslipViewController> {
                             payslipVDateCard(
                               titleText: AppString.text_payslip_for,
                               dateText:
-                                  '${controller.payslipViewModel.data?.payslip?.createdAt ?? ""} - ${controller.payslipViewModel.data?.payslip?.endDate ?? ""}',
+                                  '${controller.payslipViewModel.data?.payslip?.startDate ?? ""} - ${controller.payslipViewModel.data?.payslip?.endDate ?? ""}',
                             ),
                           ],
                         ),

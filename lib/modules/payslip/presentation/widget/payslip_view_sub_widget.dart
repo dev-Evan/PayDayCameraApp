@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/change_profile_img_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -11,39 +12,36 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 
-Widget profileCard({required imgUrl, required nameText, required userEmail}) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+Widget profileCard({required nameText, required userEmail, required payslipId}) {
+  return  Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
+      Text(
+        nameText ,
+        style: AppStyle.mid_large_text.copyWith(
+            fontWeight: FontWeight.w800,
+            color: AppColor.normalTextColor,
+            fontSize: Dimensions.fontSizeDefault),
+      ),
+      customSpacerHeight(height: 4),
+      Text(
+
+        GetStorage().read(AppString.STORE_CURRENT_EMAIL).toString(),
+        style: AppStyle.small_text.copyWith(color: AppColor.hintColor),
+      ),
+      customSpacerHeight(height: 4),
+
       Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(
-            backgroundImage:
-            Get.find<ImagePickerController>().pickedImage.value == null
-                ? imgUrl
-                : Image.file(File(Get.find<ImagePickerController>()
-                .pickedImage
-                .value!
-                .path))
-                .image,
-            radius: 28,
+
+          Text(
+            "${AppString.text_payslip_id} : ",
+            style: AppStyle.small_text.copyWith(color: AppColor.normalTextColor),
           ),
-          customSpacerWidth(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                nameText,
-                style: AppStyle.mid_large_text.copyWith(
-                    fontWeight: FontWeight.w800,
-                    color: AppColor.normalTextColor,
-                    fontSize: Dimensions.fontSizeDefault),
-              ),
-              Text(
-                userEmail,
-                style: AppStyle.small_text.copyWith(color: AppColor.hintColor),
-              ),
-            ],
+          Text(
+            "${payslipId}",
+            style: AppStyle.small_text.copyWith(color: AppColor.hintColor),
           ),
         ],
       ),
@@ -59,16 +57,20 @@ Widget payslipVDateCard({required titleText, required dateText}) {
       Text(
         titleText,
         style: AppStyle.mid_large_text.copyWith(
-            color: AppColor.hintColor.withOpacity(0.7),
+            color: AppColor.hintColor,
+            letterSpacing: 0.4,
             fontSize: Dimensions.fontSizeDefault,
-            fontWeight: FontWeight.w500),
+            fontWeight: FontWeight.w500,
+
+
+        ),
       ),
       Text(
         dateText,
         style: AppStyle.mid_large_text.copyWith(
-            color: AppColor.normalTextColor.withOpacity(0.7),
+            color: AppColor.normalTextColor,
             fontSize: Dimensions.fontSizeDefault,
-            fontWeight: FontWeight.w500),
+            fontWeight: FontWeight.w500,),
       ),
       customSpacerHeight(height: 16),
     ],
@@ -135,7 +137,7 @@ Widget subTextCard({required subLeftText,required subRightText, isPercentage}) {
                   fontWeight: FontWeight.w500),
             ),
             customSpacerWidth(width: 3),
-            Text(isPercentage.toString() == "1" ? "%" : "tk"),
+            Text(isPercentage.toString() == "1" ? "%" : ""),
 
           ],
         ),

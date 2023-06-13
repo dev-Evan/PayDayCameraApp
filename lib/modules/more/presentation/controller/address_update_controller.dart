@@ -22,10 +22,7 @@ class AddressUpdateController extends GetxController with StateMixin {
     waitingLoader();
     try {
       await addressUpdateDataSource
-          .getAddressUpdate(
-        area,city,country,details,phone,state,typeKey, zipcode
-
-      ).then((value) {
+          .getAddressUpdate(area,city,country,details,phone,state,typeKey, zipcode).then((value) {
         Get.find<AddressDetailsController>().getEmployeeAddressData();
         Get.back();
         _navigator(context: context);

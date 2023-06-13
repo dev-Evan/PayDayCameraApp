@@ -72,18 +72,20 @@ class ViewProfile extends GetView<ProfileDataController> {
                           .userProfile
                           .data
                           ?.address ??
-                      "";
+                      "";                  //print(_dateFormat.toString());
+
                   Get.find<DatePickerController>()
                       .dobDateController
                       .value
-                      .text =_dateFormat().toString();
+                      .text =_dateFormat.isEmpty?"":_dateFormat;
                   CustomNavigator(context: context, pageName: EditProfile());
                 }),
             customSpacerHeight(height: 10),
+
+
             Obx(() =>  circleAvatarStyle(
               userImage:controller.userProfile.data?.profilePictureUrl.toString() ?? "",
             ),),
-
 
             customSpacerHeight(height: 10),
             Column(
@@ -213,12 +215,13 @@ class ViewProfile extends GetView<ProfileDataController> {
   }
 }
 
-String _dateFormat(){
+
+String get _dateFormat{
   var dynamicDate= (Get.find<ProfileDataController>()
       .userProfile
       .data
       ?.dateOfBirth ??
       "");
   var formatDate = DateFormat("d MMM yyyy", 'en_US').parse(dynamicDate);
-  return  DateFormat("yyyy-MM-dd").format(formatDate);
+  return DateFormat("yyyy-MM-dd").format(formatDate);
 }

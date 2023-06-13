@@ -44,6 +44,7 @@ Future<void> initApp() async {
   Get.put(ConnectivityController(), permanent: true);
   Get.lazyPut(() => DownloadHelper(), fenix: true);
   Get.put(StatusController(),permanent: true);
+  Get.put(SettingController(),permanent: true);
   Get.put(ConnectivityController(), permanent: true);
   Get.lazyPut(() => AttendanceController(), fenix: true);
   Get.lazyPut(() => AttendanceLogsController(), fenix: true);
@@ -80,6 +81,9 @@ Future<void> initApp() async {
       const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.dark));
+
+  Get.find<SettingController>().getCurrencyData();
+
 
 
 }

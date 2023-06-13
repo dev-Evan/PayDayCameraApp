@@ -6,6 +6,7 @@ import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
+import 'package:pay_day_mobile/modules/home/presentation/home.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/deleted_address_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/add_address.dart';
@@ -21,13 +22,29 @@ class AddressDetails extends GetView<AddressDetailsController> {
   AddressDetails({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   Future navigator({context}){
+    //     return Navigator.pushReplacement(
+    //       context,
+    //       MaterialPageRoute(
+    //         builder: (BuildContext context) => Home(),
+    //       ),
+    //     );
+    //   }
+    //
+    // });
+
     return Scaffold(
       appBar: const CustomAppbar(),
       body: controller.obx(
               (state) => SingleChildScrollView(
             child: Column(
               children: [
-                customMoreAppbar(titleText: AppString.text_address_details),
+                customMoreAppbar(titleText: AppString.text_address_details,
+                
+                
+                ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
@@ -308,13 +325,10 @@ Future _deletedAlert({required context, onAction}) {
       context: context,
       icon: CupertinoIcons.delete,
       backAction: () {
-        if (Get.find<DeletedAddController>().newValue.toString().isNotEmpty) {
-          Navigator.pop(context);
-        } else {
-          Navigator.pop(context);
-          print(" Deleted ::::: asd");
-        }
+        Navigator.pop(context);
       },
       iconBgColor: Colors.orange.shade50,
       yesAction: () => onAction());
 }
+
+

@@ -15,19 +15,21 @@ class DeletedAddController extends GetxController with StateMixin {
   final DeletedAddRepository deletedAddRepository =
       DeletedAddRepository(NetworkClient());
   DeletedAddressModel  deletedAddressModel=DeletedAddressModel();
-
-
+  @override
+  void onInit() async {
+  await  Get.find<AddressDetailsController>().getEmployeeAddressData();
+    super.onInit();
+  }
   var newValue;
   void deletedAddressApi({required addressType, required context}) async {
     waitingLoader();
     try {
       await deletedAddRepository.deletedAddressRepo(addressType.toString())
-          .then((value) {
-              showCustomSnackBar(message: AppString.text_address_deleted_successfully);
-              newValue = '${value.toString()}';
-              _navigator(context: context);
-              Get.find<AddressDetailsController>().getEmployeeAddressData();
-
+          .then((value)  {
+        Get.find<AddressDetailsController>().getEmployeeAddressData();
+        Get.back();
+        showCustomSnackBar(message: AppString.text_address_deleted_successfully);
+        _navigator(context: context);
       }, onError: (error) {
         Get.back();
         print("Deleted Address ::: ${error.toString()}");

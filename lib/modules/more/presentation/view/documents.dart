@@ -5,7 +5,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_deleted_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/document_upload_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/update_document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/view_doc_file.dart';
@@ -54,7 +53,11 @@ class DocumentScreen extends GetView<DocumentController> {
                                     ""),
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.all(20.0),
+                                padding: EdgeInsets.only(
+                                    top: AppLayout.getHeight(0),
+                                    bottom: AppLayout.getHeight(20),
+                                    left: AppLayout.getWidth(20),
+                                    right: AppLayout.getWidth(20)),
                                 child: Column(
                                   children: [
                                     Expanded(
@@ -147,7 +150,8 @@ class DocumentScreen extends GetView<DocumentController> {
                                   ],
                                 ),
                               ),
-                            )
+                            ),
+                            customSpacerHeight(height: 52)
                           ],
                         ),
                       ),
@@ -188,30 +192,33 @@ class DocumentScreen extends GetView<DocumentController> {
 
   Widget _cardImage({required imageUrl}) {
     GetStorage().write("key", imageUrl);
-
-    return imageUrl.endsWith(".pdf")
-        ? _fileIcon(): FadeInImage(
-      image: NetworkImage(imageUrl),
-
-      placeholder: AssetImage(
-
-          Images.placeholder
-
-
+    return Container(
+      height: AppLayout.getHeight(66),
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(Dimensions.radiusDefault),
+            bottomLeft: Radius.circular(Dimensions.radiusDefault)),
+        child: imageUrl.endsWith(".pdf")
+            ? _fileIcon()
+            : FadeInImage(
+                image: NetworkImage(imageUrl),
+                placeholder: AssetImage(Images.placeholder),
+                imageErrorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    height: AppLayout.getHeight(66),
+                    decoration: AppStyle.ContainerStyle.copyWith(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(Dimensions.radiusDefault),
+                            bottomLeft:
+                                Radius.circular(Dimensions.radiusDefault)),
+                        image: DecorationImage(
+                            image: AssetImage(Images.placeholder),
+                            fit: BoxFit.cover)),
+                  );
+                },
+                fit: BoxFit.cover,
+              ),
       ),
-      imageErrorBuilder:
-          (context, error, stackTrace) {
-        return Container(
-                height: AppLayout.getHeight(66),
-                decoration: AppStyle.ContainerStyle.copyWith(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(Dimensions.radiusMid - 4),
-                        bottomLeft: Radius.circular(Dimensions.radiusMid - 4)),
-                    image: DecorationImage(
-                        image: AssetImage(Images.placeholder), fit: BoxFit.cover)),
-              );
-      },
-      fit: BoxFit.cover,
     );
   }
 }
@@ -314,13 +321,12 @@ Widget _editDeletedActionRow({required context, required id}) {
             Navigator.pop(context);
           }
 
-          Get.find<UpdateDocumentController>().filePath.value =
+      Get.find<UpdateDocumentController>().filePath.value =
               _box.read("key");
-
           customButtonSheet(
               context: context,
               height: 0.9,
-              child: const Padding(
+              child:  Padding(
                 padding: EdgeInsets.all(8.0),
                 child: UpdateDocument(),
               ));
@@ -416,3 +422,4 @@ Widget _cardShape({icon}) {
         ),
       ));
 }
+

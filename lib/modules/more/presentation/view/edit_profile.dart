@@ -12,6 +12,7 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/defult_date_of_b
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
+import '../widget/address_details_widget.dart';
 import '../widget/edit_address.dart';
 
 class EditProfile extends StatelessWidget {
@@ -99,11 +100,10 @@ class EditProfile extends StatelessWidget {
                     textFieldTitleText(titleText: AppString.text_gender_text),
                     Obx(() => dropDownField(context: context, locations: _locations)),
                     textFieldTitleText(titleText: AppString.text_phone),
-                    // phoneAndCountyField(
-                    //   hintText: AppString.text_not_added_yet,
-                    //   controller: Get.find<CustomTextEditingController>()
-                    //       .contactController,
-                    // ),
+                    phoneAndCountyField(
+                      controller: Get.find<CustomTextEditingController>()
+                          .contactController,
+                    ),
                     textFieldTitleText(
                         titleText: AppString.text_address_details),
                     InputNote(
