@@ -58,23 +58,21 @@ Widget circleAvatarStyle({final userImage}) {
         ),
         child: ClipOval(
           child: FadeInImage(
-            image: NetworkImage(userImage.toString()),
-            placeholder: AssetImage(
-              Get.find<ImagePickerController>().filePath.isEmpty
-                  ? Images.placeholder
-                  : Get.find<ImagePickerController>()
-                  .filePath
-                  .value,
-            ),
+            image: NetworkImage(userImage),
+            placeholder: Get.find<ImagePickerController>().pickedImage.value ==null
+  ? placeholderImages
+      : Image.file(File(Get.find<ImagePickerController>().pickedImage.value!.path))
+      .image,
             imageErrorBuilder: (context, error, stackTrace) {
-              return Image.asset(
-                Get.find<ImagePickerController>().filePath.isEmpty
-                    ? Images.placeholder
-                    : Get.find<ImagePickerController>()
-                    .filePath
-                    .value,
-                fit: BoxFit.cover,
+              return   CircleAvatar(
+                radius: 34,
+                backgroundColor: Colors.transparent,
+                backgroundImage: Get.find<ImagePickerController>().pickedImage.value ==null
+                    ? placeholderImages
+                    : Image.file(File(Get.find<ImagePickerController>().pickedImage.value!.path))
+                    .image,
               );
+
             },
             fit: BoxFit.cover,
           ),
@@ -97,6 +95,10 @@ Widget circleAvatarStyle({final userImage}) {
                   ))))
     ],
   );
+}
+
+AssetImage get placeholderImages {
+  return AssetImage(Images.placeholder);
 }
 
 Widget cardIconView({cardIcon}) {

@@ -10,6 +10,7 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile
 import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/user_status.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/view_profile_widget.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -47,27 +48,27 @@ Widget profileCardLayOut(
                     child: ClipOval(
                       child: FadeInImage(
                         image: NetworkImage(userImage),
-                        placeholder: AssetImage(
-                          Get.find<ImagePickerController>().filePath.isEmpty
-                              ? Images.placeholder
-                              : Get.find<ImagePickerController>()
-                                  .filePath
-                                  .value,
-                        ),
+                        placeholder: Get.find<ImagePickerController>().pickedImage.value ==null
+                            ? placeholderImages
+                            : Image.file(File(Get.find<ImagePickerController>().pickedImage.value!.path))
+                            .image,
                         imageErrorBuilder: (context, error, stackTrace) {
-                          return Image.asset(
-                            Get.find<ImagePickerController>().filePath.isEmpty
-                                ? Images.placeholder
-                                : Get.find<ImagePickerController>()
-                                    .filePath
-                                    .value,
-                            fit: BoxFit.cover,
+                          return   CircleAvatar(
+                            radius: 34,
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: Get.find<ImagePickerController>().pickedImage.value ==null
+                                ? placeholderImages
+                                : Image.file(File(Get.find<ImagePickerController>().pickedImage.value!.path))
+                                .image,
                           );
+
                         },
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
+
+
                   customSpacerWidth(width: 14),
                   Expanded(
                     child: Column(

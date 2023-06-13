@@ -80,15 +80,11 @@ class ViewProfile extends GetView<ProfileDataController> {
                   CustomNavigator(context: context, pageName: EditProfile());
                 }),
             customSpacerHeight(height: 10),
-            Obx(
-              () => circleAvatarStyle(
-                userImage: controller.userProfile.data?.profilePictureUrl ==
-                        null
-                    ? AssetImage(Images.user)
-                    : NetworkImage(
-                        controller.userProfile.data?.profilePictureUrl ?? ""),
-              ),
-            ),
+            Obx(() =>  circleAvatarStyle(
+              userImage:controller.userProfile.data?.profilePictureUrl.toString() ?? "",
+            ),),
+
+
             customSpacerHeight(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
