@@ -7,6 +7,8 @@ import 'package:pay_day_mobile/modules/more/domain/logout_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
+import '../../../../routes/app_pages.dart';
+
 class LogoutController extends GetxController with StateMixin {
   LogoutRepository logoutRepository=LogoutRepository(NetworkClient());
   final _box=GetStorage();
@@ -18,7 +20,7 @@ class LogoutController extends GetxController with StateMixin {
         logoutModel = value;
           _box.remove(AppString.STORE_TOKEN);
         Get.back();
-        Get.offNamed(AppString.signInScreen);
+        Get.offNamed(Routes.SIGN_IN);
         Get.put(AuthController());
       }, onError: (error) {
         print(error.message);

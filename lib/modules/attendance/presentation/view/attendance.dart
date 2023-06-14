@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/widget/custom_app_button.dart';
 import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
@@ -82,14 +83,22 @@ class Attendance extends GetView<AttendanceController> {
     );
   }
 
-  _upperLayout() => Container(
+  _upperLayout() => Obx(() => Container(
         width: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(16),
               bottomRight: Radius.circular(16)),
-          gradient: LinearGradient(
-              colors: [AppColor.gradientBlueOne, AppColor.gradientBlueTwo]),
+          gradient: controller.logs.value.data != null &&
+                  controller.logs.value.data!.todayOvertime.toDouble() > 0
+              ? LinearGradient(colors: [
+                  AppColor.overTimeGradientOne,
+                  AppColor.overTimeGradientTwo
+                ])
+              : LinearGradient(colors: [
+                  AppColor.balanceTimeGradientOne,
+                  AppColor.balanceTimeGradientTwo
+                ]),
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -111,6 +120,7 @@ class Attendance extends GetView<AttendanceController> {
                   await controller.getLatLong();
                   _openBottomSheet();
                 }),
+                punchOutLayout(),
                 customSpacerHeight(height: 20),
                 Obx(() => dotIndicator(controller.currentIndex.value)),
                 attendanceLogText(
@@ -130,5 +140,26 @@ class Attendance extends GetView<AttendanceController> {
                     }),
               ]),
         ),
-      );
+      ));
+}
+
+punchOutLayout() {
+  return Row(
+    children: [
+      AppButton(
+        buttonText: AppString.text_punch_out,
+        onPressed: () {},
+        buttonColor: Colors.white.withOpacity(.18),
+        iconsData: Icons.logout,
+        textColor: Colors.white,
+      ),
+      customSpacerWidth(width: 8),
+      AppButton(
+          buttonText: AppString.text_punch_out,
+          onPressed: () {},
+          buttonColor: Colors.transparent,
+          borderColor: Colors.white,
+      iconsData: Icons.local_cafe_outlined),
+    ],
+  );
 }

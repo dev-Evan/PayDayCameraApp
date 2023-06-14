@@ -13,7 +13,7 @@ import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_string.dart';
 import '../../../../utils/app_style.dart';
 import '../../../../utils/dimensions.dart';
-import '../../../../utils/color_picker_helper.dart';
+import '../../../../utils/utils.dart';
 
 Widget contentLayout() {
   return Container(

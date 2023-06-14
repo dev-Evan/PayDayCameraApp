@@ -88,11 +88,6 @@ class MoreDataController extends GetxController with StateMixin {
     box.write(AppString.BANK_USER_ID_STORE, info?.data!.id);
   }
 
-
-
-
-
-
   updateBankInfo({required context}) async {
     waitingLoader();
     await moreDataRepository.UpdateBankInfoRepo(

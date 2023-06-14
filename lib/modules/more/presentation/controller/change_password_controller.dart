@@ -9,6 +9,8 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_ed
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
+import '../../../../routes/app_pages.dart';
+
 
 class ChangePassController extends GetxController with StateMixin {
   final ChangePassDataSource changePassDataSource =
@@ -25,7 +27,7 @@ class ChangePassController extends GetxController with StateMixin {
         GetStorage().remove(AppString.STORE_TOKEN);
         Get.back();
         showCustomSnackBar(message:AppString.text_password_update_successfully);
-        Get.offNamed(AppString.signInScreen);
+        Get.offNamed(Routes.SIGN_IN);
         Get.put(AuthController());
       }, onError: (error) {
         print(error.toString());

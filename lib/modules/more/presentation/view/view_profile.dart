@@ -18,7 +18,7 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.
 import 'package:pay_day_mobile/modules/more/presentation/widget/view_profile_widget.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import 'package:pay_day_mobile/utils/color_picker_helper.dart';
+import 'package:pay_day_mobile/utils/utils.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
 class ViewProfile extends GetView<ProfileDataController> {

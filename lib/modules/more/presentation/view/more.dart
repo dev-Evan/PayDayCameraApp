@@ -11,11 +11,10 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/salary_overv
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/more_widget.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/profile_container_layout.dart';
-import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
+import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-
 import '../../../../common/widget/custom_spacer.dart';
 
 class MoreScreen extends GetView<ProfileDataController> {
@@ -36,7 +35,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     profileCardLayOut(
+                    profileCardLayOut(
                         context: context,
                         userImage: controller
                             .userProfile.data?.profilePictureUrl.toString() ??
@@ -64,7 +63,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                     cardIcon: Images.folder,
                                     cardText: AppString.text_documents,
                                     onAction: () async {
-                                      Get.toNamed(AppString.documentScreen);
+                                      Get.toNamed(Routes.DOCUMENT_SCREEN);
                                       await Get.find<DocumentController>()
                                           .getDocumentData();
                                     }),
@@ -72,7 +71,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                     cardIcon: Images.clock,
                                     cardText: AppString.text_job_history,
                                     onAction: () async {
-                                      Get.toNamed(AppString.jobHistory);
+                                      Get.toNamed(Routes.JOB_HISTORY);
                                       await Get.find<JobHistoryController>()
                                           .getJobHistoryData();
                                     }),
@@ -80,7 +79,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                   cardIcon: Images.credit_card,
                                   cardText: AppString.text_salary_overview,
                                   onAction: () async {
-                                    Get.toNamed(AppString.salaryOverView);
+                                    Get.toNamed(Routes.SALARY_OVERVIEW);
                                     await Get.find<
                                         SalaryOverviewController>()
                                         .getSalaryOveData();
@@ -90,7 +89,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                   cardIcon: Images.department,
                                   cardText: AppString.text_bank_details,
                                   onAction: () async {
-                                    Get.toNamed(AppString.bankDetails);
+                                    Get.toNamed(Routes.BANK_DETAILS);
                                     await Get.find<MoreDataController>()
                                         .getBankInfo();
                                   },
@@ -100,7 +99,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                     cardText:
                                     AppString.text_address_details,
                                     onAction: () async {
-                                      Get.toNamed(AppString.addressDetails);
+                                      Get.toNamed(Routes.ADDRESS_DETAILS);
                                       await Get.find<
                                           AddressDetailsController>()
                                           .getEmployeeAddressData();
@@ -111,7 +110,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                   cardIcon: Images.note,
                                   cardText: AppString.text_about_this_app,
                                   onAction: () =>
-                                      Get.toNamed(AppString.aboutPage),
+                                      Get.toNamed(Routes.ABOUT_PAGE),
                                 ),
                                 jobDeskCard(
                                   cardIcon: Images.log_out,

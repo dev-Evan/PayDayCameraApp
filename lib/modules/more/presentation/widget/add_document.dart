@@ -1,16 +1,13 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
-import 'package:pay_day_mobile/modules/more/data/document_upload_repo.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_upload_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
@@ -19,7 +16,6 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
 
 class AddDocument extends StatefulWidget {
@@ -148,7 +144,10 @@ class _AddDocumentState extends State<AddDocument> {
                                       ),
                                     ],
                                   ),
+
                                 )))), //),
+
+
 
                   customSpacerHeight(height: 8),
                   Obx(() => Text(
@@ -197,6 +196,10 @@ class _AddDocumentState extends State<AddDocument> {
     );
   }
 }
+
+
+
+
 
 Widget _dottedBorder({required child}) {
   return DottedBorder(

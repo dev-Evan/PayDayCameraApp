@@ -1,27 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
+import '../../../../utils/images.dart';
 import '../controller/notication_controller.dart';
 
 class Notifications extends GetView<NotificationController> {
-  const  Notifications({Key? key}) : super(key: key);
+  const Notifications({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return controller.obx(
         (state) => Scaffold(
-              body: ListView(
-                controller: controller.scrollController,
-                children: [
-                  _notificationAppbar(),
-                  _contentLayout(),
-                ],
+              body: SafeArea(
+                child: ListView(
+                  controller: controller.scrollController,
+                  children: [
+                    _notificationAppbar(),
+                    controller.allNotifications.length == 0
+                        ? SizedBox(
+                            height: AppLayout.getSize(context).height -
+                                Get.statusBarHeight,
+                            child: Center(
+                              child: logoView(
+                                  url: Images.no_data_found,
+                                  width: 150,
+                                  height: 150),
+                            ),
+                          )
+                        : _contentLayout(),
+                  ],
+                ),
               ),
             ),
         onLoading: const LoadingIndicator());
@@ -96,14 +111,15 @@ class Notifications extends GetView<NotificationController> {
           onTap: () => controller.notificationAaALLRead(),
           child: Padding(
             padding: EdgeInsets.only(
-                top: AppLayout.getHeight(2),
-                right: AppLayout.getWidth(20),
+              top: AppLayout.getHeight(2),
+              right: AppLayout.getWidth(20),
             ),
             child: Align(
               alignment: Alignment.center,
-              child: Text(AppString.mark_read,
+              child: Text(
+                AppString.mark_read,
                 style: AppStyle.normal_text
-                    .copyWith(color: AppColor.primaryBlue,fontSize: 16),
+                    .copyWith(color: AppColor.primaryBlue, fontSize: 16),
               ),
             ),
           ),

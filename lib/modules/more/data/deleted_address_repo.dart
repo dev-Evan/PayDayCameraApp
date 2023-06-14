@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
+import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import '../../../common/domain/error_model.dart';
-import '../../../utils/app_string.dart';
 import '../domain/deleted_address_model.dart';
 
 class DeletedAddRepository {
@@ -11,7 +11,7 @@ class DeletedAddRepository {
   Future<DeletedAddressModel> deletedAddressRepo(String addressType,) async {
     try {
       Response  response = await networkClient.postRequest(
-        AppString.DELETED_ADDRESS,
+        Api.DELETED_ADDRESS,
         {
           "type":addressType,
         },

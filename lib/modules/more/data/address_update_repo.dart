@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/domain/error_model.dart';
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/more/domain/address_update_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
+import 'package:pay_day_mobile/utils/api_endpoints.dart';
 
 class AddressUpdateDataSource {
   final NetworkClient networkClient;
@@ -11,7 +10,7 @@ class AddressUpdateDataSource {
   Future<AddressUpdateModel> getAddressUpdate(area,city,county,details,phoneNumber,state,type,zipCode) async {
     try {
       Response response = await networkClient.postRequest(
-        AppString.ADDRESS_UPDATE,
+        Api.ADDRESS_UPDATE,
         {
           "area": area,
           "city": city,

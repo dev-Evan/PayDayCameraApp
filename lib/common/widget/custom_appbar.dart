@@ -6,8 +6,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-
-import '../../utils/app_string.dart';
+import '../../routes/app_pages.dart';
 
 class CustomAppbar extends GetView<NotificationController>
     implements PreferredSizeWidget {
@@ -18,10 +17,11 @@ class CustomAppbar extends GetView<NotificationController>
     return Obx(() => AppBar(
           scrolledUnderElevation: .5,
           leadingWidth: AppLayout.getWidth(140),
-          toolbarHeight: AppLayout.getHeight(40),
+          toolbarHeight: AppLayout.getHeight(44),
           backgroundColor: AppColor.cardColor,
           leading: Padding(
-            padding:  EdgeInsets.only(left: 12.0,bottom: AppLayout.getHeight(8)),
+            padding:
+                EdgeInsets.only(left: AppLayout.getWidth(18), bottom: AppLayout.getHeight(8)),
             child: logoView(height: 20, width: 20),
           ),
           actions: [
@@ -31,7 +31,7 @@ class CustomAppbar extends GetView<NotificationController>
                 IconButton(
                   padding: EdgeInsets.only(bottom: AppLayout.getHeight(8)),
                   onPressed: () async {
-                    Get.toNamed(AppString.notification_screen);
+                    Get.toNamed(Routes.NOTIFICATION_SCREEN);
                   },
                   icon: Icon(
                     Icons.notifications_none,
@@ -55,7 +55,7 @@ class CustomAppbar extends GetView<NotificationController>
   }
 
   @override
-  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(43));
+  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(45));
 }
 
 Widget logoView({double? height = 35, double? width = 35, String? url,Color?color } ) {

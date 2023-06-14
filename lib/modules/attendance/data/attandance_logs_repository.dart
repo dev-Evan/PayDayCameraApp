@@ -1,11 +1,9 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/request_attendance/request_attendance.dart';
 import 'package:pay_day_mobile/common/domain/error_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
-
+import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import '../../../common/domain/success_model.dart';
 import '../domain/all_log_summary/all_log_summay.dart';
 import '../domain/log_summary/log_summary.dart';
@@ -19,7 +17,7 @@ class AttendanceLogsRepository {
   Future<LogSummary> getLogSummaryByThisMonth() async {
     try {
       Response response =
-          await networkClient.getRequest(AppString.LOG_SUMMARY_BY_THIS_MONTH);
+          await networkClient.getRequest(Api.LOG_SUMMARY_BY_THIS_MONTH);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -33,7 +31,7 @@ class AttendanceLogsRepository {
   Future<LogSummary> getLogSummaryByThisYear() async {
     try {
       Response response =
-          await networkClient.getRequest(AppString.LOG_SUMMARY_BY_THIS_YEAR);
+          await networkClient.getRequest(Api.LOG_SUMMARY_BY_THIS_YEAR);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -49,7 +47,7 @@ class AttendanceLogsRepository {
     queryParams ??= "within=thisMonth";
     try {
       Response response = await networkClient
-          .getRequest("${AppString.DETAILS_SUMMARY}$queryParams");
+          .getRequest("${Api.DETAILS_SUMMARY}$queryParams");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -64,8 +62,8 @@ class AttendanceLogsRepository {
       {required String queryParams, int? page = 1}) async {
     try {
       Response response = await networkClient.getRequest(
-          "${AppString.SUMMARY_ALL_LOG}$queryParams&timezone=${DateTime.now().timeZoneName}&per_page=10&page=$page");
-      print("${AppString.SUMMARY_ALL_LOG}$queryParams&timezone=${DateTime.now().timeZoneName}&page=$page");
+          "${Api.SUMMARY_ALL_LOG}$queryParams&timezone=${DateTime.now().timeZoneName}&per_page=10&page=$page");
+      print("${Api.SUMMARY_ALL_LOG}$queryParams&timezone=${DateTime.now().timeZoneName}&page=$page");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -80,7 +78,7 @@ class AttendanceLogsRepository {
       RequestAttendanceChangeReq attendanceChangeReq) async {
     try {
       Response response = await networkClient.postRequest(
-          AppString.REQUEST_ATTENDANCE,
+          Api.REQUEST_ATTENDANCE,
           json.encode(attendanceChangeReq.toJson()));
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));

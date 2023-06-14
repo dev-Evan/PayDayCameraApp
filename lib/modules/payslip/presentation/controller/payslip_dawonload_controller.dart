@@ -4,12 +4,13 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
+import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class PayslipDownlaodController extends GetxController with StateMixin {
-  var url = AppString.BASE_URL + AppString.PAYSLIP_DOWNLOAD;
+  var url = Api.BASE_URL + Api.PAYSLIP_DOWNLOAD;
   Future<void> payslipDownload(
       {required id, required token, required date}) async {
     Map<Permission, PermissionStatus> statuses = await [

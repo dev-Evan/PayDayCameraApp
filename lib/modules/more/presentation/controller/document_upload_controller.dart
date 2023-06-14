@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
@@ -9,8 +7,8 @@ import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/view/documents.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
+import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
 class FileUploadController extends GetxController {
@@ -28,7 +26,9 @@ class FileUploadController extends GetxController {
     }
   }
 
-  var baseUrl = AppString.BASE_URL + AppString.DOCUMENT_UPLOAD;
+
+
+  var baseUrl = Api.BASE_URL + Api.DOCUMENT_UPLOAD;
   late var accessToken = _box.read(AppString.ACCESS_TOKEN);
   late var accessId = _box.read(AppString.ID_STORE);
   Future<void> uploadFile() async {

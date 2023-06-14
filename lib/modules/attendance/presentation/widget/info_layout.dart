@@ -7,7 +7,7 @@ import 'package:pay_day_mobile/modules/attendance/presentation/controller/attend
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import '../../../../utils/app_string.dart';
 import '../../../../utils/app_style.dart';
-import '../../../../utils/color_picker_helper.dart';
+import '../../../../utils/utils.dart';
 
 Widget infoLayout() {
   var controller = Get.find<AttendanceController>();
