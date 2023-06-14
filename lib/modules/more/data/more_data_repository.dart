@@ -17,7 +17,9 @@ class MoreDataRepository {
   Future<BankInfoModel> bankInfoRepo() async {
     try {
       Response response =
+
           await networkClient.getRequest(Api.EMPLOYEE_BANK_INFORMATION);
+
       print(response.body);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
@@ -32,7 +34,7 @@ class MoreDataRepository {
   }
 
   Future<AddBankInfoModel> AddBankInfoRepo(String bankName, String code, String branchName, String accountTitle, String accountHolderName, String accountNumber, String taxPayerId,
-  ) async {
+      ) async {
     try {
       Response response = await networkClient.postRequest(
         Api.EMPLOYEE_BANK_INFORMATION,

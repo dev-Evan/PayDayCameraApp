@@ -21,7 +21,6 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.find<SettingController>().getCurrencyData();
 
     return Scaffold(
         appBar: const CustomAppbar(),
@@ -75,8 +74,8 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
                                 children: [
                                   customSpacerHeight(height: 158),
                                   logoView(
-                                    height: 190,
-                                    width: 190,
+                                    height: 170,
+                                    width: 170,
                                     url: Images.no_data_found,
                                   ),
                                 ],

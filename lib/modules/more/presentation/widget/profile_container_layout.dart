@@ -1,16 +1,19 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/change_profile_img_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/user_status.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/view_profile_widget.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
+import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
 import '../../../../common/widget/custom_spacer.dart';
-import '../../../../routes/app_pages.dart';
+import '../view/view_profile.dart';
+
 
 Widget profileCardLayOut(
     {context, userName, final userImage, userEmail, statusText}) {
@@ -30,18 +33,37 @@ Widget profileCardLayOut(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    backgroundImage:
-                        Get.find<ImagePickerController>().pickedImage.value ==
-                                null
-                            ? userImage
-                            : Image.file(File(Get.find<ImagePickerController>()
-                                    .pickedImage
-                                    .value!
-                                    .path))
+                  Container(
+                    height: AppLayout.getHeight(54),
+                    width: AppLayout.getWidth(54),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.transparent,
+                    ),
+                    child: ClipOval(
+                      child: FadeInImage(
+                        image: NetworkImage(userImage),
+                        placeholder: Get.find<ImagePickerController>().pickedImage.value ==null
+                            ? placeholderImages
+                            : Image.file(File(Get.find<ImagePickerController>().pickedImage.value!.path))
+                            .image,
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return   CircleAvatar(
+                            radius: 34,
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: Get.find<ImagePickerController>().pickedImage.value ==null
+                                ? placeholderImages
+                                : Image.file(File(Get.find<ImagePickerController>().pickedImage.value!.path))
                                 .image,
-                    radius: 28,
+                          );
+
+                        },
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
+
+
                   customSpacerWidth(width: 14),
                   Expanded(
                     child: Column(
@@ -58,7 +80,13 @@ Widget profileCardLayOut(
               ),
               const Spacer(),
               _moveProfileView(
-                  onAction: () => Get.toNamed(Routes.PROFILE_VIEW)),
+                  onAction: (){
+                    SchedulerBinding.instance.addPostFrameCallback((_)=>
+                      Navigator.push(context, new MaterialPageRoute(
+                              builder: (context) => ViewProfile())),);
+                  }
+              ),
+
               customSpacerHeight(height: 8),
             ],
           ),
@@ -110,5 +138,13 @@ Widget _viewProfileText() {
   return Text(
     AppString.text_view_profile,
     style: AppStyle.small_text.copyWith(fontSize: Dimensions.fontSizeDefault),
+  );
+}
+Future navigatorForViewProfile({context}){
+  return Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (BuildContext context) => ViewProfile(),
+    ),
   );
 }

@@ -25,7 +25,7 @@ class PaySlip extends GetView<PayslipListController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.getPayslipListData(value: thisYarKey());
+   controller.getPayslipListData(value: thisYarKey());
     controller.getSummaryData();
     return controller.obx(
         (state) => Scaffold(
@@ -79,7 +79,7 @@ class PaySlip extends GetView<PayslipListController> {
                         viewDate(
                             dateText:
                             Get.find<DropdownBtnStdController>().sltDate.toString()),
-
+                        customSpacerHeight(height: 12),
                         ( controller.payslipListModel.data?.payslips !=null &&
                         controller.payslipListModel.data!.payslips!.isNotEmpty)
                             ? ListView.builder(
@@ -102,7 +102,7 @@ class PaySlip extends GetView<PayslipListController> {
                                               .payslipListModel
                                               .data
                                               ?.payslips?[index]
-                                              .basicSalary ??
+                                              .netSalary ??
                                           "",
                                       statusText: controller
                                               .payslipListModel
@@ -119,8 +119,7 @@ class PaySlip extends GetView<PayslipListController> {
                                       endDate: controller.payslipListModel.data?.payslips?[index].endDate ?? "",
                                       monthly: controller.payslipListModel.data?.payslips?[index].period ?? "",
                                   indexId: controller.payslipListModel.data?.payslips?[index].id.toString() ?? ""
-                                  );
-                                },
+                                  );},
                               )
                             : Center(
                           child: Column(
@@ -141,8 +140,7 @@ class PaySlip extends GetView<PayslipListController> {
                 ),
               ),
             ),
-        onLoading: const LoadingIndicator());
-  }
+        onLoading: const LoadingIndicator());}
 }
 
 

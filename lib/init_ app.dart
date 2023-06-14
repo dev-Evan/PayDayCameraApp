@@ -43,10 +43,11 @@ Future<void> initApp() async {
   Get.put(ConnectivityController(), permanent: true);
   Get.lazyPut(() => DownloadHelper(), fenix: true);
   Get.put(StatusController(),permanent: true);
+  Get.put(SettingController(),permanent: true);
   Get.put(ConnectivityController(), permanent: true);
   Get.lazyPut(() => AttendanceController(), fenix: true);
   Get.lazyPut(() => AttendanceLogsController(), fenix: true);
-  Get.lazyPut(() => LeaveController());
+  Get.lazyPut(() => LeaveController(),fenix: true);
   Get.lazyPut(() => NotificationController(), fenix: true);
   Get.lazyPut(() => AttendanceController(), fenix: true);
   Get.lazyPut(() => AttendanceLogsController(), fenix: true);
@@ -72,7 +73,6 @@ Future<void> initApp() async {
   Get.lazyPut(() => UpdateDocumentController(), fenix: true);
   Get.lazyPut(() => AuthController(), fenix: true);
   Get.lazyPut(() => MoreDataController(), fenix: true);
-  Get.lazyPut(() => LeaveController(),fenix: true);
   Get.lazyPut(() => CustomTextEditingController(),fenix: true);
   Get.lazyPut(() => DatePickerController(),fenix: true);
 
@@ -80,6 +80,9 @@ Future<void> initApp() async {
       const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.dark));
+
+  Get.find<SettingController>().getCurrencyData();
+
 
 
 }

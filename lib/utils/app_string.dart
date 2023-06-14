@@ -36,7 +36,8 @@ class AppString {
   static String text_first_half = "First Half";
   static String text_last_half = "Last Half";
   static const String text_are_you_sure = "Are you sure?";
-  static String text_export_attendance = "Export Attendance?";
+  static const String text_are_you_sure_want_to_exit_from_app = "Are you sure you want to exit from App";
+  static const String text_export_attendance = "Export Attendance?";
   static const String text_dialog_dec = "If you do this, you cannot turn back";
   static String text_dialog_dec_pdf = "December Attendance.pdf";
   static String error_text = "Something went wrong! Please try again";
@@ -48,6 +49,7 @@ class AppString {
   static String text_please_selected_date = "Please selected date";
   static String text_please_selected_document = "Please selected document";
   static String text_field_is_requird = "Field is required !";
+  static String text_document_name_is_required = "Document name is required !";
   static String text_alert = "Alert";
   static String text_next = "Next";
   static String text_search = "Search";
@@ -125,60 +127,74 @@ class AppString {
   static String text_request = 'Request';
   static String text_date = 'Date';
   static String text_select_date = 'Select Date';
-  static String text_leve_records = "Leve Records";
-  static String text_availability = "Availability";
-  static String text_taken = "Taken";
-  static String text_casual = "Casual";
-  static String text_sick = "Sick";
-  static String text_paid_sick = "Paid Sick";
-  static String text_apply_leve = "Apply Leave";
-  static String text_apply = "Apply";
-  static String text_leave_records = "Leave Records";
-  static String text_upcomming = "Upcoming";
-  static String text_singleDay = "Single Day";
-  static String text_multiday = "Multi Day";
-  static String text_attendance_duration = "Attendance Duration";
-  static String text_leave_details = "Leave Details";
-  static String text_3_hour = "3 hours";
-  static String text_two_attachments = "Two Attachments";
-  static String text_paid_casual = "Paid Casual";
-  static String text_two_attachment = "Two Attachments";
-  static String text_cancel_leave = "Cancel Leave";
-  static String text_log_response = "Log Response";
-  static String text_leve_note = "Leave note";
-  static String text_half_day = "Half Day";
-  static String text_start_day = "Start Day";
-  static String text_end_day = "End Day";
-  static String text_interval = "Interval";
-  static String text_last = "Last";
-  static String text_first = "First";
-  static String text_enter_first_name = "Enter first name";
-  static String text_enter_last_name = "Enter last name";
-  static String text_enter_email = "Enter email";
-  static String text_not_added_yet = "Not added yet";
-  static String text_add_about_me_here = "Add about me here";
-  static String text_if_any = "(if any)";
-  static String text_attachments = "Attachments";
-  static String text_add_reason_note_here = "Add reason note here";
-  static String text_paid = "Paid";
-  static String text_unpaid = "Unpaid";
-  static String text_unpaid_casual = "Unpaid Casual";
-  static String text_unpaid_sick = "Unpaid Sick";
-  static String text_conflicted = "Conflicted";
-  static String text_sent = "Sent";
-  static String text_payslip_for = "Payslip for";
-  static String text_create_at = "Create at";
-  static String text_beneficiary = "Beneficiary";
-  static String text_allowances = "Allowances";
-  static String text_bonus = "Bonus";
-  static String text_medical = "Medical";
-  static String text_food_ = "Food";
-  static String text_percent = " 2\%";
-  static String text_transport = "Transport";
-  static String text_deductions = "Deductions";
-  static String text_tax = "Tax";
-  static String text_total_summary = "Total Summary";
-  static String text_download_payslip = "Download Payslip";
+
+  // Leave modules string here
+  static const String text_leve_records = "Leve Records";
+  static const String text_availability = "Availability";
+  static const String text_taken = "Taken";
+  static const String text_casual = "Casual";
+  static const String text_sick = "Sick";
+  static const String text_paid_sick = "Paid Sick";
+  static const String text_apply_leve = "Apply Leave";
+  static const String text_apply = "Apply";
+  static const String text_leave_records = "Leave Records";
+  static const String text_upcomming = "Upcoming";
+  static const String text_singleDay = "Single Day";
+  static const String text_multiday = "Multi Day";
+  static const String text_attendance_duration = "Attendance Duration";
+  static const String text_leave_details = "Leave Details";
+  static const String text_3_hour = "3 hours";
+  static const String text_two_attachments = "Two Attachments";
+  static const String text_paid_casual = "Paid Casual";
+  static const String text_two_attachment = "Two Attachments";
+  static const String text_cancel_leave = "Cancel Leave";
+  static const String text_log_response = "Log Response";
+  static const String text_leve_note = "Leave note";
+  static const String text_half_day = "Half Day";
+  static const String text_start_day = "Start Day";
+  static const String text_end_day = "End Day";
+  static const String text_interval = "Interval";
+  static const String text_last = "Last";
+  static const String text_first = "First";
+
+  static const String text_enter_first_name = "Enter first name";
+  static const String text_enter_last_name = "Enter last name";
+  static const String text_enter_email = "Enter email";
+  static const String text_not_added_yet = "Not added yet";
+  static const String text_add_about_me_here = "Add about me here";
+
+
+
+  static const String text_if_any = "(if any)";
+  static const String text_attachments = "Attachments";
+  static const String text_add_reason_note_here = "Add reason note here";
+
+  //PaySlip modules string here
+
+  static const String text_paid = "Paid";
+  static const String text_unpaid = "Unpaid";
+  static const String text_unpaid_casual = "Unpaid Casual";
+  static const String text_unpaid_sick = "Unpaid Sick";
+  static const String text_conflicted = "Conflicted";
+  static const String text_sent = "Sent";
+  static const String text_payslip_for = "Payslip for";
+  static const String text_create_at = "Create at";
+  static const String text_beneficiary = "Beneficiary";
+  static const String text_allowances = "Allowances";
+  static const String text_bonus = "Bonus";
+  static const String text_medical = "Medical";
+  static const String text_food_ = "Food";
+  static const String text_percent = " 2\%";
+  static const String text_transport = "Transport";
+  static const String text_deductions = "Deductions";
+  static const String text_payslip_id = "PAYSLIP ID";
+  static const String text_tax = "Tax";
+  static const String text_total_summary = "Total Summary";
+  static const String text_download_payslip = "Download Payslip";
+
+
+
+
   static String text_payrun_details = "Payrun Details";
   static String text_period = "Period";
   static String text_consider_type = "Consider Type";
@@ -332,12 +348,20 @@ class AppString {
       "Profile update successfully!";
   static String text_profile_picture_update_successfully =
       "Profile picture has been updated successfully";
+  static String text_file_upload_update_successfully =
+      "File upload has been updated successfully";  static String text_file_upload_file =
+      "Failed to upload file";
+  static String text_bank_details_deleted_successfully =
+      "Bank details has been deleted successfully";
+  static String text_bank_details_update_successfully =
+      "Bank details has been update successfully";
   static String text_address_deleted_successfully =
       "Address deleted successfully";
   static String text_password_update_successfully =
       "Password has been updated successfully";
   static String text_address_update_successfully =
-      "Address has been updated successfully";
+      "Address has been updated successfully";static String text_address_added_successfully =
+      "Address has been added successfully";
   static String text_payslip_download_successfully =
       "Payslip download successfully!";
   static String text_something_wrong = "Something wrong !";
@@ -354,43 +378,95 @@ class AppString {
   static String text_calender_text = "Calender";
   static String text_about_me_dec =
       "Hello. I am an UX/UI designer. I am in love with designing since my childhood. It gives me the freedom of my mind and helps me to express myself and my personality ";
-  static String ID_STORE = "store";
-  static String ACCESS_TOKEN = "access_token";
-  static String USER_NAME = "user_name";
-  static String STORE_TOKEN = "storeToken";
-  static String LOGIN_CHECK_KEY = "loginCheckValue";
-  static String STORE_DATE = "storeData";
-  static String STORE_ADDRESS = "storeAddress";
-  static String STORE_DOC_USER_ID = "StoreDocUserId";
-  static String LOGIN_VALUE = "LogInValue";
-  static String REMEMBER_VALUE = "rememberValue";
-  static String REMEMBER_KEY = "rememberKey";
-  static String CURRENT_DATE = "currentDate";
-  static String STORE_COUNTY = "storeCounty";
-  static String STORE_CURRENCY = "storeCurrency";
-  static String STORE_PAYSLIP_LIST_ID = "storePayslipListId";
-  static String STORE_DOC_NAME = "storeDocName";
-  static String STORE_DOC_NAME_TEXT = "store_doc_text";
-  static String STORE_DOC_Id = "store_doc_id";
-  static String BANK_USER_ID_STORE = "bank_user_id";
-  static String PAYSLIP_DATE_RANGE = "payslip_date_range";
-  static String forgotPassword = "Forgot password?";
-  static String rememberMe = "Remember me";
-  static String fieldIsRequired = "Field is required !";
-  static String the_first_name_field_is_required =
-      "The first name field is required.";
-  static String the_old_password_field_is_required =
-      "The old password field is required.";
-  static String the_new_password_field_is_required =
-      "The new password field is required.";
-  static String the_confirm_password_field_is_required =
-      "The confirm password field is required.";
-  static String the_email_field_is_required = "The email field is required.";
-  static String the_gender_field_is_required = "The gender field is required.";
-  static String enterYourPassword = "Enter your password";
-  static String enterYourEmail = "Enter your email";
-  static String password = "Password";
-  static String email = "Email";
-  static String login = "Log In";
-  static String hi_login_to_your_dashboard = "Hi, login to your dashboard ";
+
+
+  // Local store string here
+  static const String ID_STORE = "store";
+  static const String ACCESS_TOKEN = "access_token";
+  static const String USER_NAME = "user_name";
+  static const String STORE_TOKEN = "storeToken";
+  static const String LOGIN_CHECK_KEY = "loginCheckValue";
+  static const String STORE_DATE = "storeData";
+  static const String STORE_ADDRESS = "storeAddress";
+  static const String STORE_DOC_USER_ID = "StoreDocUserId";
+  static const String LOGIN_VALUE = "LogInValue";
+  static const String REMEMBER_VALUE = "rememberValue";
+  static const String REMEMBER_KEY = "rememberKey";
+  static const String CURRENT_DATE = "currentDate";
+  static const String STORE_COUNTY = "storeCounty";
+  static const String STORE_CURRENCY = "storeCurrency";
+  static const String STORE_PAYSLIP_LIST_ID = "storePayslipListId";
+  static const String STORE_DOC_NAME = "storeDocName";
+  static const String STORE_DOC_NAME_TEXT = "store_doc_text";
+  static const String STORE_DOC_Id = "store_doc_id";
+  static const String BANK_USER_ID_STORE = "bank_user_id";
+  static const String PAYSLIP_DATE_RANGE = "payslip_date_range";
+  static const String STORE_CURRENT_PASSWORD = "store_current_password";
+  static const String STORE_CURRENT_EMAIL = "store_current_email";
+
+// Auth String
+
+  static const String forgotPassword = "Forgot password?";
+  static const String rememberMe = "Remember me";
+  static const String fieldIsRequired = "Field is required !";
+  static const String the_first_name_field_is_required = "The first name field is required.";
+  static const String the_password_field_is_required = "The password field is required.";
+  static const String please_insert_a_valid_email_address = "Please insert a valid email address";
+  static const String incorrect_user_or_password = "Incorrect user or password";
+  static const String the_details_must_be_at_least_3_character = "The details must be at least 3 characters";
+  static const String old_password_incorrect = "Old password is incorrect";
+  static const String please_add_permanent_address = "Please add permanent address";
+
+
+  static const String the_old_password_field_is_required = "The old password field is required.";
+  static const String the_new_password_field_is_required = "The new password field is required.";
+  static const String the_confirm_password_field_is_required = "The confirm password field is required.";
+
+  static const String the_old_password_must_be_at_least_6_character= "The old password must be at least 6 characters.";
+  static const String cant_not_be_correct_please_follow_this= "Can't be correct please follow this  ( r#AG!3c4 )";
+  static const String password_must_contains_number_and_etc= "Password must contains number, lowercase, uppercase and special character";
+  static const String the_password_must_be_at_least_8_character= "The password must be at least 8 characters.";
+  static const String the_password_confirmation_does_not_match= "The password confirmation does not match.";
+
+
+
+
+
+  static const String the_email_field_is_required = "The email field is required.";
+  static const String the_gender_field_is_required = "The gender field is required.";
+  static const String enterYourPassword = "Enter your password";
+  static const String enterYourEmail = "Enter your email";
+  static const String password = "Password";
+  static const String email = "Email";
+  static const String login = "Log In";
+  static const String hi_login_to_your_dashboard =
+      "Hi, login to your dashboard ";
+
+  // Route string here
+  static const String splashScreen = "/splash_screen";
+  static const String signInScreen = "/signIn_screen";
+  static const String forgotScreen = "/forgot_screen";
+  static const String receiveScreen = "/receive_screen";
+  static const String onboardScreen = "/onboard_screen";
+  static const String attendLogScreen = "/attendLog_screen";
+  static const String moreScreen = "/more_screen";
+  static const String home = "/home";
+  static const String calender = "/calender_screen";
+  static const String payslip = "/payslip_screen";
+  static const String leave = "/leave_screen";
+  static const String profileView = "/profileView_screen";
+  static const String updateDocument = "/updateDocument_screen";
+  static const String network_error = "/network_error";
+  static const String documentScreen = "/document_screen";
+  static const String jobHistory = "/jobHistory_screen";
+  static const String salaryOverView = "/salaryOverView_screen";
+  static const String bankDetails = "/bankDetails_screen";
+  static const String addressDetails = "/addressDetails_screen";
+  static const String aboutPage = "/aboutPage_screen";
+  static const String payrunBage = "/payrunBage_screen";
+  static const String notification_screen = "/notification_screen";
+
+
+
+
 }

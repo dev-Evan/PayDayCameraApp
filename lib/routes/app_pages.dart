@@ -75,11 +75,11 @@ class AppPages {
     GetPage(
       name: _Paths.PROFILE_VIEW,
       transition: Transition.rightToLeft,
-      page: () => ViewProfile(),
-    ),
+
+      page: () => const SignInScreen()),
     GetPage(
       name: _Paths.UPDATE_DOCUMENT,
-      page: () => const UpdateDocument(),
+      page: () =>  UpdateDocument(),
     ),
     GetPage(
       name: _Paths.DOCUMENT_SCREEN,
@@ -111,7 +111,6 @@ class AppPages {
       transition: Transition.rightToLeft,
       page: () => PayRunBadge(),
     ),
-
 
     GetPage(
       name: _Paths.NOTIFICATION_SCREEN,

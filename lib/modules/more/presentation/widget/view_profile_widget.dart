@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/change_profile_img_controller.dart';
@@ -10,6 +12,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import 'package:pay_day_mobile/utils/images.dart';
 
 Widget cardView({icon, dynamicText, titleText}) {
   return Padding(
@@ -47,19 +50,38 @@ Widget circleAvatarStyle({final userImage}) {
 
   return Stack(
     children: [
+      Container(
+        height: AppLayout.getHeight(74),
+        width: AppLayout.getWidth(74),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.transparent,
+        ),
+        child: ClipOval(
+          child: FadeInImage(
+            image: NetworkImage(userImage),
 
-      CircleAvatar(
-        radius: 34,
-        backgroundColor: AppColor.primaryColor,
-        child: CircleAvatar(
-          radius: 34,
-          backgroundColor: AppColor.primaryColor,
-          backgroundImage: Get.find<ImagePickerController>().pickedImage.value == null
-              ? userImage
-              : Image.file(File(Get.find<ImagePickerController>().pickedImage.value!.path))
-              .image,
+
+            placeholder: Get.find<ImagePickerController>().pickedImage.value ==null
+  ? placeholderImages
+      : Image.file(File(Get.find<ImagePickerController>().pickedImage.value!.path))
+      .image,
+            imageErrorBuilder: (context, error, stackTrace) {
+              return   CircleAvatar(
+                radius: 40,
+                backgroundColor: Colors.transparent,
+                backgroundImage: Get.find<ImagePickerController>().pickedImage.value ==null
+                    ? placeholderImages
+                    : Image.file(File(Get.find<ImagePickerController>().pickedImage.value!.path))
+                    .image,
+              );
+
+            },
+            fit: BoxFit.cover,
+          ),
         ),
       ),
+
       Positioned(
           right: 0,
           bottom: 0,
@@ -76,6 +98,10 @@ Widget circleAvatarStyle({final userImage}) {
                   ))))
     ],
   );
+}
+
+AssetImage get placeholderImages {
+  return AssetImage(Images.user);
 }
 
 Widget cardIconView({cardIcon}) {
@@ -182,3 +208,6 @@ Widget aboutText({required text}){
         fontSize: Dimensions.fontSizeDefault),
   );
 }
+
+
+

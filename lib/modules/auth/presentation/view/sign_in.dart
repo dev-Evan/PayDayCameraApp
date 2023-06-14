@@ -28,7 +28,6 @@ class _SignInScreenState extends State<SignInScreen> {
       _isLeft = !_isLeft;
     });
   }
-
   @override
   void initState() {
     Future.delayed(const Duration(milliseconds: 100), () {
@@ -36,11 +35,7 @@ class _SignInScreenState extends State<SignInScreen> {
     });
     super.initState();
   }
-
   final _formKey = GlobalKey<FormState>();
-
-
-
   @override
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height / 6;
@@ -78,16 +73,21 @@ class _SignInScreenState extends State<SignInScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               textFieldTitleText(titleText: AppString.email),
-                              CustomTextFeild(
+                              CustomTextField(
                                 hintText: AppString.enterYourEmail,
                                 inputType: TextInputType.emailAddress,
                                 controller:
                                     Get.find<AuthController>().emailController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return AppString.fieldIsRequired;
+                                    return AppString.the_email_field_is_required;
+                                  }else if (value.isEmpty || !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                      .hasMatch(value)) {
+                                    return AppString.please_insert_a_valid_email_address;
+                                  }else{
+                                    return null;
                                   }
-                                  return null;
+
                                 },
                               ),
                             ],
@@ -103,9 +103,13 @@ class _SignInScreenState extends State<SignInScreen> {
                                     .passwordController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return AppString.fieldIsRequired;
+                                    return AppString.the_password_field_is_required;
+                                  } else if (value.length < 6) {
+                                    return AppString.incorrect_user_or_password;
+                                  }else{
+                                    return null;
                                   }
-                                  return null;
+
                                 },
                               ),
                             ],

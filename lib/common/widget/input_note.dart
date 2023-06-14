@@ -8,25 +8,25 @@ import '../../utils/app_style.dart';
 
 class InputNote extends StatelessWidget {
   final TextEditingController controller;
-  final String? hintText;
+  String hintText;
+  final String? Function(String?)? validator;
 
   InputNote(
       {required this.controller,
-      this.hintText = AppString
-          .text_add_note_here}); // const InputNote({super.key, required this.controller,required hintText});
+       this.hintText =AppString.text_add_note_here, this.validator});  // const InputNote({super.key, required this.controller,required hintText});
 
   @override
   Widget build(BuildContext context) {
     final focusedCtx = FocusManager.instance.primaryFocus!.context;
-    Future.delayed(const Duration(milliseconds: 400))
-        .then((value) => Scrollable.ensureVisible(
-              focusedCtx!,
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeOut,
-            ));
-    return TextField(
+    Future.delayed(const Duration(milliseconds: 200)).then((value) => Scrollable.ensureVisible(
+      focusedCtx!,
+      duration: const Duration(milliseconds: 100),
+      curve: Curves.easeOut,
+    ));
+    return TextFormField(
       keyboardType: TextInputType.multiline,
       controller: controller,
+      validator: validator,
       decoration: InputDecoration(
           hintText: hintText,
           hintStyle: AppStyle.normal_text

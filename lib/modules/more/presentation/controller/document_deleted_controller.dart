@@ -12,6 +12,7 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 
 class DeletedDocumentController extends GetxController with StateMixin {
   final _box = GetStorage();
+ var newValue="";
   final DeleteDocumentRepository deleteDocumentRepository =
       DeleteDocumentRepository(NetworkClient());
   void deletedDocumentApi() async {
@@ -23,8 +24,7 @@ class DeletedDocumentController extends GetxController with StateMixin {
       )
           .then((value) {
         Get.back();
-        _successDialog(onAction: () => Get.back());
-        Get.back();
+        newValue="value";
         Get.find<DocumentController>().getDocumentData();
       }, onError: (error) {
         Get.back();
@@ -35,16 +35,4 @@ class DeletedDocumentController extends GetxController with StateMixin {
     }
     change(null, status: RxStatus.success());
   }
-}
-
-Future _successDialog({required onAction}) {
-  return CustomSuccessAlertDialog(
-    context: Get.context,
-    titleText: AppString.text_success,
-    icon: Icons.check,
-    iconColor: AppColor.successColor,
-    iconBgColor: AppColor.successColor.withOpacity(0.2),
-    contentText: AppString.text_deleted_document_successfully,
-    popupAction: () => onAction(),
-  );
 }

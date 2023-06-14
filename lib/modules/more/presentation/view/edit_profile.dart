@@ -12,7 +12,7 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/defult_date_of_b
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import '../widget/edit_address.dart';
+import '../widget/address_details_widget.dart';
 
 class EditProfile extends StatelessWidget {
   EditProfile({Key? key}) : super(key: key);
@@ -22,6 +22,7 @@ class EditProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final _box = GetStorage();
     return Form(
       key: _formKey,
@@ -48,7 +49,7 @@ class EditProfile extends StatelessWidget {
                                   titleText: AppString.text_first +
                                       " " +
                                       AppString.text_name),
-                              CustomTextFeild(
+                              CustomTextField(
                                 hintText: AppString.text_enter_first_name,
                                 controller:
                                     Get.find<CustomTextEditingController>()
@@ -73,7 +74,7 @@ class EditProfile extends StatelessWidget {
                                   titleText: AppString.text_last +
                                       " " +
                                       AppString.text_name),
-                              CustomTextFeild(
+                              CustomTextField(
                                 hintText: AppString.text_enter_last_name,
                                 controller:
                                     Get.find<CustomTextEditingController>()
@@ -85,7 +86,7 @@ class EditProfile extends StatelessWidget {
                       ],
                     ),
                     textFieldTitleText(titleText: AppString.text_email),
-                    CustomTextFeild(
+                    CustomTextField(
                       hintText: AppString.text_enter_email,
                       controller: Get.find<CustomTextEditingController>()
                           .emailController,
@@ -100,7 +101,6 @@ class EditProfile extends StatelessWidget {
                     Obx(() => dropDownField(context: context, locations: _locations)),
                     textFieldTitleText(titleText: AppString.text_phone),
                     phoneAndCountyField(
-                      hintText: AppString.text_not_added_yet,
                       controller: Get.find<CustomTextEditingController>()
                           .contactController,
                     ),
@@ -127,6 +127,7 @@ class EditProfile extends StatelessWidget {
                 child: CustomButton(AppString.text_save, () {
                   if (_formKey.currentState!.validate()) {
                     Get.find<EditProfileDataController>().editProfileData(
+                      context: context,
                         selectedDate:
                             _box.read(AppString.STORE_DATE.toString() ?? ""));
                   }

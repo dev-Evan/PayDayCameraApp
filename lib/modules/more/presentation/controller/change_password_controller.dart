@@ -21,7 +21,7 @@ class ChangePassController extends GetxController with StateMixin {
       await changePassDataSource
           .changePassIntoAccount(
       Get.find<CustomTextEditingController>().oldPassController.text,
-        Get.find<CustomTextEditingController>(). passwordController.text,
+        Get.find<CustomTextEditingController>(). newPasswordController.text,
         Get.find<CustomTextEditingController>(). confirmPasswordController.text,
       ).then((value) {
         GetStorage().remove(AppString.STORE_TOKEN);

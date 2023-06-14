@@ -1,12 +1,8 @@
-// To parse this JSON data, do
-//
-//     final payrunBadgeModel = payrunBadgeModelFromJson(jsonString);
 
 import 'dart:convert';
 
 PayrunBadgeModel payrunBadgeModelFromJson(String str) => PayrunBadgeModel.fromJson(json.decode(str));
 
-String payrunBadgeModelToJson(PayrunBadgeModel data) => json.encode(data.toJson());
 
 class PayrunBadgeModel {
   bool? status;
@@ -19,17 +15,18 @@ class PayrunBadgeModel {
     this.data,
   });
 
+
+  @override
+  String toString() {
+    return 'PayrunBadgeModel{status: $status, message: $message, data: $data}';
+  }
+
   factory PayrunBadgeModel.fromJson(Map<String, dynamic> json) => PayrunBadgeModel(
     status: json["status"],
     message: json["message"],
     data: json["data"] == null ? null : Data.fromJson(json["data"]),
   );
 
-  Map<String, dynamic> toJson() => {
-    "status": status,
-    "message": message,
-    "data": data?.toJson(),
-  };
 }
 
 class Data {
@@ -43,28 +40,35 @@ class Data {
     this.payrunBeneficiaries,
   });
 
+
+  @override
+  String toString() {
+    return 'Data{defaultPayrun: $defaultPayrun, payrunSetting: $payrunSetting, payrunBeneficiaries: $payrunBeneficiaries}';
+  }
+
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     defaultPayrun: json["default_payrun"] == null ? null : DefaultPayrun.fromJson(json["default_payrun"]),
     payrunSetting: json["payrun_setting"] == null ? null : Setting.fromJson(json["payrun_setting"]),
     payrunBeneficiaries: json["payrun_beneficiaries"] == null ? [] : List<PayrunBeneficiaryElement>.from(json["payrun_beneficiaries"]!.map((x) => PayrunBeneficiaryElement.fromJson(x))),
   );
 
-  Map<String, dynamic> toJson() => {
-    "default_payrun": defaultPayrun?.toJson(),
-    "payrun_setting": payrunSetting?.toJson(),
-    "payrun_beneficiaries": payrunBeneficiaries == null ? [] : List<dynamic>.from(payrunBeneficiaries!.map((x) => x.toJson())),
-  };
 }
 
 class DefaultPayrun {
   int? id;
   String? name;
-  int? isDefault;
-  int? tenantId;
+  dynamic isDefault;
+  dynamic tenantId;
   DateTime? createdAt;
   DateTime? updatedAt;
   Setting? setting;
   List<PayrunBeneficiaryElement>? beneficiaries;
+
+
+  @override
+  String toString() {
+    return 'DefaultPayrun{id: $id, name: $name, isDefault: $isDefault, tenantId: $tenantId, createdAt: $createdAt, updatedAt: $updatedAt, setting: $setting, beneficiaries: $beneficiaries}';
+  }
 
   DefaultPayrun({
     this.id,
@@ -88,28 +92,24 @@ class DefaultPayrun {
     beneficiaries: json["beneficiaries"] == null ? [] : List<PayrunBeneficiaryElement>.from(json["beneficiaries"]!.map((x) => PayrunBeneficiaryElement.fromJson(x))),
   );
 
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "is_default": isDefault,
-    "tenant_id": tenantId,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "setting": setting?.toJson(),
-    "beneficiaries": beneficiaries == null ? [] : List<dynamic>.from(beneficiaries!.map((x) => x.toJson())),
-  };
 }
 
 class PayrunBeneficiaryElement {
   int? id;
   String? beneficiaryValuableType;
-  int? beneficiaryValuableId;
-  int? beneficiaryId;
+  dynamic beneficiaryValuableId;
+  dynamic beneficiaryId;
   double? amount;
-  int? isPercentage;
+  dynamic isPercentage;
   DateTime? createdAt;
   DateTime? updatedAt;
   PayrunBeneficiaryBeneficiary? beneficiary;
+
+
+  @override
+  String toString() {
+    return 'PayrunBeneficiaryElement{id: $id, beneficiaryValuableType: $beneficiaryValuableType, beneficiaryValuableId: $beneficiaryValuableId, beneficiaryId: $beneficiaryId, amount: $amount, isPercentage: $isPercentage, createdAt: $createdAt, updatedAt: $updatedAt, beneficiary: $beneficiary}';
+  }
 
   PayrunBeneficiaryElement({
     this.id,
@@ -135,28 +135,23 @@ class PayrunBeneficiaryElement {
     beneficiary: json["beneficiary"] == null ? null : PayrunBeneficiaryBeneficiary.fromJson(json["beneficiary"]),
   );
 
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "beneficiary_valuable_type": beneficiaryValuableType,
-    "beneficiary_valuable_id": beneficiaryValuableId,
-    "beneficiary_id": beneficiaryId,
-    "amount": amount,
-    "is_percentage": isPercentage,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "beneficiary": beneficiary?.toJson(),
-  };
 }
 
 class PayrunBeneficiaryBeneficiary {
   int? id;
   String? name;
   String? type;
-  int? isActive;
+  dynamic isActive;
   dynamic description;
-  int? tenantId;
+  dynamic tenantId;
   dynamic createdAt;
   dynamic updatedAt;
+
+
+  @override
+  String toString() {
+    return 'PayrunBeneficiaryBeneficiary{id: $id, name: $name, type: $type, isActive: $isActive, description: $description, tenantId: $tenantId, createdAt: $createdAt, updatedAt: $updatedAt}';
+  }
 
   PayrunBeneficiaryBeneficiary({
     this.id,
@@ -198,12 +193,18 @@ class PayrunBeneficiaryBeneficiary {
 class Setting {
   int? id;
   String? payrunSettingableType;
-  int? payrunSettingableId;
+  dynamic payrunSettingableId;
   String? payrunPeriod;
   String? considerType;
-  int? considerOvertime;
+  dynamic considerOvertime;
   DateTime? createdAt;
   DateTime? updatedAt;
+
+
+  @override
+  String toString() {
+    return 'Setting{id: $id, payrunSettingableType: $payrunSettingableType, payrunSettingableId: $payrunSettingableId, payrunPeriod: $payrunPeriod, considerType: $considerType, considerOvertime: $considerOvertime, createdAt: $createdAt, updatedAt: $updatedAt}';
+  }
 
   Setting({
     this.id,
@@ -227,14 +228,4 @@ class Setting {
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
   );
 
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "payrun_settingable_type": payrunSettingableType,
-    "payrun_settingable_id": payrunSettingableId,
-    "payrun_period": payrunPeriod,
-    "consider_type": considerType,
-    "consider_overtime": considerOvertime,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-  };
 }

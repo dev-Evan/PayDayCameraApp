@@ -18,19 +18,20 @@ Future CustomAlertDialog({
   Color? buttonColor = Colors.orange,
   Color? iconBgColor = AppColor.alertDgIconBgColor,
   Color? iconColor = Colors.orange,
+  backAction
 }) {
   return showDialog(
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: Text(titleText!,style: AppStyle.large_text.copyWith(fontSize: Dimensions.fontSizeLarge,color: AppColor.normalTextColor,fontWeight: FontWeight.w600),),
+        title: Text(titleText!,style: AppStyle.large_text.copyWith(fontSize: Dimensions.fontSizeLarge-1,color: AppColor.normalTextColor,fontWeight: FontWeight.w600),),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Dimensions.radiusMid - 2),
         ),
         icon: Center(
           child: Container(
-              width: AppLayout.getWidth(46),
-              height: AppLayout.getHeight(46),
+              width: AppLayout.getWidth(50),
+              height: AppLayout.getHeight(50),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
                 color: iconBgColor,
@@ -57,7 +58,7 @@ Future CustomAlertDialog({
                 contentText!,
                 style: AppStyle.mid_large_text.copyWith(
                     color: AppColor.hintColor,
-                    fontSize: Dimensions.fontSizeDefault),
+                    fontSize: Dimensions.fontSizeDefault-1),
               ),
             ),
           ],
@@ -73,7 +74,13 @@ Future CustomAlertDialog({
                     width: MediaQuery.of(context).size.width,
                     height: AppLayout.getHeight(40),
                     child: TextButton(
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: (){
+                          if(backAction !=null){
+                            backAction();
+                          }else{
+                      Navigator.pop(context);
+                          }
+                        },
                         style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -123,52 +130,97 @@ Future CustomAlertDialog({
   );
 }
 
-Future CustomSuccessAlertDialog({
+Future exitDialog({
   context,
-  yesAction,
-  IconData? icon,
-  IconData? decIcon,
-  String? titleText = AppString.text_are_you_sure,
-  String? contentText = AppString.text_dialog_dec,
-  String? yesText = AppString.text_yes,
-  Color? buttonColor = Colors.orange,
-  Color? iconBgColor = Colors.orange,
-  Color? iconColor = Colors.orange,
-  popupAction
-}) {
+  yesAction,}) {
   return showDialog(
     context: context,
     builder: (context) {
-      Future.delayed(
-        const Duration(seconds: 2),
-        () => popupAction()
-      );
-      return AlertDialog(
-        title: Text(titleText!,style: AppStyle.mid_large_text.copyWith(color: AppColor.normalTextColor,fontWeight: FontWeight.w800),),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.radiusMid - 2),
-        ),
-        icon: Center(
-          child: Container(
-              width: AppLayout.getWidth(48),
-              height: AppLayout.getHeight(46),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: iconBgColor,
+      return SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: AlertDialog(
+          title: Text(AppString.text_are_you_sure,style: AppStyle.mid_large_text.copyWith(color: AppColor.normalTextColor,fontWeight: FontWeight.w800),),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Dimensions.radiusMid - 2),
+          ),
+          icon: Center(
+            child: Container(
+                width: AppLayout.getWidth(50),
+                height: AppLayout.getHeight(50),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                  color: Colors.orange.shade50,
+                ),
+                child: Icon(
+                  Icons.logout,
+                  color: AppColor.pendingTextColor,
+                  size: Dimensions.fontSizeDoubleLarge+2,
+                )),
+          ),
+          content: Text(
+            AppString.text_are_you_sure_want_to_exit_from_app,
+            style: AppStyle.mid_large_text.copyWith(
+                color: AppColor.hintColor, fontSize: Dimensions.fontSizeDefault-1),
+          ),
+          actionsAlignment: MainAxisAlignment.center,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 8),
+              child: Row(
+                children: [
+                  Flexible(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: AppLayout.getHeight(40),
+                      child: TextButton(
+                          onPressed: ()=>Navigator.pop(context),
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              primary: Colors.transparent,
+                              elevation: 0,
+                              side: const BorderSide(
+                                  width: 1, color: AppColor.normalTextColor)),
+                          child: Text(
+                            AppString.text_no,
+                            style: AppStyle.mid_large_text.copyWith(
+                                color: AppColor.normalTextColor,
+                                fontSize: Dimensions.fontSizeMid-2),
+                          )),
+                    ),
+                  ),
+
+                  customSpacerWidth(width: 12),
+                  Flexible(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: AppLayout.getHeight(40),
+                      child: ElevatedButton(
+                          onPressed: () => yesAction(),
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              primary: Colors.orange,
+                              elevation: 0),
+                          child: Text(
+                            AppString.text_yes,
+                            style: AppStyle.mid_large_text.copyWith(
+                                color: AppColor.cardColor,
+                                fontSize: Dimensions.fontSizeMid-3,
+                                fontWeight: FontWeight.w600
+                            ),
+                          )),
+                    ),
+                  ),
+                ],
               ),
-              child: Icon(
-                icon,
-                color: iconColor,
-              )),
+            ),          ],
         ),
-        content: Text(
-          contentText!,
-          style: AppStyle.mid_large_text.copyWith(
-              color: AppColor.hintColor, fontSize: Dimensions.fontSizeDefault),
-        ),
-        actionsAlignment: MainAxisAlignment.center,
       );
     },
   );
 }
+
 

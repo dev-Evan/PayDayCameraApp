@@ -1,22 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/modules/auth/presentation/view/sign_in.dart';
+import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
+import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class forgotScreen extends StatefulWidget {
-  const forgotScreen({Key? key}) : super(key: key);
+class receiveScreen extends StatefulWidget {
+  const receiveScreen({Key? key}) : super(key: key);
 
   @override
-  State<forgotScreen> createState() => _forgotScreenState();
+  State<receiveScreen> createState() => _receiveScreenState();
 }
 
-class _forgotScreenState extends State<forgotScreen> {
+class _receiveScreenState extends State<receiveScreen> {
   TextEditingController _emailController = TextEditingController();
 
   bool isleft = false;
@@ -64,8 +67,8 @@ class _forgotScreenState extends State<forgotScreen> {
                             alignment: isleft
                                 ? Alignment.topCenter
                                 : Alignment.topRight,
-                            curve: Curves.easeInOut,
                             child: Image.asset(Images.app_logo),
+                            curve: Curves.easeInOut,
                           ),
                         ),
                       ],
@@ -124,7 +127,9 @@ class _forgotScreenState extends State<forgotScreen> {
                 SizedBox(
                   height: AppLayout.getHeight(Dimensions.fontSizeExtraLarge),
                 ),
-                CustomButton('Request', () {}),
+                CustomButton('Request', () {
+                  Get.toNamed(AppString.receiveScreen);
+                }),
               ],
             ),
           ),

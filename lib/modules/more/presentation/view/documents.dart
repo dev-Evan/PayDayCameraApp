@@ -34,10 +34,12 @@ class DocumentScreen extends GetView<DocumentController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              customMoreAppbar(titleText: controller.documentModel.message ?? AppString.text_documents, onAction: () => Get.back()),
-
-              controller.documentModel.data?.documents != null &&
-                      controller.documentModel.data!.documents!.isNotEmpty
+              customMoreAppbar(
+                  titleText: controller.documentModel.message ??
+                      AppString.text_documents,
+                  onAction: () => Get.back()),
+              (controller.documentModel.data?.documents != null &&
+                      controller.documentModel.data!.documents!.isNotEmpty)
                   ? Expanded(
                       child: Container(
                         color: AppColor.backgroundColor,
@@ -51,7 +53,11 @@ class DocumentScreen extends GetView<DocumentController> {
                                     ""),
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.all(20.0),
+                                padding: EdgeInsets.only(
+                                    top: AppLayout.getHeight(0),
+                                    bottom: AppLayout.getHeight(20),
+                                    left: AppLayout.getWidth(20),
+                                    right: AppLayout.getWidth(20)),
                                 child: Column(
                                   children: [
                                     Expanded(
@@ -133,6 +139,13 @@ class DocumentScreen extends GetView<DocumentController> {
                                                                       index]
                                                                   .name ??
                                                               "",
+                                                          docUrl:controller
+                                                              .documentModel
+                                                              .data
+                                                              ?.documents?[
+                                                          index]
+                                                              .fullUrl ??
+                                                              "" ,
                                                           context: context)),
                                                 ],
                                               ),
@@ -144,24 +157,27 @@ class DocumentScreen extends GetView<DocumentController> {
                                   ],
                                 ),
                               ),
-                            )
+                            ),
+                            customSpacerHeight(height: 52)
                           ],
                         ),
                       ),
                     )
                   : Center(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           logoView(
                             height: 160,
                             width: 160,
                             url: Images.no_data_found,
                           ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 2.5,
+                          )
                         ],
                       ),
                     ),
-              customSpacerHeight(height: 125)
             ],
           ),
         ),
@@ -182,17 +198,35 @@ class DocumentScreen extends GetView<DocumentController> {
   }
 
   Widget _cardImage({required imageUrl}) {
-    return imageUrl.endsWith(".pdf")
-        ? _fileIcon()
-        : Container(
-            height: AppLayout.getHeight(66),
-            decoration: AppStyle.ContainerStyle.copyWith(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(Dimensions.radiusMid - 4),
-                    bottomLeft: Radius.circular(Dimensions.radiusMid - 4)),
-                image: DecorationImage(
-                    image: NetworkImage(imageUrl), fit: BoxFit.cover)),
-          );
+    GetStorage().write("key", imageUrl);
+    return Container(
+      height: AppLayout.getHeight(66),
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(Dimensions.radiusDefault),
+            bottomLeft: Radius.circular(Dimensions.radiusDefault)),
+        child: imageUrl.endsWith(".pdf")
+            ? _fileIcon()
+            : FadeInImage(
+                image: NetworkImage(imageUrl),
+                placeholder: AssetImage(Images.placeholder),
+                imageErrorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    height: AppLayout.getHeight(66),
+                    decoration: AppStyle.ContainerStyle.copyWith(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(Dimensions.radiusDefault),
+                            bottomLeft:
+                                Radius.circular(Dimensions.radiusDefault)),
+                        image: DecorationImage(
+                            image: AssetImage(Images.placeholder),
+                            fit: BoxFit.cover)),
+                  );
+                },
+                fit: BoxFit.cover,
+              ),
+      ),
+    );
   }
 }
 
@@ -219,12 +253,14 @@ Widget _fileIcon() {
   return Container(
     height: AppLayout.getHeight(66),
     decoration: AppStyle.ContainerStyle.copyWith(
+      color: AppColor.primaryColor.withOpacity(0.1),
       borderRadius: BorderRadius.only(
           topLeft: Radius.circular(Dimensions.radiusMid - 4),
           bottomLeft: Radius.circular(Dimensions.radiusMid - 4)),
     ),
     child: const Icon(
       CupertinoIcons.doc,
+      size: 30,
       color: AppColor.primaryColor,
     ),
   );
@@ -235,6 +271,7 @@ Widget _cardImgTitle(
     required sizeText,
     required id,
     required docText,
+      required docUrl,
     required context}) {
   final box = GetStorage();
   return _sizedCardImgTitle(
@@ -266,31 +303,39 @@ Widget _cardImgTitle(
                         BorderRadius.circular(Dimensions.radiusDefault),
                   ),
                   actions: [
-                    _editDeletedActionRow(context: context, id: id),
+                    _editDeletedActionRow(context: context, id: id,docUrl:docUrl),
                   ],
                 );
               },
-            ).then((value) {
-              Navigator.pop(context);
-            });
+            );
           },
           icon: const Icon(Icons.more_vert))
     ],
   ));
 }
 
-Widget _editDeletedActionRow({required context, required id}) {
+Widget _editDeletedActionRow({required context, required id,required docUrl}) {
   final _box = GetStorage();
   return Row(
     children: [
       InkWell(
         onTap: () {
+          if (Get.find<UpdateDocumentController>()
+              .newValue
+              .toString()
+              .isNotEmpty) {
+            Navigator.pop(context);
+          } else {
+            Navigator.pop(context);
+          }
+
+      Get.find<UpdateDocumentController>().filePath.value =docUrl;
           customButtonSheet(
               context: context,
               height: 0.9,
-              child: const Padding(
+              child:  Padding(
                 padding: EdgeInsets.all(8.0),
-                child: UpdateDocument(),
+                child: UpdateDocument(docUrl: docUrl,),
               ));
           _box.write(AppString.STORE_DOC_Id, id);
 
@@ -302,6 +347,14 @@ Widget _editDeletedActionRow({required context, required id}) {
       customSpacerWidth(width: 40),
       InkWell(
         onTap: () {
+          if (Get.find<DeletedDocumentController>()
+              .newValue
+              .toString()
+              .isNotEmpty) {
+            Navigator.pop(context);
+          } else {
+            Navigator.pop(context);
+          }
           _box.write(AppString.STORE_DOC_Id, id);
           Get.find<DeletedDocumentController>().deletedDocumentApi();
         },
@@ -376,3 +429,4 @@ Widget _cardShape({icon}) {
         ),
       ));
 }
+

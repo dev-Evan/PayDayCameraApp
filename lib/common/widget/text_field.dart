@@ -6,12 +6,12 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-class CustomTextFeild extends StatelessWidget {
+class CustomTextField extends StatelessWidget {
   final String hintText;
   final inputType;
   final controller;
   final String? Function(String?)? validator;
-  CustomTextFeild({
+  CustomTextField({
     Key? key,
     required this.hintText,
     this.validator,

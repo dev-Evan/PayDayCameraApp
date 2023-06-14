@@ -64,17 +64,18 @@ class Data {
 
 
 class Payslip {
-  int? id;
-  int? useId;
-  int? payrunId;
-  int? tenantId;
+  dynamic id;
+  dynamic useId;
+  String? payslipId;
+  dynamic payrunId;
+  dynamic tenantId;
   String? startDate;
   String? endDate;
   String? createdAt;
   String? netSalary;
   String? basicSalary;
   String? period;
-  int? considerOvertime;
+  dynamic considerOvertime;
   String? considerType;
   String? totalAllowance;
   String? totalDeduction;
@@ -83,6 +84,7 @@ class Payslip {
   Payslip(
       {this.id,
         this.useId,
+        this.payslipId,
         this.payrunId,
         this.tenantId,
         this.startDate,
@@ -100,6 +102,7 @@ class Payslip {
   Payslip.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     useId = json['use_id'];
+    payslipId = json['payslip_id'];
     payrunId = json['payrun_id'];
     tenantId = json['tenant_id'];
     startDate = json['start_date'];
@@ -115,11 +118,11 @@ class Payslip {
     status =
     json['status'] != null ? new Status.fromJson(json['status']) : null;
   }
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['use_id'] = this.useId;
+    data['payslip_id'] = this.payslipId;
     data['payrun_id'] = this.payrunId;
     data['tenant_id'] = this.tenantId;
     data['start_date'] = this.startDate;
@@ -167,8 +170,8 @@ class Status {
 class Allowances {
   String? name;
   String? type;
-  int? value;
-  int? isPercentage;
+  dynamic value;
+  dynamic isPercentage;
   String? amount;
 
   Allowances(
@@ -197,9 +200,9 @@ class Allowances {
 class Deductions {
   String? name;
   String? type;
-  int? value;
+  dynamic value;
   int? isPercentage;
-  String? amount;
+  dynamic amount;
 
   Deductions(
       {this.name, this.type, this.value, this.isPercentage, this.amount});

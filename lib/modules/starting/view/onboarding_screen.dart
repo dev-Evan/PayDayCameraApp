@@ -19,7 +19,6 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-
   final List _onboardImage = [
     Images.calendar,
     Images.easy_leave,

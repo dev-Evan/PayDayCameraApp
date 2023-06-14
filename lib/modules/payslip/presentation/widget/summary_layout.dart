@@ -35,6 +35,7 @@ Widget summaryLayout({required total, required sent, required conflicted}) {
                 onAction: () async {
                   Get.toNamed(Routes.PAYRAN_BAGE);
                   await Get.find<PayrunBadgeController>().getPayrunBadgeData();
+
                 }),
           ],
         ),

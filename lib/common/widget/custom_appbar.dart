@@ -17,7 +17,7 @@ class CustomAppbar extends GetView<NotificationController>
     return Obx(() => AppBar(
           scrolledUnderElevation: .5,
           leadingWidth: AppLayout.getWidth(140),
-          toolbarHeight: AppLayout.getHeight(40),
+          toolbarHeight: AppLayout.getHeight(44),
           backgroundColor: AppColor.cardColor,
           leading: Padding(
             padding:
@@ -55,12 +55,13 @@ class CustomAppbar extends GetView<NotificationController>
   }
 
   @override
-  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(43));
+  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(45));
 }
 
-Widget logoView({double? height = 35, double? width = 35, String? url}) {
+Widget logoView({double? height = 35, double? width = 35, String? url,Color?color } ) {
   return SvgPicture.asset(
     url ?? Images.logo,
+    color:color ,
     width: AppLayout.getWidth(width!),
     height: AppLayout.getHeight(height!),
   );

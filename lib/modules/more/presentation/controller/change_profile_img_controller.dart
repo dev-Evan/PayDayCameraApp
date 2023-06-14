@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/more/data/change_profile_image_repo.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
 class ImagePickerController extends GetxController with StateMixin {
@@ -18,14 +20,14 @@ class ImagePickerController extends GetxController with StateMixin {
   changeProfileImage(XFile image) async {
     change(null, status: RxStatus.loading());
     waitingLoader();
+    pickedImage.refresh();
     await changeProfileImageRepo
         .changeImageRepo(
       image: image,
-    )
-        .then((value) {
+    ).then((value) {
       Get.back();
+      Get.find<ProfileDataController>().getUserData();
       showCustomSnackBar(message: AppString.text_profile_picture_update_successfully);
-
       print(value.toString());
     }, onError: (error) {
       print(error.message);

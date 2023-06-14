@@ -17,6 +17,7 @@ class UpdateDocumentController extends GetxController {
   var baseUrl = Api.BASE_URL + Api.UPDATE_DOCUMENT;
   late var accessToken = _box.read(AppString.ACCESS_TOKEN);
   RxString filePath = ''.obs;
+  var newValue="";
 
   Future<void> pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -46,12 +47,7 @@ class UpdateDocumentController extends GetxController {
     if (response.statusCode == 200) {
       print("Document updated ::: ${response}");
       Get.back();
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => DocumentScreen(),
-        ),
-      );
+      newValue="value";
       Get.find<DocumentController>().getDocumentData();
       print(' Document update ::: File updated successfully');
     } else {

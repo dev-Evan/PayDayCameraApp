@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/auth/data/auth_data_repository.dart';
 import 'package:pay_day_mobile/modules/auth/domain/login_res.dart';
 import 'package:pay_day_mobile/modules/auth/domain/reset_password_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
 import '../../../../routes/app_pages.dart';
@@ -16,6 +15,8 @@ class AuthController extends GetxController with StateMixin {
   ResetPasswordModel resetPasswordModel = ResetPasswordModel();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+
   final GetStorage box = GetStorage();
   @override
   void onInit() {
@@ -34,11 +35,10 @@ class AuthController extends GetxController with StateMixin {
         Get.offAllNamed(Routes.HOME);
       }, onError: (error) {
         Get.back();
-        _showToast(error.message);
+        showCustomSnackBar( message: error.message);
       });
     } catch (ex) {
       print(ex.toString());
-      _showToast(ex.toString());
     }
   }
 
@@ -47,16 +47,11 @@ class AuthController extends GetxController with StateMixin {
     box.write(AppString.USER_NAME, login?.data!.fullName);
     box.write(AppString.ACCESS_TOKEN, login?.data!.token);
     box.write(AppString.LOGIN_CHECK_KEY, AppString.LOGIN_VALUE);
+    box.write(AppString.STORE_CURRENT_PASSWORD, passwordController.text);
+    box.write(AppString.STORE_CURRENT_EMAIL, emailController.text);
+    print(box.read(AppString.STORE_CURRENT_EMAIL));
   }
 
-  _showToast(message) => Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 5,
-      backgroundColor: AppColor.hintColor,
-      textColor: Colors.white,
-      fontSize: 16.0);
 
   void restPassword() async {
     change(null, status: RxStatus.loading());

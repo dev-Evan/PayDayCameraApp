@@ -36,8 +36,7 @@ Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle}) {
       actions: [
         IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
-            GetStorage().remove("Doc");
+              Navigator.of(context).pop();
           },
           icon: Icon(
             Icons.close,
