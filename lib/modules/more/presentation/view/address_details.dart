@@ -22,29 +22,13 @@ class AddressDetails extends GetView<AddressDetailsController> {
   AddressDetails({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //   Future navigator({context}){
-    //     return Navigator.pushReplacement(
-    //       context,
-    //       MaterialPageRoute(
-    //         builder: (BuildContext context) => Home(),
-    //       ),
-    //     );
-    //   }
-    //
-    // });
-
     return Scaffold(
       appBar: const CustomAppbar(),
       body: controller.obx(
               (state) => SingleChildScrollView(
             child: Column(
               children: [
-                customMoreAppbar(titleText: AppString.text_address_details,
-                
-                
-                ),
+                customMoreAppbar(titleText: AppString.text_address_details),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
