@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_eidt_bottomsheet.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/view/change_log_bottom_sheet.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/widget/custom_app_button.dart';
 import '../../../../common/widget/loading_indicator.dart';
@@ -79,18 +78,6 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
       onPressed: () => _openEditBottomSheet(),
     );
   }
-
-  //_openChangeLogBottomSheet()
-  _cancelButton(BuildContext context) {
-    return AppButton(
-      buttonText: AppString.text_change_log,
-      onPressed: () => (){},
-      buttonColor: Colors.transparent,
-      hasOutline: true,
-      borderColor: Colors.black,
-      textColor: Colors.black,
-    );
-  }
 }
 
 Future _openEditBottomSheet() {
@@ -99,14 +86,5 @@ Future _openEditBottomSheet() {
     backgroundColor: Colors.transparent,
     context: Get.context!,
     builder: (context) =>  EditAttendanceBottomSheet(Get.find<AttendanceController>().logDetailsById),
-  );
-}
-
-Future _openChangeLogBottomSheet() {
-  return showModalBottomSheet(
-    isScrollControlled: true,
-    backgroundColor: Colors.transparent,
-    context: Get.context!,
-    builder: (context) => const ChangeLogBottomSheet(),
   );
 }

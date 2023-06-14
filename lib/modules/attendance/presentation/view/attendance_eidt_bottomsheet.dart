@@ -3,9 +3,10 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_time_in_time_picker.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/change_request/change_request_req_model.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import '../../../../common/controller/date_time_helper_controller.dart';
 import '../../../../common/widget/custom_time_picker.dart';
-import '../../../../common/widget/input_note.dart';
+import '../../../../common/widget/note_layout.dart';
 import '../../../../utils/time_counter_helper.dart';
 import '../../domain/log_details/log_details.dart';
 import '../widget/bottom_sheet_appbar.dart';
@@ -19,18 +20,18 @@ import '../../../../common/widget/custom_app_button.dart';
 class EditAttendanceBottomSheet extends StatelessWidget {
   final LogDetails logDetailsById;
 
-  const EditAttendanceBottomSheet(this.logDetailsById, {super.key});
+  EditAttendanceBottomSheet(this.logDetailsById, {super.key});
 
   @override
   Widget build(BuildContext context) {
     Get.delete<DateTimeController>();
-    var controller = Get.put(DateTimeController());
-    controller.pickedInTime.value = logDetailsById.data!.inTime!;
-    controller.pickedOutTime.value = logDetailsById.data!.outTime!;
+    Get.put(DateTimeController());
+    Get.find<DateTimeController>().pickedInTime.value = logDetailsById.data!.inTime!;
+    Get.find<DateTimeController>().pickedOutTime.value = logDetailsById.data!.outTime!;
     return DraggableScrollableSheet(
-      initialChildSize: .8,
-      maxChildSize: .8,
-      minChildSize: .5,
+      initialChildSize: .9,
+      maxChildSize: .9,
+      minChildSize: .7,
       builder: (BuildContext context, ScrollController scrollController) =>
           Container(
         decoration: const BoxDecoration(
@@ -72,7 +73,7 @@ class EditAttendanceBottomSheet extends StatelessWidget {
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
           _timeLayout(),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-          _noteLayout(),
+          noteLayout(),
         ],
       ),
     );
@@ -175,24 +176,10 @@ class EditAttendanceBottomSheet extends StatelessWidget {
     );
   }
 
-  _noteLayout() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          AppString.text_note,
-          style: AppStyle.normal_text_black
-              .copyWith(color: Colors.grey, fontWeight: FontWeight.w600),
-        ),
-        SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
-        InputNote(
-            controller: Get.find<DateTimeController>().textEditingController),
-      ],
-    );
-  }
 }
 
 _saveButton() {
+  Get.find<AttendanceLogsController>().textEditingController.clear();
   return AppButton(
     buttonColor: AppColor.primaryBlue,
     buttonText: AppString.text_save,
@@ -202,13 +189,16 @@ _saveButton() {
           ChangeRequestReqModel(
               inTime: Get.find<DateTimeController>().pickedInTime.value,
               outTime: Get.find<DateTimeController>().pickedOutTime.value,
-              note: Get.find<DateTimeController>().textEditingController.text));
+              note: Get.find<AttendanceLogsController>()
+                  .textEditingController
+                  .text));
       Navigator.of(Get.context!).pop();
     },
   );
 }
 
 _cancelButton(BuildContext context) {
+  Get.find<AttendanceLogsController>().textEditingController.clear();
   return AppButton(
     onPressed: () => Navigator.of(context).pop(),
     buttonText: AppString.text_cancel,

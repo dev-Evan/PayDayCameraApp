@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/leave/data/leave_repository.dart';
 import 'package:pay_day_mobile/modules/leave/domain/individual_date_leave.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_allowance.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_details.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_record.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_summary.dart';
+import 'package:pay_day_mobile/modules/leave/domain/leave_type.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
+import 'package:pay_day_mobile/utils/app_string.dart';
 
 class LeaveController extends GetxController with StateMixin {
   final LeaveRepository _leaveRepository = LeaveRepository(NetworkClient());
@@ -18,7 +21,7 @@ class LeaveController extends GetxController with StateMixin {
 
   LeaveRecord leaveRecord = LeaveRecord();
 
-  List<String> leaveType = [];
+  Map<dynamic, String> leaveType = {};
 
   Rx<IndividualDateLeave> individualDateLeaveList = IndividualDateLeave().obs;
 
@@ -30,17 +33,33 @@ class LeaveController extends GetxController with StateMixin {
 
   final RxMap<dynamic, dynamic> requestLeaveQueries = {}.obs;
 
-  final startDate = DateFormat('yyyy-MM-dd').format(DateTime.now().toUtc()).obs;
-  final endDate = DateFormat('yyyy-MM-dd').format(DateTime.now().toUtc()).obs;
+  final startDate = DateFormat('yyyy-MM-dd')
+      .format(DateTime.now().toUtc())
+      .obs;
+  final endDate = DateFormat('yyyy-MM-dd')
+      .format(DateTime.now().toUtc())
+      .obs;
 
   final isValueLoading = false.obs;
 
   final rangeName = "This Month".obs;
 
   final rangeStartDay =
-      DateTime.utc(DateTime.now().year, DateTime.now().month, 1).obs;
+      DateTime
+          .utc(DateTime
+          .now()
+          .year, DateTime
+          .now()
+          .month, 1)
+          .obs;
   final rangeEndDate =
-      DateTime.utc(DateTime.now().year, DateTime.now().month + 1, 0).obs;
+      DateTime
+          .utc(DateTime
+          .now()
+          .year, DateTime
+          .now()
+          .month + 1, 0)
+          .obs;
 
   getLeaveAllowance() async {
     change(null, status: RxStatus.loading());
@@ -74,10 +93,12 @@ class LeaveController extends GetxController with StateMixin {
 
   getLeaveType() async {
     change(null, status: RxStatus.loading());
-    await _leaveRepository.getLeaveType().then((value) {
+    await _leaveRepository.getLeaveType().then((LeaveType value) {
       print("getLeaveType ::: called");
       leaveType.clear();
-      value.data?.map((e) => leaveType.add(e.name!)).toList(growable: true);
+      leaveType = Map.fromIterable(value.data!,
+          key: (key) => key.id, value: (value) => value.name);
+      print("list data::: ${leaveType}");
     }, onError: (error) => print("getLeaveType ${error.message}"));
 
     change(null, status: RxStatus.success());
@@ -123,6 +144,7 @@ class LeaveController extends GetxController with StateMixin {
         .requestLeave(leaveQueries: leaveARequestQueries)
         .then((value) {
       print("requestLeave ::: called");
+      showCustomSnackBar(message: value.message ?? "");
     }, onError: (error) => print("getILeaveDetails ${error}"));
 
     change(null, status: RxStatus.success());

@@ -12,6 +12,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../../common/widget/loading_indicator.dart';
+import '../../../../utils/app_style.dart';
 import '../widget/dot_indicator.dart';
 import '../widget/info_layout.dart';
 import '../widget/log_list.dart';
@@ -116,11 +117,9 @@ class Attendance extends GetView<AttendanceController> {
                 customSpacerHeight(height: 30),
                 SizedBox(
                     height: AppLayout.getHeight(Dimensions.paddingDefault)),
-                punchButton(() async {
-                  await controller.getLatLong();
-                  _openBottomSheet();
-                }),
-                punchOutLayout(),
+                controller.isPunchIn.isFalse
+                    ? punchInLayout()
+                    : punchOutLayout(),
                 customSpacerHeight(height: 20),
                 Obx(() => dotIndicator(controller.currentIndex.value)),
                 attendanceLogText(
@@ -141,25 +140,58 @@ class Attendance extends GetView<AttendanceController> {
               ]),
         ),
       ));
-}
 
-punchOutLayout() {
-  return Row(
-    children: [
-      AppButton(
-        buttonText: AppString.text_punch_out,
-        onPressed: () {},
-        buttonColor: Colors.white.withOpacity(.18),
-        iconsData: Icons.logout,
-        textColor: Colors.white,
-      ),
-      customSpacerWidth(width: 8),
-      AppButton(
+  punchInLayout() => InkWell(
+        onTap: () async {
+          await controller.getLatLong();
+          _openBottomSheet();
+        },
+        child: Container(
+          decoration: BoxDecoration(
+              border:
+                  Border.all(width: 1, color: Colors.white.withOpacity(.33)),
+              color: Colors.white.withOpacity(.18),
+              borderRadius: BorderRadius.circular(
+                Dimensions.radiusDefault,
+              )),
+          width: double.maxFinite,
+          height: AppLayout.getHeight(48),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.login,
+                color: Colors.white,
+                size: AppLayout.getWidth(20),
+              ),
+              customSpacerWidth(width: 10),
+              Text(AppString.text_punch_in, style: AppStyle.normal_text),
+            ],
+          ),
+        ),
+      );
+
+  punchOutLayout() {
+    return Row(
+      children: [
+        AppButton(
           buttonText: AppString.text_punch_out,
-          onPressed: () {},
-          buttonColor: Colors.transparent,
-          borderColor: Colors.white,
-      iconsData: Icons.local_cafe_outlined),
-    ],
-  );
+          onPressed: () async {
+            await controller.getLatLong();
+            _openBottomSheet();
+          },
+          buttonColor: Colors.white.withOpacity(.18),
+          iconsData: Icons.logout,
+          textColor: Colors.white,
+        ),
+        customSpacerWidth(width: 8),
+        AppButton(
+            buttonText: "Take Break",
+            onPressed: () {},
+            buttonColor: Colors.transparent,
+            borderColor: Colors.white,
+            iconsData: Icons.local_cafe_outlined),
+      ],
+    );
+  }
 }

@@ -12,6 +12,7 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 
 import '../../../../common/widget/custom_buttom_sheet.dart';
 import '../../../../common/widget/custom_divider.dart';
+import '../../../../utils/app_string.dart';
 
 class SummaryScreen extends GetView<AttendanceLogsController> {
   const SummaryScreen({Key? key}) : super(key: key);
@@ -26,47 +27,23 @@ class SummaryScreen extends GetView<AttendanceLogsController> {
             child: Column(
               children: [
                 SizedBox(height: AppLayout.getHeight(12)),
-                InkWell(
-                  onTap: () => _openBottomSheet(),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          controller.logSummaryOverview.data != null
-                              ? Text(
-                                  controller.logSummaryOverview.data!
-                                          .queryString!.start!.isNotEmpty
-                                      ? "Custom"
-                                      : "This Month",
-                                  style: AppStyle.mid_large_text.copyWith(
-                                      color: AppColor.secondaryColor,
-                                      fontWeight: FontWeight.w700),
-                                )
-                              : Container(),
-                          controller.logSummaryOverview.data != null
-                              ? Text(
-                                  controller.logSummaryOverview.data!
-                                          .queryString!.start!.isNotEmpty
-                                      ? "${controller.logSummaryOverview.data?.queryString?.start} - ${controller.logSummaryOverview.data?.queryString?.end}"
-                                      : DateFormat('MMMM yyyy')
-                                          .format(DateTime.now())
-                                          .toString(),
-                                  style: AppStyle.normal_text_grey,
-                                )
-                              : Container(),
-                        ],
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(child: _filterBox()),
+                    GestureDetector(
+                      onTapDown: (TapDownDetails details) {
+                        _showPopupMenu(details.globalPosition);
+                      },
+                      child: Container(
+                        child: Icon(
+                          Icons.info_outline,
+                          size: AppLayout.getWidth(20),
+                          color: Colors.grey,
+                        ),
                       ),
-                      SizedBox(
-                        width: AppLayout.getWidth(12),
-                      ),
-                      const Icon(
-                        Icons.keyboard_arrow_down,
-                        color: AppColor.hintColor,
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: AppLayout.getHeight(12),
@@ -75,6 +52,144 @@ class SummaryScreen extends GetView<AttendanceLogsController> {
               ],
             )),
         onLoading: const LoadingIndicator());
+  }
+
+  _filterBox() => InkWell(
+        onTap: () => _openBottomSheet(),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                controller.logSummaryOverview.data != null
+                    ? Text(
+                        controller.logSummaryOverview.data!.queryString!.start!
+                                .isNotEmpty
+                            ? "Custom"
+                            : "This Month",
+                        style: AppStyle.mid_large_text.copyWith(
+                            color: AppColor.secondaryColor,
+                            fontWeight: FontWeight.w700),
+                      )
+                    : Container(),
+                controller.logSummaryOverview.data != null
+                    ? Text(
+                        controller.logSummaryOverview.data!.queryString!.start!
+                                .isNotEmpty
+                            ? "${controller.logSummaryOverview.data?.queryString?.start} - ${controller.logSummaryOverview.data?.queryString?.end}"
+                            : DateFormat('MMMM yyyy')
+                                .format(DateTime.now())
+                                .toString(),
+                        style: AppStyle.normal_text_grey,
+                      )
+                    : Container(),
+              ],
+            ),
+            SizedBox(
+              width: AppLayout.getWidth(12),
+            ),
+            const Icon(
+              Icons.keyboard_arrow_down,
+              color: AppColor.hintColor,
+            ),
+          ],
+        ),
+      );
+
+  _showPopupMenu(Offset offset) async {
+    double left = offset.dx;
+    double top = offset.dy;
+    await showMenu(
+      context: Get.context!,
+      position: RelativeRect.fromLTRB(left, top, 0, 0),
+      items: [
+        PopupMenuItem<String>(
+          child: RichText(
+            text: TextSpan(
+              text: AppString.pop_up_scheduled_short,
+              style: AppStyle.normal_text_black,
+              children: [
+                TextSpan(
+                    text: AppString.pop_up_scheduled_long,
+                    style: AppStyle.normal_text_grey),
+              ],
+            ),
+          ),
+          value: '',
+        ),
+        PopupMenuItem<String>(
+          child: RichText(
+            text: TextSpan(
+              text: AppString.pop_up_paid_leave_short,
+              style: AppStyle.normal_text_black,
+              children: [
+                TextSpan(
+                    text: AppString.pop_up_paid_leave_long,
+                    style: AppStyle.normal_text_grey),
+              ],
+            ),
+          ),
+          value: '',
+        ),
+        PopupMenuItem<String>(
+          child: RichText(
+            text: TextSpan(
+              text: AppString.pop_up_worked_short,
+              style: AppStyle.normal_text_black,
+              children: [
+                TextSpan(
+                    text: AppString.pop_up_worked_long,
+                    style: AppStyle.normal_text_grey),
+              ],
+            ),
+          ),
+          value: '',
+        ),
+        PopupMenuItem<String>(
+          child: RichText(
+            text: TextSpan(
+              text: AppString.pop_up_break_time_short,
+              style: AppStyle.normal_text_black,
+              children: [
+                TextSpan(
+                    text: AppString.pop_up_break_time_long,
+                    style: AppStyle.normal_text_grey),
+              ],
+            ),
+          ),
+          value: '',
+        ),
+        PopupMenuItem<String>(
+          child: RichText(
+            text: TextSpan(
+              text: AppString.pop_up_balance_short,
+              style: AppStyle.normal_text_black,
+              children: [
+                TextSpan(
+                    text: AppString.pop_up_balance_long,
+                    style: AppStyle.normal_text_grey),
+              ],
+            ),
+          ),
+          value: '',
+        ),
+      ],
+      elevation: 8.0,
+    );
+  }
+
+  _infoPopup() async {
+    return await showMenu(
+      context: Get.context!,
+      position: RelativeRect.fromLTRB(
+          AppLayout.getSize(Get.context!).width * .9, 100, 100, 100),
+      items: [
+        PopupMenuItem<String>(child: const Text('Doge'), value: 'Doge'),
+        PopupMenuItem<String>(child: const Text('Lion'), value: 'Lion'),
+      ],
+      elevation: 8.0,
+    );
   }
 }
 

@@ -8,6 +8,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import '../../../../common/widget/custom_app_button.dart';
 import '../../../../common/widget/custom_time_picker.dart';
 import '../../../../common/widget/input_note.dart';
+import '../../../../common/widget/note_layout.dart';
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_string.dart';
@@ -69,7 +70,7 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
           SizedBox(height: AppLayout.getHeight(24)),
           _timeLayout(),
           SizedBox(height: AppLayout.getHeight(24)),
-          _noteLayout(),
+          noteLayout(),
         ],
       ),
     );
@@ -95,6 +96,7 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
   }
 
   _requestButton(BuildContext context) {
+    Get.find<AttendanceLogsController>().textEditingController.clear();
     var controller = Get.find<DateTimeController>();
     return AppButton(
       buttonColor: AppColor.primaryBlue,
@@ -117,6 +119,7 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
   }
 
   _cancelButton(BuildContext context) {
+    Get.find<AttendanceLogsController>().textEditingController.clear();
     return AppButton(
       buttonText: AppString.text_cancel,
       onPressed: () => Navigator.of(context).pop(),
@@ -144,7 +147,7 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
   }
 
   _dateInputField(BuildContext context) {
-    var controller = Get.find<DateTimeController>();
+    DateTimeController controller = Get.find<DateTimeController>();
     return InkWell(
       child: Container(
         decoration: BoxDecoration(
@@ -234,23 +237,4 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
     );
   }
 
-  _noteLayout() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          AppString.text_note,
-          style: AppStyle.normal_text_black
-              .copyWith(color: Colors.grey, fontWeight: FontWeight.w600),
-        ),
-        SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
-        InputNote(
-            controller:
-                Get.find<AttendanceLogsController>().textEditingController,
-
-
-        ),
-      ],
-    );
-  }
 }

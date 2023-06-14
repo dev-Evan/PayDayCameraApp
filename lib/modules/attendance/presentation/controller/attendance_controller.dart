@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
+import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attendance_data_repository.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_entry/log_entry_request.dart';
@@ -65,6 +66,7 @@ class AttendanceController extends GetxController with StateMixin {
       await getDailyLog();
       startTimer();
       print("punchIn :: ${value.message}");
+      showCustomSnackBar(message: value.message??"");
     }, onError: (error) {
       print("punchIn :: ${error.message}");
       errorSnackBar(errorMessage: error.message);
@@ -72,8 +74,7 @@ class AttendanceController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  bool punchOut(LogEntryRequest punchOutRequest) {
-    var v = false;
+  punchOut(LogEntryRequest punchOutRequest) {
     change(null, status: RxStatus.loading());
     _attendanceDataRepository
         .punchOut(
@@ -84,18 +85,15 @@ class AttendanceController extends GetxController with StateMixin {
         await checkUserIsPunchedIn();
         await getDailyLog();
         stopTimer();
+        showCustomSnackBar(message: value.message??"");
         print("punchOut :: ${value.message}");
-        v = true;
       },
       onError: (error) {
         print("punchOut :: ${error.message}");
         errorSnackBar(errorMessage: error.message);
-        v = false;
       },
     );
     change(null, status: RxStatus.success());
-    print("Return v:: $v");
-    return v;
   }
 
   getDailyLog() async {

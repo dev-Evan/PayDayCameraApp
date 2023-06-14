@@ -40,6 +40,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
   }
 
   late ScrollController scrollController;
+
   late ScrollController floatingScrollController;
 
   final RxBool isFloatingActionVisible = true.obs;
@@ -52,11 +53,11 @@ class AttendanceLogsController extends GetxController with StateMixin {
   Rx<LogSummary> logSummaryByMonth = LogSummary().obs;
   Rx<LogSummary> logSummaryByYear = LogSummary().obs;
   FilteredLogSummary filteredLogSummary = FilteredLogSummary();
+  LogSummaryOverview logSummaryOverview = LogSummaryOverview();
+  final isMoreDataLoading = false.obs;
   final currentIndex = 0.obs;
   final tabIndex = 0.obs;
   final RxList logList = [].obs;
-  LogSummaryOverview logSummaryOverview = LogSummaryOverview();
-  final isMoreDataLoading = false.obs;
   final TextEditingController textEditingController = TextEditingController();
 
   void _loadMoreFilteredLogSummary() async {

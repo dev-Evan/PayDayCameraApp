@@ -53,6 +53,7 @@ class AttendanceDetails {
   dynamic paidLeaves;
   dynamic balance;
 
+
   AttendanceDetails(
       {this.month,
         this.dateInNumber,

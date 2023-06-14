@@ -35,30 +35,22 @@ class _ApplyLeaveDobHalfDayState extends State<ApplyLeaveDobHalfDay> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Flexible(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              textFieldTitleText(
-                titleText: AppString.text_date,
-              ),
-              customSpacerHeight(height: 4),
-              SizedBox(
-                width: AppLayout.getSize(context).width * .45,
-                child: const ApplyLeaveDobSingleDay(),
-              )
-            ],
-          ),
+        Expanded(
+          child: ApplyLeaveDobSingleDay(),
         ),
         customSpacerWidth(width: 12),
-        Flexible(
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              textFieldTitleText(
-                titleText: AppString.text_interval,
+              Text(
+                AppString.text_interval,
+                style: AppStyle.small_text.copyWith(
+                    color: AppColor.normalTextColor,
+                    fontWeight: FontWeight.w600,
+                    fontSize: Dimensions.fontSizeDefault),
               ),
-              customSpacerHeight(height: 4),
+              customSpacerHeight(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

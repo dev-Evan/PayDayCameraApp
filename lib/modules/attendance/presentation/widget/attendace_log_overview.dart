@@ -58,8 +58,8 @@ Widget attendanceLogsOverviewLayout(context) {
                               .logSummaryByMonth.value.data?.behavior),
                       _logSummaryCard(
                           title: AppString.text_availablity,
-                          count: controller
-                              .logSummaryByMonth.value.data?.availablity),
+                          count:"${ controller
+                              .logSummaryByMonth.value.data?.availablity} %"),
                     ]),
               ),
             ),
@@ -103,8 +103,8 @@ Widget attendanceLogsOverviewLayout(context) {
                               .logSummaryByYear.value.data?.behavior),
                       _logSummaryCard(
                           title: AppString.text_availablity,
-                          count: controller
-                              .logSummaryByYear.value.data?.availablity),
+                          count: "${controller
+                              .logSummaryByYear.value.data?.availablity} %"),
                     ]),
               ),
             ),
