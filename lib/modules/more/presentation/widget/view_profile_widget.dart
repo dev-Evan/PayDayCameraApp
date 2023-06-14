@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/change_profile_img_controller.dart';
@@ -59,6 +60,8 @@ Widget circleAvatarStyle({final userImage}) {
         child: ClipOval(
           child: FadeInImage(
             image: NetworkImage(userImage),
+
+
             placeholder: Get.find<ImagePickerController>().pickedImage.value ==null
   ? placeholderImages
       : Image.file(File(Get.find<ImagePickerController>().pickedImage.value!.path))
@@ -205,3 +208,6 @@ Widget aboutText({required text}){
         fontSize: Dimensions.fontSizeDefault),
   );
 }
+
+
+
