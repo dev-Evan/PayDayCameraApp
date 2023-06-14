@@ -13,7 +13,6 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../widget/address_details_widget.dart';
-import '../widget/edit_address.dart';
 
 class EditProfile extends StatelessWidget {
   EditProfile({Key? key}) : super(key: key);
@@ -23,6 +22,7 @@ class EditProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final _box = GetStorage();
     return Form(
       key: _formKey,
@@ -127,6 +127,7 @@ class EditProfile extends StatelessWidget {
                 child: CustomButton(AppString.text_save, () {
                   if (_formKey.currentState!.validate()) {
                     Get.find<EditProfileDataController>().editProfileData(
+                      context: context,
                         selectedDate:
                             _box.read(AppString.STORE_DATE.toString() ?? ""));
                   }

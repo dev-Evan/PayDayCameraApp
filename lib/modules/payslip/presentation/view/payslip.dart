@@ -25,7 +25,7 @@ class PaySlip extends GetView<PayslipListController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.getPayslipListData(value: thisYarKey());
+   controller.getPayslipListData(value: thisYarKey());
     controller.getSummaryData();
     return controller.obx(
         (state) => Scaffold(
@@ -79,7 +79,7 @@ class PaySlip extends GetView<PayslipListController> {
                         viewDate(
                             dateText:
                             Get.find<DropdownBtnStdController>().sltDate.toString()),
-
+                        customSpacerHeight(height: 12),
                         ( controller.payslipListModel.data?.payslips !=null &&
                         controller.payslipListModel.data!.payslips!.isNotEmpty)
                             ? ListView.builder(

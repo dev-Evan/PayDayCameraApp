@@ -19,17 +19,22 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
 
-class UpdateDocument extends StatelessWidget {
+import '../../../../common/widget/success_snakbar.dart';
 
-   UpdateDocument({Key? key,}) : super(key: key);
+class UpdateDocument extends StatelessWidget {
+  String? docUrl;
+
+  UpdateDocument({Key? key, this.docUrl}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    print(docUrl.toString());
     final _box = GetStorage();
     return Column(
       children: [
         bottomSheetAppbar(
-            context: context,
-            appbarTitle: "${AppString.text_edit} ${AppString.text_documents}",),
+          context: context,
+          appbarTitle: "${AppString.text_edit} ${AppString.text_documents}",
+        ),
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
@@ -53,63 +58,60 @@ class UpdateDocument extends StatelessWidget {
                     titleText: AppString.text_documents,
                   ),
                   customSpacerHeight(height: 20),
-
                   _dottedBorder(
                       child: Obx(() => InkWell(
-                            onTap: () => Get.find<UpdateDocumentController>().pickFile(),
-
-                            child: Get.find<UpdateDocumentController>()
-                                    .filePath
-                                    .isNotEmpty
-                                ? Get.find<UpdateDocumentController>().filePath.startsWith("https://")?
-
-                            Container(
-                              height: AppLayout.getHeight(100),
-                              decoration: BoxDecoration(
-                                color: AppColor.errorColor
-                                    .withOpacity(0.4),
-                                image: DecorationImage(
-                                    image:
-
-                                    networkImage(path: Get.find<UpdateDocumentController>()
-                                        .filePath
-                                        .value
-                                        .toString()),
-                                    fit: BoxFit.cover),
-                              ),
-                            ):
-
-                            Container(
-                                    height: AppLayout.getHeight(100),
-                                    decoration: BoxDecoration(
-                                      color: AppColor.errorColor
-                                          .withOpacity(0.4),
-                                      image: DecorationImage(
-                                          image:
-
-                                          FileImage(File(Get.find<UpdateDocumentController>()
-                                                  .filePath
-                                                  .value
-                                                  .toString())
-                                              .absolute),
-                                          fit: BoxFit.cover),
-                                    ),
-                                  )
-                                : Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      children: [
-                                        // _fileTitle(
-                                        //   text: _box.read(AppString
-                                        //           .STORE_DOC_NAME_TEXT) ??
-                                        //       "",
-                                        // ),
-                                        customSpacerHeight(height: 16),
-                                        _changeFile()
-                                      ],
-                                    ),
+                          onTap: () =>
+                              Get.find<UpdateDocumentController>().pickFile(),
+                          child: Get.find<UpdateDocumentController>()
+                                  .filePath
+                                  .endsWith(".pdf")
+                              ? Container(
+                                  height: AppLayout.getHeight(100),
+                                  color: AppColor.disableColor.withOpacity(0.7),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      _fileTitle(
+                                        text: _box.read(AppString
+                                                .STORE_DOC_NAME_TEXT) ??
+                                            "",
+                                      ),
+                                      customSpacerHeight(height: 16),
+                                      _changeFile()
+                                    ],
                                   ),
-                          ))),
+                                )
+                              : Get.find<UpdateDocumentController>()
+                                      .filePath
+                                      .startsWith("https://")
+                                  ? Container(
+                                      height: AppLayout.getHeight(100),
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        image: DecorationImage(
+                                            image: networkImage(
+                                                path: Get.find<
+                                                        UpdateDocumentController>()
+                                                    .filePath
+                                                    .value),
+                                            fit: BoxFit.cover),
+                                      ),
+                                    )
+                                  : Container(
+                                      height: AppLayout.getHeight(100),
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        image: DecorationImage(
+                                            image: FileImage(File(Get.find<
+                                                        UpdateDocumentController>()
+                                                    .filePath
+                                                    .value
+                                                    .toString())
+                                                .absolute),
+                                            fit: BoxFit.cover),
+                                      ),
+                                    )))),
                   customSpacerHeight(height: 8),
                   Obx(() => Get.find<UpdateDocumentController>()
                           .filePath
@@ -137,7 +139,13 @@ class UpdateDocument extends StatelessWidget {
               textButtonAction: () => Get.back(),
               elevatedButtonAction: () {
                 Get.find<UpdateDocumentController>()
-                    .updateDocFile(context: context);
+                        .filePath
+                        .startsWith("https://")
+                    ? showCustomSnackBar(
+                        message: AppString.text_please_selected_document,
+                        color: AppColor.errorColor)
+                    : Get.find<UpdateDocumentController>()
+                        .updateDocFile(context: context);
               },
               textBtnText: AppString.text_cancel,
               elevatedBtnText: AppString.text_save,
@@ -177,7 +185,7 @@ Widget _dottedBorder({required child}) {
     dashPattern: [8, 6],
     strokeWidth: AppLayout.getWidth(2),
     child: SizedBox(
-      height: AppLayout.getHeight(90),
+      height: AppLayout.getHeight(120),
       child: child,
     ),
   );
@@ -199,6 +207,6 @@ Widget _changeFile() {
   );
 }
 
-NetworkImage networkImage({required path}){
+NetworkImage networkImage({required path}) {
   return NetworkImage(path);
 }

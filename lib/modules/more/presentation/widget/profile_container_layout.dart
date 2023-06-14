@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
@@ -85,7 +86,12 @@ Widget profileCardLayOut(
               ),
               const Spacer(),
               _moveProfileView(
-                  onAction: () => Get.toNamed(AppString.profileView)),
+                  onAction: (){
+                    SchedulerBinding.instance.addPostFrameCallback((_)=>
+                      Navigator.push(context, new MaterialPageRoute(
+                              builder: (context) => ViewProfile())),);
+                  }
+              ),
               customSpacerHeight(height: 8),
             ],
           ),
@@ -137,5 +143,13 @@ Widget _viewProfileText() {
   return Text(
     AppString.text_view_profile,
     style: AppStyle.small_text.copyWith(fontSize: Dimensions.fontSizeDefault),
+  );
+}
+Future navigatorForViewProfile({context}){
+  return Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (BuildContext context) => ViewProfile(),
+    ),
   );
 }

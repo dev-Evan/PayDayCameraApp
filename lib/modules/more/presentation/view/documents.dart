@@ -139,6 +139,13 @@ class DocumentScreen extends GetView<DocumentController> {
                                                                       index]
                                                                   .name ??
                                                               "",
+                                                          docUrl:controller
+                                                              .documentModel
+                                                              .data
+                                                              ?.documents?[
+                                                          index]
+                                                              .fullUrl ??
+                                                              "" ,
                                                           context: context)),
                                                 ],
                                               ),
@@ -264,6 +271,7 @@ Widget _cardImgTitle(
     required sizeText,
     required id,
     required docText,
+      required docUrl,
     required context}) {
   final box = GetStorage();
   return _sizedCardImgTitle(
@@ -295,7 +303,7 @@ Widget _cardImgTitle(
                         BorderRadius.circular(Dimensions.radiusDefault),
                   ),
                   actions: [
-                    _editDeletedActionRow(context: context, id: id),
+                    _editDeletedActionRow(context: context, id: id,docUrl:docUrl),
                   ],
                 );
               },
@@ -306,7 +314,7 @@ Widget _cardImgTitle(
   ));
 }
 
-Widget _editDeletedActionRow({required context, required id}) {
+Widget _editDeletedActionRow({required context, required id,required docUrl}) {
   final _box = GetStorage();
   return Row(
     children: [
@@ -321,14 +329,13 @@ Widget _editDeletedActionRow({required context, required id}) {
             Navigator.pop(context);
           }
 
-      Get.find<UpdateDocumentController>().filePath.value =
-              _box.read("key");
+      Get.find<UpdateDocumentController>().filePath.value =docUrl;
           customButtonSheet(
               context: context,
               height: 0.9,
               child:  Padding(
                 padding: EdgeInsets.all(8.0),
-                child: UpdateDocument(),
+                child: UpdateDocument(docUrl: docUrl,),
               ));
           _box.write(AppString.STORE_DOC_Id, id);
 

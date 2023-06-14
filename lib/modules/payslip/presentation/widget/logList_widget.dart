@@ -29,7 +29,7 @@ Widget logsList(
       left: AppLayout.getWidth(12),
       right: AppLayout.getWidth(12),
       bottom: AppLayout.getHeight(12),
-      top: AppLayout.getHeight(12),
+      top: AppLayout.getHeight(0),
     ),
     child: Column(
       children: [
@@ -93,8 +93,8 @@ Widget _logListRow(
 }
 
 Widget _divider({context}) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 12.0),
+  return Container(
+    margin: EdgeInsets.only(top: 14,bottom: 0),
     child: CustomDiveider(
         AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
   );
