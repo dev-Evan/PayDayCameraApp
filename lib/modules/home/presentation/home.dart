@@ -1,4 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/widget/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/more.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -50,28 +55,37 @@ class _HomeState extends State<Home> {
       currentIndex = index;
     });
   }
+  
+Future dialog(){
+    return CustomAlertDialog(
 
+    );
+}
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppbar(),
-      body: _screens[currentIndex],
-      bottomNavigationBar: SizedBox(
-        height: AppLayout.getHeight(71),
-        child: BottomNavigationBar(
-          selectedItemColor: AppColor.primaryColor,
-          unselectedItemColor: AppColor.hintColor.withOpacity(0.8),
-          type: BottomNavigationBarType.fixed,
-          selectedFontSize: Dimensions.fontSizeDefault - 1,
-          unselectedFontSize: Dimensions.fontSizeDefault - 1,
-          showUnselectedLabels: true,
-          items: _items,
-          elevation: 3,
-          backgroundColor: AppColor.backgroundColor,
-          currentIndex: currentIndex,
-          onTap: (index) => onTap(index),
-        ),
+    return WillPopScope(
+      onWillPop: () => _onWillPop(context),
 
+      child: Scaffold(
+        appBar: const CustomAppbar(),
+        body: _screens[currentIndex],
+        bottomNavigationBar: SizedBox(
+          height: AppLayout.getHeight(71),
+          child: BottomNavigationBar(
+            selectedItemColor: AppColor.primaryColor,
+            unselectedItemColor: AppColor.hintColor.withOpacity(0.8),
+            type: BottomNavigationBarType.fixed,
+            selectedFontSize: Dimensions.fontSizeDefault - 1,
+            unselectedFontSize: Dimensions.fontSizeDefault - 1,
+            showUnselectedLabels: true,
+            items: _items,
+            elevation: 3,
+            backgroundColor: AppColor.backgroundColor,
+            currentIndex: currentIndex,
+            onTap: (index) => onTap(index),
+          ),
+
+        ),
       ),
     );
   }
@@ -79,4 +93,14 @@ class _HomeState extends State<Home> {
 
 Widget _icon({required icon}) {
   return Icon(icon);
+}
+Future<bool> _onWillPop(BuildContext context) async {
+  return await exitDialog(
+      context: context,
+      yesAction: (){
+    if (Platform.isAndroid) {
+      SystemNavigator.pop();
+    } else if (Platform.isIOS) {
+      exit(0);}}
+  ) ;
 }

@@ -95,6 +95,7 @@ class AppString {
   static const String text_first_half = "First Half";
   static const String text_last_half = "Last Half";
   static const String text_are_you_sure = "Are you sure?";
+  static const String text_are_you_sure_want_to_exit_from_app = "Are you sure you want to exit from App";
   static const String text_export_attendance = "Export Attendance?";
   static const String text_dialog_dec = "If you do this, you cannot turn back";
   static const String text_dialog_dec_pdf = "December Attendance.pdf";

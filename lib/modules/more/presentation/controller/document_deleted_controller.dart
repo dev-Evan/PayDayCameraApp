@@ -36,15 +36,3 @@ class DeletedDocumentController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 }
-
-Future _successDialog({required onAction}) {
-  return CustomSuccessAlertDialog(
-    context: Get.context,
-    titleText: AppString.text_success,
-    icon: Icons.check,
-    iconColor: AppColor.successColor,
-    iconBgColor: AppColor.successColor.withOpacity(0.2),
-    contentText: AppString.text_deleted_document_successfully,
-    popupAction: () => onAction(),
-  );
-}
