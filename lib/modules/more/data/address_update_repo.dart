@@ -26,6 +26,7 @@ class AddressUpdateDataSource {
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
+        Get.back();
         return AddressUpdateModel.fromJson(response.body);
       }
     } catch (ex) {

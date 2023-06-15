@@ -198,12 +198,15 @@ class _AddAddressState extends State<AddAddress> {
                   ],
                 ),
                 customSpacerHeight(height: 24),
+
                 customDoubleButton(
                     context: context,
                     elevatedBtnText:
                         '${AppString.text_add} ${AppString.text_address}',
                     textBtnText: AppString.text_cancel,
-                    textButtonAction: () => Get.back(),
+                    textButtonAction: (){
+                      Get.back();
+                    },
                     elevatedButtonAction: () {
                       if (_formKey.currentState!.validate()) {
                              Get.find<AddressUpdateController>().addressUpdate(

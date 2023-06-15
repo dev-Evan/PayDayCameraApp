@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/announce.dart';
 import 'package:pay_day_mobile/modules/starting/view/splash_screen.dart';
 
 import '../modules/attendance/presentation/view/attendance_logs.dart';
@@ -121,6 +122,11 @@ class AppPages {
       name: _Paths.BANK_DETAILS,
       transition: Transition.rightToLeft,
       page: () => BankDetails(),
+    ),
+    GetPage(
+      name: _Paths.ANNOUNCE_SCREEN,
+      transition: Transition.rightToLeft,
+      page: () => AnnounceScreen(),
     ),
 
   ];

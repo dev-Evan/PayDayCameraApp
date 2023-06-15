@@ -39,5 +39,7 @@ static String logo = 'assets/images/logo.svg';
 static String easy_leave = 'assets/images/Asset 2.svg';
 static String start_your_day_image = 'assets/images/no_data.svg';
 static String no_data = 'assets/images/no_data.svg';
+static String announce = 'assets/images/Icons=Announce.svg';
+static String leave_allowance = 'assets/images/Icons=book-open.svg';
 static String placeholder = 'assets/images/placeholder.png';
 }

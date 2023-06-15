@@ -7,14 +7,14 @@ Widget dottedView(){
   return  Padding(
     padding: const EdgeInsets.only(left: 28.0),
     child: DottedBorder(
-      customPath: (p0) => Path()..lineTo(0, 98),
-      color: AppColor.disableColor,
-      dashPattern: const [6, 4],
-      strokeWidth: 1,
+      customPath: (p0) => Path()..lineTo(0, 200),
+      color: AppColor.hintColor.withOpacity(0.5),
+      dashPattern: const [4, 4],
+      strokeWidth: 1.2,
       child: Row(
         children: [
           Divider(
-            height: AppLayout.getHeight(90),
+            height: AppLayout.getHeight(290),
             color: AppColor.noColor,
           ),
         ],

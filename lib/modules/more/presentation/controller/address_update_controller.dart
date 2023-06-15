@@ -8,6 +8,7 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/logout_contr
 import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/address_details.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
+import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/utils.dart';
 
 
@@ -16,10 +17,7 @@ class AddressUpdateController extends GetxController with StateMixin {
       AddressUpdateDataSource(NetworkClient());
   var newValue="";
   void addressUpdate({required typeKey,required context,
- required area,required city,required country,required details ,required phone, required state, required zipcode,required String message
-
-
-  }) async {
+ required area,required city,required country,required details ,required phone, required state, required zipcode,required String message}) async {
     waitingLoader();
     try {
       await addressUpdateDataSource
@@ -31,7 +29,6 @@ class AddressUpdateController extends GetxController with StateMixin {
         FutureDelayed(onAction: ()=>_fieldClear());
         newValue="value";
         print("Address update called ::: $value");
-
       }, onError: (error) {
         print("${error.message}");
         Get.back();

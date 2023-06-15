@@ -21,7 +21,6 @@ class FileUploadController extends GetxController {
     if (result != null) {
       File file = File(result.files.single.path!);
       selectedFile.value = file;
-      _box.write("Doc", file.path);
       filePath.value = result.files.single.path!;
     }
   }
@@ -54,7 +53,7 @@ class FileUploadController extends GetxController {
       Get.back();
       showCustomSnackBar(
           message: AppString.text_file_upload_update_successfully);
-
+      filePath.value = "";
       Get.find<CustomTextEditingController>().docFileNameController.clear();
     } else {
       Get.back();

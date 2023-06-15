@@ -21,6 +21,7 @@ class DeletedAddRepository {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
         print("Deleted address Called ::: ${response.body}");
+        Get.back();
         return DeletedAddressModel.fromJson(response.body);
       }
     } catch (ex) {

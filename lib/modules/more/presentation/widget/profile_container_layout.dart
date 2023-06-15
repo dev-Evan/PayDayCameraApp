@@ -18,7 +18,7 @@ import '../view/view_profile.dart';
 Widget profileCardLayOut(
     {context, userName, final userImage, userEmail, statusText}) {
   return Expanded(
-      flex: 3,
+      flex: 2,
       child: Container(
         decoration: AppStyle.ContainerStyle.copyWith(
             color: AppColor.primaryColor,
@@ -79,6 +79,8 @@ Widget profileCardLayOut(
                 ],
               ),
               const Spacer(),
+              customSpacerHeight(height: 12),
+
               _moveProfileView(
                   onAction: (){
                     SchedulerBinding.instance.addPostFrameCallback((_)=>

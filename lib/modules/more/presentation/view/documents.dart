@@ -279,13 +279,16 @@ Widget _cardImgTitle(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Row(
+
         children: [
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(titleText),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width/2.5,
+                    child: Flexible(child: Text(titleText))),
               ],
             ),
           ),

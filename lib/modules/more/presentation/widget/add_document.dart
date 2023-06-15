@@ -30,7 +30,14 @@ class _AddDocumentState extends State<AddDocument> {
     return Column(
       children: [
         bottomSheetAppbar(
-            context: context, appbarTitle: AppString.text_add_documents),
+            context: context, appbarTitle: AppString.text_add_documents,
+
+            onAction: (){
+              Get.find<CustomTextEditingController>()
+                  .docFileNameController.clear();
+              Get.find<FileUploadController>().filePath.value="";
+            }
+        ),
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
@@ -165,6 +172,10 @@ class _AddDocumentState extends State<AddDocument> {
           padding: const EdgeInsets.all(16.0),
           child: customDoubleButton(
               textButtonAction: () {
+                Get.find<CustomTextEditingController>()
+                    .docFileNameController.clear();
+                Get.find<FileUploadController>().filePath.value="";
+
                 if (Get.find<FileUploadController>()
                     .newValue
                     .toString()

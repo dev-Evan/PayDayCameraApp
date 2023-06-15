@@ -21,7 +21,7 @@ class DeletedAddController extends GetxController with StateMixin {
       await deletedAddRepository.deletedAddressRepo(addressType.toString())
           .then((DeletedAddressModel value) async {
         await Get.find<AddressDetailsController>().getEmployeeAddressData();
-        Get.back();Get.back();
+        Get.back();
           _navigator(context: context);
           showCustomSnackBar(message: AppString.text_address_deleted_successfully);
       }, onError: (error) {

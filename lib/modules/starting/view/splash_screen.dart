@@ -39,8 +39,8 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-  var _width = AppLayout.getWidth(86.0);
-  var _height = AppLayout.getHeight(86.0);
+  var _width = AppLayout.getWidth(100.0);
+  var _height = AppLayout.getHeight(100.0);
 
   @override
   void initState() {
@@ -54,8 +54,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Future.delayed(const Duration(milliseconds: 800), () {
       setState(() {
-        _width = AppLayout.getWidth(20.0);
-        _height = AppLayout.getHeight(20.0);
+        _width = AppLayout.getWidth(23.0);
+        _height = AppLayout.getHeight(23.0);
       });
     });
     super.initState();

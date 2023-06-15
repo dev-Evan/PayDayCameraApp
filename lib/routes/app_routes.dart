@@ -24,6 +24,7 @@ abstract class Routes {
   static const ABOUT_PAGE = _Paths.ABOUT_PAGE;
   static const PAYRAN_BAGE = _Paths.PAYRAN_BAGE;
   static const NOTIFICATION_SCREEN = _Paths.NOTIFICATION_SCREEN;
+  static const ANNOUNCE_SCREEN = _Paths.ANNOUNCE_SCREEN;
 }
 
 abstract class _Paths {
@@ -50,4 +51,5 @@ abstract class _Paths {
   static const ABOUT_PAGE = "/aboutPage-screen";
   static const PAYRAN_BAGE = "/payrunBage-screen";
   static const NOTIFICATION_SCREEN = "/notification-screen";
+  static const ANNOUNCE_SCREEN = "/announce-screen";
 }
