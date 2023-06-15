@@ -67,7 +67,7 @@ class _AddAddressState extends State<AddAddress> {
                           setState(() {
                             Get.find<CustomTextEditingController>()
                                 .addCountyController
-                                .text = country.displayName.toString();
+                                .text = country.name.toString();
                           });
                         });
                   },
