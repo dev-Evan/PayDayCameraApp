@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -46,7 +47,7 @@ class UpdateDocumentController extends GetxController {
     var response = await request.send();
     if (response.statusCode == 200) {
       print("Document updated ::: ${response}");
-      Get.back();
+        Get.back();
       newValue="value";
       Get.find<DocumentController>().getDocumentData();
       print(' Document update ::: File updated successfully');
