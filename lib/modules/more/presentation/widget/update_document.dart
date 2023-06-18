@@ -31,7 +31,7 @@ class UpdateDocument extends StatelessWidget {
         bottomSheetAppbar(
           context: context,
           appbarTitle: "${AppString.text_edit} ${AppString.text_documents}",
-          onAction: ()=> Get.find<CustomTextEditingController>()
+          onAction: ()=> Get.find<InputTextFieldController>()
               .docFileNameController.clear()
         ),
         Padding(
@@ -45,7 +45,7 @@ class UpdateDocument extends StatelessWidget {
                   CustomTextField(
                       hintText: _box.read(AppString.STORE_DOC_NAME_TEXT) ?? "",
                       inputType: TextInputType.text,
-                      controller: Get.find<CustomTextEditingController>()
+                      controller: Get.find<InputTextFieldController>()
                           .docFileNameController),
                 ],
               ),

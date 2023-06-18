@@ -18,7 +18,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/widget/loading_indicator.dart';
-import '../controller/more_data_controller.dart';
+import '../controller/bank_info_controller.dart';
 
 class BankDetails extends GetView<MoreDataController> {
   const BankDetails({Key? key}) : super(key: key);
@@ -168,14 +168,14 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
                 height: 0.9,
                 child: EditBankInfo(),
               );
-              Get.find<CustomTextEditingController>().bankNameController.text =
+              Get.find<InputTextFieldController>().bankNameController.text =
                   Get.find<MoreDataController>()
                           .bankInfoModel
                           .data
                           ?.name
                           ?.toString() ??
                       "";
-              Get.find<CustomTextEditingController>()
+              Get.find<InputTextFieldController>()
                   .branchNameController
                   .text = Get.find<MoreDataController>()
                       .bankInfoModel
@@ -184,14 +184,14 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
                       ?.toString() ??
                   "";
 
-              Get.find<CustomTextEditingController>().bankCodeController.text =
+              Get.find<InputTextFieldController>().bankCodeController.text =
                   Get.find<MoreDataController>()
                           .bankInfoModel
                           .data
                           ?.code
                           ?.toString() ??
                       "";
-              Get.find<CustomTextEditingController>()
+              Get.find<InputTextFieldController>()
                   .accountHolderNameController
                   .text = Get.find<MoreDataController>()
                       .bankInfoModel
@@ -200,7 +200,7 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
                       ?.toString() ??
                   "";
 
-              Get.find<CustomTextEditingController>()
+              Get.find<InputTextFieldController>()
                   .accountNumberController
                   .text = Get.find<MoreDataController>()
                       .bankInfoModel
@@ -209,7 +209,7 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
                       ?.toString() ??
                   "";
 
-              Get.find<CustomTextEditingController>()
+              Get.find<InputTextFieldController>()
                   .accountTitleController
                   .text = Get.find<MoreDataController>()
                       .bankInfoModel
@@ -217,7 +217,7 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
                       ?.accountTitle
                       ?.toString() ??
                   "";
-              Get.find<CustomTextEditingController>()
+              Get.find<InputTextFieldController>()
                   .taxPayerIdController
                   .text = Get.find<MoreDataController>()
                       .bankInfoModel

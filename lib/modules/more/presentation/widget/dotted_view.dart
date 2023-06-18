@@ -3,18 +3,39 @@ import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 
-Widget dottedView(){
+Widget dottedSalaryView(){
   return  Padding(
     padding: const EdgeInsets.only(left: 28.0),
     child: DottedBorder(
       customPath: (p0) => Path()..lineTo(0, 200),
-      color: AppColor.hintColor.withOpacity(0.5),
+      color: AppColor.hintColor.withOpacity(0.6),
       dashPattern: const [4, 4],
       strokeWidth: 1.2,
       child: Row(
         children: [
           Divider(
             height: AppLayout.getHeight(290),
+            color: AppColor.noColor,
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+
+Widget dottedView(){
+  return  Padding(
+    padding: const EdgeInsets.only(left: 28.0),
+    child: DottedBorder(
+      customPath: (p0) => Path()..lineTo(0, 80),
+      color: AppColor.hintColor.withOpacity(0.6),
+      dashPattern: const [4, 4],
+      strokeWidth: 1,
+      child: Row(
+        children: [
+          Divider(
+            height: AppLayout.getHeight(90),
             color: AppColor.noColor,
           ),
         ],

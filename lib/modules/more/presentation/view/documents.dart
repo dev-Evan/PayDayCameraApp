@@ -342,7 +342,7 @@ Widget _editDeletedActionRow({required context, required id,required docUrl}) {
               ));
           _box.write(AppString.STORE_DOC_Id, id);
 
-          Get.find<CustomTextEditingController>().docFileNameController.text =
+          Get.find<InputTextFieldController>().docFileNameController.text =
               _box.read(AppString.STORE_DOC_NAME_TEXT) ?? "";
         },
         child: _iconShape(icon: Icons.edit, text: AppString.text_edit),

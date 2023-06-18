@@ -38,7 +38,7 @@ class FileUploadController extends GetxController {
     }
     final url = Uri.parse(baseUrl);
     var request = http.MultipartRequest('POST', url);
-    request.fields['name'] = Get.find<CustomTextEditingController>().docFileNameController.text;
+    request.fields['name'] = Get.find<InputTextFieldController>().docFileNameController.text;
     request.fields['file'] = file.path;
     request.fields['user_id'] = accessId.toString();
     request.headers['Authorization'] = 'Bearer $accessToken';
@@ -54,7 +54,7 @@ class FileUploadController extends GetxController {
       showCustomSnackBar(
           message: AppString.text_file_upload_update_successfully);
       filePath.value = "";
-      Get.find<CustomTextEditingController>().docFileNameController.clear();
+      Get.find<InputTextFieldController>().docFileNameController.clear();
     } else {
       Get.back();
       showCustomSnackBar(

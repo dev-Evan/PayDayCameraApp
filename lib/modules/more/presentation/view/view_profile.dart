@@ -38,27 +38,27 @@ class ViewProfile extends GetView<ProfileDataController> {
             profileViewAppbar(
                 titleText: AppString.text_my_profile,
                 rightBtnAction: () {
-                  Get.find<CustomTextEditingController>()
+                  Get.find<InputTextFieldController>()
                       .firstNameController
                       .text = Get.find<ProfileDataController>()
                       .userProfile
                       .data
                       ?.firstName ??
                       "";
-                  Get.find<CustomTextEditingController>()
+                  Get.find<InputTextFieldController>()
                       .lastNameController
                       .text = Get.find<ProfileDataController>()
                       .userProfile
                       .data
                       ?.lastName ??
                       "";
-                  Get.find<CustomTextEditingController>().emailController.text =
+                  Get.find<InputTextFieldController>().emailController.text =
                       Get.find<ProfileDataController>()
                           .userProfile
                           .data
                           ?.email ??
                           "";
-                  Get.find<CustomTextEditingController>()
+                  Get.find<InputTextFieldController>()
                       .contactController
                       .text = Get.find<ProfileDataController>()
                       .userProfile
@@ -66,14 +66,14 @@ class ViewProfile extends GetView<ProfileDataController> {
                       ?.contact ??
                       "";
                   Get.find<DropdownBtnController>().dropdownValue.toString();
-                  Get.find<CustomTextEditingController>()
+                  Get.find<InputTextFieldController>()
                       .aboutMeController
                       .text = Get.find<ProfileDataController>()
                       .userProfile
                       .data
                       ?.aboutMe ??
                       "";
-                  Get.find<CustomTextEditingController>()
+                  Get.find<InputTextFieldController>()
                       .addressController
                       .text = Get.find<ProfileDataController>()
                       .userProfile

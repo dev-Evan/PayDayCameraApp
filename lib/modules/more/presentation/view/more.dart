@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/address_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/more_data_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/bank_info_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/salary_overview_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/more_widget.dart';
@@ -120,7 +120,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                   onAction: () async {
                                     Get.toNamed(Routes.ADDRESS_DETAILS);
                                     await Get.find<
-                                        AddressDetailsController>()
+                                        AddressController>()
                                         .getEmployeeAddressData();
                                   }),
                               customSpacerHeight(height: 16),

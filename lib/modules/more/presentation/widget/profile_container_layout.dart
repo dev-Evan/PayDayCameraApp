@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/change_profile_img_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/pick_image_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/user_status.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/view_profile_widget.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -43,17 +43,17 @@ Widget profileCardLayOut(
                     child: ClipOval(
                       child: FadeInImage(
                         image: NetworkImage(userImage),
-                        placeholder: Get.find<ImagePickerController>().pickedImage.value ==null
+                        placeholder: Get.find<PickImageController>().pickedImage.value ==null
                             ? placeholderImages
-                            : Image.file(File(Get.find<ImagePickerController>().pickedImage.value!.path))
+                            : Image.file(File(Get.find<PickImageController>().pickedImage.value!.path))
                             .image,
                         imageErrorBuilder: (context, error, stackTrace) {
                           return   CircleAvatar(
                             radius: 34,
                             backgroundColor: Colors.transparent,
-                            backgroundImage: Get.find<ImagePickerController>().pickedImage.value ==null
+                            backgroundImage: Get.find<PickImageController>().pickedImage.value ==null
                                 ? placeholderImages
-                                : Image.file(File(Get.find<ImagePickerController>().pickedImage.value!.path))
+                                : Image.file(File(Get.find<PickImageController>().pickedImage.value!.path))
                                 .image,
                           );
 

@@ -101,7 +101,7 @@ Widget _jobHisTitleView() {
         return Stack(
           alignment: Alignment.center,
           children: [
-            dottedView(),
+            dottedSalaryView(),
             Positioned(
               top: 0,
                 left: AppLayout.getWidth(23),

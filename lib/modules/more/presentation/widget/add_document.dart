@@ -33,7 +33,7 @@ class _AddDocumentState extends State<AddDocument> {
             context: context, appbarTitle: AppString.text_add_documents,
 
             onAction: (){
-              Get.find<CustomTextEditingController>()
+              Get.find<InputTextFieldController>()
                   .docFileNameController.clear();
               Get.find<FileUploadController>().filePath.value="";
             }
@@ -50,7 +50,7 @@ class _AddDocumentState extends State<AddDocument> {
                   CustomTextField(
                       hintText: AppString.text_enter_document_name,
                       inputType: TextInputType.text,
-                      controller: Get.find<CustomTextEditingController>()
+                      controller: Get.find<InputTextFieldController>()
                           .docFileNameController),
                 ],
               ),
@@ -172,7 +172,7 @@ class _AddDocumentState extends State<AddDocument> {
           padding: const EdgeInsets.all(16.0),
           child: customDoubleButton(
               textButtonAction: () {
-                Get.find<CustomTextEditingController>()
+                Get.find<InputTextFieldController>()
                     .docFileNameController.clear();
                 Get.find<FileUploadController>().filePath.value="";
 
@@ -186,7 +186,7 @@ class _AddDocumentState extends State<AddDocument> {
                 }
               },
               elevatedButtonAction: () {
-                Get.find<CustomTextEditingController>()
+                Get.find<InputTextFieldController>()
                         .docFileNameController
                         .text
                         .isEmpty

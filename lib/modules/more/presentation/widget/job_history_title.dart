@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/dotted_view.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/job_his_job_title.dart';
+import 'package:pay_day_mobile/utils/app_layout.dart';
 
 Widget jobHisEmploymentView() {
   return Padding(
@@ -19,7 +20,7 @@ Widget jobHisEmploymentView() {
           children: [
             dottedView(),
             Positioned(
-                left: 23,
+                left: AppLayout.getWidth(24),
                 child: jodTitle(
                     jobTitleText: Get.find<JobHistoryController>().jobHistoryModel.data
                             ?.employmentStatuses?[index].name ??
@@ -52,7 +53,8 @@ Widget jobHisDesignationView() {
           children: [
             dottedView(),
             Positioned(
-                left: 23,
+                left: AppLayout.getWidth(23),
+                top: AppLayout.getHeight(20),
                 child: jodTitle(
                     jobTitleText:  Get.find<JobHistoryController>()
                             .jobHistoryModel.data?.designations?[index].name ??
@@ -86,7 +88,8 @@ Widget jobHisDepartmentView() {
           children: [
             dottedView(),
             Positioned(
-                left: 23,
+                left: AppLayout.getWidth(23),
+                top: AppLayout.getHeight(20),
                 child: jodTitle(
                     jobTitleText: Get.find<JobHistoryController>()
                             .jobHistoryModel.data?.departments?[index].name ??
@@ -118,7 +121,8 @@ Widget jobHisRoleView() {
           children: [
             dottedView(),
             Positioned(
-                left: 23,
+                left: AppLayout.getWidth(23),
+                top: AppLayout.getHeight(20),
                 child: jodTitleRole(
                   jobTitleText: Get.find<JobHistoryController>()
                           .jobHistoryModel.data?.roles?[index].name ??
@@ -145,7 +149,8 @@ Widget jobHisWorkShiftView() {
           children: [
             dottedView(),
             Positioned(
-                left: 23,
+                left: AppLayout.getWidth(23),
+                top: AppLayout.getHeight(20),
                 child: jodTitle(
                     jobTitleText:   Get.find<JobHistoryController>().jobHistoryModel.data
                             ?.workingShifts?[index].name ??

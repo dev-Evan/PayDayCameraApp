@@ -53,21 +53,15 @@ Widget jodTitle({required jobTitleText, subTitleText, subEndText}) {
                 size: Dimensions.fontSizeDefault + 2,
               ),
               customSpacerWidth(width: 8),
-              Text(
-                subTitleText,
-                style: AppStyle.mid_large_text.copyWith(
-                    color: AppColor.hintColor.withOpacity(0.7),
-                    fontSize: Dimensions.fontSizeDefault + 2,
-                    fontWeight: FontWeight.w500),
-              ),
-              Icon(Icons.remove, color: AppColor.hintColor.withOpacity(0.7)),
-              Text(
-                subEndText,
-                style: AppStyle.mid_large_text.copyWith(
-                    color: AppColor.hintColor.withOpacity(0.7),
-                    fontSize: Dimensions.fontSizeDefault + 2,
-                    fontWeight: FontWeight.w500),
-              ),
+              Row(
+                children: [
+                  Text('${subTitleText} - ${subEndText}',style: AppStyle.mid_large_text.copyWith(
+                      color: AppColor.normalTextColor.withOpacity(0.5),
+                      fontSize: Dimensions.fontSizeDefault+1,
+                      fontWeight: FontWeight.w300))
+                ],
+              )
+
             ],
           ),
         ],

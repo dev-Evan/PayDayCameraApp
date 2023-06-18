@@ -1,21 +1,17 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/input_note.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/address_update_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
+import '../controller/address_controller.dart';
 import 'address_details_widget.dart';
 
 class EditAddress extends StatefulWidget {
@@ -47,7 +43,7 @@ class _EditAddressState extends State<EditAddress> {
               textFieldTitleText(titleText: AppString.text_county),
               countyField(
                 context: context,
-                controller: Get.find<CustomTextEditingController>()
+                controller: Get.find<InputTextFieldController>()
                     .countyTextController,
                 onAction: () {
                   showCountryPicker(
@@ -62,7 +58,7 @@ class _EditAddressState extends State<EditAddress> {
                       ),
                       onSelect: (Country country) {
                         setState(() {
-                          Get.find<CustomTextEditingController>()
+                          Get.find<InputTextFieldController>()
                               .countyTextController
                               .text = country.name.toString();
                         });
@@ -77,7 +73,7 @@ class _EditAddressState extends State<EditAddress> {
               ),
               textFieldTitleText(titleText: AppString.text_phone),
               phoneAndCountyField(
-                controller: Get.find<CustomTextEditingController>()
+                controller: Get.find<InputTextFieldController>()
                     .phoneNumberController,
               ),
               Row(
@@ -89,7 +85,7 @@ class _EditAddressState extends State<EditAddress> {
                         textFieldTitleText2(titleText: AppString.text_area),
                         CustomTextField(
                           hintText: AppString.text_enter_area,
-                          controller: Get.find<CustomTextEditingController>()
+                          controller: Get.find<InputTextFieldController>()
                               .areaController,
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -109,7 +105,7 @@ class _EditAddressState extends State<EditAddress> {
                         textFieldTitleText2(titleText: AppString.text_city),
                         CustomTextField(
                           hintText: AppString.text_enter_city,
-                          controller: Get.find<CustomTextEditingController>()
+                          controller: Get.find<InputTextFieldController>()
                               .cityController,
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -132,7 +128,7 @@ class _EditAddressState extends State<EditAddress> {
                         textFieldTitleText(titleText: AppString.text_state),
                         CustomTextField(
                           hintText: AppString.text_enter_state,
-                          controller: Get.find<CustomTextEditingController>()
+                          controller: Get.find<InputTextFieldController>()
                               .stateController,
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -152,7 +148,7 @@ class _EditAddressState extends State<EditAddress> {
                         textFieldTitleText(titleText: AppString.text_zip_code),
                         CustomTextField(
                           hintText: AppString.text_enter_zip_code,
-                          controller: Get.find<CustomTextEditingController>()
+                          controller: Get.find<InputTextFieldController>()
                               .zipCodeController,
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -173,7 +169,7 @@ class _EditAddressState extends State<EditAddress> {
                       titleText:
                           AppString.text_address + AppString.text_details),
                   InputNote(
-                    controller: Get.find<CustomTextEditingController>()
+                    controller: Get.find<InputTextFieldController>()
                         .detailsController,
                     hintText:
                         "${AppString.text_add}${AppString.text_address_details}",
@@ -201,34 +197,34 @@ class _EditAddressState extends State<EditAddress> {
                   textButtonAction: () => Get.back(),
                   elevatedButtonAction: () {
                     if (_formKey.currentState!.validate()) {
-                      Get.find<AddressUpdateController>().addressUpdate(
+                      Get.find<AddressController>().addressUpdate(
                           typeKey: widget.typeText.toString(),
                           context: context,
-                          area: Get.find<CustomTextEditingController>()
+                          area: Get.find<InputTextFieldController>()
                               .areaController
                               .value
                               .text,
-                          city: Get.find<CustomTextEditingController>()
+                          city: Get.find<InputTextFieldController>()
                               .cityController
                               .value
                               .text,
-                          country: Get.find<CustomTextEditingController>()
+                          country: Get.find<InputTextFieldController>()
                               .countyTextController
                               .value
                               .text,
-                          details: Get.find<CustomTextEditingController>()
+                          details: Get.find<InputTextFieldController>()
                               .detailsController
                               .value
                               .text,
-                          phone: Get.find<CustomTextEditingController>()
+                          phone: Get.find<InputTextFieldController>()
                               .phoneNumberController
                               .value
                               .text,
-                          state: Get.find<CustomTextEditingController>()
+                          state: Get.find<InputTextFieldController>()
                               .stateController
                               .value
                               .text,
-                          zipcode: Get.find<CustomTextEditingController>()
+                          zipcode: Get.find<InputTextFieldController>()
                               .zipCodeController
                               .value
                               .text,

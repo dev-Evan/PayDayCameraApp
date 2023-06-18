@@ -5,13 +5,13 @@ import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/change_password_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
+
+import '../controller/user_profile_controller.dart';
 
 class ChangePassword extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -29,7 +29,7 @@ class ChangePassword extends StatelessWidget {
                   titleText: AppString.text_change_password,
                   onAction: (){
                     Get.back();
-                    _cleanData();
+                    cleanPassData();
                   }),
               Padding(
                 padding: const EdgeInsets.only(
@@ -44,7 +44,7 @@ class ChangePassword extends StatelessWidget {
                     CustomPasswordTextField(
                       hintText: AppString.text_enter_your_old_password,
                       inputType: TextInputType.text,
-                      controller: Get.find<CustomTextEditingController>()
+                      controller: Get.find<InputTextFieldController>()
                           .oldPassController,
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -67,7 +67,7 @@ class ChangePassword extends StatelessWidget {
                     CustomPasswordTextField(
                       hintText: AppString.text_enter_new_password,
                       inputType: TextInputType.text,
-                      controller: Get.find<CustomTextEditingController>()
+                      controller: Get.find<InputTextFieldController>()
                           .newPasswordController,
                       validator: (value) {
 
@@ -92,14 +92,14 @@ class ChangePassword extends StatelessWidget {
                     CustomPasswordTextField(
                       hintText: AppString.text_confirm_your_new_password,
                       inputType: TextInputType.text,
-                      controller: Get.find<CustomTextEditingController>()
+                      controller: Get.find<InputTextFieldController>()
                           .confirmPasswordController,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return AppString.the_confirm_password_field_is_required;
                         } else if (value.length < 8) {
                           return AppString.the_password_must_be_at_least_8_character;
-                        } else if (value != Get.find<CustomTextEditingController>().newPasswordController.text) {
+                        } else if (value != Get.find<InputTextFieldController>().newPasswordController.text) {
                           return AppString.the_password_confirmation_does_not_match;
                         }else{
                           return null;
@@ -114,7 +114,11 @@ class ChangePassword extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: CustomButton(AppString.text_save, () {
                   if (_formKey.currentState!.validate()) {
-                    Get.find<ChangePassController>().changePassword();
+                    Get.find<ProfileDataController>().changePassword(
+                      oldPassword: Get.find<InputTextFieldController>().oldPassController.text,
+                      newPassword: Get.find<InputTextFieldController>().newPasswordController.text,
+                      confirmPass: Get.find<InputTextFieldController>().confirmPasswordController.text
+                    );
                   }
                 }),
               ),
@@ -127,8 +131,8 @@ class ChangePassword extends StatelessWidget {
   }
 }
 
-_cleanData() {
-  Get.find<CustomTextEditingController>().oldPassController.clear();
-  Get.find<CustomTextEditingController>().newPasswordController.clear();
-  Get.find<CustomTextEditingController>().confirmPasswordController.clear();
+cleanPassData() {
+  Get.find<InputTextFieldController>().oldPassController.clear();
+  Get.find<InputTextFieldController>().newPasswordController.clear();
+  Get.find<InputTextFieldController>().confirmPasswordController.clear();
 }
