@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
+import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_controller.dart';
@@ -64,6 +65,8 @@ class MoreScreen extends GetView<ProfileDataController> {
                                     // Get.toNamed(Routes.ANNOUNCE_SCREEN);
                                     // await Get.find<DocumentController>()
                                     //     .getDocumentData();
+                                    showCustomSnackBar(message: "The page is empty");
+
 
                                   }),
 
@@ -80,6 +83,8 @@ class MoreScreen extends GetView<ProfileDataController> {
                                   cardIcon: Images.leave_allowance,
                                   cardText: AppString.text_leave_allowance,
                                   onAction: () async {
+
+                                    showCustomSnackBar(message: "The page is empty");
                                     // Get.toNamed(Routes.DOCUMENT_SCREEN);
                                     // await Get.find<DocumentController>()
                                     //     .getDocumentData();
