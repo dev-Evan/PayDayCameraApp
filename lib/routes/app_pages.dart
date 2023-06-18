@@ -13,7 +13,6 @@ import '../modules/more/presentation/view/documents.dart';
 import '../modules/more/presentation/view/jod_history.dart';
 import '../modules/more/presentation/view/more.dart';
 import '../modules/more/presentation/view/salary_overview.dart';
-import '../modules/more/presentation/view/view_profile.dart';
 import '../modules/more/presentation/widget/update_document.dart';
 import '../modules/notification/presentation/view/notifications.dart';
 import '../modules/payslip/presentation/view/payrun_badge.dart';

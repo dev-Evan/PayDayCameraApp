@@ -8,6 +8,7 @@ import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import '../../../common/domain/error_model.dart';
+import '../../../common/domain/success_model.dart';
 import '../domain/change_request/change_request_req_model.dart';
 import '../domain/log_entry/log_entry_request.dart';
 import '../domain/log_entry/log_entry_response.dart';
@@ -113,6 +114,39 @@ class AttendanceDataRepository {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
         return ChangeRequestResponseModel.fromJson(response.body);
+      }
+    } catch (ex) {
+      return Future.error(ErrorModel(message: ex.toString()));
+    }
+  }
+
+  Future<SuccessModel> startBreak(
+      int logId, int breakId) async {
+    try {
+      Response response = await networkClient.patchRequest(
+          "${Api.START_BREAK}/$logId", {
+            "break_time":breakId
+      });
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
+      } else {
+        return SuccessModel.fromJson(response.body);
+      }
+    } catch (ex) {
+      return Future.error(ErrorModel(message: ex.toString()));
+    }
+  }
+  Future<SuccessModel> endBreak(
+      int logId, int breakId) async {
+    try {
+      Response response = await networkClient.patchRequest(
+          "${Api.END_BREAK}/$logId", {
+            "break_time":breakId
+      });
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
+      } else {
+        return SuccessModel.fromJson(response.body);
       }
     } catch (ex) {
       return Future.error(ErrorModel(message: ex.toString()));

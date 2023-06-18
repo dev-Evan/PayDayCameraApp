@@ -18,9 +18,9 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
   Widget build(BuildContext context) {
     return controller.obx(
         (state) => DraggableScrollableSheet(
-              initialChildSize: .8,
-              maxChildSize: .8,
-              minChildSize: .5,
+              initialChildSize: .9,
+              maxChildSize: .9,
+              minChildSize: .7,
               builder:
                   (BuildContext context, ScrollController scrollController) =>
                       Container(

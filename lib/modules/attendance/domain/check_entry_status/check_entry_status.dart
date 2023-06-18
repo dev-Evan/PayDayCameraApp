@@ -1,50 +1,75 @@
 class CheckEntryStatus {
-  bool? _status;
-  String? _message;
-  Data? _data;
+  bool? status;
+  String? message;
+  Data? data;
 
-  CheckEntryStatus({bool? status, String? message, Data? data}) {
-    if (status != null) {
-      _status = status;
-    }
-    if (message != null) {
-      _message = message;
-    }
-    if (data != null) {
-      _data = data;
-    }
-  }
-
-  bool? get status => _status;
-  String? get message => _message;
-  Data? get data => _data;
-
-
-  @override
-  String toString() {
-    return 'CheckEntryStatus{_status: $_status, _message: $_message, _data: $_data}';
-  }
+  CheckEntryStatus({this.status, this.message, this.data});
 
   CheckEntryStatus.fromJson(Map<String, dynamic> json) {
-    _status = json['status'];
-    _message = json['message'];
-    _data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    status = json['status'];
+    message = json['message'];
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
 }
 
 class Data {
-  bool? _punchIn;
+  bool? punchIn;
+  List<BreakTimes>? breakTimes;
+  BreakDetails? breakDetails;
 
-  Data({bool? punchIn}) {
-    if (punchIn != null) {
-      _punchIn = punchIn;
-    }
-  }
-
-  bool? get punchIn => _punchIn;
+  Data({this.punchIn, this.breakTimes, this.breakDetails});
 
   Data.fromJson(Map<String, dynamic> json) {
-    _punchIn = json['punch_in'];
+    punchIn = json['punch_in'];
+    if (json['break_times'] != null) {
+      breakTimes = <BreakTimes>[];
+      json['break_times'].forEach((v) {
+        breakTimes!.add(new BreakTimes.fromJson(v));
+      });
+    }
+    breakDetails = json['break_details'] != null
+        ? new BreakDetails.fromJson(json['break_details'])
+        : null;
   }
+
+}
+
+class BreakTimes {
+  int? id;
+  String? name;
+  String? duration;
+
+  BreakTimes({this.id, this.name, this.duration});
+
+  BreakTimes.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    duration = json['duration'];
+  }
+
+}
+
+class BreakDetails {
+  int? id;
+  int? attendanceId;
+  int? breakTimeId;
+  String? startAt;
+  String? breakReason;
+
+  BreakDetails(
+      {this.id,
+        this.attendanceId,
+        this.breakTimeId,
+        this.startAt,
+        this.breakReason});
+
+  BreakDetails.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    attendanceId = json['attendance_id'];
+    breakTimeId = json['break_time_id'];
+    startAt = json['start_at'];
+    breakReason = json['break_reason'];
+  }
+
 }

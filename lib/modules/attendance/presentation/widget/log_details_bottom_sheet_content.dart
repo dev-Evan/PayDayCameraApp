@@ -113,11 +113,7 @@ _totalTimeLog() {
   return scheduledLogInfo(
       title: AppString.text_total,
       time: TimeCounterHelper.getTimeStringFromDouble(
-          Get.find<AttendanceController>()
-                  .logDetailsById
-                  .data
-                  ?.totalHours
-                  ?.toDouble() ??
+          Get.find<AttendanceController>().logDetailsById.data?.totalHours.toDouble() ??
               0.0),
       fontColor: Colors.black);
 }

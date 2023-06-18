@@ -13,11 +13,11 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../../common/widget/loading_indicator.dart';
 import '../../../../utils/app_style.dart';
+import '../widget/break_pop_up.dart';
 import '../widget/dot_indicator.dart';
 import '../widget/info_layout.dart';
 import '../widget/log_list.dart';
 import '../widget/no_log_layout.dart';
-import '../widget/punch_button.dart';
 import '../widget/timer_layout.dart';
 import '../widget/timer_overview_layout.dart';
 import '../widget/todays_log_text.dart';
@@ -180,17 +180,24 @@ class Attendance extends GetView<AttendanceController> {
             await controller.getLatLong();
             _openBottomSheet();
           },
+          borderColor: Colors.white,
           buttonColor: Colors.white.withOpacity(.18),
           iconsData: Icons.logout,
           textColor: Colors.white,
         ),
         customSpacerWidth(width: 8),
-        AppButton(
-            buttonText: "Take Break",
-            onPressed: () {},
+        Obx(() => AppButton(
+            buttonText: Get.find<AttendanceController>()
+                        .breakDetails
+                        .value
+                        .breakTimeId ==
+                    null
+                ? AppString.text_take_break
+                : AppString.text_on_break,
+            onPressed: () => breakPopUp(),
             buttonColor: Colors.transparent,
             borderColor: Colors.white,
-            iconsData: Icons.local_cafe_outlined),
+            iconsData: Icons.local_cafe_outlined)),
       ],
     );
   }
