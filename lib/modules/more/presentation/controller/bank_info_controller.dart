@@ -7,7 +7,7 @@ import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/more/data/bank_info_repository.dart';
 import 'package:pay_day_mobile/modules/more/domain/bank_info_model.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/bank_details.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/add_bank_info.dart';
 import 'package:pay_day_mobile/network/network_client.dart';

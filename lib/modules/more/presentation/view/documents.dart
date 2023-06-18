@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/document_deleted_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/update_document_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/document_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/update_document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/view_doc_file.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/update_document.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -41,6 +40,7 @@ class DocumentScreen extends GetView<DocumentController> {
               (controller.documentModel.data?.documents != null &&
                       controller.documentModel.data!.documents!.isNotEmpty)
                   ? Expanded(
+
                       child: Container(
                         color: AppColor.backgroundColor,
                         child: Column(
@@ -61,6 +61,7 @@ class DocumentScreen extends GetView<DocumentController> {
                                 child: Column(
                                   children: [
                                     Expanded(
+                                      flex: 8,
                                         child: ListView.builder(
                                       itemCount: controller.documentModel.data
                                           ?.documents?.length,
@@ -266,13 +267,7 @@ Widget _fileIcon() {
   );
 }
 
-Widget _cardImgTitle(
-    {required titleText,
-    required sizeText,
-    required id,
-    required docText,
-      required docUrl,
-    required context}) {
+Widget _cardImgTitle({required titleText, required sizeText, required id, required docText, required docUrl, required context}) {
   final box = GetStorage();
   return _sizedCardImgTitle(
       child: Row(
@@ -294,6 +289,7 @@ Widget _cardImgTitle(
           ),
         ],
       ),
+
       IconButton(
           onPressed: () {
             box.write(AppString.STORE_DOC_NAME_TEXT, docText);
@@ -350,7 +346,7 @@ Widget _editDeletedActionRow({required context, required id,required docUrl}) {
       customSpacerWidth(width: 40),
       InkWell(
         onTap: () {
-          if (Get.find<DeletedDocumentController>()
+          if (Get.find<DocumentController>()
               .newValue
               .toString()
               .isNotEmpty) {
@@ -359,7 +355,7 @@ Widget _editDeletedActionRow({required context, required id,required docUrl}) {
             Navigator.pop(context);
           }
           _box.write(AppString.STORE_DOC_Id, id);
-          Get.find<DeletedDocumentController>().deletedDocumentApi();
+          Get.find<DocumentController>().deletedDocumentApi();
         },
         child: _iconShape(icon: Icons.delete, text: AppString.text_deleted),
       )

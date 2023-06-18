@@ -11,7 +11,7 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/utils.dart';
 import '../../../../network/network_client.dart';
 import '../../domain/address_details_model.dart';
-import 'more_text_editing_controller.dart';
+import 'common_controller/more_text_editing_controller.dart';
 
 class AddressController extends GetxController with StateMixin {
   AddressDetailsModel addressDetailsModel = AddressDetailsModel();

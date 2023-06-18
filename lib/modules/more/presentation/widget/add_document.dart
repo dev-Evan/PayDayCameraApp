@@ -8,8 +8,8 @@ import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/document_upload_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/document_upload_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -175,15 +175,6 @@ class _AddDocumentState extends State<AddDocument> {
                 Get.find<InputTextFieldController>()
                     .docFileNameController.clear();
                 Get.find<FileUploadController>().filePath.value="";
-
-                if (Get.find<FileUploadController>()
-                    .newValue
-                    .toString()
-                    .isNotEmpty) {
-                  Navigator.pop(context);
-                } else {
-                  Navigator.pop(context);
-                }
               },
               elevatedButtonAction: () {
                 Get.find<InputTextFieldController>()

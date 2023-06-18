@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/pick_image_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/pick_image_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/user_status.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/view_profile_widget.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';

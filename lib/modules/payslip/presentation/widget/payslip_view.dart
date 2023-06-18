@@ -13,7 +13,6 @@ import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/controller/downloader_helper.dart';
-import '../controller/payslip_dawonload_controller.dart';
 
 class PaySlipView extends GetView<PayslipViewController> {
   final indexVal;

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/bank_info_controller.dart';
@@ -23,9 +23,7 @@ class MoreScreen extends GetView<ProfileDataController> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-     // controller.getUserData();
-
-    });
+      controller.getUserData();});
     return controller.obx(
             (state) => Scaffold(
           body: CustomScrollView(
@@ -63,9 +61,10 @@ class MoreScreen extends GetView<ProfileDataController> {
                                   cardIcon: Images.announce,
                                   cardText: AppString.text_announcement,
                                   onAction: () async {
-                                    Get.toNamed(Routes.ANNOUNCE_SCREEN);
-                                    await Get.find<DocumentController>()
-                                        .getDocumentData();
+                                    // Get.toNamed(Routes.ANNOUNCE_SCREEN);
+                                    // await Get.find<DocumentController>()
+                                    //     .getDocumentData();
+
                                   }),
 
                               jobDeskCard(
@@ -81,9 +80,9 @@ class MoreScreen extends GetView<ProfileDataController> {
                                   cardIcon: Images.leave_allowance,
                                   cardText: AppString.text_leave_allowance,
                                   onAction: () async {
-                                    Get.toNamed(Routes.DOCUMENT_SCREEN);
-                                    await Get.find<DocumentController>()
-                                        .getDocumentData();
+                                    // Get.toNamed(Routes.DOCUMENT_SCREEN);
+                                    // await Get.find<DocumentController>()
+                                    //     .getDocumentData();
                                   }),
 
                               jobDeskCard(

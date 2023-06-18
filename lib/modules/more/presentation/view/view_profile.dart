@@ -7,9 +7,9 @@ import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/date_of_birth_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_drop_dawon_cnt.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/date_of_birth_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/edit_profile_drop_dawon_cnt.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/change_password.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/edit_profile.dart';
@@ -19,7 +19,6 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/view_profile_wid
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/utils.dart';
-import 'package:pay_day_mobile/utils/images.dart';
 
 class ViewProfile extends GetView<ProfileDataController> {
   @override
@@ -27,8 +26,6 @@ class ViewProfile extends GetView<ProfileDataController> {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       Get.find<ProfileDataController>().getUserData();
     });
-
-
     return  Scaffold(
       backgroundColor: AppColor.backgroundColor,
       appBar: const CustomAppbar(),
@@ -80,7 +77,6 @@ class ViewProfile extends GetView<ProfileDataController> {
                       .data
                       ?.address ??
                       "";
-
                   Get.find<DatePickerController>()
                       .dobDateController
                       .value
