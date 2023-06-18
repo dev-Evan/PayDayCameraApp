@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
@@ -7,6 +8,7 @@ import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/documents.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -29,7 +31,7 @@ class FileUploadController extends GetxController {
   var baseUrl = Api.BASE_URL + Api.DOCUMENT_UPLOAD;
   late var accessToken = _box.read(AppString.ACCESS_TOKEN);
   late var accessId = _box.read(AppString.ID_STORE);
-  Future<void> uploadFile() async {
+  Future<void> uploadFile({required context}) async {
     waitingLoader();
     File? file = selectedFile.value;
     if (file == null) {
@@ -47,7 +49,7 @@ class FileUploadController extends GetxController {
       Get.back();
       print("Document upload ::: ${response}");
       Get.find<DocumentController>().getDocumentData();
-      Get.back();
+      _navigator(context: context);
       showCustomSnackBar(
           message: AppString.text_file_upload_update_successfully);
       filePath.value = "";
@@ -60,4 +62,12 @@ class FileUploadController extends GetxController {
     }
   }
 
+}
+Future _navigator({context}) {
+  return Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (BuildContext context) => DocumentScreen(),
+    ),
+  );
 }

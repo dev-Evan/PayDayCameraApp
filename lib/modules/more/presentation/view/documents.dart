@@ -66,6 +66,8 @@ class DocumentScreen extends GetView<DocumentController> {
                                         child: ListView.builder(
                                           itemCount: controller.documentModel
                                               .data?.documents?.length,
+                                          shrinkWrap: true,
+
                                           itemBuilder: (BuildContext context,
                                               int index) {
                                             return InkWell(

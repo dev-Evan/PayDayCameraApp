@@ -174,6 +174,7 @@ class _AddDocumentState extends State<AddDocument> {
               textButtonAction: () {
                 Get.find<InputTextFieldController>()
                     .docFileNameController.clear();
+                Get.back();
                 Get.find<FileUploadController>().filePath.value="";
               },
               elevatedButtonAction: () {
@@ -188,7 +189,7 @@ class _AddDocumentState extends State<AddDocument> {
                         ? showCustomSnackBar(
                             message: AppString.text_please_selected_document,
                             color: AppColor.errorColor)
-                        : Get.find<FileUploadController>().uploadFile();
+                        : Get.find<FileUploadController>().uploadFile(context: context);
               },
               textBtnText: AppString.text_cancel,
               elevatedBtnText: AppString.text_save,
