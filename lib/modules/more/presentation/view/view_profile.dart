@@ -176,7 +176,11 @@ class ViewProfile extends GetView<ProfileDataController> {
                           titleText: AppString.text_phone,
                           icon: CupertinoIcons.phone),
                       customSpacerHeight(height: 14),
-                      textFieldTitleText(titleText: AppString.text_personal),
+
+                      controller.userProfile.data?.address != null &&
+                          controller.userProfile.data!.address!.isEmpty?
+                      controller.userProfile.data?.address ==null?controller.userProfile.data?.gender ==null?  controller.userProfile.data?.dateOfBirth ==null?
+                      Container():Container():Container():Container():textFieldTitleText(titleText: AppString.text_personal),
                       controller.userProfile.data?.address != null &&
                           controller.userProfile.data!.address!.isEmpty
                           ? Container()
@@ -223,7 +227,6 @@ String get _dateFormat {
   var dynamicDate =
       (Get.find<ProfileDataController>().userProfile.data?.dateOfBirth ?? "");
   var date = '';
-
   if (dynamicDate.isNotEmpty && dynamicDate != "") {
     var formatDate = DateFormat("d MMM yyyy", 'en_US').parse(dynamicDate);
     date = DateFormat("yyyy-MM-dd").format(formatDate);

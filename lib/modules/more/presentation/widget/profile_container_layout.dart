@@ -15,8 +15,7 @@ import '../../../../common/widget/custom_spacer.dart';
 import '../view/view_profile.dart';
 
 
-Widget profileCardLayOut(
-    {context, userName, final userImage, userEmail, statusText}) {
+Widget profileCardLayOut({context, userName, final userImage, userEmail, statusText}) {
   return Expanded(
       flex: 2,
       child: Container(
@@ -62,8 +61,6 @@ Widget profileCardLayOut(
                       ),
                     ),
                   ),
-
-
                   customSpacerWidth(width: 14),
                   Expanded(
                     child: Column(
