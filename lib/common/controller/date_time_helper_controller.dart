@@ -10,6 +10,7 @@ class DateTimeController extends GetxController {
   RxString requestedDate = DateFormat('yyyy-MM-dd').format(DateTime.now()).obs;
   RxString pickedInTime = ''.obs;
   RxString pickedOutTime = ''.obs;
+  TextEditingController editController=TextEditingController();
 
   void getTime() {
     if (clockHrsFormat.isNotEmpty) {

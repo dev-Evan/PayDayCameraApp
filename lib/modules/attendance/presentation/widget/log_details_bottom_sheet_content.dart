@@ -98,14 +98,14 @@ _logTimeLayout() {
 _inTimeLog() {
   return scheduledLogInfo(
       title: AppString.text_in,
-      time: Get.find<AttendanceController>().logDetailsById.data?.inTime ?? "",
+      time: Get.find<AttendanceController>().logDetailsById.data?.checkInTime ?? "",
       fontColor: Colors.black);
 }
 
 _outTimeLog() {
   return scheduledLogInfo(
       title: AppString.text_out,
-      time: Get.find<AttendanceController>().logDetailsById.data?.outTime ?? "",
+      time: Get.find<AttendanceController>().logDetailsById.data?.checkOutTime ?? "",
       fontColor: Colors.black);
 }
 
@@ -143,7 +143,7 @@ _punchInDetails() {
 
 _punchOutDetails() {
   LogDetails logDetails = Get.find<AttendanceController>().logDetailsById;
-  return logDetails.data!.outTime!.isNotEmpty
+  return logDetails.data!.checkOutTime!.isNotEmpty
       ? Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

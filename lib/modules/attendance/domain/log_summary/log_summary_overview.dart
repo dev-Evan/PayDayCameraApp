@@ -29,7 +29,6 @@ class Data {
       });
     }
   }
-
 }
 
 class QueryString {
@@ -42,7 +41,6 @@ class QueryString {
     start = json['start'];
     end = json['end'];
   }
-
 }
 
 class AttendanceDetails {
@@ -52,15 +50,16 @@ class AttendanceDetails {
   dynamic totalWorkingHours;
   dynamic paidLeaves;
   dynamic balance;
-
+  dynamic breakTime;
 
   AttendanceDetails(
       {this.month,
-        this.dateInNumber,
-        this.scheduledHours,
-        this.totalWorkingHours,
-        this.paidLeaves,
-        this.balance});
+      this.dateInNumber,
+      this.scheduledHours,
+      this.totalWorkingHours,
+      this.paidLeaves,
+      this.balance,
+      this.breakTime});
 
   AttendanceDetails.fromJson(Map<String, dynamic> json) {
     month = json['month'];
@@ -69,6 +68,6 @@ class AttendanceDetails {
     totalWorkingHours = json['total_working_hours'];
     paidLeaves = json['paid_leaves'];
     balance = json['balance'];
+    breakTime = json['break_times'];
   }
-
 }

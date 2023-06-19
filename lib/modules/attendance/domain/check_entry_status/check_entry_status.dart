@@ -10,7 +10,6 @@ class CheckEntryStatus {
     message = json['message'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
-
 }
 
 class Data {
@@ -32,7 +31,6 @@ class Data {
         ? new BreakDetails.fromJson(json['break_details'])
         : null;
   }
-
 }
 
 class BreakTimes {
@@ -47,7 +45,6 @@ class BreakTimes {
     name = json['name'];
     duration = json['duration'];
   }
-
 }
 
 class BreakDetails {
@@ -56,13 +53,15 @@ class BreakDetails {
   int? breakTimeId;
   String? startAt;
   String? breakReason;
+  String? duration;
 
   BreakDetails(
       {this.id,
-        this.attendanceId,
-        this.breakTimeId,
-        this.startAt,
-        this.breakReason});
+      this.attendanceId,
+      this.breakTimeId,
+      this.startAt,
+      this.breakReason,
+      this.duration});
 
   BreakDetails.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -70,6 +69,6 @@ class BreakDetails {
     breakTimeId = json['break_time_id'];
     startAt = json['start_at'];
     breakReason = json['break_reason'];
+    duration = json['duration'];
   }
-
 }

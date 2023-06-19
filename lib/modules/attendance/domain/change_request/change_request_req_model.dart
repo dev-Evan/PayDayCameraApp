@@ -6,24 +6,14 @@ class ChangeRequestReqModel {
   ChangeRequestReqModel(
       { String? inTime,
         String? outTime,
-        String? note,
-        String? inIpData,
-        String? outIpData}) {
-    if (inTime != null) {
-      _inTime = inTime;
-    }
-    if (outTime != null) {
-      _outTime = outTime;
-    }
-    if (note != null) {
-      _note = note;
-    }
+        String? note}) {
   }
 
-  set inTime(String? inTime) => _inTime = inTime;
-  set outTime(String? outTime) => _outTime = outTime;
-  set note(String? note) => _note = note;
 
+  @override
+  String toString() {
+    return 'ChangeRequestReqModel{_inTime: $_inTime, _outTime: $_outTime, _note: $_note}';
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

@@ -14,7 +14,6 @@ import 'package:pay_day_mobile/modules/attendance/domain/log_entry/log_entry_res
 import 'package:pay_day_mobile/network/network_client.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../utils/app_color.dart';
-import '../../domain/change_request/change_request_req_model.dart';
 import '../../domain/check_entry_status/check_entry_status.dart';
 import '../../domain/daily_log/daily_log.dart';
 import 'break_controller.dart';
@@ -53,7 +52,8 @@ class AttendanceController extends GetxController with StateMixin {
       try {
         isPunchIn.value = checkEntryStatus.data!.punchIn!;
         breakTimes = checkEntryStatus.data!.breakTimes!;
-        breakDetails.value = checkEntryStatus.data!.breakDetails?? BreakDetails();
+        breakDetails.value =
+            checkEntryStatus.data!.breakDetails ?? BreakDetails();
         print("checkUserIsPunchedIn :: ${isPunchIn.value}");
       } catch (e) {
         print(e.toString());
@@ -143,10 +143,16 @@ class AttendanceController extends GetxController with StateMixin {
   }
 
   changeAttendance(
-      int logId, ChangeRequestReqModel changeRequestReqModel) async {
+      {required int logId,
+      required String inTime,
+      required String outTime,
+      required String note}) async {
     change(null, status: RxStatus.loading());
+    print(
+        "required int logId::$logId required String inTime::$inTime,required String outTime:: $outTime required String note::$note");
     await _attendanceDataRepository
-        .changeAttendanceRequest(logId, changeRequestReqModel)
+        .changeAttendanceRequest(
+            logId: logId, note: note, outTime: outTime, inTime: inTime)
         .then((value) => print("changeAttendance :: called"), onError: (error) {
       print(error.message);
       errorSnackBar(errorMessage: error.message);
@@ -252,25 +258,21 @@ class AttendanceController extends GetxController with StateMixin {
       textColor: Colors.white,
       fontSize: 16.0);
 
-  void _endBreak(){
-    if (Get.find<AttendanceController>().breakDetails.value.id !=
-        null) {
+  void _endBreak() {
+    if (Get.find<AttendanceController>().breakDetails.value.id != null) {
       Get.find<BreakController>().endBreak(
           logId: Get.find<AttendanceController>()
-              .logs
-              .value
-              .data!
-              .dailyLogs![0]
-              .id
-              ?.toInt() ??
+                  .logs
+                  .value
+                  .data!
+                  .dailyLogs![0]
+                  .id
+                  ?.toInt() ??
               0,
-          breakId: Get.find<AttendanceController>()
-              .breakTimes[Get.find<AttendanceController>()
-              .breakDetails
-              .value
-              .breakTimeId!]
-              .id ??
-              0);
+          breakId:
+              Get.find<AttendanceController>().breakDetails.value.breakTimeId ??
+                  0);
+      Get.find<BreakController>().stopTimer();
     }
   }
 }

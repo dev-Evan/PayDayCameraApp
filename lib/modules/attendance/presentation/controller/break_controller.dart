@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attendance_data_repository.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-
 import 'attendance_controller.dart';
 
 class BreakController extends GetxController {
@@ -20,12 +18,15 @@ class BreakController extends GetxController {
         null) {
       DateTime startTime = DateTime.parse(
           Get.find<AttendanceController>().breakDetails.value.startAt!);
-      DateTime currentTime = DateTime.now();
-      duration.value = currentTime.difference(startTime);
+      DateTime currentTime = DateTime.now().toUtc();
+      print("start:: $startTime current::: $currentTime without utc:: ${DateTime.now()}");
+      print("Time diff:: ${currentTime.toUtc().difference(startTime)}");
+      duration.value = currentTime.toUtc().difference(startTime);
       _startTimer();
     }
     super.onInit();
   }
+
 
   void _startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -33,8 +34,9 @@ class BreakController extends GetxController {
     });
   }
 
-  void _stopTimer() async {
+  void stopTimer() async {
     timer.cancel();
+    duration.value=Duration();
   }
 
   void _timer() {
@@ -57,8 +59,9 @@ class BreakController extends GetxController {
     await _attendanceDataRepository.endBreak(logId, breakId).then(
         (value) async {
       print("endBreak:: $value");
-      _stopTimer();
+      stopTimer();
       await Get.find<AttendanceController>().checkUserIsPunchedIn();
+      Get.back(canPop: false);
     }, onError: (error) {
       print("endBreak::${error.message}");
     });

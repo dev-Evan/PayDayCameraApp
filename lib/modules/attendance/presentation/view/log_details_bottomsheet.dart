@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_eidt_bottomsheet.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
+import '../../../../common/controller/date_time_helper_controller.dart';
 import '../../../../common/widget/custom_app_button.dart';
 import '../../../../common/widget/loading_indicator.dart';
 import '../../../../utils/app_color.dart';
@@ -75,7 +76,10 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
     return AppButton(
       buttonColor: AppColor.primaryBlue,
       buttonText: AppString.text_edit,
-      onPressed: () => _openEditBottomSheet(),
+      onPressed: () {
+        Get.delete<DateTimeController>();
+        Get.put(DateTimeController());
+        _openEditBottomSheet();},
     );
   }
 }

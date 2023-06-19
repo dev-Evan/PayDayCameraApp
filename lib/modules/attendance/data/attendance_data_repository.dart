@@ -48,11 +48,10 @@ class AttendanceDataRepository {
     }
   }
 
-
   Future<CheckEntryStatus> checkEntryStatus() async {
     try {
-      Response response =
-          await networkClient.getRequest(Api.CHECK_PUNCH_IN);
+      Response response = await networkClient.getRequest(
+          "${Api.CHECK_PUNCH_IN}?timezone=${DateTime.now().timeZoneName}");
 
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
@@ -106,10 +105,15 @@ class AttendanceDataRepository {
   }
 
   Future<ChangeRequestResponseModel> changeAttendanceRequest(
-      int logId, ChangeRequestReqModel changeRequestReqModel) async {
+      {required int logId,
+      required String inTime,
+      required String outTime,
+      required String note}) async {
     try {
       Response response = await networkClient.postRequest(
-          Api.ATTENDANCE_REQUEST, jsonEncode(changeRequestReqModel));
+          "${Api.ATTENDANCE_REQUEST}/$logId",
+          {"in_time": inTime, "out_time": outTime, "note": note});
+      print(response.body);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -120,13 +124,10 @@ class AttendanceDataRepository {
     }
   }
 
-  Future<SuccessModel> startBreak(
-      int logId, int breakId) async {
+  Future<SuccessModel> startBreak(int logId, int breakId) async {
     try {
-      Response response = await networkClient.patchRequest(
-          "${Api.START_BREAK}/$logId", {
-            "break_time":breakId
-      });
+      Response response = await networkClient
+          .patchRequest("${Api.START_BREAK}/$logId", {"break_time": breakId});
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -136,13 +137,11 @@ class AttendanceDataRepository {
       return Future.error(ErrorModel(message: ex.toString()));
     }
   }
-  Future<SuccessModel> endBreak(
-      int logId, int breakId) async {
+
+  Future<SuccessModel> endBreak(int logId, int breakId) async {
     try {
-      Response response = await networkClient.patchRequest(
-          "${Api.END_BREAK}/$logId", {
-            "break_time":breakId
-      });
+      Response response = await networkClient
+          .patchRequest("${Api.END_BREAK}/$logId", {"break_time": breakId});
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

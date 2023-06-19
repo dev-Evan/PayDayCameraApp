@@ -177,7 +177,7 @@ _breakInfo() {
         ),
         customSpacerWidth(width: 10),
         Text(
-          "${Get.find<AttendanceController>().breakDetails.value.breakReason} (${Get.find<AttendanceController>().breakTimes[Get.find<AttendanceController>().breakDetails.value.breakTimeId!].duration})",
+          "${Get.find<AttendanceController>().breakDetails.value.breakReason} ( ${Get.find<AttendanceController>().breakDetails.value.duration} )",
         )
       ],
     ),
@@ -201,18 +201,18 @@ _buttonLayout() {
         customSpacerWidth(width: 10),
         Obx(() => AppButton(
             buttonText: Get.find<AttendanceController>()
-                .breakDetails
-                .value
-                .breakTimeId ==
-                null
+                        .breakDetails
+                        .value
+                        .breakTimeId ==
+                    null
                 ? AppString.text_start
                 : AppString.text_end,
             onPressed: () {
               //check if break is on
               if (Get.find<AttendanceController>()
-                  .breakDetails
-                  .value
-                  .breakTimeId ==
+                      .breakDetails
+                      .value
+                      .breakTimeId ==
                   null) {
                 if (Get.find<BreakController>().selectedIndex != 100) {
                   print("break on hit");
@@ -220,18 +220,18 @@ _buttonLayout() {
                   //find break id by indexing from break controller
                   Get.find<BreakController>().startBreak(
                       logId: Get.find<AttendanceController>()
-                          .logs
-                          .value
-                          .data!
-                          .dailyLogs![0]
-                          .id
-                          ?.toInt() ??
+                              .logs
+                              .value
+                              .data!
+                              .dailyLogs![0]
+                              .id
+                              ?.toInt() ??
                           0,
                       breakId: Get.find<AttendanceController>()
-                          .breakTimes[Get.find<BreakController>()
-                          .selectedIndex
-                          .value]
-                          .id ??
+                              .breakTimes[Get.find<BreakController>()
+                                  .selectedIndex
+                                  .value]
+                              .id ??
                           0);
                 } else {
                   showCustomSnackBar(
@@ -243,28 +243,26 @@ _buttonLayout() {
                 print("break off hit");
                 Get.find<BreakController>().endBreak(
                     logId: Get.find<AttendanceController>()
-                        .logs
-                        .value
-                        .data!
-                        .dailyLogs![0]
-                        .id
-                        ?.toInt() ??
+                            .logs
+                            .value
+                            .data!
+                            .dailyLogs![0]
+                            .id
+                            ?.toInt() ??
                         0,
                     breakId: Get.find<AttendanceController>()
-                        .breakTimes[Get.find<AttendanceController>()
-                        .breakDetails
-                        .value
-                        .breakTimeId!]
-                        .id ??
+                            .breakDetails
+                            .value
+                            .breakTimeId ??
                         0);
               }
             },
             hasOutline: false,
             buttonColor: Get.find<AttendanceController>()
-                .breakDetails
-                .value
-                .breakTimeId ==
-                null
+                        .breakDetails
+                        .value
+                        .breakTimeId ==
+                    null
                 ? AppColor.primaryGreen
                 : AppColor.primaryRed)),
       ],

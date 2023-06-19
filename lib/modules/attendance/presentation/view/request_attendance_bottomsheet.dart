@@ -7,7 +7,6 @@ import 'package:pay_day_mobile/modules/attendance/presentation/widget/single_dat
 import 'package:pay_day_mobile/utils/app_style.dart';
 import '../../../../common/widget/custom_app_button.dart';
 import '../../../../common/widget/custom_time_picker.dart';
-import '../../../../common/widget/input_note.dart';
 import '../../../../common/widget/note_layout.dart';
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_layout.dart';
@@ -23,8 +22,8 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
     Get.delete<DateTimeController>();
     Get.put(DateTimeController());
     return DraggableScrollableSheet(
-      initialChildSize: .8,
-      maxChildSize: .8,
+      initialChildSize: .9,
+      maxChildSize: .9,
       minChildSize: .5,
       builder: (BuildContext context, ScrollController scrollController) =>
           Container(
