@@ -25,8 +25,8 @@ class EditAttendanceBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.delete<DateTimeController>();
     var controller = Get.put(DateTimeController());
-    controller.pickedInTime.value = logDetailsById.data!.inTime!;
-    controller.pickedOutTime.value = logDetailsById.data!.outTime!;
+    controller.pickedInTime.value = logDetailsById.data?.inTime ??"";
+    controller.pickedOutTime.value = logDetailsById.data?.outTime ??"";
     return DraggableScrollableSheet(
       initialChildSize: .8,
       maxChildSize: .8,

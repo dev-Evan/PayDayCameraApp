@@ -1,6 +1,8 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'dart:io';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
@@ -11,6 +13,7 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
+import '../../../common/widget/success_snakbar.dart';
 import '../../../routes/app_pages.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -47,61 +50,64 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     });
     super.initState();
   }
-
+  final ExitAppController _controller = Get.put(ExitAppController());
   @override
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height / 5;
     double _width = MediaQuery.of(context).size.width;
-    return Scaffold(
-        backgroundColor: AppColor.backgroundColor,
-        body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              customSpacerHeight(height: 50),
-              SizedBox(
-                  height: _height,
-                  width: _width,
-                  child: Stack(
-                    children: [_headerLayout(isLeft: isleft)],
-                  )),
-              Obx(() => Expanded(
-                  flex: 2,
-                  child: _onboardByImage(
-                      imageUrl: _onboardImage[_currentIndex.toInt()]))),
-              customSpacerHeight(height: 25),
-              Obx(() =>
-                  _onboardTitleText(text: '${_title[_currentIndex.toInt()]}')),
-              customSpacerHeight(height: 20),
-              Obx(() => _descriptionText(
-                  text: '${_description[_currentIndex.toInt()]}')),
-              customSpacerHeight(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Obx(
-                    () => _dotsDecorator(
-                        onboardImg: _onboardImage.length,
-                        currentIndex: _currentIndex.toDouble()),
-                  ),
-                ],
-              ),
-              customSpacerHeight(height: 30),
-              _buttonLayout(
-                  context: context,
-                  titleText: _title,
-                  currentIndex: _currentIndex)
-            ],
-          ),
-        ));
+    return WillPopScope(
+      onWillPop: () =>_controller. willPop(),
+      child: Scaffold(
+          backgroundColor: AppColor.backgroundColor,
+          body: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                customSpacerHeight(height: 50),
+                SizedBox(
+                    height: _height,
+                    width: _width,
+                    child: Stack(
+                      children: [_headerLayout(isLeft: isleft)],
+                    )),
+                Obx(() => Expanded(
+                    flex: 2,
+                    child: _onboardByImage(
+                        imageUrl: _onboardImage[_currentIndex.toInt()]))),
+                customSpacerHeight(height: 25),
+                Obx(() =>
+                    _onboardTitleText(text: '${_title[_currentIndex.toInt()]}')),
+                customSpacerHeight(height: 20),
+                Obx(() => _descriptionText(
+                    text: '${_description[_currentIndex.toInt()]}')),
+                customSpacerHeight(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Obx(
+                      () => _dotsDecorator(
+                          onboardImg: _onboardImage.length,
+                          currentIndex: _currentIndex.toDouble()),
+                    ),
+                  ],
+                ),
+                customSpacerHeight(height: 30),
+                _buttonLayout(
+                    context: context,
+                    titleText: _title,
+                    currentIndex: _currentIndex)
+              ],
+            ),
+          )),
+    );
   }
 }
 
 Widget _skipButton({context}) {
   return TextButton(
-    onPressed: () => Get.offNamed(Routes.SIGN_IN),
+    onPressed: () => Get.offAllNamed(Routes.SIGN_IN),
     child: Text(
       AppString.text_skip,
       style: GoogleFonts.poppins(
@@ -119,7 +125,7 @@ Widget _buttonLayout({context, currentIndex, titleText}) {
       _skipButton(context: context),
       CustomSmallButton(AppString.text_next, () {
         if (currentIndex == titleText.length - 1) {
-          Get.offNamed(Routes.SIGN_IN);
+          Get.offAndToNamed(Routes.SIGN_IN);
         } else {
           currentIndex + 1;
         }
@@ -127,6 +133,10 @@ Widget _buttonLayout({context, currentIndex, titleText}) {
     ],
   );
 }
+
+
+
+
 
 Widget _headerLayout({isLeft}) {
   return Padding(
@@ -180,4 +190,21 @@ Widget _onboardTitleText({text}) {
         fontSize: Dimensions.fontSizeLarge+7,
         color: AppColor.normalTextColor),
   );
+}
+class ExitAppController extends GetxController {
+  bool back = false;
+  int time = 0;
+  int duration = 1000;
+  Future<bool> willPop() async{
+    int now = DateTime.now().millisecondsSinceEpoch;
+    if(back && time >= now){
+      back = false;
+      exit(0);
+    }else{
+      time =  DateTime.now().millisecondsSinceEpoch+ duration;
+      back = true;
+      showCustomSnackBar(message: AppString.text_are_you_sure_want_to_exit_from_app,);
+    }
+    return false;
+  }
 }

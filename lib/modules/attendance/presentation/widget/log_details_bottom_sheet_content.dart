@@ -147,7 +147,7 @@ _punchInDetails() {
 
 _punchOutDetails() {
   LogDetails logDetails = Get.find<AttendanceController>().logDetailsById;
-  return logDetails.data!.outTime!.isNotEmpty
+  return (logDetails.data?.outTime !=null && logDetails.data!.outTime!.isNotEmpty)
       ? Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

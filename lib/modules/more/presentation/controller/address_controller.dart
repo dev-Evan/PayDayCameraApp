@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
@@ -41,7 +40,6 @@ class AddressController extends GetxController with StateMixin {
           .then((value) {
         getEmployeeAddressData();
         Get.back();
-        _navigator(context: context);
         FutureDelayed(onAction: () => showCustomSnackBar(message: message));
         FutureDelayed(onAction: () => _fieldClear());
         newValue = "value";

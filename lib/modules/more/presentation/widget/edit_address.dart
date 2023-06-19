@@ -12,6 +12,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../controller/address_controller.dart';
+import '../controller/common_controller/county_pickar_controller.dart';
 import 'address_details_widget.dart';
 
 class EditAddress extends StatefulWidget {
@@ -21,6 +22,8 @@ class EditAddress extends StatefulWidget {
   @override
   State<EditAddress> createState() => _EditAddressState();
 }
+final CountryPickerController _controller = Get.put(CountryPickerController());
+
 
 class _EditAddressState extends State<EditAddress> {
   final _formKey = GlobalKey<FormState>();
@@ -46,6 +49,8 @@ class _EditAddressState extends State<EditAddress> {
                 controller: Get.find<InputTextFieldController>()
                     .countyTextController,
                 onAction: () {
+
+
                   showCountryPicker(
                       context: context,
                       countryListTheme: CountryListThemeData(
@@ -57,11 +62,9 @@ class _EditAddressState extends State<EditAddress> {
                         inputDecoration: countryDecoration,
                       ),
                       onSelect: (Country country) {
-                        setState(() {
-                          Get.find<InputTextFieldController>()
-                              .countyTextController
-                              .text = country.name.toString();
-                        });
+                        _controller.editSetSelectedCountry(country.name);
+                        print(country.name);
+
                       });
                 },
                 validator: (value) {
@@ -71,6 +74,7 @@ class _EditAddressState extends State<EditAddress> {
                   return null;
                 },
               ),
+
               textFieldTitleText(titleText: AppString.text_phone),
               phoneAndCountyField(
                 controller: Get.find<InputTextFieldController>()

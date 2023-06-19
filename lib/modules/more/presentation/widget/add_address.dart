@@ -14,16 +14,14 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
-class AddAddress extends StatefulWidget {
+import '../controller/common_controller/county_pickar_controller.dart';
+
+class AddAddress extends StatelessWidget {
   final String typeText;
   AddAddress(this.typeText);
 
-  @override
-  State<AddAddress> createState() => _AddAddressState();
-}
-
-class _AddAddressState extends State<AddAddress> {
   final _formKey = GlobalKey<FormState>();
+  final CountryPickerController _controller = Get.put(CountryPickerController());
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +41,7 @@ class _AddAddressState extends State<AddAddress> {
                 ),
                 customSpacerHeight(height: 8),
                 textFieldTitleText(titleText: AppString.text_county),
+
                 countyField(
                   context: context,
                   controller: Get.find<InputTextFieldController>().addCountyController,
@@ -58,11 +57,7 @@ class _AddAddressState extends State<AddAddress> {
                           inputDecoration: countryDecoration,
                         ),
                         onSelect: (Country country) {
-                          setState(() {
-                            Get.find<InputTextFieldController>()
-                                .addCountyController
-                                .text = country.name.toString();
-                          });
+                          _controller.setSelectedCountry(country.name);
                         });
                   },
                   validator: (value) {
@@ -204,7 +199,7 @@ class _AddAddressState extends State<AddAddress> {
                     elevatedButtonAction: () {
                       if (_formKey.currentState!.validate()) {
                              Get.find<AddressController>().addressUpdate(
-                                typeKey: widget.typeText.toString(),context: context,
+                                typeKey: typeText.toString(),context: context,
                                area: Get.find<InputTextFieldController>().addAreaController.value.text,
                                city: Get.find<InputTextFieldController>().addCityController.value.text,
                                country: Get.find<InputTextFieldController>().addCountyController.value.text,

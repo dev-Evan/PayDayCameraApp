@@ -8,7 +8,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 
 Widget jobHisEmploymentView() {
   return Padding(
-    padding: const EdgeInsets.only(left: 44.0, bottom: 16),
+    padding: const EdgeInsets.only(left: 45.0, bottom: 16,top: 0),
     child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -41,7 +41,7 @@ Widget jobHisEmploymentView() {
 Widget jobHisDesignationView() {
 
   return Padding(
-    padding: const EdgeInsets.only(left: 44.0, bottom: 16),
+    padding: const EdgeInsets.only(left: 45.0, bottom: 16,top: 0),
     child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -76,7 +76,7 @@ Widget jobHisDepartmentView() {
 
 
   return Padding(
-    padding: const EdgeInsets.only(left: 44.0, bottom: 16),
+    padding: const EdgeInsets.only(left: 45.0, bottom: 16,top: 0),
     child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -110,7 +110,7 @@ Widget jobHisDepartmentView() {
 Widget jobHisRoleView() {
 
   return Padding(
-    padding: const EdgeInsets.only(left: 44.0, bottom: 16),
+    padding: const EdgeInsets.only(left: 45.0, bottom: 16,top: 0),
     child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -137,7 +137,7 @@ Widget jobHisRoleView() {
 
 Widget jobHisWorkShiftView() {
   return Padding(
-    padding: const EdgeInsets.only(left: 44.0, bottom: 16),
+    padding: const EdgeInsets.only(left: 45.0, bottom: 16,top: 0),
     child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
