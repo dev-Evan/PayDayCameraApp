@@ -6,12 +6,14 @@ import '../modules/attendance/presentation/view/attendance_logs.dart';
 import '../modules/auth/presentation/view/forgot_password.dart';
 import '../modules/auth/presentation/view/sign_in.dart';
 import '../modules/home/presentation/home.dart';
+import '../modules/leave/domain/leave_allowance.dart';
 import '../modules/leave/presentation/view/leave.dart';
 import '../modules/more/presentation/view/about_this_app.dart';
 import '../modules/more/presentation/view/address_details.dart';
 import '../modules/more/presentation/view/bank_details.dart';
 import '../modules/more/presentation/view/documents.dart';
 import '../modules/more/presentation/view/jod_history.dart';
+import '../modules/more/presentation/view/leave_allowance.dart';
 import '../modules/more/presentation/view/more.dart';
 import '../modules/more/presentation/view/salary_overview.dart';
 import '../modules/more/presentation/view/view_profile.dart';
@@ -127,6 +129,10 @@ class AppPages {
       name: _Paths.ANNOUNCE_SCREEN,
       transition: Transition.rightToLeft,
       page: () => AnnounceScreen(),
+    ), GetPage(
+      name: _Paths.LEAVE_ALLOWANCE_SCREEN,
+      transition: Transition.rightToLeft,
+      page: () => LeaveAllowanceScreen(),
     ),
 
   ];

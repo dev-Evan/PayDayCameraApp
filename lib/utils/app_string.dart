@@ -123,6 +123,7 @@ class AppString {
   static const String text_availability = "Availability";
   static const String text_taken = "Taken";
   static const String text_casual = "Casual";
+  static const String text_casual_leave = "Casual Leave";
   static const String text_sick = "Sick";
   static const String text_paid_sick = "Paid Sick";
   static const String text_apply_leve = "Apply Leave";
@@ -209,6 +210,9 @@ class AppString {
   static String text_documents = "Documents";
   static String text_announcement = "Announcement";
   static String text_leave_allowance = "Leave Allowance";
+  static String text_allowance = "Allowance";
+  static String text_earned = "Earned";
+  static String text_earning_rate = "Earning rate";
   static String text_my_profile = "My profile";
   static String text_total_file = "Total Files";
   static String text_doctor_slips = "Doctor's Slips";

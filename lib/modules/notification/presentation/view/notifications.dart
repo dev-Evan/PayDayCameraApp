@@ -28,7 +28,7 @@ class Notifications extends GetView<NotificationController> {
                             height: AppLayout.getSize(context).height -
                                 Get.statusBarHeight,
                             child: Center(
-                              child: logoView(
+                              child: svgIcon(
                                   url: Images.no_data_found,
                                   width: 150,
                                   height: 150),

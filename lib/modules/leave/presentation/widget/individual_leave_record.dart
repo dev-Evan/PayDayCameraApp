@@ -213,7 +213,7 @@ _listCard(int index) => Padding(
     );
 
 Widget _noDataImg() {
-  return logoView(
+  return svgIcon(
     url: Images.calendar,
     width: 180,
     height: 180

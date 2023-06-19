@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
       isMove();
     });
 
-    Future.delayed( const Duration(milliseconds: 1657), () {
+    Future.delayed( const Duration(milliseconds: 1700), () {
       chooseScreen();
     });
 

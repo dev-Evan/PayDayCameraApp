@@ -174,7 +174,7 @@ class DocumentScreen extends GetView<DocumentController> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          logoView(
+                          svgIcon(
                             height: 160,
                             width: 160,
                             url: Images.no_data_found,

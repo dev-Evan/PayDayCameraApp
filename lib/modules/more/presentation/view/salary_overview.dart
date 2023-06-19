@@ -73,9 +73,9 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   customSpacerHeight(height: 158),
-                                  logoView(
-                                    height: 170,
-                                    width: 170,
+                                  svgIcon(
+                                    height: 160,
+                                    width: 160,
                                     url: Images.no_data_found,
                                   ),
                                 ],

@@ -126,7 +126,7 @@ class PaySlip extends GetView<PayslipListController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               customSpacerHeight(height: 100),
-                              logoView(
+                              svgIcon(
                                 height: 150,
                                 width: 150,
                                 url: Images.no_data_found,

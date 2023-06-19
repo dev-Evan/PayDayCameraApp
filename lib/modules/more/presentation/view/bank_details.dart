@@ -119,7 +119,7 @@ class BankDetails extends GetView<MoreDataController> {
                                 child: Column(
                                   children: [
                                     customSpacerHeight(height: 230),
-                                    logoView(
+                                    svgIcon(
                                       height: 160,
                                       width: 160,
                                       url: Images.no_data_found,

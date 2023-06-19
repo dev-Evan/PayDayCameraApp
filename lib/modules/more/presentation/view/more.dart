@@ -24,7 +24,8 @@ class MoreScreen extends GetView<ProfileDataController> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      controller.getUserData();});
+      controller.getUserData()
+      ;});
     return controller.obx(
             (state) => Scaffold(
           body: CustomScrollView(
@@ -85,9 +86,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                   cardIcon: Images.leave_allowance,
                                   cardText: AppString.text_leave_allowance,
                                   onAction: () async {
-
-                                    showCustomSnackBar(message: "The page is empty");
-                                    // Get.toNamed(Routes.DOCUMENT_SCREEN);
+                                     Get.toNamed(Routes.LEAVE_ALLOWANCE_SCREEN);
                                     // await Get.find<DocumentController>()
                                     //     .getDocumentData();
                                   }),

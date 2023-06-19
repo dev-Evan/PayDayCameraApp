@@ -145,7 +145,7 @@ Widget _headerLayout({isLeft}) {
       duration: const Duration(milliseconds: 400),
       alignment: isLeft ? Alignment.topCenter : Alignment.topRight,
       curve: Curves.easeInOut,
-      child: logoView(),
+      child: svgIcon(),
     ),
   );
 }
