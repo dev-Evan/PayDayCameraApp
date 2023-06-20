@@ -12,22 +12,40 @@ class PayrunBadgeController extends GetxController with StateMixin {
   List<PayrunBeneficiaryElement> allowance=[];
   List<PayrunBeneficiaryElement> deduction=[];
 
+  List<PayrunBeneficiaryElement> defaultAllowance=[];
+  List<PayrunBeneficiaryElement> defaultDeduction=[];
+
   getPayrunBadgeData() async {
     change(null, status: RxStatus.loading());
     try {
       await payrunBadgeRepository.getPayrunBagReoData().then(
           (PayrunBadgeModel value) {
         print(value);
-       allowance= value.data!.payrunBeneficiaries!
+        payrunBadgeModel = value;
+
+        allowance= value.data!.payrunBeneficiaries!
             .where((element) => element.beneficiary!.type == "allowance")
             .toList();
         deduction = value.data!.payrunBeneficiaries!
             .where((element) => element.beneficiary!.type == "deduction")
             .toList();
+
+        defaultAllowance= value.data!.defaultPayrun!.beneficiaries!
+            .where((element) => element.beneficiary!.type == "allowance")
+            .toList();
+
+        defaultDeduction = value.data!.defaultPayrun!.beneficiaries!
+            .where((element) => element.beneficiary!.type == "deduction")
+            .toList();
+
+
         print("pay allowance:::: ${allowance.length}");
         print("pay deduction:::: ${deduction.length}");
 
-        payrunBadgeModel = value;
+        print("pay allowance:::: ${defaultAllowance.length}");
+        print("pay deduction:::: ${defaultDeduction.length}");
+
+
       }, onError: (error) {
         print(error.message);
       });

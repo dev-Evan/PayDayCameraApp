@@ -201,6 +201,7 @@ class AppString {
   static String text_consider_type = "Consider Type";
   static String text_monthly = "Monthly";
   static String text_no_included = "N/A";
+  static String text_excluded= "Excluded";
   static String text_hour = "Hour";
   static String text_2 = "2";
   static String text_included = "Included";
