@@ -41,11 +41,7 @@ class BankDetails extends GetView<MoreDataController> {
                                     titleText:
                                     controller
                                         .bankInfoModel.data?.name !=null?
-
                                     AppString.text_bank_details:""
-
-
-
                                 ),
                                 _bankTitleRow(
                                     bankTitleText: controller

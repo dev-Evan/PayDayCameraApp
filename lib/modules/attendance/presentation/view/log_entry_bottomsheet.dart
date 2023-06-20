@@ -25,9 +25,9 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
   Widget build(BuildContext context) {
     return controller.obx(
         (state) => DraggableScrollableSheet(
-              initialChildSize: .8,
-              maxChildSize: .8,
-              minChildSize: .5,
+              initialChildSize: .9,
+              maxChildSize: .9,
+              minChildSize: .7,
               builder:
                   (BuildContext context, ScrollController scrollController) =>
                       Container(
@@ -73,7 +73,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
           _noteLayout(),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-          _mapLayout(),
+          // _mapLayout(),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
           Obx(
             () => UsersCurrentInfoLayout(
@@ -197,6 +197,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
   }
 
   _punchButton() {
+    Get.find<AttendanceController>().editTextController.clear();
     final controller = Get.find<AttendanceController>();
     return Obx(() => AppButton(
           buttonColor: controller.isPunchIn.value

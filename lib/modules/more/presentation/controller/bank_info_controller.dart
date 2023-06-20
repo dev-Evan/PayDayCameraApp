@@ -74,6 +74,7 @@ class MoreDataController extends GetxController with StateMixin {
         showCustomSnackBar(message: AppString.text_bank_details_deleted_successfully);
         newValue="value";
         Get.back();
+        clearData();
       }, onError: (error) {
         Get.back();
         print(error.toString());

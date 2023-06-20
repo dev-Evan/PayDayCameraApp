@@ -13,9 +13,9 @@ class NotificationRepository {
   Future<Notifications> getAllNotification({int? page = 1}) async {
     try {
       Response response = await networkClient.getRequest(
-          "${Api.ALL_NOTIFICATION}?timezone=${DateTime.now().toUtc().timeZoneName}&page=$page&per_page=8");
+          "${Api.ALL_NOTIFICATION}?timezone=${DateTime.now().timeZoneName}&page=$page");
       print(
-          "${Api.ALL_NOTIFICATION}?timezone=${DateTime.now().toUtc().timeZoneName}&page=$page&per_page=8");
+          "${Api.ALL_NOTIFICATION}?timezone=${DateTime.now().timeZoneName}&page=$page");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -29,7 +29,7 @@ class NotificationRepository {
   Future<Notifications> getAllUnreadNotification() async {
     try {
       Response response = await networkClient.getRequest(
-          "${Api.ALL_UNREAD_NOTIFICATION}&timezone=${DateTime.now().toUtc().timeZoneName}");
+          "${Api.ALL_UNREAD_NOTIFICATION}&timezone=${DateTime.now().timeZoneName}");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

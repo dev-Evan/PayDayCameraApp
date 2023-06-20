@@ -59,7 +59,6 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
     }
   }
 
-  final _leaveType = Get.find<LeaveController>().leaveType;
   String? dropdownValue;
 
   @override
@@ -159,70 +158,66 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
     );
   }
 
-  _leaveTypeDropDown() => Container(
-        padding: EdgeInsets.symmetric(horizontal: AppLayout.getWidth(10)),
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(8)),
-        child: DropdownButton<String>(
-          style: const TextStyle(fontWeight: FontWeight.w500),
-          isExpanded: true,
-          underline: const SizedBox.shrink(),
-          icon: const Icon(Icons.expand_more, color: Colors.grey),
-          iconEnabledColor: AppColor.normalTextColor,
-          hint: Row(
-            children: [
-              _hintText(
-                textColor: Colors.grey,
-                hintText: AppString.text_paid_casual,
-              ),
-            ],
-          ),
-          value: dropdownValue,
-          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-          items: _leaveType.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: _hintText(
-                hintText: value,
-              ),
-            );
-          }).toList(),
-          onChanged: (String? newValue) {
-            _setData(newValue);
-            setState(() {
-              dropdownValue = newValue;
-            });
-          },
-        ),
-      );
-
-  void _setData(String? newValue) {
-    switch (newValue) {
-      case "Paid Casual":
-        {
-          Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] =
-              "1";
-        }
-        break;
-      case "Paid Sick":
-        {
-          Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] =
-              "2";
-        }
-        break;
-      case "Unpaid Casual":
-        {
-          Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] =
-              "3";
-        }
-        break;
-      case "Unpaid Sick":
-        {
-          Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] =
-              "4";
-        }
+  _leaveTypeDropDown() {
+    List<String> _leaveType = [];
+    try {
+      Get.find<LeaveController>().leaveType.values.forEach((element) {
+        _leaveType.add(element);
+      });
+    } catch (e) {
+      print(e.toString());
     }
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: AppLayout.getWidth(10)),
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(8)),
+      child: DropdownButton<String>(
+        style: const TextStyle(fontWeight: FontWeight.w500),
+        isExpanded: true,
+        underline: const SizedBox.shrink(),
+        icon: const Icon(Icons.expand_more, color: Colors.grey),
+        iconEnabledColor: AppColor.normalTextColor,
+        hint: Row(
+          children: [
+            _hintText(
+              textColor: Colors.grey,
+              hintText: AppString.text_paid_casual,
+            ),
+          ],
+        ),
+        value: dropdownValue,
+        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+        items: _leaveType.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: _hintText(
+              hintText: value,
+            ),
+          );
+        }).toList(),
+        onChanged: (String? newValue) {
+          //getting id value from leave type
+          int indexValue = Get.find<LeaveController>()
+              .leaveType
+              .keys
+              .firstWhere(
+                  (element) =>
+                      Get.find<LeaveController>().leaveType[element] ==
+                      newValue,
+                  orElse: () => null);
+          _setData(indexValue: indexValue);
+          setState(() {
+            dropdownValue = newValue;
+          });
+        },
+      ),
+    );
+  }
+
+  void _setData({required int indexValue}) {
+    Get.find<LeaveController>().requestLeaveQueries["leave_type_id"] =
+        indexValue.toString();
   }
 
   Widget _dottedBorder({onAction}) {
@@ -479,9 +474,10 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                           leaveType: e.leaveType, leaveValue: e.value))
                       .toList(),
                 ),
-              )
+              ),
             ],
-          )
+          ),
+          customSpacerHeight(height: 20),
         ],
       ),
     );

@@ -23,20 +23,18 @@ class ApplyLeaveDobHours extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        textFieldTitleText(titleText: AppString.text_date),
-        customSpacerHeight(height: 8),
         const ApplyLeaveDobSingleDay(),
         customSpacerHeight(height: 12),
         Row(
           children: [
-            Flexible(
+            Expanded(
               child: _applyLeaveStartTime(
                 context: context,
                 fieldTitleText: AppString.text_start_time,
               ),
             ),
             customSpacerWidth(width: 12),
-            Flexible(
+            Expanded(
               child: _applyLeaveEndTime(
                 context: context,
                 fieldTitleText: AppString.text_end_time,

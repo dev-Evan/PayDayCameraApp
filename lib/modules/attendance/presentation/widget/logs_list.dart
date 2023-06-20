@@ -80,7 +80,7 @@ class LogsList extends GetView<AttendanceLogsController> {
                                             .logList[dataIndex]
                                             .details[index]
                                             .id);
-                                    await _openLogDetailsBottomSheet();
+                                    _openLogDetailsBottomSheet();
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -157,7 +157,8 @@ class LogsList extends GetView<AttendanceLogsController> {
             Row(
               children: [
                 _timeCounter(dataIndex),
-                controller.logList[dataIndex].details!.length > 0
+                // controller.filteredLogSummary.data!.data![dataIndex].totalComments
+                controller.logList[dataIndex].totalComments> 0
                     ? _noteCounter(dataIndex)
                     : Container(),
                 customSpacerWidth(width: 12),
@@ -177,8 +178,8 @@ class LogsList extends GetView<AttendanceLogsController> {
     return InkWell(
       onTap: () async {
         await Get.find<AttendanceController>()
-            .logDetails(controller.logList[dataIndex].details![0].id!);
-        await _openLogDetailsBottomSheet();
+            .logDetails(controller.logList[dataIndex].details[0].id);
+         _openLogDetailsBottomSheet();
       },
       child: Row(children: [
         Expanded(flex: 3, child: _date(dataIndex)),
@@ -222,7 +223,7 @@ class LogsList extends GetView<AttendanceLogsController> {
             width: AppLayout.getWidth(3),
           ),
           Text(
-            controller.logList[dataIndex].details!.length.toString(),
+            controller.logList[dataIndex].totalComments.toString(),
             style: AppStyle.mid_large_text.copyWith(
                 color: AppColor.hintColor,
                 fontSize: Dimensions.fontSizeDefault + 2,

@@ -22,8 +22,8 @@ class EditAddress extends StatefulWidget {
   @override
   State<EditAddress> createState() => _EditAddressState();
 }
-final CountryPickerController _controller = Get.put(CountryPickerController());
 
+final CountryPickerController _controller = Get.put(CountryPickerController());
 
 class _EditAddressState extends State<EditAddress> {
   final _formKey = GlobalKey<FormState>();
@@ -46,11 +46,9 @@ class _EditAddressState extends State<EditAddress> {
               textFieldTitleText(titleText: AppString.text_county),
               countyField(
                 context: context,
-                controller: Get.find<InputTextFieldController>()
-                    .countyTextController,
+                controller:
+                    Get.find<InputTextFieldController>().countyTextController,
                 onAction: () {
-
-
                   showCountryPicker(
                       context: context,
                       countryListTheme: CountryListThemeData(
@@ -64,7 +62,6 @@ class _EditAddressState extends State<EditAddress> {
                       onSelect: (Country country) {
                         _controller.editSetSelectedCountry(country.name);
                         print(country.name);
-
                       });
                 },
                 validator: (value) {
@@ -74,11 +71,10 @@ class _EditAddressState extends State<EditAddress> {
                   return null;
                 },
               ),
-
               textFieldTitleText(titleText: AppString.text_phone),
               phoneAndCountyField(
-                controller: Get.find<InputTextFieldController>()
-                    .phoneNumberController,
+                controller:
+                    Get.find<InputTextFieldController>().phoneNumberController,
               ),
               Row(
                 children: [
@@ -173,8 +169,8 @@ class _EditAddressState extends State<EditAddress> {
                       titleText:
                           AppString.text_address + AppString.text_details),
                   InputNote(
-                    controller: Get.find<InputTextFieldController>()
-                        .detailsController,
+                    controller:
+                        Get.find<InputTextFieldController>().detailsController,
                     hintText:
                         "${AppString.text_add}${AppString.text_address_details}",
                     validator: (value) {
@@ -196,7 +192,7 @@ class _EditAddressState extends State<EditAddress> {
               customDoubleButton(
                   context: context,
                   elevatedBtnText:
-                      '${AppString.text_add} ${AppString.text_address}',
+                      '${AppString.text_save}',
                   textBtnText: AppString.text_cancel,
                   textButtonAction: () => Get.back(),
                   elevatedButtonAction: () {

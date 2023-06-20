@@ -134,7 +134,7 @@ class AddBankInfo extends StatelessWidget {
               customDoubleButton(
                   context: context,
                   elevatedBtnText:
-                      '${AppString.text_add} ${AppString.text_address}',
+                      '${AppString.text_add} ${AppString.text_details}',
                   textBtnText: AppString.text_cancel,
                   textButtonAction: () => Get.back(),
                   elevatedButtonAction: () {

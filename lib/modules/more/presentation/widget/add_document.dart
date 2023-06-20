@@ -192,7 +192,7 @@ class _AddDocumentState extends State<AddDocument> {
                         : Get.find<FileUploadController>().uploadFile(context: context);
               },
               textBtnText: AppString.text_cancel,
-              elevatedBtnText: AppString.text_save,
+              elevatedBtnText: AppString.text_add_document,
               context: context),
         ),
       ],

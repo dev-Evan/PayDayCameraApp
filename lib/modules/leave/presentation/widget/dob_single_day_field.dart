@@ -28,7 +28,13 @@ class ApplyLeaveDobSingleDay extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(AppString.text_date),
+        Text(
+          AppString.text_date,
+          style: AppStyle.small_text.copyWith(
+              color: AppColor.normalTextColor,
+              fontWeight: FontWeight.w600,
+              fontSize: Dimensions.fontSizeDefault),
+        ),
         customSpacerHeight(height: 10),
         InkWell(
           onTap: () => showDialog(

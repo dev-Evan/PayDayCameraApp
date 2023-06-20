@@ -142,7 +142,7 @@ class EditBankInfo extends StatelessWidget {
               customDoubleButton(
                   context: context,
                   elevatedBtnText:
-                  '${AppString.text_save_changes}',
+                  '${AppString.text_save}',
                   textBtnText: AppString.text_cancel,
                   textButtonAction: () => Get.back(),
                   elevatedButtonAction: () {
