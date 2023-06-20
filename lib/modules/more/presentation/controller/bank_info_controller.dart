@@ -64,8 +64,6 @@ class MoreDataController extends GetxController with StateMixin {
 
 
 
-
-
   void deletedBankInfoApi() async {
     waitingLoader();
     try {

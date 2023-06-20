@@ -19,13 +19,9 @@ class PayRunBadgeView extends GetView<PayrunBadgeController> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: controller.payrunBadgeModel.data !=null?
-
-
-
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
 
           _cardTitle(
               icon: Images.file, titleText: AppString.text_payrun_details),
@@ -70,6 +66,9 @@ class PayRunBadgeView extends GetView<PayrunBadgeController> {
                               "0"
                           ? AppString.text_excluded
                           : AppString.text_included),
+
+
+
           controller.allowance.isNotEmpty
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,68 +137,75 @@ class PayRunBadgeView extends GetView<PayrunBadgeController> {
                         : Container(),
                   ],
                 )
-              : controller.defaultAllowance.isNotEmpty
+              : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              controller.defaultAllowance.isNotEmpty
                   ? _cardTitle(
-                      icon: Images.allowance,
-                      titleText: AppString.text_allowances)
+                  icon: Images.allowance,
+                  titleText: AppString.text_allowances)
                   : Container(),
-          controller.defaultAllowance.isNotEmpty
-              ? ListView.builder(
-                  itemCount: controller.defaultAllowance.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  primary: false,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          children: [
-                            Padding(
-                              padding:
-                              columnEdgeInsets,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      _subTextLeft(
-                                          subTitleText: controller
-                                                  .defaultAllowance[index]
-                                                  .beneficiary
-                                                  ?.name
-                                                  .toString() ??
-                                              ""),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      _subTextRightBtn(
-                                          subTextRight: controller
-                                                  .defaultAllowance[index]
-                                                  .amount
-                                                  .toString() ??
-                                              "",
-                                          isPercentage: controller.defaultAllowance[index]
-                                              .isPercentage
-                                              ?.toInt()),
-                                    ],
-                                  ),
-                                ],
-                              ),
+              controller.defaultAllowance.isNotEmpty
+                  ? ListView.builder(
+                itemCount: controller.defaultAllowance.length,
+                physics: const NeverScrollableScrollPhysics(),
+                primary: false,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        children: [
+                          Padding(
+                            padding:
+                            columnEdgeInsets,
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    _subTextLeft(
+                                        subTitleText: controller
+                                            .defaultAllowance[index]
+                                            .beneficiary
+                                            ?.name
+                                            .toString() ??
+                                            ""),
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    _subTextRightBtn(
+                                        subTextRight: controller
+                                            .defaultAllowance[index]
+                                            .amount
+                                            .toString() ??
+                                            "",
+                                        isPercentage: controller.defaultAllowance[index]
+                                            .isPercentage
+                                            ?.toInt()),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ],
-                        )
-                      ],
-                    );
-                  },
-                )
-              : Container(),
+                          ),
+                        ],
+                      )
+                    ],
+                  );
+                },
+              )
+                  : Container(),
+            ],
+          ),
+
+
           controller.deduction.isNotEmpty
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -268,68 +274,73 @@ class PayRunBadgeView extends GetView<PayrunBadgeController> {
                         : Container()
                   ],
                 )
-              : controller.defaultDeduction.isNotEmpty
+              : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              controller.defaultDeduction.isNotEmpty
                   ? _cardTitle(
-                      icon: Images.deduction,
-                      titleText: AppString.text_deductions)
+                  icon: Images.deduction,
+                  titleText: AppString.text_deductions)
                   : Container(),
-          controller.defaultDeduction.isNotEmpty
-              ? ListView.builder(
-                  itemCount: controller.defaultDeduction.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  primary: false,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          children: [
-                            Padding(
-                              padding:
-                              columnEdgeInsets,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      _subTextLeft(
-                                          subTitleText: controller
-                                                  .defaultDeduction[index]
-                                                  .beneficiary
-                                                  ?.name
-                                                  .toString() ??
-                                              ""),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      _subTextRightBtn(
-                                          subTextRight: controller
-                                                  .defaultDeduction[index]
-                                                  .amount
-                                                  ?.toString() ??
-                                              "",
-                                          isPercentage: controller.defaultDeduction[index]
-                                              .isPercentage
-                                              ?.toInt()),
-                                    ],
-                                  ),
-                                ],
-                              ),
+              controller.defaultDeduction.isNotEmpty
+                  ? ListView.builder(
+                itemCount: controller.defaultDeduction.length,
+                physics: const NeverScrollableScrollPhysics(),
+                primary: false,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        children: [
+                          Padding(
+                            padding:
+                            columnEdgeInsets,
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    _subTextLeft(
+                                        subTitleText: controller
+                                            .defaultDeduction[index]
+                                            .beneficiary
+                                            ?.name
+                                            .toString() ??
+                                            ""),
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    _subTextRightBtn(
+                                        subTextRight: controller
+                                            .defaultDeduction[index]
+                                            .amount
+                                            ?.toString() ??
+                                            "",
+                                        isPercentage: controller.defaultDeduction[index]
+                                            .isPercentage
+                                            ?.toInt()),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ],
-                    );
-                  },
-                )
-              : Container(),
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                },
+              )
+                  : Container(),
+            ],
+          )
         ],
       ):Center(
         child: Column(
