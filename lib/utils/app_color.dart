@@ -17,6 +17,7 @@ class AppColor {
   static const Color normalTextColor = Color(0xFF4D4D4D);
   static const Color bgColor = Color(0xFFFFFFFF);
   static const Color solidGray = Colors.grey;
+  static const Color allowanceCardColor = Color(0xffF0F9FF);
 
   static const Color primaryBlue = Color(0xFF019AFF);
   static const Color primaryGreen = Color(0xFF3EAC55);

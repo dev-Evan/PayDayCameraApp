@@ -111,7 +111,7 @@ Widget _subInnerRow({required leftText, required dynamicText}) {
 
 Decoration get boxDecoration {
   return BoxDecoration(
-      color: AppColor.primaryColor.withOpacity(0.1),
+      color: AppColor.allowanceCardColor,
       borderRadius: BorderRadius.circular(Dimensions.radiusDefault.toDouble()));
 }
 
