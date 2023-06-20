@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/init_%20app.dart';
 import 'package:pay_day_mobile/routes/app_pages.dart';
+import 'package:pay_day_mobile/utils/internationalization.dart';
 import 'package:pay_day_mobile/utils/theme.dart';
 
 void main() async {
@@ -17,6 +18,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme,
+      translations: Internationalization(),
+      locale: Locale("bn","BD"),
+      fallbackLocale: Locale("en","US"),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
     );

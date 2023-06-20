@@ -35,19 +35,19 @@ class _HomeState extends State<Home> {
     BottomNavigationBarItem(
         icon: _icon(icon: Icons.watch_later_outlined),
         activeIcon: _icon(icon: Icons.watch_later),
-        label: AppString.text_attendance),
+        label: "text_attendance".tr),
     BottomNavigationBarItem(
         icon: _icon(icon: Icons.calendar_today_outlined),
         activeIcon: _icon(icon: Icons.calendar_today),
-        label: AppString.text_leave),
+        label: "text_leave".tr),
     BottomNavigationBarItem(
         icon: const Icon(Icons.description_outlined),
         activeIcon: const Icon(Icons.description),
-        label: AppString.text_payslip),
+        label: "text_payslip".tr),
     BottomNavigationBarItem(
         icon: _icon(icon: Icons.dashboard_customize_outlined),
         activeIcon: _icon(icon: Icons.dashboard),
-        label: AppString.text_more),
+        label: "text_more".tr),
   ];
 
   onTap(int index) {

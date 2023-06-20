@@ -45,7 +45,7 @@ _userName() {
   return Padding(
     padding:EdgeInsets.only(right: AppLayout.getWidth(4.0)),
     child: Text(
-      "Hi, ${GetStorage().read(AppString.USER_NAME)}",
+      "${"greeting_text".tr}, ${GetStorage().read(AppString.USER_NAME)}",
       style: AppStyle.title_text,
     ),
   );
