@@ -9,6 +9,7 @@ import 'package:pay_day_mobile/modules/payslip/presentation/widget/drop_dawon_se
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/logList_widget.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/payslip_widget.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/summary_layout.dart';
+import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
@@ -27,6 +28,7 @@ class PaySlip extends GetView<PayslipListController> {
   Widget build(BuildContext context) {
    controller.getPayslipListData(value: thisYarKey());
     controller.getSummaryData();
+   Get.find<SettingController>().getCurrencyData();
     return controller.obx(
         (state) => Scaffold(
               body: SingleChildScrollView(
@@ -126,7 +128,7 @@ class PaySlip extends GetView<PayslipListController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               customSpacerHeight(height: 100),
-                              logoView(
+                              svgIcon(
                                 height: 150,
                                 width: 150,
                                 url: Images.no_data_found,

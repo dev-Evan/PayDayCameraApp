@@ -32,46 +32,46 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-      initialChildSize: .9,
-      maxChildSize: .9,
-      minChildSize: .7,
-      builder: (BuildContext context, ScrollController scrollController) {
-        Get
-            .find<DateTimeController>()
-            .pickedInTime
-            .value =
-        widget.logDetailsById.data!.checkInTime!;
-        Get
-            .find<DateTimeController>()
-            .pickedOutTime
-            .value =
-        widget.logDetailsById.data!.checkOutTime!;
-        return    Container(
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-          child: Stack(
-            children: [
-              ListView(
-                controller: scrollController,
-                children: [
-                  bottomSheetAppbar(
-                      context: context,
-                      appbarTitle: AppString.text_edit_attendance),
-                  _contentLayout(),
-                  SizedBox(
-                    height: AppLayout.getHeight(60),
-                  )
-                ],
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: _buttonLayout(context),
-              )
-            ],
-          ),
-        );
-      }
+        initialChildSize: .9,
+        maxChildSize: .9,
+        minChildSize: .7,
+        builder: (BuildContext context, ScrollController scrollController) {
+          Get
+              .find<DateTimeController>()
+              .pickedInTime
+              .value =
+          widget.logDetailsById.data!.checkInTime!;
+          Get
+              .find<DateTimeController>()
+              .pickedOutTime
+              .value =
+          widget.logDetailsById.data!.checkOutTime!;
+          return    Container(
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+            child: Stack(
+              children: [
+                ListView(
+                  controller: scrollController,
+                  children: [
+                    bottomSheetAppbar(
+                        context: context,
+                        appbarTitle: AppString.text_edit_attendance),
+                    _contentLayout(),
+                    SizedBox(
+                      height: AppLayout.getHeight(60),
+                    )
+                  ],
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: _buttonLayout(context),
+                )
+              ],
+            ),
+          );
+        }
 
     );
   }
@@ -194,9 +194,9 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
   _note() {
     return TextField(
       onChanged: (value) {
-      setState(() {
-        inputValue=value;
-      });
+        setState(() {
+          inputValue=value;
+        });
       },
       decoration: InputDecoration(
           hintText: AppString.text_add_note_here,

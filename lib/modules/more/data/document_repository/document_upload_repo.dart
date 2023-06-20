@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import '../presentation/controller/document_controller.dart';
+import '../../presentation/controller/documet_controller/document_controller.dart';
 import 'package:http/http.dart' as http;
 import 'package:file_picker/file_picker.dart';
 

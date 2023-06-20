@@ -7,7 +7,7 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 
 import '../../../../utils/app_layout.dart';
 
-Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle}) {
+Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle,Function? onAction}) {
   return Container(
     padding: EdgeInsets.symmetric(
         horizontal: AppLayout.getWidth(Dimensions.paddingDefault),
@@ -36,7 +36,13 @@ Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle}) {
       actions: [
         IconButton(
           onPressed: () {
+            if(onAction !=null){
+              onAction();
               Navigator.of(context).pop();
+
+            }else{
+              Navigator.of(context).pop();
+            }
           },
           icon: Icon(
             Icons.close,

@@ -4,12 +4,16 @@ import 'package:pay_day_mobile/modules/payslip/domain/payrun_badge_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 
 class PayrunBadgeController extends GetxController with StateMixin {
+
   PayrunBadgeModel payrunBadgeModel = PayrunBadgeModel();
-  PayslipDataRepository payrunBadgeRepository =
-      PayslipDataRepository(NetworkClient());
+  PayslipDataRepository payrunBadgeRepository = PayslipDataRepository(NetworkClient());
+
 
   List<PayrunBeneficiaryElement> allowance=[];
   List<PayrunBeneficiaryElement> deduction=[];
+
+  List<PayrunBeneficiaryElement> defaultAllowance=[];
+  List<PayrunBeneficiaryElement> defaultDeduction=[];
 
   getPayrunBadgeData() async {
     change(null, status: RxStatus.loading());
@@ -17,16 +21,31 @@ class PayrunBadgeController extends GetxController with StateMixin {
       await payrunBadgeRepository.getPayrunBagReoData().then(
           (PayrunBadgeModel value) {
         print(value);
-       allowance= value.data!.payrunBeneficiaries!
+        payrunBadgeModel = value;
+
+        allowance= value.data!.payrunBeneficiaries!
             .where((element) => element.beneficiary!.type == "allowance")
             .toList();
         deduction = value.data!.payrunBeneficiaries!
             .where((element) => element.beneficiary!.type == "deduction")
             .toList();
+
+        defaultAllowance= value.data!.defaultPayrun!.beneficiaries!
+            .where((element) => element.beneficiary!.type == "allowance")
+            .toList();
+
+        defaultDeduction = value.data!.defaultPayrun!.beneficiaries!
+            .where((element) => element.beneficiary!.type == "deduction")
+            .toList();
+
+
         print("pay allowance:::: ${allowance.length}");
         print("pay deduction:::: ${deduction.length}");
 
-        payrunBadgeModel = value;
+        print("pay allowance:::: ${defaultAllowance.length}");
+        print("pay deduction:::: ${defaultDeduction.length}");
+
+
       }, onError: (error) {
         print(error.message);
       });
@@ -35,4 +54,9 @@ class PayrunBadgeController extends GetxController with StateMixin {
       print(ex.toString());
     }
   }
+
+
+
+
+
 }

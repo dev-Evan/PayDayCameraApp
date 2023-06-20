@@ -35,7 +35,7 @@ Widget animatedContainer({required isLeft}) {
     duration: const Duration(milliseconds: 400),
     alignment: isLeft ? Alignment.topCenter : Alignment.topRight,
     curve: Curves.easeInOut,
-    child: logoView(width: 44,height: 44),
+    child: svgIcon(width: 44,height: 44),
   );
 }
 

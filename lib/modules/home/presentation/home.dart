@@ -65,7 +65,6 @@ Future dialog(){
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => _onWillPop(context),
-
       child: Scaffold(
         appBar: const CustomAppbar(),
         body: _screens[currentIndex],

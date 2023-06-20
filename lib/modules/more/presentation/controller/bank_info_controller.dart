@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
 import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
-import 'package:pay_day_mobile/modules/more/data/more_data_repository.dart';
+import 'package:pay_day_mobile/modules/more/data/bank_info_repository.dart';
 import 'package:pay_day_mobile/modules/more/domain/bank_info_model.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/bank_details.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/add_bank_info.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
@@ -16,9 +16,10 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 class MoreDataController extends GetxController with StateMixin {
   final box = GetStorage();
   BankInfoModel bankInfoModel = BankInfoModel();
+  var newValue="";
   MoreDataRepository moreDataRepository = MoreDataRepository(NetworkClient());
-  CustomTextEditingController textEditingController =
-  Get.put(CustomTextEditingController());
+  InputTextFieldController textEditingController =
+  Get.put(InputTextFieldController());
 
   getBankInfo() async {
     change(null, status: RxStatus.loading());
@@ -63,8 +64,6 @@ class MoreDataController extends GetxController with StateMixin {
 
 
 
-
-  var newValue="";
   void deletedBankInfoApi() async {
     waitingLoader();
     try {
@@ -73,6 +72,7 @@ class MoreDataController extends GetxController with StateMixin {
         showCustomSnackBar(message: AppString.text_bank_details_deleted_successfully);
         newValue="value";
         Get.back();
+        clearData();
       }, onError: (error) {
         Get.back();
         print(error.toString());

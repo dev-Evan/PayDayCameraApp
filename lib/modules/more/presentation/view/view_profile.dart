@@ -7,9 +7,9 @@ import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/date_of_birth_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_drop_dawon_cnt.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/date_of_birth_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/edit_profile_drop_dawon_cnt.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/change_password.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/edit_profile.dart';
@@ -19,7 +19,6 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/view_profile_wid
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/utils.dart';
-import 'package:pay_day_mobile/utils/images.dart';
 
 class ViewProfile extends GetView<ProfileDataController> {
   @override
@@ -27,8 +26,6 @@ class ViewProfile extends GetView<ProfileDataController> {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       Get.find<ProfileDataController>().getUserData();
     });
-
-
     return  Scaffold(
       backgroundColor: AppColor.backgroundColor,
       appBar: const CustomAppbar(),
@@ -38,27 +35,27 @@ class ViewProfile extends GetView<ProfileDataController> {
             profileViewAppbar(
                 titleText: AppString.text_my_profile,
                 rightBtnAction: () {
-                  Get.find<CustomTextEditingController>()
+                  Get.find<InputTextFieldController>()
                       .firstNameController
                       .text = Get.find<ProfileDataController>()
                       .userProfile
                       .data
                       ?.firstName ??
                       "";
-                  Get.find<CustomTextEditingController>()
+                  Get.find<InputTextFieldController>()
                       .lastNameController
                       .text = Get.find<ProfileDataController>()
                       .userProfile
                       .data
                       ?.lastName ??
                       "";
-                  Get.find<CustomTextEditingController>().emailController.text =
+                  Get.find<InputTextFieldController>().emailController.text =
                       Get.find<ProfileDataController>()
                           .userProfile
                           .data
                           ?.email ??
                           "";
-                  Get.find<CustomTextEditingController>()
+                  Get.find<InputTextFieldController>()
                       .contactController
                       .text = Get.find<ProfileDataController>()
                       .userProfile
@@ -66,21 +63,20 @@ class ViewProfile extends GetView<ProfileDataController> {
                       ?.contact ??
                       "";
                   Get.find<DropdownBtnController>().dropdownValue.toString();
-                  Get.find<CustomTextEditingController>()
+                  Get.find<InputTextFieldController>()
                       .aboutMeController
                       .text = Get.find<ProfileDataController>()
                       .userProfile
                       .data
                       ?.aboutMe ??
                       "";
-                  Get.find<CustomTextEditingController>()
+                  Get.find<InputTextFieldController>()
                       .addressController
                       .text = Get.find<ProfileDataController>()
                       .userProfile
                       .data
                       ?.address ??
                       "";
-
                   Get.find<DatePickerController>()
                       .dobDateController
                       .value
@@ -180,7 +176,11 @@ class ViewProfile extends GetView<ProfileDataController> {
                           titleText: AppString.text_phone,
                           icon: CupertinoIcons.phone),
                       customSpacerHeight(height: 14),
-                      textFieldTitleText(titleText: AppString.text_personal),
+
+                      controller.userProfile.data?.address != null &&
+                          controller.userProfile.data!.address!.isEmpty?
+                      controller.userProfile.data?.address ==null?controller.userProfile.data?.gender ==null?  controller.userProfile.data?.dateOfBirth ==null?
+                      Container():Container():Container():Container():textFieldTitleText(titleText: AppString.text_personal),
                       controller.userProfile.data?.address != null &&
                           controller.userProfile.data!.address!.isEmpty
                           ? Container()
@@ -227,7 +227,6 @@ String get _dateFormat {
   var dynamicDate =
       (Get.find<ProfileDataController>().userProfile.data?.dateOfBirth ?? "");
   var date = '';
-
   if (dynamicDate.isNotEmpty && dynamicDate != "") {
     var formatDate = DateFormat("d MMM yyyy", 'en_US').parse(dynamicDate);
     date = DateFormat("yyyy-MM-dd").format(formatDate);

@@ -53,7 +53,7 @@ class MoreDataRepository {
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
-        print(response.body.toString());
+        print("Bank info added ::: ${response.body.toString()}");
         return AddBankInfoModel.fromJson(response.body);
       }
     } catch (ex) {

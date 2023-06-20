@@ -9,37 +9,46 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../../common/widget/custom_spacer.dart';
 
 Widget jobDeskTitle({required text}) {
-  return Text(
-    text,
-    style: AppStyle.mid_large_text.copyWith(
-        color: AppColor.hintColor,
-        fontWeight: FontWeight.w600,
-        fontSize: Dimensions.fontSizeDefault + 2),
+  return Container(
+    margin: EdgeInsets.only(bottom: AppLayout.getHeight(20)),
+    child: Text(
+      text,
+      style: AppStyle.mid_large_text.copyWith(
+          color: AppColor.hintColor,
+          fontWeight: FontWeight.w600,
+          fontSize: Dimensions.fontSizeDefault + 2),
+    ),
   );
 }
 Widget jobDeskCard({cardIcon, cardText, onAction}) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 20.0),
-    child: InkWell(
-      onTap: () => onAction(),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              cardShape(icon: cardIcon),
-              customSpacerWidth(width: 12),
-              Text(
-                cardText,
-                style: AppStyle.small_text_black.copyWith(
-                    fontSize: Dimensions.fontSizeSmall + 2,
-                    color: AppColor.normalTextColor),
-              )
-            ],
-          ),
-          avatarArrowIcon()
-        ],
-      ),
+  return InkWell(
+    onTap: () => onAction(),
+    child: Column(
+      
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                cardShape(icon: cardIcon),
+                customSpacerWidth(width: 12),
+                Text(
+                  cardText,
+                  style: AppStyle.small_text_black.copyWith(
+                      fontSize: Dimensions.fontSizeDefault,
+                      color: AppColor.normalTextColor,fontWeight: FontWeight.w400),
+                )
+              ],
+            ),
+            avatarArrowIcon()
+          ],
+        ),
+        customSpacerHeight(height: 4),
+        Divider(thickness: 0.5,color: AppColor.disableColor.withOpacity(0.7),),
+        customSpacerHeight(height: 4),
+
+      ],
     ),
   );
 }

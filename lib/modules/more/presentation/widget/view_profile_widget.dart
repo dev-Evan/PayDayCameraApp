@@ -1,12 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/get_instance.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/change_profile_img_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/pick_image_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -62,17 +59,17 @@ Widget circleAvatarStyle({final userImage}) {
             image: NetworkImage(userImage),
 
 
-            placeholder: Get.find<ImagePickerController>().pickedImage.value ==null
+            placeholder: Get.find<PickImageController>().pickedImage.value ==null
   ? placeholderImages
-      : Image.file(File(Get.find<ImagePickerController>().pickedImage.value!.path))
+      : Image.file(File(Get.find<PickImageController>().pickedImage.value!.path))
       .image,
             imageErrorBuilder: (context, error, stackTrace) {
               return   CircleAvatar(
                 radius: 40,
                 backgroundColor: Colors.transparent,
-                backgroundImage: Get.find<ImagePickerController>().pickedImage.value ==null
+                backgroundImage: Get.find<PickImageController>().pickedImage.value ==null
                     ? placeholderImages
-                    : Image.file(File(Get.find<ImagePickerController>().pickedImage.value!.path))
+                    : Image.file(File(Get.find<PickImageController>().pickedImage.value!.path))
                     .image,
               );
 
@@ -91,7 +88,7 @@ Widget circleAvatarStyle({final userImage}) {
               child: IconButton(
                   padding: const EdgeInsets.all(0),
                   onPressed: () =>
-                      Get.find<ImagePickerController>().pickImage(ImageSource.gallery),
+                      Get.find<PickImageController>().pickImage(ImageSource.gallery),
                   icon: const Icon(
                     Icons.add_a_photo_outlined,
                     size: 14,

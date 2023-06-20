@@ -6,9 +6,6 @@ import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
-import 'package:pay_day_mobile/modules/home/presentation/home.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/deleted_address_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/add_address.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/address_details_widget.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
@@ -18,7 +15,9 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-class AddressDetails extends GetView<AddressDetailsController> {
+import '../controller/address_controller.dart';
+
+class AddressDetails extends GetView<AddressController> {
   AddressDetails({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -47,7 +46,7 @@ class AddressDetails extends GetView<AddressDetailsController> {
                               onAction: () => _deletedAlert(
                                 context: context,
                                 onAction: () => Get.find<
-                                    DeletedAddController>()
+                                    AddressController>()
                                     .deletedAddressApi(
                                     addressType:
                                     "permanent_address",
@@ -184,7 +183,7 @@ class AddressDetails extends GetView<AddressDetailsController> {
                               onAction: () => _deletedAlert(
                                 context: context,
                                 onAction: () =>
-                                    Get.find<DeletedAddController>()
+                                    Get.find<AddressController>()
                                         .deletedAddressApi(
                                         addressType:
                                         "present_address",

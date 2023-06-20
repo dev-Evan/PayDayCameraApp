@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/address_details_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/address_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -116,16 +115,16 @@ Widget editDetBtn(
           onTap: () {
             customButtonSheet(context: context, height: 0.9, child: editAction);
 
-            Get.find<CustomTextEditingController>().areaController.text =
+            Get.find<InputTextFieldController>().areaController.text =
             type == "permanent_address"
-                ? Get.find<AddressDetailsController>()
+                ? Get.find<AddressController>()
                 .addressDetailsModel
                 .data
                 ?.permanentAddress
                 ?.area
                 .toString() ??
                 ""
-                : Get.find<AddressDetailsController>()
+                : Get.find<AddressController>()
                 .addressDetailsModel
                 .data
                 ?.presentAddress
@@ -133,9 +132,9 @@ Widget editDetBtn(
                 .toString() ??
                 "";
 
-            Get.find<CustomTextEditingController>().cityController.text =
+            Get.find<InputTextFieldController>().cityController.text =
             type == "permanent_address"
-                ? Get.find<AddressDetailsController>()
+                ? Get.find<AddressController>()
                 .addressDetailsModel
                 .data
                 ?.permanentAddress
@@ -143,7 +142,7 @@ Widget editDetBtn(
                 ?.city
                 .toString() ??
                 ""
-                : Get.find<AddressDetailsController>()
+                : Get.find<AddressController>()
                 .addressDetailsModel
                 .data
                 ?.presentAddress
@@ -152,9 +151,9 @@ Widget editDetBtn(
                 .toString() ??
                 "";
 
-            Get.find<CustomTextEditingController>().detailsController.text =
+            Get.find<InputTextFieldController>().detailsController.text =
             type == "permanent_address"
-                ? Get.find<AddressDetailsController>()
+                ? Get.find<AddressController>()
                 .addressDetailsModel
                 .data
                 ?.permanentAddress
@@ -162,7 +161,7 @@ Widget editDetBtn(
                 ?.details
                 .toString() ??
                 ""
-                : Get.find<AddressDetailsController>()
+                : Get.find<AddressController>()
                 .addressDetailsModel
                 .data
                 ?.presentAddress
@@ -171,9 +170,9 @@ Widget editDetBtn(
                 .toString() ??
                 "";
 
-            Get.find<CustomTextEditingController>().phoneNumberController.text =
+            Get.find<InputTextFieldController>().phoneNumberController.text =
             type == "permanent_address"
-                ? Get.find<AddressDetailsController>()
+                ? Get.find<AddressController>()
                 .addressDetailsModel
                 .data
                 ?.permanentAddress
@@ -181,7 +180,7 @@ Widget editDetBtn(
                 ?.phoneNumber
                 .toString() ??
                 ""
-                : Get.find<AddressDetailsController>()
+                : Get.find<AddressController>()
                 .addressDetailsModel
                 .data
                 ?.presentAddress
@@ -190,9 +189,9 @@ Widget editDetBtn(
                 .toString() ??
                 "";
 
-            Get.find<CustomTextEditingController>().stateController.text =
+            Get.find<InputTextFieldController>().stateController.text =
             type == "permanent_address"
-                ? Get.find<AddressDetailsController>()
+                ? Get.find<AddressController>()
                 .addressDetailsModel
                 .data
                 ?.permanentAddress
@@ -200,7 +199,7 @@ Widget editDetBtn(
                 ?.state
                 .toString() ??
                 ""
-                : Get.find<AddressDetailsController>()
+                : Get.find<AddressController>()
                 .addressDetailsModel
                 .data
                 ?.presentAddress
@@ -209,9 +208,9 @@ Widget editDetBtn(
                 .toString() ??
                 "";
 
-            Get.find<CustomTextEditingController>().zipCodeController.text =
+            Get.find<InputTextFieldController>().zipCodeController.text =
             type == "permanent_address"
-                ? Get.find<AddressDetailsController>()
+                ? Get.find<AddressController>()
                 .addressDetailsModel
                 .data
                 ?.permanentAddress
@@ -219,7 +218,7 @@ Widget editDetBtn(
                 ?.zipCode
                 .toString() ??
                 ""
-                : Get.find<AddressDetailsController>()
+                : Get.find<AddressController>()
                 .addressDetailsModel
                 .data
                 ?.presentAddress
@@ -229,9 +228,9 @@ Widget editDetBtn(
                 "";
 
 
-            Get.find<CustomTextEditingController>().countyTextController.text =
+            Get.find<InputTextFieldController>().countyTextController.text =
             type == "permanent_address"
-                ? Get.find<AddressDetailsController>()
+                ? Get.find<AddressController>()
                 .addressDetailsModel
                 .data
                 ?.permanentAddress
@@ -239,7 +238,7 @@ Widget editDetBtn(
                 ?.country
                 .toString() ??
                 ""
-                : Get.find<AddressDetailsController>()
+                : Get.find<AddressController>()
                 .addressDetailsModel
                 .data
                 ?.presentAddress
@@ -247,9 +246,9 @@ Widget editDetBtn(
                 ?.country
                 .toString() ??
                 "";
-            Get.find<CustomTextEditingController>().phoneNumberController.text =
+            Get.find<InputTextFieldController>().phoneNumberController.text =
             type == "permanent_address"
-                ? Get.find<AddressDetailsController>()
+                ? Get.find<AddressController>()
                 .addressDetailsModel
                 .data
                 ?.permanentAddress
@@ -257,7 +256,7 @@ Widget editDetBtn(
                 ?.phoneNumber
                 .toString() ??
                 ""
-                : Get.find<AddressDetailsController>()
+                : Get.find<AddressController>()
                 .addressDetailsModel
                 .data
                 ?.presentAddress

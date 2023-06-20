@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-class CustomTextEditingController extends GetxController {
+class InputTextFieldController extends GetxController {
   // Bank details
 
   final TextEditingController branchNameController = TextEditingController();
