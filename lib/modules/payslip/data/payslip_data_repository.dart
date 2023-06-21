@@ -13,6 +13,8 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 class PayslipDataRepository {
   final NetworkClient networkClient;
   PayslipDataRepository(this.networkClient);
+
+
   Future<PayslipListModel> getPayslipListRepo(
       {required String selectedType}) async {
     var queryParams = {

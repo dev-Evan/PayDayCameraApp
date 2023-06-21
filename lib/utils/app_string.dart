@@ -139,6 +139,7 @@ class AppString {
   static const String text_availability = "Availability";
   static const String text_taken = "Taken";
   static const String text_casual = "Casual";
+  static const String text_casual_leave = "Casual Leave";
   static const String text_sick = "Sick";
   static const String text_paid_sick = "Paid Sick";
   static const String text_apply_leve = "Apply Leave";
@@ -200,6 +201,7 @@ class AppString {
   static String text_consider_type = "Consider Type";
   static String text_monthly = "Monthly";
   static String text_no_included = "N/A";
+  static String text_excluded= "Excluded";
   static String text_hour = "Hour";
   static String text_2 = "2";
   static String text_included = "Included";
@@ -217,6 +219,11 @@ class AppString {
   static String text_view_profile = "View Profile";
   static String text_job_desk = "Job Desk";
   static String text_documents = "Documents";
+  static String text_announcement = "Announcement";
+  static String text_leave_allowance = "Leave Allowance";
+  static String text_allowance = "Allowance";
+  static String text_earned = "Earned";
+  static String text_earning_rate = "Earning rate";
   static String text_my_profile = "My profile";
   static String text_total_file = "Total Files";
   static String text_doctor_slips = "Doctor's Slips";
@@ -304,7 +311,10 @@ class AppString {
   static String text_768 = "768";
   static String text_usa = "USA";
   static String text_add = "Add ";
-  static String text_save_changes = "Save Changes ";
+  static String text_add_document = "Add Document ";
+
+  static String text_new = "New";  static String text_old = "Old";
+
   static String text_texas = "Texas";
   static String text_current_address = "Current Address";
   static String text_2022 = "2022";

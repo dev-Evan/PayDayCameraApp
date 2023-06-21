@@ -16,4 +16,5 @@ Map<String, String> eng = {
   "text_take_break":"Take Break",
   "text_on_break":"On Break",
   "text_attendance_log":"Attendance Logs",
+  "text_language":"Language",
 };

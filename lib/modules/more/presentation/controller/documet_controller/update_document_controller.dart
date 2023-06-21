@@ -1,15 +1,16 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:pay_day_mobile/modules/more/presentation/controller/document_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/documents.dart';
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import 'more_text_editing_controller.dart';
+import '../common_controller/more_text_editing_controller.dart';
 
 class UpdateDocumentController extends GetxController {
   Rx<File?> selectedFile = Rx<File?>(null);
@@ -38,7 +39,7 @@ class UpdateDocumentController extends GetxController {
     final url = Uri.parse(baseUrl);
     var request = http.MultipartRequest('POST', url);
     request.fields['id'] = _box.read(AppString.STORE_DOC_Id).toString();
-    request.fields['name'] = Get.find<CustomTextEditingController>().docFileNameController.text;
+    request.fields['name'] = Get.find<InputTextFieldController>().docFileNameController.text;
     request.fields['file'] = file.path;
     request.fields['user_id'] = _box.read(AppString.ID_STORE).toString();
     request.headers['Authorization'] = 'Bearer ${accessToken}';
@@ -46,7 +47,7 @@ class UpdateDocumentController extends GetxController {
     var response = await request.send();
     if (response.statusCode == 200) {
       print("Document updated ::: ${response}");
-      Get.back();
+        Get.back();
       newValue="value";
       Get.find<DocumentController>().getDocumentData();
       print(' Document update ::: File updated successfully');

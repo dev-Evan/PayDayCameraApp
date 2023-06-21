@@ -1,24 +1,21 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/update_document_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/update_document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
-
 import '../../../../common/widget/success_snakbar.dart';
 
 class UpdateDocument extends StatelessWidget {
@@ -34,6 +31,8 @@ class UpdateDocument extends StatelessWidget {
         bottomSheetAppbar(
           context: context,
           appbarTitle: "${AppString.text_edit} ${AppString.text_documents}",
+          onAction: ()=> Get.find<InputTextFieldController>()
+              .docFileNameController.clear()
         ),
         Padding(
           padding: const EdgeInsets.all(20.0),
@@ -46,7 +45,7 @@ class UpdateDocument extends StatelessWidget {
                   CustomTextField(
                       hintText: _box.read(AppString.STORE_DOC_NAME_TEXT) ?? "",
                       inputType: TextInputType.text,
-                      controller: Get.find<CustomTextEditingController>()
+                      controller: Get.find<InputTextFieldController>()
                           .docFileNameController),
                 ],
               ),

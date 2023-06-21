@@ -16,37 +16,28 @@ class CustomAppbar extends GetView<NotificationController>
   Widget build(BuildContext context) {
     return Obx(() => AppBar(
           scrolledUnderElevation: .5,
-          leadingWidth: AppLayout.getWidth(140),
-          toolbarHeight: AppLayout.getHeight(44),
+          leadingWidth: 130,
+          toolbarHeight: 46,
           backgroundColor: AppColor.cardColor,
           leading: Padding(
-            padding:
-                EdgeInsets.only(left: AppLayout.getWidth(18), bottom: AppLayout.getHeight(8)),
-            child: logoView(height: 20, width: 20),
+            padding: leadingEdgeInsets,
+            child: svgIcon(height: 20, width: 20),
           ),
           actions: [
             Stack(
               alignment: Alignment.center,
               children: [
                 IconButton(
-                  padding: EdgeInsets.only(bottom: AppLayout.getHeight(8)),
+                  padding: IconButtonEdgeInsets,
                   onPressed: () async {
                     Get.toNamed(Routes.NOTIFICATION_SCREEN);
                   },
-                  icon: Icon(
-                    Icons.notifications_none,
-                    color: AppColor.primaryColor,
-                    size: Dimensions.fontSizeExtraLarge + 6,
-                  ),
+                  icon: icon,
                 ),
                 if (controller.length > 0)
                   Positioned(
                       left: AppLayout.getWidth(25),
-                      child: Icon(
-                        Icons.circle,
-                        color: Colors.red,
-                        size: AppLayout.getHeight(10),
-                      ))
+                      child: circleIcon)
               ],
             )
           ],
@@ -55,14 +46,40 @@ class CustomAppbar extends GetView<NotificationController>
   }
 
   @override
-  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(45));
+  Size get preferredSize => Size(double.maxFinite, 46);
 }
 
-Widget logoView({double? height = 35, double? width = 35, String? url,Color?color } ) {
+Widget svgIcon(
+    {double? height = 35, double? width = 35, String? url, Color? color}) {
   return SvgPicture.asset(
     url ?? Images.logo,
-    color:color ,
+    color: color,
     width: AppLayout.getWidth(width!),
     height: AppLayout.getHeight(height!),
+  );
+}
+
+EdgeInsets get leadingEdgeInsets {
+  return EdgeInsets.only(
+      left: AppLayout.getWidth(18), bottom: AppLayout.getHeight(8));
+}
+
+EdgeInsets get IconButtonEdgeInsets {
+  return EdgeInsets.only(bottom: AppLayout.getHeight(8));
+}
+
+Icon get icon {
+  return Icon(
+    Icons.notifications_none,
+    color: AppColor.primaryColor,
+    size: Dimensions.fontSizeExtraLarge + 6,
+  );
+}
+
+Icon get circleIcon{
+  return Icon(
+    Icons.circle,
+    color: Colors.red,
+    size: AppLayout.getHeight(10),
   );
 }

@@ -53,9 +53,9 @@ class JodHistory extends GetView<JobHistoryController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       customSpacerHeight(height: 158),
-                      logoView(
-                        height: 140,
-                        width: 140,
+                      svgIcon(
+                        height: 130,
+                        width: 130,
                         url: Images.error_404,
                       ),
                     ],

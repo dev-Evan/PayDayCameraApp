@@ -4,8 +4,8 @@ import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/more_data_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/more_text_editing_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/bank_info_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -32,7 +32,7 @@ class EditBankInfo extends StatelessWidget {
               CustomTextField(
                 hintText: AppString.text_enter_bank_name,
                 controller:
-                Get.find<CustomTextEditingController>().bankNameController,
+                Get.find<InputTextFieldController>().bankNameController,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return AppString.fieldIsRequired;
@@ -50,7 +50,7 @@ class EditBankInfo extends StatelessWidget {
                         textFieldTitleText(titleText: AppString.text_branch),
                         CustomTextField(
                           hintText:AppString.text_enter_branch,
-                          controller: Get.find<CustomTextEditingController>()
+                          controller: Get.find<InputTextFieldController>()
                               .branchNameController,
 
                           validator: (value) {
@@ -71,7 +71,7 @@ class EditBankInfo extends StatelessWidget {
                         textFieldTitleText(titleText: AppString.text_bank_code),
                         CustomTextField(
                             hintText:AppString.text_enter_bank_code,
-                            controller: Get.find<CustomTextEditingController>()
+                            controller: Get.find<InputTextFieldController>()
                                 .bankCodeController,
 
 
@@ -91,7 +91,7 @@ class EditBankInfo extends StatelessWidget {
               textFieldTitleText(titleText: AppString.text_account_holder),
               CustomTextField(
                 hintText:  AppString.text_enter_name,
-                controller: Get.find<CustomTextEditingController>()
+                controller: Get.find<InputTextFieldController>()
                     .accountHolderNameController,
 
                 validator: (value) {
@@ -105,7 +105,7 @@ class EditBankInfo extends StatelessWidget {
               textFieldTitleText(titleText: AppString.text_account_number),
               CustomTextField(
                 hintText: AppString.text_enter_account_number,
-                controller: Get.find<CustomTextEditingController>()
+                controller: Get.find<InputTextFieldController>()
                     .accountNumberController,
 
                 validator: (value) {
@@ -119,7 +119,7 @@ class EditBankInfo extends StatelessWidget {
               textFieldTitleText(titleText: AppString.text_account_title),
               CustomTextField(
                 hintText: AppString.text_enter_title,
-                controller: Get.find<CustomTextEditingController>()
+                controller: Get.find<InputTextFieldController>()
                     .accountTitleController,
 
                 validator: (value) {
@@ -134,7 +134,7 @@ class EditBankInfo extends StatelessWidget {
               CustomTextField(
                 hintText: AppString.text_enter_id,
                 controller:
-                Get.find<CustomTextEditingController>().taxPayerIdController,
+                Get.find<InputTextFieldController>().taxPayerIdController,
 
 
               ),
@@ -142,7 +142,7 @@ class EditBankInfo extends StatelessWidget {
               customDoubleButton(
                   context: context,
                   elevatedBtnText:
-                  '${AppString.text_save_changes}',
+                  '${AppString.text_save}',
                   textBtnText: AppString.text_cancel,
                   textButtonAction: () => Get.back(),
                   elevatedButtonAction: () {
@@ -163,11 +163,11 @@ class EditBankInfo extends StatelessWidget {
 }
 
 Future clearData() async {
-  Get.find<CustomTextEditingController>().bankNameController.clear();
-  Get.find<CustomTextEditingController>().branchNameController.clear();
-  Get.find<CustomTextEditingController>().bankCodeController.clear();
-  Get.find<CustomTextEditingController>().accountHolderNameController.clear();
-  Get.find<CustomTextEditingController>().accountNumberController.clear();
-  Get.find<CustomTextEditingController>().accountTitleController.clear();
-  Get.find<CustomTextEditingController>().taxPayerIdController.clear();
+  Get.find<InputTextFieldController>().bankNameController.clear();
+  Get.find<InputTextFieldController>().branchNameController.clear();
+  Get.find<InputTextFieldController>().bankCodeController.clear();
+  Get.find<InputTextFieldController>().accountHolderNameController.clear();
+  Get.find<InputTextFieldController>().accountNumberController.clear();
+  Get.find<InputTextFieldController>().accountTitleController.clear();
+  Get.find<InputTextFieldController>().taxPayerIdController.clear();
 }

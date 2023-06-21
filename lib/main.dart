@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/init_%20app.dart';
 import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/internationalization.dart';
@@ -19,8 +20,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appTheme,
       translations: Internationalization(),
-      locale: Locale("bn","BD"),
-      fallbackLocale: Locale("en","US"),
+      locale: GetStorage().read("languageCode") != null
+          ? Locale(GetStorage().read("languageCode"),
+              GetStorage().read("countryCode"))
+          : Locale("en", "US"),
+      fallbackLocale: Locale("en", "US"),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
     );

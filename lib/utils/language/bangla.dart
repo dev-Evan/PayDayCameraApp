@@ -16,4 +16,5 @@ Map<String, String> ban = {
   "text_take_break":"বিরতি নাও",
   "text_on_break":"এখন বিরতিতে",
   "text_attendance_log":"উপস্থিতি লগ",
+  "text_language":"ভাষা",
 };

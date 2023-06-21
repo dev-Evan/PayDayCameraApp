@@ -66,15 +66,15 @@ _entryBehaviour() {
   return CustomStatusButton(
       bgColor: Util.getBtnBgColor(
           behaviour:
-              Get.find<AttendanceController>().logDetailsById.data?.behavior ??
-                  "",
+          Get.find<AttendanceController>().logDetailsById.data?.behavior ??
+              "",
           isBgColorWhite: false),
       text:
-          Get.find<AttendanceController>().logDetailsById.data?.behavior ?? "",
+      Get.find<AttendanceController>().logDetailsById.data?.behavior ?? "",
       textColor: Util.getBtnTextColor(
           behaviour:
-              Get.find<AttendanceController>().logDetailsById.data?.behavior ??
-                  "",
+          Get.find<AttendanceController>().logDetailsById.data?.behavior ??
+              "",
           isBgColorWhite: false));
 }
 
@@ -126,7 +126,7 @@ _punchInDetails() {
       punchDetails(
           title: AppString.text_punch_in,
           note: (logDetails.data?.comments != null &&
-                  logDetails.data!.comments!.isNotEmpty)
+              logDetails.data!.comments!.isNotEmpty)
               ? logDetails.data?.comments?.first.comment
               : ""),
       SizedBox(height: AppLayout.getHeight(Dimensions.paddingExtraLarge)),
@@ -145,28 +145,28 @@ _punchOutDetails() {
   LogDetails logDetails = Get.find<AttendanceController>().logDetailsById;
   return logDetails.data!.checkOutTime!.isNotEmpty
       ? Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: AppLayout.getHeight(48)),
-            punchDetails(
-                title: AppString.text_punch_out,
-                note: (logDetails.data?.comments != null &&
-                        logDetails.data!.comments!.isNotEmpty)
-                    ? (logDetails.data!.comments!.last.type!
-                            .startsWith("out-note")
-                        ? logDetails.data?.comments?.last.comment
-                        : "")
-                    : ""),
-            SizedBox(height: AppLayout.getHeight(Dimensions.paddingExtraLarge)),
-            UsersCurrentInfoLayout(
-                title: AppString.text_my_location,
-                data: logDetails.data?.outIpData?.location ?? ""),
-            SizedBox(height: AppLayout.getHeight(Dimensions.paddingMid)),
-            UsersCurrentInfoLayout(
-                title: AppString.text_ip_address,
-                data: logDetails.data?.outIpData?.ip ?? ""),
-          ],
-        )
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      SizedBox(height: AppLayout.getHeight(48)),
+      punchDetails(
+          title: AppString.text_punch_out,
+          note: (logDetails.data?.comments != null &&
+              logDetails.data!.comments!.isNotEmpty)
+              ? (logDetails.data!.comments!.last.type!
+              .startsWith("out-note")
+              ? logDetails.data?.comments?.last.comment
+              : "")
+              : ""),
+      SizedBox(height: AppLayout.getHeight(Dimensions.paddingExtraLarge)),
+      UsersCurrentInfoLayout(
+          title: AppString.text_my_location,
+          data: logDetails.data?.outIpData?.location ?? ""),
+      SizedBox(height: AppLayout.getHeight(Dimensions.paddingMid)),
+      UsersCurrentInfoLayout(
+          title: AppString.text_ip_address,
+          data: logDetails.data?.outIpData?.ip ?? ""),
+    ],
+  )
       : Container();
 }
 

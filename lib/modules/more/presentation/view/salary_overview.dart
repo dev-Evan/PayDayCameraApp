@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/salary_overview_controller.dart';
@@ -21,7 +21,7 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
 
   @override
   Widget build(BuildContext context) {
-
+    Get.find<SettingController>().getCurrencyData();
     return Scaffold(
         appBar: const CustomAppbar(),
         body: controller.obx(
@@ -73,9 +73,9 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   customSpacerHeight(height: 158),
-                                  logoView(
-                                    height: 170,
-                                    width: 170,
+                                  svgIcon(
+                                    height: 160,
+                                    width: 160,
                                     url: Images.no_data_found,
                                   ),
                                 ],
@@ -101,8 +101,9 @@ Widget _jobHisTitleView() {
         return Stack(
           alignment: Alignment.center,
           children: [
-            dottedView(),
+            dottedSalaryView(),
             Positioned(
+              top: 0,
                 left: AppLayout.getWidth(23),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,9 +122,16 @@ Widget _jobHisTitleView() {
                                         .data?[index] ==
                                     0
                                 ? AppColor.primaryColor
-                                : AppColor.disableColor),
+                                : AppColor.disableColor,
+
+                        firstIndex: Get.find<SalaryOverviewController>()
+                            .salaryOverView
+                            .data?.first
+                            .level ??
+                            ""
+                        ),
                         customSpacerHeight(height: 6),
-                        _salaryCardView(
+                        _salaryRow(
                             iconText: Get.find<SettingController>()
                                     .basicInfo
                                     ?.data
@@ -135,8 +143,36 @@ Widget _jobHisTitleView() {
                                     .amount
                                     .toString() ??
                                 ""),
+
+
+
+
+
+                        _salaryCardView()
+
+
+
+
+
+
+
+
                       ],
+
+
+
                     ),
+
+
+
+
+
+
+
+
+
+
+
                   ],
                 )),
           ],
@@ -146,7 +182,7 @@ Widget _jobHisTitleView() {
   );
 }
 
-Widget _salaryCardView({iconText, salaryText}) {
+Widget _salaryRow({iconText, salaryText}) {
   return Padding(
     padding: EdgeInsets.only(left: AppLayout.getWidth(16)),
     child: Row(
@@ -161,17 +197,17 @@ Widget _salaryCardView({iconText, salaryText}) {
                 Text(
                   iconText,
                   style: AppStyle.mid_large_text.copyWith(
-                      color: AppColor.normalTextColor.withOpacity(0.7),
+                      color: AppColor.normalTextColor,
                       fontSize: Dimensions.fontSizeDefault + 2,
-                      fontWeight: FontWeight.w800),
+                      fontWeight: FontWeight.w500),
                 ),
                 customSpacerWidth(width: 4),
                 Text(
                   salaryText,
                   style: AppStyle.mid_large_text.copyWith(
-                      color: AppColor.normalTextColor.withOpacity(0.7),
+                      color: AppColor.normalTextColor,
                       fontSize: Dimensions.fontSizeDefault + 2,
-                      fontWeight: FontWeight.w800),
+                      fontWeight: FontWeight.w500),
                 ),
               ],
             ),
@@ -182,15 +218,21 @@ Widget _salaryCardView({iconText, salaryText}) {
   );
 }
 
+
 Widget _salaryCardTitleView(
-    {titleText, Color dotIconColor = AppColor.disableColor}) {
+    {titleText, Color dotIconColor = AppColor.disableColor, required firstIndex}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
+      firstIndex !=null?
       Icon(
         Icons.circle,
         size: 10,
-        color: dotIconColor,
+        color: AppColor.primaryColor,
+      ):Icon(
+        Icons.circle,
+        size: 10,
+        color: AppColor.disableColor,
       ),
       Padding(
         padding: EdgeInsets.only(left: AppLayout.getWidth(12)),
@@ -216,4 +258,69 @@ Widget _titleText({titleTextS}) {
       ),
     ],
   );
+}
+
+Widget _salaryCardView(){
+  return Container(
+    margin: EdgeInsets.only(left: 20,top: 4),
+    height: AppLayout.getHeight(120),
+    width: AppLayout.getWidth(280),
+    decoration: AppStyle.ContainerStyle.copyWith(color: AppColor.primaryColor.withOpacity(0.1),
+    borderRadius: borderRadius
+    ),
+    child: Container(
+      margin: EdgeInsets.only(left: AppLayout.getWidth(12),right:AppLayout.getWidth(12),top: AppLayout.getHeight(12),bottom:  AppLayout.getHeight(12)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Will be effective form ${"10 Jun 2023"} ",style: cardTitleStyle,),
+          customSpacerHeight(height: 8),
+          textSpan
+
+        ],
+      ),
+    ),
+  );
+}
+
+
+
+RichText get  textSpan{
+  return RichText(
+    overflow: TextOverflow.clip,
+    text: new TextSpan(
+      children: <TextSpan>[
+         TextSpan(text: "${GetStorage().read(AppString.USER_NAME)}",style: cardDynamicTextStyle),
+        TextSpan(text: " has awarded a salary\n",style: cardSubTextStyle),
+        TextSpan(text: "increment from ",style: cardSubTextStyle),
+        TextSpan(text: "${'\$30,0000'}",style: cardDynamicTextStyle),
+        TextSpan(text: " to ",style: cardSubTextStyle),
+        TextSpan(text: "${'\$30,0000\n'}",style: cardDynamicTextStyle),
+        TextSpan(text: " on ${"12 NoV 2022"}",style: cardSubTextStyle),
+
+      ],
+    ),
+  );
+}
+
+
+
+
+
+
+
+
+TextStyle get cardTitleStyle{
+  return  AppStyle.small_text_grey.copyWith(color: AppColor.successColor.withOpacity(0.7),letterSpacing: 1,fontWeight: FontWeight.w500);
+}
+TextStyle get cardSubTextStyle{
+  return  AppStyle.small_text_grey.copyWith(color: AppColor.hintColor,fontWeight: FontWeight.w100);
+}
+TextStyle get cardDynamicTextStyle{
+  return  AppStyle.small_text_grey.copyWith(color: AppColor.primaryColor,fontWeight: FontWeight.w500);
+}
+
+BorderRadius get  borderRadius{
+  return BorderRadius.circular(Dimensions.radiusDefault-1);
 }
