@@ -13,7 +13,6 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/salary_overv
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/more_widget.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/profile_container_layout.dart';
-import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
 import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -64,14 +63,10 @@ class MoreScreen extends GetView<ProfileDataController> {
                                   cardIcon: Images.announce,
                                   cardText: AppString.text_announcement,
                                   onAction: () async {
-
-
                                     // Get.toNamed(Routes.ANNOUNCE_SCREEN);
                                     // await Get.find<DocumentController>()
                                     //     .getDocumentData();
-                                    showCustomSnackBar(message: "The page is empty");
-
-
+                                    showCustomSnackBar(message: "The page is empty",color: AppColor.errorColor);
                                   }),
 
                               jobDeskCard(

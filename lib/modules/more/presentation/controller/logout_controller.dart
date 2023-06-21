@@ -19,10 +19,8 @@ class LogoutController extends GetxController with StateMixin {
       await logoutRepository.getLogoutRepoData().then((value) {
         logoutModel = value;
           _box.remove(AppString.STORE_TOKEN);
-       _box.remove(AppString.USER_NAME);
-
         Get.back();
-        Get.offNamed(Routes.SIGN_IN);
+        Get.offAllNamed(Routes.SIGN_IN);
         Get.put(AuthController());
       }, onError: (error) {
         print(error.message);
