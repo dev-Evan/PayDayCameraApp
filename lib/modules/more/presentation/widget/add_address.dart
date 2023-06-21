@@ -36,12 +36,9 @@ class AddAddress extends StatelessWidget {
               children: [
                 bottomSheetAppbar(
                   context: context,
-                  appbarTitle: AppString.text_add_address,
-
-                ),
+                  appbarTitle: AppString.text_add_address,),
                 customSpacerHeight(height: 8),
                 textFieldTitleText(titleText: AppString.text_county),
-
                 countyField(
                   context: context,
                   controller: Get.find<InputTextFieldController>().addCountyController,

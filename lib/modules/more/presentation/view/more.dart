@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
@@ -144,10 +145,14 @@ class MoreScreen extends GetView<ProfileDataController> {
                                     icon: Icons.logout,
                                     yesText: AppString.text_log_out,
                                     iconBgColor: Colors.orange.shade50,
-                                    yesAction: () =>
-                                        Get.find<LogoutController>()
-                                            .logOut()),
+                                    yesAction: () => Get.find<LogoutController>().logOut()),
                               ),
+
+                              ElevatedButton(onPressed: (){
+                                GetStorage().remove(AppString.USER_NAME);
+                                print(GetStorage().read(AppString.USER_NAME));
+
+                              }, child: Text("sdfs")),
                               languageCardView(
                                   langName: AppString.text_english,
                                   langText: AppString.text_language),

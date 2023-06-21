@@ -17,6 +17,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:dotted_border/dotted_border.dart';
 import '../../../../common/widget/success_snakbar.dart';
+import '../view/change_password.dart';
 
 class UpdateDocument extends StatelessWidget {
   String? docUrl;
@@ -120,12 +121,16 @@ class UpdateDocument extends StatelessWidget {
                           Get.find<UpdateDocumentController>()
                               .filePath
                               .value
-                              .toString(),
+                              .toString().split('/').last,
                           style: AppStyle.mid_large_text.copyWith(
                               color: AppColor.hintColor,
                               fontSize: Dimensions.fontSizeDefault - 2),
                         )
                       : const Text("")),
+                  customSpacerHeight(height: 8),
+                  alertBox(
+                      context: context,
+                      alertText: AppString.text_document_size_allowed_5_md_etc),
                 ],
               ),
             ],

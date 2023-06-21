@@ -312,6 +312,8 @@ class AppString {
   static String text_usa = "USA";
   static String text_add = "Add ";
   static String text_add_document = "Add Document ";
+  static  String text_password_alert_text = "The password should contain one upper case, one lower case, numbers, one special character ( +=#?!@\$%^&*- ). It should be a minimum of 8 characters. ";
+  static  String text_document_size_allowed_5_md_etc = "Document size allowed: 5MB. Document type allowed: png, jpg, jpeg, pdf. Please check file and file format before upload. ";
 
   static String text_new = "New";  static String text_old = "Old";
 
@@ -433,7 +435,7 @@ class AppString {
   static const String the_confirm_password_field_is_required = "The confirm password field is required.";
 
   static const String the_old_password_must_be_at_least_6_character= "The old password must be at least 6 characters.";
-  static const String cant_not_be_correct_please_follow_this= "Can't be correct please follow this  ( r#AG!3c4 )";
+  static const String cant_not_be_correct_please_follow_this= "Can't be correct please follow this  ( r#R!3i@4*?fa^t )";
   static const String password_must_contains_number_and_etc= "Password must contains number, lowercase, uppercase and special character";
   static const String the_password_must_be_at_least_8_character= "The password must be at least 8 characters.";
   static const String the_password_confirmation_does_not_match= "The password confirmation does not match.";

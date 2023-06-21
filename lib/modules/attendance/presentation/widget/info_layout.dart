@@ -11,6 +11,9 @@ import '../../../../utils/utils.dart';
 
 Widget infoLayout() {
   var controller = Get.find<AttendanceController>();
+  print("user name local store :::: ${GetStorage().read(AppString.USER_NAME).toString()}");
+
+
   return Obx(
     () => Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,7 +23,7 @@ Widget infoLayout() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _userName(),
+              _userName(text:"${GetStorage().read(AppString.USER_NAME).toString()}"),
               _getCurrentDate(),
             ],
           ),
@@ -41,14 +44,20 @@ Widget infoLayout() {
   );
 }
 
-_userName() {
+_userName({required text}) {
+
+  print("user name local store :::: ${text.toString()}");
+
   return Padding(
     padding:EdgeInsets.only(right: AppLayout.getWidth(4.0)),
     child: Text(
-      "Hi, ${GetStorage().read(AppString.USER_NAME)}",
+      "Hi, ${text}",
       style: AppStyle.title_text,
     ),
   );
+
+
+
 }
 
 _getCurrentDate() {

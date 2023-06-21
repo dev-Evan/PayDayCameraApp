@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
@@ -17,6 +16,7 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:dotted_border/dotted_border.dart';
+import '../view/change_password.dart';
 
 class AddDocument extends StatefulWidget {
   const AddDocument({Key? key}) : super(key: key);
@@ -30,14 +30,14 @@ class _AddDocumentState extends State<AddDocument> {
     return Column(
       children: [
         bottomSheetAppbar(
-            context: context, appbarTitle: AppString.text_add_documents,
-
-            onAction: (){
+            context: context,
+            appbarTitle: AppString.text_add_documents,
+            onAction: () {
               Get.find<InputTextFieldController>()
-                  .docFileNameController.clear();
-              Get.find<FileUploadController>().filePath.value="";
-            }
-        ),
+                  .docFileNameController
+                  .clear();
+              Get.find<FileUploadController>().filePath.value = "";
+            }),
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
@@ -124,11 +124,12 @@ class _AddDocumentState extends State<AddDocument> {
                                       ),
                                     )
                               : Container(
+                            color: AppColor.disableColor.withOpacity(0.4),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       const Icon(
-                                        CupertinoIcons.doc,
+                                        CupertinoIcons.link ,
                                         color: AppColor.primaryColor,
                                       ),
                                       SizedBox(
@@ -151,17 +152,19 @@ class _AddDocumentState extends State<AddDocument> {
                                       ),
                                     ],
                                   ),
-
                                 )))), //),
-
-
 
                   customSpacerHeight(height: 8),
                   Obx(() => Text(
-                      Get.find<FileUploadController>().filePath.value,
+                      Get.find<FileUploadController>().filePath.value.split('/').last,
                       style: AppStyle.mid_large_text.copyWith(
                           color: AppColor.hintColor,
                           fontSize: Dimensions.fontSizeDefault - 2))),
+                  alertBox(
+                      context: context,
+                      alertText: AppString.text_document_size_allowed_5_md_etc),
+
+
                 ],
               ),
             ],
@@ -173,9 +176,10 @@ class _AddDocumentState extends State<AddDocument> {
           child: customDoubleButton(
               textButtonAction: () {
                 Get.find<InputTextFieldController>()
-                    .docFileNameController.clear();
+                    .docFileNameController
+                    .clear();
                 Get.back();
-                Get.find<FileUploadController>().filePath.value="";
+                Get.find<FileUploadController>().filePath.value = "";
               },
               elevatedButtonAction: () {
                 Get.find<InputTextFieldController>()
@@ -189,7 +193,8 @@ class _AddDocumentState extends State<AddDocument> {
                         ? showCustomSnackBar(
                             message: AppString.text_please_selected_document,
                             color: AppColor.errorColor)
-                        : Get.find<FileUploadController>().uploadFile(context: context);
+                        : Get.find<FileUploadController>()
+                            .uploadFile(context: context);
               },
               textBtnText: AppString.text_cancel,
               elevatedBtnText: AppString.text_add_document,
@@ -199,8 +204,6 @@ class _AddDocumentState extends State<AddDocument> {
     );
   }
 }
-
-
 
 
 
