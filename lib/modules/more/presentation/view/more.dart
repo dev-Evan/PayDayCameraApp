@@ -147,12 +147,6 @@ class MoreScreen extends GetView<ProfileDataController> {
                                     iconBgColor: Colors.orange.shade50,
                                     yesAction: () => Get.find<LogoutController>().logOut()),
                               ),
-
-                              ElevatedButton(onPressed: (){
-                                GetStorage().remove(AppString.USER_NAME);
-                                print(GetStorage().read(AppString.USER_NAME));
-
-                              }, child: Text("sdfs")),
                               languageCardView(
                                   langName: AppString.text_english,
                                   langText: AppString.text_language),
