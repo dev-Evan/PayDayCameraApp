@@ -40,9 +40,7 @@ class Attendance extends GetView<AttendanceController> {
         onLoading: const LoadingIndicator());
   }
 
-  Widget _body(
-    BuildContext context,
-  ) {
+  Widget _body(BuildContext context) {
     return SafeArea(
         child: SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
@@ -123,7 +121,7 @@ class Attendance extends GetView<AttendanceController> {
                 customSpacerHeight(height: 20),
                 Obx(() => dotIndicator(controller.currentIndex.value)),
                 attendanceLogText(
-                    text: AppString.text_attendance_log,
+                    text: "text_attendance_log".tr,
                     onAction: () {
                       Get.find<AttendanceLogsController>()
                           .getLogSummaryByMonth();
@@ -165,7 +163,7 @@ class Attendance extends GetView<AttendanceController> {
                 size: AppLayout.getWidth(20),
               ),
               customSpacerWidth(width: 10),
-              Text(AppString.text_punch_in, style: AppStyle.normal_text),
+              Text("text_punch_in".tr, style: AppStyle.normal_text),
             ],
           ),
         ),
@@ -175,7 +173,7 @@ class Attendance extends GetView<AttendanceController> {
     return Row(
       children: [
         AppButton(
-          buttonText: AppString.text_punch_out,
+          buttonText: "text_punch_out".tr,
           onPressed: () async {
             await controller.getLatLong();
             _openBottomSheet();
@@ -192,8 +190,8 @@ class Attendance extends GetView<AttendanceController> {
                         .value
                         .breakTimeId ==
                     null
-                ? AppString.text_take_break
-                : AppString.text_on_break,
+                ? "text_take_break".tr
+                : "text_on_break".tr,
             onPressed: () => breakPopUp(),
             buttonColor: Colors.transparent,
             borderColor: Colors.white,
