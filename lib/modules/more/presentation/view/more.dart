@@ -68,6 +68,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                     //     .getDocumentData();
                                     showCustomSnackBar(message: "The page is empty",color: AppColor.errorColor);
                                   }),
+
                               jobDeskCard(
                                   cardIcon: Images.folder,
                                   cardText: AppString.text_documents,
