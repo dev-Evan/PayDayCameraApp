@@ -17,6 +17,7 @@ import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/images.dart';
+import '../../../../common/controller/downloader_helper.dart';
 import '../../../../common/widget/custom_spacer.dart';
 
 class MoreScreen extends GetView<ProfileDataController> {
@@ -142,6 +143,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                     iconBgColor: Colors.orange.shade50,
                                     yesAction: () => Get.find<LogoutController>().logOut()),
                               ),
+
                               languageCardView(
                                   langName: AppString.text_english,
                                   langText: AppString.text_language),

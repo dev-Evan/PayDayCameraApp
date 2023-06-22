@@ -37,7 +37,7 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
                               padding: EdgeInsets.only(
                                   left: AppLayout.getWidth(20),
                                   right: AppLayout.getWidth(20),
-                                  top: AppLayout.getHeight(20),
+                                  top: AppLayout.getHeight(15),
                                   bottom: AppLayout.getHeight(20)),
                               child: SingleChildScrollView(
                                 child: Column(
@@ -91,7 +91,7 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
 Widget _jobHisTitleView() {
   return Padding(
     padding: EdgeInsets.only(
-        left: AppLayout.getWidth(8), bottom: AppLayout.getHeight(18)),
+        left: AppLayout.getWidth(8), bottom: AppLayout.getHeight(5)),
     child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -143,35 +143,11 @@ Widget _jobHisTitleView() {
                                     .amount
                                     .toString() ??
                                 ""),
-
-
-
-
-
                         _salaryCardView()
-
-
-
-
-
-
-
 
                       ],
 
-
-
                     ),
-
-
-
-
-
-
-
-
-
-
 
                   ],
                 )),

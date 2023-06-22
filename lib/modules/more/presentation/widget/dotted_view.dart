@@ -7,7 +7,7 @@ Widget dottedSalaryView(){
   return  Padding(
     padding: const EdgeInsets.only(left: 28.0),
     child: DottedBorder(
-      customPath: (p0) => Path()..lineTo(0, 200),
+      customPath: (p0) => Path()..lineTo(0, 250),
       color: AppColor.hintColor.withOpacity(0.6),
       dashPattern: const [4, 4],
       strokeWidth: 1.2,
