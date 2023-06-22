@@ -9,12 +9,12 @@ Widget dottedSalaryView(){
     child: DottedBorder(
       customPath: (p0) => Path()..lineTo(0, 250),
       color: AppColor.hintColor.withOpacity(0.6),
-      dashPattern: const [4, 4],
+      dashPattern: const [6, 4],
       strokeWidth: 1.2,
       child: Row(
         children: [
           Divider(
-            height: AppLayout.getHeight(290),
+            height: AppLayout.getHeight(215),
             color: AppColor.noColor,
           ),
         ],
@@ -28,9 +28,9 @@ Widget dottedView(){
   return  Padding(
     padding: const EdgeInsets.only(left: 28.0),
     child: DottedBorder(
-      customPath: (p0) => Path()..lineTo(0, 80),
+      customPath: (p0) => Path()..lineTo(0, 100),
       color: AppColor.hintColor.withOpacity(0.6),
-      dashPattern: const [4, 4],
+      dashPattern: const [6, 4],
       strokeWidth: 1,
       child: Row(
         children: [

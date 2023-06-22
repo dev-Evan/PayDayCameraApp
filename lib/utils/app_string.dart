@@ -428,6 +428,7 @@ class AppString {
   static const String the_details_must_be_at_least_3_character = "The details must be at least 3 characters";
   static const String old_password_incorrect = "Old password is incorrect";
   static const String please_add_permanent_address = "Please add permanent address";
+  static const String the_details_field_is_required = "The details field is required.";
 
 
   static const String the_old_password_field_is_required = "The old password field is required.";
