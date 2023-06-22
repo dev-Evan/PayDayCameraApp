@@ -32,7 +32,8 @@ class MoreScreen extends GetView<ProfileDataController> {
       controller.getUserData();
     });
     return controller.obx(
-        (state) => Scaffold(
+            (state) =>
+            Scaffold(
               body: CustomScrollView(
                 slivers: [
                   SliverFillRemaining(
@@ -43,17 +44,17 @@ class MoreScreen extends GetView<ProfileDataController> {
                         profileCardLayOut(
                             context: context,
                             userImage: controller
-                                    .userProfile.data?.profilePictureUrl
-                                    .toString() ??
+                                .userProfile.data?.profilePictureUrl
+                                .toString() ??
                                 "",
                             userName: controller.userProfile.data?.fullName
-                                    .toString() ??
+                                .toString() ??
                                 "",
                             userEmail:
-                                controller.userProfile.data?.email.toString() ??
-                                    "",
+                            controller.userProfile.data?.email.toString() ??
+                                "",
                             statusText: controller.userProfile.data?.userStatus
-                                    .toString() ??
+                                .toString() ??
                                 ""),
                         Expanded(
                             flex: 14,
@@ -137,14 +138,15 @@ class MoreScreen extends GetView<ProfileDataController> {
                                   jobDeskCard(
                                     cardIcon: Images.log_out,
                                     cardText: AppString.text_log_out,
-                                    onAction: () => CustomAlertDialog(
-                                        context: context,
-                                        icon: Icons.logout,
-                                        yesText: AppString.text_log_out,
-                                        iconBgColor: Colors.orange.shade50,
-                                        yesAction: () =>
-                                            Get.find<LogoutController>()
-                                                .logOut()),
+                                    onAction: () =>
+                                        CustomAlertDialog(
+                                            context: context,
+                                            icon: Icons.logout,
+                                            yesText: AppString.text_log_out,
+                                            iconBgColor: Colors.orange.shade50,
+                                            yesAction: () =>
+                                                Get.find<LogoutController>()
+                                                    .logOut()),
                                   ),
                                   _languageDropDown(),
                                   customSpacerHeight(height: 30),
@@ -217,7 +219,7 @@ class _LanguageDropDownState extends State<LanguageDropDown> {
         child: Text(item),
         value: item,
       );
-
+  
   void _changeLang({required String value}) {
     if (value.toLowerCase() == Language.english.name) {
       Get.find<LanguageController>().changeLanguage("en", "US");

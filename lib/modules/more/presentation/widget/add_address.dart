@@ -36,12 +36,104 @@ class AddAddress extends StatelessWidget {
               children: [
                 bottomSheetAppbar(
                   context: context,
-                  appbarTitle: AppString.text_add_address,
-
-                ),
+                  appbarTitle: AppString.text_add_address,),
                 customSpacerHeight(height: 8),
-                textFieldTitleText(titleText: AppString.text_county),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    textFieldTitleText(
+                        titleText:
+                        AppString.text_address + AppString.text_details),
+                    InputNote(
+                      controller: Get.find<InputTextFieldController>()
+                          .addDetailsController,
+                      hintText:  "${AppString.text_add}${AppString.text_address_details}",
+                      validator: (value) {
 
+                        if (value!.isEmpty) {
+                          return AppString.the_details_field_is_required;
+                        } else if (value.length < 3) {
+                          return AppString.the_details_must_be_at_least_3_character;
+                        }else{
+                          return null;
+                        }
+
+
+                        return null;
+                      },
+                    ),
+                  ],
+                ),
+                customSpacerHeight(height: 12),
+                Row(
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          textFieldTitleText2(titleText: AppString.text_area),
+                          CustomTextField(
+                            hintText
+                                : AppString.text_enter_area,
+                            controller: Get.find<InputTextFieldController>()
+                                .addAreaController,
+                          ),
+                        ],
+                      ),
+                    ),
+                    customSpacerWidth(width: 18),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          textFieldTitleText2(titleText: AppString.text_city),
+                          CustomTextField(
+                            hintText: AppString.text_enter_city,
+                            controller: Get.find<InputTextFieldController>()
+                                .addCityController,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          textFieldTitleText(titleText: AppString.text_state),
+                          CustomTextField(
+                            hintText: AppString.text_enter_state,
+                            controller: Get.find<InputTextFieldController>()
+                                .addStateController,
+                          ),
+                        ],
+                      ),
+                    ),
+                    customSpacerWidth(width: 18),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          textFieldTitleText(
+                              titleText: AppString.text_zip_code),
+                          CustomTextField(
+                            hintText: AppString.text_enter_zip_code,
+                            controller: Get.find<InputTextFieldController>()
+                                .addZipCodeController,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+
+                textFieldTitleText(titleText: AppString.text_county),
                 countyField(
                   context: context,
                   controller: Get.find<InputTextFieldController>().addCountyController,
@@ -60,133 +152,13 @@ class AddAddress extends StatelessWidget {
                           _controller.setSelectedCountry(country.name);
                         });
                   },
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return AppString.fieldIsRequired;
-                    }
-                    return null;
-                  },
                 ),
+
                 textFieldTitleText(titleText: AppString.text_phone),
                 phoneAndCountyField(controller:Get.find<InputTextFieldController>().addPhoneNumberController,
                 ),
-                Row(
-                  children: [
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          textFieldTitleText2(titleText: AppString.text_area),
-                          CustomTextField(
-                            hintText
-                                : AppString.text_enter_area,
-                            controller: Get.find<InputTextFieldController>()
-                                .addAreaController,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return AppString.fieldIsRequired;
-                              }
-                              return null;
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    customSpacerWidth(width: 18),
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          textFieldTitleText2(titleText: AppString.text_city),
-                          CustomTextField(
-                            hintText: AppString.text_enter_city,
-                            controller: Get.find<InputTextFieldController>()
-                                .addCityController,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return AppString.fieldIsRequired;
-                              }
-                              return null;
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
 
-                  children: [
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          textFieldTitleText(titleText: AppString.text_state),
-                          CustomTextField(
-                            hintText: AppString.text_enter_state,
-                            controller: Get.find<InputTextFieldController>()
-                                .addStateController,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return AppString.fieldIsRequired;
-                              }
-                              return null;
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    customSpacerWidth(width: 18),
-                    Flexible(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          textFieldTitleText(
-                              titleText: AppString.text_zip_code),
-                          CustomTextField(
-                            hintText: AppString.text_enter_zip_code,
-                            controller: Get.find<InputTextFieldController>()
-                                .addZipCodeController,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return AppString.fieldIsRequired;
-                              }
-                              return null;
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    textFieldTitleText(
-                        titleText:
-                            AppString.text_address + AppString.text_details),
-                    InputNote(
-                      controller: Get.find<InputTextFieldController>()
-                          .addDetailsController,
-                      hintText:  "${AppString.text_add}${AppString.text_address_details}",
-                      validator: (value) {
-
-                        if (value!.isEmpty) {
-                          return AppString.fieldIsRequired;
-                        } else if (value.length < 3) {
-                          return AppString.the_details_must_be_at_least_3_character;
-                        }else{
-                          return null;
-                        }
-
-
-                        return null;
-                      },
-                    ),
-                  ],
-                ),
-                customSpacerHeight(height: 24),
+                customSpacerHeight(height: 30),
 
                 customDoubleButton(
                     context: context,
@@ -208,7 +180,6 @@ class AddAddress extends StatelessWidget {
                                state: Get.find<InputTextFieldController>().addStateController.value.text,
                                zipcode: Get.find<InputTextFieldController>().addZipCodeController.value.text,
                                message:   AppString.text_address_added_successfully,
-
 
 
 

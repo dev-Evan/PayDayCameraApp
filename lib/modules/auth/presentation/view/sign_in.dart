@@ -28,6 +28,7 @@ class _SignInScreenState extends State<SignInScreen> {
       _isLeft = !_isLeft;
     });
   }
+
   @override
   void initState() {
     Future.delayed(const Duration(milliseconds: 100), () {
@@ -35,6 +36,7 @@ class _SignInScreenState extends State<SignInScreen> {
     });
     super.initState();
   }
+
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -80,14 +82,15 @@ class _SignInScreenState extends State<SignInScreen> {
                                     Get.find<AuthController>().emailController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return AppString.the_email_field_is_required;
-                                  }else if (value.isEmpty || !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                      .hasMatch(value)) {
-                                    return AppString.please_insert_a_valid_email_address;
-                                  }else{
+                                    return AppString
+                                        .the_email_field_is_required;
+                                  } else if (value.isEmpty ||
+                                      !RegExp(emailPatten()).hasMatch(value)) {
+                                    return AppString
+                                        .please_insert_a_valid_email_address;
+                                  } else {
                                     return null;
                                   }
-
                                 },
                               ),
                             ],
@@ -103,13 +106,13 @@ class _SignInScreenState extends State<SignInScreen> {
                                     .passwordController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return AppString.the_password_field_is_required;
+                                    return AppString
+                                        .the_password_field_is_required;
                                   } else if (value.length < 6) {
                                     return AppString.incorrect_user_or_password;
-                                  }else{
+                                  } else {
                                     return null;
                                   }
-
                                 },
                               ),
                             ],
@@ -144,9 +147,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         rememberText(),
                         const Spacer(),
-                        forgotButton(onAction:    _launchURL
-
-                        ),
+                        forgotButton(onAction: _launchURL),
                       ],
                     ),
                   ),
@@ -162,14 +163,19 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
   }
-  
+
   void _launchURL() async {
     var url = Get.find<AuthController>().resetPasswordModel.data?.url;
-    if (await canLaunch(url ??"")) {
-      await launch(url ??"");
+    if (await canLaunch(url ?? "")) {
+      await launch(url ?? "");
     } else {
       print('Could not launch $url');
     }
   }
+}
 
+emailPatten() {
+  final pattern =
+      r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$';
+  return pattern;
 }

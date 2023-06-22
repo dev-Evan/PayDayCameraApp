@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl_phone_field/phone_number.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
@@ -356,8 +357,9 @@ Widget countyField({context, onAction, String? Function(String?)? validator,requ
   );
 }
 
-Widget phoneAndCountyField({required TextEditingController controller}) {
+Widget phoneAndCountyField({required TextEditingController controller,final String? Function(String?)? validator}) {
   return IntlPhoneField(
+    disableLengthCheck: true,
       decoration: InputDecoration(
         labelText: AppString.text_not_added_yet,
         enabledBorder: OutlineInputBorder(
@@ -375,7 +377,6 @@ Widget phoneAndCountyField({required TextEditingController controller}) {
 TextStyle get countyTextStyle {
   return const TextStyle(fontSize: 16, color: AppColor.normalTextColor);
 }
-
 InputDecoration get countryDecoration {
   return InputDecoration(
       hintText: AppString.text_search,
