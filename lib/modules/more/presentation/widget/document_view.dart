@@ -52,7 +52,7 @@ Widget _body({required docName,required fullUrl}) {
 Widget _fileView({required url}) {
   return Container(
     decoration: BoxDecoration(
-      image: DecorationImage(image: NetworkImage(url), fit: BoxFit.cover),
+      image: DecorationImage(image: NetworkImage(url), fit: BoxFit.fitWidth),
     ),
   );
 }
