@@ -119,7 +119,7 @@ class AddressDetails extends GetView<AddressController> {
                                                       ?.permanentAddress
                                                       ?.area
                                                       .toString() ??
-                                                  "":"",
+                                                  "":AppString.text_not_added_yet,
                                               rightSubtext:
                                               controller
                                                   .addressDetailsModel
@@ -134,7 +134,7 @@ class AddressDetails extends GetView<AddressController> {
                                                       ?.permanentAddress
                                                       ?.city
                                                       .toString() ??
-                                                  "":"",
+                                                  "":AppString.text_not_added_yet,
                                             ),
                                             detailsTextLayout(
                                               leftTitleText:
@@ -154,7 +154,7 @@ class AddressDetails extends GetView<AddressController> {
                                                       ?.permanentAddress
                                                       ?.state
                                                       .toString() ??
-                                                  "":"",
+                                                  "":AppString.text_not_added_yet,
                                               rightSubtext:
                                               controller
                                                   .addressDetailsModel
@@ -167,7 +167,7 @@ class AddressDetails extends GetView<AddressController> {
                                                       ?.permanentAddress
                                                       ?.zipCode
                                                       .toString() ??
-                                                  "":"",
+                                                  "":AppString.text_not_added_yet,
                                             ),
                                             detailsTextLayout(
                                               leftTitleText:
@@ -186,7 +186,7 @@ class AddressDetails extends GetView<AddressController> {
                                                       ?.permanentAddress
                                                       ?.country
                                                       .toString() ??
-                                                  "":"",
+                                                  "":AppString.text_not_added_yet,
                                               rightSubtext:
                                               controller
                                                   .addressDetailsModel
@@ -199,7 +199,7 @@ class AddressDetails extends GetView<AddressController> {
                                                       ?.permanentAddress
                                                       ?.phoneNumber
                                                       .toString() ??
-                                                  "":"",
+                                                  "":AppString.text_not_added_yet,
                                             ),
                                             customSpacerHeight(height: 24),
                                           ],
@@ -262,7 +262,7 @@ class AddressDetails extends GetView<AddressController> {
                                       controller.addressDetailsModel.data
                                               ?.presentAddress?.details
                                               .toString() ??
-                                          "":"",
+                                          "":AppString.text_not_added_yet,
                                       style: AppStyle.mid_large_text.copyWith(
                                           color: AppColor.normalTextColor,
                                           fontSize: Dimensions.fontSizeDefault,
@@ -291,7 +291,7 @@ class AddressDetails extends GetView<AddressController> {
                                                   ?.presentAddress
                                                   ?.area
                                                   .toString() ??
-                                              "":"",
+                                              "":AppString.text_not_added_yet,
                                           rightSubtext:
 
 
@@ -307,7 +307,7 @@ class AddressDetails extends GetView<AddressController> {
                                                   ?.presentAddress
                                                   ?.city
                                                   .toString() ??
-                                              "":"",
+                                              "":AppString.text_not_added_yet,
                                         ),
 
 
@@ -330,7 +330,7 @@ class AddressDetails extends GetView<AddressController> {
                                                   ?.presentAddress
                                                   ?.state
                                                   .toString() ??
-                                              "":"",
+                                              "":AppString.text_not_added_yet,
                                           rightSubtext:
                                           controller
                                               .addressDetailsModel
@@ -344,7 +344,7 @@ class AddressDetails extends GetView<AddressController> {
                                                   ?.presentAddress
                                                   ?.zipCode
                                                   .toString() ??
-                                              "":"",
+                                              "":AppString.text_not_added_yet,
                                         ),
                                         detailsTextLayout(
                                           leftTitleText:
@@ -364,7 +364,7 @@ class AddressDetails extends GetView<AddressController> {
                                                   ?.presentAddress
                                                   ?.country
                                                   .toString() ??
-                                              "":"",
+                                              "":AppString.text_not_added_yet,
 
                                           rightSubtext:
                                           controller
@@ -379,7 +379,7 @@ class AddressDetails extends GetView<AddressController> {
                                                   ?.presentAddress
                                                   ?.phoneNumber
                                                   .toString() ??
-                                              "":"",
+                                              "":AppString.text_not_added_yet,
 
                                         ),
                                         customSpacerHeight(height: 24),
