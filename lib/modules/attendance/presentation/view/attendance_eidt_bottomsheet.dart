@@ -21,13 +21,14 @@ class EditAttendanceBottomSheet extends StatefulWidget {
   EditAttendanceBottomSheet(this.logDetailsById, {super.key});
 
   @override
-  State<EditAttendanceBottomSheet> createState() => _EditAttendanceBottomSheetState();
+  State<EditAttendanceBottomSheet> createState() =>
+      _EditAttendanceBottomSheetState();
 }
 
 class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
   String inputValue = '';
 
-  var controller=TextEditingController();
+  var controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,17 +37,11 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
         maxChildSize: .9,
         minChildSize: .7,
         builder: (BuildContext context, ScrollController scrollController) {
-          Get
-              .find<DateTimeController>()
-              .pickedInTime
-              .value =
-          widget.logDetailsById.data!.checkInTime!;
-          Get
-              .find<DateTimeController>()
-              .pickedOutTime
-              .value =
-          widget.logDetailsById.data!.checkOutTime!;
-          return    Container(
+          Get.find<DateTimeController>().pickedInTime.value =
+              widget.logDetailsById.data!.checkInTime!;
+          Get.find<DateTimeController>().pickedOutTime.value =
+              widget.logDetailsById.data!.checkOutTime!;
+          return Container(
             decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
@@ -71,9 +66,7 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
               ],
             ),
           );
-        }
-
-    );
+        });
   }
 
   _contentLayout() {
@@ -195,7 +188,7 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
     return TextField(
       onChanged: (value) {
         setState(() {
-          inputValue=value;
+          inputValue = value;
         });
       },
       decoration: InputDecoration(
@@ -221,32 +214,24 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
       buttonColor: AppColor.primaryBlue,
       buttonText: AppString.text_save,
       onPressed: () async {
-        await Get.find<AttendanceController>().changeAttendance(
-            logId: Get
-                .find<AttendanceController>()
-                .logDetailsById
-                .data!
-                .id!,
-            inTime: Get
-                .find<DateTimeController>()
-                .pickedInTime
-                .value,
-            outTime: Get
-                .find<DateTimeController>()
-                .pickedOutTime
-                .value,
-            note: inputValue
-        );
-        Navigator.of(Get.context!).pop();
+        await Get.find<AttendanceController>()
+            .changeAttendance(
+                logId:
+                    Get.find<AttendanceController>().logDetailsById.data!.id!,
+                inTime: Get.find<DateTimeController>().pickedInTime.value,
+                outTime: Get.find<DateTimeController>().pickedOutTime.value,
+                note: inputValue)
+            .then((value) {
+          if (value == true) {
+            Navigator.of(Get.context!).pop();
+          }
+        });
       },
     );
   }
 
   _cancelButton(BuildContext context) {
-    Get
-        .find<AttendanceLogsController>()
-        .textEditingController
-        .clear();
+    Get.find<AttendanceLogsController>().textEditingController.clear();
     return AppButton(
       onPressed: () => Navigator.of(context).pop(),
       buttonText: AppString.text_cancel,

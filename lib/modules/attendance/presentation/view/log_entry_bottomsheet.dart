@@ -212,8 +212,8 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
         ));
   }
 
-  _punchOut(AttendanceController controller) {
-    controller.punchOut(LogEntryRequest(
+  _punchOut(AttendanceController controller) async{
+    await controller.punchOut(LogEntryRequest(
         ipData: IpData(
             ip: controller.ipAddress.value,
             coordinate: Coordinate(
@@ -223,25 +223,35 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
             location: controller.address.value,
             workFromHome: false),
         note: controller.editTextController.value.text,
-        today: DateFormat('y-M-d').format(DateTime.now())));
-    controller.editTextController.clear();
-    Navigator.of(Get.context!).pop();
+        today: DateFormat('y-M-d').format(DateTime.now()))).then((value) {
+          if(value==true){
+            controller.editTextController.clear();
+            Navigator.of(Get.context!).pop();
+          }
+    });
+
   }
 
   _punchIn(AttendanceController controller) {
-    controller.punchIn(LogEntryRequest(
-        ipData: IpData(
-            ip: controller.ipAddress.value,
-            coordinate: Coordinate(
-              lat: controller.lat.value.toString(),
-              lng: controller.long.value.toString(),
-            ),
-            location: controller.address.value,
-            workFromHome: false),
-        note: controller.editTextController.value.text,
-        today: DateFormat('y-M-d').format(DateTime.now())));
-    controller.editTextController.clear();
-    Navigator.of(Get.context!).pop();
+    controller
+        .punchIn(LogEntryRequest(
+            ipData: IpData(
+                ip: controller.ipAddress.value,
+                coordinate: Coordinate(
+                  lat: controller.lat.value.toString(),
+                  lng: controller.long.value.toString(),
+                ),
+                location: controller.address.value,
+                workFromHome: false),
+            note: controller.editTextController.value.text,
+            today: DateFormat('y-M-d').format(DateTime.now())))
+        .then((value) {
+      if (value == true) {
+        controller.editTextController.clear();
+        Get.back();
+      }
+    });
+
   }
 
   _cancelButton(BuildContext context) {

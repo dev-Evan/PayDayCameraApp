@@ -137,7 +137,8 @@ class AttendanceLogsController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  void requestAttendance() async {
+  Future<bool> requestAttendance() async {
+    bool returnValue = false;
     change(null, status: RxStatus.loading());
     var controller = Get.find<DateTimeController>();
     await _attendanceLogsRepository
@@ -149,17 +150,17 @@ class AttendanceLogsController extends GetxController with StateMixin {
       outTime:
           "${DateFormat("yyyy-MM-dd hh:mm a").parse("${controller.requestedDate.value} ${controller.pickedOutTime.value}")}",
     ))
-        .then((value){
+        .then((value) {
       print(value.toString());
       textEditingController.clear();
-
-    } ,
-
-        onError: (error) {
+      returnValue = true;
+    }, onError: (error) {
       print(error.message);
       textEditingController.clear();
       errorSnackBar(errorMessage: error.message);
+      returnValue = false;
     });
     change(null, status: RxStatus.success());
+    return returnValue;
   }
 }

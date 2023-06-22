@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -11,6 +13,8 @@ import 'package:pay_day_mobile/modules/leave/domain/leave_summary.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_type.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
+
+import '../../../../common/domain/success_model.dart';
 
 class LeaveController extends GetxController with StateMixin {
   final LeaveRepository _leaveRepository = LeaveRepository(NetworkClient());
@@ -33,33 +37,17 @@ class LeaveController extends GetxController with StateMixin {
 
   final RxMap<dynamic, dynamic> requestLeaveQueries = {}.obs;
 
-  final startDate = DateFormat('yyyy-MM-dd')
-      .format(DateTime.now().toUtc())
-      .obs;
-  final endDate = DateFormat('yyyy-MM-dd')
-      .format(DateTime.now().toUtc())
-      .obs;
+  final startDate = DateFormat('yyyy-MM-dd').format(DateTime.now().toUtc()).obs;
+  final endDate = DateFormat('yyyy-MM-dd').format(DateTime.now().toUtc()).obs;
 
   final isValueLoading = false.obs;
 
   final rangeName = "This Month".obs;
 
   final rangeStartDay =
-      DateTime
-          .utc(DateTime
-          .now()
-          .year, DateTime
-          .now()
-          .month, 1)
-          .obs;
+      DateTime.utc(DateTime.now().year, DateTime.now().month, 1).obs;
   final rangeEndDate =
-      DateTime
-          .utc(DateTime
-          .now()
-          .year, DateTime
-          .now()
-          .month + 1, 0)
-          .obs;
+      DateTime.utc(DateTime.now().year, DateTime.now().month + 1, 0).obs;
 
   getLeaveAllowance() async {
     change(null, status: RxStatus.loading());
@@ -129,24 +117,46 @@ class LeaveController extends GetxController with StateMixin {
 
   cancelLeave({required int id}) async {
     change(null, status: RxStatus.loading());
-    await _leaveRepository.cancelLeave(id: id).then((value) {
+    await _leaveRepository.cancelLeave(id: id).then((value) async {
       print("getILeaveDetails ::: called");
       Get.back(canPop: false);
       getLeaveRecord(params: "&within=thisYear");
+      Map<String, String> queryParams = {
+        "start": DateFormat("yyyy-MM-dd").format(DateTime.now()),
+        "end": DateFormat("yyyy-MM-dd").format(DateTime.now())
+      };
+      String dateValue = json.encode(queryParams);
+      await Get.find<LeaveController>()
+          .getIndividualLeaveList(queryParams: "date_range=$dateValue");
     }, onError: (error) => print("getILeaveDetails ${error.message}"));
 
     change(null, status: RxStatus.success());
   }
 
-  requestLeave({required Map<dynamic, dynamic> leaveARequestQueries}) async {
+  Future<bool> requestLeave(
+      {required Map<dynamic, dynamic> leaveARequestQueries}) async {
+    bool returnValue = false;
     change(null, status: RxStatus.loading());
     await _leaveRepository
         .requestLeave(leaveQueries: leaveARequestQueries)
-        .then((value) {
+        .then((value) async {
       print("requestLeave ::: called");
       showCustomSnackBar(message: value.message ?? "");
-    }, onError: (error) => print("getILeaveDetails ${error}"));
+      Map<String, String> queryParams = {
+        "start": DateFormat("yyyy-MM-dd").format(DateTime.now()),
+        "end": DateFormat("yyyy-MM-dd").format(DateTime.now())
+      };
+      String dateValue = json.encode(queryParams);
+      await Get.find<LeaveController>()
+          .getIndividualLeaveList(queryParams: "date_range=$dateValue");
+      returnValue = true;
+    }, onError: (error) {
+      showCustomSnackBar(message: "${error.message}");
+      print("getILeaveDetails ${error}");
+      returnValue = false;
+    });
 
     change(null, status: RxStatus.success());
+    return returnValue;
   }
 }

@@ -96,7 +96,7 @@ class AppString {
   static String pop_up_worked_long = "Worked";
   static String pop_up_break_time_short = "BT : ";
   static String pop_up_break_time_long = "Break Time";
-  static String pop_up_balance_short = "B : ";
+  static String pop_up_balance_short = "B :";
   static String pop_up_balance_long = "Balance";
   static String text_leave_response = "Leave Response";
   static String text_requstAttendance = "Request Attendance";

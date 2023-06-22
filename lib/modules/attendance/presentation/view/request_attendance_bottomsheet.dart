@@ -104,8 +104,13 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
         if (controller.requestedDate.isNotEmpty &&
             controller.pickedInTime.isNotEmpty &&
             controller.pickedOutTime.isNotEmpty) {
-          Get.find<AttendanceLogsController>().requestAttendance();
-          Navigator.pop(Get.context!);
+          Get.find<AttendanceLogsController>()
+              .requestAttendance()
+              .then((value) {
+            if (value == true) {
+              Navigator.pop(Get.context!);
+            }
+          });
         } else {
           Get.showSnackbar(const GetSnackBar(
             message: "Select a valid input before request a attendance",
@@ -235,5 +240,4 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
       ),
     );
   }
-
 }

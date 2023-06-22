@@ -211,7 +211,7 @@ logsList(AttendanceLogsController controller) {
 _dateInfo(int index) {
   var controller = Get.find<AttendanceLogsController>();
   return SizedBox(
-    width: AppLayout.getWidth(50),
+    width: AppLayout.getWidth(40),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

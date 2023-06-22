@@ -68,43 +68,53 @@ class AttendanceController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  punchIn(LogEntryRequest punchInRequest) async {
+  Future<bool> punchIn(LogEntryRequest punchInRequest) async {
+    bool retrunValue = false;
     change(null, status: RxStatus.loading());
-    _attendanceDataRepository.punchIn(punchInRequest: punchInRequest).then(
-        (value) async {
-      await checkUserIsPunchedIn();
-      await getDailyLog();
+    await _attendanceDataRepository
+        .punchIn(punchInRequest: punchInRequest)
+        .then((value) {
+      checkUserIsPunchedIn();
+      getDailyLog();
       startTimer();
       print("punchIn :: ${value.message}");
       showCustomSnackBar(message: value.message ?? "");
+      retrunValue = true;
     }, onError: (error) {
       print("punchIn :: ${error.message}");
       errorSnackBar(errorMessage: error.message);
+      retrunValue = false;
     });
     change(null, status: RxStatus.success());
+    print(retrunValue);
+    return retrunValue;
   }
 
-  punchOut(LogEntryRequest punchOutRequest) {
+  Future<bool> punchOut(LogEntryRequest punchOutRequest) async {
+    bool returnValue = false;
     change(null, status: RxStatus.loading());
-    _attendanceDataRepository
+    await _attendanceDataRepository
         .punchOut(
       punchOutRequest: punchOutRequest,
     )
         .then(
-      (LogEntryResponse value) async {
-        await checkUserIsPunchedIn();
-        await getDailyLog();
+      (LogEntryResponse value) {
+        checkUserIsPunchedIn();
+        getDailyLog();
         stopTimer();
         showCustomSnackBar(message: value.message ?? "");
         _endBreak();
         print("punchOut :: ${value.message}");
+        returnValue = true;
       },
       onError: (error) {
         print("punchOut :: ${error.message}");
         errorSnackBar(errorMessage: error.message);
+        returnValue = false;
       },
     );
     change(null, status: RxStatus.success());
+    return returnValue;
   }
 
   getDailyLog() async {
@@ -142,22 +152,28 @@ class AttendanceController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  changeAttendance(
+  Future<bool> changeAttendance(
       {required int logId,
       required String inTime,
       required String outTime,
       required String note}) async {
+    bool returnValue = false;
     change(null, status: RxStatus.loading());
     print(
         "required int logId::$logId required String inTime::$inTime,required String outTime:: $outTime required String note::$note");
     await _attendanceDataRepository
         .changeAttendanceRequest(
             logId: logId, note: note, outTime: outTime, inTime: inTime)
-        .then((value) => print("changeAttendance :: called"), onError: (error) {
+        .then((value) {
+      returnValue = true;
+      print("changeAttendance :: called");
+    }, onError: (error) {
       print(error.message);
       errorSnackBar(errorMessage: error.message);
+      returnValue = false;
     });
     change(null, status: RxStatus.success());
+    return returnValue;
   }
 
   getLatLong() async {

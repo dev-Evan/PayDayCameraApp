@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
+import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_allowance.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
@@ -95,61 +96,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                 customSpacerHeight(height: 8),
                 _addAttachment(),
                 customSpacerHeight(height: 24),
-                Padding(
-                  padding: EdgeInsets.only(bottom: AppLayout.getHeight(20)),
-                  child: customDoubleButton(
-                      context: context,
-                      elevatedBtnText: AppString.text_apply,
-                      textBtnText: AppString.text_cancel,
-                      textButtonAction: () {
-                        Get.find<LeaveController>().requestLeaveQueries.clear();
-                        Get.find<LeaveController>().leaveNote.clear();
-                        Get.back();
-                      },
-                      elevatedButtonAction: () {
-                        switch (Get.find<LeaveController>()
-                            .leaveDurationIndex
-                            .value) {
-                          case 0:
-                            {
-                              _applySingleLeave();
-                              //clear queries after api call
-                              Get.find<LeaveController>()
-                                  .requestLeaveQueries
-                                  .clear();
-                            }
-                            break;
-                          case 1:
-                            {
-                              _applyMultiDayLeave();
-                              //clear queries after api call
-                              Get.find<LeaveController>()
-                                  .requestLeaveQueries
-                                  .clear();
-                            }
-                            break;
-                          case 2:
-                            {
-                              _applyHalfDayLeave();
-                              //clear queries after api call
-                              Get.find<LeaveController>()
-                                  .requestLeaveQueries
-                                  .clear();
-                            }
-                            break;
-                          case 3:
-                            {
-                              _applyHourLeave();
-                              //clear queries after api call
-                              Get.find<LeaveController>()
-                                  .requestLeaveQueries
-                                  .clear();
-                            }
-                            break;
-                        }
-                        Get.find<LeaveController>().leaveNote.clear();
-                      }),
-                ),
+                _applyLeaveButtons(),
               ],
             ),
           )
@@ -303,10 +250,15 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
     } catch (e) {
       print(e);
     }
-    Get.find<LeaveController>().requestLeave(
-        leaveARequestQueries: Get.find<LeaveController>().requestLeaveQueries);
-
-    Get.back();
+    Get.find<LeaveController>()
+        .requestLeave(
+            leaveARequestQueries:
+                Get.find<LeaveController>().requestLeaveQueries)
+        .then((value) {
+      if (value == true) {
+        Get.back();
+      }
+    });
   }
 
   void _applyMultiDayLeave() {
@@ -341,9 +293,11 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
     }
 
     Get.find<LeaveController>().requestLeave(
-        leaveARequestQueries: Get.find<LeaveController>().requestLeaveQueries);
-
-    Get.back();
+        leaveARequestQueries: Get.find<LeaveController>().requestLeaveQueries).then((value) {
+      if (value == true) {
+        Get.back();
+      }
+    });
   }
 
   void _applyHalfDayLeave() {
@@ -370,9 +324,11 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
       print(e);
     }
     Get.find<LeaveController>().requestLeave(
-        leaveARequestQueries: Get.find<LeaveController>().requestLeaveQueries);
-
-    Get.back();
+        leaveARequestQueries: Get.find<LeaveController>().requestLeaveQueries).then((value) {
+      if (value == true) {
+        Get.back();
+      }
+    });
   }
 
   void _applyHourLeave() {
@@ -412,9 +368,11 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
         Get.find<LeaveController>().leaveNote.text;
 
     Get.find<LeaveController>().requestLeave(
-        leaveARequestQueries: Get.find<LeaveController>().requestLeaveQueries);
-
-    Get.back();
+        leaveARequestQueries: Get.find<LeaveController>().requestLeaveQueries).then((value) {
+      if (value == true) {
+        Get.back();
+      }
+    });
   }
 
   _addAttachment() => Column(
@@ -497,6 +455,58 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
           style: AppStyle.small_text_black.copyWith(color: Colors.grey),
         )
       ],
+    );
+  }
+
+  _applyLeaveButtons() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: AppLayout.getHeight(20)),
+      child: customDoubleButton(
+          context: context,
+          elevatedBtnText: AppString.text_apply,
+          textBtnText: AppString.text_cancel,
+          textButtonAction: () {
+            Get.find<LeaveController>().requestLeaveQueries.clear();
+            Get.find<LeaveController>().leaveNote.clear();
+            Get.back();
+          },
+          elevatedButtonAction: () {
+            if (Get.find<LeaveController>().leaveNote.text.isEmpty) {
+              showCustomSnackBar(message: "Please, provide a leave note");
+            } else {
+              switch (Get.find<LeaveController>().leaveDurationIndex.value) {
+                case 0:
+                  {
+                    _applySingleLeave();
+                    //clear queries after api call
+                    Get.find<LeaveController>().requestLeaveQueries.clear();
+                  }
+                  break;
+                case 1:
+                  {
+                    _applyMultiDayLeave();
+                    //clear queries after api call
+                    Get.find<LeaveController>().requestLeaveQueries.clear();
+                  }
+                  break;
+                case 2:
+                  {
+                    _applyHalfDayLeave();
+                    //clear queries after api call
+                    Get.find<LeaveController>().requestLeaveQueries.clear();
+                  }
+                  break;
+                case 3:
+                  {
+                    _applyHourLeave();
+                    //clear queries after api call
+                    Get.find<LeaveController>().requestLeaveQueries.clear();
+                  }
+                  break;
+              }
+              Get.find<LeaveController>().leaveNote.clear();
+            }
+          }),
     );
   }
 }
