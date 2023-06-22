@@ -82,7 +82,7 @@ Widget detailsTextLayout(
               ],
             )),
       ],
-    ),
+    )
   );
 }
 
