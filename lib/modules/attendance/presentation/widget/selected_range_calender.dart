@@ -18,9 +18,9 @@ import '../../../leave/presentation/controller/leave_controller.dart';
 import 'bottom_sheet_appbar.dart';
 
 class SelectRangeCalender extends StatefulWidget {
-  RangeCalendarMethodImp rangeCalendarMethodImp;
+  final RangeCalendarMethodImp rangeCalendarMethodImp;
 
-  SelectRangeCalender({required this.rangeCalendarMethodImp, super.key});
+  const SelectRangeCalender({required this.rangeCalendarMethodImp, super.key});
 
   @override
   State<SelectRangeCalender> createState() => _SelectRangeCalenderState();
@@ -119,7 +119,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                       // const Spacer(),
                       Padding(
                         padding: const EdgeInsets.only(top: 16.0, bottom: 16),
-                        child: CustomDiveider(
+                        child: customDivider(
                             0.7, MediaQuery.of(context).size.width),
                       ),
 

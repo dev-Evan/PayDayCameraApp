@@ -18,7 +18,7 @@ class _AnnounceScreenState extends State<AnnounceScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
+    return const Scaffold(
       appBar: CustomAppbar(),
       body: ViewAnnounce(text: "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used s a placeholder text commonly used",maxLength: 34,)
       ,

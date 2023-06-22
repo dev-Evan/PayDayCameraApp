@@ -14,7 +14,6 @@ class NotificationController extends GetxController with StateMixin {
         if (scrollController.position.pixels ==
             scrollController.position.maxScrollExtent) {
           _loadMoreData();
-          ;
         }
       });
     super.onInit();
@@ -24,13 +23,13 @@ class NotificationController extends GetxController with StateMixin {
 
   void _loadMoreData() async {
     print("loadMoreData :: Called");
-    if (this.notifications.data != null) {
+    if (notifications.data != null) {
       if (notifications.data!.meta!.currentPage! <
           notifications.data!.meta!.totalPages!) {
         isMoreDataLoading(true);
         await _notificationRepository
             .getAllNotification(
-                page: this.notifications.data!.meta!.currentPage! + 1)
+                page: notifications.data!.meta!.currentPage! + 1)
             .then((notifications) {
           notifications.data!.data!
               .map((NotificationData notificationData) =>

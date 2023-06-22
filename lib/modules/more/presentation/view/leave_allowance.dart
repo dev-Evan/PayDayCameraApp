@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/more_widget.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_style.dart';
 import '../../../../utils/dimensions.dart';
@@ -15,7 +13,7 @@ class LeaveAllowanceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(),
+      appBar: const CustomAppbar(),
       body: SingleChildScrollView(
         physics: const ScrollPhysics(),
         child: Column(
@@ -54,7 +52,7 @@ Widget _cardBox({required context}) {
     width: MediaQuery.of(context).size.width,
     decoration: boxDecoration,
     child: Container(
-      margin: EdgeInsets.all(12),
+      margin: const EdgeInsets.all(12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

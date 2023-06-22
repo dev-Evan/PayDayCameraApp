@@ -14,7 +14,7 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
 class JodHistory extends GetView<JobHistoryController> {
-  JodHistory({Key? key}) : super(key: key);
+  const JodHistory({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

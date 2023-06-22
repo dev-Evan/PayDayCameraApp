@@ -5,13 +5,13 @@ class Login {
 
   Login({bool? status, String? message, Data? data}) {
     if (status != null) {
-      this._status = status;
+      _status = status;
     }
     if (message != null) {
-      this._message = message;
+      _message = message;
     }
     if (data != null) {
-      this._data = data;
+      _data = data;
     }
   }
 
@@ -29,11 +29,11 @@ class Login {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this._status;
-    data['message'] = this._message;
-    if (this._data != null) {
-      data['data'] = this._data!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = _status;
+    data['message'] = _message;
+    if (_data != null) {
+      data['data'] = _data!.toJson();
     }
     return data;
   }
@@ -55,22 +55,22 @@ class Data {
       String? token,
       String? fullName}) {
     if (id != null) {
-      this._id = id;
+      _id = id;
     }
     if (firstName != null) {
-      this._firstName = firstName;
+      _firstName = firstName;
     }
     if (lastName != null) {
-      this._lastName = lastName;
+      _lastName = lastName;
     }
     if (email != null) {
-      this._email = email;
+      _email = email;
     }
     if (token != null) {
-      this._token = token;
+      _token = token;
     }
     if (fullName != null) {
-      this._fullName = fullName;
+      _fullName = fullName;
     }
   }
 
@@ -97,13 +97,13 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this._id;
-    data['first_name'] = this._firstName;
-    data['last_name'] = this._lastName;
-    data['email'] = this._email;
-    data['token'] = this._token;
-    data['full_name'] = this._fullName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = _id;
+    data['first_name'] = _firstName;
+    data['last_name'] = _lastName;
+    data['email'] = _email;
+    data['token'] = _token;
+    data['full_name'] = _fullName;
     return data;
   }
 }

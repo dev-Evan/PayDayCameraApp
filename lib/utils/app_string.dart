@@ -185,7 +185,7 @@ class AppString {
   static const String text_bonus = "Bonus";
   static const String text_medical = "Medical";
   static const String text_food_ = "Food";
-  static const String text_percent = " 2\%";
+  static const String text_percent = " 2%";
   static const String text_transport = "Transport";
   static const String text_deductions = "Deductions";
   static const String text_payslip_id = "PAYSLIP ID";

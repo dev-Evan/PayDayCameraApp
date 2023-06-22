@@ -117,8 +117,7 @@ class _AddDocumentState extends State<AddDocument> {
                                             image: FileImage(File(Get.find<
                                                             FileUploadController>()
                                                         .filePath
-                                                        .value ??
-                                                    "")
+                                                        .value)
                                                 .absolute),
                                             fit: BoxFit.cover),
                                       ),
@@ -212,7 +211,7 @@ Widget _dottedBorder({required child}) {
     radius: Radius.circular(Dimensions.radiusMid),
     color: AppColor.disableColor,
     strokeCap: StrokeCap.square,
-    dashPattern: [8, 6],
+    dashPattern: const [8, 6],
     strokeWidth: AppLayout.getWidth(2),
     child: SizedBox(
       height: AppLayout.getHeight(140),

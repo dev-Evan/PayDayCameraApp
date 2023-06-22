@@ -12,7 +12,7 @@ class DropdownBtnController extends GetxController {
     } else if(dropdownValue == "Female") {
       value = "female";
     }else{
-      return null;
+      return;
     }
   }
 }

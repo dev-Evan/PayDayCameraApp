@@ -63,7 +63,7 @@ Future DocumentDialog({context, child,}) {
             ),
           ),
         ),
-        actions: [],
+        actions: const [],
       );
     },
   );

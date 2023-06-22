@@ -1,12 +1,6 @@
-import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/dotted_view.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/job_his_job_title.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/job_history_title.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';

@@ -19,7 +19,7 @@ Future errorAlertPopup(Function onReloadClicked) {
             borderRadius: BorderRadius.all(Radius.circular(16))),
         insetPadding: EdgeInsets.zero,
         child: Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(16)),
               color: Colors.white,

@@ -17,7 +17,7 @@ import '../../../../common/widget/custom_spacer.dart';
 import '../widget/more_widget.dart';
 
 class SalaryOverView extends GetView<SalaryOverviewController> {
-  SalaryOverView({Key? key}) : super(key: key);
+  const SalaryOverView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -233,7 +233,7 @@ Widget _titleText({titleTextS}) {
 
 Widget _salaryCardView(){
   return Container(
-    margin: EdgeInsets.only(left: 20,top: 4),
+    margin: const EdgeInsets.only(left: 20,top: 4),
     height: AppLayout.getHeight(120),
     width: AppLayout.getWidth(280),
     decoration: AppStyle.ContainerStyle.copyWith(color: AppColor.primaryColor.withOpacity(0.1),
@@ -260,14 +260,14 @@ Widget _salaryCardView(){
 RichText get  textSpan{
   return RichText(
     overflow: TextOverflow.clip,
-    text: new TextSpan(
+    text: TextSpan(
       children: <TextSpan>[
          TextSpan(text: "${GetStorage().read(AppString.USER_NAME)}",style: cardDynamicTextStyle),
         TextSpan(text: " has awarded a salary\n",style: cardSubTextStyle),
         TextSpan(text: "increment from ",style: cardSubTextStyle),
-        TextSpan(text: "${'\$30,0000'}",style: cardDynamicTextStyle),
+        TextSpan(text: '\$30,0000',style: cardDynamicTextStyle),
         TextSpan(text: " to ",style: cardSubTextStyle),
-        TextSpan(text: "${'\$30,0000\n'}",style: cardDynamicTextStyle),
+        TextSpan(text: '\$30,0000\n',style: cardDynamicTextStyle),
         TextSpan(text: " on ${"12 NoV 2022"}",style: cardSubTextStyle),
 
       ],

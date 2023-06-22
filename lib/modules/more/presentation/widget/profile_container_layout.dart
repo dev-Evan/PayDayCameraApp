@@ -35,7 +35,7 @@ Widget profileCardLayOut({context, userName, final userImage, userEmail, statusT
                   Container(
                     height: AppLayout.getHeight(54),
                     width: AppLayout.getWidth(54),
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.transparent,
                     ),
@@ -81,8 +81,8 @@ Widget profileCardLayOut({context, userName, final userImage, userEmail, statusT
               _moveProfileView(
                   onAction: (){
                     SchedulerBinding.instance.addPostFrameCallback((_)=>
-                      Navigator.push(context, new MaterialPageRoute(
-                              builder: (context) => ViewProfile())),);
+                      Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => const ViewProfile())),);
                   }
               ),
 
@@ -142,7 +142,7 @@ Future navigatorForViewProfile({context}){
   return Navigator.pushReplacement(
     context,
     MaterialPageRoute(
-      builder: (BuildContext context) => ViewProfile(),
+      builder: (BuildContext context) => const ViewProfile(),
     ),
   );
 }

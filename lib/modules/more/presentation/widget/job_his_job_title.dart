@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
-import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
@@ -55,7 +54,7 @@ Widget jodTitle({required jobTitleText, subTitleText, subEndText}) {
               customSpacerWidth(width: 8),
               Row(
                 children: [
-                  Text('${subTitleText} - ${subEndText}',style: AppStyle.mid_large_text.copyWith(
+                  Text('$subTitleText - $subEndText',style: AppStyle.mid_large_text.copyWith(
                       color: AppColor.normalTextColor.withOpacity(0.5),
                       fontSize: Dimensions.fontSizeDefault+1,
                       fontWeight: FontWeight.w300))

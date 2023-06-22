@@ -17,7 +17,7 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../controller/address_controller.dart';
 
 class AddressDetails extends GetView<AddressController> {
-  AddressDetails({Key? key}) : super(key: key);
+  const AddressDetails({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +51,7 @@ class AddressDetails extends GetView<AddressController> {
                                                         context: context),
                                           ),
                                       editAction:
-                                          EditAddress("permanent_address"),
+                                          const EditAddress("permanent_address"),
                                       type: "permanent_address")
                                   : addButton(onAction: () {
                                       customButtonSheet(
@@ -187,7 +187,7 @@ class AddressDetails extends GetView<AddressController> {
                                                         context: context),
                                           ),
                                       editAction:
-                                          EditAddress("present_address"),
+                                          const EditAddress("present_address"),
                                       type: "present_address")
                                   : addButton(onAction: () {
                                       customButtonSheet(
@@ -301,7 +301,7 @@ class AddressDetails extends GetView<AddressController> {
 }
 
 Future _deletedAlert({required context, onAction}) {
-  return CustomAlertDialog(
+  return customAlertDialog(
       context: context,
       icon: CupertinoIcons.delete,
       backAction: () {

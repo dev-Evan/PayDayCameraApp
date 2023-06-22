@@ -24,7 +24,7 @@ import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/widget/custom_spacer.dart';
 
 class MoreScreen extends GetView<ProfileDataController> {
-  MoreScreen({Key? key}) : super(key: key);
+  const MoreScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                             flex: 14,
                             child: Container(
                               color: AppColor.backgroundColor,
-                              margin: EdgeInsets.only(
+                              margin: const EdgeInsets.only(
                                   left: 20, right: 20, bottom: 20, top: 20),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,7 +139,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                     cardIcon: Images.log_out,
                                     cardText: AppString.text_log_out,
                                     onAction: () =>
-                                        CustomAlertDialog(
+                                        customAlertDialog(
                                             context: context,
                                             icon: Icons.logout,
                                             yesText: AppString.text_log_out,
@@ -163,7 +163,7 @@ class MoreScreen extends GetView<ProfileDataController> {
   }
 
   _languageDropDown() {
-    return LanguageDropDown();
+    return const LanguageDropDown();
   }
 }
 
@@ -216,8 +216,8 @@ class _LanguageDropDownState extends State<LanguageDropDown> {
   }
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
-        child: Text(item),
         value: item,
+        child: Text(item),
       );
   
   void _changeLang({required String value}) {

@@ -47,7 +47,7 @@ class FileUploadController extends GetxController {
     var response = await request.send();
     if (response.statusCode == 200) {
       Get.back();
-      print("Document upload ::: ${response}");
+      print("Document upload ::: $response");
       Get.find<DocumentController>().getDocumentData();
       _navigator(context: context);
       showCustomSnackBar(
@@ -67,7 +67,7 @@ Future _navigator({context}) {
   return Navigator.pushReplacement(
     context,
     MaterialPageRoute(
-      builder: (BuildContext context) => DocumentScreen(),
+      builder: (BuildContext context) => const DocumentScreen(),
     ),
   );
 }

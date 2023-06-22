@@ -40,8 +40,8 @@ class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    double _height = MediaQuery.of(context).size.height / 6;
-    double _width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height / 6;
+    double width = MediaQuery.of(context).size.width;
     final box = GetStorage();
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
@@ -63,8 +63,8 @@ class _SignInScreenState extends State<SignInScreen> {
                         children: [
                           customSpacerHeight(height: 26),
                           SizedBox(
-                              height: _height,
-                              width: _width,
+                              height: height,
+                              width: width,
                               child: Stack(
                                 children: [
                                   containerLayout(isLeft: _isLeft),
@@ -130,7 +130,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       children: [
                         Checkbox(
                           visualDensity:
-                              VisualDensity(horizontal: -4, vertical: -4),
+                              const VisualDensity(horizontal: -4, vertical: -4),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                   Dimensions.radiusSmall)),
@@ -175,7 +175,7 @@ class _SignInScreenState extends State<SignInScreen> {
 }
 
 emailPatten() {
-  final pattern =
+  const pattern =
       r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$';
   return pattern;
 }

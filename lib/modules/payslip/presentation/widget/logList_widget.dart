@@ -69,13 +69,13 @@ Widget _logListRow(
     required startDate,
     required endDate,
     required monthly}) {
-  final _box = GetStorage();
-  var currency = _box.read(AppString.STORE_CURRENCY) ?? "\$";
+  final box = GetStorage();
+  var currency = box.read(AppString.STORE_CURRENCY) ?? "\$";
   return Row(
     children: [
       _dateTitle(dateText: titleDate, monthText: titleMonth),
       customSpacerWidth(width: 30),
-      CustomDiveider(40, 0.7),
+      customDivider(40, 0.7),
       customSpacerWidth(width: 30),
       Expanded(
         flex: 0,
@@ -86,7 +86,7 @@ Widget _logListRow(
             monthly: monthly,
             statusText: statusText.toString()),
       ),
-      Spacer(),
+      const Spacer(),
       avatarArrowIcon(),
     ],
   );
@@ -94,8 +94,8 @@ Widget _logListRow(
 
 Widget _divider({context}) {
   return Container(
-    margin: EdgeInsets.only(top: 14,bottom: 0),
-    child: CustomDiveider(
+    margin: const EdgeInsets.only(top: 14,bottom: 0),
+    child: customDivider(
         AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
   );
 }

@@ -13,14 +13,13 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../utils/app_color.dart';
-import '../../../../utils/dimensions.dart';
 import '../../../auth/presentation/view/sign_in.dart';
 import '../controller/common_controller/date_of_birth_controller.dart';
 import '../controller/user_profile_controller.dart';
 import '../widget/address_details_widget.dart';
 
 class EditProfile extends StatefulWidget {
-  EditProfile({Key? key}) : super(key: key);
+  const EditProfile({Key? key}) : super(key: key);
 
   @override
   State<EditProfile> createState() => _EditProfileState();
@@ -58,9 +57,7 @@ class _EditProfileState extends State<EditProfile> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               textFieldTitleText(
-                                  titleText: AppString.text_first +
-                                      " " +
-                                      AppString.text_name),
+                                  titleText: "${AppString.text_first} ${AppString.text_name}"),
                               CustomTextField(
                                 hintText: AppString.text_enter_first_name,
                                 controller:
@@ -84,9 +81,7 @@ class _EditProfileState extends State<EditProfile> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               textFieldTitleText(
-                                  titleText: AppString.text_last +
-                                      " " +
-                                      AppString.text_name),
+                                  titleText: "${AppString.text_last} ${AppString.text_name}"),
                               CustomTextField(
                                 hintText: AppString.text_enter_last_name,
                                 controller:

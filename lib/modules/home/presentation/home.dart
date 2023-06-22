@@ -8,7 +8,6 @@ import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/more.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../attendance/presentation/view/attendance.dart';
 import '../../leave/presentation/view/leave.dart';
@@ -28,7 +27,7 @@ class _HomeState extends State<Home> {
     const Attendance(),
     const Leave(),
     PaySlip(),
-    MoreScreen()
+    const MoreScreen()
   ];
   onTap(int index) {
     setState(() {
@@ -37,14 +36,14 @@ class _HomeState extends State<Home> {
   }
   
 Future dialog(){
-    return CustomAlertDialog(
+    return customAlertDialog(
 
     );
 }
   @override
   Widget build(BuildContext context) {
 
-    List<BottomNavigationBarItem> _items = <BottomNavigationBarItem>[
+    List<BottomNavigationBarItem> items = <BottomNavigationBarItem>[
       BottomNavigationBarItem(
           icon: _icon(icon: Icons.watch_later_outlined),
           activeIcon: _icon(icon: Icons.watch_later),
@@ -79,7 +78,7 @@ Future dialog(){
               selectedFontSize: Dimensions.fontSizeDefault - 1,
               unselectedFontSize: Dimensions.fontSizeDefault - 1,
               showUnselectedLabels: true,
-              items: _items,
+              items: items,
               elevation: 3,
               backgroundColor: AppColor.backgroundColor,
               currentIndex: currentIndex,

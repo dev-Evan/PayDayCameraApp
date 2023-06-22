@@ -4,10 +4,10 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class CustomButton extends StatelessWidget {
-  String text;
-  final onAction;
+  final String text;
+  final Function onAction;
 
-  CustomButton(this.text, this.onAction);
+  const CustomButton(this.text, this.onAction, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,7 @@ class CustomButton extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
-              ),
-              primary: AppColor.primaryColor,
+              ), backgroundColor: AppColor.primaryColor,
               elevation: 0),
           child: Text(
             text,
@@ -31,14 +30,14 @@ class CustomButton extends StatelessWidget {
 }
 
 class CustomSmallButton extends StatelessWidget {
-  String text;
-  final onAction;
+  final String text;
+  final Function onAction;
 
-  CustomSmallButton(this.text, this.onAction);
+  const CustomSmallButton(this.text, this.onAction, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width / 3,
       height: MediaQuery.of(context).size.height / 18,
       child: ElevatedButton(
@@ -46,8 +45,7 @@ class CustomSmallButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
-            ),
-            primary: AppColor.primaryColor,
+            ), backgroundColor: AppColor.primaryColor,
             elevation: 0),
         child: Text(
           text,

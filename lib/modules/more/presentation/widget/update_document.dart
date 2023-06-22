@@ -20,13 +20,13 @@ import '../../../../common/widget/success_snakbar.dart';
 import '../view/change_password.dart';
 
 class UpdateDocument extends StatelessWidget {
-  String? docUrl;
+  final String? docUrl;
 
-  UpdateDocument({Key? key, this.docUrl}) : super(key: key);
+  const UpdateDocument({Key? key, this.docUrl}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     print(docUrl.toString());
-    final _box = GetStorage();
+    final box = GetStorage();
     return Column(
       children: [
         bottomSheetAppbar(
@@ -44,7 +44,7 @@ class UpdateDocument extends StatelessWidget {
                 children: [
                   textFieldTitleText(titleText: AppString.text_name),
                   CustomTextField(
-                      hintText: _box.read(AppString.STORE_DOC_NAME_TEXT) ?? "",
+                      hintText: box.read(AppString.STORE_DOC_NAME_TEXT) ?? "",
                       inputType: TextInputType.text,
                       controller: Get.find<InputTextFieldController>()
                           .docFileNameController),
@@ -73,7 +73,7 @@ class UpdateDocument extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       _fileTitle(
-                                        text: _box.read(AppString
+                                        text: box.read(AppString
                                                 .STORE_DOC_NAME_TEXT) ??
                                             "",
                                       ),
@@ -186,7 +186,7 @@ Widget _dottedBorder({required child}) {
     radius: Radius.circular(Dimensions.radiusMid),
     color: AppColor.disableColor,
     strokeCap: StrokeCap.square,
-    dashPattern: [8, 6],
+    dashPattern: const [8, 6],
     strokeWidth: AppLayout.getWidth(2),
     child: SizedBox(
       height: AppLayout.getHeight(120),

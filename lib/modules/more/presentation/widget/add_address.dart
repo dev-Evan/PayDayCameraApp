@@ -18,7 +18,7 @@ import '../controller/common_controller/county_pickar_controller.dart';
 
 class AddAddress extends StatelessWidget {
   final String typeText;
-  AddAddress(this.typeText);
+  AddAddress(this.typeText, {super.key});
 
   final _formKey = GlobalKey<FormState>();
   final CountryPickerController _controller = Get.put(CountryPickerController());
@@ -57,9 +57,6 @@ class AddAddress extends StatelessWidget {
                         }else{
                           return null;
                         }
-
-
-                        return null;
                       },
                     ),
                   ],

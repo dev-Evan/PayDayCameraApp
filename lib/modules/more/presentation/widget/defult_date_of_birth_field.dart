@@ -38,7 +38,7 @@ Widget dateOfBirthField({required context}) {
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
         ),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColor.solidGray, width: 1.0),
+            borderSide: const BorderSide(color: AppColor.solidGray, width: 1.0),
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
         border: OutlineInputBorder(
           borderSide: const BorderSide(width: 0.0, color: AppColor.solidGray),

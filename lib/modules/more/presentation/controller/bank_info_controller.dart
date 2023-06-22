@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -51,7 +50,7 @@ class MoreDataController extends GetxController with StateMixin {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => BankDetails(),
+          builder: (BuildContext context) => const BankDetails(),
         ),
       );
       getBankInfo();
@@ -105,7 +104,7 @@ class MoreDataController extends GetxController with StateMixin {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => BankDetails(),
+          builder: (BuildContext context) => const BankDetails(),
         ),
       );
       getBankInfo();

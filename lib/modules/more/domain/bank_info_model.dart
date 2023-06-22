@@ -14,7 +14,7 @@ class BankInfoModel {
   BankInfoModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
 }
@@ -57,15 +57,15 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['code'] = this.code;
-    data['branch_name'] = this.branchName;
-    data['account_title'] = this.accountTitle;
-    data['account_holder_name'] = this.accountHolderName;
-    data['account_number'] = this.accountNumber;
-    data['tax_payer_id'] = this.taxPayerId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['code'] = code;
+    data['branch_name'] = branchName;
+    data['account_title'] = accountTitle;
+    data['account_holder_name'] = accountHolderName;
+    data['account_number'] = accountNumber;
+    data['tax_payer_id'] = taxPayerId;
     return data;
   }
 }

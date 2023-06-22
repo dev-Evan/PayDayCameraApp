@@ -33,6 +33,6 @@ class LogoutController extends GetxController with StateMixin {
 
 }
 Future waitingLoader(){
-  return Get.dialog(Center(child: CircularProgressIndicator()));
+  return Get.dialog(const Center(child: CircularProgressIndicator()));
 
 }

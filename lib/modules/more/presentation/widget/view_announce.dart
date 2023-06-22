@@ -12,7 +12,7 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 class ViewAnnounce extends StatefulWidget {
   final String text;
   final int maxLength;
-  ViewAnnounce({required this.text, required this.maxLength});
+  const ViewAnnounce({super.key, required this.text, required this.maxLength});
   @override
   State<ViewAnnounce> createState() => _ViewAnnounceState();
 }
@@ -24,13 +24,13 @@ class _ViewAnnounceState extends State<ViewAnnounce> {
     final isTextOverflowed = widget.text.length > widget.maxLength;
 
     return Scaffold(
-      appBar: CustomAppbar(),
+      appBar: const CustomAppbar(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           customMoreAppbar(titleText: AppString.text_announcement),
           Container(
-            margin: EdgeInsets.all(20),
+            margin: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -145,7 +145,7 @@ Widget _cardDisText({required desText,required onAction,required readMoreText}){
     margin:  EdgeInsets.only(top: AppLayout.getHeight(12)),
     child: Row(
       children: [
-        Text("${desText}",textAlign: TextAlign.justify,style:disTextStyle ,),
+        Text("$desText",textAlign: TextAlign.justify,style:disTextStyle ,),
         textButton(onAction: onAction,text: readMoreText),
       ],
     ),

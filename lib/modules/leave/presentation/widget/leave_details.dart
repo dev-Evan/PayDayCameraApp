@@ -17,12 +17,11 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/common/controller/downloader_helper.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../common/widget/custom_app_button.dart';
 
 class LeaveDetails extends GetView<LeaveController> {
-  LeaveDetails({Key? key}) : super(key: key);
+  const LeaveDetails({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +190,7 @@ downloadFile({required String url}) async {
   final status = await Permission.storage.request();
   if (status.isGranted) {
     final baseStorage = await getExternalStorageDirectory();
-    final id = await FlutterDownloader.enqueue(
+   await FlutterDownloader.enqueue(
       url: url,
       savedDir: baseStorage!.path,
       fileName: "File",

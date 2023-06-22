@@ -13,6 +13,8 @@ class MapSample extends GetView<AttendanceController> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
+  MapSample({super.key});
+
   @override
   Widget build(BuildContext context) {
     double lat = controller.lat.value;

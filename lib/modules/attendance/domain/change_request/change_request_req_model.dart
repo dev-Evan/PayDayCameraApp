@@ -6,8 +6,7 @@ class ChangeRequestReqModel {
   ChangeRequestReqModel(
       { String? inTime,
         String? outTime,
-        String? note}) {
-  }
+        String? note});
 
 
   @override

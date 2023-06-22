@@ -40,7 +40,7 @@ class DocumentUploadRepo{
 
 
       if (response.statusCode == 200) {
-        print("Called ::: ${response}");
+        print("Called ::: $response");
         Get.back();
         print(AppString.text_document_upload_successfully);
         Get.find<DocumentController>().getDocumentData();

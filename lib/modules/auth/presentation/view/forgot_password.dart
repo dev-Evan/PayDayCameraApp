@@ -9,15 +9,15 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class forgotScreen extends StatefulWidget {
-  const forgotScreen({Key? key}) : super(key: key);
+class ForgotScreen extends StatefulWidget {
+  const ForgotScreen({Key? key}) : super(key: key);
 
   @override
-  State<forgotScreen> createState() => _forgotScreenState();
+  State<ForgotScreen> createState() => _ForgotScreenState();
 }
 
-class _forgotScreenState extends State<forgotScreen> {
-  TextEditingController _emailController = TextEditingController();
+class _ForgotScreenState extends State<ForgotScreen> {
+  final TextEditingController _emailController = TextEditingController();
 
   bool isleft = false;
 
@@ -29,7 +29,7 @@ class _forgotScreenState extends State<forgotScreen> {
 
   @override
   void initState() {
-    Future.delayed(Duration(milliseconds: 100), () {
+    Future.delayed(const Duration(milliseconds: 100), () {
       leftRight();
     });
     super.initState();
@@ -37,8 +37,8 @@ class _forgotScreenState extends State<forgotScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double _height = MediaQuery.of(context).size.height / 5;
-    double _width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height / 5;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
       body: SafeArea(
@@ -48,9 +48,9 @@ class _forgotScreenState extends State<forgotScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                    height: _height,
-                    width: _width,
+                SizedBox(
+                    height: height,
+                    width: width,
                     child: Stack(
                       children: [
                         Padding(
@@ -60,7 +60,7 @@ class _forgotScreenState extends State<forgotScreen> {
                               top: AppLayout.getHeight(20),
                               bottom: AppLayout.getHeight(20)),
                           child: AnimatedContainer(
-                            duration: Duration(milliseconds: 400),
+                            duration: const Duration(milliseconds: 400),
                             alignment: isleft
                                 ? Alignment.topCenter
                                 : Alignment.topRight,

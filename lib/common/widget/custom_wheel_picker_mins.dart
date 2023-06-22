@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
 import '../../utils/app_color.dart';
 import '../../utils/app_style.dart';
 
 class CustomWheelPickerMins extends StatefulWidget {
-  List list;
-  var controller;
+  final List list;
+  final  DateTimeController controller;
 
-  CustomWheelPickerMins(
+  const CustomWheelPickerMins(
       {Key? key, required this.list, required this.controller})
       : super(key: key);
 

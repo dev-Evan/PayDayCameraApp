@@ -36,7 +36,7 @@ Widget profileCard({required nameText, required userEmail, required payslipId}) 
             style: AppStyle.small_text.copyWith(color: AppColor.normalTextColor),
           ),
           Text(
-            "${payslipId}",
+            "$payslipId",
             style: AppStyle.small_text.copyWith(color: AppColor.hintColor),
           ),
         ],

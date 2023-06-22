@@ -64,7 +64,7 @@ class Leave extends GetView<LeaveController> {
 
   _leaveAllowanceLayout() {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: AppColor.primaryColor,
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(12),
@@ -76,7 +76,7 @@ class Leave extends GetView<LeaveController> {
               context: Get.context!,
               text: AppString.text_leave_records,
               onAction: () async {
-                CustomNavigator(
+                customNavigator(
                     context: Get.context!, pageName: const LeaveRecordsView());
                 await Get.find<LeaveController>().getLeaveSummary();
                 await Get.find<LeaveController>()
@@ -111,7 +111,7 @@ class Leave extends GetView<LeaveController> {
                       color: AppColor.cardColor.withOpacity(0.1),
                       border: Border.all(
                           width: 1, color: AppColor.cardColor.withOpacity(0.2)),
-                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                      borderRadius: const BorderRadius.all(Radius.circular(8))),
                   child: Column(children: [
                     _titleLayout(data),
                     customSpacerHeight(height: 20),
@@ -151,7 +151,7 @@ class Leave extends GetView<LeaveController> {
   _allowanceDetails(Data data) {
     return GridView(
       shrinkWrap: true,
-      padding: EdgeInsets.all(0),
+      padding: const EdgeInsets.all(0),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 8,

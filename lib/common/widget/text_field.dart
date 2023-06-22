@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -8,10 +6,10 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class CustomTextField extends StatelessWidget {
   final String hintText;
-  final inputType;
-  final controller;
+  final dynamic inputType;
+  final dynamic controller;
   final String? Function(String?)? validator;
-  CustomTextField({
+  const CustomTextField({
     Key? key,
     required this.hintText,
     this.validator,
@@ -57,7 +55,7 @@ class CustomTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault + 2),
           ),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColor.solidGray),
+              borderSide: const BorderSide(color: AppColor.solidGray),
               borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
           border: OutlineInputBorder(
             borderSide:
@@ -72,11 +70,11 @@ class CustomTextField extends StatelessWidget {
 
 class CustomPasswordTextField extends StatefulWidget {
   final String hintText;
-  final inputType;
-  final controller;
+  final dynamic inputType;
+  final dynamic controller;
   final String? Function(String?)? validator;
 
-  CustomPasswordTextField({
+  const CustomPasswordTextField({
     Key? key,
     required this.hintText,
     this.validator,
@@ -140,7 +138,7 @@ class _CustomTextFeildState extends State<CustomPasswordTextField> {
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault + 2),
           ),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColor.solidGray),
+              borderSide: const BorderSide(color: AppColor.solidGray),
               borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
           border: OutlineInputBorder(
             borderSide:

@@ -21,6 +21,8 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/utils.dart';
 
 class ViewProfile extends GetView<ProfileDataController> {
+  const ViewProfile({super.key});
+
   @override
   Widget build(BuildContext context) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -82,7 +84,7 @@ class ViewProfile extends GetView<ProfileDataController> {
                       .value
                       .text = _dateFormat;
 
-                  CustomNavigator(context: context, pageName: EditProfile());
+                  customNavigator(context: context, pageName: const EditProfile());
                 }),
             customSpacerHeight(height: 10),
             Obx(
@@ -110,7 +112,7 @@ class ViewProfile extends GetView<ProfileDataController> {
                 customSpacerHeight(height: 20),
                 moveChangePassword(
                     context: context,
-                    onAction: () => CustomNavigator(
+                    onAction: () => customNavigator(
                         context: context, pageName: ChangePassword())),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -218,7 +220,7 @@ class ViewProfile extends GetView<ProfileDataController> {
             ),
           ],
         ),
-      ),onLoading: LoadingIndicator()),
+      ),onLoading: const LoadingIndicator()),
     );
   }
 }

@@ -12,6 +12,8 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 
 class EditBankInfo extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
+
+  EditBankInfo({super.key});
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -142,7 +144,7 @@ class EditBankInfo extends StatelessWidget {
               customDoubleButton(
                   context: context,
                   elevatedBtnText:
-                  '${AppString.text_save}',
+                  AppString.text_save,
                   textBtnText: AppString.text_cancel,
                   textButtonAction: () => Get.back(),
                   elevatedButtonAction: () {

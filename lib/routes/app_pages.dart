@@ -6,7 +6,6 @@ import '../modules/attendance/presentation/view/attendance_logs.dart';
 import '../modules/auth/presentation/view/forgot_password.dart';
 import '../modules/auth/presentation/view/sign_in.dart';
 import '../modules/home/presentation/home.dart';
-import '../modules/leave/domain/leave_allowance.dart';
 import '../modules/leave/presentation/view/leave.dart';
 import '../modules/more/presentation/view/about_this_app.dart';
 import '../modules/more/presentation/view/address_details.dart';
@@ -40,12 +39,12 @@ class AppPages {
         page: () => const SignInScreen()),
     GetPage(
       name: _Paths.FORGOT_PASSWORD,
-      page: () => const forgotScreen(),
+      page: () => const ForgotScreen(),
     ),
     GetPage(
       transition: Transition.cupertino,
       name: _Paths.ONBOARD_SCREEN,
-      page: () => OnboardingScreen(),
+      page: () => const OnboardingScreen(),
     ),
     GetPage(
       transition: Transition.cupertino,
@@ -55,7 +54,7 @@ class AppPages {
     GetPage(
       transition: Transition.cupertino,
       name: _Paths.MORE_SCREEN,
-      page: () => MoreScreen(),
+      page: () => const MoreScreen(),
     ),
     GetPage(
       transition: Transition.cupertino,
@@ -81,27 +80,27 @@ class AppPages {
       page: () => const SignInScreen()),
     GetPage(
       name: _Paths.UPDATE_DOCUMENT,
-      page: () =>  UpdateDocument(),
+      page: () =>  const UpdateDocument(),
     ),
     GetPage(
       name: _Paths.DOCUMENT_SCREEN,
       transition: Transition.rightToLeft,
-      page: () => DocumentScreen(),
+      page: () => const DocumentScreen(),
     ),
     GetPage(
       name: _Paths.JOB_HISTORY,
       transition: Transition.rightToLeft,
-      page: () => JodHistory(),
+      page: () => const JodHistory(),
     ),
     GetPage(
       name: _Paths.SALARY_OVERVIEW,
       transition: Transition.rightToLeft,
-      page: () => SalaryOverView(),
+      page: () => const SalaryOverView(),
     ),
     GetPage(
       name: _Paths.ADDRESS_DETAILS,
       transition: Transition.rightToLeft,
-      page: () => AddressDetails(),
+      page: () => const AddressDetails(),
     ),
     GetPage(
       name: _Paths.ABOUT_PAGE,
@@ -111,27 +110,27 @@ class AppPages {
     GetPage(
       name: _Paths.PAYRAN_BAGE,
       transition: Transition.rightToLeft,
-      page: () => PayRunBadge(),
+      page: () => const PayRunBadge(),
     ),
 
     GetPage(
       name: _Paths.NOTIFICATION_SCREEN,
       transition: Transition.rightToLeft,
-      page: () => Notifications(),
+      page: () => const Notifications(),
     ),
     GetPage(
       name: _Paths.BANK_DETAILS,
       transition: Transition.rightToLeft,
-      page: () => BankDetails(),
+      page: () => const BankDetails(),
     ),
     GetPage(
       name: _Paths.ANNOUNCE_SCREEN,
       transition: Transition.rightToLeft,
-      page: () => AnnounceScreen(),
+      page: () => const AnnounceScreen(),
     ), GetPage(
       name: _Paths.LEAVE_ALLOWANCE_SCREEN,
       transition: Transition.rightToLeft,
-      page: () => LeaveAllowanceScreen(),
+      page: () => const LeaveAllowanceScreen(),
     ),
 
   ];

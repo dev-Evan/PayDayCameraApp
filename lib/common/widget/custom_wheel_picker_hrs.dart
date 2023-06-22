@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
 import '../../utils/app_color.dart';
 import '../../utils/app_style.dart';
 
 class CustomWheelPickerHrs extends StatefulWidget {
-  List list;
-  var controller;
+  final List list;
+  final DateTimeController controller;
 
-  CustomWheelPickerHrs(
+  const CustomWheelPickerHrs(
       {super.key, required this.list, required this.controller});
 
   @override

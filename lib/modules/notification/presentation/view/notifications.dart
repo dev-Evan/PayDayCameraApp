@@ -23,7 +23,7 @@ class Notifications extends GetView<NotificationController> {
                   controller: controller.scrollController,
                   children: [
                     _notificationAppbar(),
-                    controller.allNotifications.length == 0
+                    controller.allNotifications.isEmpty
                         ? SizedBox(
                             height: AppLayout.getSize(context).height -
                                 Get.statusBarHeight,
@@ -55,8 +55,8 @@ class Notifications extends GetView<NotificationController> {
                 ),
               )),
           Obx(() => controller.isMoreDataLoading.isTrue
-              ? Center(
-                  child: const CircularProgressIndicator(),
+              ? const Center(
+                  child: CircularProgressIndicator(),
                 )
               : Container())
         ],
@@ -96,7 +96,7 @@ class Notifications extends GetView<NotificationController> {
         onPressed: () {
           Get.back();
         },
-        icon: Icon(
+        icon: const Icon(
           Icons.arrow_back,
           color: Colors.black,
         ),

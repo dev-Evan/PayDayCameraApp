@@ -24,7 +24,7 @@ import '../widget/document_view.dart';
 import '../widget/documents_appbar.dart';
 
 class DocumentScreen extends GetView<DocumentController> {
-  DocumentScreen({Key? key}) : super(key: key);
+  const DocumentScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class DocumentScreen extends GetView<DocumentController> {
                                           itemBuilder: (BuildContext context,
                                               int index) {
                                             return InkWell(
-                                              onTap: () => CustomNavigator(
+                                              onTap: () => customNavigator(
                                                   context: context,
                                                   pageName: _selectedPage(
                                                       fullUrl: controller
@@ -206,7 +206,7 @@ class DocumentScreen extends GetView<DocumentController> {
 
   Widget _cardImage({required imageUrl}) {
     GetStorage().write("key", imageUrl);
-    return Container(
+    return SizedBox(
       height: AppLayout.getHeight(66),
       child: ClipRRect(
         borderRadius: BorderRadius.only(
@@ -333,7 +333,7 @@ Widget _cardImgTitle(
 }
 
 Widget _editDeletedActionRow({required context, required id, required docUrl}) {
-  final _box = GetStorage();
+  final box = GetStorage();
   return Row(
     children: [
       InkWell(
@@ -343,7 +343,7 @@ Widget _editDeletedActionRow({required context, required id, required docUrl}) {
                 context: context,
                 height: 0.9,
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: UpdateDocument(
                     docUrl: docUrl,
                   ),
@@ -360,9 +360,9 @@ Widget _editDeletedActionRow({required context, required id, required docUrl}) {
           }
 
           Get.find<UpdateDocumentController>().filePath.value = docUrl;
-          _box.write(AppString.STORE_DOC_Id, id);
+          box.write(AppString.STORE_DOC_Id, id);
           Get.find<InputTextFieldController>().docFileNameController.text =
-              _box.read(AppString.STORE_DOC_NAME_TEXT) ?? "";
+              box.read(AppString.STORE_DOC_NAME_TEXT) ?? "";
         },
         child: _iconShape(icon: Icons.edit, text: AppString.text_edit),
       ),
@@ -374,7 +374,7 @@ Widget _editDeletedActionRow({required context, required id, required docUrl}) {
           } else {
             Navigator.pop(context);
           }
-          _box.write(AppString.STORE_DOC_Id, id);
+          box.write(AppString.STORE_DOC_Id, id);
           Get.find<DocumentController>().deletedDocumentApi();
         },
         child: _iconShape(icon: Icons.delete, text: AppString.text_deleted),

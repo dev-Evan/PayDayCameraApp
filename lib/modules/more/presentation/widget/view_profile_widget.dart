@@ -50,7 +50,7 @@ Widget circleAvatarStyle({final userImage}) {
       Container(
         height: AppLayout.getHeight(74),
         width: AppLayout.getWidth(74),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.transparent,
         ),

@@ -3,7 +3,6 @@ import 'package:get/get_connect/http/src/status/http_status.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pay_day_mobile/modules/more/domain/change_password.dart';
-import 'package:pay_day_mobile/modules/more/domain/change_profile_img.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:http/http.dart' as http;

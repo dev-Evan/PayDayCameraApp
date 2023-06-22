@@ -33,7 +33,7 @@ class ProfileDataController extends GetxController with StateMixin {
     change(null, status: RxStatus.loading());
     await profileDataRepository.getUserProfileData().then((value) {
       userProfile = value;
-      print('User profile called ::: ${value}');
+      print('User profile called ::: $value');
     }, onError: (e) {
       print('User profile called ::: ${e.message}');
     });

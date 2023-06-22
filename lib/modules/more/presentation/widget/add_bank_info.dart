@@ -12,6 +12,8 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 
 class AddBankInfo extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
+
+  AddBankInfo({super.key});
   @override
   Widget build(BuildContext context) {
     return Form(

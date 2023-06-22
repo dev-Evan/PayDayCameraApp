@@ -6,11 +6,7 @@ import 'package:pay_day_mobile/modules/leave/presentation/widget/apply_lev_popup
 import 'package:pay_day_mobile/modules/leave/presentation/widget/pop_up_dialog.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/custom_text_field_dob.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
-import 'package:pay_day_mobile/utils/app_color.dart';
-import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import 'package:pay_day_mobile/utils/app_style.dart';
-import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class ApplyLeaveDobMultiDay extends GetView<LeaveController> {
   const ApplyLeaveDobMultiDay({Key? key}) : super(key: key);

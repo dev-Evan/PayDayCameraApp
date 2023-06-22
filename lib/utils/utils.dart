@@ -69,6 +69,6 @@ class Util {
     return "";
   }
 }
-Future<Null> FutureDelayed({required onAction}) {
-  return Future.delayed(Duration(seconds: 1), () => onAction());
+Future<void> FutureDelayed({required onAction}) {
+  return Future.delayed(const Duration(seconds: 1), () => onAction());
 }

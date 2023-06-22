@@ -8,13 +8,13 @@ class SummaryModel {
   SummaryModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -29,13 +29,13 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     summary =
-    json['summary'] != null ? new Summary.fromJson(json['summary']) : null;
+    json['summary'] != null ? Summary.fromJson(json['summary']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.summary != null) {
-      data['summary'] = this.summary!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (summary != null) {
+      data['summary'] = summary!.toJson();
     }
     return data;
   }
@@ -55,10 +55,10 @@ class Summary {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total'] = this.total;
-    data['sent'] = this.sent;
-    data['conflicted'] = this.conflicted;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['total'] = total;
+    data['sent'] = sent;
+    data['conflicted'] = conflicted;
     return data;
   }
 }

@@ -14,7 +14,7 @@ import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../utils/utils.dart';
 
 class PayRunBadgeView extends GetView<PayrunBadgeController> {
-  PayRunBadgeView({Key? key}) : super(key: key);
+  const PayRunBadgeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -119,8 +119,7 @@ class PayRunBadgeView extends GetView<PayrunBadgeController> {
                                                                   .allowance[
                                                                       index]
                                                                   .amount
-                                                                  .toString() ??
-                                                              "",
+                                                                  .toString(),
                                                           isPercentage:
                                                               controller
                                                                   .allowance[
@@ -194,8 +193,7 @@ class PayRunBadgeView extends GetView<PayrunBadgeController> {
                                                                   .defaultAllowance[
                                                                       index]
                                                                   .amount
-                                                                  .toString() ??
-                                                              "",
+                                                                  .toString(),
                                                           isPercentage: controller
                                                               .defaultAllowance[
                                                                   index]

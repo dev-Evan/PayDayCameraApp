@@ -9,7 +9,6 @@ import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_l
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../../common/widget/loading_indicator.dart';
 import '../../../../utils/app_style.dart';
@@ -85,16 +84,16 @@ class Attendance extends GetView<AttendanceController> {
   _upperLayout() => Obx(() => Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(16),
               bottomRight: Radius.circular(16)),
           gradient: controller.logs.value.data != null &&
                   controller.logs.value.data!.todayOvertime.toDouble() > 0
-              ? LinearGradient(colors: [
+              ? const LinearGradient(colors: [
                   AppColor.overTimeGradientOne,
                   AppColor.overTimeGradientTwo
                 ])
-              : LinearGradient(colors: [
+              : const LinearGradient(colors: [
                   AppColor.balanceTimeGradientOne,
                   AppColor.balanceTimeGradientTwo
                 ]),
@@ -131,7 +130,7 @@ class Attendance extends GetView<AttendanceController> {
                           .getAllFilteredLogSummary();
                       Get.find<AttendanceLogsController>()
                           .getLogSummaryOverview();
-                      CustomNavigator(
+                      customNavigator(
                           context: Get.context!,
                           pageName: const AttendanceLogsScreen());
                     }),

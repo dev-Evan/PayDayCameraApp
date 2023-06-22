@@ -7,7 +7,7 @@ import 'attendance_controller.dart';
 class BreakController extends GetxController {
   final AttendanceDataRepository _attendanceDataRepository =
       AttendanceDataRepository(NetworkClient());
-  final selectedIndex = 100.obs;
+  final RxInt selectedIndex = 100.obs;
 
   Timer timer = Timer(Duration.zero, () {});
   Rx<Duration> duration = const Duration().obs;
@@ -36,7 +36,7 @@ class BreakController extends GetxController {
 
   void stopTimer() async {
     timer.cancel();
-    duration.value=Duration();
+    duration.value=const Duration();
   }
 
   void _timer() {

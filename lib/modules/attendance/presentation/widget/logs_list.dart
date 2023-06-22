@@ -18,7 +18,9 @@ import '../../../../enum/status.dart';
 import '../view/log_details_bottomsheet.dart';
 
 class LogsList extends GetView<AttendanceLogsController> {
-  RxBool isExpanded = false.obs;
+  final RxBool isExpanded = false.obs;
+
+  LogsList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +126,7 @@ class LogsList extends GetView<AttendanceLogsController> {
               ),
             ],
           ),
-          CustomDiveider(25, 1),
+          customDivider(25, 1),
         ],
       );
 

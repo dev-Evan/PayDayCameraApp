@@ -18,7 +18,7 @@ import '../../../../common/widget/custom_app_button.dart';
 class EditAttendanceBottomSheet extends StatefulWidget {
   final LogDetails logDetailsById;
 
-  EditAttendanceBottomSheet(this.logDetailsById, {super.key});
+  const EditAttendanceBottomSheet(this.logDetailsById, {super.key});
 
   @override
   State<EditAttendanceBottomSheet> createState() =>
@@ -196,10 +196,10 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
           hintStyle: AppStyle.normal_text
               .copyWith(color: AppColor.solidGray, fontWeight: FontWeight.w400),
           focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColor.primaryColor),
+              borderSide: const BorderSide(color: AppColor.primaryColor),
               borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColor.solidGray),
+              borderSide: const BorderSide(color: AppColor.solidGray),
               borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
           border: const OutlineInputBorder(
               borderSide: BorderSide(color: AppColor.solidGray))),

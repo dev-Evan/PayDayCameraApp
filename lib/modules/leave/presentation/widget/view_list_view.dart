@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
@@ -22,7 +22,7 @@ Widget viewListViewLayout() {
           child: ListView.separated(
             separatorBuilder: (context, index) => Padding(
               padding: EdgeInsets.only(top: AppLayout.getHeight(20)),
-              child: CustomDiveider(
+              child: customDivider(
                   AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
             ),
             itemCount: data.leaveRecords!.length,
@@ -59,7 +59,7 @@ _leaves({required List<Leaves> leaves}) {
     separatorBuilder: (context, index) => customSpacerHeight(height: 20),
     itemBuilder: (context, index) => InkWell(
       onTap: () async {
-        customButtonSheet(context: context, height: 0.9, child: LeaveDetails());
+        customButtonSheet(context: context, height: 0.9, child: const LeaveDetails());
         await Get.find<LeaveController>()
             .getILeaveDetails(id: leaves[index].id!);
       },
@@ -91,7 +91,7 @@ _leaves({required List<Leaves> leaves}) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                CustomDiveider(25, 0.5),
+                customDivider(25, 0.5),
                 customSpacerWidth(width: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

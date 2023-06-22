@@ -31,7 +31,7 @@ Widget CustomTextFieldDob(
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
           ),
           enabledBorder:  OutlineInputBorder(
-            borderSide: BorderSide(color: AppColor.solidGray, width: 1.0),
+            borderSide: const BorderSide(color: AppColor.solidGray, width: 1.0),
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault)
           ),
 

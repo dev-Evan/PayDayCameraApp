@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:intl_phone_field/phone_number.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
@@ -345,7 +344,7 @@ Widget countyField({context, onAction, String? Function(String?)? validator,requ
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault + 2),
         ),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColor.solidGray),
+            borderSide: const BorderSide(color: AppColor.solidGray),
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
         border: OutlineInputBorder(
           borderSide:
@@ -363,10 +362,10 @@ Widget phoneAndCountyField({required TextEditingController controller,final Stri
       decoration: InputDecoration(
         labelText: AppString.text_not_added_yet,
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColor.solidGray),
+            borderSide: const BorderSide(color: AppColor.solidGray),
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
         border: OutlineInputBorder(
-            borderSide: BorderSide(width: 0.0, color: AppColor.disableColor),
+            borderSide: const BorderSide(width: 0.0, color: AppColor.disableColor),
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
       ),
       controller:controller

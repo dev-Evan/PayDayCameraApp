@@ -12,9 +12,6 @@ import 'package:pay_day_mobile/modules/leave/domain/leave_record.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_summary.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_type.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
-
-import '../../../../common/domain/success_model.dart';
 
 class LeaveController extends GetxController with StateMixin {
   final LeaveRepository _leaveRepository = LeaveRepository(NetworkClient());
@@ -84,9 +81,8 @@ class LeaveController extends GetxController with StateMixin {
     await _leaveRepository.getLeaveType().then((LeaveType value) {
       print("getLeaveType ::: called");
       leaveType.clear();
-      leaveType = Map.fromIterable(value.data!,
-          key: (key) => key.id, value: (value) => value.name);
-      print("list data::: ${leaveType}");
+      leaveType = { for (var e in value.data!) e.id : e.name??'' };
+      print("list data::: $leaveType");
     }, onError: (error) => print("getLeaveType ${error.message}"));
 
     change(null, status: RxStatus.success());
@@ -102,7 +98,6 @@ class LeaveController extends GetxController with StateMixin {
     }, onError: (error) => print("getIndividualLeaveList ${error.message}"));
 
     isValueLoading.value = false;
-    ;
   }
 
   getILeaveDetails({required int id}) async {
@@ -152,7 +147,7 @@ class LeaveController extends GetxController with StateMixin {
       returnValue = true;
     }, onError: (error) {
       showCustomSnackBar(message: "${error.message}");
-      print("getILeaveDetails ${error}");
+      print("getILeaveDetails $error");
       returnValue = false;
     });
 

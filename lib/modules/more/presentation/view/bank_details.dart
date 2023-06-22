@@ -135,7 +135,7 @@ class BankDetails extends GetView<MoreDataController> {
                                   ],
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               _addBankInfo(onAction: () {
                                 customButtonSheet(
                                     context: context,
@@ -148,7 +148,7 @@ class BankDetails extends GetView<MoreDataController> {
                   ],
                 ),
               ),
-          onLoading: LoadingIndicator()),
+          onLoading: const LoadingIndicator()),
     );
   }
 }
@@ -258,7 +258,7 @@ Widget _editDeleteBtn({required context, onAction, required editAction}) {
 }
 
 Future _deletedAlert({required context, onAction}) {
-  return CustomAlertDialog(
+  return customAlertDialog(
       context: context,
       icon: CupertinoIcons.delete,
       backAction: () {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
-import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_divider.dart';
 import 'package:pay_day_mobile/enum/range_calendar_method_imp.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/selected_range_calender.dart';
@@ -88,7 +87,7 @@ Future _openBottomSheet() {
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     context: Get.context!,
-    builder: (context) => SelectRangeCalender(
+    builder: (context) => const SelectRangeCalender(
       rangeCalendarMethodImp: RangeCalendarMethodImp.VIEW_HOLIDAY,
     ),
   );
@@ -126,7 +125,7 @@ Widget holidaysList() {
                       ),
                     ],
                   ),
-                  CustomDiveider(25, 1),
+                  customDivider(25, 1),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -178,7 +177,7 @@ Widget holidaysList() {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 12.0),
-              child: CustomDiveider(
+              child: customDivider(
                   AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
             )
           ],

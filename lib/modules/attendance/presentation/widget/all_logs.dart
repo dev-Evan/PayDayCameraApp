@@ -120,7 +120,7 @@ class AllLogsScreen extends GetView<AttendanceLogsController> {
         Expanded(child: LogsList()),
         Obx(
           () => controller.isMoreDataLoading.isTrue
-              ? Center(
+              ? const Center(
             child: CircularProgressIndicator(),
           )
               : Container(),
@@ -136,7 +136,7 @@ class AllLogsScreen extends GetView<AttendanceLogsController> {
       backgroundColor: Colors.transparent,
       context: Get.context!,
       builder: (context) =>
-          SelectRangeCalender(
+          const SelectRangeCalender(
               rangeCalendarMethodImp:
               RangeCalendarMethodImp.ALL_LOG),
     );

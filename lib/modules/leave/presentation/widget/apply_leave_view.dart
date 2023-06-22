@@ -106,10 +106,10 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
   }
 
   _leaveTypeDropDown() {
-    List<String> _leaveType = [];
+    List<String> leaveType = [];
     try {
       Get.find<LeaveController>().leaveType.values.forEach((element) {
-        _leaveType.add(element);
+        leaveType.add(element);
       });
     } catch (e) {
       print(e.toString());
@@ -135,7 +135,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
         ),
         value: dropdownValue,
         borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-        items: _leaveType.map<DropdownMenuItem<String>>((String value) {
+        items: leaveType.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: _hintText(

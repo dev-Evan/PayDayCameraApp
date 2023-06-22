@@ -17,12 +17,12 @@ import '../../../../common/controller/downloader_helper.dart';
 class PaySlipView extends GetView<PayslipViewController> {
   final indexVal;
 
-  PaySlipView({this.indexVal});
+  const PaySlipView({super.key, this.indexVal});
 
   @override
   Widget build(BuildContext context) {
     controller.getPayslipViewData();
-    final _box = GetStorage();
+    final box = GetStorage();
     return controller.obx(
             (state) =>
             SingleChildScrollView(
@@ -42,13 +42,13 @@ class PaySlipView extends GetView<PayslipViewController> {
                                   .data
                                   ?.fullName
                                   .toString() ??
-                              _box.read(AppString.USER_NAME),
+                              box.read(AppString.USER_NAME),
                           userEmail: Get.find<ProfileDataController>()
                                   .userProfile
                                   .data
                                   ?.email
                                   .toString() ??
-                              "${GetStorage().read(AppString.STORE_CURRENT_EMAIL).toString()}",
+                              GetStorage().read(AppString.STORE_CURRENT_EMAIL).toString(),
                           payslipId: controller.payslipViewModel.data?.payslip?.payslipId
                               .toString() ??
                               ""

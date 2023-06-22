@@ -8,13 +8,13 @@ class PayslipListModel {
   PayslipListModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -33,23 +33,23 @@ class Data {
     if (json['payslips'] != null) {
       payslips = <Payslips>[];
       json['payslips'].forEach((v) {
-        payslips!.add(new Payslips.fromJson(v));
+        payslips!.add(Payslips.fromJson(v));
       });
     }
-    links = json['links'] != null ? new Links.fromJson(json['links']) : null;
-    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
+    links = json['links'] != null ? Links.fromJson(json['links']) : null;
+    meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.payslips != null) {
-      data['payslips'] = this.payslips!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (payslips != null) {
+      data['payslips'] = payslips!.map((v) => v.toJson()).toList();
     }
-    if (this.links != null) {
-      data['links'] = this.links!.toJson();
+    if (links != null) {
+      data['links'] = links!.toJson();
     }
-    if (this.meta != null) {
-      data['meta'] = this.meta!.toJson();
+    if (meta != null) {
+      data['meta'] = meta!.toJson();
     }
     return data;
   }
@@ -111,23 +111,23 @@ class Payslips {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['payrun_id'] = this.payrunId;
-    data['date_in_number'] = this.dateInNumber;
-    data['month'] = this.month;
-    data['start_date'] = this.startDate;
-    data['end_date'] = this.endDate;
-    data['net_salary'] = this.netSalary;
-    data['basic_salary'] = this.basicSalary;
-    data['period'] = this.period;
-    data['consider_overtime'] = this.considerOvertime;
-    data['consider_type'] = this.considerType;
-    data['without_beneficiary'] = this.withoutBeneficiary;
-    data['conflicted'] = this.conflicted;
-    data['status_name'] = this.statusName;
-    data['status_class'] = this.statusClass;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_id'] = userId;
+    data['payrun_id'] = payrunId;
+    data['date_in_number'] = dateInNumber;
+    data['month'] = month;
+    data['start_date'] = startDate;
+    data['end_date'] = endDate;
+    data['net_salary'] = netSalary;
+    data['basic_salary'] = basicSalary;
+    data['period'] = period;
+    data['consider_overtime'] = considerOvertime;
+    data['consider_type'] = considerType;
+    data['without_beneficiary'] = withoutBeneficiary;
+    data['conflicted'] = conflicted;
+    data['status_name'] = statusName;
+    data['status_class'] = statusClass;
     return data;
   }
 }
@@ -135,8 +135,8 @@ class Payslips {
 class Links {
   String? first;
   String? last;
-  Null? prev;
-  Null? next;
+  String? prev;
+  String? next;
 
   Links({this.first, this.last, this.prev, this.next});
 
@@ -148,11 +148,11 @@ class Links {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['first'] = this.first;
-    data['last'] = this.last;
-    data['prev'] = this.prev;
-    data['next'] = this.next;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['first'] = first;
+    data['last'] = last;
+    data['prev'] = prev;
+    data['next'] = next;
     return data;
   }
 }
@@ -180,12 +180,12 @@ class Meta {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total'] = this.total;
-    data['count'] = this.count;
-    data['per_page'] = this.perPage;
-    data['current_page'] = this.currentPage;
-    data['total_pages'] = this.totalPages;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['total'] = total;
+    data['count'] = count;
+    data['per_page'] = perPage;
+    data['current_page'] = currentPage;
+    data['total_pages'] = totalPages;
     return data;
   }
 }

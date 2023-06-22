@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
@@ -119,7 +118,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
 BoxDecoration defaultTableDecoration = BoxDecoration(
     shape: BoxShape.rectangle,
     border: Border.all(color: Colors.transparent),
-    borderRadius: BorderRadius.all(Radius.circular(8)),
+    borderRadius: const BorderRadius.all(Radius.circular(8)),
     color: Colors.transparent);
 
 _individualDateLeaveRecordList() => Padding(
@@ -137,7 +136,7 @@ _individualDateLeaveRecordList() => Padding(
         itemBuilder: (context, index) => InkWell(
           onTap: () async {
             customButtonSheet(
-                context: Get.context!, height: 0.9, child: LeaveDetails());
+                context: Get.context!, height: 0.9, child: const LeaveDetails());
             await Get.find<LeaveController>().getILeaveDetails(
                 id: Get.find<LeaveController>()
                     .individualDateLeaveList

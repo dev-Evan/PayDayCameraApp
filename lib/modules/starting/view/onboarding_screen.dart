@@ -1,6 +1,5 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'dart:io';
 import 'package:get/get.dart';
@@ -17,6 +16,8 @@ import '../../../common/widget/success_snakbar.dart';
 import '../../../routes/app_pages.dart';
 
 class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
@@ -53,8 +54,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final ExitAppController _controller = Get.put(ExitAppController());
   @override
   Widget build(BuildContext context) {
-    double _height = MediaQuery.of(context).size.height / 5;
-    double _width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height / 5;
+    double width = MediaQuery.of(context).size.width;
     return WillPopScope(
       onWillPop: () =>_controller. willPop(),
       child: Scaffold(
@@ -67,8 +68,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               children: [
                 customSpacerHeight(height: 50),
                 SizedBox(
-                    height: _height,
-                    width: _width,
+                    height: height,
+                    width: width,
                     child: Stack(
                       children: [_headerLayout(isLeft: isleft)],
                     )),

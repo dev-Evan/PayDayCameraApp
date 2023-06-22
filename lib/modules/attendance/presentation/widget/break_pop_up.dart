@@ -36,20 +36,18 @@ Future breakPopUp() {
               ]),
           margin: EdgeInsets.symmetric(
               horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
-          child: Container(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _breakAppbar(),
-                customSpacerHeight(height: 20),
-                Obx(() => _timerLayout()),
-                Center(child: Obx(() => _breakTimes())),
-                customSpacerHeight(height: 20),
-                _buttonLayout(),
-                customSpacerHeight(height: 20)
-              ],
-            ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _breakAppbar(),
+              customSpacerHeight(height: 20),
+              Obx(() => _timerLayout()),
+              Center(child: Obx(() => _breakTimes())),
+              customSpacerHeight(height: 20),
+              _buttonLayout(),
+              customSpacerHeight(height: 20)
+            ],
           ),
         ),
       );
@@ -112,7 +110,7 @@ _timerLayout() {
         style: AppStyle.timer_text.copyWith(color: Colors.black),
       ),
       Text(
-        "$sec",
+        sec,
         style: AppStyle.timer_text.copyWith(color: Colors.black),
       )
     ],
@@ -149,7 +147,7 @@ _breakTimes() {
                           "",
                       style: AppStyle.small_text_black,
                     )),
-                    Icon(Icons.watch_later_outlined, size: 16),
+                    const Icon(Icons.watch_later_outlined, size: 16),
                     customSpacerWidth(width: 4),
                     Text(
                       Get.find<AttendanceController>()
@@ -214,6 +212,7 @@ _buttonLayout() {
                       .value
                       .breakTimeId ==
                   null) {
+                // ignore: unrelated_type_equality_checks
                 if (Get.find<BreakController>().selectedIndex != 100) {
                   print("break on hit");
                   //get log id from check punched in method from attendance controller

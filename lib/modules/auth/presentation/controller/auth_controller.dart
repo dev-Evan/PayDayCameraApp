@@ -24,7 +24,7 @@ class AuthController extends GetxController with StateMixin {
   }
 
   void logIn() {
-    Get.dialog(Center(child: CircularProgressIndicator()));
+    Get.dialog(const Center(child: CircularProgressIndicator()));
     try {
       _authDataSource.loginIntoAccount(emailController.text, passwordController.text)
           .then((value) {

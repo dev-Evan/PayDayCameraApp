@@ -10,8 +10,6 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
-import '../../../../common/widget/custom_buttom_sheet.dart';
 import '../../../../common/widget/custom_divider.dart';
 import '../../../../utils/app_string.dart';
 
@@ -106,6 +104,7 @@ class SummaryScreen extends GetView<AttendanceLogsController> {
       position: RelativeRect.fromLTRB(left, top, 0, 0),
       items: [
         PopupMenuItem<String>(
+          value: '',
           child: RichText(
             text: TextSpan(
               text: AppString.pop_up_scheduled_short,
@@ -117,9 +116,9 @@ class SummaryScreen extends GetView<AttendanceLogsController> {
               ],
             ),
           ),
-          value: '',
         ),
         PopupMenuItem<String>(
+          value: '',
           child: RichText(
             text: TextSpan(
               text: AppString.pop_up_paid_leave_short,
@@ -131,9 +130,9 @@ class SummaryScreen extends GetView<AttendanceLogsController> {
               ],
             ),
           ),
-          value: '',
         ),
         PopupMenuItem<String>(
+          value: '',
           child: RichText(
             text: TextSpan(
               text: AppString.pop_up_worked_short,
@@ -145,9 +144,9 @@ class SummaryScreen extends GetView<AttendanceLogsController> {
               ],
             ),
           ),
-          value: '',
         ),
         PopupMenuItem<String>(
+          value: '',
           child: RichText(
             text: TextSpan(
               text: AppString.pop_up_break_time_short,
@@ -159,9 +158,9 @@ class SummaryScreen extends GetView<AttendanceLogsController> {
               ],
             ),
           ),
-          value: '',
         ),
         PopupMenuItem<String>(
+          value: '',
           child: RichText(
             text: TextSpan(
               text: AppString.pop_up_balance_short,
@@ -173,7 +172,6 @@ class SummaryScreen extends GetView<AttendanceLogsController> {
               ],
             ),
           ),
-          value: '',
         ),
       ],
       elevation: 8.0,
@@ -240,7 +238,7 @@ _dateInfo(int index) {
                 : Container(),
           ],
         ),
-        CustomDiveider(25, 1),
+        customDivider(25, 1),
       ],
     ),
   );
@@ -325,7 +323,7 @@ Future _openBottomSheet() {
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     context: Get.context!,
-    builder: (context) => SelectRangeCalender(
+    builder: (context) => const SelectRangeCalender(
       rangeCalendarMethodImp: RangeCalendarMethodImp.LOG_SUMMARY,
     ),
   );
