@@ -18,7 +18,6 @@ import 'address_details_widget.dart';
 class EditAddress extends StatefulWidget {
   final String typeText;
   EditAddress(this.typeText);
-
   @override
   State<EditAddress> createState() => _EditAddressState();
 }
