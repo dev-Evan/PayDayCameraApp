@@ -4,6 +4,7 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/controller/connectivity_controller.dart';
 import 'package:pay_day_mobile/common/controller/downloader_helper.dart';
+import 'package:pay_day_mobile/common/controller/language_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_controller.dart';
@@ -33,15 +34,15 @@ Future<void> initApp() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize();
-
+  Get.put(LanguageController(), permanent: true);
   Get.put(ConnectivityController(), permanent: true);
   Get.lazyPut(() => DownloadHelper(), fenix: true);
-  Get.put(StatusController(),permanent: true);
-  Get.put(SettingController(),permanent: true);
+  Get.put(StatusController(), permanent: true);
+  Get.put(SettingController(), permanent: true);
   Get.put(ConnectivityController(), permanent: true);
   Get.lazyPut(() => AttendanceController(), fenix: true);
   Get.lazyPut(() => AttendanceLogsController(), fenix: true);
-  Get.lazyPut(() => LeaveController(),fenix: true);
+  Get.lazyPut(() => LeaveController(), fenix: true);
   Get.lazyPut(() => NotificationController(), fenix: true);
   Get.lazyPut(() => AttendanceController(), fenix: true);
   Get.lazyPut(() => AttendanceLogsController(), fenix: true);
@@ -61,16 +62,12 @@ Future<void> initApp() async {
   Get.lazyPut(() => UpdateDocumentController(), fenix: true);
   Get.lazyPut(() => AuthController(), fenix: true);
   Get.lazyPut(() => MoreDataController(), fenix: true);
-  Get.lazyPut(() => InputTextFieldController(),fenix: true);
-  Get.lazyPut(() => DatePickerController(),fenix: true);
+  Get.lazyPut(() => InputTextFieldController(), fenix: true);
+  Get.lazyPut(() => DatePickerController(), fenix: true);
 
-  SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark));
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark));
 
   Get.find<SettingController>().getCurrencyData();
-
-
-
 }

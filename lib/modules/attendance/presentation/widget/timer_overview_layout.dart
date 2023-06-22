@@ -73,7 +73,7 @@ scheduledTimeLog() {
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       scheduledLogInfo(
-          title: AppString.text_scheduled,
+          title: "text_scheduled".tr,
           time: TimeCounterHelper.getTimeStringFromDouble(
               data?.todayScheduled.toDouble() ?? 0.0)),
       verticalDivider()
@@ -90,7 +90,7 @@ overTimedBalanceTime() {
   if (hrs.length.isEqual(1) && hrs.startsWith('0') && mins.length < 2) {
     hrs = '';
   }
-  return logInfo(title: AppString.text_balance, time: "$hrs h $mins m");
+  return logInfo(title: "text_balance".tr, time: "$hrs h $mins m");
 }
 
 Widget normalBalanceTime() {
@@ -102,7 +102,7 @@ Widget normalBalanceTime() {
   if (hrs.length.isEqual(1) && hrs.startsWith('0') && mins.length < 2) {
     hrs = '';
   }
-  return logInfo(title: AppString.text_balance, time: "-$hrs h $mins m");
+  return logInfo(title: "text_balance".tr, time: "-$hrs h $mins m");
 }
 
 outTimeLog() {
@@ -113,7 +113,7 @@ outTimeLog() {
     children: [
       customSpacerWidth(width: 16),
       scheduledLogInfo(
-          title: AppString.text_out,
+          title: "text_out".tr,
           time: data != null &&
                   controller.isPunchIn.isFalse &&
                   data.dailyLogs!.isNotEmpty
@@ -130,7 +130,7 @@ inTimeLog() {
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       scheduledLogInfo(
-          title: AppString.text_in,
+          title: "text_in".tr,
           time: data != null && data.dailyLogs!.isNotEmpty
               ? data.dailyLogs?.last.inTime
               : ''),

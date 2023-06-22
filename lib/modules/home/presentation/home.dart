@@ -30,26 +30,6 @@ class _HomeState extends State<Home> {
     PaySlip(),
     MoreScreen()
   ];
-
-  final _items = <BottomNavigationBarItem>[
-    BottomNavigationBarItem(
-        icon: _icon(icon: Icons.watch_later_outlined),
-        activeIcon: _icon(icon: Icons.watch_later),
-        label: AppString.text_attendance),
-    BottomNavigationBarItem(
-        icon: _icon(icon: Icons.calendar_today_outlined),
-        activeIcon: _icon(icon: Icons.calendar_today),
-        label: AppString.text_leave),
-    BottomNavigationBarItem(
-        icon: const Icon(Icons.description_outlined),
-        activeIcon: const Icon(Icons.description),
-        label: AppString.text_payslip),
-    BottomNavigationBarItem(
-        icon: _icon(icon: Icons.dashboard_customize_outlined),
-        activeIcon: _icon(icon: Icons.dashboard),
-        label: AppString.text_more),
-  ];
-
   onTap(int index) {
     setState(() {
       currentIndex = index;
@@ -63,27 +43,50 @@ Future dialog(){
 }
   @override
   Widget build(BuildContext context) {
+
+    List<BottomNavigationBarItem> _items = <BottomNavigationBarItem>[
+      BottomNavigationBarItem(
+          icon: _icon(icon: Icons.watch_later_outlined),
+          activeIcon: _icon(icon: Icons.watch_later),
+          label: "text_attendance".tr),
+      BottomNavigationBarItem(
+          icon: _icon(icon: Icons.calendar_today_outlined),
+          activeIcon: _icon(icon: Icons.calendar_today),
+          label: "text_leave".tr),
+      BottomNavigationBarItem(
+          icon: const Icon(Icons.description_outlined),
+          activeIcon: const Icon(Icons.description),
+          label: "text_payslip".tr),
+      BottomNavigationBarItem(
+          icon: _icon(icon: Icons.dashboard_customize_outlined),
+          activeIcon: _icon(icon: Icons.dashboard),
+          label: "text_more".tr),
+    ];
+
     return WillPopScope(
       onWillPop: () => _onWillPop(context),
       child: Scaffold(
         appBar: const CustomAppbar(),
         body: _screens[currentIndex],
-        bottomNavigationBar: SizedBox(
-          height: AppLayout.getHeight(71),
-          child: BottomNavigationBar(
-            selectedItemColor: AppColor.primaryColor,
-            unselectedItemColor: AppColor.hintColor.withOpacity(0.8),
-            type: BottomNavigationBarType.fixed,
-            selectedFontSize: Dimensions.fontSizeDefault - 1,
-            unselectedFontSize: Dimensions.fontSizeDefault - 1,
-            showUnselectedLabels: true,
-            items: _items,
-            elevation: 3,
-            backgroundColor: AppColor.backgroundColor,
-            currentIndex: currentIndex,
-            onTap: (index) => onTap(index),
-          ),
+        bottomNavigationBar: Localizations.override(
+          context: context,
+          child: SizedBox(
+            height: AppLayout.getHeight(71),
+            child: BottomNavigationBar(
+              selectedItemColor: AppColor.primaryColor,
+              unselectedItemColor: AppColor.hintColor.withOpacity(0.8),
+              type: BottomNavigationBarType.fixed,
+              selectedFontSize: Dimensions.fontSizeDefault - 1,
+              unselectedFontSize: Dimensions.fontSizeDefault - 1,
+              showUnselectedLabels: true,
+              items: _items,
+              elevation: 3,
+              backgroundColor: AppColor.backgroundColor,
+              currentIndex: currentIndex,
+              onTap: (index) => onTap(index),
+            ),
 
+          ),
         ),
       ),
     );
