@@ -11,6 +11,7 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../../../common/controller/downloader_helper.dart';
 import '../../../../common/widget/custom_spacer.dart';
 import '../../../../utils/dimensions.dart';
+import '../../../../utils/images.dart';
 
 class ViewDocFile extends StatelessWidget {
   final path;
@@ -47,11 +48,8 @@ Widget _body({required docName,required fullUrl}) {
           onPressed: () {
             Get.find<DownloadHelper>().downloadFile(url: fullUrl);
           },
-          icon: Icon(
-            CupertinoIcons.arrow_down_to_line_alt,
-            color: AppColor.normalTextColor,
-            size: Dimensions.fontSizeMid + 3,
-          ))
+          icon: svgIcon(url: Images.download,height: 23,width: 42,color: AppColor.normalTextColor)
+      )
     ],
   );
 }
