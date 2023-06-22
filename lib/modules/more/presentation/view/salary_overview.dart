@@ -37,7 +37,7 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
                               padding: EdgeInsets.only(
                                   left: AppLayout.getWidth(20),
                                   right: AppLayout.getWidth(20),
-                                  top: AppLayout.getHeight(20),
+                                  top: AppLayout.getHeight(15),
                                   bottom: AppLayout.getHeight(20)),
                               child: SingleChildScrollView(
                                 child: Column(
@@ -91,13 +91,16 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
 Widget _jobHisTitleView() {
   return Padding(
     padding: EdgeInsets.only(
-        left: AppLayout.getWidth(8), bottom: AppLayout.getHeight(18)),
+        left: AppLayout.getWidth(8), bottom: AppLayout.getHeight(5)),
     child: ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount:
           Get.find<SalaryOverviewController>().salaryOverView.data?.length,
       itemBuilder: (context, index) {
+        Color itemColor = AppColor.disableColor; // Default color
+        if (index == 0) {
+          itemColor = AppColor.primaryColor;}
         return Stack(
           alignment: Alignment.center,
           children: [
@@ -119,16 +122,12 @@ Widget _jobHisTitleView() {
                                 "",
                             dotIconColor: Get.find<SalaryOverviewController>()
                                         .salaryOverView
-                                        .data?[index] ==
-                                    0
+                                        .data!.first.level!.isNotEmpty
+
                                 ? AppColor.primaryColor
                                 : AppColor.disableColor,
 
-                        firstIndex: Get.find<SalaryOverviewController>()
-                            .salaryOverView
-                            .data?.first
-                            .level ??
-                            ""
+                        firstIndex: itemColor
                         ),
                         customSpacerHeight(height: 6),
                         _salaryRow(
@@ -143,35 +142,11 @@ Widget _jobHisTitleView() {
                                     .amount
                                     .toString() ??
                                 ""),
-
-
-
-
-
                         _salaryCardView()
-
-
-
-
-
-
-
 
                       ],
 
-
-
                     ),
-
-
-
-
-
-
-
-
-
-
 
                   ],
                 )),
@@ -224,15 +199,11 @@ Widget _salaryCardTitleView(
   return Row(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
-      firstIndex !=null?
       Icon(
         Icons.circle,
         size: 10,
-        color: AppColor.primaryColor,
-      ):Icon(
-        Icons.circle,
-        size: 10,
-        color: AppColor.disableColor,
+        color: firstIndex,
+
       ),
       Padding(
         padding: EdgeInsets.only(left: AppLayout.getWidth(12)),

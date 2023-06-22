@@ -43,6 +43,96 @@ class _EditAddressState extends State<EditAddress> {
                   appbarTitle:
                       "${AppString.text_edit} ${AppString.text_address}"),
               customSpacerHeight(height: 8),
+
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  textFieldTitleText(
+                      titleText:
+                      AppString.text_address + AppString.text_details),
+                  InputNote(
+                    controller:
+                    Get.find<InputTextFieldController>().detailsController,
+                    hintText:
+                    "${AppString.text_add}${AppString.text_address_details}",
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return AppString.the_details_field_is_required;
+                      } else if (value.length < 3) {
+                        return AppString
+                            .the_details_must_be_at_least_3_character;
+                      } else {
+                        return null;
+                      }
+
+                      return null;
+                    },
+                  ),
+                ],
+              ),
+              customSpacerHeight(height: 12),
+              Row(
+                children: [
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        textFieldTitleText2(titleText: AppString.text_area),
+                        CustomTextField(
+                          hintText: AppString.text_enter_area,
+                          controller: Get.find<InputTextFieldController>()
+                              .areaController,
+                        ),
+                      ],
+                    ),
+                  ),
+                  customSpacerWidth(width: 18),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        textFieldTitleText2(titleText: AppString.text_city),
+                        CustomTextField(
+                          hintText: AppString.text_enter_city,
+                          controller: Get.find<InputTextFieldController>()
+                              .cityController,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        textFieldTitleText(titleText: AppString.text_state),
+                        CustomTextField(
+                          hintText: AppString.text_enter_state,
+                          controller: Get.find<InputTextFieldController>()
+                              .stateController,
+                        ),
+                      ],
+                    ),
+                  ),
+                  customSpacerWidth(width: 18),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        textFieldTitleText(titleText: AppString.text_zip_code),
+                        CustomTextField(
+                          hintText: AppString.text_enter_zip_code,
+                          controller: Get.find<InputTextFieldController>()
+                              .zipCodeController,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
               textFieldTitleText(titleText: AppString.text_county),
               countyField(
                 context: context,
@@ -64,130 +154,14 @@ class _EditAddressState extends State<EditAddress> {
                         print(country.name);
                       });
                 },
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return AppString.fieldIsRequired;
-                  }
-                  return null;
-                },
               ),
               textFieldTitleText(titleText: AppString.text_phone),
               phoneAndCountyField(
                 controller:
                     Get.find<InputTextFieldController>().phoneNumberController,
               ),
-              Row(
-                children: [
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        textFieldTitleText2(titleText: AppString.text_area),
-                        CustomTextField(
-                          hintText: AppString.text_enter_area,
-                          controller: Get.find<InputTextFieldController>()
-                              .areaController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return AppString.fieldIsRequired;
-                            }
-                            return null;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  customSpacerWidth(width: 18),
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        textFieldTitleText2(titleText: AppString.text_city),
-                        CustomTextField(
-                          hintText: AppString.text_enter_city,
-                          controller: Get.find<InputTextFieldController>()
-                              .cityController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return AppString.fieldIsRequired;
-                            }
-                            return null;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        textFieldTitleText(titleText: AppString.text_state),
-                        CustomTextField(
-                          hintText: AppString.text_enter_state,
-                          controller: Get.find<InputTextFieldController>()
-                              .stateController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return AppString.fieldIsRequired;
-                            }
-                            return null;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  customSpacerWidth(width: 18),
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        textFieldTitleText(titleText: AppString.text_zip_code),
-                        CustomTextField(
-                          hintText: AppString.text_enter_zip_code,
-                          controller: Get.find<InputTextFieldController>()
-                              .zipCodeController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return AppString.fieldIsRequired;
-                            }
-                            return null;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  textFieldTitleText(
-                      titleText:
-                          AppString.text_address + AppString.text_details),
-                  InputNote(
-                    controller:
-                        Get.find<InputTextFieldController>().detailsController,
-                    hintText:
-                        "${AppString.text_add}${AppString.text_address_details}",
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return AppString.fieldIsRequired;
-                      } else if (value.length < 3) {
-                        return AppString
-                            .the_details_must_be_at_least_3_character;
-                      } else {
-                        return null;
-                      }
 
-                      return null;
-                    },
-                  ),
-                ],
-              ),
+
               customSpacerHeight(height: 24),
               customDoubleButton(
                   context: context,

@@ -16,7 +16,6 @@ class AuthController extends GetxController with StateMixin {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-
   final GetStorage box = GetStorage();
   @override
   void onInit() {
@@ -49,7 +48,7 @@ class AuthController extends GetxController with StateMixin {
     box.write(AppString.LOGIN_CHECK_KEY, AppString.LOGIN_VALUE);
     box.write(AppString.STORE_CURRENT_PASSWORD, passwordController.text);
     box.write(AppString.STORE_CURRENT_EMAIL, emailController.text);
-    print(box.read(AppString.STORE_CURRENT_EMAIL));
+    print("Login dynamic name ::: ${box.read(AppString.USER_NAME) }");
   }
 
 

@@ -42,6 +42,7 @@ class AddBankInfo extends StatelessWidget {
               ),
               customSpacerHeight(height: 8),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Flexible(
                     child: Column(
@@ -72,12 +73,6 @@ class AddBankInfo extends StatelessWidget {
                           hintText: AppString.text_enter_bank_code,
                           controller: Get.find<InputTextFieldController>()
                               .bankCodeController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return AppString.fieldIsRequired;
-                            }
-                            return null;
-                          },
                         ),
                       ],
                     ),
@@ -134,7 +129,7 @@ class AddBankInfo extends StatelessWidget {
               customDoubleButton(
                   context: context,
                   elevatedBtnText:
-                      '${AppString.text_add} ${AppString.text_details}',
+                      '${AppString.text_add}${AppString.text_details}',
                   textBtnText: AppString.text_cancel,
                   textButtonAction: () => Get.back(),
                   elevatedButtonAction: () {

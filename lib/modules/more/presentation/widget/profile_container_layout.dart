@@ -95,7 +95,6 @@ Widget profileCardLayOut({context, userName, final userImage, userEmail, statusT
 
 Widget _userNameText({required userName}) {
   GetStorage().write(AppString.USER_NAME, userName.toString());
-
   return Text(
     userName,
     style: AppStyle.mid_large_text

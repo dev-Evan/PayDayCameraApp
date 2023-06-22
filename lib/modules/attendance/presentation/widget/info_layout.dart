@@ -8,6 +8,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import '../../../../utils/app_string.dart';
 import '../../../../utils/app_style.dart';
 import '../../../../utils/utils.dart';
+import '../../../more/presentation/controller/user_profile_controller.dart';
 
 Widget infoLayout() {
   var controller = Get.find<AttendanceController>();
@@ -20,7 +21,7 @@ Widget infoLayout() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _userName(),
+              _userName(text:"${GetStorage().read(AppString.USER_NAME).toString()}"),
               _getCurrentDate(),
             ],
           ),
@@ -41,7 +42,7 @@ Widget infoLayout() {
   );
 }
 
-_userName() {
+_userName({required text}) {
   return Padding(
     padding:EdgeInsets.only(right: AppLayout.getWidth(4.0)),
     child: Text(

@@ -21,6 +21,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/images.dart';
+import '../../../../common/controller/downloader_helper.dart';
 import '../../../../common/widget/custom_spacer.dart';
 
 class MoreScreen extends GetView<ProfileDataController> {
@@ -160,6 +161,15 @@ class MoreScreen extends GetView<ProfileDataController> {
         onLoading: const LoadingIndicator());
   }
 
+                              jobDeskCard(
+                                  cardIcon: Images.announce,
+                                  cardText: AppString.text_announcement,
+                                  onAction: () async {
+                                    // Get.toNamed(Routes.ANNOUNCE_SCREEN);
+                                    // await Get.find<DocumentController>()
+                                    //     .getDocumentData();
+                                    showCustomSnackBar(message: "The page is empty",color: AppColor.errorColor);
+                                  }),
   _languageDropDown() {
     return LanguageDropDown();
   }
@@ -217,7 +227,77 @@ class _LanguageDropDownState extends State<LanguageDropDown> {
         child: Text(item),
         value: item,
       );
+                              jobDeskCard(
+                                  cardIcon: Images.clock,
+                                  cardText: AppString.text_job_history,
+                                  onAction: () async {
+                                    Get.toNamed(Routes.JOB_HISTORY);
+                                    await Get.find<JobHistoryController>()
+                                        .getJobHistoryData();
+                                  }),
+                              jobDeskCard(
+                                cardIcon: Images.credit_card,
+                                cardText: AppString.text_salary_overview,
+                                onAction: () async {
+                                  Get.toNamed(Routes.SALARY_OVERVIEW);
+                                  await Get.find<
+                                      SalaryOverviewController>()
+                                      .getSalaryOveData();
+                                },
+                              ),
+                              jobDeskCard(
+                                cardIcon: Images.department,
+                                cardText: AppString.text_bank_details,
+                                onAction: () async {
+                                  Get.toNamed(Routes.BANK_DETAILS);
+                                  await Get.find<MoreDataController>()
+                                      .getBankInfo();
+                                },
+                              ),
+                              jobDeskCard(
+                                  cardIcon: Images.location,
+                                  cardText:
+                                  AppString.text_address_details,
+                                  onAction: () async {
+                                    Get.toNamed(Routes.ADDRESS_DETAILS);
+                                    await Get.find<
+                                        AddressController>()
+                                        .getEmployeeAddressData();
+                                  }),
+                              customSpacerHeight(height: 16),
+                              jobDeskTitle(text: AppString.text_other),
+                              jobDeskCard(
+                                cardIcon: Images.note,
+                                cardText: AppString.text_about_this_app,
+                                onAction: () =>
+                                    Get.toNamed(Routes.ABOUT_PAGE),
+                              ),
+                              jobDeskCard(
+                                cardIcon: Images.log_out,
+                                cardText: AppString.text_log_out,
+                                onAction: () => CustomAlertDialog(
+                                    context: context,
+                                    icon: Icons.logout,
+                                    yesText: AppString.text_log_out,
+                                    iconBgColor: Colors.orange.shade50,
+                                    yesAction: () => Get.find<LogoutController>().logOut()),
+                              ),
 
+                              languageCardView(
+                                  langName: AppString.text_english,
+                                  langText: AppString.text_language),
+                              customSpacerHeight(height: 30),
+                            ],
+                          ),
+                        )),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        onLoading: const LoadingIndicator());
+  
   void _changeLang({required String value}) {
     if (value.toLowerCase() == Language.english.name) {
       Get.find<LanguageController>().changeLanguage("en", "US");

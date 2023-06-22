@@ -81,6 +81,7 @@ class ViewProfile extends GetView<ProfileDataController> {
                       .dobDateController
                       .value
                       .text = _dateFormat;
+
                   CustomNavigator(context: context, pageName: EditProfile());
                 }),
             customSpacerHeight(height: 10),
@@ -176,7 +177,6 @@ class ViewProfile extends GetView<ProfileDataController> {
                           titleText: AppString.text_phone,
                           icon: CupertinoIcons.phone),
                       customSpacerHeight(height: 14),
-
                       controller.userProfile.data?.address != null &&
                           controller.userProfile.data!.address!.isEmpty?
                       controller.userProfile.data?.address ==null?controller.userProfile.data?.gender ==null?  controller.userProfile.data?.dateOfBirth ==null?

@@ -43,12 +43,48 @@ class BankDetails extends GetView<MoreDataController> {
                                         .bankInfoModel.data?.name !=null?
                                     AppString.text_bank_details:""
                                 ),
+
+
                                 _bankTitleRow(
                                     bankTitleText: controller
                                             .bankInfoModel.data?.name
                                             ?.toString() ??
                                         "",
                                     context: context),
+
+                                _bankUserInfo(
+                                    infoTitleText:controller
+                                        .bankInfoModel.data?.accountHolderName !=null?
+                                    AppString.text_account_holder:"",
+                                    infoDetailsText: controller.bankInfoModel
+                                        .data?.accountHolderName
+                                        ?.toString() ??
+                                        ""),
+                                _bankUserInfo(
+                                    infoTitleText:controller
+                                        .bankInfoModel.data?.accountNumber !=null?
+                                    AppString.text_account_number:"",
+                                    infoDetailsText: controller
+                                        .bankInfoModel.data?.accountNumber
+                                        ?.toString() ??
+                                        ""),
+                                _bankUserInfo(
+                                    infoTitleText:
+                                    controller
+                                        .bankInfoModel.data?.accountTitle !=null?
+
+                                    AppString.text_account_title:"",
+                                    infoDetailsText: controller
+                                        .bankInfoModel.data?.accountTitle
+                                        ?.toString() ??
+                                        ""),
+
+
+
+
+
+
+
                                 _bankUserInfo(
                                     infoTitleText:
                                     controller
@@ -70,32 +106,8 @@ class BankDetails extends GetView<MoreDataController> {
                                             .bankInfoModel.data?.code
                                             ?.toString() ??
                                         ""),
-                                _bankUserInfo(
-                                    infoTitleText:controller
-                                        .bankInfoModel.data?.accountHolderName !=null?
-                                        AppString.text_account_holder:"",
-                                    infoDetailsText: controller.bankInfoModel
-                                            .data?.accountHolderName
-                                            ?.toString() ??
-                                        ""),
-                                _bankUserInfo(
-                                    infoTitleText:controller
-                                        .bankInfoModel.data?.accountNumber !=null?
-                                        AppString.text_account_number:"",
-                                    infoDetailsText: controller
-                                            .bankInfoModel.data?.accountNumber
-                                            ?.toString() ??
-                                        ""),
-                                _bankUserInfo(
-                                    infoTitleText:
-                                    controller
-                                        .bankInfoModel.data?.accountTitle !=null?
 
-                                    AppString.text_account_title:"",
-                                    infoDetailsText: controller
-                                            .bankInfoModel.data?.accountTitle
-                                            ?.toString() ??
-                                        ""),
+
                                 _bankUserInfo(
                                     infoTitleText:
                                     controller
