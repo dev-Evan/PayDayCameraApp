@@ -169,12 +169,6 @@ _listCard(int index) => Padding(
                               .leaveType ??
                           '',
                       style: AppStyle.large_text_black,
-                    ),
-                    customSpacerWidth(width: 8),
-                    Image.asset(
-                      Images.attachment_file,
-                      height: AppLayout.getHeight(12),
-                      width: AppLayout.getWidth(12),
                     )
                   ],
                 ),

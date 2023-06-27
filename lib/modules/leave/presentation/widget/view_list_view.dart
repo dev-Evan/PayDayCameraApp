@@ -93,41 +93,44 @@ _leaves({required List<Leaves> leaves}) {
               children: [
                 customDivider(25, 0.5),
                 customSpacerWidth(width: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      leaves[index].leaveType ?? "",
-                      style: AppStyle.mid_large_text.copyWith(
-                        color: AppColor.normalTextColor,
-                        fontWeight: FontWeight.w600,
-                        fontSize: Dimensions.fontSizeDefault + 1,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        leaves[index].leaveType ?? "",
+                        style: AppStyle.mid_large_text.copyWith(
+                          color: AppColor.normalTextColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: Dimensions.fontSizeDefault + 1,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                    ),
-                    SizedBox(
-                      height: AppLayout.getHeight(6),
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          leaves[index].leaveDuration ?? "",
-                          style: AppStyle.small_text_black,
-                        ),
-                        SizedBox(
-                          width: AppLayout.getWidth(12),
-                        ),
-                        CustomStatusButton(
-                          bgColor: Util.getChipBgColor(
-                              status: leaves[index].leaveStatusClass!),
-                          text: leaves[index].leaveStatus,
-                          textColor: Util.getChipTextColor(
-                              status: leaves[index].leaveStatusClass!),
-                        ),
-                      ],
-                    )
-                  ],
+                      SizedBox(
+                        height: AppLayout.getHeight(6),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            leaves[index].leaveDuration ?? "",
+                            style: AppStyle.small_text_black,
+                          ),
+                          SizedBox(
+                            width: AppLayout.getWidth(12),
+                          ),
+                          CustomStatusButton(
+                            bgColor: Util.getChipBgColor(
+                                status: leaves[index].leaveStatusClass!),
+                            text: leaves[index].leaveStatus,
+                            textColor: Util.getChipTextColor(
+                                status: leaves[index].leaveStatusClass!),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
-                const Spacer(),
                 CircleAvatar(
                     backgroundColor: AppColor.disableColor.withOpacity(0.2),
                     radius: 14,

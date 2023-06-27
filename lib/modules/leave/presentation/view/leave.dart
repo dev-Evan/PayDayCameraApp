@@ -151,11 +151,10 @@ class Leave extends GetView<LeaveController> {
   _allowanceDetails(Data data) {
     return GridView(
       shrinkWrap: true,
-      padding: const EdgeInsets.all(0),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 8,
-        mainAxisExtent: AppLayout.getHeight(30),
+        mainAxisExtent: AppLayout.getHeight(40),
       ),
       children: data.values!
           .map((value) => _allowanceCounter(value))
@@ -165,11 +164,14 @@ class Leave extends GetView<LeaveController> {
 
   Widget _allowanceCounter(Values values) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           child: Text(
             values.leaveType ?? "",
             style: AppStyle.small_text,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
           ),
         ),
         Text(

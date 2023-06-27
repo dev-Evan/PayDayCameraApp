@@ -127,10 +127,9 @@ class LeaveRepository {
         formData.fields.add(MapEntry(key, value));
       }
     });
-    print("${leaveQueries.keys}:::${leaveQueries.values}");
     try {
       Response response =
-          await networkClient.postRequest("Api.REQUEST_LEAVE", formData);
+          await networkClient.postRequest(Api.REQUEST_LEAVE, formData);
       print(response.body);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));

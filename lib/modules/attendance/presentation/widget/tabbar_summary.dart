@@ -34,12 +34,10 @@ class SummaryScreen extends GetView<AttendanceLogsController> {
                       onTapDown: (TapDownDetails details) {
                         _showPopupMenu(details.globalPosition);
                       },
-                      child: Container(
-                        child: Icon(
-                          Icons.info_outline,
-                          size: AppLayout.getWidth(20),
-                          color: Colors.grey,
-                        ),
+                      child: Icon(
+                        Icons.info_outline,
+                        size: AppLayout.getWidth(20),
+                        color: Colors.grey,
                       ),
                     ),
                   ],
@@ -276,16 +274,16 @@ _summaryInfo(int index) {
               title: AppString.pop_up_paid_leave_short,
               count: controller.logSummaryOverview.data != null
                   ? controller.logSummaryOverview.data!
-                      .attendanceDetails![index].paidLeaves
-                      .toString()
+                  .attendanceDetails![index].paidLeaves
+                  .toString()
                   : ""),
           customSpacerHeight(height: 10),
           _logOverviewInfos(
               title: AppString.pop_up_balance_short,
               count: controller.logSummaryOverview.data != null
                   ? controller.logSummaryOverview.data!
-                      .attendanceDetails![index].balance
-                      .toString()
+                  .attendanceDetails![index].balance
+                  .toString()
                   : ""),
         ],
       ),
@@ -303,7 +301,6 @@ _summaryInfo(int index) {
 _logOverviewInfos({required String title, required String count}) => Row(
       children: [
         SizedBox(
-          width: AppLayout.getWidth(20),
           child: Text(
             title,
             style: AppStyle.normal_text_grey,

@@ -11,17 +11,20 @@ class InputNote extends StatelessWidget {
   final String? Function(String?)? validator;
 
   const InputNote(
-      {super.key, required this.controller,
-       this.hintText =AppString.text_add_note_here, this.validator});  // const InputNote({super.key, required this.controller,required hintText});
+      {super.key,
+      required this.controller,
+      this.hintText = AppString.text_add_note_here,
+      this.validator}); // const InputNote({super.key, required this.controller,required hintText});
 
   @override
   Widget build(BuildContext context) {
     final focusedCtx = FocusManager.instance.primaryFocus!.context;
-    Future.delayed(const Duration(milliseconds: 200)).then((value) => Scrollable.ensureVisible(
-      focusedCtx!,
-      duration: const Duration(milliseconds: 100),
-      curve: Curves.easeOut,
-    ));
+    Future.delayed(const Duration(milliseconds: 200))
+        .then((value) => Scrollable.ensureVisible(
+              focusedCtx!,
+              duration: const Duration(milliseconds: 100),
+              curve: Curves.bounceInOut,
+            ));
     return TextFormField(
       keyboardType: TextInputType.multiline,
       controller: controller,
@@ -38,8 +41,8 @@ class InputNote extends StatelessWidget {
               borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
           border: const OutlineInputBorder(
               borderSide: BorderSide(color: AppColor.solidGray))),
-      maxLines: 5,
-      minLines: 3,
+      maxLines: 4,
+      minLines: 4,
     );
   }
 }

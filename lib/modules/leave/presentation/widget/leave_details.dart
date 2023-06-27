@@ -16,6 +16,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/common/controller/downloader_helper.dart';
 import 'package:pay_day_mobile/utils/images.dart';
+import 'package:pay_day_mobile/utils/utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../common/widget/custom_app_button.dart';
@@ -52,12 +53,15 @@ class LeaveDetails extends GetView<LeaveController> {
                                   width: AppLayout.getWidth(12),
                                 ),
                                 CustomStatusButton(
-                                  //todo
-                                  textColor: AppColor.pendingTextColor,
-                                  bgColor:
-                                      AppColor.pendingBgColor.withOpacity(0.2),
-                                  text: AppString.text_pending,
-                                ),
+                                    textColor: Util.getChipTextColor(
+                                        status: controller.leaveDetails.data
+                                                ?.leaveStatusClass ??
+                                            ""),
+                                    bgColor: Util.getChipBgColor(
+                                        status: controller.leaveDetails.data
+                                                ?.leaveStatusClass ??
+                                            ""),
+                                    text: controller.leaveDetails.data?.leaveStatus??""),
                               ],
                             ),
                             Row(
@@ -141,10 +145,10 @@ class LeaveDetails extends GetView<LeaveController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          controller.leaveDetails.data!.leaveStatus != "Canceled"
+          controller.leaveDetails.data!.leaveStatus == "Pending"
               ? _cancelButton()
               : customSpacerWidth(width: 0),
-          controller.leaveDetails.data!.leaveStatus != "Canceled"
+          controller.leaveDetails.data!.leaveStatus == "Pending"
               ? customSpacerWidth(width: 10)
               : customSpacerWidth(width: 0),
           _logResponseButton(),
@@ -190,7 +194,7 @@ downloadFile({required String url}) async {
   final status = await Permission.storage.request();
   if (status.isGranted) {
     final baseStorage = await getExternalStorageDirectory();
-   await FlutterDownloader.enqueue(
+    await FlutterDownloader.enqueue(
       url: url,
       savedDir: baseStorage!.path,
       fileName: "File",

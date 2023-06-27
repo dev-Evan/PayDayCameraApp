@@ -45,6 +45,8 @@ class Util {
       return AppColor.primaryYellow.withOpacity(.15);
     } else if (status.toLowerCase() == ApprovalStatus.danger.name) {
       return AppColor.primaryRed.withOpacity(.15);
+    }else if (status.toLowerCase() == ApprovalStatus.dark.name) {
+      return AppColor.primaryRed.withOpacity(.15);
     } else {
       return Colors.transparent;
     }
@@ -55,6 +57,8 @@ class Util {
       return AppColor.primaryYellow;
     } else if (status.toLowerCase() == ApprovalStatus.danger.name) {
       return AppColor.primaryRed;
+    } else if (status.toLowerCase() == ApprovalStatus.dark.name) {
+      return AppColor.primaryRed;
     } else {
       return Colors.transparent;
     }
@@ -64,6 +68,8 @@ class Util {
     if (status.toLowerCase() == ApprovalStatus.warning.name) {
       return AppString.text_pending;
     } else if (status.toLowerCase() == ApprovalStatus.danger.name) {
+      return AppString.text_rejected;
+    } else if (status.toLowerCase() == ApprovalStatus.dark.name) {
       return AppString.text_rejected;
     }
     return "";

@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
+import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_allowance.dart';
@@ -64,45 +65,50 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          bottomSheetAppbar(
-            context: context,
-            appbarTitle: AppString.text_apply_leve,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppLayout.getWidth(20)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: AppLayout.getHeight(Dimensions.paddingDefaultExtra),
-                      bottom: AppLayout.getHeight(10)),
-                  child: Text(AppString.text_leave_duration,
-                      style: AppStyle.normal_text_black),
-                ),
-                const ApplyLeaveButtonLayout(),
-                customSpacerHeight(height: 10),
-                textFieldTitleText(titleText: AppString.text_leave_type),
-                _leaveTypeDropDown(),
-                customSpacerHeight(height: 20),
-                _leaveCount(),
-                customSpacerHeight(height: 10),
-                textFieldTitleText(titleText: AppString.text_note),
-                _noteTextField(),
-                customSpacerHeight(height: 8),
-                _addAttachment(),
-                customSpacerHeight(height: 24),
-                _applyLeaveButtons(),
-              ],
+    return Get.find<LeaveController>().obx(
+        (state) => SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  bottomSheetAppbar(
+                    context: context,
+                    appbarTitle: AppString.text_apply_leve,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: AppLayout.getWidth(20)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: AppLayout.getHeight(
+                                  Dimensions.paddingDefaultExtra),
+                              bottom: AppLayout.getHeight(10)),
+                          child: Text(AppString.text_leave_duration,
+                              style: AppStyle.normal_text_black),
+                        ),
+                        const ApplyLeaveButtonLayout(),
+                        customSpacerHeight(height: 10),
+                        textFieldTitleText(
+                            titleText: AppString.text_leave_type),
+                        _leaveTypeDropDown(),
+                        customSpacerHeight(height: 20),
+                        _leaveCount(),
+                        customSpacerHeight(height: 10),
+                        textFieldTitleText(titleText: AppString.text_note),
+                        _noteTextField(),
+                        customSpacerHeight(height: 8),
+                        _addAttachment(),
+                        customSpacerHeight(height: 24),
+                        _applyLeaveButtons(),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          )
-        ],
-      ),
-    );
+        onLoading: const LoadingIndicator());
   }
 
   _leaveTypeDropDown() {
@@ -292,8 +298,11 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
       print(e);
     }
 
-    Get.find<LeaveController>().requestLeave(
-        leaveARequestQueries: Get.find<LeaveController>().requestLeaveQueries).then((value) {
+    Get.find<LeaveController>()
+        .requestLeave(
+            leaveARequestQueries:
+                Get.find<LeaveController>().requestLeaveQueries)
+        .then((value) {
       if (value == true) {
         Get.back();
       }
@@ -323,8 +332,11 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
     } catch (e) {
       print(e);
     }
-    Get.find<LeaveController>().requestLeave(
-        leaveARequestQueries: Get.find<LeaveController>().requestLeaveQueries).then((value) {
+    Get.find<LeaveController>()
+        .requestLeave(
+            leaveARequestQueries:
+                Get.find<LeaveController>().requestLeaveQueries)
+        .then((value) {
       if (value == true) {
         Get.back();
       }
@@ -367,8 +379,11 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
     Get.find<LeaveController>().requestLeaveQueries["note"] =
         Get.find<LeaveController>().leaveNote.text;
 
-    Get.find<LeaveController>().requestLeave(
-        leaveARequestQueries: Get.find<LeaveController>().requestLeaveQueries).then((value) {
+    Get.find<LeaveController>()
+        .requestLeave(
+            leaveARequestQueries:
+                Get.find<LeaveController>().requestLeaveQueries)
+        .then((value) {
       if (value == true) {
         Get.back();
       }
@@ -512,7 +527,10 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
 }
 
 Widget _noteTextField() {
-  return InputNote(controller: Get.find<LeaveController>().leaveNote);
+  return Padding(
+    padding: EdgeInsets.only(bottom: MediaQuery.of(Get.context!).viewInsets.bottom ),
+    child: InputNote(controller: Get.find<LeaveController>().leaveNote),
+  );
 }
 
 Widget _hintText({hintText, Color textColor = AppColor.normalTextColor}) {
