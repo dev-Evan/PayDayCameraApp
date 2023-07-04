@@ -23,21 +23,20 @@ class _ViewAnnounceState extends State<ViewAnnounce> {
     'Ut enim ad minim veniam',
     'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content',
     'Ut enim ad minim veniam',
-
-
-
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          customMoreAppbar(titleText: AppString.text_announcement),
-          Expanded(
-            child: Padding(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            customMoreAppbar(titleText: AppString.text_announcement),
+            Padding(
               padding: const EdgeInsets.all(15.0),
               child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
                 itemCount: texts.length,
                 itemBuilder: (context, index) {
                   final text = texts[index];
@@ -68,8 +67,8 @@ class _ViewAnnounceState extends State<ViewAnnounce> {
                 },
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
