@@ -19,6 +19,7 @@ import 'package:dotted_border/dotted_border.dart';
 import '../../../../common/widget/success_snakbar.dart';
 import '../view/change_password.dart';
 
+// ignore: must_be_immutable
 class UpdateDocument extends StatelessWidget {
   String? docUrl;
 

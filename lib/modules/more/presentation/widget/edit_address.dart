@@ -62,10 +62,7 @@ class _EditAddressState extends State<EditAddress> {
                             .the_details_must_be_at_least_3_character;
                       } else {
                         return null;
-                      }
-
-                      return null;
-                    },
+                      }},
                   ),
                 ],
               ),

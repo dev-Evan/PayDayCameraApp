@@ -49,7 +49,6 @@ class AddAddress extends StatelessWidget {
                           .addDetailsController,
                       hintText:  "${AppString.text_add}${AppString.text_address_details}",
                       validator: (value) {
-
                         if (value!.isEmpty) {
                           return AppString.the_details_field_is_required;
                         } else if (value.length < 3) {
@@ -57,9 +56,6 @@ class AddAddress extends StatelessWidget {
                         }else{
                           return null;
                         }
-
-
-                        return null;
                       },
                     ),
                   ],
@@ -100,7 +96,6 @@ class AddAddress extends StatelessWidget {
 
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-
                   children: [
                     Flexible(
                       child: Column(
@@ -180,11 +175,7 @@ class AddAddress extends StatelessWidget {
                                state: Get.find<InputTextFieldController>().addStateController.value.text,
                                zipcode: Get.find<InputTextFieldController>().addZipCodeController.value.text,
                                message:   AppString.text_address_added_successfully,
-
-
-
-
-                              );
+                             );
                       }
                     }),
                 customSpacerHeight(height: 250)

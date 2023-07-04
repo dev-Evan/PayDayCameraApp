@@ -1,8 +1,5 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
@@ -16,7 +13,6 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../utils/app_color.dart';
-import '../../../../utils/dimensions.dart';
 import '../../../auth/presentation/view/sign_in.dart';
 import '../controller/common_controller/date_of_birth_controller.dart';
 import '../controller/user_profile_controller.dart';
@@ -24,19 +20,14 @@ import '../widget/address_details_widget.dart';
 
 class EditProfile extends StatefulWidget {
   EditProfile({Key? key}) : super(key: key);
-
   @override
   State<EditProfile> createState() => _EditProfileState();
 }
 
 class _EditProfileState extends State<EditProfile> {
   final List<String> _locations = [AppString.text_male,AppString.text_female];
-
   String? dropdownValue;
-
   final _formKey = GlobalKey<FormState>();
-
-
   @override
   Widget build(BuildContext context) {
     return Form(

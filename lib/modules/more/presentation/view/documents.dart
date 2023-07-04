@@ -18,7 +18,6 @@ import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/widget/custom_appbar.dart';
 import '../../../../common/widget/custom_buttom_sheet.dart';
 import '../../../../common/widget/custom_button.dart';
-import '../../../../common/widget/custom_navigator.dart';
 import '../widget/add_document.dart';
 import '../widget/document_view.dart';
 import '../widget/documents_appbar.dart';
@@ -67,28 +66,29 @@ class DocumentScreen extends GetView<DocumentController> {
                                           itemCount: controller.documentModel
                                               .data?.documents?.length,
                                           shrinkWrap: true,
-
                                           itemBuilder: (BuildContext context,
                                               int index) {
                                             return InkWell(
-                                              onTap: () => CustomNavigator(
-                                                  context: context,
-                                                  pageName: _selectedPage(
-                                                      fullUrl: controller
-                                                              .documentModel
-                                                              .data
-                                                              ?.documents?[
-                                                                  index]
-                                                              .fullUrl ??
-                                                          "",
-                                                      docText: controller
-                                                              .documentModel
-                                                              .data
-                                                              ?.documents?[
-                                                                  index]
-                                                              .name ??
-                                                          AppString
-                                                              .text_documents)),
+                                              onTap: () => Navigator.push(
+                                                  context,
+                                                  CupertinoPageRoute(
+                                                    builder: (context) => _selectedPage(
+                                                        fullUrl: controller
+                                                                .documentModel
+                                                                .data
+                                                                ?.documents?[
+                                                                    index]
+                                                                .fullUrl ??
+                                                            "",
+                                                        docText: controller
+                                                                .documentModel
+                                                                .data
+                                                                ?.documents?[
+                                                                    index]
+                                                                .name ??
+                                                            AppString
+                                                                .text_documents),
+                                                  )),
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),

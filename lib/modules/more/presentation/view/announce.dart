@@ -45,7 +45,6 @@ class ExpandableTextState extends State<ExpandableText> {
   void _onTapLink() {
     setState(() => _readMore = !_readMore);
   }
-
   @override
   Widget build(BuildContext context) {
     const colorClickableText = Colors.blue;

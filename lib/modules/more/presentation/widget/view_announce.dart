@@ -60,7 +60,7 @@ class _ViewAnnounceState extends State<ViewAnnounce> {
                       child: announceCard(
                         context: context,
                         desText: texts[index],
-                        length: 164,
+                        length: 163,
                       ),
                     );
                   }

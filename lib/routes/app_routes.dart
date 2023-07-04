@@ -26,6 +26,9 @@ abstract class Routes {
   static const NOTIFICATION_SCREEN = _Paths.NOTIFICATION_SCREEN;
   static const ANNOUNCE_SCREEN = _Paths.ANNOUNCE_SCREEN;
   static const LEAVE_ALLOWANCE_SCREEN = _Paths.LEAVE_ALLOWANCE_SCREEN;
+  static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
+  static const CHANGE_PASSWORD = _Paths.CHANGE_PASSWORD;
+  static const LEAVE_RECORD = _Paths.LEAVE_RECORD;
 }
 
 abstract class _Paths {
@@ -54,4 +57,7 @@ abstract class _Paths {
   static const NOTIFICATION_SCREEN = "/notification-screen";
   static const ANNOUNCE_SCREEN = "/announce-screen";
   static const LEAVE_ALLOWANCE_SCREEN = "/leave_allowance-screen";
+  static const EDIT_PROFILE = "/edit_profile-screen";
+  static const CHANGE_PASSWORD = "/change_password-screen";
+  static const LEAVE_RECORD = "/leave_record-screen";
 }

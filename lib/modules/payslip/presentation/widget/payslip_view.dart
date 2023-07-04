@@ -8,7 +8,6 @@ import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_she
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/controller/payslip_view_controller.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/payslip_view_sub_widget.dart';
-import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -16,9 +15,7 @@ import '../../../../common/controller/downloader_helper.dart';
 
 class PaySlipView extends GetView<PayslipViewController> {
   final indexVal;
-
   PaySlipView({this.indexVal});
-
   @override
   Widget build(BuildContext context) {
     controller.getPayslipViewData();

@@ -27,7 +27,7 @@ class DownloadHelper extends GetxController {
         url: url,
         savedDir: baseStorage!.path,
         fileName: "File",
-        headers: _setHeaders(),
+        headers:  _setHeaders(),
         showNotification: true,
         openFileFromNotification: true,
       );

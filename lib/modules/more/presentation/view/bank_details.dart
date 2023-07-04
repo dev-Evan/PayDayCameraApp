@@ -78,13 +78,6 @@ class BankDetails extends GetView<MoreDataController> {
                                         .bankInfoModel.data?.accountTitle
                                         ?.toString() ??
                                         ""),
-
-
-
-
-
-
-
                                 _bankUserInfo(
                                     infoTitleText:
                                     controller
@@ -106,8 +99,6 @@ class BankDetails extends GetView<MoreDataController> {
                                             .bankInfoModel.data?.code
                                             ?.toString() ??
                                         ""),
-
-
                                 _bankUserInfo(
                                     infoTitleText:
                                     controller

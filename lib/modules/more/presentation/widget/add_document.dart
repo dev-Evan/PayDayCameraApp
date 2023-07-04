@@ -117,8 +117,7 @@ class _AddDocumentState extends State<AddDocument> {
                                             image: FileImage(File(Get.find<
                                                             FileUploadController>()
                                                         .filePath
-                                                        .value ??
-                                                    "")
+                                                        .value)
                                                 .absolute),
                                             fit: BoxFit.cover),
                                       ),

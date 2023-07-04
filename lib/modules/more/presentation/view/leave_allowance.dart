@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/more_widget.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_style.dart';
 import '../../../../utils/dimensions.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_app_button.dart';
-import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
@@ -9,9 +8,9 @@ import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_l
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../../common/widget/loading_indicator.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../../utils/app_style.dart';
 import '../widget/break_pop_up.dart';
 import '../widget/dot_indicator.dart';
@@ -131,9 +130,7 @@ class Attendance extends GetView<AttendanceController> {
                           .getAllFilteredLogSummary();
                       Get.find<AttendanceLogsController>()
                           .getLogSummaryOverview();
-                      CustomNavigator(
-                          context: Get.context!,
-                          pageName: const AttendanceLogsScreen());
+                      Get.toNamed(Routes.ATTENDANCE_LOG);
                     }),
               ]),
         ),

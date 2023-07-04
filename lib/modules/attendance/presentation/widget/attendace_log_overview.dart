@@ -169,7 +169,7 @@ Widget _logSummaryCard({String? count, String? title}) => SizedBox(
                 children: [
                   Text(
                     count ?? "",
-                    style: AppStyle.large_text.copyWith(fontWeight: FontWeight.w600)
+                    style: AppStyle.large_text.copyWith(fontWeight: FontWeight.w500)
                   ),
                   Text(
                     title ?? "",

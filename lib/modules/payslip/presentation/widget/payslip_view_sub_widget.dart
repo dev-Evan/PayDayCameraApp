@@ -8,8 +8,6 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
-import '../../../more/presentation/view/salary_overview.dart';
 import '../../../setting/presentation/controller/setting_controller.dart';
 
 Widget profileCard(
