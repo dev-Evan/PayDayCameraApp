@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -19,18 +20,38 @@ class DownloadHelper extends GetxController {
 
   final ReceivePort _port = ReceivePort();
 
+  Future<String?> getDownloadPath() async {
+    Directory? directory;
+    try {
+      if (Platform.isIOS) {
+        directory = await getApplicationDocumentsDirectory();
+      } else {
+        directory = Directory('/storage/emulated/0/Download');
+        // Put file in global download folder, if for an unknown reason it didn't exist, we fallback
+        // ignore: avoid_slow_async_io
+        if (!await directory.exists()) directory = await getExternalStorageDirectory();
+      }
+    } catch (err) {
+      print("Cannot get download folder path");
+    }
+    return directory?.path;
+  }
+
+
   downloadFile({required String url}) async {
     final status = await Permission.storage.request();
     if (status.isGranted) {
       final baseStorage = await getExternalStorageDirectory();
-     await FlutterDownloader.enqueue(
-        url: url,
-        savedDir: baseStorage!.path,
-        fileName: "File",
-        headers: _setHeaders(),
-        showNotification: true,
-        openFileFromNotification: true,
-      );
+      print(baseStorage);
+      await FlutterDownloader.enqueue(
+          url: url,
+          allowCellular: true,
+          savedDir: baseStorage!.path,
+          fileName: "File",
+          headers: _setHeaders(),
+          showNotification: true,
+          openFileFromNotification: true,
+          saveInPublicStorage: true);
     } else {
       print("No Permission");
     }
@@ -39,9 +60,9 @@ class DownloadHelper extends GetxController {
   var token = GetStorage().read(AppString.ACCESS_TOKEN);
 
   _setHeaders() => {
-    'Authorization' : 'Bearer $token',
-    'Accept' : '*/*',
-  };
+        'Authorization': 'Bearer $token',
+        'Accept': '*/*',
+      };
 
   @override
   void dispose() {

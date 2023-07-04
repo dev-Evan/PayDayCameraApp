@@ -61,7 +61,9 @@ class LeaveDetails extends GetView<LeaveController> {
                                         status: controller.leaveDetails.data
                                                 ?.leaveStatusClass ??
                                             ""),
-                                    text: controller.leaveDetails.data?.leaveStatus??""),
+                                    text: controller
+                                            .leaveDetails.data?.leaveStatus ??
+                                        ""),
                               ],
                             ),
                             Row(
@@ -79,7 +81,7 @@ class LeaveDetails extends GetView<LeaveController> {
                               height: AppLayout.getHeight(12),
                             ),
                             Text(
-                              "${controller.leaveDetails.data?.startAt ?? ""} - ${controller.leaveDetails.data?.startAt ?? ""}",
+                              "${controller.leaveDetails.data?.startAt ?? ""} - ${controller.leaveDetails.data?.endAt ?? ""}",
                               style: AppStyle.title_text.copyWith(
                                   color: AppColor.normalTextColor,
                                   fontSize: Dimensions.fontSizeDefault),
@@ -188,6 +190,7 @@ class LeaveDetails extends GetView<LeaveController> {
             url: controller.leaveDetails.data?.attachments?[index].fullUrl ??
                 ""));
   }
+
 }
 
 downloadFile({required String url}) async {

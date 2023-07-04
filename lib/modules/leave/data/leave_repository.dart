@@ -87,7 +87,7 @@ class LeaveRepository {
   Future<LeaveDetails> getLeaveDetails({required int id}) async {
     try {
       Response response = await networkClient.getRequest(
-          "${Api.LEAVE_DETAILS}/$id?timezone=${DateTime.now().toUtc().timeZoneName}");
+          "${Api.LEAVE_DETAILS}/$id?timezone=${DateTime.now().timeZoneName}");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

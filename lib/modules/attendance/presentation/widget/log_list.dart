@@ -15,9 +15,9 @@ Widget logList(List<DailyLogs> dailyLogs) {
     shrinkWrap: true,
     itemBuilder: (context, index) => InkWell(
       child: _logDetails(dailyLogs[index]),
-      onTap: () async{
-        await Get.find<AttendanceController>().logDetails(dailyLogs[index].id!);
+      onTap: () async {
         _openLogDetailsBottomSheet();
+        await Get.find<AttendanceController>().logDetails(dailyLogs[index].id!);
       },
     ),
     itemCount: dailyLogs.length,
