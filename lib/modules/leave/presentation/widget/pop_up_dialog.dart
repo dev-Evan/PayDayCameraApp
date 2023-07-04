@@ -4,8 +4,6 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-import '../../../../common/widget/custom_button.dart';
-
 
 
 Future popUpDialog({context, child,dobSaveAction,double?  height,double?  width}) {
@@ -36,5 +34,6 @@ Future popUpDialog({context, child,dobSaveAction,double?  height,double?  width}
     },
   );
 }
+
 
 

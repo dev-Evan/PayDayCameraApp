@@ -13,6 +13,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../utils/utils.dart';
+import '../../../more/presentation/view/salary_overview.dart';
 
 class PayRunBadgeView extends GetView<PayrunBadgeController> {
   PayRunBadgeView({Key? key}) : super(key: key);
@@ -120,7 +121,8 @@ class PayRunBadgeView extends GetView<PayrunBadgeController> {
                                                                   .allowance[
                                                                       index]
                                                                   .amount
-                                                                  .toString(),
+                                                                  .toString() ??
+                                                              "",
                                                           isPercentage:
                                                               controller
                                                                   .allowance[
@@ -194,7 +196,8 @@ class PayRunBadgeView extends GetView<PayrunBadgeController> {
                                                                   .defaultAllowance[
                                                                       index]
                                                                   .amount
-                                                                  .toString(),
+                                                                  .toString() ??
+                                                              "",
                                                           isPercentage: controller
                                                               .defaultAllowance[
                                                                   index]
@@ -398,7 +401,6 @@ Widget _cardTitle({icon, titleText}) {
                 icon.toString(),
                 width: AppLayout.getWidth(20),
                 height: AppLayout.getWidth(20),
-                // ignore: deprecated_member_use
                 color: AppColor.primaryColor.withOpacity(0.8),
               ),
             ),

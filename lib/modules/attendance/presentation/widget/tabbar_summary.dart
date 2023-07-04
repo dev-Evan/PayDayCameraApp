@@ -10,8 +10,6 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
-import '../../../../common/widget/custom_buttom_sheet.dart';
 import '../../../../common/widget/custom_divider.dart';
 import '../../../../utils/app_string.dart';
 
@@ -36,12 +34,10 @@ class SummaryScreen extends GetView<AttendanceLogsController> {
                       onTapDown: (TapDownDetails details) {
                         _showPopupMenu(details.globalPosition);
                       },
-                      child: Container(
-                        child: Icon(
-                          Icons.info_outline,
-                          size: AppLayout.getWidth(20),
-                          color: Colors.grey,
-                        ),
+                      child: Icon(
+                        Icons.info_outline,
+                        size: AppLayout.getWidth(20),
+                        color: Colors.grey,
                       ),
                     ),
                   ],
@@ -106,6 +102,7 @@ class SummaryScreen extends GetView<AttendanceLogsController> {
       position: RelativeRect.fromLTRB(left, top, 0, 0),
       items: [
         PopupMenuItem<String>(
+          value: '',
           child: RichText(
             text: TextSpan(
               text: AppString.pop_up_scheduled_short,
@@ -117,9 +114,9 @@ class SummaryScreen extends GetView<AttendanceLogsController> {
               ],
             ),
           ),
-          value: '',
         ),
         PopupMenuItem<String>(
+          value: '',
           child: RichText(
             text: TextSpan(
               text: AppString.pop_up_paid_leave_short,
@@ -131,9 +128,9 @@ class SummaryScreen extends GetView<AttendanceLogsController> {
               ],
             ),
           ),
-          value: '',
         ),
         PopupMenuItem<String>(
+          value: '',
           child: RichText(
             text: TextSpan(
               text: AppString.pop_up_worked_short,
@@ -145,9 +142,9 @@ class SummaryScreen extends GetView<AttendanceLogsController> {
               ],
             ),
           ),
-          value: '',
         ),
         PopupMenuItem<String>(
+          value: '',
           child: RichText(
             text: TextSpan(
               text: AppString.pop_up_break_time_short,
@@ -159,9 +156,9 @@ class SummaryScreen extends GetView<AttendanceLogsController> {
               ],
             ),
           ),
-          value: '',
         ),
         PopupMenuItem<String>(
+          value: '',
           child: RichText(
             text: TextSpan(
               text: AppString.pop_up_balance_short,
@@ -173,7 +170,6 @@ class SummaryScreen extends GetView<AttendanceLogsController> {
               ],
             ),
           ),
-          value: '',
         ),
       ],
       elevation: 8.0,
@@ -211,7 +207,7 @@ logsList(AttendanceLogsController controller) {
 _dateInfo(int index) {
   var controller = Get.find<AttendanceLogsController>();
   return SizedBox(
-    width: AppLayout.getWidth(50),
+    width: AppLayout.getWidth(40),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -278,16 +274,16 @@ _summaryInfo(int index) {
               title: AppString.pop_up_paid_leave_short,
               count: controller.logSummaryOverview.data != null
                   ? controller.logSummaryOverview.data!
-                      .attendanceDetails![index].paidLeaves
-                      .toString()
+                  .attendanceDetails![index].paidLeaves
+                  .toString()
                   : ""),
           customSpacerHeight(height: 10),
           _logOverviewInfos(
               title: AppString.pop_up_balance_short,
               count: controller.logSummaryOverview.data != null
                   ? controller.logSummaryOverview.data!
-                      .attendanceDetails![index].balance
-                      .toString()
+                  .attendanceDetails![index].balance
+                  .toString()
                   : ""),
         ],
       ),
@@ -305,7 +301,6 @@ _summaryInfo(int index) {
 _logOverviewInfos({required String title, required String count}) => Row(
       children: [
         SizedBox(
-          width: AppLayout.getWidth(20),
           child: Text(
             title,
             style: AppStyle.normal_text_grey,
@@ -325,7 +320,7 @@ Future _openBottomSheet() {
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     context: Get.context!,
-    builder: (context) => SelectRangeCalender(
+    builder: (context) => const SelectRangeCalender(
       rangeCalendarMethodImp: RangeCalendarMethodImp.LOG_SUMMARY,
     ),
   );

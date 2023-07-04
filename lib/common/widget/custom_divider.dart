@@ -8,4 +8,5 @@ Widget CustomDiveider(double  height, double width){
     padding: const EdgeInsets.only(left: 0.0,right: 0),
     child: Container(width: AppLayout.getWidth(width),height: AppLayout.getHeight(height),color: AppColor.disableColor,),
   );
+
 }

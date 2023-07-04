@@ -10,17 +10,16 @@ import 'package:pay_day_mobile/modules/attendance/presentation/widget/approve_st
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/multi_log_summary_list.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
-import 'package:pay_day_mobile/utils/utils.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/time_counter_helper.dart';
-
 import '../../../../enum/status.dart';
 import '../view/log_details_bottomsheet.dart';
 
 class LogsList extends GetView<AttendanceLogsController> {
-  RxBool isExpanded = false.obs;
+  final RxBool isExpanded = false.obs;
+
+  LogsList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +125,7 @@ class LogsList extends GetView<AttendanceLogsController> {
               ),
             ],
           ),
-          CustomDiveider(25, 1),
+          CustomDiveider(25, 1)
         ],
       );
 

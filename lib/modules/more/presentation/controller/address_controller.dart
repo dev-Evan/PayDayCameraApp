@@ -14,10 +14,9 @@ import 'common_controller/more_text_editing_controller.dart';
 
 class AddressController extends GetxController with StateMixin {
   AddressDetailsModel addressDetailsModel = AddressDetailsModel();
-  DeletedAddressModel  deletedAddressModel=DeletedAddressModel();
+  DeletedAddressModel deletedAddressModel = DeletedAddressModel();
   AddressRepository addressRepository = AddressRepository(NetworkClient());
   var newValue = "";
-
 
   getEmployeeAddressData() async {
     change(null, status: RxStatus.loading());
@@ -30,8 +29,17 @@ class AddressController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-
-  void addressUpdate({required typeKey, required context, required area, required city, required country, required details, required phone, required state, required zipcode, required String message}) async {
+  void addressUpdate(
+      {required typeKey,
+      required context,
+      required area,
+      required city,
+      required country,
+      required details,
+      required phone,
+      required state,
+      required zipcode,
+      required String message}) async {
     waitingLoader();
     try {
       await addressRepository
@@ -55,19 +63,16 @@ class AddressController extends GetxController with StateMixin {
     }
   }
 
-
-
-
-
   void deletedAddressApi({required addressType, required context}) async {
     waitingLoader();
     try {
-      await addressRepository.deletedAddressRepo(addressType.toString())
-          .then((DeletedAddressModel value) async {
+      await addressRepository.deletedAddressRepo(addressType.toString()).then(
+          (DeletedAddressModel value) async {
         await getEmployeeAddressData();
         Get.back();
         _navigator(context: context);
-        showCustomSnackBar(message: AppString.text_address_deleted_successfully);
+        showCustomSnackBar(
+            message: AppString.text_address_deleted_successfully);
       }, onError: (error) {
         Get.back();
         print("Deleted Address ::: ${error.toString()}");
@@ -79,8 +84,6 @@ class AddressController extends GetxController with StateMixin {
     }
     Get.back();
   }
-
-
 }
 
 _fieldClear() {

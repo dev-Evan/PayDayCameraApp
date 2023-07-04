@@ -12,7 +12,6 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/widget/custom_buttom_sheet.dart';
 import '../../../../common/widget/custom_button.dart';
 import '../../../../common/widget/custom_navigator.dart';
-import '../../../../routes/app_pages.dart';
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_style.dart';
 import '../../../attendance/presentation/widget/attendance_log_text.dart';
@@ -65,7 +64,7 @@ class Leave extends GetView<LeaveController> {
 
   _leaveAllowanceLayout() {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: AppColor.primaryColor,
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(12),
@@ -112,7 +111,7 @@ class Leave extends GetView<LeaveController> {
                       color: AppColor.cardColor.withOpacity(0.1),
                       border: Border.all(
                           width: 1, color: AppColor.cardColor.withOpacity(0.2)),
-                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                      borderRadius: const BorderRadius.all(Radius.circular(8))),
                   child: Column(children: [
                     _titleLayout(data),
                     customSpacerHeight(height: 20),
@@ -152,11 +151,10 @@ class Leave extends GetView<LeaveController> {
   _allowanceDetails(Data data) {
     return GridView(
       shrinkWrap: true,
-      padding: EdgeInsets.all(0),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 8,
-        mainAxisExtent: AppLayout.getHeight(30),
+        mainAxisExtent: AppLayout.getHeight(40),
       ),
       children: data.values!
           .map((value) => _allowanceCounter(value))
@@ -166,11 +164,14 @@ class Leave extends GetView<LeaveController> {
 
   Widget _allowanceCounter(Values values) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
           child: Text(
             values.leaveType ?? "",
             style: AppStyle.small_text,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
           ),
         ),
         Text(

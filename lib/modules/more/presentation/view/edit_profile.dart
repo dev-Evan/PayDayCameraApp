@@ -52,14 +52,12 @@ class _EditProfileState extends State<EditProfile> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               textFieldTitleText(
-                                  titleText: AppString.text_first +
-                                      " " +
-                                      AppString.text_name),
+                                  titleText: "${AppString.text_first} ${AppString.text_name}"),
                               CustomTextField(
                                 hintText: AppString.text_enter_first_name,
                                 controller:
-                                    Get.find<InputTextFieldController>()
-                                        .firstNameController,
+                                Get.find<InputTextFieldController>()
+                                    .firstNameController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     showCustomSnackBar(message: AppString.the_first_name_field_is_required,color: AppColor.errorColor);
@@ -78,14 +76,12 @@ class _EditProfileState extends State<EditProfile> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               textFieldTitleText(
-                                  titleText: AppString.text_last +
-                                      " " +
-                                      AppString.text_name),
+                                  titleText: "${AppString.text_last} ${AppString.text_name}"),
                               CustomTextField(
                                 hintText: AppString.text_enter_last_name,
                                 controller:
-                                    Get.find<InputTextFieldController>()
-                                        .lastNameController,
+                                Get.find<InputTextFieldController>()
+                                    .lastNameController,
                               ),
                             ],
                           ),
@@ -141,15 +137,15 @@ class _EditProfileState extends State<EditProfile> {
                 child: CustomButton(AppString.text_save, () {
                   if (_formKey.currentState!.validate()) {
                     Get.find<ProfileDataController>().editProfileData(
-                      context: context,
-                    firstName: Get.find<InputTextFieldController>().firstNameController.text,
-                      lastName: Get.find<InputTextFieldController>().lastNameController.text,
-                      email: Get.find<InputTextFieldController>().emailController.text,
-                      contact: Get.find<InputTextFieldController>().contactController.text,
-                      dob: Get.find<DatePickerController>().dobDateController.value.text,
-                      dropDown: Get.find<DropdownBtnController>().value.toString(),
-                      aboutMe: Get.find<InputTextFieldController>().aboutMeController.text,
-                      address: Get.find<InputTextFieldController>().addressController.text
+                        context: context,
+                        firstName: Get.find<InputTextFieldController>().firstNameController.text,
+                        lastName: Get.find<InputTextFieldController>().lastNameController.text,
+                        email: Get.find<InputTextFieldController>().emailController.text,
+                        contact: Get.find<InputTextFieldController>().contactController.text,
+                        dob: Get.find<DatePickerController>().dobDateController.value.text,
+                        dropDown: Get.find<DropdownBtnController>().value.toString(),
+                        aboutMe: Get.find<InputTextFieldController>().aboutMeController.text,
+                        address: Get.find<InputTextFieldController>().addressController.text
                     );
                   }
                 }),

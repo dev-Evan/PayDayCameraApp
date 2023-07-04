@@ -95,9 +95,9 @@ class Coordinate {
   set lng(String? lng) => _lng = lng;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['lat'] = this._lat;
-    data['lng'] = this._lng;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['lat'] = _lat;
+    data['lng'] = _lng;
     return data;
   }
 }

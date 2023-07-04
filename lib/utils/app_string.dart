@@ -1,3 +1,4 @@
+
 class AppString {
   AppString._();
 
@@ -64,7 +65,6 @@ class AppString {
   static String text_entry_type = "Entry Type";
   static String text_attendance_behavior = "Attendance Behavior";
   static String text_single = "Single";
-  static String text_net_payable = "Net payable";
   static String breaK_time_selection_text = "Please, Select a break time";
   static String text_multi = "Multi";
   static String text_bank_name = "Bank Name";
@@ -82,6 +82,8 @@ class AppString {
   static String text_leave = "Leave";
   static String text_payslip = "Payslip";
   static String text_more = "More";
+  static String text_read_more = "read more";
+  static String text_read_less = "read less";
   static String text_today = "Today";
   static String text_enter_phone_number = "Enter phone number";
   static String text_enter = "Enter";
@@ -97,7 +99,7 @@ class AppString {
   static String pop_up_worked_long = "Worked";
   static String pop_up_break_time_short = "BT : ";
   static String pop_up_break_time_long = "Break Time";
-  static String pop_up_balance_short = "B : ";
+  static String pop_up_balance_short = "B :";
   static String pop_up_balance_long = "Balance";
   static String text_leave_response = "Leave Response";
   static String text_requstAttendance = "Request Attendance";
@@ -106,6 +108,7 @@ class AppString {
   static String start_out_day = "Ready to start your day?";
   static String note_text = "Note (optional)";
   static String text_cancel = "Cancel";
+  static String text_net_payable = "Net payable";
   static String text_log_details = "Log Details";
   static String text_punch_in = "Punch In";
   static String text_punch_out = "Punch Out";
@@ -186,7 +189,7 @@ class AppString {
   static const String text_bonus = "Bonus";
   static const String text_medical = "Medical";
   static const String text_food_ = "Food";
-  static const String text_percent = " 2\%";
+  static const String text_percent = " 2%";
   static const String text_transport = "Transport";
   static const String text_deductions = "Deductions";
   static const String text_payslip_id = "PAYSLIP ID";
@@ -331,8 +334,6 @@ class AppString {
   static String text_enter_your_about = "Enter your about";
   static String text_enter_your_address = "Enter your address";
   static String text_back = "Back";
-  static String text_read_more = "read more";
-  static String text_read_less = "read less";
   static String text_branch = "Branch";
   static String text_bank_code = "Bank Code";
   static String text_account_holder = "Account Holder";
@@ -453,8 +454,5 @@ class AppString {
   static const String login = "Log In";
   static const String hi_login_to_your_dashboard =
       "Hi, login to your dashboard ";
-
-
-
-
 }
+

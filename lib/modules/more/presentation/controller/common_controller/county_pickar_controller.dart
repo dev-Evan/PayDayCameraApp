@@ -1,5 +1,5 @@
-import 'package:get/get.dart';
 
+import 'package:get/get.dart';
 import 'more_text_editing_controller.dart';
 
 class CountryPickerController extends GetxController {
@@ -16,3 +16,4 @@ class CountryPickerController extends GetxController {
     _inputTextFieldController.countyTextController.text = country;
   }
 }
+

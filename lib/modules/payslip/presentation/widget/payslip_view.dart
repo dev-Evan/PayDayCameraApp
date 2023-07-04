@@ -15,7 +15,9 @@ import '../../../../common/controller/downloader_helper.dart';
 
 class PaySlipView extends GetView<PayslipViewController> {
   final indexVal;
+
   PaySlipView({this.indexVal});
+
   @override
   Widget build(BuildContext context) {
     controller.getPayslipViewData();
@@ -168,9 +170,6 @@ class PaySlipView extends GetView<PayslipViewController> {
                         totalRowView(
                             amount:
                                 " ${controller.payslipViewModel.data?.payslip?.netSalary.toString() ?? ""}",
-
-
-
                         text: AppString.text_net_payable
                         ),
                       ],

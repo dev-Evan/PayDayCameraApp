@@ -7,7 +7,6 @@ import 'package:pay_day_mobile/modules/auth/domain/login_res.dart';
 import 'package:pay_day_mobile/modules/auth/domain/reset_password_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-
 import '../../../../routes/app_pages.dart';
 
 class AuthController extends GetxController with StateMixin {
@@ -24,7 +23,7 @@ class AuthController extends GetxController with StateMixin {
   }
 
   void logIn() {
-    Get.dialog(Center(child: CircularProgressIndicator()));
+    Get.dialog(const Center(child: CircularProgressIndicator()));
     try {
       _authDataSource.loginIntoAccount(emailController.text, passwordController.text)
           .then((value) {

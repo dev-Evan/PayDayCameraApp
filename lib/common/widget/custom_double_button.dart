@@ -46,8 +46,7 @@ Widget customDoubleButton(
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  primary: AppColor.primaryColor,
+                  ), backgroundColor: AppColor.primaryColor,
                   elevation: 0,
                   side: const BorderSide(
                       width: 1, color: AppColor.primaryColor)),

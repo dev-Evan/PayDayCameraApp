@@ -1,8 +1,9 @@
+
 class ErrorModel {
   bool? _status;
   String? _message;
 
-  ErrorModel({bool? status, String? message, List<Null>? data}) {
+  ErrorModel({bool? status, String? message, List<void>? data}) {
     if (status != null) {
      _status = status;
     }

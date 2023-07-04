@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/custom_status_button.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
@@ -11,9 +9,9 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
+
 class EditDetails extends StatelessWidget {
   const EditDetails({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -259,9 +257,6 @@ class EditDetails extends StatelessWidget {
               ],
             ),
           ),
-
-
-
           customDoubleButton(textBtnText: AppString.text_cancel,elevatedBtnText: AppString.text_save,context: context,elevatedButtonAction: (){},textButtonAction: ()=>Get.back())
 
         ],

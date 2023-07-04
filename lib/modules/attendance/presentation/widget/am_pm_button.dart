@@ -1,16 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
-
 import '../../../../utils/app_color.dart';
-import '../../../../utils/app_style.dart';
-import '../../../../utils/dimensions.dart';
 
 class AmPmToggleButton extends StatefulWidget {
 
-  AmPmToggleButton({Key? key}) : super(key: key);
+  const AmPmToggleButton({Key? key}) : super(key: key);
 
   @override
   State<AmPmToggleButton> createState() => _AmPmToggleButtonState();

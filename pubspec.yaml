@@ -47,7 +47,7 @@ dependencies:
   dart_ipify: ^1.1.1
   image_picker: ^0.8.7+1
   country_picker: ^2.0.20
-  syncfusion_flutter_pdfviewer: ^21.1.41
+  syncfusion_flutter_pdfviewer: any
   permission_handler: ^8.2.4
   url_launcher: ^6.1.10
   country_code_picker: ^3.0.0
@@ -70,6 +70,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_launcher_icons: "^0.13.1"
+  flutter_lints: ^2.0.1
 
 flutter_launcher_icons:
   android: "launcher_icon"

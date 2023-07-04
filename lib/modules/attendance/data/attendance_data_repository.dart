@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:pay_day_mobile/modules/attendance/domain/change_log/change_log.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/change_request/change_request_respose.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/check_entry_status/check_entry_status.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/daily_log/daily_log.dart';
@@ -9,7 +8,6 @@ import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import '../../../common/domain/error_model.dart';
 import '../../../common/domain/success_model.dart';
-import '../domain/change_request/change_request_req_model.dart';
 import '../domain/log_entry/log_entry_request.dart';
 import '../domain/log_entry/log_entry_response.dart';
 
@@ -91,18 +89,6 @@ class AttendanceDataRepository {
     }
   }
 
-  Future<ChangeLog> changeLog(int logId) async {
-    try {
-      Response response = await networkClient.getRequest(Api.LOG_DETAILS);
-      if (response.status.hasError) {
-        return Future.error(ErrorModel.fromJson(response.body));
-      } else {
-        return ChangeLog.fromJson(response.body);
-      }
-    } catch (ex) {
-      return Future.error(ErrorModel(message: ex.toString()));
-    }
-  }
 
   Future<ChangeRequestResponseModel> changeAttendanceRequest(
       {required int logId,
@@ -113,7 +99,7 @@ class AttendanceDataRepository {
       Response response = await networkClient.postRequest(
           "${Api.ATTENDANCE_REQUEST}/$logId",
           {"in_time": inTime, "out_time": outTime, "note": note});
-      print(response.body);
+      print('ChangeRequestResponseModel response${response.body}');
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -152,3 +138,4 @@ class AttendanceDataRepository {
     }
   }
 }
+

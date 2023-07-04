@@ -4,7 +4,6 @@ import 'package:pay_day_mobile/modules/more/presentation/view/announce.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/edit_profile.dart';
 import 'package:pay_day_mobile/modules/starting/view/splash_screen.dart';
 import '../modules/attendance/presentation/view/attendance_logs.dart';
-import '../modules/auth/presentation/view/forgot_password.dart';
 import '../modules/auth/presentation/view/sign_in.dart';
 import '../modules/home/presentation/home.dart';
 import '../modules/leave/presentation/view/leave.dart';
@@ -22,7 +21,6 @@ import '../modules/notification/presentation/view/notifications.dart';
 import '../modules/payslip/presentation/view/payrun_badge.dart';
 import '../modules/payslip/presentation/view/payslip.dart';
 import '../modules/starting/view/onboarding_screen.dart';
-
 part 'app_routes.dart';
 
 class AppPages {
@@ -39,10 +37,6 @@ class AppPages {
         name: _Paths.SIGN_IN,
         transition: Transition.rightToLeft,
         page: () => const SignInScreen()),
-    GetPage(
-      name: _Paths.FORGOT_PASSWORD,
-      page: () => const forgotScreen(),
-    ),
     GetPage(
       transition: Transition.cupertino,
       name: _Paths.ONBOARD_SCREEN,

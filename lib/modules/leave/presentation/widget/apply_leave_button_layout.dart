@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/dob_half_day_field.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/dob_hours_field.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/dob_multi_day_field.dart';
@@ -10,7 +9,6 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
 import '../controller/leave_controller.dart';
 
 class ApplyLeaveButtonLayout extends StatefulWidget {

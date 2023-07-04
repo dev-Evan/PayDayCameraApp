@@ -122,12 +122,11 @@ class LeaveRepository {
             key,
             MultipartFile(File(value),
                 filename:
-                    "${DateTime.now().toUtc().microsecondsSinceEpoch}.${value.split(".").last}")));
+                    "${DateTime.now().microsecondsSinceEpoch}.${value.split(".").last}")));
       } else {
         formData.fields.add(MapEntry(key, value));
       }
     });
-    print("${leaveQueries.keys}:::${leaveQueries.values}");
     try {
       Response response =
           await networkClient.postRequest(Api.REQUEST_LEAVE, formData);

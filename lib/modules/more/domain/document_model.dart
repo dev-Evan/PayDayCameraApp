@@ -14,13 +14,13 @@ class DocumentModel {
   DocumentModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -39,23 +39,23 @@ class Data {
     if (json['documents'] != null) {
       documents = <Documents>[];
       json['documents'].forEach((v) {
-        documents!.add(new Documents.fromJson(v));
+        documents!.add(Documents.fromJson(v));
       });
     }
-    links = json['links'] != null ? new Links.fromJson(json['links']) : null;
-    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
+    links = json['links'] != null ? Links.fromJson(json['links']) : null;
+    meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.documents != null) {
-      data['documents'] = this.documents!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (documents != null) {
+      data['documents'] = documents!.map((v) => v.toJson()).toList();
     }
-    if (this.links != null) {
-      data['links'] = this.links!.toJson();
+    if (links != null) {
+      data['links'] = links!.toJson();
     }
-    if (this.meta != null) {
-      data['meta'] = this.meta!.toJson();
+    if (meta != null) {
+      data['meta'] = meta!.toJson();
     }
     return data;
   }
@@ -96,21 +96,21 @@ class Documents {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     createdBy = json['created_by'] != null
-        ? new CreatedBy.fromJson(json['created_by'])
+        ? CreatedBy.fromJson(json['created_by'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['name'] = this.name;
-    data['path'] = this.path;
-    data['full_url'] = this.fullUrl;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    if (this.createdBy != null) {
-      data['created_by'] = this.createdBy!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_id'] = userId;
+    data['name'] = name;
+    data['path'] = path;
+    data['full_url'] = fullUrl;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    if (createdBy != null) {
+      data['created_by'] = createdBy!.toJson();
     }
     return data;
   }
@@ -132,11 +132,11 @@ class CreatedBy {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['first_name'] = this.firstName;
-    data['last_name'] = this.lastName;
-    data['full_name'] = this.fullName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['full_name'] = fullName;
     return data;
   }
 }
@@ -157,11 +157,11 @@ class Links {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['first'] = this.first;
-    data['last'] = this.last;
-    data['prev'] = this.prev;
-    data['next'] = this.next;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['first'] = first;
+    data['last'] = last;
+    data['prev'] = prev;
+    data['next'] = next;
     return data;
   }
 }
@@ -189,12 +189,12 @@ class Meta {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total'] = this.total;
-    data['count'] = this.count;
-    data['per_page'] = this.perPage;
-    data['current_page'] = this.currentPage;
-    data['total_pages'] = this.totalPages;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['total'] = total;
+    data['count'] = count;
+    data['per_page'] = perPage;
+    data['current_page'] = currentPage;
+    data['total_pages'] = totalPages;
     return data;
   }
 }

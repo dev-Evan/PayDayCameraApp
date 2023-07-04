@@ -1,7 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import '../../utils/app_layout.dart';
 import '../../modules/attendance/presentation/widget/am_pm_button.dart';
 import '../../modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
@@ -43,7 +43,7 @@ Future timePicker(BuildContext context) {
               appbarTitle: AppString.text_select_time,
             ),
             _openClock(),
-            AmPmToggleButton(),
+            const AmPmToggleButton(),
             SizedBox(
               height: AppLayout.getHeight(28),
             ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/enum/status.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-
 import 'app_color.dart';
 
 
@@ -45,6 +44,8 @@ class Util {
       return AppColor.primaryYellow.withOpacity(.15);
     } else if (status.toLowerCase() == ApprovalStatus.danger.name) {
       return AppColor.primaryRed.withOpacity(.15);
+    }else if (status.toLowerCase() == ApprovalStatus.dark.name) {
+      return AppColor.primaryRed.withOpacity(.15);
     } else {
       return Colors.transparent;
     }
@@ -54,6 +55,8 @@ class Util {
     if (status.toLowerCase() == ApprovalStatus.warning.name) {
       return AppColor.primaryYellow;
     } else if (status.toLowerCase() == ApprovalStatus.danger.name) {
+      return AppColor.primaryRed;
+    } else if (status.toLowerCase() == ApprovalStatus.dark.name) {
       return AppColor.primaryRed;
     } else {
       return Colors.transparent;
@@ -65,10 +68,13 @@ class Util {
       return AppString.text_pending;
     } else if (status.toLowerCase() == ApprovalStatus.danger.name) {
       return AppString.text_rejected;
+    } else if (status.toLowerCase() == ApprovalStatus.dark.name) {
+      return AppString.text_rejected;
     }
     return "";
   }
 }
-Future<Null> FutureDelayed({required onAction}) {
-  return Future.delayed(Duration(seconds: 1), () => onAction());
+Future<void> FutureDelayed({required onAction}) {
+  return Future.delayed(const Duration(seconds: 1), () => onAction());
 }
+

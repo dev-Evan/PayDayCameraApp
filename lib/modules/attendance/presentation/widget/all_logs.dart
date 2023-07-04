@@ -73,45 +73,6 @@ class AllLogsScreen extends GetView<AttendanceLogsController> {
               ],
             ),
 
-            //next version
-            // Column(
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: [
-            //     Stack(
-            //       children: [
-            //         //next version
-            //         // Row(
-            //         //   children: [
-            //         //     InkWell(
-            //         //         onTap: () => customButtomSheet(
-            //         //             context: context,
-            //         //             height: 0.9,
-            //         //             child: const AttendanceFilter()),
-            //         //         child: const Icon(
-            //         //           Icons.filter_alt_outlined,
-            //         //           color: AppColor.hintColor,
-            //         //         )),
-            //         //     SizedBox(
-            //         //       width: AppLayout.getWidth(24),
-            //         //     ),
-            //         //   ],
-            //         // ),
-            //         (controller.filteredLogSummary.data != null &&
-            //                 controller.filteredLogSummary.data!.queryString!
-            //                     .start!.isNotEmpty)
-            //             ? Positioned(
-            //                 left: AppLayout.getWidth(24),
-            //                 top: -1,
-            //                 child: const Icon(
-            //                   Icons.circle,
-            //                   size: 8,
-            //                   color: AppColor.primaryColor,
-            //                 ))
-            //             : Container()
-            //       ],
-            //     ),
-            //   ],
-            // ),
           ],
         ),
         SizedBox(
@@ -120,7 +81,7 @@ class AllLogsScreen extends GetView<AttendanceLogsController> {
         Expanded(child: LogsList()),
         Obx(
           () => controller.isMoreDataLoading.isTrue
-              ? Center(
+              ? const Center(
             child: CircularProgressIndicator(),
           )
               : Container(),
@@ -136,7 +97,7 @@ class AllLogsScreen extends GetView<AttendanceLogsController> {
       backgroundColor: Colors.transparent,
       context: Get.context!,
       builder: (context) =>
-          SelectRangeCalender(
+          const SelectRangeCalender(
               rangeCalendarMethodImp:
               RangeCalendarMethodImp.ALL_LOG),
     );

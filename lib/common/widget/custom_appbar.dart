@@ -76,7 +76,7 @@ Icon get icon {
   );
 }
 
-Icon get circleIcon{
+Icon get circleIcon {
   return Icon(
     Icons.circle,
     color: Colors.red,

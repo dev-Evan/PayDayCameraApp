@@ -1,3 +1,4 @@
+
 class CheckEntryStatus {
   bool? status;
   String? message;
@@ -8,7 +9,7 @@ class CheckEntryStatus {
   CheckEntryStatus.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 }
 
@@ -24,11 +25,11 @@ class Data {
     if (json['break_times'] != null) {
       breakTimes = <BreakTimes>[];
       json['break_times'].forEach((v) {
-        breakTimes!.add(new BreakTimes.fromJson(v));
+        breakTimes!.add(BreakTimes.fromJson(v));
       });
     }
     breakDetails = json['break_details'] != null
-        ? new BreakDetails.fromJson(json['break_details'])
+        ? BreakDetails.fromJson(json['break_details'])
         : null;
   }
 }

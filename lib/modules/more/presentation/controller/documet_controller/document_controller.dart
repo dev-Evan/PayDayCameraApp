@@ -1,4 +1,3 @@
-import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/modules/more/data/document_repository/document_repo.dart';
@@ -44,10 +43,10 @@ class DocumentController extends GetxController with StateMixin {
         getDocumentData();
       }, onError: (error) {
         Get.back();
-        print("Deleted document ::: ${error}");
+        print("Deleted document ::: $error");
       });
     } catch (ex) {
-      print("Deleted document ::: ${ex}");
+      print("Deleted document ::: $ex");
     }
     change(null, status: RxStatus.success());
   }

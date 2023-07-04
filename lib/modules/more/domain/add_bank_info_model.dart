@@ -1,3 +1,4 @@
+
 class AddBankInfoModel {
   bool? status;
   String? message;
@@ -18,3 +19,4 @@ class AddBankInfoModel {
     return data;
   }
 }
+

@@ -288,9 +288,9 @@ BorderRadius get  borderRadius{
   return BorderRadius.circular(Dimensions.radiusDefault-1);
 }
 
-TextStyle get currencyStyle{
+TextStyle get currencyStyle {
   return TextStyle(
       color: AppColor.normalTextColor,
-      fontSize: Dimensions.fontSizeDefault+2,
+      fontSize: Dimensions.fontSizeDefault + 2,
       fontWeight: FontWeight.w400);
 }

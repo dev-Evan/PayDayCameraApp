@@ -14,26 +14,20 @@ import '../../../../utils/app_string.dart';
 import '../../../auth/presentation/controller/auth_controller.dart';
 import '../widget/profile_container_layout.dart';
 
-
 class ProfileDataController extends GetxController with StateMixin {
   ProfileDataRepository profileDataRepository =
   ProfileDataRepository(NetworkClient());
-
-
-
   UserProfile userProfile = UserProfile();
   @override
   void onInit() {
     getUserData();
     super.onInit();
   }
-
-
   getUserData() async {
     change(null, status: RxStatus.loading());
     await profileDataRepository.getUserProfileData().then((value) {
       userProfile = value;
-      print('User profile called ::: ${value}');
+      print('User profile called ::: $value');
     }, onError: (e) {
       print('User profile called ::: ${e.message}');
     });

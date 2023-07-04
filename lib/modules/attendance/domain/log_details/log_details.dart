@@ -1,3 +1,4 @@
+
 class LogDetails {
   bool? status;
   String? message;
@@ -67,10 +68,10 @@ class Data {
     outTime = json['out_time'];
     attendanceId = json['attendance_id'];
     inIpData = json['in_ip_data'] != null
-        ? new InIpData.fromJson(json['in_ip_data'])
+        ? InIpData.fromJson(json['in_ip_data'])
         : null;
     outIpData = json['out_ip_data'] != null
-        ? new InIpData.fromJson(json['out_ip_data'])
+        ? InIpData.fromJson(json['out_ip_data'])
         : null;
     statusId = json['status_id'];
     reviewBy = json['review_by'];
@@ -143,6 +144,4 @@ class Comments {
     type = json['type'];
     comment = json['comment'];
   }
-
-
 }

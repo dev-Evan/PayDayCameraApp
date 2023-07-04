@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
 import 'package:pay_day_mobile/common/widget/custom_time_in_time_picker.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/widget/single_date_picker_calendar.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import '../../../../common/widget/custom_app_button.dart';
 import '../../../../common/widget/custom_time_picker.dart';
@@ -13,6 +12,7 @@ import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_string.dart';
 import '../../../../utils/dimensions.dart';
 import '../widget/bottom_sheet_appbar.dart';
+import '../widget/single_date_picker_calendar.dart';
 
 class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
   const RequestAttendanceBottomSheet({Key? key}) : super(key: key);
@@ -104,8 +104,13 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
         if (controller.requestedDate.isNotEmpty &&
             controller.pickedInTime.isNotEmpty &&
             controller.pickedOutTime.isNotEmpty) {
-          Get.find<AttendanceLogsController>().requestAttendance();
-          Navigator.pop(Get.context!);
+          Get.find<AttendanceLogsController>()
+              .requestAttendance()
+              .then((value) {
+            if (value == true) {
+              Navigator.pop(Get.context!);
+            }
+          });
         } else {
           Get.showSnackbar(const GetSnackBar(
             message: "Select a valid input before request a attendance",
@@ -235,5 +240,4 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
       ),
     );
   }
-
 }

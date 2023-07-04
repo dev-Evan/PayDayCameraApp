@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
-import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
@@ -60,7 +58,7 @@ class _AttendanceFilterState extends State<LeaveDurationFilter> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                   Dimensions.radiusSmall)),
-                          value: this.approve,
+                          value: approve,
                           onChanged: (bool? approve) {
                             setState(() {
                               this.approve = approve;
@@ -83,7 +81,7 @@ class _AttendanceFilterState extends State<LeaveDurationFilter> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                   Dimensions.radiusSmall)),
-                          value: this.pending,
+                          value: pending,
                           onChanged: (bool? pending) {
                             setState(() {
                               this.pending = pending;
@@ -105,7 +103,7 @@ class _AttendanceFilterState extends State<LeaveDurationFilter> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                   Dimensions.radiusSmall)),
-                          value: this.rejection,
+                          value: rejection,
                           onChanged: (bool? rejection) {
                             setState(() {
                               this.rejection = rejection;
@@ -146,7 +144,7 @@ class _AttendanceFilterState extends State<LeaveDurationFilter> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                   Dimensions.radiusSmall)),
-                          value: this.hours,
+                          value: hours,
                           onChanged: (bool? hours) {
                             setState(() {
                               this.hours = hours;
@@ -168,7 +166,7 @@ class _AttendanceFilterState extends State<LeaveDurationFilter> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                   Dimensions.radiusSmall)),
-                          value: this.singleDay,
+                          value: singleDay,
                           onChanged: (bool? singleDay) {
                             setState(() {
                               this.singleDay = singleDay;
@@ -190,7 +188,7 @@ class _AttendanceFilterState extends State<LeaveDurationFilter> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                   Dimensions.radiusSmall)),
-                          value: this.multiDay,
+                          value: multiDay,
                           onChanged: (bool? multiDay) {
                             setState(() {
                               this.multiDay = multiDay;
@@ -212,7 +210,7 @@ class _AttendanceFilterState extends State<LeaveDurationFilter> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                   Dimensions.radiusSmall)),
-                          value: this.firstHalf,
+                          value: firstHalf,
                           onChanged: (bool? firstHalf) {
                             setState(() {
                               this.firstHalf = firstHalf;
@@ -234,7 +232,7 @@ class _AttendanceFilterState extends State<LeaveDurationFilter> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                   Dimensions.radiusSmall)),
-                          value: this.lastHalf,
+                          value: lastHalf,
                           onChanged: (bool? lastHalf) {
                             setState(() {
                               this.lastHalf = lastHalf;

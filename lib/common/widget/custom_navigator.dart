@@ -7,3 +7,4 @@ Future CustomNavigator({context, pageName}) {
         builder: (context) => pageName,
       ));
 }
+

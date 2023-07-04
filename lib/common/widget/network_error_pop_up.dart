@@ -5,9 +5,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-
 import '../../utils/app_layout.dart';
-import '../../utils/dimensions.dart';
 import 'custom_spacer.dart';
 
 Future networkErrorAlertPopup() {
@@ -17,7 +15,7 @@ Future networkErrorAlertPopup() {
     builder: (context) {
       return WillPopScope(child: AlertDialog(
         insetPadding: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0))),
         content: SizedBox.expand(
           child: Container(

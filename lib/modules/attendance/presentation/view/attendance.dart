@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_app_button.dart';
+import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
@@ -10,7 +11,6 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../../common/widget/loading_indicator.dart';
-import '../../../../routes/app_pages.dart';
 import '../../../../utils/app_style.dart';
 import '../widget/break_pop_up.dart';
 import '../widget/dot_indicator.dart';
@@ -84,16 +84,16 @@ class Attendance extends GetView<AttendanceController> {
   _upperLayout() => Obx(() => Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(16),
               bottomRight: Radius.circular(16)),
           gradient: controller.logs.value.data != null &&
                   controller.logs.value.data!.todayOvertime.toDouble() > 0
-              ? LinearGradient(colors: [
+              ? const LinearGradient(colors: [
                   AppColor.overTimeGradientOne,
                   AppColor.overTimeGradientTwo
                 ])
-              : LinearGradient(colors: [
+              : const LinearGradient(colors: [
                   AppColor.balanceTimeGradientOne,
                   AppColor.balanceTimeGradientTwo
                 ]),
@@ -130,7 +130,9 @@ class Attendance extends GetView<AttendanceController> {
                           .getAllFilteredLogSummary();
                       Get.find<AttendanceLogsController>()
                           .getLogSummaryOverview();
-                      Get.toNamed(Routes.ATTENDANCE_LOG);
+                      CustomNavigator(
+                          context: Get.context!,
+                          pageName: const AttendanceLogsScreen());
                     }),
               ]),
         ),
