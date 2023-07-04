@@ -136,16 +136,18 @@ BoxDecoration boxDecoration({iconBgColor}) {
 }
 
 Widget _contentText({required contentText}) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Expanded(
+
+  return SizedBox(
+    height: AppLayout.getHeight(22),
+    child: Expanded(
+      child: Align(
+        alignment: Alignment.topCenter,
         child: Text(contentText!,
             style: AppStyle.mid_large_text.copyWith(
                 color: AppColor.hintColor,
                 fontSize: Dimensions.fontSizeDefault - 1)),
       ),
-    ],
+    ),
   );
 }
 
@@ -179,7 +181,7 @@ ButtonStyle get elevatedBtmStyle {
 }
 
 BorderSide get borderSide {
-  return BorderSide(width: 1, color: AppColor.normalTextColor);
+  return const BorderSide(width: 1, color: AppColor.normalTextColor);
 }
 
 Text get _noText {
