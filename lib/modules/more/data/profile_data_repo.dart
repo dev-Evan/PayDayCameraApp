@@ -18,10 +18,6 @@ class ProfileDataRepository {
   var baseUrl = Api.BASE_URL + Api.USER_CHANGE_PICTURE;
   final _box = GetStorage();
   late var accessToken = _box.read(AppString.ACCESS_TOKEN);
-
-
-
-
   Future<UserProfile> getUserProfileData() async {
     try {
       Response response =

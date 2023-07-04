@@ -13,7 +13,6 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/time_counter_helper.dart';
-
 import '../../../../enum/status.dart';
 import '../view/log_details_bottomsheet.dart';
 
@@ -126,7 +125,7 @@ class LogsList extends GetView<AttendanceLogsController> {
               ),
             ],
           ),
-          customDivider(25, 1),
+          CustomDiveider(25, 1)
         ],
       );
 

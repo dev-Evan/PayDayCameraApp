@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,7 +7,6 @@ import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/leave_details.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 import '../../../../common/widget/custom_spacer.dart';
 import '../../../../common/widget/custom_buttom_sheet.dart';
 import '../../../../utils/app_color.dart';
@@ -211,6 +209,4 @@ Widget _noDataImg() {
     width: 180,
     height: 180
   );
-
-
 }

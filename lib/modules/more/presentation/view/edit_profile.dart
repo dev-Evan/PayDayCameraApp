@@ -19,20 +19,15 @@ import '../controller/user_profile_controller.dart';
 import '../widget/address_details_widget.dart';
 
 class EditProfile extends StatefulWidget {
-  const EditProfile({Key? key}) : super(key: key);
-
+  EditProfile({Key? key}) : super(key: key);
   @override
   State<EditProfile> createState() => _EditProfileState();
 }
 
 class _EditProfileState extends State<EditProfile> {
   final List<String> _locations = [AppString.text_male,AppString.text_female];
-
   String? dropdownValue;
-
   final _formKey = GlobalKey<FormState>();
-
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -61,8 +56,8 @@ class _EditProfileState extends State<EditProfile> {
                               CustomTextField(
                                 hintText: AppString.text_enter_first_name,
                                 controller:
-                                    Get.find<InputTextFieldController>()
-                                        .firstNameController,
+                                Get.find<InputTextFieldController>()
+                                    .firstNameController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
                                     showCustomSnackBar(message: AppString.the_first_name_field_is_required,color: AppColor.errorColor);
@@ -85,8 +80,8 @@ class _EditProfileState extends State<EditProfile> {
                               CustomTextField(
                                 hintText: AppString.text_enter_last_name,
                                 controller:
-                                    Get.find<InputTextFieldController>()
-                                        .lastNameController,
+                                Get.find<InputTextFieldController>()
+                                    .lastNameController,
                               ),
                             ],
                           ),
@@ -142,15 +137,15 @@ class _EditProfileState extends State<EditProfile> {
                 child: CustomButton(AppString.text_save, () {
                   if (_formKey.currentState!.validate()) {
                     Get.find<ProfileDataController>().editProfileData(
-                      context: context,
-                    firstName: Get.find<InputTextFieldController>().firstNameController.text,
-                      lastName: Get.find<InputTextFieldController>().lastNameController.text,
-                      email: Get.find<InputTextFieldController>().emailController.text,
-                      contact: Get.find<InputTextFieldController>().contactController.text,
-                      dob: Get.find<DatePickerController>().dobDateController.value.text,
-                      dropDown: Get.find<DropdownBtnController>().value.toString(),
-                      aboutMe: Get.find<InputTextFieldController>().aboutMeController.text,
-                      address: Get.find<InputTextFieldController>().addressController.text
+                        context: context,
+                        firstName: Get.find<InputTextFieldController>().firstNameController.text,
+                        lastName: Get.find<InputTextFieldController>().lastNameController.text,
+                        email: Get.find<InputTextFieldController>().emailController.text,
+                        contact: Get.find<InputTextFieldController>().contactController.text,
+                        dob: Get.find<DatePickerController>().dobDateController.value.text,
+                        dropDown: Get.find<DropdownBtnController>().value.toString(),
+                        aboutMe: Get.find<InputTextFieldController>().aboutMeController.text,
+                        address: Get.find<InputTextFieldController>().addressController.text
                     );
                   }
                 }),

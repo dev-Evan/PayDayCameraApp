@@ -50,7 +50,7 @@ class MoreDataController extends GetxController with StateMixin {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => const BankDetails(),
+          builder: (BuildContext context) => BankDetails(),
         ),
       );
       getBankInfo();
@@ -104,7 +104,7 @@ class MoreDataController extends GetxController with StateMixin {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => const BankDetails(),
+          builder: (BuildContext context) => BankDetails(),
         ),
       );
       getBankInfo();

@@ -15,13 +15,10 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
 import '../controller/user_profile_controller.dart';
 
 class ChangePassword extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-
-  ChangePassword({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
 import '../../utils/app_style.dart';
 
 class InputNote extends StatelessWidget {

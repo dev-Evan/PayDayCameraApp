@@ -1,3 +1,4 @@
+
 class LogDetails {
   bool? status;
   String? message;
@@ -143,6 +144,4 @@ class Comments {
     type = json['type'];
     comment = json['comment'];
   }
-
-
 }

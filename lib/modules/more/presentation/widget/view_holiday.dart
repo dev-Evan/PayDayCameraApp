@@ -10,7 +10,6 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
 import '../../../../common/widget/custom_spacer.dart';
 
 class ViewHoliday extends StatefulWidget {
@@ -87,7 +86,7 @@ Future _openBottomSheet() {
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     context: Get.context!,
-    builder: (context) => const SelectRangeCalender(
+    builder: (context) => SelectRangeCalender(
       rangeCalendarMethodImp: RangeCalendarMethodImp.VIEW_HOLIDAY,
     ),
   );
@@ -125,7 +124,7 @@ Widget holidaysList() {
                       ),
                     ],
                   ),
-                  customDivider(25, 1),
+                  CustomDiveider(25, 1),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -177,7 +176,7 @@ Widget holidaysList() {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 12.0),
-              child: customDivider(
+              child: CustomDiveider(
                   AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
             )
           ],

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
-
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_string.dart';

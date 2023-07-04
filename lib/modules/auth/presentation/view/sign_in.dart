@@ -166,7 +166,9 @@ class _SignInScreenState extends State<SignInScreen> {
 
   void _launchURL() async {
     var url = Get.find<AuthController>().resetPasswordModel.data?.url;
+    // ignore: deprecated_member_use
     if (await canLaunch(url ?? "")) {
+      // ignore: deprecated_member_use
       await launch(url ?? "");
     } else {
       print('Could not launch $url');

@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
+import 'package:pay_day_mobile/modules/payslip/presentation/widget/logList_widget.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
+import '../../../more/presentation/view/salary_overview.dart';
+import '../../../setting/presentation/controller/setting_controller.dart';
 
-Widget profileCard({required nameText, required userEmail, required payslipId}) {
-  return  Column(
+Widget profileCard(
+    {required nameText, required userEmail, required payslipId}) {
+  return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text(
-        nameText ,
+        nameText,
         style: AppStyle.mid_large_text.copyWith(
             fontWeight: FontWeight.w800,
             color: AppColor.normalTextColor,
@@ -21,22 +26,20 @@ Widget profileCard({required nameText, required userEmail, required payslipId}) 
       ),
       customSpacerHeight(height: 4),
       Text(
-
         GetStorage().read(AppString.STORE_CURRENT_EMAIL).toString(),
         style: AppStyle.small_text.copyWith(color: AppColor.hintColor),
       ),
       customSpacerHeight(height: 4),
-
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           Text(
             "${AppString.text_payslip_id} : ",
-            style: AppStyle.small_text.copyWith(color: AppColor.normalTextColor),
+            style:
+                AppStyle.small_text.copyWith(color: AppColor.normalTextColor),
           ),
           Text(
-            "$payslipId",
+            "${payslipId}",
             style: AppStyle.small_text.copyWith(color: AppColor.hintColor),
           ),
         ],
@@ -53,20 +56,19 @@ Widget payslipVDateCard({required titleText, required dateText}) {
       Text(
         titleText,
         style: AppStyle.mid_large_text.copyWith(
-            color: AppColor.hintColor,
-            letterSpacing: 0.4,
-            fontSize: Dimensions.fontSizeDefault,
-            fontWeight: FontWeight.w500,
-
-
+          color: AppColor.hintColor,
+          letterSpacing: 0.4,
+          fontSize: Dimensions.fontSizeDefault,
+          fontWeight: FontWeight.w500,
         ),
       ),
       Text(
         dateText,
         style: AppStyle.mid_large_text.copyWith(
-            color: AppColor.normalTextColor,
-            fontSize: Dimensions.fontSizeDefault,
-            fontWeight: FontWeight.w500,),
+          color: AppColor.normalTextColor,
+          fontSize: Dimensions.fontSizeDefault,
+          fontWeight: FontWeight.w500,
+        ),
       ),
       customSpacerHeight(height: 16),
     ],
@@ -80,12 +82,12 @@ Widget basicSalaryText() {
           fontWeight: FontWeight.bold,
           fontSize: Dimensions.fontSizeDefault + 2));
 }
-Widget subTitleContainer({required leftText,required rightText}){
-  return   Container(
+
+Widget subTitleContainer({required leftText, required rightText}) {
+  return Container(
     decoration: AppStyle.ContainerStyle.copyWith(
         color: AppColor.disableColor.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(
-            Dimensions.radiusDefault - 6)),
+        borderRadius: BorderRadius.circular(Dimensions.radiusDefault - 6)),
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -98,9 +100,6 @@ Widget subTitleContainer({required leftText,required rightText}){
                 fontSize: Dimensions.fontSizeDefault,
                 fontWeight: FontWeight.w500),
           ),
-
-
-
           Text(
             rightText,
             style: AppStyle.mid_large_text.copyWith(
@@ -114,48 +113,73 @@ Widget subTitleContainer({required leftText,required rightText}){
   );
 }
 
-
-Widget subTextCard({required subLeftText,required subRightText, isPercentage}) {
+Widget subTextCard(
+    {required subLeftText,
+    required subRightText,
+    isPercentage,
+    required value}) {
   return Padding(
-    padding:  EdgeInsets.only(bottom: AppLayout.getHeight(8),left: AppLayout.getWidth(2),right: AppLayout.getWidth(2),top: AppLayout.getHeight(8)),
+    padding: EdgeInsets.only(
+        bottom: AppLayout.getHeight(8),
+        left: AppLayout.getWidth(2),
+        right: AppLayout.getWidth(2),
+        top: AppLayout.getHeight(8)),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-
         Row(
           children: [
             Text(
-              subLeftText,
+              "$subLeftText",
               style: AppStyle.mid_large_text.copyWith(
-                  color: AppColor.normalTextColor
-                      .withOpacity(0.9),
+                  color: AppColor.normalTextColor.withOpacity(0.9),
                   fontSize: Dimensions.fontSizeDefault,
                   fontWeight: FontWeight.w500),
             ),
-            customSpacerWidth(width: 3),
-            Text(isPercentage.toString() == "1" ? "%" : ""),
-
+            customSpacerWidth(width: 5),
+            Text(("( ${value}${isPercentage.toString() == "1" ? "%" : ""} )")),
           ],
         ),
-
-
-        Text(
-          subRightText,
-          style: AppStyle.mid_large_text.copyWith(
-              color: AppColor.normalTextColor
-                  .withOpacity(0.9),
-              fontSize: Dimensions.fontSizeDefault,
-              fontWeight: FontWeight.w500),
+        Row(
+          children: [
+            currencySymbolSmall,
+            Text(
+              subRightText,
+              style: AppStyle.mid_large_text.copyWith(
+                  color: AppColor.normalTextColor.withOpacity(0.9),
+                  fontSize: Dimensions.fontSizeDefault,
+                  fontWeight: FontWeight.w500),
+            ),
+          ],
         ),
-
       ],
     ),
   );
 }
 
-Widget summaryTextCard({required subLeftText,required subRightText}) {
+Container get currencySymbolSmall {
+  return Container(
+    margin: EdgeInsets.only(right: AppLayout.getHeight(4)),
+    child: Text(
+        Get.find<SettingController>().basicInfo?.data.currencySymbol ?? "",
+        style: currencySymbolSmallStyle),
+  );
+}
+
+TextStyle get currencySymbolSmallStyle {
+  return TextStyle(
+      color: AppColor.normalTextColor.withOpacity(0.9),
+      fontSize: Dimensions.fontSizeDefault + 1,
+      fontWeight: FontWeight.w400);
+}
+
+Widget summaryTextCard({required subLeftText, required subRightText}) {
   return Padding(
-    padding:  EdgeInsets.only(bottom: AppLayout.getHeight(8),left: AppLayout.getWidth(8),right: AppLayout.getWidth(8),top: AppLayout.getHeight(8)),
+    padding: EdgeInsets.only(
+        bottom: AppLayout.getHeight(8),
+        left: AppLayout.getWidth(8),
+        right: AppLayout.getWidth(8),
+        top: AppLayout.getHeight(8)),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -166,56 +190,64 @@ Widget summaryTextCard({required subLeftText,required subRightText}) {
   );
 }
 
-Widget _subTextLeft({required subLeftText }){
+Widget _subTextLeft({required subLeftText}) {
   return Text(
     subLeftText,
     style: AppStyle.mid_large_text.copyWith(
-        color: AppColor.normalTextColor
-            .withOpacity(0.9),
+        color: AppColor.normalTextColor.withOpacity(0.9),
         fontSize: Dimensions.fontSizeDefault,
         fontWeight: FontWeight.w500),
   );
 }
 
-Widget _subTextRight({required subRightText }){
-  return  Text(
-    subRightText,
-    style: AppStyle.mid_large_text.copyWith(
-        color: AppColor.normalTextColor
-            .withOpacity(0.9),
-        fontSize: Dimensions.fontSizeDefault,
-        fontWeight: FontWeight.w500),
+Widget _subTextRight({required subRightText}) {
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      currencySymbolSmall,
+      Text(
+        subRightText,
+        style: AppStyle.mid_large_text.copyWith(
+            color: AppColor.normalTextColor.withOpacity(0.9),
+            fontSize: Dimensions.fontSizeDefault,
+            fontWeight: FontWeight.w500),
+      ),
+    ],
   );
 }
 
-Widget totalRowView({required amount}){
-  return  Padding(
+Widget totalRowView({required amount, required text}) {
+  return Padding(
     padding: const EdgeInsets.all(6.0),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          AppString.text_total,
+          text,
           style: AppStyle.mid_large_text.copyWith(
               color: AppColor.normalTextColor,
               fontSize: Dimensions.fontSizeDefault + 2,
               fontWeight: FontWeight.w700),
         ),
-
-        Text(
-          amount,
-          style: AppStyle.mid_large_text.copyWith(
-              color: AppColor.normalTextColor,
-              fontSize: Dimensions.fontSizeDefault + 2,
-              fontWeight: FontWeight.w700),
+        Row(
+          children: [
+            currencySymbol,
+            Text(
+              amount,
+              style: AppStyle.mid_large_text.copyWith(
+                  color: AppColor.normalTextColor,
+                  fontSize: Dimensions.fontSizeDefault + 2,
+                  fontWeight: FontWeight.w700),
+            ),
+          ],
         ),
       ],
     ),
   );
 }
 
-Widget summaryText(){
-  return   Padding(
+Widget summaryText() {
+  return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -13,7 +13,7 @@ class LeaveAllowanceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppbar(),
+      appBar: CustomAppbar(),
       body: SingleChildScrollView(
         physics: const ScrollPhysics(),
         child: Column(
@@ -52,7 +52,7 @@ Widget _cardBox({required context}) {
     width: MediaQuery.of(context).size.width,
     decoration: boxDecoration,
     child: Container(
-      margin: const EdgeInsets.all(12),
+      margin: EdgeInsets.all(12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

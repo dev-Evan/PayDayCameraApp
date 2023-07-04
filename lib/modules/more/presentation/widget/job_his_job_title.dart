@@ -54,7 +54,7 @@ Widget jodTitle({required jobTitleText, subTitleText, subEndText}) {
               customSpacerWidth(width: 8),
               Row(
                 children: [
-                  Text('$subTitleText - $subEndText',style: AppStyle.mid_large_text.copyWith(
+                  Text('${subTitleText} - ${subEndText}',style: AppStyle.mid_large_text.copyWith(
                       color: AppColor.normalTextColor.withOpacity(0.5),
                       fontSize: Dimensions.fontSizeDefault+1,
                       fontWeight: FontWeight.w300))

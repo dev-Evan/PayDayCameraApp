@@ -1,15 +1,16 @@
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/view/leve_records_view.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/announce.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/edit_profile.dart';
 import 'package:pay_day_mobile/modules/starting/view/splash_screen.dart';
-
 import '../modules/attendance/presentation/view/attendance_logs.dart';
-import '../modules/auth/presentation/view/forgot_password.dart';
 import '../modules/auth/presentation/view/sign_in.dart';
 import '../modules/home/presentation/home.dart';
 import '../modules/leave/presentation/view/leave.dart';
 import '../modules/more/presentation/view/about_this_app.dart';
 import '../modules/more/presentation/view/address_details.dart';
 import '../modules/more/presentation/view/bank_details.dart';
+import '../modules/more/presentation/view/change_password.dart';
 import '../modules/more/presentation/view/documents.dart';
 import '../modules/more/presentation/view/jod_history.dart';
 import '../modules/more/presentation/view/leave_allowance.dart';
@@ -20,7 +21,6 @@ import '../modules/notification/presentation/view/notifications.dart';
 import '../modules/payslip/presentation/view/payrun_badge.dart';
 import '../modules/payslip/presentation/view/payslip.dart';
 import '../modules/starting/view/onboarding_screen.dart';
-
 part 'app_routes.dart';
 
 class AppPages {
@@ -38,13 +38,9 @@ class AppPages {
         transition: Transition.rightToLeft,
         page: () => const SignInScreen()),
     GetPage(
-      name: _Paths.FORGOT_PASSWORD,
-      page: () => const ForgotScreen(),
-    ),
-    GetPage(
       transition: Transition.cupertino,
       name: _Paths.ONBOARD_SCREEN,
-      page: () => const OnboardingScreen(),
+      page: () => OnboardingScreen(),
     ),
     GetPage(
       transition: Transition.cupertino,
@@ -54,7 +50,7 @@ class AppPages {
     GetPage(
       transition: Transition.cupertino,
       name: _Paths.MORE_SCREEN,
-      page: () => const MoreScreen(),
+      page: () => MoreScreen(),
     ),
     GetPage(
       transition: Transition.cupertino,
@@ -80,27 +76,27 @@ class AppPages {
       page: () => const SignInScreen()),
     GetPage(
       name: _Paths.UPDATE_DOCUMENT,
-      page: () =>  const UpdateDocument(),
+      page: () =>  UpdateDocument(),
     ),
     GetPage(
       name: _Paths.DOCUMENT_SCREEN,
       transition: Transition.rightToLeft,
-      page: () => const DocumentScreen(),
+      page: () => DocumentScreen(),
     ),
     GetPage(
       name: _Paths.JOB_HISTORY,
       transition: Transition.rightToLeft,
-      page: () => const JodHistory(),
+      page: () => JodHistory(),
     ),
     GetPage(
       name: _Paths.SALARY_OVERVIEW,
       transition: Transition.rightToLeft,
-      page: () => const SalaryOverView(),
+      page: () => SalaryOverView(),
     ),
     GetPage(
       name: _Paths.ADDRESS_DETAILS,
       transition: Transition.rightToLeft,
-      page: () => const AddressDetails(),
+      page: () => AddressDetails(),
     ),
     GetPage(
       name: _Paths.ABOUT_PAGE,
@@ -110,28 +106,52 @@ class AppPages {
     GetPage(
       name: _Paths.PAYRAN_BAGE,
       transition: Transition.rightToLeft,
-      page: () => const PayRunBadge(),
+      page: () => PayRunBadge(),
     ),
 
     GetPage(
       name: _Paths.NOTIFICATION_SCREEN,
       transition: Transition.rightToLeft,
-      page: () => const Notifications(),
+      page: () => Notifications(),
     ),
     GetPage(
       name: _Paths.BANK_DETAILS,
       transition: Transition.rightToLeft,
-      page: () => const BankDetails(),
+      page: () => BankDetails(),
     ),
     GetPage(
       name: _Paths.ANNOUNCE_SCREEN,
       transition: Transition.rightToLeft,
-      page: () => const AnnounceScreen(),
-    ), GetPage(
+      page: () => AnnounceScreen(),
+    ),
+
+    GetPage(
       name: _Paths.LEAVE_ALLOWANCE_SCREEN,
       transition: Transition.rightToLeft,
-      page: () => const LeaveAllowanceScreen(),
+      page: () => LeaveAllowanceScreen(),
     ),
+
+
+
+    GetPage(
+      name: _Paths.EDIT_PROFILE,
+      transition: Transition.rightToLeft,
+      page: () => EditProfile(),
+    ),
+
+    GetPage(
+      name: _Paths.CHANGE_PASSWORD,
+      transition: Transition.rightToLeft,
+      page: () => ChangePassword(),
+    ),
+
+    GetPage(
+      name: _Paths.LEAVE_RECORD,
+      transition: Transition.rightToLeft,
+      page: () => LeaveRecordsView(),
+    ),
+
+
 
   ];
 }

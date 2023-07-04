@@ -1,3 +1,4 @@
+
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
@@ -12,7 +13,7 @@ class DropdownBtnController extends GetxController {
     } else if(dropdownValue == "Female") {
       value = "female";
     }else{
-      return;
+      return null;
     }
   }
 }

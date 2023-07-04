@@ -130,7 +130,7 @@ class Attendance extends GetView<AttendanceController> {
                           .getAllFilteredLogSummary();
                       Get.find<AttendanceLogsController>()
                           .getLogSummaryOverview();
-                      customNavigator(
+                      CustomNavigator(
                           context: Get.context!,
                           pageName: const AttendanceLogsScreen());
                     }),

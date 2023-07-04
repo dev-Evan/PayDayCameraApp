@@ -1,7 +1,8 @@
+
 class AddBankInfoModel {
   bool? status;
   String? message;
-  List<void>? data;
+  List<Null>? data;
 
   AddBankInfoModel({this.status, this.message, this.data});
 
@@ -12,9 +13,10 @@ class AddBankInfoModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['status'] = status;
-    data['message'] = message;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['message'] = this.message;
     return data;
   }
 }
+

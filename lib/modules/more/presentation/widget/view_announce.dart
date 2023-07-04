@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/announce.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
@@ -10,152 +9,162 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class ViewAnnounce extends StatefulWidget {
-  final String text;
-  final int maxLength;
-  const ViewAnnounce({super.key, required this.text, required this.maxLength});
   @override
   State<ViewAnnounce> createState() => _ViewAnnounceState();
 }
 
 class _ViewAnnounceState extends State<ViewAnnounce> {
-  bool isExpanded = false;
+  List texts = [
+    'In publishing and graphic design, Lorem ipsum is',
+    'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content',
+    'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content',
+    'ut labore et dolore magna aliqua',
+    'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content',
+    'Ut enim ad minim veniam',
+    'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content',
+    'Ut enim ad minim veniam',
+  ];
   @override
   Widget build(BuildContext context) {
-    final isTextOverflowed = widget.text.length > widget.maxLength;
-
     return Scaffold(
-      appBar: const CustomAppbar(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          customMoreAppbar(titleText: AppString.text_announcement),
-          Container(
-            margin: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // newText(text: AppString.text_new),
-                // announceCard(context: context,desText:
-                //
-                // isTextOverflowed && !isExpanded
-                //     ? "${widget.text.substring(0, widget.maxLength)}..."
-                //     : widget.text,
-                //
-                //     onAction: (){
-                //       if (isTextOverflowed);
-                //       setState(() {
-                //         isExpanded = !isExpanded;
-                //       });
-                //     }, readMoreText: isExpanded ? 'Read Less' : 'Read More'
-                //
-                // ),
-                Text(
-                  isTextOverflowed && !isExpanded
-                      ? "${widget.text.substring(0, widget.maxLength)}..."
-                      : widget.text,
-                  textAlign: TextAlign.justify,
-                ),
-                if (isTextOverflowed)
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        isExpanded = !isExpanded;
-                      });
-                    },
-                    child: Text(
-                      isExpanded ? 'Read Less' : 'Read More',
-                      style: const TextStyle(color: Colors.blue),
-                    ),
-                  ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            customMoreAppbar(titleText: AppString.text_announcement),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: texts.length,
+                itemBuilder: (context, index) {
+                  final text = texts[index];
+                  final wordCount = text.split(' ').length;
+                  print(wordCount);
 
-                // Text(
-                //   isTextOverflowed && !isExpanded
-                //       ? "${widget.text.substring(0, widget.maxLength)}..."
-                //       : widget.text,
-                //   textAlign: TextAlign.justify,
-                // ),
-
-                // if (isTextOverflowed)
-                //   TextButton(
-                //     onPressed: () {
-                //       setState(() {
-                //         isExpanded = !isExpanded;
-                //       });
-                //     },
-                //     child:
-                //     _redMoreBtn(text: isExpanded ? 'Read Less' : 'Read More',)
-                //
-                //
-                //   ),
-
-
-              ],
+                  if (wordCount > 20) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: announceLargeCard(
+                        context: context,
+                        child: ExpandableText(
+                          texts[index],
+                          trimLines: 3,
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: announceCard(
+                        context: context,
+                        desText: texts[index],
+                        length: 163,
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
-Widget  newText({required text}){
+
+
+
+Widget newText({required text}) {
   return jobDeskTitle(text: text);
 }
-Container announceCard ({required context,  double? length,required desText,required onAction,required readMoreText}){
+
+Container announceCard(
+    {required context, double? length, required desText, readMoreText}) {
   return Container(
     height: length,
     width: MediaQuery.of(context).size.width,
-    decoration:decoration,
+    decoration: decoration,
     child: Container(
-      margin: EdgeInsets.only(left:AppLayout.getWidth(10),right: AppLayout.getWidth(10),top: AppLayout.getHeight(10),bottom: AppLayout.getHeight(10) ),
+      margin: EdgeInsets.only(
+          left: AppLayout.getWidth(10),
+          right: AppLayout.getWidth(10),
+          top: AppLayout.getHeight(10),
+          bottom: AppLayout.getHeight(10)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _CardTitleText(),
           _dateText(),
-          _cardDisText(desText: desText,onAction:onAction,readMoreText: readMoreText ),
+          _cardDisText(desText: desText, readMoreText: readMoreText),
         ],
       ),
     ),
-
-
   );
 }
 
-
-Widget _CardTitleText(){
+Widget announceLargeCard({required child, required context}) {
   return Container(
-    margin:  EdgeInsets.only(bottom: AppLayout.getHeight(2)),
-    child: Text("UL release",style:CardTitleTextStyle ),
+    width: MediaQuery.of(context).size.width,
+    decoration: decoration,
+    child: Container(
+      margin: EdgeInsets.only(
+          left: AppLayout.getWidth(10),
+          right: AppLayout.getWidth(10),
+          top: AppLayout.getHeight(10),
+          bottom: AppLayout.getHeight(10)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [_CardTitleText(), _dateText(),
+          customSpacerHeight(height: 6),
+          child],
+      ),
+    ),
   );
-
 }
 
-Widget _dateText(){
+Widget _CardTitleText() {
+  return Container(
+    margin: EdgeInsets.only(bottom: AppLayout.getHeight(2)),
+    child: Text("UL release", style: CardTitleTextStyle),
+  );
+}
+
+Widget _dateText() {
   return Row(
     children: [
-      Icon(Icons.calendar_today_outlined,color: AppColor.hintColor,size: Dimensions.fontSizeDefault,),
+      Icon(
+        Icons.calendar_today_outlined,
+        color: AppColor.hintColor,
+        size: Dimensions.fontSizeDefault,
+      ),
       customSpacerWidth(width: 4),
-      Text("14 Nov 2022 - 15 Nov 2022",style:viewCardSubTextStyle ),
+      Text("14 Nov 2022 - 15 Nov 2022", style: viewCardSubTextStyle),
     ],
   );
-
 }
-Widget _cardDisText({required desText,required onAction,required readMoreText}){
+
+Widget _cardDisText({required desText, readMoreText}) {
   return Container(
-    margin:  EdgeInsets.only(top: AppLayout.getHeight(12)),
-    child: Row(
+    margin: EdgeInsets.only(top: AppLayout.getHeight(12)),
+    child: Column(
       children: [
-        Text("$desText",textAlign: TextAlign.justify,style:disTextStyle ,),
-        textButton(onAction: onAction,text: readMoreText),
+        Text(
+          "${desText}",
+          style: disTextStyle,
+        ),
+        //textButton(onAction: onAction,text: readMoreText),
       ],
     ),
-
   );
 }
-Widget _redMoreBtn({required text}){
+
+Widget _redMoreBtn({required text}) {
   return Text(text);
 }
-TextButton textButton({required text ,onAction}){
-  return TextButton(onPressed: ()=>onAction(), child: _redMoreBtn(text: text));
-}
 
+TextButton textButton({required text, onAction}) {
+  return TextButton(
+      onPressed: () => onAction(), child: _redMoreBtn(text: text));
+}

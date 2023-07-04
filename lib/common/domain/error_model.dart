@@ -1,3 +1,4 @@
+
 class ErrorModel {
   bool? _status;
   String? _message;

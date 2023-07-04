@@ -17,7 +17,7 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../controller/address_controller.dart';
 
 class AddressDetails extends GetView<AddressController> {
-  const AddressDetails({Key? key}) : super(key: key);
+  AddressDetails({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +51,7 @@ class AddressDetails extends GetView<AddressController> {
                                                         context: context),
                                           ),
                                       editAction:
-                                          const EditAddress("permanent_address"),
+                                          EditAddress("permanent_address"),
                                       type: "permanent_address")
                                   : addButton(onAction: () {
                                       customButtonSheet(
@@ -106,64 +106,104 @@ class AddressDetails extends GetView<AddressController> {
                                                   AppString.text_area,
                                               rightTitleText:
                                                   AppString.text_city,
-                                              leftSubtext: controller
+                                              leftSubtext:
+
+                                              controller
+                                                  .addressDetailsModel
+                                                  .data
+                                                  ?.permanentAddress
+                                                  ?.area !=null?
+                                              controller
                                                       .addressDetailsModel
                                                       .data
                                                       ?.permanentAddress
                                                       ?.area
                                                       .toString() ??
-                                                  "",
-                                              rightSubtext: controller
+                                                  "":AppString.text_not_added_yet,
+                                              rightSubtext:
+                                              controller
+                                                  .addressDetailsModel
+                                                  .data
+                                                  ?.permanentAddress
+                                                  ?.city !=null?
+
+
+                                              controller
                                                       .addressDetailsModel
                                                       .data
                                                       ?.permanentAddress
                                                       ?.city
                                                       .toString() ??
-                                                  "",
+                                                  "":AppString.text_not_added_yet,
                                             ),
                                             detailsTextLayout(
                                               leftTitleText:
                                                   AppString.text_state,
                                               rightTitleText:
                                                   AppString.text_zip_code,
-                                              leftSubtext: controller
+                                              leftSubtext:
+                                              controller
+                                                  .addressDetailsModel
+                                                  .data
+                                                  ?.permanentAddress
+                                                  ?.state !=null?
+
+                                              controller
                                                       .addressDetailsModel
                                                       .data
                                                       ?.permanentAddress
                                                       ?.state
                                                       .toString() ??
-                                                  "",
-                                              rightSubtext: controller
+                                                  "":AppString.text_not_added_yet,
+                                              rightSubtext:
+                                              controller
+                                                  .addressDetailsModel
+                                                  .data
+                                                  ?.permanentAddress
+                                                  ?.zipCode !=null?
+                                              controller
                                                       .addressDetailsModel
                                                       .data
                                                       ?.permanentAddress
                                                       ?.zipCode
                                                       .toString() ??
-                                                  "",
+                                                  "":AppString.text_not_added_yet,
                                             ),
                                             detailsTextLayout(
                                               leftTitleText:
                                                   AppString.text_county,
                                               rightTitleText:
                                                   AppString.text_phone,
-                                              leftSubtext: controller
+                                              leftSubtext:
+                                              controller
+                                                  .addressDetailsModel
+                                                  .data
+                                                  ?.permanentAddress
+                                                  ?.country !=null?
+                                              controller
                                                       .addressDetailsModel
                                                       .data
                                                       ?.permanentAddress
                                                       ?.country
                                                       .toString() ??
-                                                  "",
-                                              rightSubtext: controller
+                                                  "":AppString.text_not_added_yet,
+                                              rightSubtext:
+                                              controller
+                                                  .addressDetailsModel
+                                                  .data
+                                                  ?.permanentAddress
+                                                  ?.phoneNumber !=null?
+                                              controller
                                                       .addressDetailsModel
                                                       .data
                                                       ?.permanentAddress
                                                       ?.phoneNumber
                                                       .toString() ??
-                                                  "",
+                                                  "":AppString.text_not_added_yet,
                                             ),
                                             customSpacerHeight(height: 24),
                                           ],
-                                        ),
+                                        )
                                       ],
                                     )
                                   : Container()
@@ -187,7 +227,7 @@ class AddressDetails extends GetView<AddressController> {
                                                         context: context),
                                           ),
                                       editAction:
-                                          const EditAddress("present_address"),
+                                          EditAddress("present_address"),
                                       type: "present_address")
                                   : addButton(onAction: () {
                                       customButtonSheet(
@@ -214,78 +254,137 @@ class AddressDetails extends GetView<AddressController> {
                                     ),
                                     customSpacerHeight(height: 8),
                                     Text(
+                                      controller
+                                          .addressDetailsModel
+                                          .data
+                                          ?.presentAddress
+                                          ?.details !=null?
                                       controller.addressDetailsModel.data
                                               ?.presentAddress?.details
                                               .toString() ??
-                                          "",
+                                          "":AppString.text_not_added_yet,
                                       style: AppStyle.mid_large_text.copyWith(
                                           color: AppColor.normalTextColor,
                                           fontSize: Dimensions.fontSizeDefault,
                                           fontWeight: FontWeight.w500),
                                     ),
                                     customSpacerHeight(height: 12),
+
                                     Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         detailsTextLayout(
-                                          leftTitleText: AppString.text_area,
-                                          rightTitleText: AppString.text_city,
-                                          leftSubtext: controller
+                                          leftTitleText:
+                                          AppString.text_area,
+                                          rightTitleText:
+                                          AppString.text_city,
+                                          leftSubtext:
+                                          controller
+                                              .addressDetailsModel
+                                              .data
+                                              ?.presentAddress
+                                              ?.area !=null?
+                                          controller
                                                   .addressDetailsModel
                                                   .data
                                                   ?.presentAddress
                                                   ?.area
                                                   .toString() ??
-                                              "",
-                                          rightSubtext: controller
+                                              "":AppString.text_not_added_yet,
+                                          rightSubtext:
+
+
+                                          controller
+                                              .addressDetailsModel
+                                              .data
+                                              ?.presentAddress
+                                              ?.city !=null?
+
+                                          controller
                                                   .addressDetailsModel
                                                   .data
                                                   ?.presentAddress
                                                   ?.city
                                                   .toString() ??
-                                              "",
+                                              "":AppString.text_not_added_yet,
                                         ),
+
+
                                         detailsTextLayout(
-                                          leftTitleText: AppString.text_state,
+                                          leftTitleText:
+                                          AppString.text_state,
                                           rightTitleText:
                                               AppString.text_zip_code,
-                                          leftSubtext: controller
+                                          leftSubtext:
+                                          controller
+                                              .addressDetailsModel
+                                              .data
+                                              ?.presentAddress
+                                              ?.state !=null?
+
+
+                                          controller
                                                   .addressDetailsModel
                                                   .data
                                                   ?.presentAddress
                                                   ?.state
                                                   .toString() ??
-                                              "",
-                                          rightSubtext: controller
+                                              "":AppString.text_not_added_yet,
+                                          rightSubtext:
+                                          controller
+                                              .addressDetailsModel
+                                              .data
+                                              ?.presentAddress
+                                              ?.zipCode !=null?
+
+                                          controller
                                                   .addressDetailsModel
                                                   .data
                                                   ?.presentAddress
                                                   ?.zipCode
                                                   .toString() ??
-                                              "",
+                                              "":AppString.text_not_added_yet,
                                         ),
                                         detailsTextLayout(
-                                          leftTitleText: AppString.text_county,
-                                          rightTitleText: AppString.text_phone,
-                                          leftSubtext: controller
+                                          leftTitleText:
+                                          AppString.text_county,
+                                          rightTitleText:
+                                          AppString.text_phone,
+                                          leftSubtext:
+
+                                          controller
+                                              .addressDetailsModel
+                                              .data
+                                              ?.presentAddress
+                                              ?.country !=null?
+                                          controller
                                                   .addressDetailsModel
                                                   .data
                                                   ?.presentAddress
                                                   ?.country
                                                   .toString() ??
-                                              "",
-                                          rightSubtext: controller
+                                              "":AppString.text_not_added_yet,
+
+                                          rightSubtext:
+                                          controller
+                                              .addressDetailsModel
+                                              .data
+                                              ?.presentAddress
+                                              ?.phoneNumber !=null?
+
+                                          controller
                                                   .addressDetailsModel
                                                   .data
                                                   ?.presentAddress
                                                   ?.phoneNumber
                                                   .toString() ??
-                                              "",
+                                              "":AppString.text_not_added_yet,
+
                                         ),
                                         customSpacerHeight(height: 24),
                                       ],
-                                    ),
+                                    )
                                   ],
                                 )
                               : Container(),
@@ -301,7 +400,7 @@ class AddressDetails extends GetView<AddressController> {
 }
 
 Future _deletedAlert({required context, onAction}) {
-  return customAlertDialog(
+  return CustomAlertDialog(
       context: context,
       icon: CupertinoIcons.delete,
       backAction: () {

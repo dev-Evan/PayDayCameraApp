@@ -11,15 +11,15 @@ class SalaryOverViewModel {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(new Data.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['status'] = status;
-    data['message'] = message;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['message'] = this.message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -43,11 +43,11 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['basic_salary'] = basicSalary;
-    data['level'] = level;
-    data['message'] = message;
-    data['amount'] = amount;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['basic_salary'] = this.basicSalary;
+    data['level'] = this.level;
+    data['message'] = this.message;
+    data['amount'] = this.amount;
     return data;
   }
 }

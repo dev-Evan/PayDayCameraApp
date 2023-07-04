@@ -5,7 +5,6 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
 import '../../../../common/widget/custom_spacer.dart';
 
 Widget jobDeskTitle({required text}) {
@@ -66,6 +65,7 @@ Widget cardShape({icon}) {
             icon.toString(),
             width: AppLayout.getWidth(20),
             height: AppLayout.getWidth(20),
+            // ignore: deprecated_member_use
             color: AppColor.primaryColor.withOpacity(0.8),
           ),
         ),

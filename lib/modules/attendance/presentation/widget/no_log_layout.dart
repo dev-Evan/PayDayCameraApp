@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/dimensions.dart';
 

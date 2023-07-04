@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/enum/status.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-
 import 'app_color.dart';
 
 
@@ -78,3 +77,4 @@ class Util {
 Future<void> FutureDelayed({required onAction}) {
   return Future.delayed(const Duration(seconds: 1), () => onAction());
 }
+

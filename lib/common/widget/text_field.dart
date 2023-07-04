@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -6,10 +7,10 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class CustomTextField extends StatelessWidget {
   final String hintText;
-  final dynamic inputType;
-  final dynamic controller;
+  final inputType;
+  final controller;
   final String? Function(String?)? validator;
-  const CustomTextField({
+  CustomTextField({
     Key? key,
     required this.hintText,
     this.validator,
@@ -55,7 +56,7 @@ class CustomTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault + 2),
           ),
           enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: AppColor.solidGray),
+              borderSide: BorderSide(color: AppColor.solidGray),
               borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
           border: OutlineInputBorder(
             borderSide:
@@ -70,11 +71,11 @@ class CustomTextField extends StatelessWidget {
 
 class CustomPasswordTextField extends StatefulWidget {
   final String hintText;
-  final dynamic inputType;
-  final dynamic controller;
+  final inputType;
+  final controller;
   final String? Function(String?)? validator;
 
-  const CustomPasswordTextField({
+  CustomPasswordTextField({
     Key? key,
     required this.hintText,
     this.validator,
@@ -138,7 +139,7 @@ class _CustomTextFeildState extends State<CustomPasswordTextField> {
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault + 2),
           ),
           enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: AppColor.solidGray),
+              borderSide: BorderSide(color: AppColor.solidGray),
               borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
           border: OutlineInputBorder(
             borderSide:

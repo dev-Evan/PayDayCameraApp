@@ -236,7 +236,7 @@ _dateInfo(int index) {
                 : Container(),
           ],
         ),
-        customDivider(25, 1),
+        CustomDiveider(25, 1),
       ],
     ),
   );

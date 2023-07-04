@@ -32,32 +32,37 @@ Widget profileCardLayOut({context, userName, final userImage, userEmail, statusT
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    height: AppLayout.getHeight(54),
-                    width: AppLayout.getWidth(54),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.transparent,
-                    ),
-                    child: ClipOval(
-                      child: FadeInImage(
-                        image: NetworkImage(userImage),
-                        placeholder: Get.find<PickImageController>().pickedImage.value ==null
-                            ? placeholderImages
-                            : Image.file(File(Get.find<PickImageController>().pickedImage.value!.path))
-                            .image,
-                        imageErrorBuilder: (context, error, stackTrace) {
-                          return   CircleAvatar(
-                            radius: 34,
-                            backgroundColor: Colors.transparent,
-                            backgroundImage: Get.find<PickImageController>().pickedImage.value ==null
-                                ? placeholderImages
-                                : Image.file(File(Get.find<PickImageController>().pickedImage.value!.path))
-                                .image,
-                          );
+                  InkWell(
+                    onTap: ()=>    SchedulerBinding.instance.addPostFrameCallback((_)=>
+                        Navigator.push(context, new MaterialPageRoute(
+                            builder: (context) => ViewProfile())),),
+                    child: Container(
+                      height: AppLayout.getHeight(54),
+                      width: AppLayout.getWidth(54),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.transparent,
+                      ),
+                      child: ClipOval(
+                        child: FadeInImage(
+                          image: NetworkImage(userImage),
+                          placeholder: Get.find<PickImageController>().pickedImage.value ==null
+                              ? placeholderImages
+                              : Image.file(File(Get.find<PickImageController>().pickedImage.value!.path))
+                              .image,
+                          imageErrorBuilder: (context, error, stackTrace) {
+                            return   CircleAvatar(
+                              radius: 34,
+                              backgroundColor: Colors.transparent,
+                              backgroundImage: Get.find<PickImageController>().pickedImage.value ==null
+                                  ? placeholderImages
+                                  : Image.file(File(Get.find<PickImageController>().pickedImage.value!.path))
+                                  .image,
+                            );
 
-                        },
-                        fit: BoxFit.cover,
+                          },
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -81,8 +86,8 @@ Widget profileCardLayOut({context, userName, final userImage, userEmail, statusT
               _moveProfileView(
                   onAction: (){
                     SchedulerBinding.instance.addPostFrameCallback((_)=>
-                      Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => const ViewProfile())),);
+                      Navigator.push(context, new MaterialPageRoute(
+                              builder: (context) => ViewProfile())),);
                   }
               ),
 
@@ -142,7 +147,7 @@ Future navigatorForViewProfile({context}){
   return Navigator.pushReplacement(
     context,
     MaterialPageRoute(
-      builder: (BuildContext context) => const ViewProfile(),
+      builder: (BuildContext context) => ViewProfile(),
     ),
   );
 }
