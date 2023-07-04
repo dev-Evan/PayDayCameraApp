@@ -70,7 +70,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                       cardIcon: Images.announce,
                                       cardText: AppString.text_announcement,
                                       onAction: () async {
-                                        // Get.toNamed(Routes.ANNOUNCE_SCREEN);
+                                         Get.toNamed(Routes.ANNOUNCE_SCREEN);
                                         // await Get.find<DocumentController>()
                                         //     .getDocumentData();
                                         showCustomSnackBar(
