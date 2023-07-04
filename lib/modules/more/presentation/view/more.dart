@@ -58,7 +58,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                             flex: 14,
                             child: Container(
                               color: AppColor.backgroundColor,
-                              margin: EdgeInsets.only(
+                              margin: const EdgeInsets.only(
                                   left: 20, right: 20, bottom: 20, top: 20),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
