@@ -1,5 +1,3 @@
-
-
 Map<String, String> eng = {
   "greeting_text": "Hi",
   "text_worked":"Worked",
@@ -20,3 +18,4 @@ Map<String, String> eng = {
   "text_attendance_log":"Attendance Logs",
   "text_language":"Language",
 };
+

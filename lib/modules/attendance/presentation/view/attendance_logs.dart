@@ -52,8 +52,7 @@ class AttendanceLogsScreen extends GetView<AttendanceLogsController> {
                             bgColor: AppColor.primaryColor,
                             textColor: Colors.white),
                         attendanceLogsOverviewLayout(context),
-                        Obx(() =>
-                            dotIndicator(controller.currentIndex.value)),
+                        Obx(() => dotIndicator(controller.currentIndex.value)),
                       ],
                     ),
                   ),

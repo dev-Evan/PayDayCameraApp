@@ -1,3 +1,4 @@
+
 class CheckEntryStatus {
   bool? status;
   String? message;

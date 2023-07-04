@@ -5,14 +5,12 @@ import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
-
 import '../../../../utils/app_color.dart';
 import '../../../../utils/dimensions.dart';
 import '../../../attendance/presentation/widget/single_date_picker_calendar.dart';
 
 class ApplyLeaveDobSingleDay extends StatelessWidget {
   const ApplyLeaveDobSingleDay({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     bool value = Get.isRegistered<DateTimeController>();

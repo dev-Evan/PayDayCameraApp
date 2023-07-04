@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/timer_picker.dart';
-
 import '../../utils/app_layout.dart';
 import '../../utils/app_string.dart';
 import '../../utils/app_style.dart';

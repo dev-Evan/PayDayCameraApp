@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -19,7 +20,7 @@ Future errorAlertPopup(Function onReloadClicked) {
             borderRadius: BorderRadius.all(Radius.circular(16))),
         insetPadding: EdgeInsets.zero,
         child: Container(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(16)),
               color: Colors.white,

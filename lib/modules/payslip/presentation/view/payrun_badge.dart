@@ -9,7 +9,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
 class PayRunBadge extends GetView<PayrunBadgeController> {
-  const PayRunBadge({Key? key}) : super(key: key);
+  PayRunBadge({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ Widget _payrunBadView() {
         right: AppLayout.getWidth(20),
         top: AppLayout.getHeight(20),
         bottom: AppLayout.getHeight(20)),
-    child:  Column(
+    child: Column(
       children: [
         PayRunBadgeView(),
       ],

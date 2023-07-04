@@ -7,7 +7,6 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-
 import '../../../../common/widget/custom_spacer.dart';
 
 class AboutThisApp extends StatelessWidget {

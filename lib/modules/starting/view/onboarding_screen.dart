@@ -11,13 +11,10 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-
 import '../../../common/widget/success_snakbar.dart';
 import '../../../routes/app_pages.dart';
 
 class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
-
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
@@ -54,8 +51,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final ExitAppController _controller = Get.put(ExitAppController());
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height / 5;
-    double width = MediaQuery.of(context).size.width;
+    double _height = MediaQuery.of(context).size.height / 5;
+    double _width = MediaQuery.of(context).size.width;
     return WillPopScope(
       onWillPop: () =>_controller. willPop(),
       child: Scaffold(
@@ -68,8 +65,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               children: [
                 customSpacerHeight(height: 50),
                 SizedBox(
-                    height: height,
-                    width: width,
+                    height: _height,
+                    width: _width,
                     child: Stack(
                       children: [_headerLayout(isLeft: isleft)],
                     )),

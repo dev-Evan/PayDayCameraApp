@@ -8,7 +8,7 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'custom_spacer.dart';
 
 
-Future customAlertDialog(
+Future CustomAlertDialog(
     {context,
     yesAction,
     IconData? icon,
@@ -169,14 +169,15 @@ ButtonStyle get elevatedBtmStyle {
   return ElevatedButton.styleFrom(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10.0),
-    ), backgroundColor: AppColor.backgroundColor,
+    ),
+    primary: AppColor.backgroundColor,
     elevation: 0,
     side: borderSide,
   );
 }
 
 BorderSide get borderSide {
-  return const BorderSide(width: 1, color: AppColor.normalTextColor);
+  return BorderSide(width: 1, color: AppColor.normalTextColor);
 }
 
 Text get _noText {
@@ -219,6 +220,7 @@ ButtonStyle saveBtnStyle({required buttonColor}) {
   return ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
-      ), backgroundColor: buttonColor,
+      ),
+      primary: buttonColor,
       elevation: 0);
 }

@@ -20,7 +20,7 @@ Widget infoLayout() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _userName(text:GetStorage().read(AppString.USER_NAME).toString()),
+              _userName(text:"${GetStorage().read(AppString.USER_NAME).toString()}"),
               _getCurrentDate(),
             ],
           ),

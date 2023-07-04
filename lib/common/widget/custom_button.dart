@@ -3,11 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
+// ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
-  final String text;
-  final Function onAction;
+  String text;
+  final onAction;
 
-  const CustomButton(this.text, this.onAction, {super.key});
+  CustomButton(this.text, this.onAction);
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +30,16 @@ class CustomButton extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class CustomSmallButton extends StatelessWidget {
-  final String text;
-  final Function onAction;
+  String text;
+  final onAction;
 
-  const CustomSmallButton(this.text, this.onAction, {super.key});
+  CustomSmallButton(this.text, this.onAction);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: MediaQuery.of(context).size.width / 3,
       height: MediaQuery.of(context).size.height / 18,
       child: ElevatedButton(
@@ -45,7 +47,8 @@ class CustomSmallButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
-            ), backgroundColor: AppColor.primaryColor,
+            ),
+            primary: AppColor.primaryColor,
             elevation: 0),
         child: Text(
           text,

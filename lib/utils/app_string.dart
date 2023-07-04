@@ -1,3 +1,4 @@
+
 class AppString {
   AppString._();
 
@@ -81,6 +82,8 @@ class AppString {
   static String text_leave = "Leave";
   static String text_payslip = "Payslip";
   static String text_more = "More";
+  static String text_read_more = "read more";
+  static String text_read_less = "read less";
   static String text_today = "Today";
   static String text_enter_phone_number = "Enter phone number";
   static String text_enter = "Enter";
@@ -105,6 +108,7 @@ class AppString {
   static String start_out_day = "Ready to start your day?";
   static String note_text = "Note (optional)";
   static String text_cancel = "Cancel";
+  static String text_net_payable = "Net payable";
   static String text_log_details = "Log Details";
   static String text_punch_in = "Punch In";
   static String text_punch_out = "Punch Out";
@@ -450,8 +454,5 @@ class AppString {
   static const String login = "Log In";
   static const String hi_login_to_your_dashboard =
       "Hi, login to your dashboard ";
-
-
-
-
 }
+

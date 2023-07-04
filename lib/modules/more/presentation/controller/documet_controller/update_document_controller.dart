@@ -15,7 +15,7 @@ class UpdateDocumentController extends GetxController {
   var baseUrl = Api.BASE_URL + Api.UPDATE_DOCUMENT;
   late var accessToken = _box.read(AppString.ACCESS_TOKEN);
   RxString filePath = ''.obs;
-  var newValue="";
+  var newValue = "";
 
   Future<void> pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -36,16 +36,17 @@ class UpdateDocumentController extends GetxController {
     final url = Uri.parse(baseUrl);
     var request = http.MultipartRequest('POST', url);
     request.fields['id'] = _box.read(AppString.STORE_DOC_Id).toString();
-    request.fields['name'] = Get.find<InputTextFieldController>().docFileNameController.text;
+    request.fields['name'] =
+        Get.find<InputTextFieldController>().docFileNameController.text;
     request.fields['file'] = file.path;
     request.fields['user_id'] = _box.read(AppString.ID_STORE).toString();
-    request.headers['Authorization'] = 'Bearer $accessToken';
+    request.headers['Authorization'] = 'Bearer ${accessToken}';
     request.files.add(await http.MultipartFile.fromPath('file', file.path));
     var response = await request.send();
     if (response.statusCode == 200) {
-      print("Document updated ::: $response");
-        Get.back();
-      newValue="value";
+      print("Document updated ::: ${response}");
+      Get.back();
+      newValue = "value";
       Get.find<DocumentController>().getDocumentData();
       print(' Document update ::: File updated successfully');
     } else {
@@ -53,5 +54,4 @@ class UpdateDocumentController extends GetxController {
     }
     Get.back();
   }
-
 }

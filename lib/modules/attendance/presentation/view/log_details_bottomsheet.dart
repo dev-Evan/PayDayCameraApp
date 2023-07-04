@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_eidt_bottomsheet.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/controller/date_time_helper_controller.dart';
@@ -93,3 +92,4 @@ Future _openEditBottomSheet() {
     builder: (context) =>  EditAttendanceBottomSheet(Get.find<AttendanceController>().logDetailsById),
   );
 }
+

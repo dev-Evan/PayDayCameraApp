@@ -18,13 +18,12 @@ import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/widget/custom_appbar.dart';
 import '../../../../common/widget/custom_buttom_sheet.dart';
 import '../../../../common/widget/custom_button.dart';
-import '../../../../common/widget/custom_navigator.dart';
 import '../widget/add_document.dart';
 import '../widget/document_view.dart';
 import '../widget/documents_appbar.dart';
 
 class DocumentScreen extends GetView<DocumentController> {
-  const DocumentScreen({Key? key}) : super(key: key);
+  DocumentScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,28 +66,29 @@ class DocumentScreen extends GetView<DocumentController> {
                                           itemCount: controller.documentModel
                                               .data?.documents?.length,
                                           shrinkWrap: true,
-
                                           itemBuilder: (BuildContext context,
                                               int index) {
                                             return InkWell(
-                                              onTap: () => customNavigator(
-                                                  context: context,
-                                                  pageName: _selectedPage(
-                                                      fullUrl: controller
-                                                              .documentModel
-                                                              .data
-                                                              ?.documents?[
-                                                                  index]
-                                                              .fullUrl ??
-                                                          "",
-                                                      docText: controller
-                                                              .documentModel
-                                                              .data
-                                                              ?.documents?[
-                                                                  index]
-                                                              .name ??
-                                                          AppString
-                                                              .text_documents)),
+                                              onTap: () => Navigator.push(
+                                                  context,
+                                                  CupertinoPageRoute(
+                                                    builder: (context) => _selectedPage(
+                                                        fullUrl: controller
+                                                                .documentModel
+                                                                .data
+                                                                ?.documents?[
+                                                                    index]
+                                                                .fullUrl ??
+                                                            "",
+                                                        docText: controller
+                                                                .documentModel
+                                                                .data
+                                                                ?.documents?[
+                                                                    index]
+                                                                .name ??
+                                                            AppString
+                                                                .text_documents),
+                                                  )),
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
@@ -206,7 +206,7 @@ class DocumentScreen extends GetView<DocumentController> {
 
   Widget _cardImage({required imageUrl}) {
     GetStorage().write("key", imageUrl);
-    return SizedBox(
+    return Container(
       height: AppLayout.getHeight(66),
       child: ClipRRect(
         borderRadius: BorderRadius.only(
@@ -333,7 +333,7 @@ Widget _cardImgTitle(
 }
 
 Widget _editDeletedActionRow({required context, required id, required docUrl}) {
-  final box = GetStorage();
+  final _box = GetStorage();
   return Row(
     children: [
       InkWell(
@@ -343,7 +343,7 @@ Widget _editDeletedActionRow({required context, required id, required docUrl}) {
                 context: context,
                 height: 0.9,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: UpdateDocument(
                     docUrl: docUrl,
                   ),
@@ -360,9 +360,9 @@ Widget _editDeletedActionRow({required context, required id, required docUrl}) {
           }
 
           Get.find<UpdateDocumentController>().filePath.value = docUrl;
-          box.write(AppString.STORE_DOC_Id, id);
+          _box.write(AppString.STORE_DOC_Id, id);
           Get.find<InputTextFieldController>().docFileNameController.text =
-              box.read(AppString.STORE_DOC_NAME_TEXT) ?? "";
+              _box.read(AppString.STORE_DOC_NAME_TEXT) ?? "";
         },
         child: _iconShape(icon: Icons.edit, text: AppString.text_edit),
       ),
@@ -374,7 +374,7 @@ Widget _editDeletedActionRow({required context, required id, required docUrl}) {
           } else {
             Navigator.pop(context);
           }
-          box.write(AppString.STORE_DOC_Id, id);
+          _box.write(AppString.STORE_DOC_Id, id);
           Get.find<DocumentController>().deletedDocumentApi();
         },
         child: _iconShape(icon: Icons.delete, text: AppString.text_deleted),

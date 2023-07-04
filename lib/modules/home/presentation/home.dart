@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -27,7 +26,7 @@ class _HomeState extends State<Home> {
     const Attendance(),
     const Leave(),
     PaySlip(),
-    const MoreScreen()
+     MoreScreen()
   ];
   onTap(int index) {
     setState(() {
@@ -36,7 +35,7 @@ class _HomeState extends State<Home> {
   }
   
 Future dialog(){
-    return customAlertDialog(
+    return CustomAlertDialog(
 
     );
 }

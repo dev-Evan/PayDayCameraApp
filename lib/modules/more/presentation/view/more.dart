@@ -4,7 +4,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/controller/language_controller.dart';
 import 'package:pay_day_mobile/common/widget/custom_alert_dialog.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/enum/language.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/address_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/document_controller.dart';
@@ -24,7 +23,7 @@ import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/widget/custom_spacer.dart';
 
 class MoreScreen extends GetView<ProfileDataController> {
-  const MoreScreen({Key? key}) : super(key: key);
+  MoreScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +31,7 @@ class MoreScreen extends GetView<ProfileDataController> {
       controller.getUserData();
     });
     return controller.obx(
-            (state) =>
-            Scaffold(
+        (state) => Scaffold(
               body: CustomScrollView(
                 slivers: [
                   SliverFillRemaining(
@@ -44,23 +42,23 @@ class MoreScreen extends GetView<ProfileDataController> {
                         profileCardLayOut(
                             context: context,
                             userImage: controller
-                                .userProfile.data?.profilePictureUrl
-                                .toString() ??
+                                    .userProfile.data?.profilePictureUrl
+                                    .toString() ??
                                 "",
                             userName: controller.userProfile.data?.fullName
-                                .toString() ??
+                                    .toString() ??
                                 "",
                             userEmail:
-                            controller.userProfile.data?.email.toString() ??
-                                "",
+                                controller.userProfile.data?.email.toString() ??
+                                    "",
                             statusText: controller.userProfile.data?.userStatus
-                                .toString() ??
+                                    .toString() ??
                                 ""),
                         Expanded(
                             flex: 14,
                             child: Container(
                               color: AppColor.backgroundColor,
-                              margin: const EdgeInsets.only(
+                              margin: EdgeInsets.only(
                                   left: 20, right: 20, bottom: 20, top: 20),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,11 +68,9 @@ class MoreScreen extends GetView<ProfileDataController> {
                                       cardIcon: Images.announce,
                                       cardText: AppString.text_announcement,
                                       onAction: () async {
-                                        // Get.toNamed(Routes.ANNOUNCE_SCREEN);
+                                         Get.toNamed(Routes.ANNOUNCE_SCREEN);
                                         // await Get.find<DocumentController>()
                                         //     .getDocumentData();
-                                        showCustomSnackBar(
-                                            message: "The page is empty");
                                       }),
                                   jobDeskCard(
                                       cardIcon: Images.folder,
@@ -138,15 +134,14 @@ class MoreScreen extends GetView<ProfileDataController> {
                                   jobDeskCard(
                                     cardIcon: Images.log_out,
                                     cardText: AppString.text_log_out,
-                                    onAction: () =>
-                                        customAlertDialog(
-                                            context: context,
-                                            icon: Icons.logout,
-                                            yesText: AppString.text_log_out,
-                                            iconBgColor: Colors.orange.shade50,
-                                            yesAction: () =>
-                                                Get.find<LogoutController>()
-                                                    .logOut()),
+                                    onAction: () => CustomAlertDialog(
+                                        context: context,
+                                        icon: Icons.logout,
+                                        yesText: AppString.text_log_out,
+                                        iconBgColor: Colors.orange.shade50,
+                                        yesAction: () =>
+                                            Get.find<LogoutController>()
+                                                .logOut()),
                                   ),
                                   _languageDropDown(),
                                   customSpacerHeight(height: 30),
@@ -161,9 +156,8 @@ class MoreScreen extends GetView<ProfileDataController> {
             ),
         onLoading: const LoadingIndicator());
   }
-
   _languageDropDown() {
-    return const LanguageDropDown();
+    return LanguageDropDown();
   }
 }
 
@@ -216,8 +210,8 @@ class _LanguageDropDownState extends State<LanguageDropDown> {
   }
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
-        value: item,
         child: Text(item),
+        value: item,
       );
   
   void _changeLang({required String value}) {

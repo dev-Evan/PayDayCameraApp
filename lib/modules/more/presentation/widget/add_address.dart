@@ -13,12 +13,11 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-
 import '../controller/common_controller/county_pickar_controller.dart';
 
 class AddAddress extends StatelessWidget {
   final String typeText;
-  AddAddress(this.typeText, {super.key});
+  AddAddress(this.typeText);
 
   final _formKey = GlobalKey<FormState>();
   final CountryPickerController _controller = Get.put(CountryPickerController());
@@ -49,7 +48,6 @@ class AddAddress extends StatelessWidget {
                           .addDetailsController,
                       hintText:  "${AppString.text_add}${AppString.text_address_details}",
                       validator: (value) {
-
                         if (value!.isEmpty) {
                           return AppString.the_details_field_is_required;
                         } else if (value.length < 3) {
@@ -97,7 +95,6 @@ class AddAddress extends StatelessWidget {
 
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-
                   children: [
                     Flexible(
                       child: Column(
@@ -177,11 +174,7 @@ class AddAddress extends StatelessWidget {
                                state: Get.find<InputTextFieldController>().addStateController.value.text,
                                zipcode: Get.find<InputTextFieldController>().addZipCodeController.value.text,
                                message:   AppString.text_address_added_successfully,
-
-
-
-
-                              );
+                             );
                       }
                     }),
                 customSpacerHeight(height: 250)

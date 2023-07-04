@@ -249,8 +249,6 @@ class _FilterViewState extends State<FilterView> {
             ],
           ),
           customDoubleButton(context: context,textBtnText: 'Clear',textButtonAction: (){},elevatedBtnText: 'Apply',elevatedButtonAction: (){})
-
-
         ],
       ),
     );

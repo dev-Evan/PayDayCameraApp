@@ -4,7 +4,6 @@ import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-
 import '../../../../common/controller/downloader_helper.dart';
 
 class DocumentView extends StatelessWidget {
@@ -35,7 +34,7 @@ class DocumentView extends StatelessWidget {
 Widget _body({required docName, required fullUrl}) {
   return Positioned(
       child: AppBar(
-    backgroundColor: Colors.transparent,
+    backgroundColor:Colors.transparent,
     centerTitle: true,
     title: _titleText(text: docName),
     leading: _leading(),
@@ -55,6 +54,7 @@ Widget _body({required docName, required fullUrl}) {
 Widget _fileView({required url}) {
   return Container(
     decoration: BoxDecoration(
+      color: AppColor.normalTextColor,
       image: DecorationImage(image: NetworkImage(url), fit: BoxFit.fitWidth),
     ),
   );

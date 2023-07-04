@@ -211,7 +211,7 @@ Widget _dottedBorder({required child}) {
     radius: Radius.circular(Dimensions.radiusMid),
     color: AppColor.disableColor,
     strokeCap: StrokeCap.square,
-    dashPattern: const [8, 6],
+    dashPattern: [8, 6],
     strokeWidth: AppLayout.getWidth(2),
     child: SizedBox(
       height: AppLayout.getHeight(140),

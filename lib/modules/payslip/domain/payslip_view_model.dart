@@ -8,13 +8,13 @@ class PayslipViewModel {
   PayslipViewModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['status'] = status;
-    data['message'] = message;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['message'] = this.message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -31,31 +31,31 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     payslip =
-    json['payslip'] != null ? Payslip.fromJson(json['payslip']) : null;
+    json['payslip'] != null ? new Payslip.fromJson(json['payslip']) : null;
     if (json['allowances'] != null) {
       allowances = <Allowances>[];
       json['allowances'].forEach((v) {
-        allowances!.add(Allowances.fromJson(v));
+        allowances!.add(new Allowances.fromJson(v));
       });
     }
     if (json['deductions'] != null) {
       deductions = <Deductions>[];
       json['deductions'].forEach((v) {
-        deductions!.add(Deductions.fromJson(v));
+        deductions!.add(new Deductions.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (payslip != null) {
-      data['payslip'] = payslip!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.payslip != null) {
+      data['payslip'] = this.payslip!.toJson();
     }
-    if (allowances != null) {
-      data['allowances'] = allowances!.map((v) => v.toJson()).toList();
+    if (this.allowances != null) {
+      data['allowances'] = this.allowances!.map((v) => v.toJson()).toList();
     }
-    if (deductions != null) {
-      data['deductions'] = deductions!.map((v) => v.toJson()).toList();
+    if (this.deductions != null) {
+      data['deductions'] = this.deductions!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -116,27 +116,27 @@ class Payslip {
     totalAllowance = json['total_allowance'];
     totalDeduction = json['total_deduction'];
     status =
-    json['status'] != null ? Status.fromJson(json['status']) : null;
+    json['status'] != null ? new Status.fromJson(json['status']) : null;
   }
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['use_id'] = useId;
-    data['payslip_id'] = payslipId;
-    data['payrun_id'] = payrunId;
-    data['tenant_id'] = tenantId;
-    data['start_date'] = startDate;
-    data['end_date'] = endDate;
-    data['created_at'] = createdAt;
-    data['net_salary'] = netSalary;
-    data['basic_salary'] = basicSalary;
-    data['period'] = period;
-    data['consider_overtime'] = considerOvertime;
-    data['consider_type'] = considerType;
-    data['total_allowance'] = totalAllowance;
-    data['total_deduction'] = totalDeduction;
-    if (status != null) {
-      data['status'] = status!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['use_id'] = this.useId;
+    data['payslip_id'] = this.payslipId;
+    data['payrun_id'] = this.payrunId;
+    data['tenant_id'] = this.tenantId;
+    data['start_date'] = this.startDate;
+    data['end_date'] = this.endDate;
+    data['created_at'] = this.createdAt;
+    data['net_salary'] = this.netSalary;
+    data['basic_salary'] = this.basicSalary;
+    data['period'] = this.period;
+    data['consider_overtime'] = this.considerOvertime;
+    data['consider_type'] = this.considerType;
+    data['total_allowance'] = this.totalAllowance;
+    data['total_deduction'] = this.totalDeduction;
+    if (this.status != null) {
+      data['status'] = this.status!.toJson();
     }
     return data;
   }
@@ -158,11 +158,11 @@ class Status {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['status_class'] = statusClass;
-    data['status_name'] = statusName;
-    data['type'] = type;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['status_class'] = this.statusClass;
+    data['status_name'] = this.statusName;
+    data['type'] = this.type;
     return data;
   }
 }
@@ -186,12 +186,12 @@ class Allowances {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['name'] = name;
-    data['type'] = type;
-    data['value'] = value;
-    data['is_percentage'] = isPercentage;
-    data['amount'] = amount;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['type'] = this.type;
+    data['value'] = this.value;
+    data['is_percentage'] = this.isPercentage;
+    data['amount'] = this.amount;
     return data;
   }
 }
@@ -216,12 +216,12 @@ class Deductions {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['name'] = name;
-    data['type'] = type;
-    data['value'] = value;
-    data['is_percentage'] = isPercentage;
-    data['amount'] = amount;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['type'] = this.type;
+    data['value'] = this.value;
+    data['is_percentage'] = this.isPercentage;
+    data['amount'] = this.amount;
     return data;
   }
 }

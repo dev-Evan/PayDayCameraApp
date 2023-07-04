@@ -17,8 +17,7 @@ import 'address_details_widget.dart';
 
 class EditAddress extends StatefulWidget {
   final String typeText;
-  const EditAddress(this.typeText, {super.key});
-
+  EditAddress(this.typeText);
   @override
   State<EditAddress> createState() => _EditAddressState();
 }
@@ -63,8 +62,7 @@ class _EditAddressState extends State<EditAddress> {
                             .the_details_must_be_at_least_3_character;
                       } else {
                         return null;
-                      }
-                    },
+                      }},
                   ),
                 ],
               ),
@@ -164,7 +162,7 @@ class _EditAddressState extends State<EditAddress> {
               customDoubleButton(
                   context: context,
                   elevatedBtnText:
-                      AppString.text_save,
+                      '${AppString.text_save}',
                   textBtnText: AppString.text_cancel,
                   textButtonAction: () => Get.back(),
                   elevatedButtonAction: () {

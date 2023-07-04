@@ -9,9 +9,9 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
+
 class EditDetails extends StatelessWidget {
   const EditDetails({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -257,9 +257,6 @@ class EditDetails extends StatelessWidget {
               ],
             ),
           ),
-
-
-
           customDoubleButton(textBtnText: AppString.text_cancel,elevatedBtnText: AppString.text_save,context: context,elevatedButtonAction: (){},textButtonAction: ()=>Get.back())
 
         ],

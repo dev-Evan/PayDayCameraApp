@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/widget/custom_divider.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
-import 'package:pay_day_mobile/common/widget/custom_divider.dart';
 import 'package:pay_day_mobile/common/widget/custom_status_button.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_record.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
@@ -22,7 +21,7 @@ Widget viewListViewLayout() {
           child: ListView.separated(
             separatorBuilder: (context, index) => Padding(
               padding: EdgeInsets.only(top: AppLayout.getHeight(20)),
-              child: customDivider(
+              child: CustomDiveider(
                   AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
             ),
             itemCount: data.leaveRecords!.length,
@@ -91,7 +90,7 @@ _leaves({required List<Leaves> leaves}) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                customDivider(25, 0.5),
+                CustomDiveider(25, 0.5),
                 customSpacerWidth(width: 20),
                 Expanded(
                   child: Column(

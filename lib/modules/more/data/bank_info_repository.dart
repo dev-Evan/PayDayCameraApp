@@ -64,7 +64,7 @@ class MoreDataRepository {
   Future<AddBankInfoDeletedModel> deletedBankInfoRepo() async {
     try {
       Response  response = await networkClient.deletedRequest(
-        "${Api.EMPLOYEE_BANK_INFORMATION}/${box.read(AppString.ID_STORE)}?contact_id=${box.read(AppString.BANK_USER_ID_STORE)}");
+        Api.EMPLOYEE_BANK_INFORMATION+"/${box.read(AppString.ID_STORE)}?contact_id=${box.read(AppString.BANK_USER_ID_STORE)}");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -80,7 +80,7 @@ class MoreDataRepository {
       ) async {
     try {
       Response response = await networkClient.patchRequest(
-        "${Api.EMPLOYEE_BANK_INFORMATION}/${box.read(AppString.BANK_USER_ID_STORE)}",
+        Api.EMPLOYEE_BANK_INFORMATION +"/${box.read(AppString.BANK_USER_ID_STORE)}",
         {
           "key": "bank_details",
           "name": bankName,

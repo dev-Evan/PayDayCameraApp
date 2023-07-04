@@ -9,7 +9,6 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/utils.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-
 import '../../../../common/widget/custom_app_button.dart';
 import '../../../../utils/app_string.dart';
 import '../../../attendance/presentation/widget/bottom_sheet_appbar.dart';
@@ -243,7 +242,6 @@ class LogResponse extends GetView<LeaveController> {
         controller.leaveDetails.data?.logs?[index].logDate ?? "",
         style: AppStyle.small_text_grey,
       );
-
   _comment(int index) {
     return Text(controller.leaveDetails.data?.logs?[index].comment ?? "");
   }

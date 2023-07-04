@@ -78,13 +78,6 @@ class BankDetails extends GetView<MoreDataController> {
                                         .bankInfoModel.data?.accountTitle
                                         ?.toString() ??
                                         ""),
-
-
-
-
-
-
-
                                 _bankUserInfo(
                                     infoTitleText:
                                     controller
@@ -106,8 +99,6 @@ class BankDetails extends GetView<MoreDataController> {
                                             .bankInfoModel.data?.code
                                             ?.toString() ??
                                         ""),
-
-
                                 _bankUserInfo(
                                     infoTitleText:
                                     controller
@@ -135,7 +126,7 @@ class BankDetails extends GetView<MoreDataController> {
                                   ],
                                 ),
                               ),
-                              const Spacer(),
+                              Spacer(),
                               _addBankInfo(onAction: () {
                                 customButtonSheet(
                                     context: context,
@@ -148,7 +139,7 @@ class BankDetails extends GetView<MoreDataController> {
                   ],
                 ),
               ),
-          onLoading: const LoadingIndicator()),
+          onLoading: LoadingIndicator()),
     );
   }
 }
@@ -258,7 +249,7 @@ Widget _editDeleteBtn({required context, onAction, required editAction}) {
 }
 
 Future _deletedAlert({required context, onAction}) {
-  return customAlertDialog(
+  return CustomAlertDialog(
       context: context,
       icon: CupertinoIcons.delete,
       backAction: () {

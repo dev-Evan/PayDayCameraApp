@@ -12,6 +12,7 @@ Widget avatarArrowIcon() {
       Images.right_arrow,
       width: AppLayout.getWidth(22),
       height: AppLayout.getWidth(22),
+      // ignore: deprecated_member_use
       color: AppColor.primaryColor.withOpacity(0.8),
     ),
   );

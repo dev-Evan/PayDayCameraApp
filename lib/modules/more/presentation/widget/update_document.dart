@@ -19,14 +19,15 @@ import 'package:dotted_border/dotted_border.dart';
 import '../../../../common/widget/success_snakbar.dart';
 import '../view/change_password.dart';
 
+// ignore: must_be_immutable
 class UpdateDocument extends StatelessWidget {
-  final String? docUrl;
+  String? docUrl;
 
-  const UpdateDocument({Key? key, this.docUrl}) : super(key: key);
+  UpdateDocument({Key? key, this.docUrl}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     print(docUrl.toString());
-    final box = GetStorage();
+    final _box = GetStorage();
     return Column(
       children: [
         bottomSheetAppbar(
@@ -44,7 +45,7 @@ class UpdateDocument extends StatelessWidget {
                 children: [
                   textFieldTitleText(titleText: AppString.text_name),
                   CustomTextField(
-                      hintText: box.read(AppString.STORE_DOC_NAME_TEXT) ?? "",
+                      hintText: _box.read(AppString.STORE_DOC_NAME_TEXT) ?? "",
                       inputType: TextInputType.text,
                       controller: Get.find<InputTextFieldController>()
                           .docFileNameController),
@@ -73,7 +74,7 @@ class UpdateDocument extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       _fileTitle(
-                                        text: box.read(AppString
+                                        text: _box.read(AppString
                                                 .STORE_DOC_NAME_TEXT) ??
                                             "",
                                       ),
@@ -186,7 +187,7 @@ Widget _dottedBorder({required child}) {
     radius: Radius.circular(Dimensions.radiusMid),
     color: AppColor.disableColor,
     strokeCap: StrokeCap.square,
-    dashPattern: const [8, 6],
+    dashPattern: [8, 6],
     strokeWidth: AppLayout.getWidth(2),
     child: SizedBox(
       height: AppLayout.getHeight(120),

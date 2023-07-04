@@ -1,3 +1,4 @@
+
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
@@ -6,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import '../../utils/app_string.dart';
 
 class DownloadHelper extends GetxController {
