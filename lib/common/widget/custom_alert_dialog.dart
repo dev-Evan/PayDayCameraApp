@@ -139,10 +139,12 @@ Widget _contentText({required contentText}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      Text(contentText!,
-          style: AppStyle.mid_large_text.copyWith(
-              color: AppColor.hintColor,
-              fontSize: Dimensions.fontSizeDefault - 1)),
+      Expanded(
+        child: Text(contentText!,
+            style: AppStyle.mid_large_text.copyWith(
+                color: AppColor.hintColor,
+                fontSize: Dimensions.fontSizeDefault - 1)),
+      ),
     ],
   );
 }

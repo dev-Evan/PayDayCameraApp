@@ -1,8 +1,8 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
+import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attandance_logs_repository.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_summary/log_summary.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_summary/log_summary_overview.dart';
@@ -73,10 +73,12 @@ class AttendanceLogsController extends GetxController with StateMixin {
                 page: filteredLogSummary.data!.meta!.currentPage! + 1)
             .then((value) {
           value.data!.data!.map((e) => logList.add(e)).toList();
-          print("logList.length::: ${logList.length}");
-          print("getAllFiltered More data::: called");
+
           filteredLogSummary = value;
-        }, onError: (error) => print(error.message));
+        }, onError: (error) {
+          print(error.message);
+          errorAlertPopup(_refreshData);
+        });
         isMoreDataLoading(false);
       } else {
         queryString("within=thisMonth");
@@ -92,6 +94,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       this.logSummaryByMonth.value = logSummaryByMonth;
     }, onError: (error) {
       print(error);
+      errorAlertPopup(_refreshData);
     });
     change(null, status: RxStatus.success());
   }
@@ -104,6 +107,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       this.logSummaryByYear.value = logSummaryByYear;
     }, onError: (error) {
       print(error);
+      errorAlertPopup(_refreshData);
     });
     change(null, status: RxStatus.success());
   }
@@ -116,14 +120,13 @@ class AttendanceLogsController extends GetxController with StateMixin {
       filteredLogSummary = value;
       logList.clear();
       value.data!.data!.map((e) => logList.add(e)).toList();
-      print("logList.length::: ${logList.length}");
-      print("getAllFilteredLogSummary::: called");
       if (filteredLogSummary.data!.meta!.currentPage! ==
           filteredLogSummary.data!.meta!.totalPages!) {
         queryString("within=thisMonth");
       }
     }, onError: (error) {
       print(error.message);
+      errorAlertPopup(_refreshData);
     });
     change(null, status: RxStatus.success());
   }
@@ -134,6 +137,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
         .getLogSummaryOverview(queryParams: queryParams)
         .then((value) => logSummaryOverview = value, onError: (error) {
       print(error.message);
+      errorAlertPopup(_refreshData);
     });
     change(null, status: RxStatus.success());
   }
@@ -163,5 +167,12 @@ class AttendanceLogsController extends GetxController with StateMixin {
     });
     change(null, status: RxStatus.success());
     return returnValue;
+  }
+
+  _refreshData() async {
+    getLogSummaryByMonth();
+    getLogSummaryByYear();
+    getAllFilteredLogSummary();
+    getLogSummaryOverview();
   }
 }
