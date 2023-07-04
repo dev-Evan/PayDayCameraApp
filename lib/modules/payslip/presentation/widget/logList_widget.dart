@@ -13,15 +13,19 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-Widget logsList(
-    {required titleDate,
-    required titleMonth,
-    required basicSalary,
-    required statusText,
-    required startDate,
-    required endDate,
-    required monthly,
-    required indexId}) {
+import '../../../more/presentation/view/salary_overview.dart';
+import '../../../setting/presentation/controller/setting_controller.dart';
+
+Widget logsList({
+  required titleDate,
+  required titleMonth,
+  required basicSalary,
+  required statusText,
+  required startDate,
+  required endDate,
+  required monthly,
+  required indexId,
+}) {
   final box = GetStorage();
 
   return Padding(
@@ -69,8 +73,6 @@ Widget _logListRow(
     required startDate,
     required endDate,
     required monthly}) {
-  final _box = GetStorage();
-  var currency = _box.read(AppString.STORE_CURRENCY) ?? "\$";
   return Row(
     children: [
       _dateTitle(dateText: titleDate, monthText: titleMonth),
@@ -80,7 +82,7 @@ Widget _logListRow(
       Expanded(
         flex: 0,
         child: _cardMidText(
-            amountText: currency + " " + basicSalary.toString(),
+            amountText: basicSalary.toString(),
             startDate: startDate,
             endDate: endDate,
             monthly: monthly,
@@ -94,7 +96,7 @@ Widget _logListRow(
 
 Widget _divider({context}) {
   return Container(
-    margin: EdgeInsets.only(top: 14,bottom: 0),
+    margin: EdgeInsets.only(top: 14, bottom: 0),
     child: CustomDiveider(
         AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
   );
@@ -128,12 +130,17 @@ Widget _cardMidText(
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(
-        amountText.toString(),
-        style: AppStyle.mid_large_text.copyWith(
-          color: AppColor.secondaryColor,
-          fontSize: Dimensions.fontSizeDefault + 2,
-        ),
+      Row(
+        children: [
+          currencySymbol,
+          Text(
+            amountText.toString(),
+            style: AppStyle.mid_large_text.copyWith(
+              color: AppColor.secondaryColor,
+              fontSize: Dimensions.fontSizeDefault + 2,
+            ),
+          ),
+        ],
       ),
       customSpacerHeight(height: 8),
       _midTextRow(startDate: startDate, endDate: endDate, monthly: monthly),
@@ -182,5 +189,14 @@ Widget _midTextRow({required startDate, required endDate, required monthly}) {
         ],
       ),
     ],
+  );
+}
+
+Container get currencySymbol {
+  return Container(
+    margin: EdgeInsets.only(right: AppLayout.getHeight(4)),
+    child: Text(
+        Get.find<SettingController>().basicInfo?.data.currencySymbol ?? "",
+        style: currencyStyle),
   );
 }

@@ -14,6 +14,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/widget/custom_spacer.dart';
+import '../../../payslip/presentation/widget/logList_widget.dart';
 import '../widget/more_widget.dart';
 
 class SalaryOverView extends GetView<SalaryOverviewController> {
@@ -130,23 +131,21 @@ Widget _jobHisTitleView() {
                         firstIndex: itemColor
                         ),
                         customSpacerHeight(height: 6),
+
                         _salaryRow(
-                            iconText: Get.find<SettingController>()
-                                    .basicInfo
-                                    ?.data
-                                    .currencySymbol ??
-                                "\$",
                             salaryText: Get.find<SalaryOverviewController>()
                                     .salaryOverView
                                     .data?[index]
                                     .amount
                                     .toString() ??
                                 ""),
-                        _salaryCardView()
-
+                        _salaryCardView(),
                       ],
 
                     ),
+
+
+
 
                   ],
                 )),
@@ -157,7 +156,7 @@ Widget _jobHisTitleView() {
   );
 }
 
-Widget _salaryRow({iconText, salaryText}) {
+Widget _salaryRow({salaryText}) {
   return Padding(
     padding: EdgeInsets.only(left: AppLayout.getWidth(16)),
     child: Row(
@@ -169,14 +168,7 @@ Widget _salaryRow({iconText, salaryText}) {
           children: [
             Row(
               children: [
-                Text(
-                  iconText,
-                  style: AppStyle.mid_large_text.copyWith(
-                      color: AppColor.normalTextColor,
-                      fontSize: Dimensions.fontSizeDefault + 2,
-                      fontWeight: FontWeight.w500),
-                ),
-                customSpacerWidth(width: 4),
+                currencySymbol,
                 Text(
                   salaryText,
                   style: AppStyle.mid_large_text.copyWith(
@@ -294,4 +286,11 @@ TextStyle get cardDynamicTextStyle{
 
 BorderRadius get  borderRadius{
   return BorderRadius.circular(Dimensions.radiusDefault-1);
+}
+
+TextStyle get currencyStyle{
+  return TextStyle(
+      color: AppColor.normalTextColor,
+      fontSize: Dimensions.fontSizeDefault+2,
+      fontWeight: FontWeight.w400);
 }

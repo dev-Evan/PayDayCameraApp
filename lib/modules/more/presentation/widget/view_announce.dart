@@ -1,6 +1,4 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/announce.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
@@ -17,9 +15,10 @@ class ViewAnnounce extends StatefulWidget {
 
 class _ViewAnnounceState extends State<ViewAnnounce> {
   List texts = [
-    'Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet',
+    'In publishing and graphic design, Lorem ipsum is',
     'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content',
     'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content',
+    'ut labore et dolore magna aliqua',
     'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content',
     'Ut enim ad minim veniam',
     'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content',
@@ -62,7 +61,7 @@ class _ViewAnnounceState extends State<ViewAnnounce> {
                       child: announceCard(
                         context: context,
                         desText: texts[index],
-                        height: AppLayout.getHeight(165),
+                        length: 164,
                       ),
                     );
                   }
@@ -83,9 +82,9 @@ Widget newText({required text}) {
 }
 
 Container announceCard(
-    {required context, double? height, required desText, readMoreText}) {
+    {required context, double? length, required desText, readMoreText}) {
   return Container(
-    height: height,
+    height: length,
     width: MediaQuery.of(context).size.width,
     decoration: decoration,
     child: Container(
@@ -154,7 +153,6 @@ Widget _cardDisText({required desText, readMoreText}) {
       children: [
         Text(
           "${desText}",
-          textAlign: TextAlign.justify,
           style: disTextStyle,
         ),
         //textButton(onAction: onAction,text: readMoreText),

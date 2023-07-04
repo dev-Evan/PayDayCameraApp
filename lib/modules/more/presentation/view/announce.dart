@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/view_announce.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
+import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
@@ -24,11 +25,6 @@ class _AnnounceScreenState extends State<AnnounceScreen> {
     );
   }
 }
-
-
-
-
-
 
 class ExpandableText extends StatefulWidget {
   const ExpandableText(
@@ -54,7 +50,7 @@ class ExpandableTextState extends State<ExpandableText> {
   Widget build(BuildContext context) {
     const colorClickableText = Colors.blue;
     TextSpan link = TextSpan(
-        text: _readMore ? "... read more" : " read less",
+        text: _readMore ? " ...${AppString.text_read_more}" : "  ${AppString.text_read_less}",
         style: const TextStyle(
           color: colorClickableText,
         ),

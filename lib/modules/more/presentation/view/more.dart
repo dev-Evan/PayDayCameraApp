@@ -23,6 +23,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/widget/custom_spacer.dart';
 import '../../../../common/widget/error_snackbar.dart';
+import '../../../setting/presentation/controller/setting_controller.dart';
 
 class MoreScreen extends GetView<ProfileDataController> {
   MoreScreen({Key? key}) : super(key: key);
@@ -73,8 +74,6 @@ class MoreScreen extends GetView<ProfileDataController> {
                                          Get.toNamed(Routes.ANNOUNCE_SCREEN);
                                         // await Get.find<DocumentController>()
                                         //     .getDocumentData();
-                                        showCustomSnackBar(
-                                            message: "The page is empty");
                                       }),
                                   jobDeskCard(
                                       cardIcon: Images.folder,

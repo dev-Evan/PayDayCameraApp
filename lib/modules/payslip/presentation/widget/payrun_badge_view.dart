@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/controller/payrun_badge_controller.dart';
+import 'package:pay_day_mobile/modules/payslip/presentation/widget/payslip_view_sub_widget.dart';
 import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -12,6 +13,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../utils/utils.dart';
+import '../../../more/presentation/view/salary_overview.dart';
 
 class PayRunBadgeView extends GetView<PayrunBadgeController> {
   PayRunBadgeView({Key? key}) : super(key: key);
@@ -442,11 +444,9 @@ Widget _subTextRightBtn({required subTextRight, required isPercentage}) {
                       .toString() ??
                   ""
               : "",
-          style: AppStyle.mid_large_text.copyWith(
-              color: AppColor.normalTextColor,
-              fontSize: Dimensions.fontSizeDefault,
-              fontWeight: FontWeight.w500),
+          style: currencySymbolSmallStyle,
         ),
+
         customSpacerWidth(width: 4),
         Text(
           subTextRight,

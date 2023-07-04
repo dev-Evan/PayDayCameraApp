@@ -64,6 +64,7 @@ class AppString {
   static String text_entry_type = "Entry Type";
   static String text_attendance_behavior = "Attendance Behavior";
   static String text_single = "Single";
+  static String text_net_payable = "Net payable";
   static String breaK_time_selection_text = "Please, Select a break time";
   static String text_multi = "Multi";
   static String text_bank_name = "Bank Name";
@@ -330,6 +331,8 @@ class AppString {
   static String text_enter_your_about = "Enter your about";
   static String text_enter_your_address = "Enter your address";
   static String text_back = "Back";
+  static String text_read_more = "read more";
+  static String text_read_less = "read less";
   static String text_branch = "Branch";
   static String text_bank_code = "Bank Code";
   static String text_account_holder = "Account Holder";

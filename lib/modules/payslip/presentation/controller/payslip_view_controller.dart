@@ -7,7 +7,6 @@ class PayslipViewController extends GetxController with StateMixin {
   PayslipViewModel  payslipViewModel=PayslipViewModel();
   PayslipDataRepository payslipDataRepository =
   PayslipDataRepository(NetworkClient());
-
   getPayslipViewData() async {
     change(null, status: RxStatus.loading());
     try {
