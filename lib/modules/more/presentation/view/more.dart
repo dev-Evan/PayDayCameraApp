@@ -47,10 +47,10 @@ class MoreScreen extends GetView<ProfileDataController> {
                                 "",
                             userName: controller.userProfile.data?.fullName
                                     .toString() ??
-                                "",
+                                AppString.text_not_added_yet,
                             userEmail:
                                 controller.userProfile.data?.email.toString() ??
-                                    "",
+                                    AppString.text_not_added_yet ,
                             statusText: controller.userProfile.data?.userStatus
                                     .toString() ??
                                 ""),
@@ -156,8 +156,8 @@ class MoreScreen extends GetView<ProfileDataController> {
             ),
         onLoading: const LoadingIndicator());
   }
-  _languageDropDown() {
-    return LanguageDropDown();
+  _languageDropDown(){
+    return const LanguageDropDown();
   }
 }
 

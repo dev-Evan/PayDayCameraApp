@@ -9,6 +9,8 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class ViewAnnounce extends StatefulWidget {
+  const ViewAnnounce({super.key});
+
   @override
   State<ViewAnnounce> createState() => _ViewAnnounceState();
 }
@@ -16,7 +18,7 @@ class ViewAnnounce extends StatefulWidget {
 class _ViewAnnounceState extends State<ViewAnnounce> {
   List texts = [
     'In publishing and graphic design, Lorem ipsum is',
-    'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content',
+    'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful contentthe visual form of a document or a typeface without relying on meaningful content  the visual form of a document or a typeface without relying on meaningful content the visual form of a document or a typeface without relying on meaningful content',
     'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content',
     'ut labore et dolore magna aliqua',
     'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content',
@@ -74,8 +76,6 @@ class _ViewAnnounceState extends State<ViewAnnounce> {
   }
 }
 
-
-
 Widget newText({required text}) {
   return jobDeskTitle(text: text);
 }
@@ -95,7 +95,7 @@ Container announceCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _CardTitleText(),
+          _cardTitleText(),
           _dateText(),
           _cardDisText(desText: desText, readMoreText: readMoreText),
         ],
@@ -116,15 +116,18 @@ Widget announceLargeCard({required child, required context}) {
           bottom: AppLayout.getHeight(10)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_CardTitleText(), _dateText(),
+        children: [
+          _cardTitleText(),
+          _dateText(),
           customSpacerHeight(height: 6),
-          child],
+          child
+        ],
       ),
     ),
   );
 }
 
-Widget _CardTitleText() {
+Widget _cardTitleText() {
   return Container(
     margin: EdgeInsets.only(bottom: AppLayout.getHeight(2)),
     child: Text("UL release", style: CardTitleTextStyle),

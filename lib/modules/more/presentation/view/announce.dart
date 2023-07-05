@@ -16,11 +16,10 @@ class AnnounceScreen extends StatefulWidget {
 }
 
 class _AnnounceScreenState extends State<AnnounceScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(),
+      appBar: const CustomAppbar(),
       body: ViewAnnounce(),
     );
   }
@@ -28,10 +27,10 @@ class _AnnounceScreenState extends State<AnnounceScreen> {
 
 class ExpandableText extends StatefulWidget {
   const ExpandableText(
-      this.text, {
-        Key? key,
-        this.trimLines = 2,
-      }) : super(key: key);
+    this.text, {
+    Key? key,
+    this.trimLines = 2,
+  }) : super(key: key);
 
   final String text;
   final int trimLines;
@@ -45,11 +44,14 @@ class ExpandableTextState extends State<ExpandableText> {
   void _onTapLink() {
     setState(() => _readMore = !_readMore);
   }
+
   @override
   Widget build(BuildContext context) {
     const colorClickableText = Colors.blue;
     TextSpan link = TextSpan(
-        text: _readMore ? " ...${AppString.text_read_more}" : "  ${AppString.text_read_less}",
+        text: _readMore
+            ? " ...${AppString.text_read_more}"
+            : "  ${AppString.text_read_less}",
         style: const TextStyle(
           color: colorClickableText,
         ),
@@ -58,9 +60,7 @@ class ExpandableTextState extends State<ExpandableText> {
       builder: (BuildContext context, BoxConstraints constraints) {
         assert(constraints.hasBoundedWidth);
         final double maxWidth = constraints.maxWidth;
-        final text = TextSpan(
-            text: widget.text
-        );
+        final text = TextSpan(text: widget.text);
         TextPainter textPainter = TextPainter(
           text: link,
           textDirection: TextDirection.rtl,
@@ -78,7 +78,7 @@ class ExpandableTextState extends State<ExpandableText> {
           textSize.height,
         ));
         endIndex = textPainter.getOffsetBefore(pos.offset);
-        var textSpan;
+        TextSpan textSpan;
         if (textPainter.didExceedMaxLines) {
           textSpan = TextSpan(
             text: _readMore ? widget.text.substring(0, endIndex) : widget.text,
@@ -101,41 +101,27 @@ class ExpandableTextState extends State<ExpandableText> {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Decoration get decoration{
-  return AppStyle.ContainerStyle.copyWith(color: AppColor.primaryColor.withOpacity(0.1),borderRadius: BorderRadius.circular(Dimensions.radiusDefault));
-}
-TextStyle get CardTitleTextStyle{
-  return AppStyle.title_text.copyWith(color: AppColor.normalTextColor,fontWeight: FontWeight.w500,fontSize: Dimensions.fontSizeMid);
+Decoration get decoration {
+  return AppStyle.ContainerStyle.copyWith(
+      color: AppColor.primaryColor.withOpacity(0.1),
+      borderRadius: BorderRadius.circular(Dimensions.radiusDefault));
 }
 
-TextStyle get viewCardSubTextStyle{
-  return GoogleFonts.poppins(color: AppColor.hintColor,fontWeight: FontWeight.w400);
-}
-TextStyle get disTextStyle{
-  return GoogleFonts.poppins(color: AppColor.normalTextColor,fontWeight: FontWeight.w400,fontSize: Dimensions.fontSizeDefault);
+TextStyle get CardTitleTextStyle {
+  return AppStyle.title_text.copyWith(
+      color: AppColor.normalTextColor,
+      fontWeight: FontWeight.w500,
+      fontSize: Dimensions.fontSizeMid);
 }
 
+TextStyle get viewCardSubTextStyle {
+  return GoogleFonts.poppins(
+      color: AppColor.hintColor, fontWeight: FontWeight.w400);
+}
+
+TextStyle get disTextStyle {
+  return GoogleFonts.poppins(
+      color: AppColor.normalTextColor,
+      fontWeight: FontWeight.w400,
+      fontSize: Dimensions.fontSizeDefault);
+}

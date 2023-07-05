@@ -52,7 +52,7 @@ Widget _cardBox({required context}) {
     width: MediaQuery.of(context).size.width,
     decoration: boxDecoration,
     child: Container(
-      margin: EdgeInsets.all(12),
+      margin: const EdgeInsets.all(12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -109,7 +109,7 @@ Widget _subInnerRow({required leftText, required dynamicText}) {
 
 Decoration get boxDecoration {
   return BoxDecoration(
-      color: AppColor.allowanceCardColor,
+      color: AppColor.primaryColor.withOpacity(0.1),
       borderRadius: BorderRadius.circular(Dimensions.radiusDefault.toDouble()));
 }
 

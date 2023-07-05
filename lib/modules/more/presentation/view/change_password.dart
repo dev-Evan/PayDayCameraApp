@@ -19,6 +19,7 @@ import '../controller/user_profile_controller.dart';
 
 class ChangePassword extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
+  ChangePassword({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
