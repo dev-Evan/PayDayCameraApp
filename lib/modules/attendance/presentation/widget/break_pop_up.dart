@@ -238,21 +238,22 @@ _buttonLayout() {
               } else {
                 //get log id from check punched in method from attendance controller
                 //find break id by indexing from break controller
-                print("break off hit");
-                Get.find<BreakController>().endBreak(
-                    logId: Get.find<AttendanceController>()
-                            .logs
-                            .value
-                            .data!
-                            .dailyLogs![0]
-                            .id
-                            ?.toInt() ??
-                        0,
-                    breakId: Get.find<AttendanceController>()
-                            .breakDetails
-                            .value
-                            .breakTimeId ??
-                        0);
+                if (Get.find<AttendanceController>().logs.value.data != null) {
+                  Get.find<BreakController>().endBreak(
+                      logId: Get.find<AttendanceController>()
+                              .logs
+                              .value
+                              .data!
+                              .dailyLogs![0]
+                              .id
+                              ?.toInt() ??
+                          0,
+                      breakId: Get.find<AttendanceController>()
+                              .breakDetails
+                              .value
+                              .breakTimeId ??
+                          0);
+                }
               }
             },
             hasOutline: false,

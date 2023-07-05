@@ -7,7 +7,6 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'custom_spacer.dart';
 
-
 Future CustomAlertDialog(
     {context,
     yesAction,
@@ -136,18 +135,17 @@ BoxDecoration boxDecoration({iconBgColor}) {
 }
 
 Widget _contentText({required contentText}) {
-
-  return SizedBox(
-    height: AppLayout.getHeight(22),
-    child: Expanded(
-      child: Align(
-        alignment: Alignment.topCenter,
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Expanded(
         child: Text(contentText!,
+            textAlign: TextAlign.center,
             style: AppStyle.mid_large_text.copyWith(
                 color: AppColor.hintColor,
                 fontSize: Dimensions.fontSizeDefault - 1)),
       ),
-    ),
+    ],
   );
 }
 
