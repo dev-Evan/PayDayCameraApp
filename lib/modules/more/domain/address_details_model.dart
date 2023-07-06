@@ -1,25 +1,14 @@
 class AddressDetailsModel {
   bool? status;
   String? message;
-  List<Data>? data;
+  Data? data;
 
   AddressDetailsModel({this.status, this.message, this.data});
 
   AddressDetailsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    if (json['data'] != null) {
-      data = <Data>[];
-      json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
-      });
-    }
-  }
-
-
-  @override
-  String toString() {
-    return 'AddressDetailsModel{status: $status, message: $message, data: $data}';
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -27,61 +16,49 @@ class AddressDetailsModel {
     data['status'] = this.status;
     data['message'] = this.message;
     if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+      data['data'] = this.data!.toJson();
     }
     return data;
   }
 }
 
 class Data {
-  int? id;
-  int? userId;
-  String? key;
-  Value? value;
-  String? createdAt;
-  String? updatedAt;
+  PresentAddress? presentAddress;
+  PermanentAddress? permanentAddress;
 
-  Data(
-      {this.id,
-        this.userId,
-        this.key,
-        this.value,
-        this.createdAt,
-        this.updatedAt});
+  Data({this.presentAddress, this.permanentAddress});
 
   Data.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    userId = json['user_id'];
-    key = json['key'];
-    value = json['value'] != null ? new Value.fromJson(json['value']) : null;
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+    presentAddress = json['present_address'] != null
+        ? new PresentAddress.fromJson(json['present_address'])
+        : null;
+    permanentAddress = json['permanent_address'] != null
+        ? new PermanentAddress.fromJson(json['permanent_address'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['key'] = this.key;
-    if (this.value != null) {
-      data['value'] = this.value!.toJson();
+    if (this.presentAddress != null) {
+      data['present_address'] = this.presentAddress!.toJson();
     }
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    if (this.permanentAddress != null) {
+      data['permanent_address'] = this.permanentAddress!.toJson();
+    }
     return data;
   }
 }
 
-class Value {
+class PresentAddress {
   String? details;
   String? area;
   String? city;
-  String? state;
-  String? zipCode;
-  String? country;
-  String? phoneNumber;
+  dynamic state;
+  dynamic zipCode;
+  dynamic country;
+  dynamic phoneNumber;
 
-  Value(
+  PresentAddress(
       {this.details,
         this.area,
         this.city,
@@ -90,7 +67,48 @@ class Value {
         this.country,
         this.phoneNumber});
 
-  Value.fromJson(Map<String, dynamic> json) {
+  PresentAddress.fromJson(Map<String, dynamic> json) {
+    details = json['details'];
+    area = json['area'];
+    city = json['city'];
+    state = json['state'];
+    zipCode = json['zip_code'];
+    country = json['country'];
+    phoneNumber = json['phone_number'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['details'] = this.details;
+    data['area'] = this.area;
+    data['city'] = this.city;
+    data['state'] = this.state;
+    data['zip_code'] = this.zipCode;
+    data['country'] = this.country;
+    data['phone_number'] = this.phoneNumber;
+    return data;
+  }
+}
+
+class PermanentAddress {
+  String? details;
+  String? area;
+  String? city;
+  String? state;
+  String? zipCode;
+  String? country;
+  String? phoneNumber;
+
+  PermanentAddress(
+      {this.details,
+        this.area,
+        this.city,
+        this.state,
+        this.zipCode,
+        this.country,
+        this.phoneNumber});
+
+  PermanentAddress.fromJson(Map<String, dynamic> json) {
     details = json['details'];
     area = json['area'];
     city = json['city'];

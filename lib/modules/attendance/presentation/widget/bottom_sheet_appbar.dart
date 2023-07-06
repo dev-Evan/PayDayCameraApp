@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
 import '../../../../utils/app_layout.dart';
 
-Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle,}) {
+Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle,Function? onAction}) {
   return Container(
     padding: EdgeInsets.symmetric(
         horizontal: AppLayout.getWidth(Dimensions.paddingDefault),
-        vertical: AppLayout.getHeight(Dimensions.paddingDefault-6)),
+        vertical: AppLayout.getHeight(Dimensions.paddingDefault - 8)),
     decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(16), topRight: Radius.circular(16)),
@@ -22,19 +21,30 @@ Widget bottomSheetAppbar({required BuildContext context, String? appbarTitle,}) 
         ]),
     child: AppBar(
       backgroundColor: Colors.transparent,
-      elevation: 0,
       centerTitle: true,
+      elevation: 0,
       automaticallyImplyLeading: false,
       title: Text(
         appbarTitle ?? "Punch In",
-        style: AppStyle.normal_text_black.copyWith(fontWeight: FontWeight.w600,fontSize: Dimensions.fontSizeDefault+2),
+        style: AppStyle.normal_text_black.copyWith(
+            fontWeight: FontWeight.w600,
+            fontSize: Dimensions.fontSizeDefault + 2),
       ),
       actions: [
-      IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon:  Icon(
+        IconButton(
+          onPressed: () {
+            if(onAction !=null){
+              onAction();
+              Navigator.of(context).pop();
+
+            }else{
+              Navigator.of(context).pop();
+            }
+          },
+          icon: Icon(
             Icons.close,
-            size: Dimensions.fontSizeLarge,color: AppColor.secondaryColor,
+            size: Dimensions.fontSizeLarge,
+            color: AppColor.secondaryColor,
           ),
         ),
       ],

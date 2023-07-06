@@ -16,13 +16,19 @@ class AppColor {
   static const Color disableColor = Color(0xFFDFDFDF);
   static const Color normalTextColor = Color(0xFF4D4D4D);
   static const Color bgColor = Color(0xFFFFFFFF);
+  static const Color solidGray = Colors.grey;
+  static const Color alertBgColor = Color(0xfffdfbed);
 
-  static const Color primary_blue = Color(0xFF019AFF);
-  static const Color primary_green = Color(0xFF3EAC55);
-  static const Color primary_orange = Color(0xFFFF6347);
-  static const Color gradient_blue1 = Color(0xFF008EEC);
-  static const Color gradient_blue2 = Color(0xFF019AFF);
-  static const Color light_grey = Color(0xFFDFDFDF);
-  static const Color grey_drak = Color(0xFF9397A0);
+  static const Color primaryBlue = Color(0xFF019AFF);
+  static const Color primaryGreen = Color(0xFF3EAC55);
+  static const Color primaryOrange = Color(0xFFEF780A);
+  static const Color primaryYellow = Color(0xFFF3C568);
+  static const Color primaryRed = Color(0xFFFF6347);
+  static const Color balanceTimeGradientOne = Color(0xFF008EEC);
+  static const Color balanceTimeGradientTwo = Color(0xFF019AFF);
+  static const Color overTimeGradientOne = Color(0xFF294BD6);
+  static const Color overTimeGradientTwo = Color(0xFF4466F2);
+  static const Color lightGrey = Color(0xFFDFDFDF);
+  static const Color greyDark = Color(0xFF9397A0);
 
 }

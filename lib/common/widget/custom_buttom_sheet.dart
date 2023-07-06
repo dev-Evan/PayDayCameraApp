@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-Future customButtomSheet({context, height, child}) {
+Future customButtonSheet({context,double? height, child}) {
   return showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -19,7 +18,7 @@ Future customButtomSheet({context, height, child}) {
       context,
     ) {
       return FractionallySizedBox(
-        heightFactor: AppLayout.getHeight(height),
+        heightFactor: AppLayout.getHeight(height!),
         child: child,
       );
     },

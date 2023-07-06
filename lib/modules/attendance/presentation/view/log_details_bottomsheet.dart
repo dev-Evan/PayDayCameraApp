@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_eidt_bottomsheet.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/view/change_log_bottom_sheet.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
+import '../../../../common/controller/date_time_helper_controller.dart';
 import '../../../../common/widget/custom_app_button.dart';
 import '../../../../common/widget/loading_indicator.dart';
 import '../../../../utils/app_color.dart';
@@ -19,9 +19,9 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
   Widget build(BuildContext context) {
     return controller.obx(
         (state) => DraggableScrollableSheet(
-              initialChildSize: .8,
-              maxChildSize: .8,
-              minChildSize: .5,
+              initialChildSize: .9,
+              maxChildSize: .9,
+              minChildSize: .7,
               builder:
                   (BuildContext context, ScrollController scrollController) =>
                       Container(
@@ -66,8 +66,6 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _cancelButton(context),
-          SizedBox(width: AppLayout.getWidth(10)),
           _editButton(context),
         ],
       ),
@@ -76,21 +74,12 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
 
   _editButton(BuildContext context) {
     return AppButton(
-      buttonColor: AppColor.primary_blue,
+      buttonColor: AppColor.primaryBlue,
       buttonText: AppString.text_edit,
-      onPressed: () => _openEditBottomSheet(),
-    );
-  }
-
-  //_openChangeLogBottomSheet()
-  _cancelButton(BuildContext context) {
-    return AppButton(
-      buttonText: AppString.text_change_log,
-      onPressed: () => (){},
-      buttonColor: Colors.transparent,
-      hasOutline: true,
-      borderColor: Colors.black,
-      textColor: Colors.black,
+      onPressed: () {
+        Get.delete<DateTimeController>();
+        Get.put(DateTimeController());
+        _openEditBottomSheet();},
     );
   }
 }
@@ -101,14 +90,5 @@ Future _openEditBottomSheet() {
     backgroundColor: Colors.transparent,
     context: Get.context!,
     builder: (context) =>  EditAttendanceBottomSheet(Get.find<AttendanceController>().logDetailsById),
-  );
-}
-
-Future _openChangeLogBottomSheet() {
-  return showModalBottomSheet(
-    isScrollControlled: true,
-    backgroundColor: Colors.transparent,
-    context: Get.context!,
-    builder: (context) => const ChangeLogBottomSheet(),
   );
 }

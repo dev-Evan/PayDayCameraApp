@@ -5,26 +5,22 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
+import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attendance_data_repository.dart';
-import 'package:pay_day_mobile/modules/attendance/domain/change_log/change_log.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_entry/log_entry_request.dart';
-import 'package:pay_day_mobile/common/domain/error_model.dart';
-import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
+import 'package:pay_day_mobile/modules/attendance/domain/log_entry/log_entry_response.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-
+import '../../../../routes/app_pages.dart';
 import '../../../../utils/app_color.dart';
-import '../../../../utils/app_string.dart';
-import '../../domain/change_request/change_request_req_model.dart';
-import '../../domain/change_request/change_request_respose.dart';
 import '../../domain/check_entry_status/check_entry_status.dart';
 import '../../domain/daily_log/daily_log.dart';
-import '../../domain/log_entry/log_entry_response.dart';
+import 'break_controller.dart';
 
 class AttendanceController extends GetxController with StateMixin {
   final AttendanceDataRepository _attendanceDataRepository =
       AttendanceDataRepository(NetworkClient());
-
 
   @override
   void onInit() async {
@@ -47,15 +43,24 @@ class AttendanceController extends GetxController with StateMixin {
   Rx<Duration> balanceDuration = const Duration().obs;
   final currentIndex = 0.obs;
   late LogDetails logDetailsById;
+  List<BreakTimes> breakTimes = [];
+  Rx<BreakDetails> breakDetails = BreakDetails().obs;
 
   checkUserIsPunchedIn() async {
     change(null, status: RxStatus.loading());
     await _attendanceDataRepository.checkEntryStatus().then((checkEntryStatus) {
-      isPunchIn.value = checkEntryStatus.data!.punchIn!;
-      print("checkUserIsPunchedIn :: ${isPunchIn.value}");
+      try {
+        isPunchIn.value = checkEntryStatus.data!.punchIn!;
+        breakTimes = checkEntryStatus.data!.breakTimes!;
+        breakDetails.value =
+            checkEntryStatus.data!.breakDetails ?? BreakDetails();
+        print("checkUserIsPunchedIn :: ${isPunchIn.value}");
+      } catch (e) {
+        print(e.toString());
+      }
     }, onError: (error) {
       if (error.message.startsWith("Unauthenticated")) {
-        Get.toNamed(AppString.signInScreen);
+        Get.toNamed(Routes.SIGN_IN);
         Get.delete<AttendanceController>();
       }
       print("checkUserIsPunchedIn :: ${error.message}");
@@ -63,39 +68,53 @@ class AttendanceController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  punchIn(LogEntryRequest punchInRequest) {
+  Future<bool> punchIn(LogEntryRequest punchInRequest) async {
+    bool retrunValue = false;
     change(null, status: RxStatus.loading());
-
-    _attendanceDataRepository.punchIn(punchInRequest: punchInRequest).then(
-        (value) async {
-      await checkUserIsPunchedIn();
-      await getDailyLog();
+    await _attendanceDataRepository
+        .punchIn(punchInRequest: punchInRequest)
+        .then((value) {
+      checkUserIsPunchedIn();
+      getDailyLog();
       startTimer();
       print("punchIn :: ${value.message}");
+      showCustomSnackBar(message: value.message ?? "");
+      retrunValue = true;
     }, onError: (error) {
       print("punchIn :: ${error.message}");
+      errorSnackBar(errorMessage: error.message);
+      retrunValue = false;
     });
     change(null, status: RxStatus.success());
+    print(retrunValue);
+    return retrunValue;
   }
 
-  punchOut(LogEntryRequest punchOutRequest) async {
+  Future<bool> punchOut(LogEntryRequest punchOutRequest) async {
+    bool returnValue = false;
     change(null, status: RxStatus.loading());
     await _attendanceDataRepository
         .punchOut(
       punchOutRequest: punchOutRequest,
     )
         .then(
-      (value) async {
-        await checkUserIsPunchedIn();
-        await getDailyLog();
+      (LogEntryResponse value) {
+        checkUserIsPunchedIn();
+        getDailyLog();
         stopTimer();
+        showCustomSnackBar(message: value.message ?? "");
+        _endBreak();
         print("punchOut :: ${value.message}");
+        returnValue = true;
       },
       onError: (error) {
         print("punchOut :: ${error.message}");
+        errorSnackBar(errorMessage: error.message);
+        returnValue = false;
       },
     );
     change(null, status: RxStatus.success());
+    return returnValue;
   }
 
   getDailyLog() async {
@@ -133,14 +152,28 @@ class AttendanceController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  changeAttendance(
-      int logId, ChangeRequestReqModel changeRequestReqModel) async {
+  Future<bool> changeAttendance(
+      {required int logId,
+      required String inTime,
+      required String outTime,
+      required String note}) async {
+    bool returnValue = false;
     change(null, status: RxStatus.loading());
+    print(
+        "required int logId::$logId required String inTime::$inTime,required String outTime:: $outTime required String note::$note");
     await _attendanceDataRepository
-        .changeAttendanceRequest(logId, changeRequestReqModel)
-        .then((value) => print("changeAttendance :: called"),
-            onError: (error) => print(error.message));
+        .changeAttendanceRequest(
+            logId: logId, note: note, outTime: outTime, inTime: inTime)
+        .then((value) {
+      returnValue = true;
+      print("changeAttendance :: called");
+    }, onError: (error) {
+      print(error.message);
+      errorSnackBar(errorMessage: error.message);
+      returnValue = false;
+    });
     change(null, status: RxStatus.success());
+    return returnValue;
   }
 
   getLatLong() async {
@@ -240,4 +273,22 @@ class AttendanceController extends GetxController with StateMixin {
       backgroundColor: AppColor.hintColor,
       textColor: Colors.white,
       fontSize: 16.0);
+
+  void _endBreak() {
+    if (Get.find<AttendanceController>().breakDetails.value.id != null) {
+      Get.find<BreakController>().endBreak(
+          logId: Get.find<AttendanceController>()
+                  .logs
+                  .value
+                  .data!
+                  .dailyLogs![0]
+                  .id
+                  ?.toInt() ??
+              0,
+          breakId:
+              Get.find<AttendanceController>().breakDetails.value.breakTimeId ??
+                  0);
+      Get.find<BreakController>().stopTimer();
+    }
+  }
 }

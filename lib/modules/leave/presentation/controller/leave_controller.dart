@@ -1,12 +1,16 @@
+
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/leave/data/leave_repository.dart';
 import 'package:pay_day_mobile/modules/leave/domain/individual_date_leave.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_allowance.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_details.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_record.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_summary.dart';
+import 'package:pay_day_mobile/modules/leave/domain/leave_type.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 
 class LeaveController extends GetxController with StateMixin {
@@ -18,7 +22,7 @@ class LeaveController extends GetxController with StateMixin {
 
   LeaveRecord leaveRecord = LeaveRecord();
 
-  List<String> leaveType = [];
+  Map<dynamic, String> leaveType = {};
 
   Rx<IndividualDateLeave> individualDateLeaveList = IndividualDateLeave().obs;
 
@@ -74,10 +78,11 @@ class LeaveController extends GetxController with StateMixin {
 
   getLeaveType() async {
     change(null, status: RxStatus.loading());
-    await _leaveRepository.getLeaveType().then((value) {
+    await _leaveRepository.getLeaveType().then((LeaveType value) {
       print("getLeaveType ::: called");
       leaveType.clear();
-      value.data?.map((e) => leaveType.add(e.name!)).toList(growable: true);
+      leaveType = { for (var e in value.data!) e.id : e.name??'' };
+      print("list data::: $leaveType");
     }, onError: (error) => print("getLeaveType ${error.message}"));
 
     change(null, status: RxStatus.success());
@@ -93,7 +98,6 @@ class LeaveController extends GetxController with StateMixin {
     }, onError: (error) => print("getIndividualLeaveList ${error.message}"));
 
     isValueLoading.value = false;
-    ;
   }
 
   getILeaveDetails({required int id}) async {
@@ -108,23 +112,46 @@ class LeaveController extends GetxController with StateMixin {
 
   cancelLeave({required int id}) async {
     change(null, status: RxStatus.loading());
-    await _leaveRepository.cancelLeave(id: id).then((value) {
+    await _leaveRepository.cancelLeave(id: id).then((value) async {
       print("getILeaveDetails ::: called");
       Get.back(canPop: false);
       getLeaveRecord(params: "&within=thisYear");
+      Map<String, String> queryParams = {
+        "start": DateFormat("yyyy-MM-dd").format(DateTime.now()),
+        "end": DateFormat("yyyy-MM-dd").format(DateTime.now())
+      };
+      String dateValue = json.encode(queryParams);
+      await Get.find<LeaveController>()
+          .getIndividualLeaveList(queryParams: "date_range=$dateValue");
     }, onError: (error) => print("getILeaveDetails ${error.message}"));
 
     change(null, status: RxStatus.success());
   }
 
-  requestLeave({required Map<dynamic, dynamic> leaveARequestQueries}) async {
+  Future<bool> requestLeave(
+      {required Map<dynamic, dynamic> leaveARequestQueries}) async {
+    bool returnValue = false;
     change(null, status: RxStatus.loading());
     await _leaveRepository
         .requestLeave(leaveQueries: leaveARequestQueries)
-        .then((value) {
+        .then((value) async {
       print("requestLeave ::: called");
-    }, onError: (error) => print("getILeaveDetails ${error}"));
+      showCustomSnackBar(message: value.message ?? "");
+      Map<String, String> queryParams = {
+        "start": DateFormat("yyyy-MM-dd").format(DateTime.now()),
+        "end": DateFormat("yyyy-MM-dd").format(DateTime.now())
+      };
+      String dateValue = json.encode(queryParams);
+      await Get.find<LeaveController>()
+          .getIndividualLeaveList(queryParams: "date_range=$dateValue");
+      returnValue = true;
+    }, onError: (error) {
+      showCustomSnackBar(message: "${error.message}");
+      print("getILeaveDetails $error");
+      returnValue = false;
+    });
 
     change(null, status: RxStatus.success());
+    return returnValue;
   }
 }

@@ -1,3 +1,4 @@
+
 class LogDetails {
   bool? status;
   String? message;
@@ -34,6 +35,8 @@ class Data {
   String? logDate;
   String? logTime;
   dynamic parentAttendanceDetails;
+  String? checkInTime;
+  String? checkOutTime;
 
   Data(
       {this.id,
@@ -55,7 +58,9 @@ class Data {
         this.punchInStatus,
         this.logDate,
         this.logTime,
-        this.parentAttendanceDetails});
+        this.parentAttendanceDetails,
+      this.checkInTime,
+      this.checkOutTime});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -63,10 +68,10 @@ class Data {
     outTime = json['out_time'];
     attendanceId = json['attendance_id'];
     inIpData = json['in_ip_data'] != null
-        ? new InIpData.fromJson(json['in_ip_data'])
+        ? InIpData.fromJson(json['in_ip_data'])
         : null;
     outIpData = json['out_ip_data'] != null
-        ? new InIpData.fromJson(json['out_ip_data'])
+        ? InIpData.fromJson(json['out_ip_data'])
         : null;
     statusId = json['status_id'];
     reviewBy = json['review_by'];
@@ -87,6 +92,8 @@ class Data {
     logDate = json['log_date'];
     logTime = json['log_time'];
     parentAttendanceDetails = json['parent_attendance_details'];
+    checkInTime = json['check_in_time'];
+    checkOutTime = json['check_out_time'];
   }
 
 }
@@ -137,6 +144,4 @@ class Comments {
     type = json['type'];
     comment = json['comment'];
   }
-
-
 }

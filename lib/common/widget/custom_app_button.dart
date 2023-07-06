@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../utils/app_style.dart';
+import 'package:pay_day_mobile/utils/app_style.dart';
 
 class AppButton extends StatelessWidget {
   final bool? hasOutline;
@@ -10,6 +9,7 @@ class AppButton extends StatelessWidget {
   final Color buttonColor;
   final Color? textColor;
   final bool? isButtonExpanded;
+  final IconData? iconsData;
 
   AppButton({
     this.hasOutline = false,
@@ -19,6 +19,8 @@ class AppButton extends StatelessWidget {
     this.textColor = Colors.white,
     this.borderColor = Colors.grey,
     this.isButtonExpanded = true,
+    this.iconsData,
+
   });
 
   @override
@@ -28,7 +30,8 @@ class AppButton extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               height: MediaQuery.of(context).size.height / 18,
-              child: TextButton(
+              child: TextButton.icon(
+                icon: iconsData == null ? Container() : Icon(iconsData,size: 20,color: textColor),
                 style: ElevatedButton.styleFrom(
                     backgroundColor: buttonColor,
                     shape: RoundedRectangleBorder(
@@ -37,7 +40,7 @@ class AppButton extends StatelessWidget {
                 onPressed: () async {
                   onPressed();
                 },
-                child: Text(
+                label: Text(
                   buttonText,
                   style: textColor != null
                       ? AppStyle.normal_text.copyWith(
@@ -53,9 +56,10 @@ class AppButton extends StatelessWidget {
             ),
           )
         : SizedBox(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height / 18,
-          child: TextButton(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height / 18,
+            child: TextButton.icon(
+              icon: iconsData == null ? Container() : Icon(iconsData,color: textColor),
               style: ElevatedButton.styleFrom(
                   backgroundColor: buttonColor,
                   shape: RoundedRectangleBorder(
@@ -64,7 +68,7 @@ class AppButton extends StatelessWidget {
               onPressed: () async {
                 onPressed();
               },
-              child: Text(
+              label: Text(
                 buttonText,
                 style: textColor != null
                     ? AppStyle.normal_text.copyWith(
@@ -77,6 +81,6 @@ class AppButton extends StatelessWidget {
                       ),
               ),
             ),
-        );
+          );
   }
 }

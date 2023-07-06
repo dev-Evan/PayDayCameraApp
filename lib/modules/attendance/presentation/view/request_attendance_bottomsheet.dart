@@ -3,16 +3,16 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
 import 'package:pay_day_mobile/common/widget/custom_time_in_time_picker.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/widget/single_date_picker_calendar.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import '../../../../common/widget/custom_app_button.dart';
 import '../../../../common/widget/custom_time_picker.dart';
-import '../../../../common/widget/input_note.dart';
+import '../../../../common/widget/note_layout.dart';
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_string.dart';
 import '../../../../utils/dimensions.dart';
 import '../widget/bottom_sheet_appbar.dart';
+import '../widget/single_date_picker_calendar.dart';
 
 class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
   const RequestAttendanceBottomSheet({Key? key}) : super(key: key);
@@ -22,8 +22,8 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
     Get.delete<DateTimeController>();
     Get.put(DateTimeController());
     return DraggableScrollableSheet(
-      initialChildSize: .8,
-      maxChildSize: .8,
+      initialChildSize: .9,
+      maxChildSize: .9,
       minChildSize: .5,
       builder: (BuildContext context, ScrollController scrollController) =>
           Container(
@@ -69,7 +69,7 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
           SizedBox(height: AppLayout.getHeight(24)),
           _timeLayout(),
           SizedBox(height: AppLayout.getHeight(24)),
-          _noteLayout(),
+          noteLayout(),
         ],
       ),
     );
@@ -95,16 +95,22 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
   }
 
   _requestButton(BuildContext context) {
+    Get.find<AttendanceLogsController>().textEditingController.clear();
     var controller = Get.find<DateTimeController>();
     return AppButton(
-      buttonColor: AppColor.primary_blue,
+      buttonColor: AppColor.primaryBlue,
       buttonText: AppString.text_request,
       onPressed: () {
         if (controller.requestedDate.isNotEmpty &&
             controller.pickedInTime.isNotEmpty &&
             controller.pickedOutTime.isNotEmpty) {
-          Get.find<AttendanceLogsController>().requestAttendance();
-          Navigator.pop(Get.context!);
+          Get.find<AttendanceLogsController>()
+              .requestAttendance()
+              .then((value) {
+            if (value == true) {
+              Navigator.pop(Get.context!);
+            }
+          });
         } else {
           Get.showSnackbar(const GetSnackBar(
             message: "Select a valid input before request a attendance",
@@ -117,6 +123,7 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
   }
 
   _cancelButton(BuildContext context) {
+    Get.find<AttendanceLogsController>().textEditingController.clear();
     return AppButton(
       buttonText: AppString.text_cancel,
       onPressed: () => Navigator.of(context).pop(),
@@ -144,12 +151,12 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
   }
 
   _dateInputField(BuildContext context) {
-    var controller = Get.find<DateTimeController>();
+    DateTimeController controller = Get.find<DateTimeController>();
     return InkWell(
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-          border: Border.all(color: AppColor.light_grey, width: 1),
+          border: Border.all(color: AppColor.lightGrey, width: 1),
         ),
         padding: EdgeInsets.symmetric(
           horizontal: AppLayout.getWidth(Dimensions.paddingDefaultExtra),
@@ -231,23 +238,6 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
           const CustomOutTimePicker(),
         ],
       ),
-    );
-  }
-
-  _noteLayout() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          AppString.text_note,
-          style: AppStyle.normal_text_black
-              .copyWith(color: Colors.grey, fontWeight: FontWeight.w600),
-        ),
-        SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
-        inputNote(
-            controller:
-                Get.find<AttendanceLogsController>().textEditingController),
-      ],
     );
   }
 }

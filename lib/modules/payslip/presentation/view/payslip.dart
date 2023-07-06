@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/controller/payslip_list_controller.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/controller/payslip_std_drop_dawon_controller.dart';
@@ -7,9 +9,11 @@ import 'package:pay_day_mobile/modules/payslip/presentation/widget/drop_dawon_se
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/logList_widget.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/payslip_widget.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/summary_layout.dart';
+import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import 'package:pay_day_mobile/utils/images.dart';
 
 class PaySlip extends GetView<PayslipListController> {
   PaySlip({Key? key}) : super(key: key);
@@ -22,8 +26,9 @@ class PaySlip extends GetView<PayslipListController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.getPayslipListData(value: thisYarKey());
+   controller.getPayslipListData(value: thisYarKey());
     controller.getSummaryData();
+   Get.find<SettingController>().getCurrencyData();
     return controller.obx(
         (state) => Scaffold(
               body: SingleChildScrollView(
@@ -31,19 +36,19 @@ class PaySlip extends GetView<PayslipListController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
                     summaryLayout(
-                        paid: controller.summaryModel.data?.summary?.paid
+                        sent: controller.summaryModel.data?.summary?.sent
                                 .toString() ??
                             "",
-                        unpaid: controller.summaryModel.data?.summary?.unpaid
+                        conflicted: controller.summaryModel.data?.summary?.conflicted
                                 .toString() ??
                             "",
                         total: controller.summaryModel.data?.summary?.total
                                 .toString() ??
                             ""),
 
-                    vertical(
-                        child: Column(
+                    vertical(child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Obx(() => dropDawnBtnCard(
@@ -76,9 +81,9 @@ class PaySlip extends GetView<PayslipListController> {
                         viewDate(
                             dateText:
                             Get.find<DropdownBtnStdController>().sltDate.toString()),
-
-                        controller.payslipListModel.data?.payslips !=null?
-                        controller.payslipListModel.data!.payslips!.isNotEmpty
+                        customSpacerHeight(height: 12),
+                        ( controller.payslipListModel.data?.payslips !=null &&
+                        controller.payslipListModel.data!.payslips!.isNotEmpty)
                             ? ListView.builder(
                                 itemCount: controller
                                     .payslipListModel.data?.payslips?.length,
@@ -99,7 +104,7 @@ class PaySlip extends GetView<PayslipListController> {
                                               .payslipListModel
                                               .data
                                               ?.payslips?[index]
-                                              .basicSalary ??
+                                              .netSalary ??
                                           "",
                                       statusText: controller
                                               .payslipListModel
@@ -116,18 +121,28 @@ class PaySlip extends GetView<PayslipListController> {
                                       endDate: controller.payslipListModel.data?.payslips?[index].endDate ?? "",
                                       monthly: controller.payslipListModel.data?.payslips?[index].period ?? "",
                                   indexId: controller.payslipListModel.data?.payslips?[index].id.toString() ?? ""
-                                  );
-                                },
+                                  );},
                               )
-                            : Center(child: Text(AppString.text_no_data_found)):Center(child: Text(AppString.text_no_data_found))
+                            : Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              customSpacerHeight(height: 100),
+                              svgIcon(
+                                height: 150,
+                                width: 150,
+                                url: Images.no_data_found,
+                              ),
+                            ],
+                          ),
+                        )
                       ],
                     ))
                   ],
                 ),
               ),
             ),
-        onLoading: const LoadingIndicator());
-  }
+        onLoading: const LoadingIndicator());}
 }
 
 

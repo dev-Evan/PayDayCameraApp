@@ -3,34 +3,38 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_divider.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/widget/approve_status.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/multi_log_summary_list.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
-import 'package:pay_day_mobile/utils/color_picker_helper.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
+import 'package:pay_day_mobile/utils/time_counter_helper.dart';
+import '../../../../enum/status.dart';
 import '../view/log_details_bottomsheet.dart';
 
 class LogsList extends GetView<AttendanceLogsController> {
-  RxBool isExpanded = false.obs;
+  final RxBool isExpanded = false.obs;
+
+  LogsList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
+    return Obx(() => ListView.separated(
         separatorBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.symmetric(vertical: AppLayout.getHeight(8)),
             child: const Divider(),
           );
         },
-        itemCount: controller.filteredLogSummary.value.data?.data?.length ?? 0,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, dataIndex) => controller.filteredLogSummary.value
-                    .data!.data![dataIndex].details!.length >
+        shrinkWrap: true,
+        controller: controller.scrollController,
+        itemCount: controller.logList.length,
+        itemBuilder: (context, dataIndex) => controller
+                    .logList[dataIndex].details.length >
                 1
             ? Theme(
                 data: Theme.of(context)
@@ -41,9 +45,9 @@ class LogsList extends GetView<AttendanceLogsController> {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Obx(() => Expanded(flex: 3, child: _date(dataIndex))),
+                      Expanded(flex: 3, child: _date(dataIndex)),
                       SizedBox(width: AppLayout.getWidth(20)),
-                      Obx(() => _logInfo(dataIndex)),
+                      _logInfo(dataIndex),
                     ],
                   ),
                   trailing: CircleAvatar(
@@ -52,67 +56,52 @@ class LogsList extends GetView<AttendanceLogsController> {
                       child: Obx(() => _changeIcon())),
                   children: [
                     SizedBox(height: AppLayout.getHeight(16)),
-                    controller.filteredLogSummary.value.data != null &&
-                            controller
-                                .filteredLogSummary.value.data!.data!.isNotEmpty
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Spacer(flex: 2),
-                              Expanded(
-                                  flex: 11,
-                                  child: ListView.separated(
-                                    separatorBuilder: (context, index) =>
-                                        SizedBox(
-                                            height: AppLayout.getHeight(
-                                                Dimensions.paddingMid)),
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount: controller
-                                            .filteredLogSummary
-                                            .value
-                                            .data
-                                            ?.data?[dataIndex]
-                                            .details!
-                                            .length ??
-                                        0,
-                                    itemBuilder: (context, index) {
-                                      return InkWell(
-                                        onTap: () async {
-                                          await Get.find<AttendanceController>()
-                                              .logDetails(controller
-                                                  .filteredLogSummary
-                                                  .value
-                                                  .data!
-                                                  .data![dataIndex]
-                                                  .details![index]
-                                                  .id!);
-                                          await _openLogDetailsBottomSheet();
-                                        },
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            _dottedBorder(),
-                                            SizedBox(
-                                                width: AppLayout.getWidth(
-                                                    Dimensions.paddingDefault)),
-                                            multiLogSummaryList(
-                                                index: index,
-                                                dataIndex: dataIndex,
-                                                controller: controller),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  ))
-                            ],
-                          )
-                        : Container()
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Spacer(flex: 2),
+                        Expanded(
+                            flex: 11,
+                            child: ListView.separated(
+                              separatorBuilder: (context, index) => SizedBox(
+                                  height: AppLayout.getHeight(
+                                      Dimensions.paddingMid)),
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: controller
+                                      .logList[dataIndex].details.length ??
+                                  0,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () async {
+                                    await Get.find<AttendanceController>()
+                                        .logDetails(controller
+                                            .logList[dataIndex]
+                                            .details[index]
+                                            .id);
+                                    _openLogDetailsBottomSheet();
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      _dottedBorder(),
+                                      SizedBox(
+                                          width: AppLayout.getWidth(
+                                              Dimensions.paddingDefault)),
+                                      multiLogSummaryList(
+                                          index: index,
+                                          dataIndex: dataIndex,
+                                          controller: controller),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ))
+                      ],
+                    )
                   ],
                 ))
-            : _normalLogInfoCard(dataIndex));
+            : _normalLogInfoCard(dataIndex)));
   }
 
   _date(int index) => Row(
@@ -122,24 +111,21 @@ class LogsList extends GetView<AttendanceLogsController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                controller.filteredLogSummary.value.data?.data?[index]
-                        .dateInNumber ??
-                    "",
+                controller.logList[index].dateInNumber ?? "",
                 style: AppStyle.mid_large_text.copyWith(
                     color: AppColor.normalTextColor,
                     fontSize: Dimensions.fontSizeExtraLarge,
                     fontWeight: FontWeight.w900),
               ),
               Text(
-                controller.filteredLogSummary.value.data?.data?[index].month ??
-                    "",
+                controller.logList[index].month ?? "",
                 style: AppStyle.small_text.copyWith(
                     color: AppColor.hintColor,
                     fontSize: Dimensions.fontSizeSmall),
               ),
             ],
           ),
-          CustomDiveider(25, 1),
+          CustomDiveider(25, 1)
         ],
       );
 
@@ -157,58 +143,30 @@ class LogsList extends GetView<AttendanceLogsController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            controller.filteredLogSummary.value.data != null
-                ? Text(
-                    "${controller.filteredLogSummary.value.data!.data?[dataIndex].details?.last.inTime} - ${controller.filteredLogSummary.value.data!.data?[dataIndex].details?.first.outTime}",
-                    style: AppStyle.mid_large_text.copyWith(
-                      color: AppColor.secondaryColor,
-                      fontSize: Dimensions.fontSizeDefault + 2,
-                    ),
-                  )
-                : Container(),
+            Text(
+              "${controller.logList[dataIndex].details?.last.inTime} - ${controller.logList[dataIndex].details?.first.outTime}",
+              style: AppStyle.mid_large_text.copyWith(
+                color: AppColor.secondaryColor,
+                fontSize: Dimensions.fontSizeDefault + 2,
+              ),
+            ),
             SizedBox(
               height: AppLayout.getHeight(6),
             ),
             Row(
               children: [
-                Icon(
-                  Icons.access_time_outlined,
-                  color: AppColor.hintColor.withOpacity(0.6),
-                  size: Dimensions.fontSizeDefault + 2,
-                ),
-                SizedBox(
-                  width: AppLayout.getWidth(3),
-                ),
-                controller.filteredLogSummary.value.data != null
-                    ? Text(
-                  //todo
-                        controller.filteredLogSummary.value.data!.data?[dataIndex].details!.length
-                                .toString() ??
-                            "",
-                        style: AppStyle.mid_large_text.copyWith(
-                            color: AppColor.hintColor.withOpacity(0.7),
-                            fontSize: Dimensions.fontSizeDefault + 2,
-                            fontWeight: FontWeight.w500),
-                      )
+                _timeCounter(dataIndex),
+                // controller.filteredLogSummary.data!.data![dataIndex].totalComments
+                controller.logList[dataIndex].totalComments> 0
+                    ? _noteCounter(dataIndex)
                     : Container(),
-                SizedBox(
-                  width: AppLayout.getWidth(12),
-                ),
-                Icon(
-                  Icons.sticky_note_2_outlined,
-                  color: AppColor.hintColor.withOpacity(0.6),
-                  size: Dimensions.fontSizeDefault + 2,
-                ),
-                SizedBox(
-                  width: AppLayout.getWidth(3),
-                ),
-                Text(
-                  "0",
-                  style: AppStyle.mid_large_text.copyWith(
-                      color: AppColor.hintColor,
-                      fontSize: Dimensions.fontSizeDefault + 2,
-                      fontWeight: FontWeight.w500),
-                ),
+                customSpacerWidth(width: 12),
+                controller.logList[dataIndex].details.first.statusClass !=
+                        ApprovalStatus.success.name
+                    ? approveStatus(
+                        status: controller
+                            .logList[dataIndex].details.first.statusClass)
+                    : Container(),
               ],
             ),
           ],
@@ -218,14 +176,14 @@ class LogsList extends GetView<AttendanceLogsController> {
   _normalLogInfoCard(int dataIndex) {
     return InkWell(
       onTap: () async {
-        await Get.find<AttendanceController>().logDetails(controller
-            .filteredLogSummary.value.data!.data![dataIndex].details![0].id!);
-        await _openLogDetailsBottomSheet();
+        await Get.find<AttendanceController>()
+            .logDetails(controller.logList[dataIndex].details[0].id);
+         _openLogDetailsBottomSheet();
       },
       child: Row(children: [
-        Obx(() => Expanded(flex: 3, child: _date(dataIndex))),
+        Expanded(flex: 3, child: _date(dataIndex)),
         SizedBox(width: AppLayout.getWidth(20)),
-        Obx(() => _logInfo(dataIndex)),
+        _logInfo(dataIndex),
         CircleAvatar(
           radius: 14,
           backgroundColor: AppColor.hintColor.withOpacity(0.1),
@@ -252,6 +210,53 @@ class LogsList extends GetView<AttendanceLogsController> {
             color: AppColor.primaryColor.withOpacity(0.8),
           );
   }
+
+  _noteCounter(int dataIndex) => Row(
+        children: [
+          Icon(
+            Icons.sticky_note_2_outlined,
+            color: AppColor.hintColor.withOpacity(0.6),
+            size: Dimensions.fontSizeDefault + 2,
+          ),
+          SizedBox(
+            width: AppLayout.getWidth(3),
+          ),
+          Text(
+            controller.logList[dataIndex].totalComments.toString(),
+            style: AppStyle.mid_large_text.copyWith(
+                color: AppColor.hintColor,
+                fontSize: Dimensions.fontSizeDefault + 2,
+                fontWeight: FontWeight.w500),
+          ),
+        ],
+      );
+
+  _timeCounter(int dataIndex) => Row(
+        children: [
+          Icon(
+            Icons.access_time_outlined,
+            color: AppColor.hintColor.withOpacity(0.6),
+            size: Dimensions.fontSizeDefault + 2,
+          ),
+          SizedBox(
+            width: AppLayout.getWidth(3),
+          ),
+          controller.filteredLogSummary.data != null
+              ? Text(
+                  TimeCounterHelper.getTimeStringFromDouble(
+                    controller.logList[dataIndex].totalHours.toDouble(),
+                  ),
+                  style: AppStyle.mid_large_text.copyWith(
+                      color: AppColor.hintColor.withOpacity(0.7),
+                      fontSize: Dimensions.fontSizeDefault + 2,
+                      fontWeight: FontWeight.w500),
+                )
+              : Container(),
+          SizedBox(
+            width: AppLayout.getWidth(12),
+          ),
+        ],
+      );
 }
 
 _dottedBorder() {

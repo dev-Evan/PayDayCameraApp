@@ -1,6 +1,6 @@
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
+import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import '../../../common/domain/error_model.dart';
 import '../domain/change_profile_img.dart';
 
@@ -12,7 +12,7 @@ class ProfilePicChangeRepository {
   Future getProfilePicChange(profileImage) async {
     try {
       Response response =
-          await networkClient.postRequest(AppString.USER_CHANGE_PICTURE, {
+          await networkClient.postRequest(Api.USER_CHANGE_PICTURE, {
           "profile_picture": profileImage,
       });
       if (response.status.hasError) {

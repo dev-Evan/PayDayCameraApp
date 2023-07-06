@@ -38,7 +38,7 @@ Widget logSummaryTabBar() {
                 unselectedLabelColor: AppColor.hintColor,
                 labelStyle: AppStyle.mid_large_text
                     .copyWith(fontWeight: FontWeight.w700, fontSize: 14),
-                tabs: const [
+                tabs: [
                   Tab(
                     text: AppString.text_all_logs,
                   ),

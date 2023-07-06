@@ -1,278 +1,157 @@
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:flutter/material.dart';
-import 'package:pay_day_mobile/common/custom_spacer.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
+import 'package:pay_day_mobile/common/widget/input_note.dart';
+import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
-import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/edit_profile_drop_dawon_cnt.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/custom_text_field_dob.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/edit_profile_drop_dawon_cnt.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/widget/defult_date_of_birth_field.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/edit_profile_calender.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/profile_calender_dialog.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
-import 'package:pay_day_mobile/utils/app_color.dart';
-import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import 'package:pay_day_mobile/utils/app_style.dart';
-import 'package:pay_day_mobile/utils/dimensions.dart';
+import '../../../../utils/app_color.dart';
+import '../../../auth/presentation/view/sign_in.dart';
+import '../controller/common_controller/date_of_birth_controller.dart';
+import '../controller/user_profile_controller.dart';
+import '../widget/address_details_widget.dart';
 
+class EditProfile extends StatefulWidget {
+  EditProfile({Key? key}) : super(key: key);
+  @override
+  State<EditProfile> createState() => _EditProfileState();
+}
 
-class EditProfile extends StatelessWidget {
-   EditProfile({Key? key}) : super(key: key);
-  final List<String> _locations = [AppString.text_male, AppString.text_female];
+class _EditProfileState extends State<EditProfile> {
+  final List<String> _locations = [AppString.text_male,AppString.text_female];
   String? dropdownValue;
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final _box = GetStorage();
-    return Scaffold(
-      appBar: const CustomAppbar(),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            customMoreAppbar(titleText: AppString.text_edit_profile),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            textFieldTitleText(
-                                titleText:
-                                    AppString.text_first + AppString.text_name),
-                            CustomTextFeild(
-                              hintText: Get.find<ProfileDataController>()
-                                      .userProfile.data?.firstName ??
-                                  AppString.text_first + AppString.text_name,
-                              controller: Get.find<EditProfileDataController>()
-                                  .firstNameController,
-                            ),
-                          ],
-                        ),
-                      ),
-                      customSpacerWidth(width: 12),
-                      Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            textFieldTitleText(
-                                titleText:
-                                    AppString.text_first + AppString.text_name),
-                            CustomTextFeild(
-                              hintText: Get.find<ProfileDataController>()
-                                      .userProfile.data?.lastName ??
-                                  AppString.text_last + AppString.text_name,
-                              controller: Get.find<EditProfileDataController>()
-                                  .lastNameController,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: textFieldTitleText(titleText: AppString.text_email),
-                  ),
-                  CustomTextFeild(
-                    hintText: Get.find<ProfileDataController>().userProfile.data?.email ??
-                        AppString.text_email,
-                    controller: Get.find<EditProfileDataController>()
-                        .emailController,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: textFieldTitleText(
-                        titleText: AppString.text_gender_text),
-                  ),
-                  Obx(
-                    () => Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Card(
-                        color: AppColor.cardColor,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.radiusDefault),
-                            side: const BorderSide(
-                                width: 0.0, color: AppColor.disableColor)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: DropdownButton<String>(
-                            style: const TextStyle(fontWeight: FontWeight.w500),
-                            isDense: true,
-                            isExpanded: true,
-                            underline: const SizedBox.shrink(),
-                            icon: const Icon(Icons.expand_more),
-                            iconEnabledColor: AppColor.normalTextColor,
-                            hint: Text(
-                              Get.find<ProfileDataController>().userProfile.data?.gender ??
-                                  "",
-                              style: AppStyle.normal_text
-                                  .copyWith(color: AppColor.normalTextColor),
-                            ),
-                            value: Get.find<DropdownBtnController>().dropdownValue.value,
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.radiusDefault),
-                            items: _locations
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value,
-                                    style: AppStyle.normal_text.copyWith(
-                                        color: AppColor.normalTextColor)),
-                              );
-                            }).toList(),
-                            onChanged: (newValue) {
-                              Get.find<DropdownBtnController>().onValueChanged(newValue);
-
-                              // print(newValue.toString());
-                            },
+    return Form(
+      key: _formKey,
+      child: Scaffold(
+        appBar: const CustomAppbar(),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              customMoreAppbar(titleText: AppString.text_edit_profile),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              textFieldTitleText(
+                                  titleText: "${AppString.text_first} ${AppString.text_name}"),
+                              CustomTextField(
+                                hintText: AppString.text_enter_first_name,
+                                controller:
+                                Get.find<InputTextFieldController>()
+                                    .firstNameController,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    showCustomSnackBar(message: AppString.the_first_name_field_is_required,color: AppColor.errorColor);
+                                    return AppString
+                                        .fieldIsRequired;
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: textFieldTitleText(titleText: AppString.text_phone),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: IntlPhoneField(
-                      decoration: InputDecoration(
-                        labelText:
-                        Get.find<ProfileDataController>().userProfile.data?.contact ??
-                                "",
-                        enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                                width: 0.0, color: AppColor.disableColor)),
-                        contentPadding: const EdgeInsets.all(7),
-                        border: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 0.0, color: AppColor.disableColor),
+                        customSpacerWidth(width: 12),
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              textFieldTitleText(
+                                  titleText: "${AppString.text_last} ${AppString.text_name}"),
+                              CustomTextField(
+                                hintText: AppString.text_enter_last_name,
+                                controller:
+                                Get.find<InputTextFieldController>()
+                                    .lastNameController,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      controller: Get.find<EditProfileDataController>()
+                      ],
+                    ),
+                    textFieldTitleText(titleText: AppString.text_email),
+                    CustomTextField(
+                      hintText: AppString.text_enter_email,
+                      controller: Get.find<InputTextFieldController>()
+                          .emailController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return AppString
+                              .the_email_field_is_required;
+                        } else if (value.isEmpty ||
+                            !RegExp(emailPatten()).hasMatch(value)) {
+                          return AppString
+                              .please_insert_a_valid_email_address;
+                        } else {
+                          return null;
+                        }
+                      },
+
+                    ),
+                    textFieldTitleText(titleText: AppString.text_gender_text),
+                    Obx(() => dropDownField(context: context, locations: _locations)),
+                    textFieldTitleText(titleText: AppString.text_phone),
+                    phoneAndCountyField(
+                      controller: Get.find<InputTextFieldController>()
                           .contactController,
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: textFieldTitleText(
+                    textFieldTitleText(
                         titleText: AppString.text_address_details),
-                  ),
-                  SizedBox(
-                    height: AppLayout.getHeight(8),
-                  ),
-                  Container(
-                    height: AppLayout.getHeight(120),
-                    decoration: AppStyle.ContainerStyle.copyWith(
-                        borderRadius: BorderRadius.circular(
-                          Dimensions.radiusDefault,
-                        ),
-                        border: Border.all(
-                            width: 0.0, color: AppColor.disableColor)),
-                    child: TextField(
-                      controller: Get.find<EditProfileDataController>()
+                    InputNote(
+                      hintText: AppString.text_enter_your_address,
+                      controller: Get.find<InputTextFieldController>()
                           .addressController,
-                      decoration: InputDecoration(
-                        hintText:
-                        Get.find<ProfileDataController>().userProfile.data?.address ??
-                                "",
-                        contentPadding: const EdgeInsets.all(8),
-                        border: InputBorder.none,
-                      ),
-                      maxLines: null,
-                      expands: true,
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: textFieldTitleText(
-                        titleText: AppString.text_date_of_birth),
-                  ),
-                  SizedBox(
-                    height: AppLayout.getHeight(8),
-                  ),
-                  Container(
-                    child: CustomTextFieldDob(
-                        hintText:
-                            _box.read(AppString.STORE_DATE.toString() ?? "") ??
-                                Get.find<ProfileDataController>()
-                                    .userProfile.data?.dateOfBirth ??
-                                "",
-                        dobIcon: Icons.calendar_month,
-
-                        dobIconAction: () {
-                          profileCalenderDialog(
-                              context: context,
-                              height: AppLayout.getHeight(72),
-                              child: const EditProfileCalender(),
-                              dobSaveAction: () {
-                                if (_box.read(AppString.STORE_DATE.toString() ??
-                                        "") ==
-                                    null) {
-                                  Get.snackbar(AppString.text_alert,
-                                      AppString.text_please_selected_date);
-                                } else {
-                                  Get.back();
-                                }
-                              });
-                        }),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child:
-                        textFieldTitleText(titleText: AppString.text_about_me),
-                  ),
-                  SizedBox(
-                    height: AppLayout.getHeight(8),
-                  ),
-                  Container(
-                    height: AppLayout.getHeight(120),
-                    decoration: AppStyle.ContainerStyle.copyWith(
-                        borderRadius: BorderRadius.circular(
-                          Dimensions.radiusDefault,
-                        ),
-                        border: Border.all(
-                            width: 0.0, color: AppColor.disableColor)),
-                    child: TextField(
-                      controller: Get.find<EditProfileDataController>()
+                    textFieldTitleText(titleText: AppString.text_date_of_birth),
+                    Obx(() => dateOfBirthField(context: context)),
+                    textFieldTitleText(titleText: AppString.text_about_me),
+                    InputNote(
+                      hintText: AppString.text_add_about_me_here,
+                      controller: Get.find<InputTextFieldController>()
                           .aboutMeController,
-                      decoration: InputDecoration(
-                        hintText:
-                        Get.find<ProfileDataController>().userProfile.data?.aboutMe ??
-                                "",
-                        contentPadding: const EdgeInsets.all(8),
-                        border: InputBorder.none,
-                      ),
-                      maxLines: null,
-                      expands: true,
-                    ),
-                  ),
-                ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: CustomButton(AppString.text_save, () {
-                Get.find<EditProfileDataController>().editProfileData(
-                    selectedDate:
-                        _box.read(AppString.STORE_DATE.toString() ?? ""));
-              }),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: CustomButton(AppString.text_save, () {
+                  if (_formKey.currentState!.validate()) {
+                    Get.find<ProfileDataController>().editProfileData(
+                        context: context,
+                        firstName: Get.find<InputTextFieldController>().firstNameController.text,
+                        lastName: Get.find<InputTextFieldController>().lastNameController.text,
+                        email: Get.find<InputTextFieldController>().emailController.text,
+                        contact: Get.find<InputTextFieldController>().contactController.text,
+                        dob: Get.find<DatePickerController>().dobDateController.value.text,
+                        dropDown: Get.find<DropdownBtnController>().value.toString(),
+                        aboutMe: Get.find<InputTextFieldController>().aboutMeController.text,
+                        address: Get.find<InputTextFieldController>().addressController.text
+                    );
+                  }
+                }),
+              )
+            ],
+          ),
         ),
       ),
     );

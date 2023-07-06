@@ -43,6 +43,8 @@ class LogData {
   String? month;
   int? userId;
   String? behavior;
+  dynamic totalHours;
+  int? totalComments;
   List<Details>? details;
 
   LogData(
@@ -52,7 +54,9 @@ class LogData {
       this.month,
       this.userId,
       this.behavior,
-      this.details});
+      this.totalHours,
+      this.details,
+      this.totalComments});
 
   LogData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -61,6 +65,8 @@ class LogData {
     month = json['month'];
     userId = json['user_id'];
     behavior = json['behavior'];
+    totalHours = json['total_hours'];
+    totalComments = json['total_comments'];
     if (json['details'] != null) {
       details = <Details>[];
       json['details'].forEach((v) {

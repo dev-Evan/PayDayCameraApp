@@ -13,15 +13,19 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-Widget logsList(
-    {required titleDate,
-    required titleMonth,
-    required basicSalary,
-    required statusText,
-    required startDate,
-    required endDate,
-    required monthly,
-    required indexId}) {
+import '../../../more/presentation/view/salary_overview.dart';
+import '../../../setting/presentation/controller/setting_controller.dart';
+
+Widget logsList({
+  required titleDate,
+  required titleMonth,
+  required basicSalary,
+  required statusText,
+  required startDate,
+  required endDate,
+  required monthly,
+  required indexId,
+}) {
   final box = GetStorage();
 
   return Padding(
@@ -29,14 +33,14 @@ Widget logsList(
       left: AppLayout.getWidth(12),
       right: AppLayout.getWidth(12),
       bottom: AppLayout.getHeight(12),
-      top: AppLayout.getHeight(12),
+      top: AppLayout.getHeight(0),
     ),
     child: Column(
       children: [
         InkWell(
           onTap: () {
-            box.write(AppString.STORE_PAYSLIP_LSIT_ID, indexId);
-            customButtomSheet(
+            box.write(AppString.STORE_PAYSLIP_LIST_ID, indexId);
+            customButtonSheet(
                 context: Get.context,
                 height: 0.9,
                 child: PaySlipView(indexVal: indexId));
@@ -53,7 +57,9 @@ Widget logsList(
                 monthly: monthly),
           ),
         ),
-        _divider(context: Get.context,),
+        _divider(
+          context: Get.context,
+        ),
       ],
     ),
   );
@@ -67,29 +73,32 @@ Widget _logListRow(
     required startDate,
     required endDate,
     required monthly}) {
-  final _box = GetStorage();
-  var currency = _box.read(AppString.STORE_CURRENCY) ?? "\$";
   return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       _dateTitle(dateText: titleDate, monthText: titleMonth),
-      CustomDiveider(25, 0.5),
-      _cardMidText(
-          amountText: currency + " " + basicSalary.toString(),
-          startDate: startDate,
-          endDate: endDate,
-          monthly: monthly,
-          statusText: statusText.toString()),
+      customSpacerWidth(width: 30),
+      CustomDiveider(40, 0.7),
+      customSpacerWidth(width: 30),
+      Expanded(
+        flex: 0,
+        child: _cardMidText(
+            amountText: basicSalary.toString(),
+            startDate: startDate,
+            endDate: endDate,
+            monthly: monthly,
+            statusText: statusText.toString()),
+      ),
+      Spacer(),
       avatarArrowIcon(),
     ],
   );
 }
 
 Widget _divider({context}) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 12.0),
+  return Container(
+    margin: EdgeInsets.only(top: 14, bottom: 0),
     child: CustomDiveider(
-        AppLayout.getHeight(0.4), MediaQuery.of(context).size.width),
+        AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
   );
 }
 
@@ -121,12 +130,17 @@ Widget _cardMidText(
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(
-        amountText.toString(),
-        style: AppStyle.mid_large_text.copyWith(
-          color: AppColor.secondaryColor,
-          fontSize: Dimensions.fontSizeDefault + 2,
-        ),
+      Row(
+        children: [
+          currencySymbol,
+          Text(
+            amountText.toString(),
+            style: AppStyle.mid_large_text.copyWith(
+              color: AppColor.secondaryColor,
+              fontSize: Dimensions.fontSizeDefault + 2,
+            ),
+          ),
+        ],
       ),
       customSpacerHeight(height: 8),
       _midTextRow(startDate: startDate, endDate: endDate, monthly: monthly),
@@ -175,5 +189,14 @@ Widget _midTextRow({required startDate, required endDate, required monthly}) {
         ],
       ),
     ],
+  );
+}
+
+Container get currencySymbol {
+  return Container(
+    margin: EdgeInsets.only(right: AppLayout.getHeight(4)),
+    child: Text(
+        Get.find<SettingController>().basicInfo?.data.currencySymbol ?? "",
+        style: currencyStyle),
   );
 }

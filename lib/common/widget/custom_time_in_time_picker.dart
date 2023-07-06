@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/timer_picker.dart';
-
 import '../../utils/app_layout.dart';
 import '../../utils/app_string.dart';
 import '../../utils/app_style.dart';
@@ -10,7 +8,7 @@ import '../../utils/dimensions.dart';
 import '../controller/date_time_helper_controller.dart';
 
 class CustomTimeInTimePicker extends GetView<DateTimeController> {
-  const CustomTimeInTimePicker({super.key});
+  const  CustomTimeInTimePicker({super.key});
 
   @override
   Widget build(BuildContext context) {

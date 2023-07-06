@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/controller/status_controller.dart';
 import 'package:pay_day_mobile/common/domain/attendance_status.dart';
-import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
 import '../../../../common/widget/custom_double_button.dart';
 import 'bottom_sheet_appbar.dart';
 
@@ -175,7 +173,7 @@ class _AttendanceFilterState extends State<AttendanceFilter> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      AppString.text_enrly,
+                      AppString.text_early,
                       style: AppStyle.extra_large_text.copyWith(
                           color: AppColor.normalTextColor,
                           fontSize: Dimensions.fontSizeDefault),

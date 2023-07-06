@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/domain/error_model.dart';
 import 'package:pay_day_mobile/common/domain/success_model.dart';
@@ -9,8 +8,7 @@ import 'package:pay_day_mobile/modules/leave/domain/leave_details.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_summary.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_type.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
-
+import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import '../domain/leave_record.dart';
 
 class LeaveRepository {
@@ -20,8 +18,7 @@ class LeaveRepository {
 
   Future<LeaveAllowance> getLeaveAllowance() async {
     try {
-      Response response =
-          await networkClient.getRequest(AppString.LEAVE_ALLOWANCE);
+      Response response = await networkClient.getRequest(Api.LEAVE_ALLOWANCE);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -34,8 +31,7 @@ class LeaveRepository {
 
   Future<LeaveSummary> getLeaveSummary() async {
     try {
-      Response response =
-          await networkClient.getRequest(AppString.LEAVE_SUMMARY);
+      Response response = await networkClient.getRequest(Api.LEAVE_SUMMARY);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -49,7 +45,7 @@ class LeaveRepository {
   Future<LeaveRecord> getLeaveRecord(String params) async {
     try {
       Response response =
-          await networkClient.getRequest("${AppString.LEAVE_RECORD}$params");
+          await networkClient.getRequest("${Api.LEAVE_RECORD}$params");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -62,7 +58,7 @@ class LeaveRepository {
 
   Future<LeaveType> getLeaveType() async {
     try {
-      Response response = await networkClient.getRequest(AppString.LEAVE_TYPE);
+      Response response = await networkClient.getRequest(Api.LEAVE_TYPE);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -77,7 +73,7 @@ class LeaveRepository {
       {required String queryParams}) async {
     try {
       Response response = await networkClient
-          .getRequest("${AppString.INDIVIDUAL_DATE_LEAVE}?$queryParams");
+          .getRequest("${Api.INDIVIDUAL_DATE_LEAVE}?$queryParams");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -91,7 +87,7 @@ class LeaveRepository {
   Future<LeaveDetails> getLeaveDetails({required int id}) async {
     try {
       Response response = await networkClient.getRequest(
-          "${AppString.LEAVE_DETAILS}/$id?timezone=${DateTime.now().toUtc().timeZoneName}");
+          "${Api.LEAVE_DETAILS}/$id?timezone=${DateTime.now().toUtc().timeZoneName}");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -104,8 +100,8 @@ class LeaveRepository {
 
   Future<SuccessModel> cancelLeave({required int id}) async {
     try {
-      Response response = await networkClient
-          .postRequest(AppString.CANCEL_LEAVE, {"leave_id": id});
+      Response response =
+          await networkClient.postRequest(Api.CANCEL_LEAVE, {"leave_id": id});
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -116,7 +112,8 @@ class LeaveRepository {
     }
   }
 
-  Future<SuccessModel>requestLeave({required Map<dynamic, dynamic> leaveQueries}) async {
+  Future<SuccessModel> requestLeave(
+      {required Map<dynamic, dynamic> leaveQueries}) async {
     final formData = FormData({});
 
     leaveQueries.forEach((key, value) {
@@ -125,15 +122,14 @@ class LeaveRepository {
             key,
             MultipartFile(File(value),
                 filename:
-                    "${DateTime.now().toUtc().microsecondsSinceEpoch}.${value.split(".").last}")));
+                    "${DateTime.now().microsecondsSinceEpoch}.${value.split(".").last}")));
       } else {
         formData.fields.add(MapEntry(key, value));
       }
     });
-    print("${leaveQueries.keys}:::${leaveQueries.values}");
     try {
       Response response =
-          await networkClient.postRequest(AppString.REQUEST_LEAVE, formData);
+          await networkClient.postRequest(Api.REQUEST_LEAVE, formData);
       print(response.body);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));

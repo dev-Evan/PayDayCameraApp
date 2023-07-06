@@ -2,8 +2,7 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/domain/error_model.dart';
 import 'package:pay_day_mobile/common/domain/success_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
-
+import '../../../utils/api_endpoints.dart';
 import '../domain/notifications.dart';
 
 class NotificationRepository {
@@ -11,10 +10,12 @@ class NotificationRepository {
 
   NotificationRepository(this.networkClient);
 
-  Future<Notifications> getAllNotification() async {
+  Future<Notifications> getAllNotification({int? page = 1}) async {
     try {
       Response response = await networkClient.getRequest(
-          "${AppString.ALL_NOTIFICATION}?timezone=${DateTime.now().toUtc().timeZoneName}");
+          "${Api.ALL_NOTIFICATION}?timezone=${DateTime.now().timeZoneName}&page=$page");
+      print(
+          "${Api.ALL_NOTIFICATION}?timezone=${DateTime.now().timeZoneName}&page=$page");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -28,7 +29,7 @@ class NotificationRepository {
   Future<Notifications> getAllUnreadNotification() async {
     try {
       Response response = await networkClient.getRequest(
-          "${AppString.ALL_UNREAD_NOTIFICATION}&timezone=${DateTime.now().toUtc().timeZoneName}");
+          "${Api.ALL_UNREAD_NOTIFICATION}&timezone=${DateTime.now().timeZoneName}");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -42,7 +43,7 @@ class NotificationRepository {
   Future<SuccessModel> notificationAsRead(String id) async {
     try {
       Response response =
-          await networkClient.getRequest("${AppString.NOTICATION_AS_READ}/$id");
+          await networkClient.getRequest("${Api.NOTIFICATION_AS_READ}/$id");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -56,7 +57,7 @@ class NotificationRepository {
   Future<SuccessModel> notificationAaALLRead() async {
     try {
       Response response =
-          await networkClient.getRequest(AppString.NOTIFICATION_AS_ALL_READ);
+          await networkClient.getRequest(Api.NOTIFICATION_AS_ALL_READ);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

@@ -2,17 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/dob_single_day_field.dart';
-import 'package:pay_day_mobile/modules/leave/presentation/widget/pop_up_dialog.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/custom_text_field_dob.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
 import '../controller/leave_controller.dart';
-import 'apply_lev_popup_calendar.dart';
 
 class ApplyLeaveDobHalfDay extends StatefulWidget {
   const ApplyLeaveDobHalfDay({Key? key}) : super(key: key);
@@ -35,30 +30,22 @@ class _ApplyLeaveDobHalfDayState extends State<ApplyLeaveDobHalfDay> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Flexible(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              textFieldTitleText(
-                titleText: AppString.text_date,
-              ),
-              customSpacerHeight(height: 4),
-              SizedBox(
-                width: AppLayout.getSize(context).width * .45,
-                child: const ApplyLeaveDobSingleDay(),
-              )
-            ],
-          ),
+        const Expanded(
+          child: ApplyLeaveDobSingleDay(),
         ),
         customSpacerWidth(width: 12),
-        Flexible(
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              textFieldTitleText(
-                titleText: AppString.text_interval,
+              Text(
+                AppString.text_interval,
+                style: AppStyle.small_text.copyWith(
+                    color: AppColor.normalTextColor,
+                    fontWeight: FontWeight.w600,
+                    fontSize: Dimensions.fontSizeDefault),
               ),
-              customSpacerHeight(height: 4),
+              customSpacerHeight(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -105,7 +92,7 @@ class _ApplyLeaveDobHalfDayState extends State<ApplyLeaveDobHalfDay> {
             horizontal: AppLayout.getWidth(12)),
         decoration: BoxDecoration(
             color: index == _selectedValueIndex
-                ? AppColor.primary_blue
+                ? AppColor.primaryBlue
                 : Colors.white,
             borderRadius: BorderRadius.circular(8),
             border: index == _selectedValueIndex

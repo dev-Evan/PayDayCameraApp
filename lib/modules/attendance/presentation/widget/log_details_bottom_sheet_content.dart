@@ -13,7 +13,7 @@ import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_string.dart';
 import '../../../../utils/app_style.dart';
 import '../../../../utils/dimensions.dart';
-import '../../../../utils/color_picker_helper.dart';
+import '../../../../utils/utils.dart';
 
 Widget contentLayout() {
   return Container(
@@ -65,13 +65,17 @@ _logDate() {
 _entryBehaviour() {
   return CustomStatusButton(
       bgColor: Util.getBtnBgColor(
-          Get.find<AttendanceController>().logDetailsById.data?.behavior ?? "",
-          false),
-      text:
-          Get.find<AttendanceController>().logDetailsById.data?.behavior ?? "",
-      textColor: Util.getBtnTextColor(
+          behaviour:
           Get.find<AttendanceController>().logDetailsById.data?.behavior ??
-              ""));
+              "",
+          isBgColorWhite: false),
+      text:
+      Get.find<AttendanceController>().logDetailsById.data?.behavior ?? "",
+      textColor: Util.getBtnTextColor(
+          behaviour:
+          Get.find<AttendanceController>().logDetailsById.data?.behavior ??
+              "",
+          isBgColorWhite: false));
 }
 
 _logTimeLayout() {
@@ -81,11 +85,11 @@ _logTimeLayout() {
       children: [
         _inTimeLog(),
         const Spacer(),
-        verticalDivider(dividerColor: AppColor.grey_drak),
+        verticalDivider(dividerColor: AppColor.greyDark),
         const Spacer(),
         _outTimeLog(),
         const Spacer(),
-        verticalDivider(dividerColor: AppColor.grey_drak),
+        verticalDivider(dividerColor: AppColor.greyDark),
         const Spacer(),
         _totalTimeLog(),
       ]);
@@ -94,14 +98,14 @@ _logTimeLayout() {
 _inTimeLog() {
   return scheduledLogInfo(
       title: AppString.text_in,
-      time: Get.find<AttendanceController>().logDetailsById.data?.inTime ?? "",
+      time: Get.find<AttendanceController>().logDetailsById.data?.checkInTime ?? "",
       fontColor: Colors.black);
 }
 
 _outTimeLog() {
   return scheduledLogInfo(
       title: AppString.text_out,
-      time: Get.find<AttendanceController>().logDetailsById.data?.outTime ?? "",
+      time: Get.find<AttendanceController>().logDetailsById.data?.checkOutTime ?? "",
       fontColor: Colors.black);
 }
 
@@ -109,11 +113,7 @@ _totalTimeLog() {
   return scheduledLogInfo(
       title: AppString.text_total,
       time: TimeCounterHelper.getTimeStringFromDouble(
-          Get.find<AttendanceController>()
-                  .logDetailsById
-                  .data
-                  ?.totalHours
-                  ?.toDouble() ??
+          Get.find<AttendanceController>().logDetailsById.data?.totalHours.toDouble() ??
               0.0),
       fontColor: Colors.black);
 }
@@ -126,7 +126,7 @@ _punchInDetails() {
       punchDetails(
           title: AppString.text_punch_in,
           note: (logDetails.data?.comments != null &&
-                  logDetails.data!.comments!.isNotEmpty)
+              logDetails.data!.comments!.isNotEmpty)
               ? logDetails.data?.comments?.first.comment
               : ""),
       SizedBox(height: AppLayout.getHeight(Dimensions.paddingExtraLarge)),
@@ -143,30 +143,30 @@ _punchInDetails() {
 
 _punchOutDetails() {
   LogDetails logDetails = Get.find<AttendanceController>().logDetailsById;
-  return logDetails.data!.outTime!.isNotEmpty
+  return logDetails.data!.checkOutTime!.isNotEmpty
       ? Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: AppLayout.getHeight(48)),
-            punchDetails(
-                title: AppString.text_punch_out,
-                note: (logDetails.data?.comments != null &&
-                        logDetails.data!.comments!.isNotEmpty)
-                    ? (logDetails.data!.comments!.last.type!
-                            .startsWith("out-note")
-                        ? logDetails.data?.comments?.last.comment
-                        : "")
-                    : ""),
-            SizedBox(height: AppLayout.getHeight(Dimensions.paddingExtraLarge)),
-            UsersCurrentInfoLayout(
-                title: AppString.text_my_location,
-                data: logDetails.data?.outIpData?.location ?? ""),
-            SizedBox(height: AppLayout.getHeight(Dimensions.paddingMid)),
-            UsersCurrentInfoLayout(
-                title: AppString.text_ip_address,
-                data: logDetails.data?.outIpData?.ip ?? ""),
-          ],
-        )
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      SizedBox(height: AppLayout.getHeight(48)),
+      punchDetails(
+          title: AppString.text_punch_out,
+          note: (logDetails.data?.comments != null &&
+              logDetails.data!.comments!.isNotEmpty)
+              ? (logDetails.data!.comments!.last.type!
+              .startsWith("out-note")
+              ? logDetails.data?.comments?.last.comment
+              : "")
+              : ""),
+      SizedBox(height: AppLayout.getHeight(Dimensions.paddingExtraLarge)),
+      UsersCurrentInfoLayout(
+          title: AppString.text_my_location,
+          data: logDetails.data?.outIpData?.location ?? ""),
+      SizedBox(height: AppLayout.getHeight(Dimensions.paddingMid)),
+      UsersCurrentInfoLayout(
+          title: AppString.text_ip_address,
+          data: logDetails.data?.outIpData?.ip ?? ""),
+    ],
+  )
       : Container();
 }
 

@@ -1,13 +1,12 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/leave_details.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 import '../../../../common/widget/custom_spacer.dart';
 import '../../../../common/widget/custom_buttom_sheet.dart';
 import '../../../../utils/app_color.dart';
@@ -80,7 +79,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
           selectedTextStyle: AppStyle.normal_text_black
               .copyWith(fontSize: 30, color: Colors.white),
           selectedDecoration:
-              defaultTableDecoration.copyWith(color: AppColor.primary_blue),
+              defaultTableDecoration.copyWith(color: AppColor.primaryBlue),
           todayDecoration: const BoxDecoration(color: Colors.transparent),
           todayTextStyle: AppStyle.normal_text_black.copyWith(fontSize: 30)),
       onHeaderTapped: (focusedDay) {
@@ -89,7 +88,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
       headerStyle: HeaderStyle(
           titleTextStyle: AppStyle.normal_text.copyWith(
               fontSize: 24,
-              color: AppColor.primary_blue,
+              color: AppColor.primaryBlue,
               fontWeight: FontWeight.bold),
           titleCentered: true,
           formatButtonVisible: false),
@@ -117,7 +116,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
 BoxDecoration defaultTableDecoration = BoxDecoration(
     shape: BoxShape.rectangle,
     border: Border.all(color: Colors.transparent),
-    borderRadius: BorderRadius.all(Radius.circular(8)),
+    borderRadius: const BorderRadius.all(Radius.circular(8)),
     color: Colors.transparent);
 
 _individualDateLeaveRecordList() => Padding(
@@ -134,8 +133,8 @@ _individualDateLeaveRecordList() => Padding(
         separatorBuilder: (context, index) => const Divider(),
         itemBuilder: (context, index) => InkWell(
           onTap: () async {
-            customButtomSheet(
-                context: Get.context!, height: 0.9, child: LeaveDetails());
+            customButtonSheet(
+                context: Get.context!, height: 0.9, child: const LeaveDetails());
             await Get.find<LeaveController>().getILeaveDetails(
                 id: Get.find<LeaveController>()
                     .individualDateLeaveList
@@ -168,12 +167,6 @@ _listCard(int index) => Padding(
                               .leaveType ??
                           '',
                       style: AppStyle.large_text_black,
-                    ),
-                    customSpacerWidth(width: 8),
-                    Image.asset(
-                      Images.attachment_file,
-                      height: AppLayout.getHeight(12),
-                      width: AppLayout.getWidth(12),
                     )
                   ],
                 ),
@@ -211,11 +204,9 @@ _listCard(int index) => Padding(
     );
 
 Widget _noDataImg() {
-  return SizedBox(
-    height: AppLayout.getHeight(120),
-    child: Image.asset(
-      Images.calendar,
-      fit: BoxFit.fitHeight,
-    ),
+  return svgIcon(
+    url: Images.calendar,
+    width: 180,
+    height: 180
   );
 }

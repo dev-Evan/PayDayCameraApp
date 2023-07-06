@@ -64,7 +64,7 @@ Widget timeStory() {
           ]),
         ),
         Text(
-          "Worked",
+          "text_worked".tr,
           style: AppStyle.small_text,
         ),
       ],

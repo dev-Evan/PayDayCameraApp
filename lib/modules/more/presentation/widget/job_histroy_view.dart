@@ -1,12 +1,8 @@
-import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/dotted_view.dart';
-import 'package:pay_day_mobile/modules/more/presentation/widget/job_his_job_title.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/job_history_title.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -32,8 +28,9 @@ class _JobHistoryViewState extends State<JobHistoryView> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 12.0),
+          customSpacerHeight(height: 12),
+          Theme(
+            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
             child: ExpansionTile(
               trailing: _statusIcon(value: _designationIcon),
               title: InkWell(
@@ -49,14 +46,12 @@ class _JobHistoryViewState extends State<JobHistoryView> {
               onExpansionChanged: (bool expanded) {
                 setState(() => _designationIcon = expanded);
               },
-              children: [
-                customSpacerHeight(height: 16),
-                jobHisDesignationView()
-              ],
+              children: [jobHisDesignationView()],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 12.0),
+          divider,
+          Theme(
+            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
             child: ExpansionTile(
               trailing: _statusIcon(value: _departmentIcon),
               title: InkWell(
@@ -72,14 +67,12 @@ class _JobHistoryViewState extends State<JobHistoryView> {
               onExpansionChanged: (bool expanded) {
                 setState(() => _departmentIcon = expanded);
               },
-              children: [
-                customSpacerHeight(height: 16),
-                jobHisDepartmentView()
-              ],
+              children: [jobHisDepartmentView()],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 12.0),
+          divider,
+          Theme(
+            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
             child: ExpansionTile(
               trailing: _statusIcon(value: _roleIcon),
               title: InkWell(
@@ -87,19 +80,19 @@ class _JobHistoryViewState extends State<JobHistoryView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _cardIconTitleText(
-                        icon: Images.flag,
-                        titleText: AppString.text_role)
+                        icon: Images.flag, titleText: AppString.text_role)
                   ],
                 ),
               ),
               onExpansionChanged: (bool expanded) {
                 setState(() => _roleIcon = expanded);
               },
-              children: [customSpacerHeight(height: 18), jobHisRoleView()],
+              children: [jobHisRoleView()],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 12.0),
+          divider,
+          Theme(
+            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
             child: ExpansionTile(
               trailing: _statusIcon(value: _workShiftIcon),
               title: InkWell(
@@ -108,7 +101,6 @@ class _JobHistoryViewState extends State<JobHistoryView> {
                   children: [
                     _cardIconTitleText(
                         icon: Images.clock,
-
                         titleText: AppString.text_work_shift),
                   ],
                 ),
@@ -116,11 +108,12 @@ class _JobHistoryViewState extends State<JobHistoryView> {
               onExpansionChanged: (bool expanded) {
                 setState(() => _workShiftIcon = expanded);
               },
-              children: [customSpacerHeight(height: 18), jobHisWorkShiftView()],
+              children: [jobHisWorkShiftView()],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 12.0),
+          divider,
+          Theme(
+            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
             child: ExpansionTile(
               trailing: _statusIcon(value: _employmentIcon),
               title: InkWell(
@@ -136,16 +129,21 @@ class _JobHistoryViewState extends State<JobHistoryView> {
               onExpansionChanged: (bool expanded) {
                 setState(() => _employmentIcon = expanded);
               },
-              children: [
-                customSpacerHeight(height: 14),
-                jobHisEmploymentView()
-              ],
+              children: [jobHisEmploymentView()],
             ),
           ),
+          divider
         ],
       ),
     );
   }
+}
+
+Divider get divider {
+  return Divider(
+    thickness: 0.5,
+    color: AppColor.disableColor.withOpacity(0.7),
+  );
 }
 
 Widget _cardIconTitleText({icon, titleText}) {
@@ -184,18 +182,15 @@ Widget _statusIcon({value}) {
       backgroundColor: AppColor.hintColor.withOpacity(0.1),
       child: value
           ? SvgPicture.asset(
-        Images.close_arrow,
-        width: AppLayout.getWidth(18),
-        height: AppLayout.getWidth(18),
-        color: AppColor.primaryColor.withOpacity(0.8),
-      )
-          :  SvgPicture.asset(
-        Images.open_arrow,
-        width: AppLayout.getWidth(18),
-        height: AppLayout.getWidth(18),
-        color: AppColor.primaryColor.withOpacity(0.8),
-      )
-
-
-  );
+              Images.close_arrow,
+              width: AppLayout.getWidth(18),
+              height: AppLayout.getWidth(18),
+              color: AppColor.primaryColor.withOpacity(0.8),
+            )
+          : SvgPicture.asset(
+              Images.open_arrow,
+              width: AppLayout.getWidth(18),
+              height: AppLayout.getWidth(18),
+              color: AppColor.primaryColor.withOpacity(0.8),
+            ));
 }

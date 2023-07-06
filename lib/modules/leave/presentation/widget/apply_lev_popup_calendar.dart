@@ -4,9 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
-import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 import '../../../../common/widget/custom_button.dart';
 import '../../../../utils/app_string.dart';
 import '../../../../utils/app_style.dart';
@@ -44,14 +42,14 @@ class _ApplyLevPopUpCalendarState extends State<ApplyLevPopUpCalendar> {
           rowHeight: 38,
           calendarStyle: CalendarStyle(
               selectedDecoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: AppColor.primary_blue),
+                  shape: BoxShape.circle, color: AppColor.primaryBlue),
               todayDecoration: const BoxDecoration(
                   shape: BoxShape.circle, color: Colors.transparent),
               todayTextStyle: AppStyle.extra_large_text_black.copyWith(
-                  color: AppColor.primary_blue, fontWeight: FontWeight.bold)),
+                  color: AppColor.primaryBlue, fontWeight: FontWeight.bold)),
           headerStyle: HeaderStyle(
               titleTextStyle: AppStyle.normal_text.copyWith(
-                  color: AppColor.primary_blue, fontWeight: FontWeight.bold),
+                  color: AppColor.primaryBlue, fontWeight: FontWeight.bold),
               titleCentered: true,
               formatButtonVisible: false),
           availableGestures: AvailableGestures.all,

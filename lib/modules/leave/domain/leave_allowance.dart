@@ -1,53 +1,69 @@
 class LeaveAllowance {
   bool? status;
   String? message;
-  Data? data;
+  List<Data>? data;
 
   LeaveAllowance({this.status, this.message, this.data});
+
+
+  @override
+  String toString() {
+    return 'LeaveAllowance{status: $status, message: $message, data: $data}';
+  }
 
   LeaveAllowance.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(Data.fromJson(v));
+      });
+    }
   }
 }
 
 class Data {
-  Casual? casual;
-  Casual? sick;
+  String? leaveStatus;
+  String? leaveType;
+  List<Values>? values;
 
-  Data({this.casual, this.sick});
+  Data({this.leaveStatus, this.leaveType, this.values});
+
+
+  @override
+  String toString() {
+    return 'Data{leaveStatus: $leaveStatus, leaveType: $leaveType, values: $values}';
+  }
 
   Data.fromJson(Map<String, dynamic> json) {
-    casual = json['casual'] != null ? Casual.fromJson(json['casual']) : null;
-    sick = json['sick'] != null ? Casual.fromJson(json['sick']) : null;
+    leaveStatus = json['leave_status'];
+    leaveType = json['leave_type'];
+    if (json['values'] != null) {
+      values = <Values>[];
+      json['values'].forEach((v) {
+        values!.add(Values.fromJson(v));
+      });
+    }
   }
+
 }
 
-class Casual {
-  Paid? paid;
-  Paid? unpaid;
+class Values {
+  String? leaveType;
+  String? value;
 
-  Casual({this.paid, this.unpaid});
 
-  Casual.fromJson(Map<String, dynamic> json) {
-    paid = json['paid'] != null ? Paid.fromJson(json['paid']) : null;
-    unpaid = json['unpaid'] != null ? Paid.fromJson(json['unpaid']) : null;
+  @override
+  String toString() {
+    return 'Values{leaveType: $leaveType, value: $value}';
   }
-}
 
-class Paid {
-  String? allowance;
-  String? earned;
-  String? taken;
-  String? availability;
+  Values({this.leaveType, this.value});
 
-  Paid({this.allowance, this.earned, this.taken, this.availability});
-
-  Paid.fromJson(Map<String, dynamic> json) {
-    allowance = json['allowance'];
-    earned = json['earned'];
-    taken = json['taken'];
-    availability = json['availability'];
+  Values.fromJson(Map<String, dynamic> json) {
+    leaveType = json['leave_type'];
+    value = json['value'];
   }
+
 }

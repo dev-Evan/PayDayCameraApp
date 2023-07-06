@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
-import '../../../attendance/presentation/widget/bottom_sheet_appbar.dart';
+import '../../../../utils/images.dart';
 import '../controller/notication_controller.dart';
 
 class Notifications extends GetView<NotificationController> {
@@ -16,83 +17,114 @@ class Notifications extends GetView<NotificationController> {
   @override
   Widget build(BuildContext context) {
     return controller.obx(
-        (state) => DraggableScrollableSheet(
-            initialChildSize: .9,
-            maxChildSize: .9,
-            minChildSize: .5,
-            builder:
-                (BuildContext context, ScrollController scrollController) =>
-                    Container(
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(16))),
-                      child: ListView(
-                        controller: scrollController,
-                        children: [
-                          bottomSheetAppbar(
-                              context: context,
-                              appbarTitle: AppString.text_notications),
-                          _contentLayout(),
-                        ],
-                      ),
-                    )),
+        (state) => Scaffold(
+              body: SafeArea(
+                child: ListView(
+                  controller: controller.scrollController,
+                  children: [
+                    _notificationAppbar(),
+                    controller.allNotifications.isEmpty
+                        ? SizedBox(
+                            height: AppLayout.getSize(context).height -
+                                Get.statusBarHeight,
+                            child: Center(
+                              child: svgIcon(
+                                  url: Images.no_data_found,
+                                  width: 150,
+                                  height: 150),
+                            ),
+                          )
+                        : _contentLayout(),
+                  ],
+                ),
+              ),
+            ),
         onLoading: const LoadingIndicator());
   }
 
   _contentLayout() => Column(
         children: [
-          InkWell(
-            onTap: () => controller.notificationAaALLRead(),
-            child: Padding(
-              padding: EdgeInsets.only(
-                  top: AppLayout.getHeight(10), right: AppLayout.getWidth(20),bottom: AppLayout.getHeight(10)),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  AppString.mark_read,
-                  style: AppStyle.normal_text
-                      .copyWith(color: AppColor.primary_blue),
+          Obx(() => ListView.builder(
+                itemCount: controller.allNotifications.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) => InkWell(
+                  onTap: () => controller.notificationAsRead(
+                      controller.notifications.data?.data?[index].id ?? ""),
+                  child: _notificationCard(index),
                 ),
-              ),
-            ),
-          ),
-          ListView.builder(
-            itemCount: controller.notifications.data?.data?.length ?? 0,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => InkWell(
-              onTap: () => controller.notificationAsRead(
-                  controller.notifications.data?.data?[index].id ?? ""),
-              child: _notificationCard(index),
-            ),
-          ),
+              )),
+          Obx(() => controller.isMoreDataLoading.isTrue
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Container())
         ],
       );
 
   _notificationCard(int index) {
     return Container(
       decoration: BoxDecoration(
-          color: controller.notifications.data?.data?[index].read ?? false
+          color: controller.allNotifications[index].read ?? false
               ? Colors.transparent
-              : AppColor.primary_blue.withOpacity(.15),
+              : AppColor.primaryColor.withOpacity(.15),
           border: Border(
-            bottom: BorderSide(color: Colors.grey.shade500, width: .5))),
+              bottom: BorderSide(color: Colors.grey.shade500, width: .5))),
       width: double.infinity,
       padding: EdgeInsets.symmetric(
           vertical: AppLayout.getHeight(20),
           horizontal: AppLayout.getWidth(20)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         HtmlWidget(
-          controller.notifications.data?.data?[index].title ?? "",
+          controller.allNotifications[index].title ?? "",
           textStyle: AppStyle.normal_text_black,
         ),
         customSpacerHeight(height: 4),
         Text(
-          "${controller.notifications.data?.data?[index].date ?? ""} ${controller.notifications.data?.data?[index].time ?? ""}",
+          "${controller.allNotifications[index].date ?? ""} ${controller.allNotifications[index].time ?? ""}",
           style: AppStyle.normal_text_grey,
         ),
       ]),
+    );
+  }
+
+  _notificationAppbar() {
+    return AppBar(
+      backgroundColor: Colors.white,
+      elevation: .5,
+      leading: IconButton(
+        onPressed: () {
+          Get.back();
+        },
+        icon: const Icon(
+          Icons.arrow_back,
+          color: Colors.black,
+        ),
+      ),
+      title: Text(
+        AppString.notification,
+        style: AppStyle.title_text.copyWith(color: Colors.black, fontSize: 16),
+      ),
+      titleSpacing: 0,
+      actions: [
+        InkWell(
+          onTap: () => controller.notificationAaALLRead(),
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: AppLayout.getHeight(2),
+              right: AppLayout.getWidth(20),
+            ),
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                AppString.mark_read,
+                style: AppStyle.normal_text
+                    .copyWith(color: AppColor.primaryBlue, fontSize: 16),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

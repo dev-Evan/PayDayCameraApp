@@ -20,9 +20,10 @@ class AppStyle {
 
   static TextStyle small_text = GoogleFonts.poppins(
       fontSize: AppLayout.getWidth(Dimensions.fontSizeSmall),
-      color: Colors.white,
+      color: AppColor.cardColor,
       fontWeight: FontWeight.w500,
    );
+
   static TextStyle small_text_grey = GoogleFonts.poppins(
     fontSize: AppLayout.getWidth(12),
     color: Colors.grey,

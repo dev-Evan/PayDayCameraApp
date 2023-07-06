@@ -1,5 +1,4 @@
 import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
@@ -8,9 +7,8 @@ import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_contr
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
-import 'package:pay_day_mobile/utils/color_picker_helper.dart';
+import 'package:pay_day_mobile/utils/utils.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-
 import '../../../../common/widget/custom_app_button.dart';
 import '../../../../utils/app_string.dart';
 import '../../../attendance/presentation/widget/bottom_sheet_appbar.dart';
@@ -98,9 +96,9 @@ class LogResponse extends GetView<LeaveController> {
         ),
         CustomStatusButton(
             bgColor: Util.getChipBgColor(
-                controller.leaveDetails.data!.leaveStatusClass!),
+                status: controller.leaveDetails.data!.leaveStatusClass!),
             textColor: Util.getChipTextColor(
-                controller.leaveDetails.data!.leaveStatusClass!),
+                status: controller.leaveDetails.data!.leaveStatusClass!),
             text: controller.leaveDetails.data?.leaveStatus),
       ],
     );
@@ -204,7 +202,7 @@ class LogResponse extends GetView<LeaveController> {
           onPressed: () => Get.back(),
           isButtonExpanded: true,
           buttonText: AppString.text_back,
-          buttonColor: AppColor.primary_blue,
+          buttonColor: AppColor.primaryBlue,
           textColor: Colors.white,
         ),
       ],
@@ -244,7 +242,6 @@ class LogResponse extends GetView<LeaveController> {
         controller.leaveDetails.data?.logs?[index].logDate ?? "",
         style: AppStyle.small_text_grey,
       );
-
   _comment(int index) {
     return Text(controller.leaveDetails.data?.logs?[index].comment ?? "");
   }

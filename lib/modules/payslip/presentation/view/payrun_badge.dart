@@ -13,29 +13,35 @@ class PayRunBadge extends GetView<PayrunBadgeController> {
 
   @override
   Widget build(BuildContext context) {
-    return controller.obx(
-        (state) => Scaffold(
-              appBar: const CustomAppbar(),
-              body:Column(
-                children: [
-                  customMoreAppbar(
-                    titleText: AppString.text_payrun_badge,
-                  ),
-                  _payrunBadView(),                ],
+    return Scaffold(
+      appBar: const CustomAppbar(),
+      body: controller.obx(
+          (state) => SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _subAppbarTitleText(),
+                    _payrunBadView(),
+                  ],
+                ),
               ),
-            ),
-        onLoading: const LoadingIndicator());
+          onLoading: const LoadingIndicator()),
+    );
   }
+}
+
+Widget _subAppbarTitleText() {
+  return customMoreAppbar(
+    titleText: AppString.text_payrun_badge,
+  );
 }
 
 Widget _payrunBadView() {
   return Padding(
-    padding:  EdgeInsets.only(
-      left: AppLayout.getWidth(20),
-      right: AppLayout.getWidth(20),
-      top: AppLayout.getHeight(20),
-      bottom: AppLayout.getHeight(20)
-    ),
+    padding: EdgeInsets.only(
+        left: AppLayout.getWidth(20),
+        right: AppLayout.getWidth(20),
+        top: AppLayout.getHeight(20),
+        bottom: AppLayout.getHeight(20)),
     child: Column(
       children: [
         PayRunBadgeView(),

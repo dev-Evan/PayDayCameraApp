@@ -1,64 +1,41 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pay_day_mobile/common/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/update_document_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/update_document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
+import '../../../../common/widget/success_snakbar.dart';
+import '../view/change_password.dart';
 
-class UpdateDocument extends StatefulWidget {
-  const UpdateDocument({Key? key}) : super(key: key);
-  @override
-  State<UpdateDocument> createState() => _AddDocumentState();
-}
+// ignore: must_be_immutable
+class UpdateDocument extends StatelessWidget {
+  String? docUrl;
 
-class _AddDocumentState extends State<UpdateDocument> {
-  FilePickerResult? result;
-  String? fileName;
-  PlatformFile? pickFile;
-  bool isLoading = false;
-  File? fileToDisplay;
-  void pickFile1() async {
-    try {
-      setState(() {
-        isLoading = false;
-      });
-      result = await FilePicker.platform.pickFiles(
-        type: FileType.any,
-        allowMultiple: false,
-      );
-      if (result != null) {
-        setState(() {
-          fileName = result!.files.first.name;
-          pickFile = result!.files.first;
-          fileToDisplay = File(pickFile!.path.toString());
-        });
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  UpdateDocument({Key? key, this.docUrl}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final _box=GetStorage();
+    print(docUrl.toString());
+    final _box = GetStorage();
     return Column(
       children: [
         bottomSheetAppbar(
-            context: context,
-            appbarTitle: "${AppString.text_edit} ${AppString.text_documents}"),
+          context: context,
+          appbarTitle: "${AppString.text_edit} ${AppString.text_documents}",
+          onAction: ()=> Get.find<InputTextFieldController>()
+              .docFileNameController.clear()
+        ),
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
@@ -67,12 +44,11 @@ class _AddDocumentState extends State<UpdateDocument> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   textFieldTitleText(titleText: AppString.text_name),
-                  CustomTextFeild(
-                      hintText:
-                          _box.read(AppString.STORE_DOC_NAME_TEXT)??"",
+                  CustomTextField(
+                      hintText: _box.read(AppString.STORE_DOC_NAME_TEXT) ?? "",
                       inputType: TextInputType.text,
-                      controller:
-                          Get.find<UpdateDocumentController>().docNameController.value),
+                      controller: Get.find<InputTextFieldController>()
+                          .docFileNameController),
                 ],
               ),
               customSpacerHeight(height: 20),
@@ -84,41 +60,78 @@ class _AddDocumentState extends State<UpdateDocument> {
                   ),
                   customSpacerHeight(height: 20),
                   _dottedBorder(
-                      child: InkWell(
-                    onTap: () => pickFile1(),
-                    child: fileToDisplay != null
-                        ? Container(
-                            height: AppLayout.getHeight(100),
-                            decoration: BoxDecoration(
-                              color: AppColor.disableColor.withOpacity(0.4),
-                              image: DecorationImage(
-                                  image: FileImage(
-                                      File(fileToDisplay?.path ?? "").absolute),
-                                  fit: BoxFit.cover),
-                            ),
-                          )
-                        : Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                _fileTitle(
-                                    text: _box.read(AppString.STORE_DOC_NAME_TEXT)??"",
-                                ),
-                                customSpacerHeight(height: 16),
-                                _changeFile()
-                              ],
-                            ),
-                          ),
-                  )),
+                      child: Obx(() => InkWell(
+                          onTap: () =>
+                              Get.find<UpdateDocumentController>().pickFile(),
+                          child: Get.find<UpdateDocumentController>()
+                                  .filePath
+                                  .endsWith(".pdf")
+                              ? Container(
+                                  height: AppLayout.getHeight(100),
+                                  color: AppColor.disableColor.withOpacity(0.7),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      _fileTitle(
+                                        text: _box.read(AppString
+                                                .STORE_DOC_NAME_TEXT) ??
+                                            "",
+                                      ),
+                                      customSpacerHeight(height: 16),
+                                      _changeFile()
+                                    ],
+                                  ),
+                                )
+                              : Get.find<UpdateDocumentController>()
+                                      .filePath
+                                      .startsWith("https://")
+                                  ? Container(
+                                      height: AppLayout.getHeight(100),
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        image: DecorationImage(
+                                            image: networkImage(
+                                                path: Get.find<
+                                                        UpdateDocumentController>()
+                                                    .filePath
+                                                    .value),
+                                            fit: BoxFit.cover),
+                                      ),
+                                    )
+                                  : Container(
+                                      height: AppLayout.getHeight(100),
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        image: DecorationImage(
+                                            image: FileImage(File(Get.find<
+                                                        UpdateDocumentController>()
+                                                    .filePath
+                                                    .value
+                                                    .toString())
+                                                .absolute),
+                                            fit: BoxFit.cover),
+                                      ),
+                                    )))),
                   customSpacerHeight(height: 8),
-                  fileName != null
+                  Obx(() => Get.find<UpdateDocumentController>()
+                          .filePath
+                          .value
+                          .isNotEmpty
                       ? Text(
-                          fileName.toString(),
+                          Get.find<UpdateDocumentController>()
+                              .filePath
+                              .value
+                              .toString().split('/').last,
                           style: AppStyle.mid_large_text.copyWith(
                               color: AppColor.hintColor,
                               fontSize: Dimensions.fontSizeDefault - 2),
                         )
-                      : const Text(""),
+                      : const Text("")),
+                  customSpacerHeight(height: 8),
+                  alertBox(
+                      context: context,
+                      alertText: AppString.text_document_size_allowed_5_md_etc),
                 ],
               ),
             ],
@@ -129,11 +142,16 @@ class _AddDocumentState extends State<UpdateDocument> {
           padding: const EdgeInsets.all(16.0),
           child: customDoubleButton(
               textButtonAction: () => Get.back(),
-              elevatedButtonAction: (){
-                fileToDisplay?.path !=null?
-                Get.find<UpdateDocumentController>().uploadDocument(fileToDisplay!.path):_showToast(AppString.text_please_selected_document);
+              elevatedButtonAction: () {
+                Get.find<UpdateDocumentController>()
+                        .filePath
+                        .startsWith("https://")
+                    ? showCustomSnackBar(
+                        message: AppString.text_please_selected_document,
+                        color: AppColor.errorColor)
+                    : Get.find<UpdateDocumentController>()
+                        .updateDocFile(context: context);
               },
-
               textBtnText: AppString.text_cancel,
               elevatedBtnText: AppString.text_save,
               context: context),
@@ -142,25 +160,16 @@ class _AddDocumentState extends State<UpdateDocument> {
     );
   }
 }
-_showToast(message) => Fluttertoast.showToast(
-    msg: message,
-    toastLength: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.BOTTOM,
-    timeInSecForIosWeb: 1,
-    backgroundColor: AppColor.errorColor,
-    textColor: Colors.white,
-    fontSize: 16.0);
-
-
-
 
 Widget _fileTitle({required text}) {
   return Center(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-     const Icon(CupertinoIcons.doc_fill,color: AppColor.primaryColor,),
-
+        const Icon(
+          CupertinoIcons.doc_fill,
+          color: AppColor.primaryColor,
+        ),
         customSpacerWidth(width: 8),
         Text(
           text,
@@ -181,7 +190,7 @@ Widget _dottedBorder({required child}) {
     dashPattern: [8, 6],
     strokeWidth: AppLayout.getWidth(2),
     child: SizedBox(
-      height: AppLayout.getHeight(90),
+      height: AppLayout.getHeight(120),
       child: child,
     ),
   );
@@ -201,4 +210,8 @@ Widget _changeFile() {
       ),
     ],
   );
+}
+
+NetworkImage networkImage({required path}) {
+  return NetworkImage(path);
 }

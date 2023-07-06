@@ -7,10 +7,10 @@ class DateTimeController extends GetxController {
   String selectedInputHrs = '06';
   String selectedInputMins = '30';
   String clockHrsFormat = '';
-  RxString requestedDate =  DateFormat('yyyy-MM-dd').format(DateTime.now()).obs;
+  RxString requestedDate = DateFormat('yyyy-MM-dd').format(DateTime.now()).obs;
   RxString pickedInTime = ''.obs;
   RxString pickedOutTime = ''.obs;
-  TextEditingController textEditingController = TextEditingController();
+  TextEditingController editController=TextEditingController();
 
   void getTime() {
     if (clockHrsFormat.isNotEmpty) {
@@ -22,12 +22,12 @@ class DateTimeController extends GetxController {
     }
     print("in time: $pickedInTime  out time: $pickedOutTime");
     isInTimeClicked.value = !isInTimeClicked.value;
+    selectedInputHrs = '06';
+    selectedInputMins = '30';
   }
 
   @override
   void dispose() {
-    selectedInputHrs = '';
-    selectedInputMins = '';
     isInTimeClicked.value = false;
     super.dispose();
   }

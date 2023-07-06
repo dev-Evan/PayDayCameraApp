@@ -1,16 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
-
 import '../../../../utils/app_color.dart';
-import '../../../../utils/app_style.dart';
-import '../../../../utils/dimensions.dart';
 
 class AmPmToggleButton extends StatefulWidget {
 
-  AmPmToggleButton({Key? key}) : super(key: key);
+  const AmPmToggleButton({Key? key}) : super(key: key);
 
   @override
   State<AmPmToggleButton> createState() => _AmPmToggleButtonState();
@@ -38,11 +34,11 @@ class _AmPmToggleButtonState extends State<AmPmToggleButton> {
     return OutlinedButton(
       style: value == index
           ? OutlinedButton.styleFrom(
-              backgroundColor: AppColor.primary_blue.withOpacity(.15),
+              backgroundColor: AppColor.primaryBlue.withOpacity(.15),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              side: const BorderSide(width: .5, color: AppColor.primary_blue),
+              side: const BorderSide(width: .5, color: AppColor.primaryBlue),
             )
           : OutlinedButton.styleFrom(
               backgroundColor: Colors.grey.withOpacity(.15),
@@ -61,7 +57,7 @@ class _AmPmToggleButtonState extends State<AmPmToggleButton> {
       child: Text(
         text,
         style: TextStyle(
-          color: value == index ? AppColor.primary_blue : Colors.black,
+          color: value == index ? AppColor.primaryBlue : Colors.black,
         ),
       ),
     );

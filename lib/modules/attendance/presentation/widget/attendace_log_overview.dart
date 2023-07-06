@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pay_day_mobile/modules/attendance/domain/log_summary/log_summary.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
-
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_string.dart';
@@ -28,7 +26,7 @@ Widget attendanceLogsOverviewLayout(context) {
               height: AppLayout.getHeight(210),
               child: Padding(
                 padding:
-                    const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0),
+                     EdgeInsets.only(left:AppLayout.getWidth(20), right:AppLayout.getWidth(20), top:AppLayout.getHeight(10)),
                 child: GridView.count(
                     childAspectRatio:
                         AppLayout.getWidth(90) / AppLayout.getHeight(65),
@@ -58,8 +56,8 @@ Widget attendanceLogsOverviewLayout(context) {
                               .logSummaryByMonth.value.data?.behavior),
                       _logSummaryCard(
                           title: AppString.text_availablity,
-                          count: controller
-                              .logSummaryByMonth.value.data?.availablity),
+                          count:"${ controller
+                              .logSummaryByMonth.value.data?.availablity} %"),
                     ]),
               ),
             ),
@@ -103,8 +101,8 @@ Widget attendanceLogsOverviewLayout(context) {
                               .logSummaryByYear.value.data?.behavior),
                       _logSummaryCard(
                           title: AppString.text_availablity,
-                          count: controller
-                              .logSummaryByYear.value.data?.availablity),
+                          count: "${controller
+                              .logSummaryByYear.value.data?.availablity} %"),
                     ]),
               ),
             ),
@@ -154,9 +152,9 @@ Widget _logSummaryCard({String? count, String? title}) => SizedBox(
         elevation: 0,
         color: AppColor.cardColor.withOpacity(0.1),
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+            borderRadius: BorderRadius.circular(Dimensions.radiusDefault+2),
             side: BorderSide(
-                width: 2, color: AppColor.cardColor.withOpacity(0.2))),
+                width: 1, color: AppColor.cardColor.withOpacity(0.2))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -173,7 +171,7 @@ Widget _logSummaryCard({String? count, String? title}) => SizedBox(
                   ),
                   Text(
                     title ?? "",
-                    style:AppStyle.small_text,
+                    style:AppStyle.normal_text.copyWith(fontSize: Dimensions.fontSizeDefault-1.5),
                   ),
                 ],
               ),

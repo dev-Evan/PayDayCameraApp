@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
-import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/custom_status_button.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
-import 'package:pay_day_mobile/modules/leave/presentation/widget/edit_details.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/log_response.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import 'package:pay_day_mobile/common/controller/downloader_helper.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:pay_day_mobile/utils/utils.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../common/widget/custom_app_button.dart';
 
 class LeaveDetails extends GetView<LeaveController> {
-  LeaveDetails({Key? key}) : super(key: key);
+  const LeaveDetails({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +44,7 @@ class LeaveDetails extends GetView<LeaveController> {
                             Row(
                               children: [
                                 Text(
-                                  controller.leaveDetails.data?.leaveType ??
-                                      "",
+                                  controller.leaveDetails.data?.leaveType ?? "",
                                   style: AppStyle.title_text.copyWith(
                                       color: AppColor.normalTextColor,
                                       fontSize: Dimensions.fontSizeMid),
@@ -52,12 +53,15 @@ class LeaveDetails extends GetView<LeaveController> {
                                   width: AppLayout.getWidth(12),
                                 ),
                                 CustomStatusButton(
-                                  //todo
-                                  textColor: AppColor.pendingTextColor,
-                                  bgColor: AppColor.pendingBgColor
-                                      .withOpacity(0.2),
-                                  text: AppString.text_pending,
-                                ),
+                                    textColor: Util.getChipTextColor(
+                                        status: controller.leaveDetails.data
+                                                ?.leaveStatusClass ??
+                                            ""),
+                                    bgColor: Util.getChipBgColor(
+                                        status: controller.leaveDetails.data
+                                                ?.leaveStatusClass ??
+                                            ""),
+                                    text: controller.leaveDetails.data?.leaveStatus??""),
                               ],
                             ),
                             Row(
@@ -65,20 +69,6 @@ class LeaveDetails extends GetView<LeaveController> {
                                 Text(
                                   controller.leaveDetails.data?.leaveDuration ??
                                       "",
-                                  style: AppStyle.normal_text.copyWith(
-                                      color: AppColor.hintColor,
-                                      fontSize: Dimensions.fontSizeDefault),
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Icon(
-                                    Icons.circle,
-                                    size: 6,
-                                    color: AppColor.hintColor,
-                                  ),
-                                ),
-                                Text(
-                                  '11.00 am - 1.00 pm',
                                   style: AppStyle.normal_text.copyWith(
                                       color: AppColor.hintColor,
                                       fontSize: Dimensions.fontSizeDefault),
@@ -155,10 +145,10 @@ class LeaveDetails extends GetView<LeaveController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          controller.leaveDetails.data!.leaveStatus != "Canceled"
+          controller.leaveDetails.data!.leaveStatus == "Pending"
               ? _cancelButton()
               : customSpacerWidth(width: 0),
-          controller.leaveDetails.data!.leaveStatus != "Canceled"
+          controller.leaveDetails.data!.leaveStatus == "Pending"
               ? customSpacerWidth(width: 10)
               : customSpacerWidth(width: 0),
           _logResponseButton(),
@@ -182,22 +172,36 @@ class LeaveDetails extends GetView<LeaveController> {
   _logResponseButton() {
     return AppButton(
       onPressed: () {
-        customButtomSheet(
-            context: Get.context!,
-            height: 0.9,
-            child: const LogResponse());
+        customButtonSheet(
+            context: Get.context!, height: 0.9, child: const LogResponse());
       },
       buttonText: AppString.text_log_response,
-      buttonColor: AppColor.primary_blue,
+      buttonColor: AppColor.primaryBlue,
       textColor: Colors.white,
     );
   }
 
   _attachmentCard(int index) {
     return InkWell(
-      child: Image.asset(Images.documents),
-      onTap: () => launchUrl(Uri.parse(
-          controller.leaveDetails.data?.attachments?[index].fullUrl ?? '')),
-    );
+        child: Image.asset(Images.documents),
+        onTap: () => Get.find<DownloadHelper>().downloadFile(
+            url: controller.leaveDetails.data?.attachments?[index].fullUrl ??
+                ""));
+  }
+}
+
+downloadFile({required String url}) async {
+  final status = await Permission.storage.request();
+  if (status.isGranted) {
+    final baseStorage = await getExternalStorageDirectory();
+    await FlutterDownloader.enqueue(
+      url: url,
+      savedDir: baseStorage!.path,
+      fileName: "File",
+    )
+        .then((value) => print(value))
+        .catchError((error) => print(error.toString()));
+  } else {
+    print("No Permission");
   }
 }

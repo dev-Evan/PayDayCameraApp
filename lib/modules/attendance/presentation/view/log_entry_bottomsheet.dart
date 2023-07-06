@@ -25,9 +25,9 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
   Widget build(BuildContext context) {
     return controller.obx(
         (state) => DraggableScrollableSheet(
-              initialChildSize: .8,
-              maxChildSize: .8,
-              minChildSize: .5,
+              initialChildSize: .9,
+              maxChildSize: .9,
+              minChildSize: .7,
               builder:
                   (BuildContext context, ScrollController scrollController) =>
                       Container(
@@ -73,7 +73,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
           _noteLayout(),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-          _mapLayout(),
+          // _mapLayout(),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
           Obx(
             () => UsersCurrentInfoLayout(
@@ -107,7 +107,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
       children: [
         _noteText(),
         SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
-        inputNote(
+        InputNote(
             controller: Get.find<AttendanceController>().editTextController)
       ],
     );
@@ -128,11 +128,11 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
         children: [
           _inTimeLog(),
           const Spacer(),
-          verticalDivider(dividerColor: AppColor.grey_drak),
+          verticalDivider(dividerColor: AppColor.greyDark),
           const Spacer(),
           _outTimeLog(),
           const Spacer(),
-          verticalDivider(dividerColor: AppColor.grey_drak),
+          verticalDivider(dividerColor: AppColor.greyDark),
           const Spacer(),
           _totalTimeLog(),
         ]);
@@ -197,11 +197,12 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
   }
 
   _punchButton() {
+    Get.find<AttendanceController>().editTextController.clear();
     final controller = Get.find<AttendanceController>();
     return Obx(() => AppButton(
           buttonColor: controller.isPunchIn.value
-              ? AppColor.primary_orange
-              : AppColor.primary_green,
+              ? AppColor.primaryOrange
+              : AppColor.primaryGreen,
           buttonText: controller.isPunchIn.value
               ? AppString.text_punch_out
               : AppString.text_punch_in,
@@ -211,7 +212,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
         ));
   }
 
-  _punchOut(AttendanceController controller) async {
+  _punchOut(AttendanceController controller) async{
     await controller.punchOut(LogEntryRequest(
         ipData: IpData(
             ip: controller.ipAddress.value,
@@ -222,24 +223,35 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
             location: controller.address.value,
             workFromHome: false),
         note: controller.editTextController.value.text,
-        today: DateFormat('y-M-d').format(DateTime.now())));
-    Navigator.of(Get.context!).pop();
+        today: DateFormat('y-M-d').format(DateTime.now()))).then((value) {
+          if(value==true){
+            controller.editTextController.clear();
+            Navigator.of(Get.context!).pop();
+          }
+    });
+
   }
 
-  _punchIn(AttendanceController controller) async {
-    await controller.punchIn(LogEntryRequest(
-        ipData: IpData(
-            ip: controller.ipAddress.value,
-            coordinate: Coordinate(
-              lat: controller.lat.value.toString(),
-              lng: controller.long.value.toString(),
-            ),
-            location: controller.address.value,
-            workFromHome: false),
-        note: controller.editTextController.value.text,
-        today: DateFormat('y-M-d').format(DateTime.now())));
+  _punchIn(AttendanceController controller) {
+    controller
+        .punchIn(LogEntryRequest(
+            ipData: IpData(
+                ip: controller.ipAddress.value,
+                coordinate: Coordinate(
+                  lat: controller.lat.value.toString(),
+                  lng: controller.long.value.toString(),
+                ),
+                location: controller.address.value,
+                workFromHome: false),
+            note: controller.editTextController.value.text,
+            today: DateFormat('y-M-d').format(DateTime.now())))
+        .then((value) {
+      if (value == true) {
+        controller.editTextController.clear();
+        Get.back();
+      }
+    });
 
-    Navigator.of(Get.context!).pop();
   }
 
   _cancelButton(BuildContext context) {

@@ -1,13 +1,14 @@
+
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
 import '../../utils/app_color.dart';
 import '../../utils/app_style.dart';
 
 class CustomWheelPickerMins extends StatefulWidget {
-  List list;
-  var controller;
+  final List list;
+  final  DateTimeController controller;
 
-  CustomWheelPickerMins(
+  const CustomWheelPickerMins(
       {Key? key, required this.list, required this.controller})
       : super(key: key);
 
@@ -32,12 +33,12 @@ class _CustomWheelPickerMinsState extends State<CustomWheelPickerMins> {
           border: Border(
             top: BorderSide(
               //<--- top side
-              color: AppColor.primary_blue,
+              color: AppColor.primaryBlue,
               width: 1.0,
             ),
             bottom: BorderSide(
               //  <--- top side
-              color: AppColor.primary_blue,
+              color: AppColor.primaryBlue,
               width: 1.0,
             ),
           ),
@@ -53,7 +54,7 @@ class _CustomWheelPickerMinsState extends State<CustomWheelPickerMins> {
         return Text("${widget.list[index]}",
             style: currentIndex == index
                 ? AppStyle.large_text_black.copyWith(
-                    fontWeight: FontWeight.w600, color: AppColor.primary_blue)
+                    fontWeight: FontWeight.w600, color: AppColor.primaryBlue)
                 : AppStyle.large_text_black.copyWith(
                     fontWeight: FontWeight.w400,
                   ));

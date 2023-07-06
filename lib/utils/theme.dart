@@ -11,14 +11,16 @@ ThemeData _themeData = ThemeData(
     iconTheme: IconThemeData(color: Colors.black),
      color: Colors.deepPurpleAccent,
      foregroundColor: Colors.black,
-
     systemOverlayStyle: SystemUiOverlayStyle(
-    statusBarColor: AppColor.disableColor,),
-  ),
+    //statusBarColor: Colors.black12,
+    ),),
   // scaffoldBG, applicable for aLL PAGES
   scaffoldBackgroundColor: AppColor.backgroundColor,
   //primary color for the application
   colorScheme: ColorScheme.fromSwatch().copyWith(
     primary: AppColor.primaryColor,
   ),
+
+
+
 );

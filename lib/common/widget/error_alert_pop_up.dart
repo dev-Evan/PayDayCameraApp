@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -8,9 +9,9 @@ import 'package:pay_day_mobile/utils/images.dart';
 import '../../utils/app_layout.dart';
 import '../../utils/dimensions.dart';
 
-
-Future errorAlertPopup( Function onReloadClicked) {
+Future errorAlertPopup(Function onReloadClicked) {
   return showDialog(
+    barrierDismissible: false,
     context: Get.context!,
     builder: (context) {
       return Dialog(
@@ -19,6 +20,7 @@ Future errorAlertPopup( Function onReloadClicked) {
             borderRadius: BorderRadius.all(Radius.circular(16))),
         insetPadding: EdgeInsets.zero,
         child: Container(
+          padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(16)),
               color: Colors.white,
@@ -59,14 +61,11 @@ Future errorAlertPopup( Function onReloadClicked) {
                 child: TextButton.icon(
                   icon: const Icon(Icons.refresh),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColor.primary_blue,
+                    backgroundColor: AppColor.primaryBlue,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
                   ),
-                  onPressed: () async {
-                    Navigator.pop(context);
-                    await onReloadClicked();
-                  },
+                  onPressed: () => onReloadClicked(),
                   label: Text(AppString.text_reload,
                       style: AppStyle.normal_text.copyWith(
                           color: Colors.white, fontWeight: FontWeight.w600)),

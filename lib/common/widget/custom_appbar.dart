@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/notification/presentation/controller/notication_controller.dart';
-import 'package:pay_day_mobile/modules/notification/presentation/view/notifications.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
+import '../../routes/app_pages.dart';
 
 class CustomAppbar extends GetView<NotificationController>
     implements PreferredSizeWidget {
@@ -14,68 +14,72 @@ class CustomAppbar extends GetView<NotificationController>
 
   @override
   Widget build(BuildContext context) {
-
-    
-
     return Obx(() => AppBar(
-          leadingWidth: AppLayout.getWidth(150),
-          toolbarHeight: AppLayout.getHeight(35),
+          scrolledUnderElevation: .5,
+          leadingWidth: 130,
+          toolbarHeight: 46,
           backgroundColor: AppColor.cardColor,
           leading: Padding(
-            padding: const EdgeInsets.only(left: 12.0),
-            child: Image.asset(
-              Images.app_logo,
-              fit: BoxFit.cover,
-            ),
-
+            padding: leadingEdgeInsets,
+            child: svgIcon(height: 20, width: 20),
           ),
           actions: [
             Stack(
               alignment: Alignment.center,
               children: [
                 IconButton(
+                  padding: IconButtonEdgeInsets,
                   onPressed: () async {
-                    _openBottomSheet(context);
-                    await controller.getAllNotification();
+                    Get.toNamed(Routes.NOTIFICATION_SCREEN);
                   },
-                  icon: const Icon(
-                    Icons.notifications_none,
-                    color: AppColor.primaryColor,
-                    size: 30,
-                  ),
+                  icon: icon,
                 ),
                 if (controller.length > 0)
                   Positioned(
                       left: AppLayout.getWidth(25),
-                      child: Icon(
-                        Icons.circle,
-                        color: Colors.red,
-                        size: AppLayout.getHeight(10),
-                      ))
+                      child: circleIcon)
               ],
             )
           ],
-          elevation: 0,
+          elevation: .5,
         ));
   }
 
-  Future _openBottomSheet(BuildContext context) {
-    return showModalBottomSheet(
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      context: context,
-      builder: (context) {
-        return const Notifications();
-      },
-    );
-  }
   @override
-  Size get preferredSize => Size(double.maxFinite, AppLayout.getHeight(52));
+  Size get preferredSize => Size(double.maxFinite, 46);
 }
-Widget logoView({ double? height, double ?width,String? url}) {
+
+Widget svgIcon(
+    {double? height = 35, double? width = 35, String? url, Color? color}) {
   return SvgPicture.asset(
     url ?? Images.logo,
-    width: AppLayout.getWidth(width =35),
-    height: AppLayout.getHeight(height =35),
+    color: color,
+    width: AppLayout.getWidth(width!),
+    height: AppLayout.getHeight(height!),
+  );
+}
+
+EdgeInsets get leadingEdgeInsets {
+  return EdgeInsets.only(
+      left: AppLayout.getWidth(18), bottom: AppLayout.getHeight(8));
+}
+
+EdgeInsets get IconButtonEdgeInsets {
+  return EdgeInsets.only(bottom: AppLayout.getHeight(8));
+}
+
+Icon get icon {
+  return Icon(
+    Icons.notifications_none,
+    color: AppColor.primaryColor,
+    size: Dimensions.fontSizeExtraLarge + 6,
+  );
+}
+
+Icon get circleIcon {
+  return Icon(
+    Icons.circle,
+    color: Colors.red,
+    size: AppLayout.getHeight(10),
   );
 }

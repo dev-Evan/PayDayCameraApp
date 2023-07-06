@@ -1,29 +1,26 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/widget/custom_divider.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
-import 'package:pay_day_mobile/common/widget/custom_divider.dart';
 import 'package:pay_day_mobile/common/widget/custom_status_button.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_record.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/leave_details.dart';
-import 'package:pay_day_mobile/modules/payslip/presentation/widget/payslip_view.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
-import 'package:pay_day_mobile/utils/color_picker_helper.dart';
+import 'package:pay_day_mobile/utils/utils.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
 Widget viewListViewLayout() {
   Data? data = Get.find<LeaveController>().leaveRecord.data;
   return data != null
       ? Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
+          padding: EdgeInsets.only(left: AppLayout.getWidth(20), right: AppLayout.getWidth(20), bottom: AppLayout.getHeight(20)),
           child: ListView.separated(
             separatorBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.only(top: 12.0),
+              padding: EdgeInsets.only(top: AppLayout.getHeight(20)),
               child: CustomDiveider(
                   AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
             ),
@@ -61,7 +58,7 @@ _leaves({required List<Leaves> leaves}) {
     separatorBuilder: (context, index) => customSpacerHeight(height: 20),
     itemBuilder: (context, index) => InkWell(
       onTap: () async {
-        customButtomSheet(context: context, height: 0.9, child: LeaveDetails());
+        customButtonSheet(context: context, height: 0.9, child: const LeaveDetails());
         await Get.find<LeaveController>()
             .getILeaveDetails(id: leaves[index].id!);
       },
@@ -95,41 +92,44 @@ _leaves({required List<Leaves> leaves}) {
               children: [
                 CustomDiveider(25, 0.5),
                 customSpacerWidth(width: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      leaves[index].leaveType ?? "",
-                      style: AppStyle.mid_large_text.copyWith(
-                        color: AppColor.normalTextColor,
-                        fontWeight: FontWeight.w600,
-                        fontSize: Dimensions.fontSizeDefault + 1,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        leaves[index].leaveType ?? "",
+                        style: AppStyle.mid_large_text.copyWith(
+                          color: AppColor.normalTextColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: Dimensions.fontSizeDefault + 1,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                    ),
-                    SizedBox(
-                      height: AppLayout.getHeight(6),
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          leaves[index].leaveDuration ?? "",
-                          style: AppStyle.small_text_black,
-                        ),
-                        SizedBox(
-                          width: AppLayout.getWidth(12),
-                        ),
-                        CustomStatusButton(
-                          bgColor: Util.getChipBgColor(
-                              leaves[index].leaveStatusClass!),
-                          text: leaves[index].leaveStatus,
-                          textColor: Util.getChipTextColor(
-                              leaves[index].leaveStatusClass!),
-                        ),
-                      ],
-                    )
-                  ],
+                      SizedBox(
+                        height: AppLayout.getHeight(6),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            leaves[index].leaveDuration ?? "",
+                            style: AppStyle.small_text_black,
+                          ),
+                          SizedBox(
+                            width: AppLayout.getWidth(12),
+                          ),
+                          CustomStatusButton(
+                            bgColor: Util.getChipBgColor(
+                                status: leaves[index].leaveStatusClass!),
+                            text: leaves[index].leaveStatus,
+                            textColor: Util.getChipTextColor(
+                                status: leaves[index].leaveStatusClass!),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
-                const Spacer(),
                 CircleAvatar(
                     backgroundColor: AppColor.disableColor.withOpacity(0.2),
                     radius: 14,

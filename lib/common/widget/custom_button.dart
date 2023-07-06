@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
+// ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
   String text;
   final onAction;
@@ -19,8 +20,7 @@ class CustomButton extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
-              ),
-              primary: AppColor.primaryColor,
+              ), backgroundColor: AppColor.primaryColor,
               elevation: 0),
           child: Text(
             text,
@@ -30,6 +30,7 @@ class CustomButton extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class CustomSmallButton extends StatelessWidget {
   String text;
   final onAction;
