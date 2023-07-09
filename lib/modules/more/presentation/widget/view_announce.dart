@@ -93,7 +93,8 @@ class ViewAnnounce extends GetView<AnnouncementController> {
               ),
 
             ),
-          onLoading: const CircularProgressIndicator()
+          onLoading: const CircularProgressIndicator(),
+
 
       ),
     );
