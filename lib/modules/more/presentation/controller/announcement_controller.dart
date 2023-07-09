@@ -12,7 +12,6 @@ class AnnouncementController extends GetxController with StateMixin {
   late ScrollController announceScrollController;
   final RxBool isFloatingActionVisible = false.obs;
   RxList announcementIndex = [].obs;
-
   @override
   void onInit() {
     announceScrollController = ScrollController()
@@ -44,7 +43,7 @@ class AnnouncementController extends GetxController with StateMixin {
     change(null, status: RxStatus.loading());
     announcementRepo.getAnnouncement(pageInt: 1).then(
         (AnnouncementModel announcementModelData) {
-      print("Get value ::::: .${announcementModelData}");
+      print("Get value ::::: .$announcementModelData");
       announcementIndex.clear();
       print("1st length:: ${announcementIndex.value.length}");
       announcementModel = announcementModelData;

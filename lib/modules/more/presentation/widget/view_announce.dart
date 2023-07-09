@@ -29,17 +29,16 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                   customMoreAppbar(titleText: AppString.text_announcement),
                   Padding(
                       padding: const EdgeInsets.all(15.0),
-                      child: Obx(() =>
-                          ListView.builder(
+                      child:ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount:
-                            controller.announcementIndex.value.length,
+                            controller.announcementIndex.length,
                             itemBuilder: (context, index) {
-                              print("lenth:: ${controller.announcementIndex
-                                  .value.length}");
+                              print("length ::::: ${controller.announcementIndex
+                                  .length}");
                               final drc = controller.announcementIndex
-                                  .value[index].description ??
+                                  [index].description ??
                                   "";
                               final wordCount = drc
                                   .split(' ')
@@ -51,18 +50,18 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                                       context: context,
                                       child: ExpandableText(
                                         controller.announcementIndex
-                                            .value[index].description ??
+                                            [index].description ??
                                             "",
                                         trimLines: 3,
                                       ),
                                       titleText: controller.announcementIndex
-                                          .value[index].name ??
+                                          [index].name ??
                                           "",
                                       startDate: controller.announcementIndex
-                                          .value[index].startDate ??
+                                          [index].startDate ??
                                           "",
                                       endDate: controller.announcementIndex
-                                          .value[index].endDate ??
+                                          [index].endDate ??
                                           ""),
                                 );
                               } else {
@@ -71,28 +70,31 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                                   child: announceCard(
                                       context: context,
                                       desText: controller.announcementIndex
-                                          ?.value[index].description ??
+                                          [index].description ??
                                           "",
                                       length: 163,
                                       titleText: controller.announcementIndex
-                                          .value[index].name ??
+                                          [index].name ??
                                           "",
                                       startDate: controller.announcementIndex
-                                          .value[index].startDate ??
+                                          [index].startDate ??
                                           "",
                                       endDate: controller.announcementIndex
-                                          .value[index].endDate ??
+                                          [index].endDate ??
                                           ""),
                                 );
                               }
                             },
-                          ))),
+                          )),
                   Obx(
                         () => progess(),
                   )
                 ],
               ),
+
             ),
+          onLoading: const CircularProgressIndicator()
+
       ),
     );
   }
