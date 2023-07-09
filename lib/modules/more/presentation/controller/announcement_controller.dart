@@ -46,10 +46,10 @@ class AnnouncementController extends GetxController with StateMixin {
         (AnnouncementModel announcementModelData) {
       print("Get value ::::: .${announcementModelData}");
       announcementIndex.clear();
-      print("1st length:: ${announcementIndex.value.length}");
+      print("1st length:: ${announcementIndex.length}");
       announcementModel = announcementModelData;
       announcementModelData.data!.announcements
-          ?.map((e) => announcementIndex.value.add(e))
+          ?.map((e) => announcementIndex.add(e))
           .toList(growable: true);
     }, onError: (error) {
       print(error.message);
@@ -68,10 +68,10 @@ class AnnouncementController extends GetxController with StateMixin {
         print(announcementModelData);
         announcementModel = announcementModelData;
         announcementModelData.data!.announcements!
-            .map((e) => announcementIndex.value.add(e))
+            .map((e) => announcementIndex.add(e))
             .toList();
         isFloatingActionVisible.value = false;
-        print("2st length:: ${announcementIndex.value.length}");
+        print("2st length:: ${announcementIndex.length}");
       }, onError: (error) {
         print(error.message);
         isFloatingActionVisible.value = false;
