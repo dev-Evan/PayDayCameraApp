@@ -23,22 +23,25 @@ class LeaveRecordsView extends GetView<LeaveController> {
     return controller.obx(
         (state) => Scaffold(
               appBar: const CustomAppbar(),
-              body: SingleChildScrollView(
-                physics: const ScrollPhysics(),
-                child: Column(
-                  children: [
-                    _containerView(),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: AppLayout.getWidth(20),
-                          vertical: AppLayout.getHeight(20)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [_customTexTitle(context)],
+              body: RefreshIndicator(
+                onRefresh: _refreshPage,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    children: [
+                      _containerView(),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppLayout.getWidth(20),
+                            vertical: AppLayout.getHeight(20)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [_customTexTitle(context)],
+                        ),
                       ),
-                    ),
-                    viewListViewLayout(),
-                  ],
+                      viewListViewLayout(),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -121,5 +124,11 @@ class LeaveRecordsView extends GetView<LeaveController> {
         ],
       ),
     );
+  }
+
+  Future<void> _refreshPage() async {
+    await Get.find<LeaveController>().getLeaveSummary();
+    await Get.find<LeaveController>()
+        .getLeaveRecord(params: "&within=thisMonth");
   }
 }

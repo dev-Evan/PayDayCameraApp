@@ -37,12 +37,16 @@ class Leave extends GetView<LeaveController> {
                 padding: EdgeInsets.only(left: AppLayout.getWidth(28)),
                 child: _appLeaveBtn(context: context),
               ),
-              body: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    _leaveAllowanceLayout(),
-                    individualDateLeaveRecord(),
-                  ],
+              body: RefreshIndicator(
+                onRefresh: _refreshPage,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    children: [
+                      _leaveAllowanceLayout(),
+                      individualDateLeaveRecord(),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -80,7 +84,7 @@ class Leave extends GetView<LeaveController> {
                     context: Get.context!, pageName: const LeaveRecordsView());
                 await Get.find<LeaveController>().getLeaveSummary();
                 await Get.find<LeaveController>()
-                    .getLeaveRecord(params: "&within=thisYear");
+                    .getLeaveRecord(params: "&within=thisMonth");
               }),
         ],
       ),
@@ -94,11 +98,11 @@ class Leave extends GetView<LeaveController> {
       scrollDirection: Axis.horizontal,
       child: data != null
           ? Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-                children: Get.find<LeaveController>()
-                    .leaveAllowance
-                    .data!
-                    .map((Data data) {
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: Get.find<LeaveController>()
+                  .leaveAllowance
+                  .data!
+                  .map((Data data) {
                 return Container(
                   width: AppLayout.getSize(Get.context!).width * .85,
                   margin: EdgeInsets.only(
@@ -180,5 +184,16 @@ class Leave extends GetView<LeaveController> {
         )
       ],
     );
+  }
+
+  Future<void> _refreshPage() async {
+    controller.getLeaveAllowance();
+    Map<String, String> queryParams = {
+      "start": DateFormat("yyyy-MM-dd").format(DateTime.now()),
+      "end": DateFormat("yyyy-MM-dd").format(DateTime.now())
+    };
+    String value = json.encode(queryParams);
+    Get.find<LeaveController>()
+        .getIndividualLeaveList(queryParams: "date_range=$value");
   }
 }

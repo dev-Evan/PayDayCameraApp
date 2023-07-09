@@ -75,6 +75,13 @@ class LeaveDetails extends GetView<LeaveController> {
                                       color: AppColor.hintColor,
                                       fontSize: Dimensions.fontSizeDefault),
                                 ),
+                                customSpacerWidth(width: 16),
+                                controller.leaveDetails.data != null &&
+                                        controller
+                                            .leaveDetails.data!.leaveDuration!
+                                            .contains("hrs")
+                                    ? _hoursDuration()
+                                    : Container(),
                               ],
                             ),
                             SizedBox(
@@ -191,6 +198,10 @@ class LeaveDetails extends GetView<LeaveController> {
                 ""));
   }
 
+  _hoursDuration() {
+    return Text(
+        "( ${controller.leaveDetails.data!.leaveStartAt} - ${controller.leaveDetails.data!.leaveEndAt} )");
+  }
 }
 
 downloadFile({required String url}) async {

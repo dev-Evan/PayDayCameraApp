@@ -24,30 +24,36 @@ class Data {
   String? reasonNote;
   List<Logs>? logs;
   List<Attachments>? attachments;
+  String? leaveStartAt;
+  String? leaveEndAt;
 
   Data(
       {this.id,
-        this.leaveType,
-        this.leaveStatus,
-        this.leaveStatusClass,
-        this.leaveDuration,
-        this.attachmentCount,
-        this.startAt,
-        this.endAt,
-        this.reasonNote,
-        this.logs,
-        this.attachments});
+      this.leaveType,
+      this.leaveStatus,
+      this.leaveStatusClass,
+      this.leaveDuration,
+      this.attachmentCount,
+      this.startAt,
+      this.endAt,
+      this.reasonNote,
+      this.logs,
+      this.attachments,
+      this.leaveStartAt,
+      this.leaveEndAt});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     leaveType = json['leave_type'];
     leaveStatus = json['leave_status'];
-    leaveStatusClass=json['clas_name'];
+    leaveStatusClass = json['clas_name'];
     leaveDuration = json['leave_duration'];
     attachmentCount = json['attachment_count'];
     startAt = json['start_at'];
     endAt = json['end_at'];
     reasonNote = json['reason_note'];
+    leaveStartAt = json['leave_start_at'];
+    leaveEndAt = json['leave_end_at'];
     if (json['logs'] != null) {
       logs = <Logs>[];
       json['logs'].forEach((v) {
@@ -61,7 +67,6 @@ class Data {
       });
     }
   }
-
 }
 
 class Logs {
@@ -80,7 +85,6 @@ class Logs {
     logBy = json['log_by'];
     comment = json['comment'];
   }
-
 }
 
 class Attachments {
@@ -93,5 +97,4 @@ class Attachments {
     type = json['type'];
     fullUrl = json['full_url'];
   }
-
 }

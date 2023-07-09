@@ -34,17 +34,17 @@ Widget profileCardLayOut({context, userName, final userImage, userEmail, statusT
                 children: [
                   InkWell(
                     onTap: ()=>    SchedulerBinding.instance.addPostFrameCallback((_)=>
-                        Navigator.push(context, new MaterialPageRoute(
+                        Navigator.push(context, MaterialPageRoute(
                             builder: (context) => ViewProfile())),),
                     child: Container(
                       height: AppLayout.getHeight(54),
                       width: AppLayout.getWidth(54),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.transparent,
                       ),
                       child: ClipOval(
-                        child: FadeInImage(
+                        child: FadeInImage (
                           image: NetworkImage(userImage),
                           placeholder: Get.find<PickImageController>().pickedImage.value ==null
                               ? placeholderImages

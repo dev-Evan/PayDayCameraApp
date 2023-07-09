@@ -73,7 +73,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
           _noteLayout(),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-          // _mapLayout(),
+          _mapLayout(),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
           Obx(
             () => UsersCurrentInfoLayout(

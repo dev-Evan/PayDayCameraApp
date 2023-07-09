@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/init_%20app.dart';
+import 'package:pay_day_mobile/modules/home/presentation/home.dart';
 import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/internationalization.dart';
 import 'package:pay_day_mobile/utils/theme.dart';
@@ -13,6 +14,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -29,4 +31,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

@@ -41,33 +41,37 @@ class Attendance extends GetView<AttendanceController> {
 
   Widget _body(BuildContext context) {
     return SafeArea(
-        child: SingleChildScrollView(
-      physics: const AlwaysScrollableScrollPhysics(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _upperLayout(),
-          Obx(
-            () => (controller.logs.value.data != null &&
-                    controller.logs.value.data!.dailyLogs!.isNotEmpty)
-                ? Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: AppLayout.getHeight(Dimensions.paddingLarge),
-                        horizontal:
-                            AppLayout.getWidth(Dimensions.paddingLarge)),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          todaysLogIntroText(),
-                          SizedBox(
-                              height:
-                                  AppLayout.getHeight(Dimensions.paddingLarge)),
-                          logList(controller.logs.value.data!.dailyLogs!),
-                        ]),
-                  )
-                : noLogLayout(),
-          )
-        ],
+        child: RefreshIndicator(
+      onRefresh: _refreshPage,
+      child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _upperLayout(),
+            Obx(
+              () => (controller.logs.value.data != null &&
+                      controller.logs.value.data!.dailyLogs!.isNotEmpty)
+                  ? Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical:
+                              AppLayout.getHeight(Dimensions.paddingLarge),
+                          horizontal:
+                              AppLayout.getWidth(Dimensions.paddingLarge)),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            todaysLogIntroText(),
+                            SizedBox(
+                                height: AppLayout.getHeight(
+                                    Dimensions.paddingLarge)),
+                            logList(controller.logs.value.data!.dailyLogs!),
+                          ]),
+                    )
+                  : noLogLayout(),
+            )
+          ],
+        ),
       ),
     ));
   }
@@ -197,5 +201,10 @@ class Attendance extends GetView<AttendanceController> {
             iconsData: Icons.local_cafe_outlined)),
       ],
     );
+  }
+
+  Future<void> _refreshPage() async {
+    await controller.checkUserIsPunchedIn();
+    await controller.getDailyLog();
   }
 }
