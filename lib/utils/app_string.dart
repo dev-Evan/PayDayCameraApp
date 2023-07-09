@@ -82,8 +82,8 @@ class AppString {
   static String text_leave = "Leave";
   static String text_payslip = "Payslip";
   static String text_more = "More";
-  static String text_read_more = "read more";
-  static String text_read_less = "read less";
+  static String text_read_more = "Read more";
+  static String text_read_less = "Read less";
   static String text_today = "Today";
   static String text_enter_phone_number = "Enter phone number";
   static String text_enter = "Enter";

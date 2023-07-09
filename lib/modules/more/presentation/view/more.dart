@@ -21,15 +21,14 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/widget/custom_spacer.dart';
+import '../controller/announcement_controller.dart';
 
 class MoreScreen extends GetView<ProfileDataController> {
   MoreScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controller.getUserData();
-    });
     return controller.obx(
         (state) => Scaffold(
               body: CustomScrollView(
@@ -69,8 +68,8 @@ class MoreScreen extends GetView<ProfileDataController> {
                                       cardText: AppString.text_announcement,
                                       onAction: () async {
                                          Get.toNamed(Routes.ANNOUNCE_SCREEN);
-                                        // await Get.find<DocumentController>()
-                                        //     .getDocumentData();
+                                         await Get.find<AnnouncementController>()
+                                             .getAnnouncement();
                                       }),
                                   jobDeskCard(
                                       cardIcon: Images.folder,

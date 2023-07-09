@@ -18,8 +18,8 @@ class AnnounceScreen extends StatefulWidget {
 class _AnnounceScreenState extends State<AnnounceScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppbar(),
+    return const Scaffold(
+      appBar: CustomAppbar(),
       body: ViewAnnounce(),
     );
   }
