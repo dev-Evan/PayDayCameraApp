@@ -31,9 +31,7 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                   shrinkWrap: true,
                   itemCount: controller.announcementIndex.length,
                   itemBuilder: (context, index) {
-                    final drc =
-                        controller.announcementIndex[index].description ??
-                            "";
+                    final drc = controller.announcementIndex[index].description ?? "";
                     final wordCount = drc.split(' ').length;
                     if (wordCount > 20) {
                       return Padding(
@@ -62,27 +60,17 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                         child: announceCard(
                             context: context,
                             desText: controller
-                                .announcementIndex[index].description ??
-                                "",
+                                .announcementIndex[index].description ?? "",
                             length: 163,
                             titleText:
-                            controller.announcementIndex[index].name ??
-                                "",
-                            startDate: controller
-                                .announcementIndex[index].startDate ??
-                                "",
-                            endDate: controller
-                                .announcementIndex[index].endDate ??
-                                ""),
+                            controller.announcementIndex[index].name ?? "",
+                            startDate: controller.announcementIndex[index].startDate ?? "",
+                            endDate: controller.announcementIndex[index].endDate ?? ""),
                       );
                     }
                   },
                 ))),
-            Center(
-              child: Obx(
-                    () => progressBar(),
-              ),
-            ),
+            Obx(() => progressBar(),),
             customSpacerHeight(height: 52)
           ],
         ),
@@ -92,7 +80,7 @@ class ViewAnnounce extends GetView<AnnouncementController> {
 
   progressBar() {
     return controller.isFloatingActionVisible.isTrue
-        ? const CircularProgressIndicator()
+        ? const Center(child: CircularProgressIndicator())
         : Container();
   }
 
