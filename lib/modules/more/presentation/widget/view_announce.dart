@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/announcement_controller.dart';
@@ -12,12 +10,12 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import 'package:html/parser.dart' as htmlParser;
 
 class ViewAnnounce extends GetView<AnnouncementController> {
   const ViewAnnounce({super.key});
   @override
   Widget build(BuildContext context) {
-
     return controller.obx((state) => Scaffold(
       body: SingleChildScrollView(
         controller: controller.announceScrollController,
@@ -33,6 +31,7 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                   shrinkWrap: true,
                   itemCount: controller.announcementIndex.length,
                   itemBuilder: (context, index) {
+                    String plainText = htmlParser.parse(controller.announcementIndex[index].description ?? "").documentElement?.text ??"";
                     final drc = controller.announcementIndex[index].description ?? "";
                     final wordCount = drc.split(' ').length;
                     if (wordCount > 20) {
@@ -41,9 +40,7 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                         child: announceLargeCard(
                             context: context,
                             child: ExpandedText(
-                            text: drc,
-
-                            ),
+                            text: plainText),
                             titleText:
                             controller.announcementIndex[index].name ??
                                 "",
@@ -53,15 +50,15 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                             endDate: controller
                                 .announcementIndex[index].endDate ??
                                 ""),
+
                       );
                     } else {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: announceCard(
                             context: context,
-                            desText: controller
-                                .announcementIndex[index].description ?? "",
-                            length: 163,
+                            desText: plainText,
+                            length: 152,
                             titleText:
                             controller.announcementIndex[index].name ?? "",
                             startDate: controller.announcementIndex[index].startDate ?? "",
@@ -172,9 +169,9 @@ class ViewAnnounce extends GetView<AnnouncementController> {
       margin: EdgeInsets.only(top: AppLayout.getHeight(12)),
       child: Column(
         children: [
-          HtmlWidget(
+          Text(
             "$desText",
-            textStyle: disTextStyle,
+            style: disTextStyle,
           ),
         ],
       ),
