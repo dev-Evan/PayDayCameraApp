@@ -28,26 +28,54 @@ class SalaryOverViewModel {
 }
 
 class Data {
-  bool? basicSalary;
+  String? addedBy;
+  bool? increment;
   String? level;
-  String? message;
+  String? effectiveDate;
+  String? createdDate;
+  bool? basicSalary;
   String? amount;
+  String? previousSalary;
+  String? currentSalary;
+  String? message;
 
-  Data({this.basicSalary, this.level, this.message, this.amount});
+  Data(
+      {this.addedBy,
+        this.increment,
+        this.level,
+        this.effectiveDate,
+        this.createdDate,
+        this.basicSalary,
+        this.amount,
+        this.previousSalary,
+        this.currentSalary,
+        this.message});
 
   Data.fromJson(Map<String, dynamic> json) {
-    basicSalary = json['basic_salary'];
+    addedBy = json['added_by'];
+    increment = json['increment'];
     level = json['level'];
-    message = json['message'];
+    effectiveDate = json['effective_date'];
+    createdDate = json['created_date'];
+    basicSalary = json['basic_salary'];
     amount = json['amount'];
+    previousSalary = json['previous_salary'];
+    currentSalary = json['current_salary'];
+    message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['basic_salary'] = this.basicSalary;
+    data['added_by'] = this.addedBy;
+    data['increment'] = this.increment;
     data['level'] = this.level;
-    data['message'] = this.message;
+    data['effective_date'] = this.effectiveDate;
+    data['created_date'] = this.createdDate;
+    data['basic_salary'] = this.basicSalary;
     data['amount'] = this.amount;
+    data['previous_salary'] = this.previousSalary;
+    data['current_salary'] = this.currentSalary;
+    data['message'] = this.message;
     return data;
   }
 }

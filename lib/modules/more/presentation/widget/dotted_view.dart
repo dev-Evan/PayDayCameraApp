@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 
-Widget dottedSalaryView(){
+Widget dottedSalaryView({required double height}){
   return  Padding(
     padding: const EdgeInsets.only(left: 28.0),
     child: DottedBorder(
-      customPath: (p0) => Path()..lineTo(0, 250),
+      customPath: (p0) => Path()..lineTo(0, AppLayout.getHeight(height)),
       color: AppColor.hintColor.withOpacity(0.6),
       dashPattern: const [6, 4],
       strokeWidth: 1.2,

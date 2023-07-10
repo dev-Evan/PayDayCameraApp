@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
@@ -16,6 +17,7 @@ class ViewAnnounce extends GetView<AnnouncementController> {
   const ViewAnnounce({super.key});
   @override
   Widget build(BuildContext context) {
+
     return controller.obx((state) => Scaffold(
       body: SingleChildScrollView(
         controller: controller.announceScrollController,
@@ -38,11 +40,9 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                         padding: const EdgeInsets.all(8.0),
                         child: announceLargeCard(
                             context: context,
-                            child: ExpandableText(
-                              controller.announcementIndex[index]
-                                  .description ??
-                                  "",
-                              trimLines: 3,
+                            child: ExpandedText(
+                            text: drc,
+
                             ),
                             titleText:
                             controller.announcementIndex[index].name ??
@@ -172,9 +172,9 @@ class ViewAnnounce extends GetView<AnnouncementController> {
       margin: EdgeInsets.only(top: AppLayout.getHeight(12)),
       child: Column(
         children: [
-          Text(
+          HtmlWidget(
             "$desText",
-            style: disTextStyle,
+            textStyle: disTextStyle,
           ),
         ],
       ),

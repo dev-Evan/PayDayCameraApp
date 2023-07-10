@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
@@ -23,79 +24,61 @@ class AnnounceScreen extends GetView<AnnouncementController> {
   }
 }
 
-class ExpandableText extends StatefulWidget {
-  const ExpandableText(
-    this.text, {
-    Key? key,
-    this.trimLines = 2,
-  }) : super(key: key);
-
+class ExpandedText extends StatefulWidget {
   final String text;
-  final int trimLines;
+
+  const ExpandedText({Key? key, required this.text}) : super(key: key);
 
   @override
-  ExpandableTextState createState() => ExpandableTextState();
+  State<ExpandedText> createState() => _ExpandedTextState();
 }
 
-class ExpandableTextState extends State<ExpandableText> {
-  bool _readMore = true;
-  void _onTapLink() {
-    setState(() => _readMore = !_readMore);
+class _ExpandedTextState extends State<ExpandedText> {
+  late String firstHalf;
+  late String secondHalf;
+  bool isExpanded = false;
+
+  @override
+  void initState() {
+    if (widget.text.length > 150) {
+      firstHalf = widget.text.substring(0, 150);
+      secondHalf = widget.text.substring(151, widget.text.length);
+    } else {
+      firstHalf = widget.text;
+      secondHalf = "";
+    }
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    const colorClickableText = Colors.blue;
-    TextSpan link = TextSpan(
-        text: _readMore
-            ? " ...${AppString.text_read_more}"
-            : "  ${AppString.text_read_less}",
-        style: const TextStyle(
-          color: colorClickableText,
-        ),
-        recognizer: TapGestureRecognizer()..onTap = _onTapLink);
-    Widget result = LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        assert(constraints.hasBoundedWidth);
-        final double maxWidth = constraints.maxWidth;
-        final text = TextSpan(text: widget.text);
-        TextPainter textPainter = TextPainter(
-          text: link,
-          textDirection: TextDirection.rtl,
-          maxLines: widget.trimLines,
-          ellipsis: '...',
-        );
-        textPainter.layout(minWidth: constraints.minWidth, maxWidth: maxWidth);
-        final linkSize = textPainter.size;
-        textPainter.text = text;
-        textPainter.layout(minWidth: constraints.minWidth, maxWidth: maxWidth);
-        final textSize = textPainter.size;
-        int? endIndex;
-        final pos = textPainter.getPositionForOffset(Offset(
-          textSize.width - linkSize.width,
-          textSize.height,
-        ));
-        endIndex = textPainter.getOffsetBefore(pos.offset);
-        TextSpan textSpan;
-        if (textPainter.didExceedMaxLines) {
-          textSpan = TextSpan(
-            text: _readMore ? widget.text.substring(0, endIndex) : widget.text,
-            style: disTextStyle,
-            children: <TextSpan>[link],
+    return secondHalf == ""
+        ? HtmlWidget(widget.text, textStyle: AppStyle.normal_text_black)
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              HtmlWidget(
+                isExpanded ? widget.text : firstHalf,
+                textStyle: AppStyle.normal_text_black,
+              ),
+              TextButton.icon(
+                onPressed: () {
+                  setState(() {
+                    isExpanded = !isExpanded;
+                  });
+                },
+                icon: Text(
+                  "See More...",
+                  style:
+                      AppStyle.normal_text.copyWith(color: Colors.blueAccent),
+                ),
+                label: Icon(
+                  isExpanded ? Icons.arrow_drop_up : Icons.arrow_drop_down,
+                  color: Colors.blueAccent,
+                ),
+              )
+            ],
           );
-        } else {
-          textSpan = TextSpan(
-            text: widget.text,
-          );
-        }
-        return RichText(
-          softWrap: true,
-          overflow: TextOverflow.clip,
-          text: textSpan,
-        );
-      },
-    );
-    return result;
   }
 }
 
