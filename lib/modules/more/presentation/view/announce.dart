@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/view_announce.dart';
@@ -8,14 +9,11 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-class AnnounceScreen extends StatefulWidget {
+import '../controller/announcement_controller.dart';
+
+class AnnounceScreen extends GetView<AnnouncementController> {
   const AnnounceScreen({Key? key}) : super(key: key);
 
-  @override
-  State<AnnounceScreen> createState() => _AnnounceScreenState();
-}
-
-class _AnnounceScreenState extends State<AnnounceScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
@@ -107,7 +105,7 @@ Decoration get decoration {
       borderRadius: BorderRadius.circular(Dimensions.radiusDefault));
 }
 
-TextStyle get CardTitleTextStyle {
+TextStyle get cardTitleTextStyle {
   return AppStyle.title_text.copyWith(
       color: AppColor.normalTextColor,
       fontWeight: FontWeight.w500,

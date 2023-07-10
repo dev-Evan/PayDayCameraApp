@@ -14,116 +14,103 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class ViewAnnounce extends GetView<AnnouncementController> {
   const ViewAnnounce({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: controller.obx(
-            (state) =>
-            SingleChildScrollView(
-              controller: controller.announceScrollController,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  customMoreAppbar(titleText: AppString.text_announcement),
-                  Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child:ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount:
-                            controller.announcementIndex.length,
-                            itemBuilder: (context, index) {
-                              print("length ::::: ${controller.announcementIndex
-                                  .length}");
-                              final drc = controller.announcementIndex
-                                  [index].description ??
-                                  "";
-                              final wordCount = drc
-                                  .split(' ')
-                                  .length;
-                              if (wordCount > 20) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: announceLargeCard(
-                                      context: context,
-                                      child: ExpandableText(
-                                        controller.announcementIndex
-                                            [index].description ??
-                                            "",
-                                        trimLines: 3,
-                                      ),
-                                      titleText: controller.announcementIndex
-                                          [index].name ??
-                                          "",
-                                      startDate: controller.announcementIndex
-                                          [index].startDate ??
-                                          "",
-                                      endDate: controller.announcementIndex
-                                          [index].endDate ??
-                                          ""),
-                                );
-                              } else {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: announceCard(
-                                      context: context,
-                                      desText: controller.announcementIndex
-                                          [index].description ??
-                                          "",
-                                      length: 163,
-                                      titleText: controller.announcementIndex
-                                          [index].name ??
-                                          "",
-                                      startDate: controller.announcementIndex
-                                          [index].startDate ??
-                                          "",
-                                      endDate: controller.announcementIndex
-                                          [index].endDate ??
-                                          ""),
-                                );
-                              }
-                            },
-                          )),
-                  Obx(
-                        () => progess(),
-                  )
-                ],
+    return controller.obx((state) => Scaffold(
+      body: SingleChildScrollView(
+        controller: controller.announceScrollController,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            customMoreAppbar(titleText: AppString.text_announcement),
+            Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Obx(() => ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: controller.announcementIndex.length,
+                  itemBuilder: (context, index) {
+                    final drc =
+                        controller.announcementIndex[index].description ??
+                            "";
+                    final wordCount = drc.split(' ').length;
+                    if (wordCount > 20) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: announceLargeCard(
+                            context: context,
+                            child: ExpandableText(
+                              controller.announcementIndex[index]
+                                  .description ??
+                                  "",
+                              trimLines: 3,
+                            ),
+                            titleText:
+                            controller.announcementIndex[index].name ??
+                                "",
+                            startDate: controller
+                                .announcementIndex[index].startDate ??
+                                "",
+                            endDate: controller
+                                .announcementIndex[index].endDate ??
+                                ""),
+                      );
+                    } else {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: announceCard(
+                            context: context,
+                            desText: controller
+                                .announcementIndex[index].description ??
+                                "",
+                            length: 163,
+                            titleText:
+                            controller.announcementIndex[index].name ??
+                                "",
+                            startDate: controller
+                                .announcementIndex[index].startDate ??
+                                "",
+                            endDate: controller
+                                .announcementIndex[index].endDate ??
+                                ""),
+                      );
+                    }
+                  },
+                ))),
+            Center(
+              child: Obx(
+                    () => progressBar(),
               ),
-
             ),
-          onLoading: const CircularProgressIndicator(),
-
-
+            customSpacerHeight(height: 52)
+          ],
+        ),
       ),
-    );
+    ),onLoading: const LoadingIndicator());
   }
 
-  progess() {
+  progressBar() {
     return controller.isFloatingActionVisible.isTrue
-        ? CircularProgressIndicator()
+        ? const CircularProgressIndicator()
         : Container();
   }
-
 
   Widget newText({required text}) {
     return jobDeskTitle(text: text);
   }
 
-  Container announceCard({required context,
-    double? length,
-    required desText,
-    readMoreText,
-    required titleText,
-    required startDate,
-    endDate}) {
+  Container announceCard(
+      {required context,
+      double? length,
+      required desText,
+      readMoreText,
+      required titleText,
+      required startDate,
+      endDate}) {
     return Container(
       height: length,
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
+      width: MediaQuery.of(context).size.width,
       decoration: decoration,
       child: Container(
         margin: EdgeInsets.only(
@@ -143,16 +130,14 @@ class ViewAnnounce extends GetView<AnnouncementController> {
     );
   }
 
-  Widget announceLargeCard({required child,
-    required context,
-    required titleText,
-    required startDate,
-    required endDate}) {
+  Widget announceLargeCard(
+      {required child,
+      required context,
+      required titleText,
+      required startDate,
+      required endDate}) {
     return Container(
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
+      width: MediaQuery.of(context).size.width,
       decoration: decoration,
       child: Container(
         margin: EdgeInsets.only(
@@ -166,7 +151,7 @@ class ViewAnnounce extends GetView<AnnouncementController> {
             _cardTitleText(titleText: titleText),
             _dateText(startDate: startDate, endDate: endDate),
             customSpacerHeight(height: 6),
-            child
+            child,
           ],
         ),
       ),
@@ -176,7 +161,7 @@ class ViewAnnounce extends GetView<AnnouncementController> {
   Widget _cardTitleText({required titleText}) {
     return Container(
       margin: EdgeInsets.only(bottom: AppLayout.getHeight(2)),
-      child: Text(titleText, style: CardTitleTextStyle),
+      child: Text(titleText, style: cardTitleTextStyle),
     );
   }
 

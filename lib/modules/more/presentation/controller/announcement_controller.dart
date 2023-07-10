@@ -6,9 +6,7 @@ import '../../domain/announcement_model.dart';
 
 class AnnouncementController extends GetxController with StateMixin {
   AnnouncementModel announcementModel = AnnouncementModel();
-  AnnouncementRepository announcementRepo =
-      AnnouncementRepository(NetworkClient());
-
+  AnnouncementRepository announcementRepo = AnnouncementRepository(NetworkClient());
   late ScrollController announceScrollController;
   final RxBool isFloatingActionVisible = false.obs;
   RxList announcementIndex = [].obs;
@@ -16,7 +14,6 @@ class AnnouncementController extends GetxController with StateMixin {
   void onInit() {
     announceScrollController = ScrollController()
       ..addListener(() {
-        print("Called:: getMoreAnnouncement");
         if (announceScrollController.position.atEdge) {
           if (announceScrollController.position.pixels > 0) {
             if (isFloatingActionVisible.isTrue) {
@@ -43,17 +40,15 @@ class AnnouncementController extends GetxController with StateMixin {
     change(null, status: RxStatus.loading());
     announcementRepo.getAnnouncement(pageInt: 1).then(
         (AnnouncementModel announcementModelData) {
-      print("Get value ::::: .$announcementModelData");
       announcementIndex.clear();
-      print("1st length:: ${announcementIndex.value.length}");
       announcementModel = announcementModelData;
       announcementModelData.data!.announcements
-          ?.map((e) => announcementIndex.value.add(e))
+          ?.map((e) => announcementIndex.add(e))
           .toList(growable: true);
-    }, onError: (error) {
-      print(error.message);
+      change(null, status: RxStatus.success());
+        }, onError: (error) {
+      print("Get Announcement ::: ${error.message}");
     });
-    change(null, status: RxStatus.success());
   }
 
   getMoreAnnouncement() {
@@ -64,15 +59,13 @@ class AnnouncementController extends GetxController with StateMixin {
           .getAnnouncement(
               pageInt: announcementModel.data!.meta!.currentPage! + 1)
           .then((AnnouncementModel announcementModelData) {
-        print(announcementModelData);
         announcementModel = announcementModelData;
         announcementModelData.data!.announcements!
-            .map((e) => announcementIndex.value.add(e))
+            .map((e) => announcementIndex.add(e))
             .toList();
         isFloatingActionVisible.value = false;
-        print("2st length:: ${announcementIndex.value.length}");
       }, onError: (error) {
-        print(error.message);
+        print("Get More Announcement ::: ${error.message}");
         isFloatingActionVisible.value = false;
       });
     }
