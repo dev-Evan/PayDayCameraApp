@@ -400,7 +400,7 @@ class AddressDetails extends GetView<AddressController> {
 }
 
 Future _deletedAlert({required context, onAction}) {
-  return CustomAlertDialog(
+  return customAlertDialog(
       context: context,
       icon: CupertinoIcons.delete,
       backAction: () {

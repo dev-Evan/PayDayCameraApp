@@ -61,7 +61,9 @@ class LeaveDetails extends GetView<LeaveController> {
                                         status: controller.leaveDetails.data
                                                 ?.leaveStatusClass ??
                                             ""),
-                                    text: controller.leaveDetails.data?.leaveStatus??""),
+                                    text: controller
+                                            .leaveDetails.data?.leaveStatus ??
+                                        ""),
                               ],
                             ),
                             Row(
@@ -73,13 +75,20 @@ class LeaveDetails extends GetView<LeaveController> {
                                       color: AppColor.hintColor,
                                       fontSize: Dimensions.fontSizeDefault),
                                 ),
+                                customSpacerWidth(width: 16),
+                                controller.leaveDetails.data != null &&
+                                        controller
+                                            .leaveDetails.data!.leaveDuration!
+                                            .contains("hrs")
+                                    ? _hoursDuration()
+                                    : Container(),
                               ],
                             ),
                             SizedBox(
                               height: AppLayout.getHeight(12),
                             ),
                             Text(
-                              "${controller.leaveDetails.data?.startAt ?? ""} - ${controller.leaveDetails.data?.startAt ?? ""}",
+                              "${controller.leaveDetails.data?.startAt ?? ""} - ${controller.leaveDetails.data?.endAt ?? ""}",
                               style: AppStyle.title_text.copyWith(
                                   color: AppColor.normalTextColor,
                                   fontSize: Dimensions.fontSizeDefault),
@@ -187,6 +196,11 @@ class LeaveDetails extends GetView<LeaveController> {
         onTap: () => Get.find<DownloadHelper>().downloadFile(
             url: controller.leaveDetails.data?.attachments?[index].fullUrl ??
                 ""));
+  }
+
+  _hoursDuration() {
+    return Text(
+        "( ${controller.leaveDetails.data!.leaveStartAt} - ${controller.leaveDetails.data!.leaveEndAt} )");
   }
 }
 

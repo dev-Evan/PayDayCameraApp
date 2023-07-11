@@ -4,6 +4,7 @@ import 'package:pay_day_mobile/modules/more/data/document_repository/document_re
 import 'package:pay_day_mobile/modules/more/domain/document_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
+import '../../../../../common/widget/error_alert_pop_up.dart';
 import '../logout_controller.dart';
 
 class DocumentController extends GetxController with StateMixin {
@@ -19,8 +20,8 @@ class DocumentController extends GetxController with StateMixin {
       await documentRepository.getDocumentRepoData().then((value) {
         documentModel = value;
       }, onError: (error) {
-       print( "Document Called ::: ${error.toString()}");
-
+        errorAlertPopup(getDocumentData);
+        print( "Document Called ::: ${error.toString()}");
       });
     } catch (ex) {
       print("Document Called ex ::: ${ex.toString()}");

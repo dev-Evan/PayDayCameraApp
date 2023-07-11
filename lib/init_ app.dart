@@ -35,6 +35,10 @@ Future<void> initApp() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize();
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark));
+
   Get.put(LanguageController(), permanent: true);
   Get.put(ConnectivityController(), permanent: true);
   Get.lazyPut(() => DownloadHelper(), fenix: true);
@@ -45,8 +49,6 @@ Future<void> initApp() async {
   Get.lazyPut(() => AttendanceLogsController(), fenix: true);
   Get.lazyPut(() => LeaveController(), fenix: true);
   Get.lazyPut(() => NotificationController(), fenix: true);
-  Get.lazyPut(() => AttendanceController(), fenix: true);
-  Get.lazyPut(() => AttendanceLogsController(), fenix: true);
   Get.lazyPut(() => PayslipListController(), fenix: true);
   Get.lazyPut(() => PayrunBadgeController(), fenix: true);
   Get.lazyPut(() => DocumentController(), fenix: true);
@@ -57,7 +59,6 @@ Future<void> initApp() async {
   Get.lazyPut(() => DropdownBtnController(), fenix: true);
   Get.lazyPut(() => PayslipViewController(), fenix: true);
   Get.lazyPut(() => PickImageController(), fenix: true);
-  Get.lazyPut(() => SettingController(), fenix: true);
   Get.lazyPut(() => LogoutController(), fenix: true);
   Get.lazyPut(() => FileUploadController(), fenix: true);
   Get.lazyPut(() => UpdateDocumentController(), fenix: true);
@@ -66,6 +67,7 @@ Future<void> initApp() async {
   Get.lazyPut(() => InputTextFieldController(), fenix: true);
   Get.lazyPut(() => DatePickerController(), fenix: true);
   Get.lazyPut(() => AnnouncementController(), fenix: true);
+
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,

@@ -8,6 +8,7 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/logout_contr
 import 'package:pay_day_mobile/modules/more/presentation/view/address_details.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/utils.dart';
+import '../../../../common/widget/error_alert_pop_up.dart';
 import '../../../../network/network_client.dart';
 import '../../domain/address_details_model.dart';
 import 'common_controller/more_text_editing_controller.dart';
@@ -24,6 +25,7 @@ class AddressController extends GetxController with StateMixin {
       print("Address details called ::: $value");
       addressDetailsModel = value;
     }, onError: (error) {
+      errorAlertPopup(getEmployeeAddressData);
       print(error.message);
     });
     change(null, status: RxStatus.success());

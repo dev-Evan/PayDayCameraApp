@@ -10,12 +10,10 @@ class PayslipViewController extends GetxController with StateMixin {
   getPayslipViewData() async {
     change(null, status: RxStatus.loading());
     try {
-      await payslipDataRepository.getPayslipViewData().then((value) {
+      await payslipDataRepository.getPayslipViewData().then((PayslipViewModel value) {
         payslipViewModel =value;
-        print(value);
-        print(payslipViewModel.data?.payslip?.considerOvertime?.toInt());
       }, onError: (error) {
-        print(error.message);
+        print("Payslip view called ::: ${error.message}");
       });
       change(null, status: RxStatus.success());
     } catch (ex) {

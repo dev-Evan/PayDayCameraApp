@@ -5,6 +5,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
 import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
 import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attendance_data_repository.dart';
@@ -60,7 +61,7 @@ class AttendanceController extends GetxController with StateMixin {
       }
     }, onError: (error) {
       if (error.message.startsWith("Unauthenticated")) {
-        Get.toNamed(Routes.SIGN_IN);
+        Get.offNamed(Routes.SIGN_IN);
         Get.delete<AttendanceController>();
       }
       print("checkUserIsPunchedIn :: ${error.message}");
@@ -121,7 +122,6 @@ class AttendanceController extends GetxController with StateMixin {
     change(null, status: RxStatus.loading());
     await _attendanceDataRepository.getDailyLog().then((dailyLogs) {
       logs.value = dailyLogs;
-      print(dailyLogs.toString());
       //set the duration value for timer
       // it may have some existing value[other device or removing app from bg]
       duration =
@@ -136,6 +136,7 @@ class AttendanceController extends GetxController with StateMixin {
       }
       print("getDailyLog :: ${dailyLogs.message}");
     }, onError: (error) {
+      errorAlertPopup(getDailyLog);
       print("getDailyLog :: ${error.message}");
     });
     change(null, status: RxStatus.success());
@@ -147,6 +148,7 @@ class AttendanceController extends GetxController with StateMixin {
       logDetailsById = logDetails;
       print("logDetails :: ${logDetails.message}");
     }), onError: (error) {
+      errorSnackBar(errorMessage: error!.message);
       print("logDetails :: ${error.message}");
     });
     change(null, status: RxStatus.success());

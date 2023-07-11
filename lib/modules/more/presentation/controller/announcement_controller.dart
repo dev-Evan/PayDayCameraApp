@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
+import '../../../../common/widget/error_alert_pop_up.dart';
 import '../../data/announcement_repo.dart';
 import '../../domain/announcement_model.dart';
 import '../../domain/leave_allowance_model.dart';
@@ -54,6 +55,7 @@ class AnnouncementController extends GetxController with StateMixin {
           .toList(growable: true);
       change(null, status: RxStatus.success());
     }, onError: (error) {
+      errorAlertPopup(getAnnouncement);
       print("Get Announcement ::: ${error.message}");
     });
   }
@@ -90,6 +92,7 @@ class AnnouncementController extends GetxController with StateMixin {
       leaveAllowanceDetailsModel = value;
       change(null, status: RxStatus.success());
     }, onError: (error) {
+      errorAlertPopup(getLeaveAllowanceDetails);
       print("Get Leave allowance ::: $error");
     });
   }

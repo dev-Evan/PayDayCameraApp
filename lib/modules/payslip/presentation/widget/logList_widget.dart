@@ -77,7 +77,7 @@ Widget _logListRow(
     children: [
       _dateTitle(dateText: titleDate, monthText: titleMonth),
       customSpacerWidth(width: 30),
-      CustomDiveider(40, 0.7),
+      customDivider(40, 0.7),
       customSpacerWidth(width: 30),
       Expanded(
         flex: 0,
@@ -97,7 +97,7 @@ Widget _logListRow(
 Widget _divider({context}) {
   return Container(
     margin: EdgeInsets.only(top: 14, bottom: 0),
-    child: CustomDiveider(
+    child: customDivider(
         AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
   );
 }
