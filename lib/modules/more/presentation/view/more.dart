@@ -85,8 +85,8 @@ class MoreScreen extends GetView<ProfileDataController> {
                                       onAction: () async {
                                         Get.toNamed(
                                             Routes.LEAVE_ALLOWANCE_SCREEN);
-                                        // await Get.find<DocumentController>()
-                                        //     .getDocumentData();
+                                        await Get.find<AnnouncementController>()
+                                            .getLeaveAllowanceDetails();
                                       }),
                                   jobDeskCard(
                                       cardIcon: Images.clock,

@@ -4,6 +4,7 @@ import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 
 import '../domain/announcement_model.dart';
+import '../domain/leave_allowance_model.dart';
 
 class AnnouncementRepository {
   NetworkClient networkClient = NetworkClient();
@@ -25,4 +26,24 @@ class AnnouncementRepository {
       return Future.error(ex.toString());
     }
   }
+
+
+
+
+  Future<LeaveAllowanceDetailsModel> getLeaveAllowance() async {
+    try {
+      Response response = await networkClient
+          .getRequest(Api.LEAVE_ALLOWANCE_DETAILS);
+      if (response.status.hasError) {
+        return Future.error(ErrorModel.fromJson(response.body));
+      } else {
+        print("Leave Allowance Called ::: ${response.body}");
+        return LeaveAllowanceDetailsModel.fromJson(response.body);
+      }
+    } catch (ex) {
+      return Future.error(ex.toString());
+    }
+  }
+
+
 }

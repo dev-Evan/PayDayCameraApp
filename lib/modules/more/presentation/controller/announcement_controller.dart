@@ -3,13 +3,20 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import '../../data/announcement_repo.dart';
 import '../../domain/announcement_model.dart';
+import '../../domain/leave_allowance_model.dart';
 
 class AnnouncementController extends GetxController with StateMixin {
   AnnouncementModel announcementModel = AnnouncementModel();
-  AnnouncementRepository announcementRepo = AnnouncementRepository(NetworkClient());
+  LeaveAllowanceDetailsModel leaveAllowanceDetailsModel =
+      LeaveAllowanceDetailsModel();
+  AnnouncementRepository announcementRepo =
+      AnnouncementRepository(NetworkClient());
   late ScrollController announceScrollController;
   final RxBool isFloatingActionVisible = false.obs;
   RxList announcementIndex = [].obs;
+  List<LeaveAllowanceElement> paidLeave = [];
+  List<LeaveAllowanceElement> unpaidLeave = [];
+
   @override
   void onInit() {
     announceScrollController = ScrollController()
@@ -46,7 +53,7 @@ class AnnouncementController extends GetxController with StateMixin {
           ?.map((e) => announcementIndex.add(e))
           .toList(growable: true);
       change(null, status: RxStatus.success());
-        }, onError: (error) {
+    }, onError: (error) {
       print("Get Announcement ::: ${error.message}");
     });
   }
@@ -69,5 +76,21 @@ class AnnouncementController extends GetxController with StateMixin {
         isFloatingActionVisible.value = false;
       });
     }
+  }
+
+  getLeaveAllowanceDetails() {
+    change(null, status: RxStatus.loading());
+    announcementRepo.getLeaveAllowance().then(
+        (LeaveAllowanceDetailsModel value) {
+      paidLeave =
+          value.data!.where((element) => element.leaveType == "Paid").toList();
+      unpaidLeave = value.data!
+          .where((element) => element.leaveType == "Unpaid")
+          .toList();
+      leaveAllowanceDetailsModel = value;
+      change(null, status: RxStatus.success());
+    }, onError: (error) {
+      print("Get Leave allowance ::: $error");
+    });
   }
 }

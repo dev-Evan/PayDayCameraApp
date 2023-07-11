@@ -55,6 +55,7 @@ class Api{
   static String NOTIFICATION_AS_ALL_READ = "/notification/all/read";
   static String EMPLOYEE_BANK_INFORMATION = "/employee/bank-information";
   static String ANNOUNCEMENT = "/employee/announcement";
+  static String LEAVE_ALLOWANCE_DETAILS = "/leave/allowance-details";
   static String START_BREAK = "/attendance/break-start";
   static String END_BREAK = "/attendance/break-end";
 }

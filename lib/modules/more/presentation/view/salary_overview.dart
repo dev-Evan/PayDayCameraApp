@@ -13,6 +13,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/widget/custom_spacer.dart';
+import '../../../../common/widget/no_data_found.dart';
 import '../../../payslip/presentation/widget/logList_widget.dart';
 import '../widget/more_widget.dart';
 
@@ -52,25 +53,14 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
                                 ),
                               ),
                             )
-                          : Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  customSpacerHeight(height: 158),
-                                  svgIcon(
-                                    height: 160,
-                                    width: 160,
-                                    url: Images.no_data_found,
-                                  ),
-                                ],
-                              ),
-                            ),
+                          :noDataFound,
                     ],
                   ),
                 ),
             onLoading: const LoadingIndicator()));
   }
 }
+
 
 Widget _jobHisTitleView() {
   return Padding(
