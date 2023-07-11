@@ -34,6 +34,7 @@ class AppString {
   static String text_rejection = "Rejection";
   static String text_hours = "Hours";
   static const String text_add_note_here = "Add Note Here";
+  static const String text_edit_text_hint = "Add Note Here (minimum 10 characters)";
   static String text_note = "Note";
   static String text_single_day = "Single Day";
   static String text_multi_day = "Multi Day";
@@ -450,9 +451,5 @@ class AppString {
   static const String enterYourPassword = "Enter your password";
   static const String enterYourEmail = "Enter your email";
   static const String password = "Password";
-  static const String email = "Email";
-  static const String login = "Log In";
-  static const String hi_login_to_your_dashboard =
-      "Hi, login to your dashboard ";
 }
 

@@ -52,7 +52,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: _buttonLayout(context),
+                      child: _buttonLayout(),
                     ),
                   ],
                 ),
@@ -73,7 +73,6 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
           _noteLayout(),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-          _mapLayout(),
           SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
           Obx(
             () => UsersCurrentInfoLayout(
@@ -177,7 +176,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
 
 //output (in seconds): 103510200
 
-  _buttonLayout(BuildContext context) {
+  _buttonLayout() {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.only(
@@ -188,7 +187,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _cancelButton(context),
+          _cancelButton(),
           SizedBox(width: AppLayout.getWidth(10)),
           _punchButton(),
         ],
@@ -212,24 +211,25 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
         ));
   }
 
-  _punchOut(AttendanceController controller) async{
-    await controller.punchOut(LogEntryRequest(
-        ipData: IpData(
-            ip: controller.ipAddress.value,
-            coordinate: Coordinate(
-              lat: controller.lat.value.toString(),
-              lng: controller.long.value.toString(),
-            ),
-            location: controller.address.value,
-            workFromHome: false),
-        note: controller.editTextController.value.text,
-        today: DateFormat('y-M-d').format(DateTime.now()))).then((value) {
-          if(value==true){
-            controller.editTextController.clear();
-            Navigator.of(Get.context!).pop();
-          }
+  _punchOut(AttendanceController controller) async {
+    await controller
+        .punchOut(LogEntryRequest(
+            ipData: IpData(
+                ip: controller.ipAddress.value,
+                coordinate: Coordinate(
+                  lat: controller.lat.value.toString(),
+                  lng: controller.long.value.toString(),
+                ),
+                location: controller.address.value,
+                workFromHome: false),
+            note: controller.editTextController.value.text,
+            today: DateFormat('y-M-d').format(DateTime.now())))
+        .then((value) {
+      if (value == true) {
+        controller.editTextController.clear();
+        Get.back(canPop: false);
+      }
     });
-
   }
 
   _punchIn(AttendanceController controller) {
@@ -248,15 +248,14 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
         .then((value) {
       if (value == true) {
         controller.editTextController.clear();
-        Get.back();
+        Get.back(canPop: false);
       }
     });
-
   }
 
-  _cancelButton(BuildContext context) {
+  _cancelButton() {
     return AppButton(
-      onPressed: () => Navigator.of(context).pop(),
+      onPressed: () => Get.back(canPop: false),
       buttonText: AppString.text_cancel,
       buttonColor: Colors.transparent,
       hasOutline: true,

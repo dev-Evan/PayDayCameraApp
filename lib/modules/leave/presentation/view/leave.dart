@@ -80,7 +80,7 @@ class Leave extends GetView<LeaveController> {
               context: Get.context!,
               text: AppString.text_leave_records,
               onAction: () async {
-                CustomNavigator(
+                customNavigator(
                     context: Get.context!, pageName: const LeaveRecordsView());
                 await Get.find<LeaveController>().getLeaveSummary();
                 await Get.find<LeaveController>()

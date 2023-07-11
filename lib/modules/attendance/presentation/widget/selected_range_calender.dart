@@ -117,7 +117,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                       // const Spacer(),
                       Padding(
                         padding: const EdgeInsets.only(top: 16.0, bottom: 16),
-                        child: CustomDiveider(
+                        child: customDivider(
                             0.7, MediaQuery.of(context).size.width),
                       ),
 

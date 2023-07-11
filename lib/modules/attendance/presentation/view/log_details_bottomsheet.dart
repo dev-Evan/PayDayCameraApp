@@ -5,6 +5,7 @@ import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_e
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/controller/date_time_helper_controller.dart';
 import '../../../../common/widget/custom_app_button.dart';
+import '../../../../common/widget/custom_buttom_sheet.dart';
 import '../../../../common/widget/loading_indicator.dart';
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_layout.dart';
@@ -47,7 +48,6 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
                       alignment: Alignment.bottomCenter,
                       child: _buttonLayout(context),
                     ),
-
                   ],
                 ),
               ),
@@ -79,17 +79,13 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
       onPressed: () {
         Get.delete<DateTimeController>();
         Get.put(DateTimeController());
-        _openEditBottomSheet();},
+        customButtonSheet(
+          context: context,
+          height: 0.9,
+          child: EditAttendanceBottomSheet(
+              Get.find<AttendanceController>().logDetailsById),
+        );
+      },
     );
   }
 }
-
-Future _openEditBottomSheet() {
-  return showModalBottomSheet(
-    isScrollControlled: true,
-    backgroundColor: Colors.transparent,
-    context: Get.context!,
-    builder: (context) =>  EditAttendanceBottomSheet(Get.find<AttendanceController>().logDetailsById),
-  );
-}
-

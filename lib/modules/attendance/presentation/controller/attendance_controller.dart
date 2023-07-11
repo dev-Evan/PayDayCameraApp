@@ -61,7 +61,7 @@ class AttendanceController extends GetxController with StateMixin {
       }
     }, onError: (error) {
       if (error.message.startsWith("Unauthenticated")) {
-        Get.toNamed(Routes.SIGN_IN);
+        Get.offNamed(Routes.SIGN_IN);
         Get.delete<AttendanceController>();
       }
       print("checkUserIsPunchedIn :: ${error.message}");

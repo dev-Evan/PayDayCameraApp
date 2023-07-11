@@ -137,7 +137,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                     jobDeskCard(
                                       cardIcon: Images.log_out,
                                       cardText: AppString.text_log_out,
-                                      onAction: () => CustomAlertDialog(
+                                      onAction: () => customAlertDialog(
                                           context: context,
                                           icon: Icons.logout,
                                           yesText: AppString.text_log_out,

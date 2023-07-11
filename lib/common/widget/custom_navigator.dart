@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-Future CustomNavigator({context, pageName}) {
+Future customNavigator({context, pageName}) {
   return Navigator.push(
       context,
       CupertinoPageRoute(

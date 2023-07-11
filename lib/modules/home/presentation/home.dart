@@ -35,7 +35,7 @@ class _HomeState extends State<Home> {
   }
   
 Future dialog(){
-    return CustomAlertDialog(
+    return customAlertDialog(
 
     );
 }

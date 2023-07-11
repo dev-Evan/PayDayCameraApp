@@ -80,7 +80,7 @@ class MoreDataRepository {
       ) async {
     try {
       Response response = await networkClient.patchRequest(
-        Api.EMPLOYEE_BANK_INFORMATION +"/${box.read(AppString.BANK_USER_ID_STORE)}",
+        "${Api.EMPLOYEE_BANK_INFORMATION}/${box.read(AppString.BANK_USER_ID_STORE)}",
         {
           "key": "bank_details",
           "name": bankName,

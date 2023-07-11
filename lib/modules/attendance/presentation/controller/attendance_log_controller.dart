@@ -77,7 +77,6 @@ class AttendanceLogsController extends GetxController with StateMixin {
           filteredLogSummary = value;
         }, onError: (error) {
           print(error.message);
-          errorAlertPopup(_refreshData);
         });
         isMoreDataLoading(false);
       } else {
@@ -94,7 +93,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       this.logSummaryByMonth.value = logSummaryByMonth;
     }, onError: (error) {
       print(error);
-      errorAlertPopup(_refreshData);
+      errorAlertPopup(getLogSummaryByMonth);
     });
     change(null, status: RxStatus.success());
   }
@@ -107,7 +106,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       this.logSummaryByYear.value = logSummaryByYear;
     }, onError: (error) {
       print(error);
-      errorAlertPopup(_refreshData);
+      errorAlertPopup(getLogSummaryByYear);
     });
     change(null, status: RxStatus.success());
   }
@@ -126,7 +125,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       }
     }, onError: (error) {
       print(error.message);
-      errorAlertPopup(_refreshData);
+      errorAlertPopup(getAllFilteredLogSummary);
     });
     change(null, status: RxStatus.success());
   }
@@ -137,7 +136,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
         .getLogSummaryOverview(queryParams: queryParams)
         .then((value) => logSummaryOverview = value, onError: (error) {
       print(error.message);
-      errorAlertPopup(_refreshData);
+      errorAlertPopup(getLogSummaryOverview);
     });
     change(null, status: RxStatus.success());
   }
@@ -169,10 +168,4 @@ class AttendanceLogsController extends GetxController with StateMixin {
     return returnValue;
   }
 
-  _refreshData() async {
-    getLogSummaryByMonth();
-    getLogSummaryByYear();
-    getAllFilteredLogSummary();
-    getLogSummaryOverview();
-  }
 }

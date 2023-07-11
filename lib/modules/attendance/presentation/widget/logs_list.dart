@@ -125,7 +125,7 @@ class LogsList extends GetView<AttendanceLogsController> {
               ),
             ],
           ),
-          CustomDiveider(25, 1)
+          customDivider(25, 1)
         ],
       );
 

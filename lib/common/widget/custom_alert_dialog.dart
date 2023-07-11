@@ -7,7 +7,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'custom_spacer.dart';
 
-Future CustomAlertDialog(
+Future customAlertDialog(
     {context,
     yesAction,
     IconData? icon,
@@ -171,8 +171,7 @@ ButtonStyle get elevatedBtmStyle {
   return ElevatedButton.styleFrom(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10.0),
-    ),
-    primary: AppColor.backgroundColor,
+    ), backgroundColor: AppColor.backgroundColor,
     elevation: 0,
     side: borderSide,
   );
@@ -222,7 +221,6 @@ ButtonStyle saveBtnStyle({required buttonColor}) {
   return ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
-      ),
-      primary: buttonColor,
+      ), backgroundColor: buttonColor,
       elevation: 0);
 }

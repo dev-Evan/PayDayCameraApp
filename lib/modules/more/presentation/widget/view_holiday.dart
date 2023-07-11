@@ -124,7 +124,7 @@ Widget holidaysList() {
                       ),
                     ],
                   ),
-                  CustomDiveider(25, 1),
+                  customDivider(25, 1),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -176,7 +176,7 @@ Widget holidaysList() {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 12.0),
-              child: CustomDiveider(
+              child: customDivider(
                   AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
             )
           ],

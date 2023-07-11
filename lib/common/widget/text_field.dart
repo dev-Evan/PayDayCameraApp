@@ -7,10 +7,12 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class CustomTextField extends StatelessWidget {
   final String hintText;
+  // ignore: prefer_typing_uninitialized_variables
   final inputType;
+  // ignore: prefer_typing_uninitialized_variables
   final controller;
   final String? Function(String?)? validator;
-  CustomTextField({
+  const CustomTextField({
     Key? key,
     required this.hintText,
     this.validator,
@@ -56,7 +58,7 @@ class CustomTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault + 2),
           ),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColor.solidGray),
+              borderSide: const BorderSide(color: AppColor.solidGray),
               borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
           border: OutlineInputBorder(
             borderSide:
@@ -71,11 +73,13 @@ class CustomTextField extends StatelessWidget {
 
 class CustomPasswordTextField extends StatefulWidget {
   final String hintText;
+  // ignore: prefer_typing_uninitialized_variables
   final inputType;
+  // ignore: prefer_typing_uninitialized_variables
   final controller;
   final String? Function(String?)? validator;
 
-  CustomPasswordTextField({
+  const CustomPasswordTextField({
     Key? key,
     required this.hintText,
     this.validator,
@@ -139,7 +143,7 @@ class _CustomTextFeildState extends State<CustomPasswordTextField> {
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault + 2),
           ),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColor.solidGray),
+              borderSide: const BorderSide(color: AppColor.solidGray),
               borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
           border: OutlineInputBorder(
             borderSide:

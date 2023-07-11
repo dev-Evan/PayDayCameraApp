@@ -247,7 +247,7 @@ Widget _editDeleteBtn({required context, onAction, required editAction}) {
 }
 
 Future _deletedAlert({required context, onAction}) {
-  return CustomAlertDialog(
+  return customAlertDialog(
       context: context,
       icon: CupertinoIcons.delete,
       backAction: () {

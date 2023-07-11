@@ -29,44 +29,41 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
   String inputValue = '';
 
   var controller = TextEditingController();
+  @override
+  void initState() {
+    Get.find<DateTimeController>().pickedInTime.value =
+    widget.logDetailsById.data!.checkInTime!;
+    Get.find<DateTimeController>().pickedOutTime.value =
+    widget.logDetailsById.data!.checkOutTime!;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return DraggableScrollableSheet(
-        initialChildSize: .9,
-        maxChildSize: .9,
-        minChildSize: .7,
-        builder: (BuildContext context, ScrollController scrollController) {
-          Get.find<DateTimeController>().pickedInTime.value =
-              widget.logDetailsById.data!.checkInTime!;
-          Get.find<DateTimeController>().pickedOutTime.value =
-              widget.logDetailsById.data!.checkOutTime!;
-          return Container(
-            decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-            child: Stack(
-              children: [
-                ListView(
-                  controller: scrollController,
-                  children: [
-                    bottomSheetAppbar(
-                        context: context,
-                        appbarTitle: AppString.text_edit_attendance),
-                    _contentLayout(),
-                    SizedBox(
-                      height: AppLayout.getHeight(60),
-                    )
-                  ],
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: _buttonLayout(context),
-                )
-              ],
-            ),
-          );
-        });
+    return Container(
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+      child: Stack(
+        children: [
+          Column(
+            children: [
+              bottomSheetAppbar(
+                  context: context,
+                  appbarTitle: AppString.text_edit_attendance),
+              _contentLayout(),
+              SizedBox(
+                height: AppLayout.getHeight(60),
+              )
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: _buttonLayout(context),
+          )
+        ],
+      ),
+    );
   }
 
   _contentLayout() {
@@ -192,7 +189,7 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
         });
       },
       decoration: InputDecoration(
-          hintText: AppString.text_add_note_here,
+          hintText: AppString.text_edit_text_hint,
           hintStyle: AppStyle.normal_text
               .copyWith(color: AppColor.solidGray, fontWeight: FontWeight.w400),
           focusedBorder: OutlineInputBorder(

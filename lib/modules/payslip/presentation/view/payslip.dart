@@ -9,7 +9,6 @@ import 'package:pay_day_mobile/modules/payslip/presentation/widget/drop_dawon_se
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/logList_widget.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/payslip_widget.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/summary_layout.dart';
-import 'package:pay_day_mobile/modules/setting/presentation/controller/setting_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';

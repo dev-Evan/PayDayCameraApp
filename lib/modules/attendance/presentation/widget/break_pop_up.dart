@@ -74,7 +74,7 @@ _breakAppbar() {
       elevation: 0,
       automaticallyImplyLeading: false,
       title: Text(
-        AppString.text_take_break,
+        AppString.text_take_break.tr,
         style: AppStyle.normal_text_black.copyWith(
             fontWeight: FontWeight.w600,
             fontSize: Dimensions.fontSizeDefault + 2),
@@ -213,7 +213,6 @@ _buttonLayout() {
                   null) {
                 // ignore: unrelated_type_equality_checks
                 if (Get.find<BreakController>().selectedIndex != 100) {
-                  print("break on hit");
                   //get log id from check punched in method from attendance controller
                   //find break id by indexing from break controller
                   Get.find<BreakController>().startBreak(

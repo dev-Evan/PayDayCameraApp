@@ -38,17 +38,17 @@ class Data {
   String? _inIpData;
   String? _outIpData;
   int? _statusId;
-  Null? _reviewBy;
-  Null? _addedBy;
-  Null? _attendanceDetailsId;
+  dynamic _reviewBy;
+  dynamic _addedBy;
+  dynamic _attendanceDetailsId;
   String? _createdAt;
   String? _updatedAt;
-  Null? _parentAttendanceDetails;
+  dynamic _parentAttendanceDetails;
   List<Comments>? _comments;
   Status? _status;
-  Null? _reviewer;
+  dynamic _reviewer;
   Attendance? _attendance;
-  Null? _assignBy;
+  dynamic _assignBy;
 
   Data(
       {int? id,
@@ -58,17 +58,17 @@ class Data {
         String? inIpData,
         String? outIpData,
         int? statusId,
-        Null? reviewBy,
-        Null? addedBy,
-        Null? attendanceDetailsId,
+        dynamic reviewBy,
+        dynamic addedBy,
+        dynamic attendanceDetailsId,
         String? createdAt,
         String? updatedAt,
-        Null? parentAttendanceDetails,
+        dynamic parentAttendanceDetails,
         List<Comments>? comments,
         Status? status,
-        Null? reviewer,
+        dynamic reviewer,
         Attendance? attendance,
-        Null? assignBy}) {
+        dynamic assignBy}) {
     if (id != null) {
       _id = id;
     }
@@ -132,17 +132,17 @@ class Data {
   String? get inIpData => _inIpData;
   String? get outIpData => _outIpData;
   int? get statusId => _statusId;
-  Null? get reviewBy => _reviewBy;
-  Null? get addedBy => _addedBy;
-  Null? get attendanceDetailsId => _attendanceDetailsId;
+  dynamic get reviewBy => _reviewBy;
+  dynamic get addedBy => _addedBy;
+  dynamic get attendanceDetailsId => _attendanceDetailsId;
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
-  Null? get parentAttendanceDetails => _parentAttendanceDetails;
+  dynamic get parentAttendanceDetails => _parentAttendanceDetails;
   List<Comments>? get comments => _comments;
   Status? get status => _status;
-  Null? get reviewer => _reviewer;
+  dynamic get reviewer => _reviewer;
   Attendance? get attendance => _attendance;
-  Null? get assignBy => _assignBy;
+  dynamic get assignBy => _assignBy;
 
   Data.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -180,7 +180,7 @@ class Comments {
   int? _userId;
   String? _type;
   String? _comment;
-  Null? _parentId;
+  dynamic _parentId;
   String? _createdAt;
   String? _updatedAt;
   User? _user;
@@ -190,7 +190,7 @@ class Comments {
         int? userId,
         String? type,
         String? comment,
-        Null? parentId,
+        dynamic parentId,
         String? createdAt,
         String? updatedAt,
         User? user}) {
@@ -224,7 +224,7 @@ class Comments {
   int? get userId => _userId;
   String? get type => _type;
   String? get comment => _comment;
-  Null? get parentId => _parentId;
+  dynamic get parentId => _parentId;
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
   User? get user => _user;

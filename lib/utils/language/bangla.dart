@@ -1,3 +1,5 @@
+import '../app_string.dart';
+
 Map<String, String> ban = {
   "greeting_text": "হ্যালো",
   "text_worked":"কাজ করেছে",
@@ -17,4 +19,5 @@ Map<String, String> ban = {
   "text_on_break":"এখন বিরতিতে",
   "text_attendance_log":"উপস্থিতি লগ",
   "text_language":"ভাষা",
+  AppString.text_take_break:"বিরতি নাও"
 };
