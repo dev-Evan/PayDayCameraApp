@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import '../domain/attendance_status.dart';
@@ -13,10 +14,12 @@ class StatusController extends GetxController {
   }
 
   getAttendanceStatus() async {
-    await NetworkClient().getRequest(Api.ATTENDANCE_STATUS).then(
-        (response) {
+    await NetworkClient().getRequest(Api.ATTENDANCE_STATUS).then((response) {
       statusData = AttendanceStatus.fromJson(response.body);
-      print("status::: ${statusData.message}");
-    }, onError: (error) => print(error));
+      Logger().log(Level.info, statusData);
+    }, onError: (error) {
+      getAttendanceStatus();
+      Logger().log(Level.error, error.message);
+    });
   }
 }

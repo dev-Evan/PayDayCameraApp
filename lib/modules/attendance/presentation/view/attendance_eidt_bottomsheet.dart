@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/widget/custom_time_in_time_picker.dart';
+import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import '../../../../common/controller/date_time_helper_controller.dart';
@@ -29,10 +31,18 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
   String inputValue = '';
 
   var controller = TextEditingController();
+
   @override
   void initState() {
-    Get.find<DateTimeController>().pickedInTime.value =
-    widget.logDetailsById.data!.checkInTime!;
+    if (Get.isRegistered<DateTimeController>()) {
+      Get.delete<DateTimeController>();
+    }
+    Get.put(DateTimeController());
+    Get
+        .find<DateTimeController>()
+        .requestedDate
+        .value = _getDate(widget.logDetailsById.data!.inDate ?? '');
+    Get.find<DateTimeController>().pickedInTime.value = widget.logDetailsById.data!.checkInTime!;
     Get.find<DateTimeController>().pickedOutTime.value =
     widget.logDetailsById.data!.checkOutTime!;
     super.initState();
@@ -40,30 +50,34 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-      child: Stack(
-        children: [
-          Column(
-            children: [
-              bottomSheetAppbar(
-                  context: context,
-                  appbarTitle: AppString.text_edit_attendance),
-              _contentLayout(),
-              SizedBox(
-                height: AppLayout.getHeight(60),
-              )
-            ],
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: _buttonLayout(context),
-          )
-        ],
-      ),
-    );
+    return Get.find<AttendanceController>().obx(
+            (state) =>
+            Container(
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius:
+                  BorderRadius.vertical(top: Radius.circular(16))),
+              child: Stack(
+                children: [
+                  Column(
+                    children: [
+                      bottomSheetAppbar(
+                          context: context,
+                          appbarTitle: AppString.text_edit_attendance),
+                      _contentLayout(),
+                      SizedBox(
+                        height: AppLayout.getHeight(60),
+                      )
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: _buttonLayout(context),
+                  )
+                ],
+              ),
+            ),
+        onLoading: const LoadingIndicator());
   }
 
   _contentLayout() {
@@ -206,18 +220,35 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
   }
 
   _saveButton() {
-    print(inputValue);
     return AppButton(
       buttonColor: AppColor.primaryBlue,
       buttonText: AppString.text_save,
       onPressed: () async {
         await Get.find<AttendanceController>()
             .changeAttendance(
-                logId:
-                    Get.find<AttendanceController>().logDetailsById.data!.id!,
-                inTime: Get.find<DateTimeController>().pickedInTime.value,
-                outTime: Get.find<DateTimeController>().pickedOutTime.value,
-                note: inputValue)
+            logId:
+            Get
+                .find<AttendanceController>()
+                .logDetailsById
+                .data!
+                .id!,
+            inTime:
+            "${DateFormat("yyyy-MM-dd hh:mm a").parse("${Get
+                .find<DateTimeController>()
+                .requestedDate
+                .value} ${Get
+                .find<DateTimeController>()
+                .pickedInTime
+                .value}")}",
+            outTime:
+            "${DateFormat("yyyy-MM-dd hh:mm a").parse("${Get
+                .find<DateTimeController>()
+                .requestedDate
+                .value} ${Get
+                .find<DateTimeController>()
+                .pickedOutTime
+                .value}")}",
+            note: inputValue)
             .then((value) {
           if (value == true) {
             Navigator.of(Get.context!).pop();
@@ -228,7 +259,10 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
   }
 
   _cancelButton(BuildContext context) {
-    Get.find<AttendanceLogsController>().textEditingController.clear();
+    Get
+        .find<AttendanceLogsController>()
+        .textEditingController
+        .clear();
     return AppButton(
       onPressed: () => Navigator.of(context).pop(),
       buttonText: AppString.text_cancel,
@@ -237,5 +271,18 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
       borderColor: Colors.black,
       textColor: Colors.black,
     );
+  }
+
+  String _getDate(String inDate) {
+    try {
+      DateFormat inputFormat = DateFormat('dd MMM yyyy');
+      DateFormat outputFormat = DateFormat('yyyy-MM-dd');
+
+      DateTime dateTime = inputFormat.parse(inDate);
+      String convertedDate = outputFormat.format(dateTime);
+      return convertedDate;
+    } catch (e) {
+      return "";
+    }
   }
 }

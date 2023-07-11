@@ -20,7 +20,6 @@ class DateTimeController extends GetxController {
           : pickedOutTime.value =
               "${selectedInputHrs.padLeft(2, '0')}:${selectedInputMins.padLeft(2, '0')} $clockHrsFormat";
     }
-    print("in time: $pickedInTime  out time: $pickedOutTime");
     isInTimeClicked.value = !isInTimeClicked.value;
     selectedInputHrs = '06';
     selectedInputMins = '30';

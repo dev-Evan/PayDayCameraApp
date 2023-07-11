@@ -329,6 +329,7 @@ class AppString {
   static String text_february_2022 = "February 2022";
   static String text_this_year = "This Year";
   static String text_this_year2 = "thisYear";
+  static String storage_permission = "Storage permission needed";
   static String text_caleder = "Calender";
   static String text_this_month = "This month";
   static String text_success = "Success";

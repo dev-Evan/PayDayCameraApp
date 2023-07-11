@@ -8,6 +8,7 @@ import 'package:pay_day_mobile/modules/attendance/domain/log_summary/log_summary
 import 'package:pay_day_mobile/modules/attendance/domain/log_summary/log_summary_overview.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/request_attendance/request_attendance.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
+import 'package:pay_day_mobile/utils/logger.dart';
 
 import '../../../../common/widget/error_snackbar.dart';
 import '../../domain/all_log_summary/all_log_summay.dart';
@@ -17,7 +18,6 @@ class AttendanceLogsController extends GetxController with StateMixin {
   void onInit() {
     floatingScrollController = ScrollController()
       ..addListener(() {
-        print("Called:: floatingScrollController");
         if (floatingScrollController.position.atEdge) {
           if (floatingScrollController.position.pixels > 0) {
             if (isFloatingActionVisible.isTrue) {
@@ -62,7 +62,6 @@ class AttendanceLogsController extends GetxController with StateMixin {
   final TextEditingController textEditingController = TextEditingController();
 
   void _loadMoreFilteredLogSummary() async {
-    print("_loadMoreFilteredLogSummary :: Called");
     if (filteredLogSummary.data != null) {
       if (filteredLogSummary.data!.meta!.currentPage! <
           filteredLogSummary.data!.meta!.totalPages!) {
@@ -76,7 +75,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
 
           filteredLogSummary = value;
         }, onError: (error) {
-          print(error.message);
+          LoggerHelper.errorLog(message: error.message);
         });
         isMoreDataLoading(false);
       } else {
@@ -89,11 +88,11 @@ class AttendanceLogsController extends GetxController with StateMixin {
     change(null, status: RxStatus.loading());
     await _attendanceLogsRepository.getLogSummaryByThisMonth().then(
         (logSummaryByMonth) {
-      print("getLogSummaryByMonth:: called");
       this.logSummaryByMonth.value = logSummaryByMonth;
+      LoggerHelper.infoLog(message: logSummaryByMonth.message);
     }, onError: (error) {
-      print(error);
       errorAlertPopup(getLogSummaryByMonth);
+      LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());
   }
@@ -102,11 +101,11 @@ class AttendanceLogsController extends GetxController with StateMixin {
     change(null, status: RxStatus.loading());
     await _attendanceLogsRepository.getLogSummaryByThisYear().then(
         (logSummaryByYear) {
-      print("getLogSummaryByYear:: called");
       this.logSummaryByYear.value = logSummaryByYear;
+      LoggerHelper.infoLog(message: logSummaryByYear.message);
     }, onError: (error) {
-      print(error);
       errorAlertPopup(getLogSummaryByYear);
+      LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());
   }
@@ -123,8 +122,9 @@ class AttendanceLogsController extends GetxController with StateMixin {
           filteredLogSummary.data!.meta!.totalPages!) {
         queryString("within=thisMonth");
       }
+      LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
-      print(error.message);
+      LoggerHelper.errorLog(message: error.message);
       errorAlertPopup(getAllFilteredLogSummary);
     });
     change(null, status: RxStatus.success());
@@ -134,8 +134,11 @@ class AttendanceLogsController extends GetxController with StateMixin {
     change(null, status: RxStatus.loading());
     await _attendanceLogsRepository
         .getLogSummaryOverview(queryParams: queryParams)
-        .then((value) => logSummaryOverview = value, onError: (error) {
-      print(error.message);
+        .then((value) {
+      logSummaryOverview = value;
+      LoggerHelper.infoLog(message: value.message);
+    }, onError: (error) {
+      LoggerHelper.errorLog(message: error.message);
       errorAlertPopup(getLogSummaryOverview);
     });
     change(null, status: RxStatus.success());
@@ -155,17 +158,16 @@ class AttendanceLogsController extends GetxController with StateMixin {
           "${DateFormat("yyyy-MM-dd hh:mm a").parse("${controller.requestedDate.value} ${controller.pickedOutTime.value}")}",
     ))
         .then((value) {
-      print(value.toString());
       textEditingController.clear();
       returnValue = true;
+      LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
-      print(error.message);
       textEditingController.clear();
       errorSnackBar(errorMessage: error.message);
       returnValue = false;
+      LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());
     return returnValue;
   }
-
 }

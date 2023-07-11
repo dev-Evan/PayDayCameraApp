@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
@@ -6,13 +5,14 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
+import 'package:pay_day_mobile/utils/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../utils/app_string.dart';
 
 class DownloadHelper extends GetxController {
   @override
   void onInit() {
-    print("onInit called");
     IsolateNameServer.registerPortWithName(_port.sendPort, "Downloading");
     FlutterDownloader.registerCallback(downloadCallback);
     super.onInit();
@@ -29,20 +29,20 @@ class DownloadHelper extends GetxController {
         directory = Directory('/storage/emulated/0/Download');
         // Put file in global download folder, if for an unknown reason it didn't exist, we fallback
         // ignore: avoid_slow_async_io
-        if (!await directory.exists()) directory = await getExternalStorageDirectory();
+        if (!await directory.exists()) {
+          directory = await getExternalStorageDirectory();
+        }
       }
     } catch (err) {
-      print("Cannot get download folder path");
+      LoggerHelper.errorLog(message: "Cannot get download folder path");
     }
     return directory?.path;
   }
-
 
   downloadFile({required String url}) async {
     final status = await Permission.storage.request();
     if (status.isGranted) {
       final baseStorage = await getExternalStorageDirectory();
-      print(baseStorage);
       await FlutterDownloader.enqueue(
           url: url,
           allowCellular: true,
@@ -53,7 +53,7 @@ class DownloadHelper extends GetxController {
           openFileFromNotification: true,
           saveInPublicStorage: true);
     } else {
-      print("No Permission");
+      errorSnackBar(errorMessage: AppString.storage_permission);
     }
   }
 
@@ -66,7 +66,6 @@ class DownloadHelper extends GetxController {
 
   @override
   void dispose() {
-    print("dispose called");
     IsolateNameServer.removePortNameMapping('Downloading');
     super.dispose();
   }

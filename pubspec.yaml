@@ -57,6 +57,7 @@ dependencies:
   flutter_widget_from_html_core: ^0.10.0
   connectivity_plus:
   flutter_downloader:
+  logger: ^1.4.0
 
 dev_dependencies:
   flutter_test:
