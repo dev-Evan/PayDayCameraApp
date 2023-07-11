@@ -70,6 +70,6 @@ Future<void> initApp() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark));
-
   Get.find<SettingController>().getCurrencyData();
+
 }
