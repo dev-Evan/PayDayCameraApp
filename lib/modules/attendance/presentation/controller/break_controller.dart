@@ -47,6 +47,7 @@ class BreakController extends GetxController {
     await _attendanceDataRepository.startBreak(logId, breakId).then(
         (value) async {
       _startTimer();
+
       await Get.find<AttendanceController>().checkUserIsPunchedIn();
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
