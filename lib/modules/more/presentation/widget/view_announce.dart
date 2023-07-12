@@ -6,6 +6,7 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/announcement
 import 'package:pay_day_mobile/modules/more/presentation/view/announce.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/more_widget.dart';
+import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -19,6 +20,7 @@ class ViewAnnounce extends GetView<AnnouncementController> {
   Widget build(BuildContext context) {
     return controller.obx(
         (state) => Scaffold(
+
               body: (controller.announcementModel.data?.announcements != null &&
                       controller
                           .announcementModel.data!.announcements!.isNotEmpty)
@@ -28,8 +30,7 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          customMoreAppbar(
-                              titleText: AppString.text_announcement),
+                          customMoreAppbar(titleText: AppString.text_announcement),
                           Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: Obx(() => ListView.builder(
@@ -218,4 +219,5 @@ class ViewAnnounce extends GetView<AnnouncementController> {
     return TextButton(
         onPressed: () => onAction(), child: _redMoreBtn(text: text));
   }
+
 }

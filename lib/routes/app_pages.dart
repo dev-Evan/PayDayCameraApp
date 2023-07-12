@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/view/leve_records_view.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/announce.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/edit_profile.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
 import 'package:pay_day_mobile/modules/starting/view/splash_screen.dart';
 import '../modules/attendance/presentation/view/attendance_logs.dart';
 import '../modules/auth/presentation/view/sign_in.dart';
@@ -50,7 +51,7 @@ class AppPages {
     GetPage(
       transition: Transition.cupertino,
       name: _Paths.MORE_SCREEN,
-      page: () => MoreScreen(),
+      page: () => const MoreScreen(),
     ),
     GetPage(
       transition: Transition.cupertino,
@@ -69,11 +70,17 @@ class AppPages {
       name: _Paths.LEAVE,
       page: () => const Leave(),
     ),
+
+
+
     GetPage(
       name: _Paths.PROFILE_VIEW,
       transition: Transition.rightToLeft,
+      page: () =>  const ViewProfile()),
 
-      page: () => const SignInScreen()),
+
+
+
     GetPage(
       name: _Paths.UPDATE_DOCUMENT,
       page: () =>  UpdateDocument(),
@@ -112,23 +119,23 @@ class AppPages {
     GetPage(
       name: _Paths.NOTIFICATION_SCREEN,
       transition: Transition.rightToLeft,
-      page: () => Notifications(),
+      page: () => const Notifications(),
     ),
     GetPage(
       name: _Paths.BANK_DETAILS,
       transition: Transition.rightToLeft,
-      page: () => BankDetails(),
+      page: () => const BankDetails(),
     ),
     GetPage(
       name: _Paths.ANNOUNCE_SCREEN,
       transition: Transition.rightToLeft,
-      page: () => AnnounceScreen(),
+      page: () => const AnnounceScreen(),
     ),
 
     GetPage(
       name: _Paths.LEAVE_ALLOWANCE_SCREEN,
       transition: Transition.rightToLeft,
-      page: () => LeaveAllowanceScreen(),
+      page: () => const LeaveAllowanceScreen(),
     ),
 
 

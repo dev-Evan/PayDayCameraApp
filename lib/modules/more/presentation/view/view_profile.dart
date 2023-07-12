@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
@@ -16,14 +15,11 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/view_profile_wid
 import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import 'package:pay_day_mobile/utils/utils.dart';
 
 class ViewProfile extends GetView<ProfileDataController> {
+  const ViewProfile({super.key});
   @override
   Widget build(BuildContext context) {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      Get.find<ProfileDataController>().getUserData();
-    });
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
       appBar: const CustomAppbar(),
@@ -87,32 +83,16 @@ class ViewProfile extends GetView<ProfileDataController> {
                           Get.toNamed(Routes.EDIT_PROFILE);
                         }),
                     customSpacerHeight(height: 10),
-                    Obx(
-                      () => circleAvatarStyle(
-                        userImage: controller
-                                .userProfile.data?.profilePictureUrl
-                                .toString() ??
-                            "",
-                      ),
-                    ),
+                    Obx(() => circleAvatarStyle(userImage: controller.userProfile.data?.profilePictureUrl.toString() ?? "",)),
                     customSpacerHeight(height: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        userName(
-                            text: controller.userProfile.data?.fullName
-                                    .toString() ??
-                                ""),
+                        userName(text: controller.userProfile.data?.fullName.toString() ?? AppString.text_not_added_yet),
                         designationText(
-                            desText: controller
-                                    .userProfile.data?.designationName
-                                    .toString() ??
-                                "",
-                            status: controller
-                                    .userProfile.data?.employmentStatus
-                                    .toString() ??
-                                ""),
+                            desText: controller.userProfile.data?.designationName.toString() ??"",
+                            status: controller.userProfile.data?.employmentStatus.toString() ?? ""),
                         customSpacerHeight(height: 20),
                         moveChangePassword(
                           context: context,
@@ -236,10 +216,10 @@ class ViewProfile extends GetView<ProfileDataController> {
                                           .userProfile.data!.gender!.isEmpty
                                   ? Container()
                                   : cardView(
-                                      dynamicText: capitalize(controller
+                                      dynamicText: controller
                                               .userProfile.data?.gender
                                               .toString() ??
-                                          ""),
+                                          "",
                                       titleText: AppString.text_gender,
                                       icon: CupertinoIcons.person),
                             ],
@@ -251,7 +231,7 @@ class ViewProfile extends GetView<ProfileDataController> {
                   ],
                 ),
               ),
-          onLoading: LoadingIndicator()),
+          onLoading: const LoadingIndicator()),
     );
   }
 }

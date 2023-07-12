@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -25,7 +26,6 @@ import '../controller/announcement_controller.dart';
 
 class MoreScreen extends GetView<ProfileDataController> {
   const MoreScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
       controller.getUserData();
@@ -71,8 +71,8 @@ class MoreScreen extends GetView<ProfileDataController> {
                                         cardText: AppString.text_announcement,
                                         onAction: () async {
                                            Get.toNamed(Routes.ANNOUNCE_SCREEN);
-                                           await Get.find<AnnouncementController>()
-                                              .getAnnouncement();
+                                          await Get.find<AnnouncementController>()
+                                               .getAnnouncement();
                                         }),
                                     jobDeskCard(
                                         cardIcon: Images.folder,

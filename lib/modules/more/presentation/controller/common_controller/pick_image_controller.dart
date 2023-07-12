@@ -4,7 +4,7 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile
 
 class PickImageController extends GetxController {
   var pickedImage = Rx<XFile?>(null);
-  ProfileDataController _profileDataController =
+  final ProfileDataController _profileDataController =
       Get.put(ProfileDataController());
 
   Future<void> pickImage(ImageSource source) async {

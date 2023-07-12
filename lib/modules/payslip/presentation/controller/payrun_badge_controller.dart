@@ -6,8 +6,7 @@ import 'package:pay_day_mobile/network/network_client.dart';
 
 class PayrunBadgeController extends GetxController with StateMixin {
   PayrunBadgeModel payrunBadgeModel = PayrunBadgeModel();
-  PayslipDataRepository payrunBadgeRepository =
-      PayslipDataRepository(NetworkClient());
+  PayslipDataRepository payrunBadgeRepository = PayslipDataRepository(NetworkClient());
 
   List<PayrunBeneficiaryElement> allowance = [];
   List<PayrunBeneficiaryElement> deduction = [];

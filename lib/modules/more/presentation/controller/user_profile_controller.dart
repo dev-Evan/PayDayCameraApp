@@ -16,17 +16,12 @@ import '../../../auth/presentation/controller/auth_controller.dart';
 import '../widget/profile_container_layout.dart';
 
 class ProfileDataController extends GetxController with StateMixin {
-  ProfileDataRepository profileDataRepository =
-  ProfileDataRepository(NetworkClient());
+  ProfileDataRepository profileDataRepository = ProfileDataRepository(NetworkClient());
   UserProfile userProfile = UserProfile();
-  @override
-  void onInit() {
-    getUserData();
-    super.onInit();
-  }
+
   getUserData() async {
     change(null, status: RxStatus.loading());
-    await profileDataRepository.getUserProfileData().then((value) {
+    await profileDataRepository.getUserProfileData().then((UserProfile value) {
       userProfile = value;
       print('User profile called ::: $value');
     }, onError: (e) {
@@ -37,20 +32,18 @@ class ProfileDataController extends GetxController with StateMixin {
   }
 
   changeProfileImage(XFile image) async {
-    waitingLoader();
-    await profileDataRepository
-        .changeImageRepo(
+    change(null, status: RxStatus.loading());
+    await profileDataRepository.changeImageRepo(
       image: image,
     )
         .then((value) {
-      Get.back();
-      getUserData();
       showCustomSnackBar(
           message: AppString.text_profile_picture_update_successfully);
-      print(value.toString());
     }, onError: (error) {
-      print(error.message);
+      print("Change profile image ::: ${error.message}");
     });
+    change(null, status: RxStatus.success());
+
   }
 
 

@@ -22,7 +22,6 @@ class PaySlip extends GetView<PayslipListController> {
     AppString.text_last_month,
     AppString.text_last_year
   ];
-
   @override
   Widget build(BuildContext context) {
     controller.getPayslipListData(value: thisYarKey());
