@@ -14,58 +14,66 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 
 class JodHistory extends GetView<JobHistoryController> {
-  JodHistory({Key? key}) : super(key: key);
+  const JodHistory({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: const CustomAppbar(),
         body: controller.obx(
-          (state) => SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                customMoreAppbar(titleText: AppString.text_job_history),
-                controller.jobHistoryModel.data !=null?
+          (state) => RefreshIndicator(
+            onRefresh: _refreshPage,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  customMoreAppbar(titleText: AppString.text_job_history),
+                  controller.jobHistoryModel.data !=null?
 
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: AppLayout.getHeight(Dimensions.paddingLarge),
-                        horizontal: AppLayout.getWidth(Dimensions.paddingLarge),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _joiningDateText(),
-                          _joiningDateSubText(
-                              text: controller.jobHistoryModel.data?.joiningDate
-                                      .toString() ??
-                                  ""),
-                        ],
-                      ),
-                    ),
-                    const JobHistoryView(),
-                  ],
-                ):Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      customSpacerHeight(height: 158),
-                      svgIcon(
-                        height: 130,
-                        width: 130,
-                        url: Images.error_404,
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: AppLayout.getHeight(Dimensions.paddingLarge),
+                          horizontal: AppLayout.getWidth(Dimensions.paddingLarge),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _joiningDateText(),
+                            _joiningDateSubText(
+                                text: controller.jobHistoryModel.data?.joiningDate
+                                        .toString() ??
+                                    ""),
+                          ],
+                        ),
                       ),
+                      const JobHistoryView(),
                     ],
-                  ),
-                )
-              ],
+                  ):Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        customSpacerHeight(height: 158),
+                        svgIcon(
+                          height: 130,
+                          width: 130,
+                          url: Images.error_404,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           onLoading: const LoadingIndicator(),
         ));
+  }
+
+  Future<void> _refreshPage() async {
+    controller.getJobHistoryData();
   }
 }
 

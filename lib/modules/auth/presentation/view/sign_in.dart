@@ -90,7 +90,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                       return AppString
                                           .the_email_field_is_required;
                                     } else if (value.isEmpty ||
-                                        !RegExp(emailPatten()).hasMatch(value)) {
+                                        !RegExp(emailExp()).hasMatch(value)) {
                                       return AppString
                                           .please_insert_a_valid_email_address;
                                     } else {
@@ -183,8 +183,12 @@ class _SignInScreenState extends State<SignInScreen> {
 
 }
 
-emailPatten() {
+emailExp() {
   const pattern =
       r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$';
   return pattern;
+}
+
+passwordExp() {
+  return r"(?=.*\d)(?=.*[a-z])(?=.*\W)";
 }

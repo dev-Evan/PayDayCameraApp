@@ -15,7 +15,6 @@ class AnnouncementRepository {
     try {
       Response response = await networkClient
           .getRequest("${Api.ANNOUNCEMENT}?page=$pageInt&per_page=5");
-      print("Api Called :::: ${"${Api.ANNOUNCEMENT}?page=$pageInt&per_page=5"}");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -27,13 +26,10 @@ class AnnouncementRepository {
     }
   }
 
-
-
-
   Future<LeaveAllowanceDetailsModel> getLeaveAllowance() async {
     try {
-      Response response = await networkClient
-          .getRequest(Api.LEAVE_ALLOWANCE_DETAILS);
+      Response response =
+          await networkClient.getRequest(Api.LEAVE_ALLOWANCE_DETAILS);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -44,6 +40,4 @@ class AnnouncementRepository {
       return Future.error(ex.toString());
     }
   }
-
-
 }

@@ -25,39 +25,47 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
     return Scaffold(
         appBar: const CustomAppbar(),
         body: controller.obx(
-            (state) => SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      customMoreAppbar(
-                          titleText: AppString.text_salary_overview),
-                      controller.salaryOverView.data != null &&
-                              controller.salaryOverView.data!.isNotEmpty
-                          ? Padding(
-                              padding: EdgeInsets.only(
-                                  left: AppLayout.getWidth(20),
-                                  right: AppLayout.getWidth(20),
-                                  top: AppLayout.getHeight(15),
-                                  bottom: AppLayout.getHeight(20)),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    basicSalaryText,
-                                    Text(
-                                        "${Get.find<SettingController>().basicInfo?.data.currencySymbol ?? ""} ${controller.salaryOverView.data!.first.basicSalary == true ? controller.salaryOverView.data?.first.amount.toString() ?? "" : controller.salaryOverView.data!.last.basicSalary == true ? controller.salaryOverView.data?.last.amount.toString() ?? "" : ""}",
-                                        style: basicSalaryStyle),
-                                    customSpacerHeight(height: 16),
-                                    _jobHisTitleView()
-                                  ],
+            (state) => RefreshIndicator(
+              onRefresh: _refreshPage,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        customMoreAppbar(
+                            titleText: AppString.text_salary_overview),
+                        controller.salaryOverView.data != null &&
+                                controller.salaryOverView.data!.isNotEmpty
+                            ? Padding(
+                                padding: EdgeInsets.only(
+                                    left: AppLayout.getWidth(20),
+                                    right: AppLayout.getWidth(20),
+                                    top: AppLayout.getHeight(15),
+                                    bottom: AppLayout.getHeight(20)),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      basicSalaryText,
+                                      Text(
+                                          "${Get.find<SettingController>().basicInfo?.data.currencySymbol ?? ""} ${controller.salaryOverView.data!.first.basicSalary == true ? controller.salaryOverView.data?.first.amount.toString() ?? "" : controller.salaryOverView.data!.last.basicSalary == true ? controller.salaryOverView.data?.last.amount.toString() ?? "" : ""}",
+                                          style: basicSalaryStyle),
+                                      customSpacerHeight(height: 16),
+                                      _jobHisTitleView()
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            )
-                          :noDataFound,
-                    ],
+                              )
+                            :noDataFound,
+                      ],
+                    ),
                   ),
-                ),
+            ),
             onLoading: const LoadingIndicator()));
+  }
+
+  Future<void> _refreshPage() async {
+    controller.getSalaryOveData();
   }
 }
 

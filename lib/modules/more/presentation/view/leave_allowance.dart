@@ -18,50 +18,57 @@ class LeaveAllowanceScreen extends GetView<AnnouncementController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppbar(),
-      body: controller.obx((state) => SingleChildScrollView(
-        physics: const ScrollPhysics(),
-        child: (controller.leaveAllowanceDetailsModel.data !=null && controller.leaveAllowanceDetailsModel.data!.isNotEmpty)?
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _subAppbar(),
-            Container(margin: edgeInsets, child: _titleText(text: AppString.text_paid)),
+      body: controller.obx((state) => RefreshIndicator(
+        onRefresh: _refreshPage,
+        child: SingleChildScrollView(
+          physics: const ScrollPhysics(),
+          child: (controller.leaveAllowanceDetailsModel.data !=null && controller.leaveAllowanceDetailsModel.data!.isNotEmpty)?
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _subAppbar(),
+              Container(margin: edgeInsets, child: _titleText(text: AppString.text_paid)),
 
-            ListView.builder(
-                itemCount: controller.paidLeave.length,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return _cardBox(context: context,
-                  type: controller.paidLeave[index].type ??"",
-                  earned: controller.paidLeave[index].earned ??"",
-                  allowance: controller.paidLeave[index].allowance ??"",
-                  taken: controller.paidLeave[index].taken ??"",
-                  availability: controller.paidLeave[index].availability ??"",
-
-
-                  );
-                }),
-            Container(
-                margin: edgeInsets, child: _titleText(text: AppString.text_unpaid)),
-            ListView.builder(
-                itemCount: controller.unpaidLeave.length,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return _cardBox(context: context,
-                    type: controller.unpaidLeave[index].type ??"",
-                    earned: controller.unpaidLeave[index].earned ??"",
-                    allowance: controller.unpaidLeave[index].allowance ??"",
-                    taken: controller.unpaidLeave[index].taken ??"",
-                    availability: controller.unpaidLeave[index].availability ??"",
+              ListView.builder(
+                  itemCount: controller.paidLeave.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return _cardBox(context: context,
+                    type: controller.paidLeave[index].type ??"",
+                    earned: controller.paidLeave[index].earned ??"",
+                    allowance: controller.paidLeave[index].allowance ??"",
+                    taken: controller.paidLeave[index].taken ??"",
+                    availability: controller.paidLeave[index].availability ??"",
 
 
-                  );                }),
-          ],
-        ):noDataFound,
+                    );
+                  }),
+              Container(
+                  margin: edgeInsets, child: _titleText(text: AppString.text_unpaid)),
+              ListView.builder(
+                  itemCount: controller.unpaidLeave.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return _cardBox(context: context,
+                      type: controller.unpaidLeave[index].type ??"",
+                      earned: controller.unpaidLeave[index].earned ??"",
+                      allowance: controller.unpaidLeave[index].allowance ??"",
+                      taken: controller.unpaidLeave[index].taken ??"",
+                      availability: controller.unpaidLeave[index].availability ??"",
+
+
+                    );                }),
+            ],
+          ):noDataFound,
+        ),
       ),onLoading: const LoadingIndicator()),
     );
+  }
+
+  Future<void> _refreshPage() async {
+    controller.getLeaveAllowanceDetails();
   }
 }
 

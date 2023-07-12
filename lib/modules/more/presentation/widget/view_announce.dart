@@ -6,7 +6,6 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/announcement
 import 'package:pay_day_mobile/modules/more/presentation/view/announce.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/more_widget.dart';
-import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -20,89 +19,93 @@ class ViewAnnounce extends GetView<AnnouncementController> {
   Widget build(BuildContext context) {
     return controller.obx(
         (state) => Scaffold(
-
               body: (controller.announcementModel.data?.announcements != null &&
                       controller
                           .announcementModel.data!.announcements!.isNotEmpty)
-                  ? SingleChildScrollView(
-                      controller: controller.announceScrollController,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          customMoreAppbar(titleText: AppString.text_announcement),
-                          Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: Obx(() => ListView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount:
-                                        controller.announcementIndex.length,
-                                    itemBuilder: (context, index) {
-                                      String plainText = htmlParser
-                                              .parse(controller
-                                                      .announcementIndex[index]
-                                                      .description ??
-                                                  "")
-                                              .documentElement
-                                              ?.text ??
-                                          "";
-                                      final drc = controller
-                                              .announcementIndex[index]
-                                              .description ??
-                                          "";
-                                      final wordCount = drc.split(' ').length;
-                                      if (wordCount > 20) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: announceLargeCard(
-                                              context: context,
-                                              child:
-                                                  ExpandedText(text: plainText),
-                                              titleText: controller
-                                                      .announcementIndex[index]
-                                                      .name ??
-                                                  "",
-                                              startDate: controller
-                                                      .announcementIndex[index]
-                                                      .startDate ??
-                                                  "",
-                                              endDate: controller
-                                                      .announcementIndex[index]
-                                                      .endDate ??
-                                                  ""),
-                                        );
-                                      } else {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: announceCard(
-                                              context: context,
-                                              desText: plainText,
-                                              length: 152,
-                                              titleText: controller
-                                                      .announcementIndex[index]
-                                                      .name ??
-                                                  "",
-                                              startDate: controller
-                                                      .announcementIndex[index]
-                                                      .startDate ??
-                                                  "",
-                                              endDate: controller
-                                                      .announcementIndex[index]
-                                                      .endDate ??
-                                                  ""),
-                                        );
-                                      }
-                                    },
-                                  ))),
-                          Obx(
-                            () => progressBar(),
-                          ),
-                          customSpacerHeight(height: 52)
-                        ],
+                  ? RefreshIndicator(
+
+                onRefresh: _refreshPage,
+                    child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                        controller: controller.announceScrollController,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            customMoreAppbar(titleText: AppString.text_announcement),
+                            Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Obx(() => ListView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount:
+                                          controller.announcementIndex.length,
+                                      itemBuilder: (context, index) {
+                                        String plainText = htmlParser
+                                                .parse(controller
+                                                        .announcementIndex[index]
+                                                        .description ??
+                                                    "")
+                                                .documentElement
+                                                ?.text ??
+                                            "";
+                                        final drc = controller
+                                                .announcementIndex[index]
+                                                .description ??
+                                            "";
+                                        final wordCount = drc.split(' ').length;
+                                        if (wordCount > 20) {
+                                          return Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: announceLargeCard(
+                                                context: context,
+                                                child:
+                                                    ExpandedText(text: plainText),
+                                                titleText: controller
+                                                        .announcementIndex[index]
+                                                        .name ??
+                                                    "",
+                                                startDate: controller
+                                                        .announcementIndex[index]
+                                                        .startDate ??
+                                                    "",
+                                                endDate: controller
+                                                        .announcementIndex[index]
+                                                        .endDate ??
+                                                    ""),
+                                          );
+                                        } else {
+                                          return Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: announceCard(
+                                                context: context,
+                                                desText: plainText,
+                                                length: 152,
+                                                titleText: controller
+                                                        .announcementIndex[index]
+                                                        .name ??
+                                                    "",
+                                                startDate: controller
+                                                        .announcementIndex[index]
+                                                        .startDate ??
+                                                    "",
+                                                endDate: controller
+                                                        .announcementIndex[index]
+                                                        .endDate ??
+                                                    ""),
+                                          );
+                                        }
+                                      },
+                                    ))),
+                            Obx(
+                              () => progressBar(),
+                            ),
+                            customSpacerHeight(height: 52)
+                          ],
+                        ),
                       ),
-                    )
+                  )
                   : noDataFound,
             ),
         onLoading: const LoadingIndicator());
@@ -220,4 +223,8 @@ class ViewAnnounce extends GetView<AnnouncementController> {
         onPressed: () => onAction(), child: _redMoreBtn(text: text));
   }
 
+
+  Future<void> _refreshPage() async {
+    controller.getAnnouncement();
+  }
 }

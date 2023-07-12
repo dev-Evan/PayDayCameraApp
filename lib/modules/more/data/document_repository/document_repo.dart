@@ -12,7 +12,7 @@ class DocumentRepository {
     try {
       Response response = await networkClient.getRequest(
            Api.DOCUMENT_LIST, );
-      print("Document list called ${response.body}");
+      print("Document list called :::: ${response.body}");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

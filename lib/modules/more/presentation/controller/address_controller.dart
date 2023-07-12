@@ -31,23 +31,10 @@ class AddressController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  void addressUpdate(
-      {required typeKey,
-      required context,
-      required area,
-      required city,
-      required country,
-      required details,
-      required phone,
-      required state,
-      required zipcode,
-      required String message}) async {
+  void addressUpdate({required typeKey,required context, required area, required city, required country, required details, required phone, required state, required zipcode, required String message}) async {
     waitingLoader();
     try {
-      await addressRepository
-          .getAddressUpdate(
-              area, city, country, details, phone, state, typeKey, zipcode)
-          .then((value) {
+      await addressRepository.getAddressUpdate(area, city, country, details, phone, state, typeKey, zipcode).then((value) {
         getEmployeeAddressData();
         Get.back();
         FutureDelayed(onAction: () => showCustomSnackBar(message: message));
