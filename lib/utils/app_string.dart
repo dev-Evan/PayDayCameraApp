@@ -34,6 +34,7 @@ class AppString {
   static String text_rejection = "Rejection";
   static String text_hours = "Hours";
   static const String text_add_note_here = "Add Note Here";
+  static const String text_edit_text_hint = "Add Note Here (minimum 10 characters)";
   static String text_note = "Note";
   static String text_single_day = "Single Day";
   static String text_multi_day = "Multi Day";
@@ -82,8 +83,8 @@ class AppString {
   static String text_leave = "Leave";
   static String text_payslip = "Payslip";
   static String text_more = "More";
-  static String text_read_more = "read more";
-  static String text_read_less = "read less";
+  static String text_read_more = "Read more";
+  static String text_read_less = "Read less";
   static String text_today = "Today";
   static String text_enter_phone_number = "Enter phone number";
   static String text_enter = "Enter";
@@ -137,6 +138,9 @@ class AppString {
   static String text_date = 'Date';
   static String text_select_date = 'Select Date';
   static String text_close = 'Close';
+  static String text_will_be_effective_form = 'Will be effective form';
+  static String text_to = 'to';
+  static String text_on = 'on';
 
   // Leave modules string here
   static const String text_leve_records = "Leve Records";
@@ -328,6 +332,7 @@ class AppString {
   static String text_february_2022 = "February 2022";
   static String text_this_year = "This Year";
   static String text_this_year2 = "thisYear";
+  static String storage_permission = "Storage permission needed";
   static String text_caleder = "Calender";
   static String text_this_month = "This month";
   static String text_success = "Success";
@@ -450,9 +455,5 @@ class AppString {
   static const String enterYourPassword = "Enter your password";
   static const String enterYourEmail = "Enter your email";
   static const String password = "Password";
-  static const String email = "Email";
-  static const String login = "Log In";
-  static const String hi_login_to_your_dashboard =
-      "Hi, login to your dashboard ";
 }
 

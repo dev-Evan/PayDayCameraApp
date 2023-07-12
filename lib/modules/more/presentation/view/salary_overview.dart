@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/salary_overview_controller.dart';
@@ -14,80 +13,62 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/widget/custom_spacer.dart';
+import '../../../../common/widget/no_data_found.dart';
 import '../../../payslip/presentation/widget/logList_widget.dart';
 import '../widget/more_widget.dart';
 
 class SalaryOverView extends GetView<SalaryOverviewController> {
-  SalaryOverView({Key? key}) : super(key: key);
-
+  const SalaryOverView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     Get.find<SettingController>().getCurrencyData();
     return Scaffold(
         appBar: const CustomAppbar(),
         body: controller.obx(
-            (state) => SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      customMoreAppbar(
-                          titleText: AppString.text_salary_overview),
-                      controller.salaryOverView.data != null &&
-                              controller.salaryOverView.data!.isNotEmpty
-                          ? Padding(
-                              padding: EdgeInsets.only(
-                                  left: AppLayout.getWidth(20),
-                                  right: AppLayout.getWidth(20),
-                                  top: AppLayout.getHeight(15),
-                                  bottom: AppLayout.getHeight(20)),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      AppString.text_basic_salary,
-                                      style: AppStyle.mid_large_text.copyWith(
-                                          color: AppColor.normalTextColor,
-                                          fontSize: Dimensions.fontSizeMid,
-                                          fontWeight: FontWeight.w700),
-                                    ),
-                                    Text(
-                                      controller.salaryOverView.data?.first
-                                                  .basicSalary ==
-                                              true
-                                          ? controller.salaryOverView.data
-                                                  ?.first.amount
-                                                  .toString() ??
-                                              ""
-                                          : "",
-                                      style: AppStyle.small_text_black
-                                          .copyWith(color: AppColor.hintColor),
-                                    ),
-                                    customSpacerHeight(height: 16),
-                                    _jobHisTitleView()
-                                  ],
-                                ),
-                              ),
-                            )
-                          : Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  customSpacerHeight(height: 158),
-                                  svgIcon(
-                                    height: 160,
-                                    width: 160,
-                                    url: Images.no_data_found,
+            (state) => RefreshIndicator(
+              onRefresh: _refreshPage,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        customMoreAppbar(
+                            titleText: AppString.text_salary_overview),
+                        controller.salaryOverView.data != null &&
+                                controller.salaryOverView.data!.isNotEmpty
+                            ? Padding(
+                                padding: EdgeInsets.only(
+                                    left: AppLayout.getWidth(20),
+                                    right: AppLayout.getWidth(20),
+                                    top: AppLayout.getHeight(15),
+                                    bottom: AppLayout.getHeight(20)),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      basicSalaryText,
+                                      Text(
+                                          "${Get.find<SettingController>().basicInfo?.data.currencySymbol ?? ""} ${controller.salaryOverView.data!.first.basicSalary == true ? controller.salaryOverView.data?.first.amount.toString() ?? "" : controller.salaryOverView.data!.last.basicSalary == true ? controller.salaryOverView.data?.last.amount.toString() ?? "" : ""}",
+                                          style: basicSalaryStyle),
+                                      customSpacerHeight(height: 16),
+                                      _jobHisTitleView()
+                                    ],
                                   ),
-                                ],
-                              ),
-                            ),
-                    ],
+                                ),
+                              )
+                            :noDataFound,
+                      ],
+                    ),
                   ),
-                ),
+            ),
             onLoading: const LoadingIndicator()));
   }
+
+  Future<void> _refreshPage() async {
+    controller.getSalaryOveData();
+  }
 }
+
 
 Widget _jobHisTitleView() {
   return Padding(
@@ -101,13 +82,26 @@ Widget _jobHisTitleView() {
       itemBuilder: (context, index) {
         Color itemColor = AppColor.disableColor; // Default color
         if (index == 0) {
-          itemColor = AppColor.primaryColor;}
+          itemColor = AppColor.primaryColor;
+        }
         return Stack(
           alignment: Alignment.center,
           children: [
-            dottedSalaryView(),
+            dottedSalaryView(
+                height: (Get.find<SalaryOverviewController>()
+                                .salaryOverView
+                                .data?[index]
+                                .message !=
+                            null &&
+                        Get.find<SalaryOverviewController>()
+                            .salaryOverView
+                            .data![index]
+                            .message!
+                            .isNotEmpty)
+                    ? 250
+                    : 106),
             Positioned(
-              top: 0,
+                top: 0,
                 left: AppLayout.getWidth(23),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,17 +115,22 @@ Widget _jobHisTitleView() {
                                     .data?[index]
                                     .level ??
                                 "",
-                            dotIconColor: Get.find<SalaryOverviewController>()
+                            dotIconColor: (Get.find<SalaryOverviewController>()
+                                            .salaryOverView
+                                            .data
+                                            ?.first
+                                            .level !=
+                                        null &&
+                                    Get.find<SalaryOverviewController>()
                                         .salaryOverView
-                                        .data!.first.level!.isNotEmpty
-
+                                        .data!
+                                        .first
+                                        .level!
+                                        .isNotEmpty)
                                 ? AppColor.primaryColor
                                 : AppColor.disableColor,
-
-                        firstIndex: itemColor
-                        ),
+                            firstIndex: itemColor),
                         customSpacerHeight(height: 6),
-
                         _salaryRow(
                             salaryText: Get.find<SalaryOverviewController>()
                                     .salaryOverView
@@ -139,14 +138,45 @@ Widget _jobHisTitleView() {
                                     .amount
                                     .toString() ??
                                 ""),
-                        _salaryCardView(),
+                        (Get.find<SalaryOverviewController>().salaryOverView.data?[index].message != null &&
+                                Get.find<SalaryOverviewController>()
+                                    .salaryOverView
+                                    .data![index]
+                                    .message!
+                                    .isNotEmpty)
+                            ? _salaryCardView(
+                                effectiveDate: Get.find<SalaryOverviewController>()
+                                        .salaryOverView
+                                        .data?[index]
+                                        .effectiveDate
+                                        .toString() ??
+                                    "",
+                                drcText: Get.find<SalaryOverviewController>()
+                                        .salaryOverView
+                                        .data?[index]
+                                        .message
+                                        .toString() ??
+                                    "",
+                                createdDate: Get.find<SalaryOverviewController>()
+                                        .salaryOverView
+                                        .data?[index]
+                                        .createdDate
+                                        .toString() ??
+                                    "",
+                                currentSalary:
+                                    Get.find<SalaryOverviewController>()
+                                            .salaryOverView
+                                            .data?[index]
+                                            .currentSalary
+                                            .toString() ??
+                                        "",
+                                previousSalary:
+                                    Get.find<SalaryOverviewController>().salaryOverView.data?[index].previousSalary.toString() ?? "",
+                                addedBy: Get.find<SalaryOverviewController>().salaryOverView.data?[index].addedBy.toString() ?? "",
+                                symbol: Get.find<SettingController>().basicInfo?.data.currencySymbol ?? "")
+                            : Container(),
                       ],
-
                     ),
-
-
-
-
                   ],
                 )),
           ],
@@ -185,9 +215,10 @@ Widget _salaryRow({salaryText}) {
   );
 }
 
-
 Widget _salaryCardTitleView(
-    {titleText, Color dotIconColor = AppColor.disableColor, required firstIndex}) {
+    {titleText,
+    Color dotIconColor = AppColor.disableColor,
+    required firstIndex}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
@@ -195,7 +226,6 @@ Widget _salaryCardTitleView(
         Icons.circle,
         size: 10,
         color: firstIndex,
-
       ),
       Padding(
         padding: EdgeInsets.only(left: AppLayout.getWidth(12)),
@@ -223,69 +253,91 @@ Widget _titleText({titleTextS}) {
   );
 }
 
-Widget _salaryCardView(){
+Widget _salaryCardView(
+    {required effectiveDate,
+    required drcText,
+    required previousSalary,
+    required createdDate,
+    required currentSalary,
+    required addedBy,
+    required symbol}) {
   return Container(
-    margin: EdgeInsets.only(left: 20,top: 4),
-    height: AppLayout.getHeight(120),
+    margin: const EdgeInsets.only(left: 20, top: 4),
     width: AppLayout.getWidth(280),
-    decoration: AppStyle.ContainerStyle.copyWith(color: AppColor.primaryColor.withOpacity(0.1),
-    borderRadius: borderRadius
-    ),
+    decoration: AppStyle.ContainerStyle.copyWith(
+        color: AppColor.primaryColor.withOpacity(0.1),
+        borderRadius: borderRadius),
     child: Container(
-      margin: EdgeInsets.only(left: AppLayout.getWidth(12),right:AppLayout.getWidth(12),top: AppLayout.getHeight(12),bottom:  AppLayout.getHeight(12)),
+      margin: EdgeInsets.only(
+          left: AppLayout.getWidth(12),
+          right: AppLayout.getWidth(12),
+          top: AppLayout.getHeight(12),
+          bottom: AppLayout.getHeight(12)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Will be effective form ${"10 Jun 2023"} ",style: cardTitleStyle,),
+          Text(
+            "${AppString.text_will_be_effective_form} $effectiveDate ",
+            style: cardTitleStyle,
+          ),
           customSpacerHeight(height: 8),
-          textSpan
-
+          textSpan(
+              drcText: drcText,
+              addedBy: addedBy,
+              previousSalary: previousSalary,
+              createdDate: createdDate,
+              currentSalary: currentSalary,
+              symbol: symbol)
         ],
       ),
     ),
   );
 }
 
-
-
-RichText get  textSpan{
+RichText textSpan(
+    {required drcText,
+    required previousSalary,
+    required currentSalary,
+    required createdDate,
+    required addedBy,
+    required symbol}) {
   return RichText(
     overflow: TextOverflow.clip,
-    text: new TextSpan(
+    text: TextSpan(
       children: <TextSpan>[
-         TextSpan(text: "${GetStorage().read(AppString.USER_NAME)}",style: cardDynamicTextStyle),
-        TextSpan(text: " has awarded a salary\n",style: cardSubTextStyle),
-        TextSpan(text: "increment from ",style: cardSubTextStyle),
-        TextSpan(text: "${'\$30,0000'}",style: cardDynamicTextStyle),
-        TextSpan(text: " to ",style: cardSubTextStyle),
-        TextSpan(text: "${'\$30,0000\n'}",style: cardDynamicTextStyle),
-        TextSpan(text: " on ${"12 NoV 2022"}",style: cardSubTextStyle),
-
+        TextSpan(text: "$addedBy", style: cardDynamicTextStyle),
+        TextSpan(text: " $drcText", style: cardSubTextStyle),
+        TextSpan(text: "$symbol$previousSalary", style: cardDynamicTextStyle),
+        TextSpan(text: " ${AppString.text_to} ", style: cardSubTextStyle),
+        TextSpan(text: "$symbol$currentSalary", style: cardDynamicTextStyle),
+        TextSpan(
+            text: " ${AppString.text_on} $createdDate",
+            style: cardSubTextStyle),
       ],
     ),
   );
 }
 
-
-
-
-
-
-
-
-TextStyle get cardTitleStyle{
-  return  AppStyle.small_text_grey.copyWith(color: AppColor.successColor.withOpacity(0.7),letterSpacing: 1,fontWeight: FontWeight.w500);
-}
-TextStyle get cardSubTextStyle{
-  return  AppStyle.small_text_grey.copyWith(color: AppColor.hintColor,fontWeight: FontWeight.w100);
-}
-TextStyle get cardDynamicTextStyle{
-  return  AppStyle.small_text_grey.copyWith(color: AppColor.primaryColor,fontWeight: FontWeight.w500);
+TextStyle get cardTitleStyle {
+  return AppStyle.small_text_grey.copyWith(
+      color: AppColor.successColor.withOpacity(0.7),
+      letterSpacing: 1,
+      fontWeight: FontWeight.w500);
 }
 
-BorderRadius get  borderRadius{
-  return BorderRadius.circular(Dimensions.radiusDefault-1);
+TextStyle get cardSubTextStyle {
+  return AppStyle.small_text_grey
+      .copyWith(color: AppColor.hintColor, fontWeight: FontWeight.w100);
+}
+
+TextStyle get cardDynamicTextStyle {
+  return AppStyle.small_text_grey
+      .copyWith(color: AppColor.primaryColor, fontWeight: FontWeight.w500);
+}
+
+BorderRadius get borderRadius {
+  return BorderRadius.circular(Dimensions.radiusDefault - 1);
 }
 
 TextStyle get currencyStyle {
@@ -293,4 +345,21 @@ TextStyle get currencyStyle {
       color: AppColor.normalTextColor,
       fontSize: Dimensions.fontSizeDefault + 2,
       fontWeight: FontWeight.w400);
+}
+
+TextStyle get basicSalaryStyle {
+  return AppStyle.mid_large_text.copyWith(
+      color: AppColor.normalTextColor.withOpacity(0.5),
+      fontWeight: FontWeight.w500,
+      fontSize: Dimensions.fontSizeMid - 4);
+}
+
+Text get basicSalaryText {
+  return Text(
+    AppString.text_basic_salary,
+    style: AppStyle.mid_large_text.copyWith(
+        color: AppColor.normalTextColor,
+        fontSize: Dimensions.fontSizeMid,
+        fontWeight: FontWeight.w700),
+  );
 }

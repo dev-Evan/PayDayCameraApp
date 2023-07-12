@@ -16,6 +16,7 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/job_history_
 import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/update_document_controller.dart';
 import 'common/controller/status_controller.dart';
 import 'modules/more/presentation/controller/address_controller.dart';
+import 'modules/more/presentation/controller/announcement_controller.dart';
 import 'modules/more/presentation/controller/common_controller/date_of_birth_controller.dart';
 import 'modules/more/presentation/controller/documet_controller/document_upload_controller.dart';
 import 'modules/more/presentation/controller/common_controller/edit_profile_drop_dawon_cnt.dart';
@@ -34,6 +35,10 @@ Future<void> initApp() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize();
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark));
+
   Get.put(LanguageController(), permanent: true);
   Get.put(ConnectivityController(), permanent: true);
   Get.lazyPut(() => DownloadHelper(), fenix: true);
@@ -44,8 +49,6 @@ Future<void> initApp() async {
   Get.lazyPut(() => AttendanceLogsController(), fenix: true);
   Get.lazyPut(() => LeaveController(), fenix: true);
   Get.lazyPut(() => NotificationController(), fenix: true);
-  Get.lazyPut(() => AttendanceController(), fenix: true);
-  Get.lazyPut(() => AttendanceLogsController(), fenix: true);
   Get.lazyPut(() => PayslipListController(), fenix: true);
   Get.lazyPut(() => PayrunBadgeController(), fenix: true);
   Get.lazyPut(() => DocumentController(), fenix: true);
@@ -56,7 +59,6 @@ Future<void> initApp() async {
   Get.lazyPut(() => DropdownBtnController(), fenix: true);
   Get.lazyPut(() => PayslipViewController(), fenix: true);
   Get.lazyPut(() => PickImageController(), fenix: true);
-  Get.lazyPut(() => SettingController(), fenix: true);
   Get.lazyPut(() => LogoutController(), fenix: true);
   Get.lazyPut(() => FileUploadController(), fenix: true);
   Get.lazyPut(() => UpdateDocumentController(), fenix: true);
@@ -64,10 +66,12 @@ Future<void> initApp() async {
   Get.lazyPut(() => MoreDataController(), fenix: true);
   Get.lazyPut(() => InputTextFieldController(), fenix: true);
   Get.lazyPut(() => DatePickerController(), fenix: true);
+  Get.lazyPut(() => AnnouncementController(), fenix: true);
+
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark));
-
   Get.find<SettingController>().getCurrencyData();
+
 }

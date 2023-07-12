@@ -79,18 +79,18 @@ class _SignInScreenState extends State<SignInScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                textFieldTitleText(titleText: AppString.email),
+                                textFieldTitleText(titleText: AppString.text_email),
                                 CustomTextField(
                                   hintText: AppString.enterYourEmail,
                                   inputType: TextInputType.emailAddress,
                                   controller:
-                                      Get.find<AuthController>().emailController,
+                                  Get.find<AuthController>().emailController,
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return AppString
                                           .the_email_field_is_required;
                                     } else if (value.isEmpty ||
-                                        !RegExp(emailPatten()).hasMatch(value)) {
+                                        !RegExp(emailExp()).hasMatch(value)) {
                                       return AppString
                                           .please_insert_a_valid_email_address;
                                     } else {
@@ -135,7 +135,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         children: [
                           Checkbox(
                             visualDensity:
-                                const VisualDensity(horizontal: -4, vertical: -4),
+                            const VisualDensity(horizontal: -4, vertical: -4),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
                                     Dimensions.radiusSmall)),
@@ -170,20 +170,25 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  void _launchURL() async {
+  _launchURL() async {
     var url = Get.find<AuthController>().resetPasswordModel.data?.url;
-    if (await canLaunch(url ?? "")) {
-      await launch(
-        url ?? "",
-      );
+    // ignore: deprecated_member_use
+    if (await launch(url!)) {
+      // ignore: deprecated_member_use
+      await canLaunch(url);
     } else {
-      print('Could not launch $url');
+      throw 'Could not launch $url';
     }
   }
+
 }
 
-emailPatten() {
+emailExp() {
   const pattern =
       r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$';
   return pattern;
+}
+
+passwordExp() {
+  return r"(?=.*\d)(?=.*[a-z])(?=.*\W)";
 }

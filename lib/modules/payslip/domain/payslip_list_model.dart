@@ -135,8 +135,8 @@ class Payslips {
 class Links {
   String? first;
   String? last;
-  Null? prev;
-  Null? next;
+  dynamic prev;
+  dynamic next;
 
   Links({this.first, this.last, this.prev, this.next});
 

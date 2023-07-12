@@ -3,6 +3,8 @@ import 'package:pay_day_mobile/modules/more/data/job_history_data_repo.dart';
 import 'package:pay_day_mobile/modules/more/domain/job_history_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 
+import '../../../../common/widget/error_alert_pop_up.dart';
+
 class JobHistoryController extends GetxController with StateMixin {
   JobHistoryModel jobHistoryModel =JobHistoryModel();
   JobHistoryRepository jobHistoryRepository =
@@ -14,6 +16,7 @@ class JobHistoryController extends GetxController with StateMixin {
         print(value);
         jobHistoryModel = value;
       }, onError: (error) {
+        errorAlertPopup(getJobHistoryData);
         print(error.message);
       });
     } catch (ex) {

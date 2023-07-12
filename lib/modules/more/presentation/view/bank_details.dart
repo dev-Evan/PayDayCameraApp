@@ -32,85 +32,89 @@ class BankDetails extends GetView<MoreDataController> {
               (controller.bankInfoModel.data?.accountTitle != null &&
                       controller
                           .bankInfoModel.data!.accountTitle!.isNotEmpty)
-                  ? SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          customMoreAppbar(
-                              titleText:
-                              controller
-                                  .bankInfoModel.data?.name !=null?
-                              AppString.text_bank_details:""
-                          ),
+                  ? RefreshIndicator(
+                onRefresh: _refreshPage,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            customMoreAppbar(
+                                titleText:
+                                controller
+                                    .bankInfoModel.data?.name !=null?
+                                AppString.text_bank_details:""
+                            ),
 
 
-                          _bankTitleRow(
-                              bankTitleText: controller
-                                      .bankInfoModel.data?.name
-                                      ?.toString() ??
-                                  "",
-                              context: context),
+                            _bankTitleRow(
+                                bankTitleText: controller
+                                        .bankInfoModel.data?.name
+                                        ?.toString() ??
+                                    "",
+                                context: context),
 
-                          _bankUserInfo(
-                              infoTitleText:controller
-                                  .bankInfoModel.data?.accountHolderName !=null?
-                              AppString.text_account_holder:"",
-                              infoDetailsText: controller.bankInfoModel
-                                  .data?.accountHolderName
-                                  ?.toString() ??
-                                  ""),
-                          _bankUserInfo(
-                              infoTitleText:controller
-                                  .bankInfoModel.data?.accountNumber !=null?
-                              AppString.text_account_number:"",
-                              infoDetailsText: controller
-                                  .bankInfoModel.data?.accountNumber
-                                  ?.toString() ??
-                                  ""),
-                          _bankUserInfo(
-                              infoTitleText:
-                              controller
-                                  .bankInfoModel.data?.accountTitle !=null?
+                            _bankUserInfo(
+                                infoTitleText:controller
+                                    .bankInfoModel.data?.accountHolderName !=null?
+                                AppString.text_account_holder:"",
+                                infoDetailsText: controller.bankInfoModel
+                                    .data?.accountHolderName
+                                    ?.toString() ??
+                                    ""),
+                            _bankUserInfo(
+                                infoTitleText:controller
+                                    .bankInfoModel.data?.accountNumber !=null?
+                                AppString.text_account_number:"",
+                                infoDetailsText: controller
+                                    .bankInfoModel.data?.accountNumber
+                                    ?.toString() ??
+                                    ""),
+                            _bankUserInfo(
+                                infoTitleText:
+                                controller
+                                    .bankInfoModel.data?.accountTitle !=null?
 
-                              AppString.text_account_title:"",
-                              infoDetailsText: controller
-                                  .bankInfoModel.data?.accountTitle
-                                  ?.toString() ??
-                                  ""),
-                          _bankUserInfo(
-                              infoTitleText:
-                              controller
-                                  .bankInfoModel.data?.branchName !=null?
-
-
-                              AppString.text_branch:"",
-                              infoDetailsText: controller
-                                      .bankInfoModel.data?.branchName
-                                      ?.toString() ??
-                                  ""),
-                          _bankUserInfo(
-                              infoTitleText: controller
-                                  .bankInfoModel.data?.code !=null?
+                                AppString.text_account_title:"",
+                                infoDetailsText: controller
+                                    .bankInfoModel.data?.accountTitle
+                                    ?.toString() ??
+                                    ""),
+                            _bankUserInfo(
+                                infoTitleText:
+                                controller
+                                    .bankInfoModel.data?.branchName !=null?
 
 
-                              AppString.text_bank_code:"",
-                              infoDetailsText: controller
-                                      .bankInfoModel.data?.code
-                                      ?.toString() ??
-                                  ""),
-                          _bankUserInfo(
-                              infoTitleText:
-                              controller
-                                  .bankInfoModel.data?.taxPayerId !=null?
+                                AppString.text_branch:"",
+                                infoDetailsText: controller
+                                        .bankInfoModel.data?.branchName
+                                        ?.toString() ??
+                                    ""),
+                            _bankUserInfo(
+                                infoTitleText: controller
+                                    .bankInfoModel.data?.code !=null?
 
-                              AppString.text_tax_payer_id:"",
-                              infoDetailsText: controller
-                                      .bankInfoModel.data?.taxPayerId
-                                      ?.toString() ??
-                                  "")
-                        ],
+
+                                AppString.text_bank_code:"",
+                                infoDetailsText: controller
+                                        .bankInfoModel.data?.code
+                                        ?.toString() ??
+                                    ""),
+                            _bankUserInfo(
+                                infoTitleText:
+                                controller
+                                    .bankInfoModel.data?.taxPayerId !=null?
+
+                                AppString.text_tax_payer_id:"",
+                                infoDetailsText: controller
+                                        .bankInfoModel.data?.taxPayerId
+                                        ?.toString() ??
+                                    "")
+                          ],
+                        ),
                       ),
-                    )
+                  )
                   : Column(
                       children: [
                         Center(
@@ -139,6 +143,10 @@ class BankDetails extends GetView<MoreDataController> {
           ),
           onLoading: const LoadingIndicator()),
     );
+  }
+
+  Future<void> _refreshPage() async {
+    controller.getBankInfo();
   }
 }
 
@@ -247,7 +255,7 @@ Widget _editDeleteBtn({required context, onAction, required editAction}) {
 }
 
 Future _deletedAlert({required context, onAction}) {
-  return CustomAlertDialog(
+  return customAlertDialog(
       context: context,
       icon: CupertinoIcons.delete,
       backAction: () {

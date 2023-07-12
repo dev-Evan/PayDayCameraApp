@@ -117,7 +117,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                       // const Spacer(),
                       Padding(
                         padding: const EdgeInsets.only(top: 16.0, bottom: 16),
-                        child: CustomDiveider(
+                        child: customDivider(
                             0.7, MediaQuery.of(context).size.width),
                       ),
 
@@ -348,9 +348,6 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                 queryParams: "date_range=$value");
                           }
                           Navigator.pop(Get.context!);
-                          break;
-                        case RangeCalendarMethodImp.VIEW_HOLIDAY:
-                        // TODO: Handle this case.
                           break;
                         case RangeCalendarMethodImp.PAYSLIP:
                           if (_rangeStartDay != null && _rangeEndDate != null) {

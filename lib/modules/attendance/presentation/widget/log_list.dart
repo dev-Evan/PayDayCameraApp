@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/time_counter_helper.dart';
-
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_style.dart';
 import '../../domain/daily_log/daily_log.dart';
@@ -15,9 +14,9 @@ Widget logList(List<DailyLogs> dailyLogs) {
     shrinkWrap: true,
     itemBuilder: (context, index) => InkWell(
       child: _logDetails(dailyLogs[index]),
-      onTap: () async{
-        await Get.find<AttendanceController>().logDetails(dailyLogs[index].id!);
+      onTap: () async {
         _openLogDetailsBottomSheet();
+        await Get.find<AttendanceController>().logDetails(dailyLogs[index].id!);
       },
     ),
     itemCount: dailyLogs.length,

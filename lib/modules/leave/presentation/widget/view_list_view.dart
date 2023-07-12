@@ -21,7 +21,7 @@ Widget viewListViewLayout() {
           child: ListView.separated(
             separatorBuilder: (context, index) => Padding(
               padding: EdgeInsets.only(top: AppLayout.getHeight(20)),
-              child: CustomDiveider(
+              child: customDivider(
                   AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
             ),
             itemCount: data.leaveRecords!.length,
@@ -90,7 +90,7 @@ _leaves({required List<Leaves> leaves}) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                CustomDiveider(25, 0.5),
+                customDivider(25, 0.5),
                 customSpacerWidth(width: 20),
                 Expanded(
                   child: Column(

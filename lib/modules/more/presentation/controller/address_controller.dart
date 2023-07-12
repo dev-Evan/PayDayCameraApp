@@ -8,6 +8,7 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/logout_contr
 import 'package:pay_day_mobile/modules/more/presentation/view/address_details.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/utils.dart';
+import '../../../../common/widget/error_alert_pop_up.dart';
 import '../../../../network/network_client.dart';
 import '../../domain/address_details_model.dart';
 import 'common_controller/more_text_editing_controller.dart';
@@ -24,28 +25,16 @@ class AddressController extends GetxController with StateMixin {
       print("Address details called ::: $value");
       addressDetailsModel = value;
     }, onError: (error) {
+      errorAlertPopup(getEmployeeAddressData);
       print(error.message);
     });
     change(null, status: RxStatus.success());
   }
 
-  void addressUpdate(
-      {required typeKey,
-      required context,
-      required area,
-      required city,
-      required country,
-      required details,
-      required phone,
-      required state,
-      required zipcode,
-      required String message}) async {
+  void addressUpdate({required typeKey,required context, required area, required city, required country, required details, required phone, required state, required zipcode, required String message}) async {
     waitingLoader();
     try {
-      await addressRepository
-          .getAddressUpdate(
-              area, city, country, details, phone, state, typeKey, zipcode)
-          .then((value) {
+      await addressRepository.getAddressUpdate(area, city, country, details, phone, state, typeKey, zipcode).then((value) {
         getEmployeeAddressData();
         Get.back();
         FutureDelayed(onAction: () => showCustomSnackBar(message: message));

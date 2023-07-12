@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -11,9 +14,18 @@ class LoadingIndicator extends StatelessWidget {
       child: Container(
         height: AppLayout.getSize(context).height,
         color: Colors.white,
-        child: Center(child: SizedBox(height: AppLayout.getHeight(40),width: AppLayout.getWidth(40),child: const CircularProgressIndicator(
-          color: AppColor.primaryBlue,
-        ),)),
+        child: Center(
+            child: SizedBox(
+          height: AppLayout.getHeight(40),
+          width: AppLayout.getWidth(40),
+          child: Platform.isIOS
+              ? const CupertinoActivityIndicator(
+                  color: AppColor.primaryBlue,
+                )
+              : const CircularProgressIndicator(
+                  color: AppColor.primaryBlue,
+                ),
+        )),
       ),
     );
   }

@@ -27,10 +27,11 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
+
 dependencies:
   flutter:
     sdk: flutter
-  get: ^4.6.5
+  get: any
   intl: ^0.18.0
   google_maps_flutter: ^2.2.4
   geocoding: ^2.0.5
@@ -51,19 +52,12 @@ dependencies:
   permission_handler: ^8.2.4
   url_launcher: ^6.1.10
   country_code_picker: ^3.0.0
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   flutter_svg: ^2.0.5
   cupertino_icons: ^1.0.2
-  flutter_widget_from_html_core: ^0.10.0
   connectivity_plus:
   flutter_downloader:
-
-
-
-
-
+  logger: ^1.4.0
+  html: ^0.15.0
 
 dev_dependencies:
   flutter_test:

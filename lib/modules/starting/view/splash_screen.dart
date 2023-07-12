@@ -26,9 +26,9 @@ class _SplashScreenState extends State<SplashScreen> {
     dynamic logValue = box.read(AppString.LOGIN_CHECK_KEY);
     if (idStore == null) {
       Get.toNamed(Routes.ONBOARD_SCREEN);
-    } else if (logValue != null && remValue != null) {
+    }else if (logValue != null && remValue != null) {
       Get.toNamed(Routes.HOME);
-    } else {
+    }else {
       Get.toNamed(Routes.SIGN_IN);
     }
   }

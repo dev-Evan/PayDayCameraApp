@@ -9,23 +9,31 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
 class PayRunBadge extends GetView<PayrunBadgeController> {
-  PayRunBadge({Key? key}) : super(key: key);
+  const PayRunBadge({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppbar(),
       body: controller.obx(
-          (state) => SingleChildScrollView(
-                child: Column(
-                  children: [
-                    _subAppbarTitleText(),
-                    _payrunBadView(),
-                  ],
+          (state) => RefreshIndicator(
+                onRefresh: _refreshPage,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    children: [
+                      _subAppbarTitleText(),
+                      _payrunBadView(),
+                    ],
+                  ),
                 ),
               ),
           onLoading: const LoadingIndicator()),
     );
+  }
+
+  Future<void> _refreshPage() async {
+    await Get.find<PayrunBadgeController>().getPayrunBadgeData();
   }
 }
 

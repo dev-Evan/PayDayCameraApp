@@ -99,7 +99,6 @@ class AttendanceDataRepository {
       Response response = await networkClient.postRequest(
           "${Api.ATTENDANCE_REQUEST}/$logId",
           {"in_time": inTime, "out_time": outTime, "note": note});
-      print('ChangeRequestResponseModel response${response.body}');
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

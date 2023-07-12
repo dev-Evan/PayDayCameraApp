@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
@@ -69,7 +70,7 @@ Widget bodyContent() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text(
-        AppString.login,
+        "login".tr,
         style: GoogleFonts.poppins(
             fontWeight: FontWeight.w600,
             fontSize: Dimensions.fontSizeLarge+5),
@@ -83,7 +84,7 @@ Widget bodyContent() {
 
 Widget titleSubText() {
   return Text(
-    AppString.hi_login_to_your_dashboard,
+    'login_to_your_dashboard'.tr,
     style: GoogleFonts.poppins(
         fontWeight: FontWeight.w400,
         fontSize: Dimensions.fontSizeMid - 2,

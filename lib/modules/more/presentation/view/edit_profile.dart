@@ -19,7 +19,7 @@ import '../controller/user_profile_controller.dart';
 import '../widget/address_details_widget.dart';
 
 class EditProfile extends StatefulWidget {
-  EditProfile({Key? key}) : super(key: key);
+  const EditProfile({Key? key}) : super(key: key);
   @override
   State<EditProfile> createState() => _EditProfileState();
 }
@@ -98,9 +98,8 @@ class _EditProfileState extends State<EditProfile> {
                           return AppString
                               .the_email_field_is_required;
                         } else if (value.isEmpty ||
-                            !RegExp(emailPatten()).hasMatch(value)) {
-                          return AppString
-                              .please_insert_a_valid_email_address;
+                            !RegExp(emailExp()).hasMatch(value)) {
+                          return AppString.please_insert_a_valid_email_address;
                         } else {
                           return null;
                         }
@@ -114,8 +113,7 @@ class _EditProfileState extends State<EditProfile> {
                       controller: Get.find<InputTextFieldController>()
                           .contactController,
                     ),
-                    textFieldTitleText(
-                        titleText: AppString.text_address_details),
+                    textFieldTitleText(titleText: AppString.text_address_details),
                     InputNote(
                       hintText: AppString.text_enter_your_address,
                       controller: Get.find<InputTextFieldController>()

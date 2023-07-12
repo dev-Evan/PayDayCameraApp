@@ -13,7 +13,6 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
 import '../widget/attendace_log_overview.dart';
 
 class AttendanceLogsScreen extends GetView<AttendanceLogsController> {
@@ -33,40 +32,51 @@ class AttendanceLogsScreen extends GetView<AttendanceLogsController> {
                   }),
                 )),
             appBar: const CustomAppbar(),
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    height: AppLayout.getHeight(305),
-                    decoration: BoxDecoration(
-                      color: AppColor.primaryColor,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(Dimensions.radiusMid),
-                        bottomRight: Radius.circular(Dimensions.radiusMid),
+            body: RefreshIndicator(
+              onRefresh: _refreshPage,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      height: AppLayout.getHeight(305),
+                      decoration: BoxDecoration(
+                        color: AppColor.primaryColor,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(Dimensions.radiusMid),
+                          bottomRight: Radius.circular(Dimensions.radiusMid),
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          customMoreAppbar(
+                              titleText: AppString.text_attendance_log,
+                              bgColor: AppColor.primaryColor,
+                              textColor: Colors.white),
+                          attendanceLogsOverviewLayout(context),
+                          Obx(() =>
+                              dotIndicator(controller.currentIndex.value)),
+                        ],
                       ),
                     ),
-                    child: Column(
-                      children: [
-                        customMoreAppbar(
-                            titleText: AppString.text_attendance_log,
-                            bgColor: AppColor.primaryColor,
-                            textColor: Colors.white),
-                        attendanceLogsOverviewLayout(context),
-                        Obx(() => dotIndicator(controller.currentIndex.value)),
-                      ],
+                    customSpacerHeight(height: 2),
+                    SingleChildScrollView(
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height,
+                        child: logSummaryTabBar(),
+                      ),
                     ),
-                  ),
-                  customSpacerHeight(height: 2),
-                  SingleChildScrollView(
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height,
-                      child: logSummaryTabBar(),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             )),
         onLoading: const LoadingIndicator());
+  }
+
+  Future<void> _refreshPage() async {
+    controller.getLogSummaryByMonth();
+    controller.getLogSummaryByYear();
+    controller.getAllFilteredLogSummary();
+    controller.getLogSummaryOverview();
   }
 }
 

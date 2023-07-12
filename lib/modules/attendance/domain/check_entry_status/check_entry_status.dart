@@ -70,6 +70,6 @@ class BreakDetails {
     breakTimeId = json['break_time_id'];
     startAt = json['start_at'];
     breakReason = json['break_reason'];
-    duration = json['duration'];
+    duration = json['break_duration'];
   }
 }

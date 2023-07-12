@@ -74,12 +74,12 @@ class LogsList extends GetView<AttendanceLogsController> {
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () async {
+                                    _openLogDetailsBottomSheet();
                                     await Get.find<AttendanceController>()
                                         .logDetails(controller
                                             .logList[dataIndex]
                                             .details[index]
                                             .id);
-                                    _openLogDetailsBottomSheet();
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -125,7 +125,7 @@ class LogsList extends GetView<AttendanceLogsController> {
               ),
             ],
           ),
-          CustomDiveider(25, 1)
+          customDivider(25, 1)
         ],
       );
 
@@ -156,7 +156,6 @@ class LogsList extends GetView<AttendanceLogsController> {
             Row(
               children: [
                 _timeCounter(dataIndex),
-                // controller.filteredLogSummary.data!.data![dataIndex].totalComments
                 controller.logList[dataIndex].totalComments> 0
                     ? _noteCounter(dataIndex)
                     : Container(),
@@ -176,9 +175,9 @@ class LogsList extends GetView<AttendanceLogsController> {
   _normalLogInfoCard(int dataIndex) {
     return InkWell(
       onTap: () async {
+        _openLogDetailsBottomSheet();
         await Get.find<AttendanceController>()
             .logDetails(controller.logList[dataIndex].details[0].id);
-         _openLogDetailsBottomSheet();
       },
       child: Row(children: [
         Expanded(flex: 3, child: _date(dataIndex)),

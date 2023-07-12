@@ -28,7 +28,7 @@ class CustomAppbar extends GetView<NotificationController>
               alignment: Alignment.center,
               children: [
                 IconButton(
-                  padding: IconButtonEdgeInsets,
+                  padding: iconButtonEdgeInsets,
                   onPressed: () async {
                     Get.toNamed(Routes.NOTIFICATION_SCREEN);
                   },
@@ -46,7 +46,7 @@ class CustomAppbar extends GetView<NotificationController>
   }
 
   @override
-  Size get preferredSize => Size(double.maxFinite, 46);
+  Size get preferredSize => const Size(double.maxFinite, 46);
 }
 
 Widget svgIcon(
@@ -64,7 +64,7 @@ EdgeInsets get leadingEdgeInsets {
       left: AppLayout.getWidth(18), bottom: AppLayout.getHeight(8));
 }
 
-EdgeInsets get IconButtonEdgeInsets {
+EdgeInsets get iconButtonEdgeInsets {
   return EdgeInsets.only(bottom: AppLayout.getHeight(8));
 }
 
