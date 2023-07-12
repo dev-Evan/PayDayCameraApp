@@ -349,9 +349,6 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                           }
                           Navigator.pop(Get.context!);
                           break;
-                        case RangeCalendarMethodImp.VIEW_HOLIDAY:
-                        // TODO: Handle this case.
-                          break;
                         case RangeCalendarMethodImp.PAYSLIP:
                           if (_rangeStartDay != null && _rangeEndDate != null) {
                             Map<String, String> queryParams = {

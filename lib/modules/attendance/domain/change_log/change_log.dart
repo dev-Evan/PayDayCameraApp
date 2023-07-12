@@ -237,7 +237,7 @@ class Comments {
     _parentId = json['parent_id'];
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
-    _user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    _user = json['user'] != null ? User.fromJson(json['user']) : null;
   }
 }
 
