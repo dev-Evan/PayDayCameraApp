@@ -65,6 +65,7 @@ class BreakController extends GetxController {
     }, onError: (error) {
       errorSnackBar(errorMessage: AppString.error_text);
       LoggerHelper.errorLog(message: error.message);
+
     });
   }
 }
