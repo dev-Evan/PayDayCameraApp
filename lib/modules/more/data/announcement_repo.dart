@@ -33,7 +33,6 @@ class AnnouncementRepository {
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
-        print("Leave Allowance Called ::: ${response.body}");
         return LeaveAllowanceDetailsModel.fromJson(response.body);
       }
     } catch (ex) {
