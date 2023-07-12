@@ -199,11 +199,7 @@ class AttendanceController extends GetxController with StateMixin {
 //For convert lat long to address
   _getAddress(lat, long) async {
     List<Placemark> placemarks = await placemarkFromCoordinates(lat, long);
-
     address.value = "${placemarks[0].street!} ${placemarks[0].country!}";
-    // for (int i = 0; i < placemarks.length; i++) {
-    //   print("INDEX $i ${placemarks[i]}");
-    // }
   }
 
   Future<Position> _determinePosition() async {

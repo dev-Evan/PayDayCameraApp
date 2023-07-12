@@ -9,15 +9,17 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../routes/app_pages.dart';
 
 class LogoutController extends GetxController with StateMixin {
-  LogoutRepository logoutRepository=LogoutRepository(NetworkClient());
-  final _box=GetStorage();
-  LogoutModel  logoutModel =LogoutModel();
+  LogoutRepository logoutRepository = LogoutRepository(NetworkClient());
+  final _box = GetStorage();
+  LogoutModel logoutModel = LogoutModel();
   logOut() async {
     waitingLoader();
     try {
       await logoutRepository.getLogoutRepoData().then((value) {
         logoutModel = value;
-          _box.remove(AppString.STORE_TOKEN);
+        _box.remove(AppString.STORE_TOKEN);
+        _box.remove(AppString.REMEMBER_KEY);
+        _box.remove(AppString.LOGIN_CHECK_KEY);
         Get.back();
         Get.offAllNamed(Routes.SIGN_IN);
         Get.put(AuthController());
@@ -29,9 +31,8 @@ class LogoutController extends GetxController with StateMixin {
     }
     change(null, status: RxStatus.success());
   }
-
 }
-Future waitingLoader(){
-  return Get.dialog(Center(child: CircularProgressIndicator()));
 
+Future waitingLoader() {
+  return Get.dialog(const Center(child: CircularProgressIndicator()));
 }

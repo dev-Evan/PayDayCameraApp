@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
@@ -6,16 +7,18 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/pick_image_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/user_status.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/view_profile_widget.dart';
+import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../../common/widget/custom_spacer.dart';
+import '../controller/user_profile_controller.dart';
 import '../view/view_profile.dart';
 
-
-Widget profileCardLayOut({context, userName, final userImage, userEmail, statusText}) {
+Widget profileCardLayOut(
+    {context, userName, final userImage, userEmail, statusText}) {
   return Expanded(
       flex: 2,
       child: Container(
@@ -32,37 +35,44 @@ Widget profileCardLayOut({context, userName, final userImage, userEmail, statusT
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  InkWell(
-                    onTap: ()=>    SchedulerBinding.instance.addPostFrameCallback((_)=>
-                        Navigator.push(context, MaterialPageRoute(
-                            builder: (context) => ViewProfile())),),
-                    child: Container(
-                      height: AppLayout.getHeight(54),
-                      width: AppLayout.getWidth(54),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.transparent,
-                      ),
-                      child: ClipOval(
-                        child: FadeInImage (
-                          image: NetworkImage(userImage),
-                          placeholder: Get.find<PickImageController>().pickedImage.value ==null
-                              ? placeholderImages
-                              : Image.file(File(Get.find<PickImageController>().pickedImage.value!.path))
-                              .image,
-                          imageErrorBuilder: (context, error, stackTrace) {
-                            return   CircleAvatar(
-                              radius: 34,
-                              backgroundColor: Colors.transparent,
-                              backgroundImage: Get.find<PickImageController>().pickedImage.value ==null
-                                  ? placeholderImages
-                                  : Image.file(File(Get.find<PickImageController>().pickedImage.value!.path))
-                                  .image,
-                            );
-
-                          },
-                          fit: BoxFit.cover,
-                        ),
+                  Container(
+                    height: AppLayout.getHeight(54),
+                    width: AppLayout.getWidth(54),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.transparent,
+                    ),
+                    child: ClipOval(
+                      child: FadeInImage(
+                        image: NetworkImage(userImage),
+                        placeholder: Get.find<PickImageController>()
+                                    .pickedImage
+                                    .value ==
+                                null
+                            ? placeholderImages
+                            : Image.file(File(Get.find<PickImageController>()
+                                    .pickedImage
+                                    .value!
+                                    .path))
+                                .image,
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return CircleAvatar(
+                            radius: 34,
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: Get.find<PickImageController>()
+                                        .pickedImage
+                                        .value ==
+                                    null
+                                ? placeholderImages
+                                : Image.file(File(
+                                        Get.find<PickImageController>()
+                                            .pickedImage
+                                            .value!
+                                            .path))
+                                    .image,
+                          );
+                        },
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -82,20 +92,25 @@ Widget profileCardLayOut({context, userName, final userImage, userEmail, statusT
               ),
               const Spacer(),
               customSpacerHeight(height: 12),
-
-              _moveProfileView(
-                  onAction: (){
-                    SchedulerBinding.instance.addPostFrameCallback((_)=>
-                      Navigator.push(context, new MaterialPageRoute(
-                              builder: (context) => ViewProfile())),);
-                  }
-              ),
-
+              _moveProfileView(onAction: () async {
+                _viewProfileNavigator(context);
+                await Get.find<ProfileDataController>().getUserData();
+              }),
               customSpacerHeight(height: 8),
             ],
           ),
         ),
       ));
+}
+
+ _viewProfileNavigator(context) {
+  return  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (BuildContext context) => const ViewProfile(),
+    ),
+  );
+
 }
 
 Widget _userNameText({required userName}) {
@@ -143,11 +158,12 @@ Widget _viewProfileText() {
     style: AppStyle.small_text.copyWith(fontSize: Dimensions.fontSizeDefault),
   );
 }
-Future navigatorForViewProfile({context}){
+
+Future navigatorForViewProfile({context}) {
   return Navigator.pushReplacement(
     context,
     MaterialPageRoute(
-      builder: (BuildContext context) => ViewProfile(),
+      builder: (BuildContext context) => const ViewProfile(),
     ),
   );
 }

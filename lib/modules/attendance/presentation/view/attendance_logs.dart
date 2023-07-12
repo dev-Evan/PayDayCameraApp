@@ -13,7 +13,6 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-
 import '../widget/attendace_log_overview.dart';
 
 class AttendanceLogsScreen extends GetView<AttendanceLogsController> {

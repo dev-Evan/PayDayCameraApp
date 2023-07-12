@@ -12,6 +12,8 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/add_bank_info.da
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
+import '../../../../common/widget/error_alert_pop_up.dart';
+
 class MoreDataController extends GetxController with StateMixin {
   final box = GetStorage();
   BankInfoModel bankInfoModel = BankInfoModel();
@@ -29,6 +31,7 @@ class MoreDataController extends GetxController with StateMixin {
       _bankInfo(value);
     }, onError: (error) {
       print("Bank info called:::$error");
+      errorAlertPopup(getBankInfo);
       errorSnackBar(errorMessage: error.toString());
     });
     change(null, status: RxStatus.success());
@@ -60,8 +63,6 @@ class MoreDataController extends GetxController with StateMixin {
       print("Add BankInfo ::: $error");
     });
   }
-
-
 
   void deletedBankInfoApi() async {
     waitingLoader();

@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
-import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
@@ -15,10 +14,12 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import '../../../auth/presentation/view/sign_in.dart';
 import '../controller/user_profile_controller.dart';
 
 class ChangePassword extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
+  ChangePassword({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,10 +42,7 @@ class ChangePassword extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: textFieldTitleText(
-                            titleText: AppString.text_old_password)),
+                    _fieldTitleText(AppString.text_old_password),
                     CustomPasswordTextField(
                       hintText: AppString.text_enter_your_old_password,
                       inputType: TextInputType.text,
@@ -65,10 +63,7 @@ class ChangePassword extends StatelessWidget {
                         }
                       },
                     ),
-                    Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: textFieldTitleText(
-                            titleText: AppString.text_new_password)),
+                    _fieldTitleText(AppString.text_new_password),
                     CustomPasswordTextField(
                       hintText: AppString.text_enter_new_password,
                       inputType: TextInputType.text,
@@ -81,11 +76,8 @@ class ChangePassword extends StatelessWidget {
                           return AppString
                               .the_password_must_be_at_least_8_character;
                         } else if (value.isEmpty ||
-                            !RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*\W)")
+                            !RegExp(passwordExp())
                                 .hasMatch(value)) {
-                          errorSnackBar(
-                              errorMessage: AppString
-                                  .password_must_contains_number_and_etc);
                           return AppString
                               .cant_not_be_correct_please_follow_this;
                         } else {
@@ -93,11 +85,10 @@ class ChangePassword extends StatelessWidget {
                         }
                       },
                     ),
-                    alertBox(context: context,alertText: AppString.text_password_alert_text),
-                    Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: textFieldTitleText(
-                            titleText: AppString.text_confirm_password)),
+                    alertBox(
+                        context: context,
+                        alertText: AppString.text_password_alert_text),
+                    _fieldTitleText(AppString.text_confirm_password),
                     CustomPasswordTextField(
                       hintText: AppString.text_confirm_your_new_password,
                       inputType: TextInputType.text,
@@ -156,27 +147,30 @@ cleanPassData() {
   Get.find<InputTextFieldController>().confirmPasswordController.clear();
 }
 
-Widget alertBox({required context,required  alertText}) {
+Widget alertBox({required context, required alertText}) {
   return Container(
-    margin:
-        EdgeInsets.only(top: AppLayout.getHeight(Dimensions.fontSizeDefault)),
+    margin: EdgeInsets.only(top: AppLayout.getHeight(Dimensions.fontSizeDefault)),
     width: MediaQuery.of(context).size.width,
     decoration: _boxDecoration,
     child: Column(
       children: [
-        Container(
-            margin: EdgeInsets.only(
-                top: AppLayout.getHeight(Dimensions.fontSizeDefault),
-                left: AppLayout.getWidth(Dimensions.fontSizeDefault),
-                right: AppLayout.getWidth(Dimensions.fontSizeDefault - 6),
-                bottom: AppLayout.getHeight(Dimensions.fontSizeDefault)),
-            child: Text(
-              alertText,
-              style: alertTextStyle,
-            ))
+        alertBoxBodyText(alertText),
       ],
     ),
   );
+}
+
+Container alertBoxBodyText(alertText) {
+  return Container(
+      margin: EdgeInsets.only(
+          top: AppLayout.getHeight(Dimensions.fontSizeDefault),
+          left: AppLayout.getWidth(Dimensions.fontSizeDefault),
+          right: AppLayout.getWidth(Dimensions.fontSizeDefault - 6),
+          bottom: AppLayout.getHeight(Dimensions.fontSizeDefault)),
+      child: Text(
+        alertText,
+        style: alertTextStyle,
+      ));
 }
 
 Decoration get _boxDecoration {
@@ -192,5 +186,12 @@ TextStyle get alertTextStyle {
   return GoogleFonts.poppins(
       color: AppColor.normalTextColor.withOpacity(0.6),
       fontWeight: FontWeight.w300,
-      fontSize: Dimensions.fontSizeDefault,fontStyle: FontStyle.italic);
+      fontSize: Dimensions.fontSizeDefault,
+      fontStyle: FontStyle.italic);
+}
+
+Widget _fieldTitleText(text) {
+  return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: textFieldTitleText(titleText: text));
 }

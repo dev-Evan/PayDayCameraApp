@@ -63,8 +63,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
 
   void _loadMoreFilteredLogSummary() async {
     if (filteredLogSummary.data != null) {
-      if (filteredLogSummary.data!.meta!.currentPage! <
-          filteredLogSummary.data!.meta!.totalPages!) {
+      if (filteredLogSummary.data!.meta!.currentPage! < filteredLogSummary.data!.meta!.totalPages!) {
         isMoreDataLoading(true);
         await _attendanceLogsRepository
             .getAllFilteredLogs(

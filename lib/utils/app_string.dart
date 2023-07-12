@@ -83,8 +83,8 @@ class AppString {
   static String text_leave = "Leave";
   static String text_payslip = "Payslip";
   static String text_more = "More";
-  static String text_read_more = "read more";
-  static String text_read_less = "read less";
+  static String text_read_more = "Read more";
+  static String text_read_less = "Read less";
   static String text_today = "Today";
   static String text_enter_phone_number = "Enter phone number";
   static String text_enter = "Enter";
@@ -138,6 +138,9 @@ class AppString {
   static String text_date = 'Date';
   static String text_select_date = 'Select Date';
   static String text_close = 'Close';
+  static String text_will_be_effective_form = 'Will be effective form';
+  static String text_to = 'to';
+  static String text_on = 'on';
 
   // Leave modules string here
   static const String text_leve_records = "Leve Records";

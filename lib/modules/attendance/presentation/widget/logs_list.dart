@@ -156,7 +156,6 @@ class LogsList extends GetView<AttendanceLogsController> {
             Row(
               children: [
                 _timeCounter(dataIndex),
-                // controller.filteredLogSummary.data!.data![dataIndex].totalComments
                 controller.logList[dataIndex].totalComments> 0
                     ? _noteCounter(dataIndex)
                     : Container(),

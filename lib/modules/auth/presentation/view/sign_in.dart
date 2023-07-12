@@ -12,6 +12,8 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../starting/view/onboarding_screen.dart';
+
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
 
@@ -38,144 +40,155 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   final _formKey = GlobalKey<FormState>();
+  final ExitAppController _controller = Get.put(ExitAppController());
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height / 6;
     double width = MediaQuery.of(context).size.width;
     final box = GetStorage();
-    return Scaffold(
-      backgroundColor: AppColor.backgroundColor,
-      body: SafeArea(
-        child: Form(
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: Dimensions.paddingLarge,
-                        right: Dimensions.paddingLarge,
-                        bottom: Dimensions.paddingDefault + 4,
-                        top: Dimensions.paddingDefaultExtra + 3),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+    return WillPopScope(
+      onWillPop: () =>_controller. willPop(),
+      child: Scaffold(
+        backgroundColor: AppColor.backgroundColor,
+        body: SafeArea(
+          child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: Dimensions.paddingLarge,
+                          right: Dimensions.paddingLarge,
+                          bottom: Dimensions.paddingDefault + 4,
+                          top: Dimensions.paddingDefaultExtra + 3),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            customSpacerHeight(height: 26),
+                            SizedBox(
+                                height: height,
+                                width: width,
+                                child: Stack(
+                                  children: [
+                                    containerLayout(isLeft: _isLeft),
+                                  ],
+                                )),
+                            bodyContent(),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                textFieldTitleText(titleText: AppString.text_email),
+                                CustomTextField(
+                                  hintText: AppString.enterYourEmail,
+                                  inputType: TextInputType.emailAddress,
+                                  controller:
+                                  Get.find<AuthController>().emailController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return AppString
+                                          .the_email_field_is_required;
+                                    } else if (value.isEmpty ||
+                                        !RegExp(emailExp()).hasMatch(value)) {
+                                      return AppString
+                                          .please_insert_a_valid_email_address;
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                textFieldTitleText(titleText: AppString.password),
+                                CustomPasswordTextField(
+                                  hintText: AppString.enterYourPassword,
+                                  inputType: TextInputType.emailAddress,
+                                  controller: Get.find<AuthController>()
+                                      .passwordController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return AppString
+                                          .the_password_field_is_required;
+                                    } else if (value.length < 6) {
+                                      return AppString.incorrect_user_or_password;
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: AppLayout.getWidth(13),
+                          right: AppLayout.getWidth(18),
+                          top: 0),
+                      child: Row(
                         children: [
-                          customSpacerHeight(height: 26),
-                          SizedBox(
-                              height: height,
-                              width: width,
-                              child: Stack(
-                                children: [
-                                  containerLayout(isLeft: _isLeft),
-                                ],
-                              )),
-                          bodyContent(),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              textFieldTitleText(titleText: "email".tr),
-                              CustomTextField(
-                                hintText: AppString.enterYourEmail,
-                                inputType: TextInputType.emailAddress,
-                                controller:
-                                    Get.find<AuthController>().emailController,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return AppString
-                                        .the_email_field_is_required;
-                                  } else if (value.isEmpty ||
-                                      !RegExp(emailPatten()).hasMatch(value)) {
-                                    return AppString
-                                        .please_insert_a_valid_email_address;
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                              ),
-                            ],
+                          Checkbox(
+                            visualDensity:
+                            const VisualDensity(horizontal: -4, vertical: -4),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    Dimensions.radiusSmall)),
+                            value: _rememberMe,
+                            onChanged: (bool? rememberMe) {
+                              setState(() {
+                                _rememberMe = rememberMe!;
+                                if (rememberMe == true) {
+                                  box.write(AppString.REMEMBER_KEY,
+                                      AppString.REMEMBER_VALUE);
+                                }
+                              });
+                            },
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              textFieldTitleText(titleText: AppString.password),
-                              CustomPasswordTextField(
-                                hintText: AppString.enterYourPassword,
-                                inputType: TextInputType.emailAddress,
-                                controller: Get.find<AuthController>()
-                                    .passwordController,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return AppString
-                                        .the_password_field_is_required;
-                                  } else if (value.length < 6) {
-                                    return AppString.incorrect_user_or_password;
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
+                          rememberText(),
+                          const Spacer(),
+                          forgotButton(onAction: _launchURL),
                         ],
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: AppLayout.getWidth(13),
-                        right: AppLayout.getWidth(18),
-                        top: 0),
-                    child: Row(
-                      children: [
-                        Checkbox(
-                          visualDensity:
-                              const VisualDensity(horizontal: -4, vertical: -4),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  Dimensions.radiusSmall)),
-                          value: _rememberMe,
-                          onChanged: (bool? rememberMe) {
-                            setState(() {
-                              _rememberMe = rememberMe!;
-                              if (rememberMe == true) {
-                                box.write(AppString.REMEMBER_KEY,
-                                    AppString.REMEMBER_VALUE);
-                              }
-                            });
-                          },
-                        ),
-                        rememberText(),
-                        const Spacer(),
-                        forgotButton(onAction: _launchURL),
-                      ],
-                    ),
-                  ),
-                  customSpacerHeight(height: Dimensions.fontSizeDefault + 4),
-                  logInButton(onAction: () {
-                    if (_formKey.currentState!.validate()) {
-                      Get.find<AuthController>().logIn();
-                    }
-                  })
-                ],
-              ),
-            )),
+                    customSpacerHeight(height: Dimensions.fontSizeDefault + 4),
+                    logInButton(onAction: () {
+                      if (_formKey.currentState!.validate()) {
+                        Get.find<AuthController>().logIn();
+                      }
+                    })
+                  ],
+                ),
+              )),
+        ),
       ),
     );
   }
 
-  void _launchURL() async {
+  _launchURL() async {
     var url = Get.find<AuthController>().resetPasswordModel.data?.url;
-    if (await canLaunch(url ?? "")) {
-      await launch(url ?? "");
+    // ignore: deprecated_member_use
+    if (await launch(url!)) {
+      // ignore: deprecated_member_use
+      await canLaunch(url);
     } else {
-      print('Could not launch $url');
+      throw 'Could not launch $url';
     }
   }
+
 }
 
-emailPatten() {
+emailExp() {
   const pattern =
       r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$';
   return pattern;
+}
+
+passwordExp() {
+  return r"(?=.*\d)(?=.*[a-z])(?=.*\W)";
 }

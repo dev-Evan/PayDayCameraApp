@@ -1,5 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'dart:io';
 import 'package:get/get.dart';
@@ -105,7 +106,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
 Widget _skipButton({context}) {
   return TextButton(
-    onPressed: () => Get.offAllNamed(Routes.SIGN_IN),
+    onPressed: () => Get.offNamed(Routes.SIGN_IN),
     child: Text(
       AppString.text_skip,
       style: GoogleFonts.poppins(
@@ -190,19 +191,11 @@ Widget _onboardTitleText({text}) {
   );
 }
 class ExitAppController extends GetxController {
-  bool back = false;
-  int time = 0;
-  int duration = 1000;
   Future<bool> willPop() async{
-    int now = DateTime.now().millisecondsSinceEpoch;
-    if(back && time >= now){
-      back = false;
-      exit(0);
-    }else{
-      time =  DateTime.now().millisecondsSinceEpoch+ duration;
-      back = true;
-      showCustomSnackBar(message: AppString.text_are_you_sure_want_to_exit_from_app,);
-    }
+    if (Platform.isAndroid) {
+      SystemNavigator.pop();
+    } else if (Platform.isIOS) {
+      exit(0);}
     return false;
   }
 }

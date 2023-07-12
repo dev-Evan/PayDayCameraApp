@@ -46,7 +46,9 @@ class PaySlipView extends GetView<PayslipViewController> {
                                     .data
                                     ?.email
                                     .toString() ??
-                                "${GetStorage().read(AppString.STORE_CURRENT_EMAIL).toString()}",
+                                GetStorage()
+                                    .read(AppString.STORE_CURRENT_EMAIL)
+                                    .toString(),
                             payslipId: controller
                                     .payslipViewModel.data?.payslip?.payslipId
                                     .toString() ??
@@ -83,20 +85,22 @@ class PaySlipView extends GetView<PayslipViewController> {
                             return Column(
                               children: [
                                 subTextCard(
-
-                                    subLeftText:
-                                        "${controller.payslipViewModel.data?.allowances?[index].name.toString() ?? ""}",
-                                    subRightText:
-                                        "${controller.payslipViewModel.data?.allowances?[index].amount.toString() ?? ""}",
-                                    isPercentage: controller
-                                            .payslipViewModel
-                                            .data
-                                            ?.allowances?[index]
-                                            .isPercentage
-                                            .toString() ??
-                                        "",
-
-                                value: controller.payslipViewModel.data?.allowances?[index].value.toString() ?? "",
+                                  subLeftText: controller.payslipViewModel.data
+                                          ?.allowances?[index].name
+                                          .toString() ??
+                                      "",
+                                  subRightText: controller.payslipViewModel.data
+                                          ?.allowances?[index].amount
+                                          .toString() ??
+                                      "",
+                                  isPercentage: controller.payslipViewModel.data
+                                          ?.allowances?[index].isPercentage
+                                          .toString() ??
+                                      "",
+                                  value: controller.payslipViewModel.data
+                                          ?.allowances?[index].value
+                                          .toString() ??
+                                      "",
                                 )
                               ],
                             );
@@ -104,8 +108,8 @@ class PaySlipView extends GetView<PayslipViewController> {
                         ),
                         const Divider(height: 1),
                         totalRowView(
-                            text: AppString.text_total+" " +AppString.text_allowance,
-
+                            text:
+                                "${AppString.text_total} ${AppString.text_allowance}",
                             amount:
                                 " ${controller.payslipViewModel.data?.payslip?.totalAllowance.toString() ?? ""}"),
                         subTitleContainer(
@@ -120,22 +124,22 @@ class PaySlipView extends GetView<PayslipViewController> {
                             return Column(
                               children: [
                                 subTextCard(
-                                    subLeftText:
-                                        "${controller.payslipViewModel.data?.deductions?[index].name.toString() ?? ""}",
-                                    subRightText:
-                                        "${controller.payslipViewModel.data?.deductions?[index].amount.toString() ?? ""}",
-                                    isPercentage: controller
-                                            .payslipViewModel
-                                            .data
-                                            ?.deductions?[index]
-                                            .isPercentage
-                                            .toString() ??
-                                        "",
-
-
-                                  value: controller.payslipViewModel.data?.deductions?[index].value.toString() ?? "",
-
-
+                                  subLeftText: controller.payslipViewModel.data
+                                          ?.deductions?[index].name
+                                          .toString() ??
+                                      "",
+                                  subRightText: controller.payslipViewModel.data
+                                          ?.deductions?[index].amount
+                                          .toString() ??
+                                      "",
+                                  isPercentage: controller.payslipViewModel.data
+                                          ?.deductions?[index].isPercentage
+                                          .toString() ??
+                                      "",
+                                  value: controller.payslipViewModel.data
+                                          ?.deductions?[index].value
+                                          .toString() ??
+                                      "",
                                 )
                               ],
                             );
@@ -143,41 +147,44 @@ class PaySlipView extends GetView<PayslipViewController> {
                         ),
                         const Divider(height: 1),
                         totalRowView(
-                            text: AppString.text_total+" " +AppString.text_deductions,
-
+                            text:
+                                "${AppString.text_total} ${AppString.text_deductions}",
                             amount:
                                 " ${controller.payslipViewModel.data?.payslip?.totalDeduction.toString() ?? ""}"),
                         customSpacerHeight(height: 8),
                         summaryText(),
-
                         summaryTextCard(
                           subLeftText: AppString.text_basic_salary,
-                          subRightText:
-                          "${controller.payslipViewModel.data?.payslip?.basicSalary.toString() ?? ""}",
+                          subRightText: controller
+                                  .payslipViewModel.data?.payslip?.basicSalary
+                                  .toString() ??
+                              "",
                         ),
                         summaryTextCard(
                           subLeftText: AppString.text_allowances,
-                          subRightText:
-                              "${controller.payslipViewModel.data?.payslip?.totalAllowance.toString() ?? ""}",
+                          subRightText: controller.payslipViewModel.data
+                                  ?.payslip?.totalAllowance
+                                  .toString() ??
+                              "",
                         ),
                         summaryTextCard(
                           subLeftText: AppString.text_deductions,
-                          subRightText:
-                              "${controller.payslipViewModel.data?.payslip?.totalDeduction.toString() ?? ""}",
+                          subRightText: controller.payslipViewModel.data
+                                  ?.payslip?.totalDeduction
+                                  .toString() ??
+                              "",
                         ),
-
                         const Divider(height: 1),
                         totalRowView(
                             amount:
                                 " ${controller.payslipViewModel.data?.payslip?.netSalary.toString() ?? ""}",
-                        text: AppString.text_net_payable
-                        ),
+                            text: AppString.text_net_payable),
                       ],
                     ),
                   ),
                   _payslipDownloadBtn(
                     payslipDateRange:
-                        '${controller.payslipViewModel.data?.payslip?.createdAt ?? ""} - ${controller.payslipViewModel.data?.payslip?.endDate ?? ""}',
+                        '${controller.payslipViewModel.data?.payslip?.startDate ?? ""} - ${controller.payslipViewModel.data?.payslip?.endDate ?? ""}',
                   ),
                   customSpacerHeight(height: 26)
                 ],
@@ -199,7 +206,8 @@ Widget _payslipDownloadBtn({required payslipDateRange}) {
         bottom: AppLayout.getHeight(12)),
     child: CustomButton(
       AppString.text_download_payslip,
-      () => Get.find<DownloadHelper>().downloadFile(url: BASEURL),
+      () => Get.find<DownloadHelper>()
+          .downloadFile(url: BASEURL, payslipDate: "Payslip for $payslipDateRange"),
     ),
   );
 }

@@ -21,15 +21,13 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/widget/custom_spacer.dart';
+import '../controller/announcement_controller.dart';
 
 class MoreScreen extends GetView<ProfileDataController> {
   const MoreScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-
-    controller.getUserData();
-
+      controller.getUserData();
     return controller.obx(
         (state) => Scaffold(
               body: RefreshIndicator(
@@ -50,10 +48,10 @@ class MoreScreen extends GetView<ProfileDataController> {
                                   "",
                               userName: controller.userProfile.data?.fullName
                                       .toString() ??
-                                  "",
+                                  AppString.text_not_added_yet,
                               userEmail:
                                   controller.userProfile.data?.email.toString() ??
-                                      "",
+                                      AppString.text_not_added_yet,
                               statusText: controller.userProfile.data?.userStatus
                                       .toString() ??
                                   ""),
@@ -72,8 +70,8 @@ class MoreScreen extends GetView<ProfileDataController> {
                                         cardText: AppString.text_announcement,
                                         onAction: () async {
                                            Get.toNamed(Routes.ANNOUNCE_SCREEN);
-                                          // await Get.find<DocumentController>()
-                                          //     .getDocumentData();
+                                          await Get.find<AnnouncementController>()
+                                               .getAnnouncement();
                                         }),
                                     jobDeskCard(
                                         cardIcon: Images.folder,
@@ -89,8 +87,8 @@ class MoreScreen extends GetView<ProfileDataController> {
                                         onAction: () async {
                                           Get.toNamed(
                                               Routes.LEAVE_ALLOWANCE_SCREEN);
-                                          // await Get.find<DocumentController>()
-                                          //     .getDocumentData();
+                                          await Get.find<AnnouncementController>()
+                                             .getLeaveAllowanceDetails();
                                         }),
                                     jobDeskCard(
                                         cardIcon: Images.clock,
@@ -156,6 +154,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                     )
                   ],
                 ),
+
               ),
             ),
         onLoading: const LoadingIndicator());

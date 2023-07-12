@@ -13,6 +13,8 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
+import '../../../../../routes/app_pages.dart';
+
 class FileUploadController extends GetxController {
   Rx<File?> selectedFile = Rx<File?>(null);
   RxString filePath = ''.obs;
@@ -47,11 +49,10 @@ class FileUploadController extends GetxController {
     var response = await request.send();
     if (response.statusCode == 200) {
       Get.back();
-      print("Document upload ::: ${response}");
+      print("Document upload ::: $response");
       Get.find<DocumentController>().getDocumentData();
       _navigator(context: context);
-      showCustomSnackBar(
-          message: AppString.text_file_upload_update_successfully);
+      _SnakBar();
       filePath.value = "";
       Get.find<InputTextFieldController>().docFileNameController.clear();
     } else {
@@ -60,6 +61,11 @@ class FileUploadController extends GetxController {
           message: AppString.text_file_upload_file,color: AppColor.errorColor);
       print('Failed to upload file');
     }
+  }
+
+  void _SnakBar() {
+    return       showCustomSnackBar(message: AppString.text_file_upload_update_successfully);
+
   }
 
 }

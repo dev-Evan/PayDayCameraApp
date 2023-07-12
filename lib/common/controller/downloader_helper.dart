@@ -39,26 +39,24 @@ class DownloadHelper extends GetxController {
     return directory?.path;
   }
 
-  downloadFile({required String url}) async {
+  downloadFile({required String url, payslipDate}) async {
     final status = await Permission.storage.request();
     if (status.isGranted) {
       final baseStorage = await getExternalStorageDirectory();
       await FlutterDownloader.enqueue(
-          url: url,
-          allowCellular: true,
-          savedDir: baseStorage!.path,
-          fileName: "File",
-          headers: _setHeaders(),
-          showNotification: true,
-          openFileFromNotification: true,
-          saveInPublicStorage: true);
+        url: url,
+        savedDir: baseStorage!.path,
+        fileName: payslipDate ?? "File",
+        headers: _setHeaders(),
+        showNotification: true,
+        openFileFromNotification: true,
+      );
     } else {
       errorSnackBar(errorMessage: AppString.storage_permission);
     }
   }
 
   var token = GetStorage().read(AppString.ACCESS_TOKEN);
-
   _setHeaders() => {
         'Authorization': 'Bearer $token',
         'Accept': '*/*',
