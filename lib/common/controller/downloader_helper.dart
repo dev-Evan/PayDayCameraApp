@@ -68,6 +68,7 @@ class DownloadHelper extends GetxController {
     IsolateNameServer.removePortNameMapping('Downloading');
     super.dispose();
   }
+
   static void downloadCallback(String id, int status, int progress) {
     SendPort? sendPort = IsolateNameServer.lookupPortByName("Downloading");
     sendPort!.send(progress);
