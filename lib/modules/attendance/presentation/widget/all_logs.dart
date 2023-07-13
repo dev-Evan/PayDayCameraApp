@@ -78,7 +78,7 @@ class AllLogsScreen extends GetView<AttendanceLogsController> {
         SizedBox(
           height: AppLayout.getHeight(12),
         ),
-        Expanded(child: LogsList()),
+        const Expanded(child: LogsList()),
         Obx(
           () => controller.isMoreDataLoading.isTrue
               ? const Center(

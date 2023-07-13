@@ -15,7 +15,7 @@ import '../../../../utils/app_style.dart';
 import '../widget/break_pop_up.dart';
 import '../widget/dot_indicator.dart';
 import '../widget/info_layout.dart';
-import '../widget/log_list.dart';
+import '../widget/daily_log_list.dart';
 import '../widget/no_log_layout.dart';
 import '../widget/timer_layout.dart';
 import '../widget/timer_overview_layout.dart';
@@ -63,7 +63,7 @@ class Attendance extends GetView<AttendanceController> {
                             SizedBox(
                                 height: AppLayout.getHeight(
                                     Dimensions.paddingLarge)),
-                            logList(controller.logs.value.data!.dailyLogs!),
+                            dailyLogList(controller.logs.value.data!.dailyLogs!),
                           ]),
                     )
                   : noLogLayout(),
