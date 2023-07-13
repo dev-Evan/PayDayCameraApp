@@ -39,6 +39,7 @@ class DownloadHelper extends GetxController {
     return directory?.path;
   }
 
+
   downloadFile({required String url, payslipDate}) async {
     final status = await Permission.storage.request();
     if (status.isGranted) {
@@ -67,7 +68,6 @@ class DownloadHelper extends GetxController {
     IsolateNameServer.removePortNameMapping('Downloading');
     super.dispose();
   }
-
   static void downloadCallback(String id, int status, int progress) {
     SendPort? sendPort = IsolateNameServer.lookupPortByName("Downloading");
     sendPort!.send(progress);
