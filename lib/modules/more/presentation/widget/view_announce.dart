@@ -106,7 +106,7 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                         ),
                       ),
                   )
-                  : noDataFound,
+                  : noDataFound(),
             ),
         onLoading: const LoadingIndicator());
   }

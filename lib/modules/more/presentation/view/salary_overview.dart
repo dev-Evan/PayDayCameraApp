@@ -56,7 +56,7 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
                                   ),
                                 ),
                               )
-                            :noDataFound,
+                            :noDataFound(),
                       ],
                     ),
                   ),

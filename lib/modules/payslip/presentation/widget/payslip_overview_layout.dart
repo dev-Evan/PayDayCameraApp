@@ -57,8 +57,14 @@ Widget _cardText({countText, countNumber}) {
     elevation: 0,
     color: AppColor.cardColor.withOpacity(0.1),
     shape: RoundedRectangleBorder(
+
         borderRadius: BorderRadius.circular(Dimensions.radiusDefault + 2),
-        side: BorderSide(width: 1, color: AppColor.cardColor.withOpacity(0.2))),
+        side: BorderSide(width: 1, color: AppColor.cardColor.withOpacity(0.2)
+
+        )
+
+
+    ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

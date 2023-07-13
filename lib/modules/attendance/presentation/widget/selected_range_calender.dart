@@ -44,11 +44,10 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
     AppString.text_last_year,
     AppString.text_total,
   ];
-
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-      initialChildSize: .75,
+      initialChildSize: .78,
       minChildSize: .65,
       maxChildSize: .8,
       builder: (context, scrollController) => Container(

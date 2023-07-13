@@ -4,6 +4,7 @@ import 'package:pay_day_mobile/common/widget/custom_divider.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_status_button.dart';
+import 'package:pay_day_mobile/common/widget/no_data_found.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_record.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/leave_details.dart';
@@ -47,7 +48,7 @@ Widget viewListViewLayout() {
             },
           ),
         )
-      : Container();
+      : noDataFound();
 }
 
 _leaves({required List<Leaves> leaves}) {

@@ -7,6 +7,7 @@ import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_string.dart';
 import '../../../../utils/app_style.dart';
 import '../../../../utils/dimensions.dart';
+import '../../../payslip/presentation/widget/summary_layout.dart';
 
 Widget attendanceLogsOverviewLayout(context) {
   final controller = Get.find<AttendanceLogsController>();
@@ -167,11 +168,11 @@ Widget _logSummaryCard({String? count, String? title}) => SizedBox(
                 children: [
                   Text(
                     count ?? "",
-                    style: AppStyle.large_text.copyWith(fontWeight: FontWeight.w600)
+                    style: dynamicTextStyle
                   ),
                   Text(
                     title ?? "",
-                    style:AppStyle.normal_text.copyWith(fontSize: Dimensions.fontSizeDefault-1.5),
+                    style:countTextStyle
                   ),
                 ],
               ),
