@@ -207,7 +207,7 @@ Widget _payslipDownloadBtn({required payslipDateRange}) {
     child: CustomButton(
       AppString.text_download_payslip,
       () => Get.find<DownloadHelper>()
-          .downloadFile(url: BASEURL, payslipDate: "Payslip for $payslipDateRange"),
+          .downloadFile(url: BASEURL, fileInfo: "Payslip for $payslipDateRange"),
     ),
   );
 }

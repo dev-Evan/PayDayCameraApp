@@ -19,7 +19,7 @@ class DocumentView extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _body(docName: docName, fullUrl: imageUrl),
+          _defaultAppbar(docName: docName, fullUrl: imageUrl),
           Expanded(
               child: Column(
             children: [
@@ -32,7 +32,7 @@ class DocumentView extends StatelessWidget {
   }
 }
 
-Widget _body({required docName, required fullUrl}) {
+Widget _defaultAppbar({required docName, required fullUrl}) {
   return AppBar(
     elevation: 0,
     backgroundColor: AppColor.backgroundColor,
@@ -41,9 +41,7 @@ Widget _body({required docName, required fullUrl}) {
     leading: _leading(),
     actions: [
       IconButton(
-          onPressed: () {
-            Get.find<DownloadHelper>().downloadFile(url: fullUrl);
-          },
+          onPressed: () => Get.find<DownloadHelper>().downloadFile(url: fullUrl,fileInfo: docName),
           icon: svgIcon(
               url: Images.download,
               height: 23,
@@ -91,4 +89,3 @@ Widget _leading() {
     ),
   );
 }
-

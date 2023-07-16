@@ -40,14 +40,14 @@ class DownloadHelper extends GetxController {
   }
 
 
-  downloadFile({required String url, payslipDate}) async {
+  downloadFile({required String url, fileInfo}) async {
     final status = await Permission.storage.request();
     if (status.isGranted) {
       final baseStorage = await getExternalStorageDirectory();
       await FlutterDownloader.enqueue(
         url: url,
         savedDir: baseStorage!.path,
-        fileName: payslipDate ?? "File",
+        fileName: fileInfo ?? "File",
         headers: _setHeaders(),
         showNotification: true,
         openFileFromNotification: true,
