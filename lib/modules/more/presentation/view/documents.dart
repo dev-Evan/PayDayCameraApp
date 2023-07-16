@@ -31,7 +31,6 @@ class DocumentScreen extends GetView<DocumentController> {
         body: controller.obx(
           (state) => RefreshIndicator(
             onRefresh: _refreshPage,
-
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
               child: Column(
@@ -46,7 +45,6 @@ class DocumentScreen extends GetView<DocumentController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             _fileTitleText(totalFileText: controller.documentModel.data?.meta?.total.toString() ?? ""),
-
                             Padding(
                               padding: EdgeInsets.only(
                                   top: AppLayout.getHeight(0),

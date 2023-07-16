@@ -5,6 +5,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/controller/downloader_helper.dart';
+import '../../../../utils/dimensions.dart';
 
 class DocumentView extends StatelessWidget {
   final imageUrl;
@@ -16,15 +17,15 @@ class DocumentView extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppbar(),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          _body(docName: docName, fullUrl: imageUrl),
           Expanded(
-            child: Stack(
-              children: [
-                _fileView(url: imageUrl),
-                _body(docName: docName, fullUrl: imageUrl)
-              ],
-            ),
-          ),
+              child: Column(
+            children: [
+              _fileView(url: imageUrl),
+            ],
+          )),
         ],
       ),
     );
@@ -32,9 +33,9 @@ class DocumentView extends StatelessWidget {
 }
 
 Widget _body({required docName, required fullUrl}) {
-  return Positioned(
-      child: AppBar(
-    backgroundColor:Colors.transparent,
+  return AppBar(
+    elevation: 0,
+    backgroundColor: AppColor.backgroundColor,
     centerTitle: true,
     title: _titleText(text: docName),
     leading: _leading(),
@@ -43,19 +44,32 @@ Widget _body({required docName, required fullUrl}) {
           onPressed: () {
             Get.find<DownloadHelper>().downloadFile(url: fullUrl);
           },
-          icon: svgIcon(url: Images.download,height: 23,width: 42,color: AppColor.cardColor)
-
-
-      )
+          icon: svgIcon(
+              url: Images.download,
+              height: 23,
+              width: 42,
+              color: AppColor.normalTextColor))
     ],
-  ));
+  );
 }
 
 Widget _fileView({required url}) {
-  return Container(
-    decoration: BoxDecoration(
-      color: AppColor.normalTextColor,
-      image: DecorationImage(image: NetworkImage(url), fit: BoxFit.fitWidth),
+  return Expanded(
+    child: FadeInImage(
+      alignment: Alignment.center,
+      image: NetworkImage(url),
+      placeholder: AssetImage(Images.placeholder),
+      fit: BoxFit.fitWidth,
+      imageErrorBuilder: (context, error, stackTrace) {
+        return Container(
+          decoration: AppStyle.ContainerStyle.copyWith(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(Dimensions.radiusDefault),
+                  bottomLeft: Radius.circular(Dimensions.radiusDefault)),
+              image: DecorationImage(
+                  image: AssetImage(Images.placeholder), fit: BoxFit.fitWidth)),
+        );
+      },
     ),
   );
 }
@@ -63,7 +77,8 @@ Widget _fileView({required url}) {
 Widget _titleText({required text}) {
   return Text(
     text,
-    style: AppStyle.mid_large_text.copyWith(fontWeight: FontWeight.w600),
+    style: AppStyle.mid_large_text
+        .copyWith(fontWeight: FontWeight.w600, color: AppColor.normalTextColor),
   );
 }
 
@@ -72,7 +87,8 @@ Widget _leading() {
     onPressed: () => Get.back(),
     icon: const Icon(
       Icons.arrow_back,
-      color: AppColor.cardColor,
+      color: AppColor.normalTextColor,
     ),
   );
 }
+
