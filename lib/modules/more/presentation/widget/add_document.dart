@@ -74,40 +74,38 @@ class _AddDocumentState extends State<AddDocument> {
                               ? Get.find<FileUploadController>()
                                       .filePath
                                       .endsWith(".pdf")
-                                  ? Container(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          const Icon(
-                                            Icons.picture_as_pdf,
-                                            color: AppColor.primaryColor,
-                                          ),
-                                          SizedBox(
-                                            width: AppLayout.getWidth(6),
-                                          ),
-                                          Text(
-                                            AppString.text_click,
-                                            style: AppStyle.mid_large_text
-                                                .copyWith(
-                                                    color:
-                                                        AppColor.primaryColor,
-                                                    fontSize: Dimensions
-                                                        .fontSizeDefault),
-                                          ),
-                                          customSpacerWidth(width: 6),
-                                          Text(
-                                            AppString.text_to_replace_fil,
-                                            style: AppStyle.mid_large_text
-                                                .copyWith(
-                                                    color: AppColor.hintColor,
-                                                    fontSize: Dimensions
-                                                            .fontSizeDefault +
-                                                        2),
-                                          ),
-                                        ],
+                                  ? Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(
+                                        Icons.picture_as_pdf,
+                                        color: AppColor.primaryColor,
                                       ),
-                                    )
+                                      SizedBox(
+                                        width: AppLayout.getWidth(6),
+                                      ),
+                                      Text(
+                                        AppString.text_click,
+                                        style: AppStyle.mid_large_text
+                                            .copyWith(
+                                                color:
+                                                    AppColor.primaryColor,
+                                                fontSize: Dimensions
+                                                    .fontSizeDefault),
+                                      ),
+                                      customSpacerWidth(width: 6),
+                                      Text(
+                                        AppString.text_to_replace_fil,
+                                        style: AppStyle.mid_large_text
+                                            .copyWith(
+                                                color: AppColor.hintColor,
+                                                fontSize: Dimensions
+                                                        .fontSizeDefault +
+                                                    2),
+                                      ),
+                                    ],
+                                  )
                                   : Container(
                                       height: AppLayout.getHeight(100),
                                       decoration: BoxDecoration(
@@ -162,8 +160,6 @@ class _AddDocumentState extends State<AddDocument> {
                   alertBox(
                       context: context,
                       alertText: AppString.text_document_size_allowed_5_md_etc),
-
-
                 ],
               ),
             ],

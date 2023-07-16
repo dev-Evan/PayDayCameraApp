@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_app_button.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
+import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/break_controller.dart';
@@ -24,35 +25,39 @@ Future breakPopUp() {
             borderRadius: BorderRadius.all(Radius.circular(16))),
         insetPadding: EdgeInsets.zero,
         child: Container(
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(16)),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.shade200,
-                  offset: const Offset(0, 3),
-                )
-              ]),
-          margin: EdgeInsets.symmetric(
-              horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _breakAppbar(),
-              customSpacerHeight(height: 20),
-              Obx(() => _timerLayout()),
-              Center(child: Obx(() => _breakTimes())),
-              customSpacerHeight(height: 20),
-              _buttonLayout(),
-              customSpacerHeight(height: 20)
-            ],
-          ),
-        ),
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(16)),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade200,
+                    offset: const Offset(0, 3),
+                  )
+                ]),
+            margin: EdgeInsets.symmetric(
+                horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _breakAppbar(),
+                customSpacerHeight(height: 20),
+                Obx(() => _timerLayout()),
+                Center(child: Obx(() => _breakTimes())),
+                customSpacerHeight(height: 20),
+                Obx(() => _buttonLayout()),
+                customSpacerHeight(height: 20)
+              ],
+            )),
       );
     },
   );
 }
+
+_loadingButtonLayout() => SizedBox(
+      height: AppLayout.getHeight(50),
+      child: LoadingIndicator(),
+    );
 
 _breakAppbar() {
   return Container(
@@ -182,88 +187,91 @@ _breakInfo() {
 }
 
 _buttonLayout() {
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: AppLayout.getWidth(20)),
-    child: Row(
-      children: [
-        AppButton(
-          buttonText: AppString.text_close,
-          onPressed: () {
-            Get.back();
-          },
-          buttonColor: Colors.transparent,
-          textColor: Colors.black,
-          borderColor: Colors.black,
-        ),
-        customSpacerWidth(width: 10),
-        Obx(() => AppButton(
-            buttonText: Get.find<AttendanceController>()
-                        .breakDetails
-                        .value
-                        .breakTimeId ==
-                    null
-                ? AppString.text_start
-                : AppString.text_end,
-            onPressed: () {
-              //check if break is on
-              if (Get.find<AttendanceController>()
-                      .breakDetails
-                      .value
-                      .breakTimeId ==
-                  null) {
-                // ignore: unrelated_type_equality_checks
-                if (Get.find<BreakController>().selectedIndex != 100) {
-                  //get log id from check punched in method from attendance controller
-                  //find break id by indexing from break controller
-                  Get.find<BreakController>().startBreak(
-                      logId: Get.find<AttendanceController>()
-                              .logs
-                              .value
-                              .data!
-                              .dailyLogs![0]
-                              .id
-                              ?.toInt() ??
-                          0,
-                      breakId: Get.find<AttendanceController>()
-                              .breakTimes[Get.find<BreakController>()
-                                  .selectedIndex
-                                  .value]
-                              .id ??
-                          0);
-                } else {
-                  showCustomSnackBar(
-                      message: AppString.breaK_time_selection_text);
-                }
-              } else {
-                //get log id from check punched in method from attendance controller
-                //find break id by indexing from break controller
-                if (Get.find<AttendanceController>().logs.value.data != null) {
-                  Get.find<BreakController>().endBreak(
-                      logId: Get.find<AttendanceController>()
-                              .logs
-                              .value
-                              .data!
-                              .dailyLogs![0]
-                              .id
-                              ?.toInt() ??
-                          0,
-                      breakId: Get.find<AttendanceController>()
+  return Get.find<BreakController>().isLoading.isTrue
+      ? _loadingButtonLayout()
+      : Padding(
+          padding: EdgeInsets.symmetric(horizontal: AppLayout.getWidth(20)),
+          child: Row(
+            children: [
+              AppButton(
+                buttonText: AppString.text_close,
+                onPressed: () {
+                  Get.back();
+                },
+                buttonColor: Colors.transparent,
+                textColor: Colors.black,
+                borderColor: Colors.black,
+              ),
+              customSpacerWidth(width: 10),
+              AppButton(
+                  buttonText: Get.find<AttendanceController>()
                               .breakDetails
                               .value
-                              .breakTimeId ??
-                          0);
-                }
-              }
-            },
-            hasOutline: false,
-            buttonColor: Get.find<AttendanceController>()
-                        .breakDetails
-                        .value
-                        .breakTimeId ==
-                    null
-                ? AppColor.primaryGreen
-                : AppColor.primaryRed)),
-      ],
-    ),
-  );
+                              .breakTimeId ==
+                          null
+                      ? AppString.text_start
+                      : AppString.text_end,
+                  onPressed: () {
+                    //check if break is on
+                    if (Get.find<AttendanceController>()
+                            .breakDetails
+                            .value
+                            .breakTimeId ==
+                        null) {
+                      // ignore: unrelated_type_equality_checks
+                      if (Get.find<BreakController>().selectedIndex != 100) {
+                        //get log id from check punched in method from attendance controller
+                        //find break id by indexing from break controller
+                        Get.find<BreakController>().startBreak(
+                            logId: Get.find<AttendanceController>()
+                                    .logs
+                                    .value
+                                    .data!
+                                    .dailyLogs![0]
+                                    .id
+                                    ?.toInt() ??
+                                0,
+                            breakId: Get.find<AttendanceController>()
+                                    .breakTimes[Get.find<BreakController>()
+                                        .selectedIndex
+                                        .value]
+                                    .id ??
+                                0);
+                      } else {
+                        showCustomSnackBar(
+                            message: AppString.breaK_time_selection_text);
+                      }
+                    } else {
+                      //get log id from check punched in method from attendance controller
+                      //find break id by indexing from break controller
+                      if (Get.find<AttendanceController>().logs.value.data !=
+                          null) {
+                        Get.find<BreakController>().endBreak(
+                            logId: Get.find<AttendanceController>()
+                                    .logs
+                                    .value
+                                    .data!
+                                    .dailyLogs![0]
+                                    .id
+                                    ?.toInt() ??
+                                0,
+                            breakId: Get.find<AttendanceController>()
+                                    .breakDetails
+                                    .value
+                                    .breakTimeId ??
+                                0);
+                      }
+                    }
+                  },
+                  hasOutline: false,
+                  buttonColor: Get.find<AttendanceController>()
+                              .breakDetails
+                              .value
+                              .breakTimeId ==
+                          null
+                      ? AppColor.primaryGreen
+                      : AppColor.primaryRed),
+            ],
+          ),
+        );
 }

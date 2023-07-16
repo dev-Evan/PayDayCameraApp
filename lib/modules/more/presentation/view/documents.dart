@@ -31,7 +31,6 @@ class DocumentScreen extends GetView<DocumentController> {
         body: controller.obx(
           (state) => RefreshIndicator(
             onRefresh: _refreshPage,
-
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
               child: Column(
