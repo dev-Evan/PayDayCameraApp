@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
+import 'package:pay_day_mobile/common/widget/no_data_found.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/update_document_controller.dart';
@@ -159,11 +160,7 @@ class DocumentScreen extends GetView<DocumentController> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              svgIcon(
-                                height: 160,
-                                width: 160,
-                                url: Images.no_data_found,
-                              ),
+                             noDataFound(),
                               SizedBox(
                                 height: MediaQuery.of(context).size.height / 2.5,
                               )

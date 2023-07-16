@@ -49,9 +49,8 @@ class FileUploadController extends GetxController {
     var response = await request.send();
     if (response.statusCode == 200) {
       Get.back();
-      print("Document upload ::: $response");
       Get.find<DocumentController>().getDocumentData();
-      _navigator(context: context);
+      moveDocPage(context: context);
       _SnakBar();
       filePath.value = "";
       Get.find<InputTextFieldController>().docFileNameController.clear();
@@ -64,12 +63,12 @@ class FileUploadController extends GetxController {
   }
 
   void _SnakBar() {
-    return       showCustomSnackBar(message: AppString.text_file_upload_update_successfully);
+    return showCustomSnackBar(message: AppString.text_file_upload_update_successfully);
 
   }
 
 }
-Future _navigator({context}) {
+Future moveDocPage({context}) {
   return Navigator.pushReplacement(
     context,
     MaterialPageRoute(

@@ -40,11 +40,11 @@ class UpdateDocumentController extends GetxController {
         Get.find<InputTextFieldController>().docFileNameController.text;
     request.fields['file'] = file.path;
     request.fields['user_id'] = _box.read(AppString.ID_STORE).toString();
-    request.headers['Authorization'] = 'Bearer ${accessToken}';
+    request.headers['Authorization'] = 'Bearer $accessToken';
     request.files.add(await http.MultipartFile.fromPath('file', file.path));
     var response = await request.send();
     if (response.statusCode == 200) {
-      print("Document updated ::: ${response}");
+      print("Document updated ::: $response");
       Get.back();
       newValue = "value";
       Get.find<DocumentController>().getDocumentData();
