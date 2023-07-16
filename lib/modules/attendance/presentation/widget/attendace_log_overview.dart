@@ -8,7 +8,7 @@ import '../../../../utils/app_string.dart';
 import '../../../../utils/app_style.dart';
 import '../../../../utils/dimensions.dart';
 
-Widget attendanceLogsOverviewLayout(context) {
+Widget attendanceLogsOverviewLayout() {
   final controller = Get.find<AttendanceLogsController>();
   return SizedBox(
     width: double.infinity,

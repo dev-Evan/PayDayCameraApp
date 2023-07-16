@@ -10,7 +10,7 @@ Widget logsDate(int index) => Row(
       children: [
         Expanded(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 Get.find<AttendanceLogsController>().logList[index].dateInNumber ?? "",

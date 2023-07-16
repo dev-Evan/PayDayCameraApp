@@ -40,6 +40,8 @@ class AttendanceLogsController extends GetxController with StateMixin {
     super.onInit();
   }
 
+  final isShortSummaryClicked = false.obs;
+
   late ScrollController scrollController;
 
   late ScrollController floatingScrollController;
@@ -47,6 +49,8 @@ class AttendanceLogsController extends GetxController with StateMixin {
   final RxBool isFloatingActionVisible = true.obs;
 
   final queryString = "within=thisMonth".obs;
+
+  final clickIndex = 0.obs;
 
   final AttendanceLogsRepository _attendanceLogsRepository =
       AttendanceLogsRepository(NetworkClient());
@@ -63,7 +67,8 @@ class AttendanceLogsController extends GetxController with StateMixin {
 
   void _loadMoreFilteredLogSummary() async {
     if (filteredLogSummary.data != null) {
-      if (filteredLogSummary.data!.meta!.currentPage! < filteredLogSummary.data!.meta!.totalPages!) {
+      if (filteredLogSummary.data!.meta!.currentPage! <
+          filteredLogSummary.data!.meta!.totalPages!) {
         isMoreDataLoading(true);
         await _attendanceLogsRepository
             .getAllFilteredLogs(

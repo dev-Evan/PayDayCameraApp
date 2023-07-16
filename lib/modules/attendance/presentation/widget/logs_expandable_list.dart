@@ -35,12 +35,11 @@ class _LogsExpandableListState extends State<LogsExpandableList> {
         isExpanded = value;
       }),
       title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(width: 60, child: logsDate(widget.dataIndex)),
+          SizedBox(width: 40, child: logsDate(widget.dataIndex)),
           customSpacerWidth(width: 20),
           Expanded(
-            flex: 4,
             child: logInfo(widget.dataIndex),
           )
         ],
@@ -54,7 +53,7 @@ class _LogsExpandableListState extends State<LogsExpandableList> {
         Row(
           children: [
             const SizedBox(
-              width: 40,
+              width: 20,
             ),
             Expanded(
                 child: ListView.separated(

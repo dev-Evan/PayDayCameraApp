@@ -5,7 +5,7 @@ import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_logs.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_log.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -134,7 +134,7 @@ class Attendance extends GetView<AttendanceController> {
                           .getLogSummaryOverview();
                       customNavigator(
                           context: Get.context!,
-                          pageName: const AttendanceLogsScreen());
+                          pageName: const AttendanceLog());
                     }),
               ]),
         ),

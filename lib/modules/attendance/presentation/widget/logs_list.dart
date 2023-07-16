@@ -7,6 +7,7 @@ import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/approve_status.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/widget/logs_date.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/logs_expandable_list.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/multi_log_summary_list.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -24,51 +25,30 @@ class LogsList extends GetView<AttendanceLogsController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => ListView.separated(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         separatorBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.symmetric(vertical: AppLayout.getHeight(8)),
             child: const Divider(),
           );
         },
-        shrinkWrap: true,
-        controller: controller.scrollController,
-        itemCount: controller.logList.length,
-        itemBuilder: (context, dataIndex) =>
-            controller.logList[dataIndex].details.length > 1
+        itemCount: controller.logList.length+1,
+        itemBuilder: (context, dataIndex) {
+          if (dataIndex == controller.logList.length) {
+            return customSpacerHeight(height: 70);
+          } else {
+            return controller.logList[dataIndex].details.length > 1
                 ? Theme(
                     data: Theme.of(context)
                         .copyWith(dividerColor: Colors.transparent),
                     child: LogsExpandableList(
                       dataIndex: dataIndex,
                     ))
-                : _normalLogInfoCard(dataIndex)));
+                : _normalLogInfoCard(dataIndex);
+          }
+        }));
   }
-
-  _date(int index) => Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  controller.logList[index].dateInNumber ?? "",
-                  style: AppStyle.mid_large_text.copyWith(
-                      color: AppColor.normalTextColor,
-                      fontSize: Dimensions.fontSizeExtraLarge,
-                      fontWeight: FontWeight.w900),
-                ),
-                Text(
-                  controller.logList[index].month ?? "",
-                  style: AppStyle.small_text.copyWith(
-                      color: AppColor.hintColor,
-                      fontSize: Dimensions.fontSizeSmall),
-                ),
-              ],
-            ),
-          ),
-          customDivider(25, 1)
-        ],
-      );
 
   _normalLogInfoCard(int dataIndex) {
     return InkWell(
@@ -78,7 +58,7 @@ class LogsList extends GetView<AttendanceLogsController> {
             .logDetails(controller.logList[dataIndex].details[0].id);
       },
       child: Row(children: [
-        SizedBox(width: 60, child: _date(dataIndex)),
+        SizedBox(width: 40, child: logsDate(dataIndex)),
         customSpacerWidth(width: 20),
         Expanded(child: logInfo(dataIndex)),
         CircleAvatar(
