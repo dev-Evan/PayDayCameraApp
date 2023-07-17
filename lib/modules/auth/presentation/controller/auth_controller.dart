@@ -6,6 +6,7 @@ import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/auth/data/auth_data_repository.dart';
 import 'package:pay_day_mobile/modules/auth/domain/login_res.dart';
 import 'package:pay_day_mobile/modules/auth/domain/reset_password_model.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../routes/app_pages.dart';
@@ -17,7 +18,7 @@ class AuthController extends GetxController with StateMixin {
   ResetPasswordModel resetPasswordModel = ResetPasswordModel();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
+  RxBool isLoading = false.obs;
   final GetStorage box = GetStorage();
   @override
   void onInit() {
@@ -25,7 +26,8 @@ class AuthController extends GetxController with StateMixin {
     super.onInit();
   }
   void logIn() {
-    _loadingIndicator();
+   // waitingLoader();
+    isLoading.value = true;
     try {
       _authDataSource.loginIntoAccount(emailController.text, passwordController.text)
           .then((value) {
@@ -40,6 +42,8 @@ class AuthController extends GetxController with StateMixin {
     } catch (ex) {
       print(ex.toString());
     }
+    isLoading.value = false;
+
   }
 
   void _writeUserInfo(Login? login) {

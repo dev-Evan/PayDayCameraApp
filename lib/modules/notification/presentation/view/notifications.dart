@@ -20,53 +20,52 @@ class Notifications extends GetView<NotificationController> {
       appBar: _notificationAppbar(),
       body: controller.obx(
           (state) => SafeArea(
-                child: ListView(
-                  controller: controller.scrollController,
-                  children: [
-                    controller.allNotifications.isEmpty
-                        ? SizedBox(
-                            height: AppLayout.getSize(context).height -
-                                Get.statusBarHeight,
-                            child: Center(
-                              child: svgIcon(
-                                  url: Images.no_data_found,
-                                  width: 150,
-                                  height: 150),
-                            ),
-                          )
-                        : _contentLayout(),
-                  ],
+                child: RefreshIndicator(
+                  onRefresh: _refreshPage,
+
+                  child: ListView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    controller: controller.scrollController,
+                    children: [
+                      controller.allNotifications.isEmpty
+                          ? SizedBox(
+                              height: AppLayout.getSize(context).height -
+                                  Get.statusBarHeight,
+                              child: Center(
+                                child: svgIcon(
+                                    url: Images.no_data_found,
+                                    width: 150,
+                                    height: 150),
+                              ),
+                            )
+                          : _contentLayout(),
+                    ],
+                  ),
                 ),
               ),
           onLoading: const LoadingIndicator()),
     );
   }
 
-  _contentLayout() => RefreshIndicator(
-        onRefresh: _refreshPage,
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Column(
-            children: [
-              Obx(() => ListView.builder(
-                    itemCount: controller.allNotifications.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) => InkWell(
-                      onTap: () => controller.notificationAsRead(
-                          controller.notifications.data?.data?[index].id ?? ""),
-                      child: _notificationCard(index),
-                    ),
-                  )),
-              Obx(() => controller.isMoreDataLoading.isTrue
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : Container())
-            ],
-          ),
-        ),
-      );
+  _contentLayout() => Column(
+    children: [
+      Obx(() => ListView.builder(
+            itemCount: controller.allNotifications.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) => InkWell(
+              onTap: () => controller.notificationAsRead(
+                  controller.notifications.data?.data?[index].id ?? ""),
+              child: _notificationCard(index),
+            ),
+          )),
+      Obx(() => controller.isMoreDataLoading.isTrue
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Container())
+    ],
+  );
 
   _notificationCard(int index) {
     String _plainText = htmlParser

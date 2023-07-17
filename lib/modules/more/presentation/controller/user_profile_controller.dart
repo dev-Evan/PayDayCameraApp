@@ -67,9 +67,11 @@ class ProfileDataController extends GetxController with StateMixin {
       await profileDataRepository.changePassIntoAccount(oldPassword, newPassword, confirmPass,)
           .then((ChangePasswordModel value) {
         GetStorage().remove(AppString.STORE_TOKEN);
+        GetStorage().remove(AppString.STORE_TOKEN);
+        GetStorage().remove(AppString.REMEMBER_KEY);
+        GetStorage().remove(AppString.LOGIN_CHECK_KEY);
         Get.back();
-        showCustomSnackBar(
-            message: AppString.text_password_update_successfully);
+        showCustomSnackBar(message: AppString.text_password_update_successfully);
         Get.offNamed(Routes.SIGN_IN);
         cleanPassData();
         Get.put(AuthController());

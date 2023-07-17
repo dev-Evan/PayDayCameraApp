@@ -41,13 +41,15 @@ class _SignInScreenState extends State<SignInScreen> {
 
   final _formKey = GlobalKey<FormState>();
   final ExitAppController _controller = Get.put(ExitAppController());
+
+  final AuthController _authService = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height / 6;
     double width = MediaQuery.of(context).size.width;
     final box = GetStorage();
     return WillPopScope(
-      onWillPop: () =>_controller. willPop(),
+      onWillPop: () => _controller.willPop(),
       child: Scaffold(
         backgroundColor: AppColor.backgroundColor,
         body: SafeArea(
@@ -79,12 +81,13 @@ class _SignInScreenState extends State<SignInScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                textFieldTitleText(titleText: AppString.text_email),
+                                textFieldTitleText(
+                                    titleText: AppString.text_email),
                                 CustomTextField(
                                   hintText: AppString.enterYourEmail,
                                   inputType: TextInputType.emailAddress,
-                                  controller:
-                                  Get.find<AuthController>().emailController,
+                                  controller: Get.find<AuthController>()
+                                      .emailController,
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return AppString
@@ -103,7 +106,8 @@ class _SignInScreenState extends State<SignInScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                textFieldTitleText(titleText: AppString.password),
+                                textFieldTitleText(
+                                    titleText: AppString.password),
                                 CustomPasswordTextField(
                                   hintText: AppString.enterYourPassword,
                                   inputType: TextInputType.emailAddress,
@@ -114,7 +118,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                       return AppString
                                           .the_password_field_is_required;
                                     } else if (value.length < 6) {
-                                      return AppString.incorrect_user_or_password;
+                                      return AppString
+                                          .incorrect_user_or_password;
                                     } else {
                                       return null;
                                     }
@@ -134,8 +139,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       child: Row(
                         children: [
                           Checkbox(
-                            visualDensity:
-                            const VisualDensity(horizontal: -4, vertical: -4),
+                            visualDensity: const VisualDensity(
+                                horizontal: -4, vertical: -4),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
                                     Dimensions.radiusSmall)),
@@ -180,7 +185,6 @@ class _SignInScreenState extends State<SignInScreen> {
       throw 'Could not launch $url';
     }
   }
-
 }
 
 emailExp() {
