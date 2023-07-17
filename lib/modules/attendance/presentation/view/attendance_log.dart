@@ -377,7 +377,6 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
       elevation: 8.0,
     );
   }
-
   _shortSummaryListLayout() {
     return _shortSummaryLogsList();
   }
