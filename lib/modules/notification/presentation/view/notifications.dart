@@ -59,9 +59,7 @@ class Notifications extends GetView<NotificationController> {
                     ),
                   )),
               Obx(() => controller.isMoreDataLoading.isTrue
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
+                  ? const SizedBox(height: 70, child: LoadingIndicator())
                   : Container())
             ],
           ),
