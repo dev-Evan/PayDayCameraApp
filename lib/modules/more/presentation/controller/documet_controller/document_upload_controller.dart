@@ -25,6 +25,7 @@ class FileUploadController extends GetxController {
       File file = File(result.files.single.path!);
       selectedFile.value = file;
       filePath.value = result.files.single.path!;
+      print(filePath.toString());
     }
   }
 

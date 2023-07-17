@@ -152,7 +152,7 @@ class DocumentScreen extends GetView<DocumentController> {
                                 ],
                               ),
                             ),
-                            customSpacerHeight(height: 52)
+                            customSpacerHeight(height: 70)
                           ],
                         ),
                       )
@@ -183,7 +183,7 @@ class DocumentScreen extends GetView<DocumentController> {
           bottom: AppLayout.getHeight(8)),
       child: CustomButton(AppString.text_add_documents, () {
         customButtonSheet(
-            context: Get.context, height: 0.9, child: const AddDocument());
+            context: Get.context, height: 0.9, child:  AddDocument());
       }),
     );
   }

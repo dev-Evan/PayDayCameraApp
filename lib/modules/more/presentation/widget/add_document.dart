@@ -19,10 +19,13 @@ import 'package:dotted_border/dotted_border.dart';
 import '../view/change_password.dart';
 
 class AddDocument extends StatelessWidget {
-  const AddDocument({Key? key}) : super(key: key);
+   AddDocument({Key? key}) : super(key: key);
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Form(
+        key: _formKey,
+        child: Column(
       children: [
         bottomSheetAppbar(
             context: context,
@@ -43,10 +46,18 @@ class AddDocument extends StatelessWidget {
                   textFieldTitleText(titleText: AppString.text_name),
                   customSpacerHeight(height: 8),
                   CustomTextField(
-                      hintText: AppString.text_enter_document_name,
-                      inputType: TextInputType.text,
-                      controller: Get.find<InputTextFieldController>()
-                          .docFileNameController),
+                    hintText: AppString.text_enter_document_name,
+                    inputType: TextInputType.text,
+                    controller: Get.find<InputTextFieldController>()
+                        .docFileNameController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return AppString.the_document_field_is_required;
+                      }
+                      return null;
+                    },
+
+                  ),
                 ],
               ),
               customSpacerHeight(height: 8),
@@ -64,87 +75,87 @@ class AddDocument extends StatelessWidget {
                             Get.find<FileUploadController>().pickFile();
                           },
                           child: Obx(() => Get.find<FileUploadController>()
-                                  .filePath
-                                  .isNotEmpty
+                              .filePath
+                              .isNotEmpty
                               ? Get.find<FileUploadController>()
+                              .filePath
+                              .endsWith(".pdf")
+                              ? Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.picture_as_pdf,
+                                color: AppColor.primaryColor,
+                              ),
+                              SizedBox(
+                                width: AppLayout.getWidth(6),
+                              ),
+                              Text(
+                                AppString.text_click,
+                                style: AppStyle.mid_large_text
+                                    .copyWith(
+                                    color:
+                                    AppColor.primaryColor,
+                                    fontSize: Dimensions
+                                        .fontSizeDefault),
+                              ),
+                              customSpacerWidth(width: 6),
+                              Text(
+                                AppString.text_to_replace_fil,
+                                style: AppStyle.mid_large_text
+                                    .copyWith(
+                                    color: AppColor.hintColor,
+                                    fontSize: Dimensions
+                                        .fontSizeDefault +
+                                        2),
+                              ),
+                            ],
+                          )
+                              : Container(
+                            height: AppLayout.getHeight(100),
+                            decoration: BoxDecoration(
+                              color: AppColor.disableColor
+                                  .withOpacity(0.4),
+                              image: DecorationImage(
+                                  image: FileImage(File(Get.find<
+                                      FileUploadController>()
                                       .filePath
-                                      .endsWith(".pdf")
-                                  ? Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                    children: [
-                                      const Icon(
-                                        Icons.picture_as_pdf,
-                                        color: AppColor.primaryColor,
-                                      ),
-                                      SizedBox(
-                                        width: AppLayout.getWidth(6),
-                                      ),
-                                      Text(
-                                        AppString.text_click,
-                                        style: AppStyle.mid_large_text
-                                            .copyWith(
-                                                color:
-                                                    AppColor.primaryColor,
-                                                fontSize: Dimensions
-                                                    .fontSizeDefault),
-                                      ),
-                                      customSpacerWidth(width: 6),
-                                      Text(
-                                        AppString.text_to_replace_fil,
-                                        style: AppStyle.mid_large_text
-                                            .copyWith(
-                                                color: AppColor.hintColor,
-                                                fontSize: Dimensions
-                                                        .fontSizeDefault +
-                                                    2),
-                                      ),
-                                    ],
-                                  )
-                                  : Container(
-                                      height: AppLayout.getHeight(100),
-                                      decoration: BoxDecoration(
-                                        color: AppColor.disableColor
-                                            .withOpacity(0.4),
-                                        image: DecorationImage(
-                                            image: FileImage(File(Get.find<
-                                                            FileUploadController>()
-                                                        .filePath
-                                                        .value)
-                                                .absolute),
-                                            fit: BoxFit.cover),
-                                      ),
-                                    )
+                                      .value)
+                                      .absolute),
+                                  fit: BoxFit.cover),
+                            ),
+                          )
                               : Container(
                             color: AppColor.disableColor.withOpacity(0.4),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Icon(
-                                        CupertinoIcons.link ,
-                                        color: AppColor.primaryColor,
-                                      ),
-                                      SizedBox(
-                                        width: AppLayout.getWidth(6),
-                                      ),
-                                      Text(
-                                        AppString.text_click,
-                                        style: AppStyle.mid_large_text.copyWith(
-                                            color: AppColor.primaryColor,
-                                            fontSize:
-                                                Dimensions.fontSizeDefault),
-                                      ),
-                                      customSpacerWidth(width: 6),
-                                      Text(
-                                        AppString.text_to_add_fils,
-                                        style: AppStyle.mid_large_text.copyWith(
-                                            color: AppColor.hintColor,
-                                            fontSize:
-                                                Dimensions.fontSizeDefault + 2),
-                                      ),
-                                    ],
-                                  ),
-                                )))), //),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  CupertinoIcons.link ,
+                                  color: AppColor.primaryColor,
+                                ),
+                                SizedBox(
+                                  width: AppLayout.getWidth(6),
+                                ),
+                                Text(
+                                  AppString.text_click,
+                                  style: AppStyle.mid_large_text.copyWith(
+                                      color: AppColor.primaryColor,
+                                      fontSize:
+                                      Dimensions.fontSizeDefault),
+                                ),
+                                customSpacerWidth(width: 6),
+                                Text(
+                                  AppString.text_to_add_fils,
+                                  style: AppStyle.mid_large_text.copyWith(
+                                      color: AppColor.hintColor,
+                                      fontSize:
+                                      Dimensions.fontSizeDefault + 2),
+                                ),
+                              ],
+                            ),
+                          )))), //),
 
                   customSpacerHeight(height: 8),
                   Obx(() => Text(
@@ -174,26 +185,27 @@ class AddDocument extends StatelessWidget {
                 Get.find<FileUploadController>().filePath.value = "";
               },
               elevatedButtonAction: () {
+    if (_formKey.currentState!.validate()) {
                 Get.find<InputTextFieldController>()
-                        .docFileNameController
-                        .text
-                        .isEmpty
+                    .docFileNameController
+                    .text
+                    .isEmpty
                     ? showCustomSnackBar(
-                        message: AppString.text_document_name_is_required,
-                       )
+                  message: AppString.text_document_name_is_required,
+                )
                     : Get.find<FileUploadController>().filePath.isEmpty
-                        ? showCustomSnackBar(
-                            message: AppString.text_please_selected_document,
-                            )
-                        : Get.find<FileUploadController>()
-                            .uploadFile(context: context);
-              },
+                    ? showCustomSnackBar(
+                  message: AppString.text_please_selected_document,
+                )
+                    : Get.find<FileUploadController>()
+                    .uploadFile(context: context);
+              }},
               textBtnText: AppString.text_cancel,
               elevatedBtnText: AppString.text_add_document,
               context: context),
         ),
       ],
-    );
+    ));
   }
 }
 

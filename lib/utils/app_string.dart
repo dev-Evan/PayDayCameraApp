@@ -122,6 +122,7 @@ class AppString {
   static String text_in_time = "In Time";
   static String text_out_time = "Out Time";
   static String text_select_time = "Select Time";
+  static String text_please_provite_a_leave_note = "Please, provide a leave note";
   static String onboardTileMainAttend = 'Maintain\nAttendance';
   static String onboardTileEasy = 'Easy\nLeave apply';
   static String onboardTileReceivePay = 'Receive\nPayments';
@@ -451,6 +452,7 @@ class AppString {
   static const String the_password_confirmation_does_not_match= "The password confirmation does not match.";
 
   static const String the_email_field_is_required = "The email field is required.";
+  static const String the_document_field_is_required = "The document name field is required.";
   static const String the_gender_field_is_required = "The gender field is required.";
   static const String enterYourPassword = "Enter your password";
   static const String enterYourEmail = "Enter your email";

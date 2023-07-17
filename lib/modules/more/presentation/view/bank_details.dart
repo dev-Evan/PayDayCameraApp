@@ -6,7 +6,6 @@ import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
-import 'package:pay_day_mobile/common/widget/no_data_found.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/add_bank_info.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/address_details_widget.dart';
@@ -17,6 +16,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/widget/loading_indicator.dart';
 import '../controller/bank_info_controller.dart';
 
@@ -39,6 +39,14 @@ class BankDetails extends GetView<MoreDataController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      customMoreAppbar(
+                          titleText:
+                          controller
+                              .bankInfoModel.data?.name !=null?
+                          AppString.text_bank_details:""
+                      ),
+
+
                       _bankTitleRow(
                           bankTitleText: controller
                               .bankInfoModel.data?.name
@@ -109,7 +117,18 @@ class BankDetails extends GetView<MoreDataController> {
               )
                   : Column(
                 children: [
-                noDataFound(height: 252),
+                  Center(
+                    child: Column(
+                      children: [
+                        customSpacerHeight(height: 230),
+                        svgIcon(
+                          height: 160,
+                          width: 160,
+                          url: Images.no_data_found,
+                        ),
+                      ],
+                    ),
+                  ),
                   const Spacer(),
                   _addBankInfo(onAction: () {
                     customButtonSheet(
@@ -125,12 +144,6 @@ class BankDetails extends GetView<MoreDataController> {
           onLoading: const LoadingIndicator()),
     );
   }
-  // customMoreAppbar(
-  // titleText:
-  // controller
-  //     .bankInfoModel.data?.name !=null?
-  // AppString.text_bank_details:""
-  // ),
 
   Future<void> _refreshPage() async {
     controller.getBankInfo();

@@ -22,19 +22,21 @@ import '../view/change_password.dart';
 // ignore: must_be_immutable
 class UpdateDocument extends StatelessWidget {
   String? docUrl;
-
   UpdateDocument({Key? key, this.docUrl}) : super(key: key);
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     print(docUrl.toString());
     final _box = GetStorage();
-    return Column(
+    return Form(
+        key: _formKey,
+        child: Column(
       children: [
         bottomSheetAppbar(
-          context: context,
-          appbarTitle: "${AppString.text_edit} ${AppString.text_documents}",
-          onAction: ()=> Get.find<InputTextFieldController>()
-              .docFileNameController.clear()
+            context: context,
+            appbarTitle: "${AppString.text_edit} ${AppString.text_documents}",
+            onAction: ()=> Get.find<InputTextFieldController>()
+                .docFileNameController.clear()
         ),
         Padding(
           padding: const EdgeInsets.all(20.0),
@@ -45,10 +47,17 @@ class UpdateDocument extends StatelessWidget {
                 children: [
                   textFieldTitleText(titleText: AppString.text_name),
                   CustomTextField(
-                      hintText: _box.read(AppString.STORE_DOC_NAME_TEXT) ?? "",
-                      inputType: TextInputType.text,
-                      controller: Get.find<InputTextFieldController>()
-                          .docFileNameController),
+                    hintText: AppString.text_enter_document_name,
+                    inputType: TextInputType.text,
+                    controller: Get.find<InputTextFieldController>()
+                        .docFileNameController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return AppString.the_document_field_is_required;
+                      }
+                      return null;
+                    },
+                  ),
                 ],
               ),
               customSpacerHeight(height: 20),
@@ -64,69 +73,69 @@ class UpdateDocument extends StatelessWidget {
                           onTap: () =>
                               Get.find<UpdateDocumentController>().pickFile(),
                           child: Get.find<UpdateDocumentController>()
-                                  .filePath
-                                  .endsWith(".pdf")
+                              .filePath
+                              .endsWith(".pdf")
                               ? Container(
-                                  height: AppLayout.getHeight(100),
-                                  color: AppColor.disableColor.withOpacity(0.7),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      _fileTitle(
-                                        text: _box.read(AppString
-                                                .STORE_DOC_NAME_TEXT) ??
-                                            "",
-                                      ),
-                                      customSpacerHeight(height: 16),
-                                      _changeFile()
-                                    ],
-                                  ),
-                                )
+                            height: AppLayout.getHeight(100),
+                            color: AppColor.disableColor.withOpacity(0.7),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _fileTitle(
+                                  text: _box.read(AppString
+                                      .STORE_DOC_NAME_TEXT) ??
+                                      "",
+                                ),
+                                customSpacerHeight(height: 16),
+                                _changeFile()
+                              ],
+                            ),
+                          )
                               : Get.find<UpdateDocumentController>()
+                              .filePath
+                              .startsWith("https://")
+                              ? Container(
+                            height: AppLayout.getHeight(100),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              image: DecorationImage(
+                                  image: networkImage(
+                                      path: Get.find<
+                                          UpdateDocumentController>()
+                                          .filePath
+                                          .value),
+                                  fit: BoxFit.cover),
+                            ),
+                          )
+                              : Container(
+                            height: AppLayout.getHeight(100),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              image: DecorationImage(
+                                  image: FileImage(File(Get.find<
+                                      UpdateDocumentController>()
                                       .filePath
-                                      .startsWith("https://")
-                                  ? Container(
-                                      height: AppLayout.getHeight(100),
-                                      decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        image: DecorationImage(
-                                            image: networkImage(
-                                                path: Get.find<
-                                                        UpdateDocumentController>()
-                                                    .filePath
-                                                    .value),
-                                            fit: BoxFit.cover),
-                                      ),
-                                    )
-                                  : Container(
-                                      height: AppLayout.getHeight(100),
-                                      decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        image: DecorationImage(
-                                            image: FileImage(File(Get.find<
-                                                        UpdateDocumentController>()
-                                                    .filePath
-                                                    .value
-                                                    .toString())
-                                                .absolute),
-                                            fit: BoxFit.cover),
-                                      ),
-                                    )))),
+                                      .value
+                                      .toString())
+                                      .absolute),
+                                  fit: BoxFit.cover),
+                            ),
+                          )))),
                   customSpacerHeight(height: 8),
                   Obx(() => Get.find<UpdateDocumentController>()
-                          .filePath
-                          .value
-                          .isNotEmpty
+                      .filePath
+                      .value
+                      .isNotEmpty
                       ? Text(
-                          Get.find<UpdateDocumentController>()
-                              .filePath
-                              .value
-                              .toString().split('/').last,
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.hintColor,
-                              fontSize: Dimensions.fontSizeDefault - 2),
-                        )
+                    Get.find<UpdateDocumentController>()
+                        .filePath
+                        .value
+                        .toString().split('/').last,
+                    style: AppStyle.mid_large_text.copyWith(
+                        color: AppColor.hintColor,
+                        fontSize: Dimensions.fontSizeDefault - 2),
+                  )
                       : const Text("")),
                   customSpacerHeight(height: 8),
                   alertBox(
@@ -143,21 +152,26 @@ class UpdateDocument extends StatelessWidget {
           child: customDoubleButton(
               textButtonAction: () => Get.back(),
               elevatedButtonAction: () {
-                Get.find<UpdateDocumentController>()
-                        .filePath
-                        .startsWith("https://")
-                    ? showCustomSnackBar(
-                        message: AppString.text_please_selected_document,
-                        color: AppColor.errorColor)
-                    : Get.find<UpdateDocumentController>()
-                        .updateDocFile(context: context);
+    if (_formKey.currentState!.validate()) {
+      Get.find<UpdateDocumentController>()
+          .filePath
+          .startsWith("https://")
+          ? showCustomSnackBar(
+        message: AppString.text_please_selected_document,
+      )
+          : Get.find<UpdateDocumentController>()
+          .updateDocFile(context: context);
+    }
+
+
+
               },
               textBtnText: AppString.text_cancel,
               elevatedBtnText: AppString.text_save,
               context: context),
         ),
       ],
-    );
+    ));
   }
 }
 
