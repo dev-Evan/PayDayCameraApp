@@ -27,7 +27,7 @@ class MoreScreen extends GetView<ProfileDataController> {
   const MoreScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-      controller.getUserData();
+      controller.getProfileData();
     return controller.obx(
         (state) => Scaffold(
               body: RefreshIndicator(
@@ -164,7 +164,7 @@ class MoreScreen extends GetView<ProfileDataController> {
   }
 
   Future<void> _refreshPage() async{
-    await controller.getUserData();
+    await controller.getProfileData();
   }
 }
 

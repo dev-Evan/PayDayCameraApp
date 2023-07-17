@@ -26,8 +26,7 @@ import 'modules/more/presentation/controller/common_controller/more_text_editing
 import 'modules/more/presentation/controller/common_controller/pick_image_controller.dart';
 import 'modules/more/presentation/controller/salary_overview_controller.dart';
 import 'modules/more/presentation/controller/user_profile_controller.dart';
-import 'modules/payslip/presentation/controller/payrun_badge_controller.dart';
-import 'modules/payslip/presentation/controller/payslip_list_controller.dart';
+import 'modules/payslip/presentation/controller/payslip_controller.dart';
 import 'modules/payslip/presentation/controller/payslip_view_controller.dart';
 import 'modules/setting/presentation/controller/setting_controller.dart';
 
@@ -49,8 +48,7 @@ Future<void> initApp() async {
   Get.lazyPut(() => AttendanceLogsController(), fenix: true);
   Get.lazyPut(() => LeaveController(), fenix: true);
   Get.lazyPut(() => NotificationController(), fenix: true);
-  Get.lazyPut(() => PayslipListController(), fenix: true);
-  Get.lazyPut(() => PayrunBadgeController(), fenix: true);
+  Get.lazyPut(() => PayslipController(), fenix: true);
   Get.lazyPut(() => DocumentController(), fenix: true);
   Get.lazyPut(() => ProfileDataController(), fenix: true);
   Get.lazyPut(() => JobHistoryController(), fenix: true);

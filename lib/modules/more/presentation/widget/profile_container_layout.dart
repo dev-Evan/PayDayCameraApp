@@ -13,12 +13,12 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import '../../../../common/widget/custom_navigator.dart';
 import '../../../../common/widget/custom_spacer.dart';
 import '../controller/user_profile_controller.dart';
 import '../view/view_profile.dart';
 
-Widget profileCardLayOut(
-    {context, userName, final userImage, userEmail, statusText}) {
+Widget profileCardLayOut({required context,required userName, required final userImage,required userEmail,required statusText}) {
   return Expanded(
       flex: 2,
       child: Container(
@@ -93,8 +93,8 @@ Widget profileCardLayOut(
               const Spacer(),
               customSpacerHeight(height: 12),
               _moveProfileView(onAction: () async {
-                _viewProfileNavigator(context);
-                await Get.find<ProfileDataController>().getUserData();
+                defaultNavigator(context: context,routeName: const ViewProfile());
+                await Get.find<ProfileDataController>().getProfileData();
               }),
               customSpacerHeight(height: 8),
             ],
@@ -103,15 +103,7 @@ Widget profileCardLayOut(
       ));
 }
 
- _viewProfileNavigator(context) {
-  return  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (BuildContext context) => const ViewProfile(),
-    ),
-  );
 
-}
 
 Widget _userNameText({required userName}) {
   GetStorage().write(AppString.USER_NAME, userName.toString());
@@ -159,11 +151,15 @@ Widget _viewProfileText() {
   );
 }
 
+// Future navigatorForViewProfile({context}) {
+//   return Navigator.pushReplacement(
+//     context,
+//     MaterialPageRoute(
+//       builder: (BuildContext context) => const ViewProfile(),
+//     ),
+//   );
+// }
 Future navigatorForViewProfile({context}) {
-  return Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder: (BuildContext context) => const ViewProfile(),
-    ),
-  );
+  return  defaultOffNavigator(routeName: const ViewProfile(),context: context);
+
 }

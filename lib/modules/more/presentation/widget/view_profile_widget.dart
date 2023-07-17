@@ -44,21 +44,18 @@ Widget cardView({icon, dynamicText, titleText}) {
 }
 
 Widget circleAvatarStyle({final userImage}) {
-
   return Stack(
     children: [
       Container(
         height: AppLayout.getHeight(74),
         width: AppLayout.getWidth(74),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.transparent,
         ),
         child: ClipOval(
           child: FadeInImage(
             image: NetworkImage(userImage),
-
-
             placeholder: Get.find<PickImageController>().pickedImage.value ==null
   ? placeholderImages
       : Image.file(File(Get.find<PickImageController>().pickedImage.value!.path))
@@ -87,8 +84,7 @@ Widget circleAvatarStyle({final userImage}) {
               backgroundColor: AppColor.primaryColor,
               child: IconButton(
                   padding: const EdgeInsets.all(0),
-                  onPressed: () =>
-                      Get.find<PickImageController>().pickImage(ImageSource.gallery),
+                  onPressed: () => Get.find<PickImageController>().pickImage(ImageSource.gallery),
                   icon: const Icon(
                     Icons.add_a_photo_outlined,
                     size: 14,

@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
-import 'package:pay_day_mobile/modules/payslip/presentation/controller/payrun_badge_controller.dart';
-import 'package:pay_day_mobile/routes/app_pages.dart';
+import 'package:pay_day_mobile/modules/payslip/presentation/controller/payslip_controller.dart';
+import 'package:pay_day_mobile/modules/payslip/presentation/view/payrun_badge.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -12,7 +13,7 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../attendance/presentation/widget/attendance_log_text.dart';
 
 
-Widget summaryLayout({required total, required sent, required conflicted,required totalDynamic, required sentDynamic, required conflictedDynamic,topTextValue, required layoutHeight}) {
+Widget summaryLayout({required total, required sent, required conflicted,required totalDynamic, required sentDynamic, required conflictedDynamic,topTextValue, required layoutHeight,required context}) {
   return Expanded(
     flex:layoutHeight,
     child: Container(
@@ -21,12 +22,12 @@ Widget summaryLayout({required total, required sent, required conflicted,require
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(Dimensions.radiusMid),
               bottomRight: Radius.circular(Dimensions.radiusMid))),
-      child: layout(totalDynamic:totalDynamic,sentDynamic:sentDynamic,conflictedDynamic:conflictedDynamic,total: total,sent: sent,conflicted: conflicted,topTextValue: topTextValue),
+      child: layout(totalDynamic:totalDynamic,sentDynamic:sentDynamic,conflictedDynamic:conflictedDynamic,total: total,sent: sent,conflicted: conflicted,topTextValue: topTextValue,context: context),
     ),
   );
 }
 
-Widget layout({required totalDynamic, required sentDynamic, required conflictedDynamic,required total, required sent, required conflicted,String ?topTextValue}) {
+Widget layout({required totalDynamic, required sentDynamic, required conflictedDynamic,required total, required sent, required conflicted,String ?topTextValue,required context}) {
   return Padding(
     padding: boxPadding,
     child: Column(
@@ -49,8 +50,8 @@ Widget layout({required totalDynamic, required sentDynamic, required conflictedD
             context: Get.context,
             text: AppString.text_payrun_badge,
             onAction: () async {
-              Get.toNamed(Routes.PAYRAN_BAGE);
-              await Get.find<PayrunBadgeController>().getPayrunBadgeData();
+              defaultNavigator(context:context,routeName: const PayRunBadge() );
+              await Get.find<PayslipController>().getPayrunBadgeData();
             }),
 
       ],

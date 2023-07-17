@@ -44,7 +44,7 @@ class LeaveRecordsView extends GetView<LeaveController> {
                                 sent: AppString.text_upcomming,
                                 conflicted: AppString.text_pending,
                                 topTextValue: "",
-                                layoutHeight: 1),
+                                layoutHeight: 1,context: context),
                             Expanded(
                               flex: 5,
                               child: Column(

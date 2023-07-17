@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -15,7 +17,7 @@ class LogoutController extends GetxController with StateMixin {
   final _box = GetStorage();
   LogoutModel logoutModel = LogoutModel();
   logOut() async {
-    waitingLoader();
+    _loadingIndicator();
     try {
       await logoutRepository.getLogoutRepoData().then((value) {
         logoutModel = value;
@@ -36,8 +38,16 @@ class LogoutController extends GetxController with StateMixin {
 }
 
 Future waitingLoader() {
-  return Get.dialog(
-       const Center(child: LoadingIndicator()),
+  return Get.dialog(const Center(child: LoadingIndicator()),
   barrierColor: AppColor.backgroundColor
   );
+}
+_loadingIndicator(){
+  return  Get.dialog( Center(child: Platform.isIOS
+      ? const CupertinoActivityIndicator(
+    color: AppColor.primaryBlue,
+  )
+      : const CircularProgressIndicator(
+    color: AppColor.primaryColor,
+  ),));
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
-import 'package:pay_day_mobile/modules/payslip/presentation/controller/payslip_list_controller.dart';
+import 'package:pay_day_mobile/modules/payslip/presentation/controller/payslip_controller.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/controller/payslip_std_drop_dawon_controller.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/drop_dawon_seleted_date.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/logList_widget.dart';
@@ -13,7 +13,7 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../../common/widget/no_data_found.dart';
 
-class PaySlip extends GetView<PayslipListController> {
+class PaySlip extends GetView<PayslipController> {
   PaySlip({Key? key}) : super(key: key);
   final List<String> _selectedValue = [
     AppString.text_this_month,
@@ -52,7 +52,8 @@ class PaySlip extends GetView<PayslipListController> {
                             sent: AppString.text_sent,
                             conflicted: AppString.text_conflicted,
                             topTextValue: AppString.text_total,
-                            layoutHeight: 2),
+                            layoutHeight: 2,
+                        context: context),
                         vertical(
                             layoutHeight: 6,
                             child: Column(

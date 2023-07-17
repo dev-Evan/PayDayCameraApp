@@ -29,6 +29,9 @@ class BankDetails extends GetView<MoreDataController> {
       body: controller.obx(
               (state) => Stack(
             children: [
+              customMoreAppbar(
+                  titleText:AppString.text_bank_details),
+
               (controller.bankInfoModel.data?.accountTitle != null &&
                   controller
                       .bankInfoModel.data!.accountTitle!.isNotEmpty)
@@ -45,8 +48,6 @@ class BankDetails extends GetView<MoreDataController> {
                               .bankInfoModel.data?.name !=null?
                           AppString.text_bank_details:""
                       ),
-
-
                       _bankTitleRow(
                           bankTitleText: controller
                               .bankInfoModel.data?.name

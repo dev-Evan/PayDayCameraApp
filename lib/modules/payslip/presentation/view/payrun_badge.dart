@@ -3,12 +3,13 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
-import 'package:pay_day_mobile/modules/payslip/presentation/controller/payrun_badge_controller.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/payrun_badge_view.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
-class PayRunBadge extends GetView<PayrunBadgeController> {
+import '../controller/payslip_controller.dart';
+
+class PayRunBadge extends GetView<PayslipController> {
   const PayRunBadge({Key? key}) : super(key: key);
 
   @override
@@ -33,7 +34,7 @@ class PayRunBadge extends GetView<PayrunBadgeController> {
   }
 
   Future<void> _refreshPage() async {
-    await Get.find<PayrunBadgeController>().getPayrunBadgeData();
+    await Get.find<PayslipController>().getPayrunBadgeData();
   }
 }
 

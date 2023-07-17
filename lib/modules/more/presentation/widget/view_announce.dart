@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
@@ -12,6 +15,7 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:html/parser.dart' as htmlParser;
 import '../../../../common/widget/no_data_found.dart';
+import '../../../auth/presentation/controller/auth_controller.dart';
 
 class ViewAnnounce extends GetView<AnnouncementController> {
   const ViewAnnounce({super.key});
@@ -23,16 +27,16 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                       controller
                           .announcementModel.data!.announcements!.isNotEmpty)
                   ? RefreshIndicator(
-
-                onRefresh: _refreshPage,
-                    child: SingleChildScrollView(
-                      physics: const AlwaysScrollableScrollPhysics(),
+                      onRefresh: _refreshPage,
+                      child: SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
                         controller: controller.announceScrollController,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            customMoreAppbar(titleText: AppString.text_announcement),
+                            customMoreAppbar(
+                                titleText: AppString.text_announcement),
                             Padding(
                                 padding: const EdgeInsets.all(15.0),
                                 child: Obx(() => ListView.builder(
@@ -44,7 +48,8 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                                       itemBuilder: (context, index) {
                                         String plainText = htmlParser
                                                 .parse(controller
-                                                        .announcementIndex[index]
+                                                        .announcementIndex[
+                                                            index]
                                                         .description ??
                                                     "")
                                                 .documentElement
@@ -60,18 +65,21 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: announceLargeCard(
                                                 context: context,
-                                                child:
-                                                    ExpandedText(text: plainText),
+                                                child: ExpandedText(
+                                                    text: plainText),
                                                 titleText: controller
-                                                        .announcementIndex[index]
+                                                        .announcementIndex[
+                                                            index]
                                                         .name ??
                                                     "",
                                                 startDate: controller
-                                                        .announcementIndex[index]
+                                                        .announcementIndex[
+                                                            index]
                                                         .startDate ??
                                                     "",
                                                 endDate: controller
-                                                        .announcementIndex[index]
+                                                        .announcementIndex[
+                                                            index]
                                                         .endDate ??
                                                     ""),
                                           );
@@ -83,15 +91,18 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                                                 desText: plainText,
                                                 length: 152,
                                                 titleText: controller
-                                                        .announcementIndex[index]
+                                                        .announcementIndex[
+                                                            index]
                                                         .name ??
                                                     "",
                                                 startDate: controller
-                                                        .announcementIndex[index]
+                                                        .announcementIndex[
+                                                            index]
                                                         .startDate ??
                                                     "",
                                                 endDate: controller
-                                                        .announcementIndex[index]
+                                                        .announcementIndex[
+                                                            index]
                                                         .endDate ??
                                                     ""),
                                           );
@@ -99,21 +110,29 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                                       },
                                     ))),
                             Obx(
-                              () => progressBar(),
+                              () => _progressBar(),
                             ),
                             customSpacerHeight(height: 52)
                           ],
                         ),
                       ),
-                  )
+                    )
                   : noDataFound(),
             ),
         onLoading: const LoadingIndicator());
   }
 
-  progressBar() {
+  _progressBar() {
     return controller.isFloatingActionVisible.isTrue
-        ? const Center(child: CircularProgressIndicator())
+        ? Center(
+            child: Platform.isIOS
+                ? const CupertinoActivityIndicator(
+                    color: AppColor.primaryBlue,
+                  )
+                : const CircularProgressIndicator(
+                    color: AppColor.primaryColor,
+                  ),
+          )
         : Container();
   }
 
@@ -222,7 +241,6 @@ class ViewAnnounce extends GetView<AnnouncementController> {
     return TextButton(
         onPressed: () => onAction(), child: _redMoreBtn(text: text));
   }
-
 
   Future<void> _refreshPage() async {
     controller.getAnnouncement();

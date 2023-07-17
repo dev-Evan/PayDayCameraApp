@@ -8,6 +8,7 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/logout_contr
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../common_controller/more_text_editing_controller.dart';
+import 'document_upload_controller.dart';
 
 class UpdateDocumentController extends GetxController {
   Rx<File?> selectedFile = Rx<File?>(null);
@@ -46,6 +47,7 @@ class UpdateDocumentController extends GetxController {
     if (response.statusCode == 200) {
       print("Document updated ::: $response");
       Get.back();
+      moveDocPage(context: context);
       newValue = "value";
       Get.find<DocumentController>().getDocumentData();
       print(' Document update ::: File updated successfully');

@@ -96,4 +96,5 @@ class AnnouncementController extends GetxController with StateMixin {
       print("Get Leave allowance ::: $error");
     });
   }
+  
 }

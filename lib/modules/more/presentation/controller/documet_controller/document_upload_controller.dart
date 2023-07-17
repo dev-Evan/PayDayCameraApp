@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
@@ -12,8 +11,7 @@ import 'package:pay_day_mobile/modules/more/presentation/view/documents.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-
-import '../../../../../routes/app_pages.dart';
+import '../../../../../common/widget/custom_navigator.dart';
 
 class FileUploadController extends GetxController {
   Rx<File?> selectedFile = Rx<File?>(null);
@@ -63,17 +61,12 @@ class FileUploadController extends GetxController {
     }
   }
 
-  void _SnakBar() {
+   _SnakBar() {
     return showCustomSnackBar(message: AppString.text_file_upload_update_successfully);
 
   }
 
 }
 Future moveDocPage({context}) {
-  return Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder: (BuildContext context) => DocumentScreen(),
-    ),
-  );
+  return defaultOffNavigator(context: context,routeName: const DocumentScreen());
 }

@@ -23,7 +23,7 @@ class LoadingIndicator extends StatelessWidget {
                   color: AppColor.primaryBlue,
                 )
               : const CircularProgressIndicator(
-                  color: AppColor.primaryBlue,
+                  color: AppColor.primaryColor,
                 ),
         )),
       ),

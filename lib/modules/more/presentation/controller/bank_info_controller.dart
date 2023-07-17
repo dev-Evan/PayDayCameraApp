@@ -12,6 +12,7 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/add_bank_info.da
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
+import '../../../../common/widget/custom_navigator.dart';
 import '../../../../common/widget/error_alert_pop_up.dart';
 
 class MoreDataController extends GetxController with StateMixin {
@@ -32,7 +33,6 @@ class MoreDataController extends GetxController with StateMixin {
     }, onError: (error) {
       print("Bank info called:::$error");
       errorAlertPopup(getBankInfo);
-      errorSnackBar(errorMessage: error.toString());
     });
     change(null, status: RxStatus.success());
   }
@@ -50,12 +50,7 @@ class MoreDataController extends GetxController with StateMixin {
     ).then((value) {
       print("Bank Info Added ::: $value");
       Get.back();
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => BankDetails(),
-        ),
-      );
+      defaultOffNavigator(context: context,routeName:const BankDetails());
       getBankInfo();
       clearData();
     }, onError: (error) {
@@ -102,12 +97,7 @@ class MoreDataController extends GetxController with StateMixin {
       print("BANK INFO UPDATED ::: $value");
       Get.back();
       showCustomSnackBar(message: AppString.text_bank_details_update_successfully);
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => BankDetails(),
-        ),
-      );
+      defaultOffNavigator(context: context,routeName:const BankDetails());
       getBankInfo();
       clearData();
     }, onError: (error) {

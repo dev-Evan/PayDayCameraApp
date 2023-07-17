@@ -13,6 +13,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/widget/custom_buttom_sheet.dart';
 import '../../../../common/widget/custom_button.dart';
+import '../../../../common/widget/custom_navigator.dart';
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_style.dart';
 import '../../../attendance/presentation/widget/attendance_log_text.dart';
@@ -78,7 +79,7 @@ class Leave extends GetView<LeaveController> {
               context: Get.context!,
               text: AppString.text_leave_records,
               onAction: () async {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LeaveRecordsView()));
+                defaultNavigator(context:context,routeName:const LeaveRecordsView());
                 await Get.find<LeaveController>().getLeaveSummary();
                 await Get.find<LeaveController>().getLeaveRecord(params: "&within=thisMonth");}),
         ],

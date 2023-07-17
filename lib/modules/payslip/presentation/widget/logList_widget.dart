@@ -15,6 +15,7 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 
 import '../../../more/presentation/view/salary_overview.dart';
 import '../../../setting/presentation/controller/setting_controller.dart';
+import '../controller/payslip_controller.dart';
 
 Widget logsList({
   required titleDate,
@@ -38,7 +39,7 @@ Widget logsList({
     child: Column(
       children: [
         InkWell(
-          onTap: () {
+          onTap: () async {
             box.write(AppString.STORE_PAYSLIP_LIST_ID, indexId);
             customButtonSheet(
                 context: Get.context,

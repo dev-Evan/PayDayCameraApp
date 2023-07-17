@@ -284,6 +284,7 @@ class AppString {
   static String text_birthday = "Birthday";
   static String text_date_of_birth = "Date of Birth";
   static String text_phone = "Phone";
+  static String text_employee_id = "Employee id";
   static String text_personal = "Personal";
   static String text_job_histroy = "Job History";
   static String text_ui_designer = "UX Designer";
@@ -357,17 +358,17 @@ class AppString {
   static String text_enter_id = "Enter ID";
   static String text_enter_massage = "Enter message";
   static String text_password_change_successfully =
-      "Password changed successfully";
+      "Password has been changed successfully";
   static String text_deleted_address_successfully =
       "Deleted address successfully";
   static String text_deleted_document_successfully =
       "Deleted document successfully";
   static String text_document_upload_successfully =
-      "Document uploaded successfully!";
+      "Document has been upload successfully";
   static String text_document_update_successfully =
-      "Document update successfully!";
+      "Document has been updated successfully";
   static String text_profile_update_successfully =
-      "Profile update successfully!";
+      "Profile has been updated successfully";
   static String text_profile_picture_update_successfully =
       "Profile picture has been updated successfully";
   static String text_file_upload_update_successfully =
