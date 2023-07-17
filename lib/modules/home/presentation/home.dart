@@ -70,7 +70,7 @@ Future dialog(){
           context: context,
           child: SizedBox(
             height: AppLayout.getHeight(71),
-            child: BottomNavigationBar(
+            child: Wrap(children: [BottomNavigationBar(
               selectedItemColor: AppColor.primaryColor,
               unselectedItemColor: AppColor.hintColor.withOpacity(0.8),
               type: BottomNavigationBarType.fixed,
@@ -82,7 +82,7 @@ Future dialog(){
               backgroundColor: AppColor.backgroundColor,
               currentIndex: currentIndex,
               onTap: (index) => onTap(index),
-            ),
+            )]),
 
           ),
         ),

@@ -28,7 +28,7 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
     return controller.obx(
         (state) => Scaffold(
               appBar: const CustomAppbar(),
-          floatingActionButton:  Padding(
+              floatingActionButton: Padding(
                 padding: EdgeInsets.only(left: AppLayout.getWidth(30)),
                 child: CustomButton(AppString.text_requstAttendance, () {
                   _openRequestAttendanceBottomSheet(context: context);
@@ -386,13 +386,16 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
     return ListView.separated(
       primary: false,
       shrinkWrap: true,
-      separatorBuilder: (context, index) => customSpacerHeight(height: 20),
-      itemCount: Get.find<AttendanceLogsController>()
-              .logSummaryOverview
-              .data!
-              .attendanceDetails!
-              .length +
-          1,
+      separatorBuilder: (context, index) => customSpacerHeight(height: 30),
+      itemCount:
+          (Get.find<AttendanceLogsController>().logSummaryOverview.data != null)
+              ? Get.find<AttendanceLogsController>()
+                      .logSummaryOverview
+                      .data!
+                      .attendanceDetails!
+                      .length +
+                  1
+              : 0,
       itemBuilder: (context, index) {
         if (index ==
             controller.logSummaryOverview.data?.attendanceDetails?.length) {
