@@ -51,12 +51,18 @@ class AddressDetails extends GetView<AddressController> {
                                                       .deletedAddressApi(
                                                           addressType:
                                                               "permanent_address",
-                                                          context: context),
+                                                          context: context).then((value){
+                                                    if(value==true){
+                                                      controller.getEmployeeAddressData();
+                                                    }
+                                                  }),
                                             ),
                                         editAction:
                                             EditAddress("permanent_address"),
                                         type: "permanent_address")
                                     : addButton(onAction: () {
+
+
                                         customButtonSheet(
                                             context: context,
                                             height: 0.9,
@@ -227,7 +233,11 @@ class AddressDetails extends GetView<AddressController> {
                                                       .deletedAddressApi(
                                                           addressType:
                                                               "present_address",
-                                                          context: context),
+                                                          context: context).then((value){
+                                                    if(value==true){
+                                                      controller.getEmployeeAddressData();
+                                                    }
+                                                  }),
                                             ),
                                         editAction:
                                             EditAddress("present_address"),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/input_note.dart';
+import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
@@ -15,20 +16,14 @@ import '../controller/address_controller.dart';
 import '../controller/common_controller/county_pickar_controller.dart';
 import 'address_details_widget.dart';
 
-class EditAddress extends StatefulWidget {
+class EditAddress extends GetView<AddressController> {
   final String typeText;
   EditAddress(this.typeText);
-  @override
-  State<EditAddress> createState() => _EditAddressState();
-}
-
-final CountryPickerController _controller = Get.put(CountryPickerController());
-
-class _EditAddressState extends State<EditAddress> {
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return controller.obx((state) => Form(
       key: _formKey,
       child: Padding(
         padding: EdgeInsets.only(
@@ -40,7 +35,7 @@ class _EditAddressState extends State<EditAddress> {
               bottomSheetAppbar(
                   context: context,
                   appbarTitle:
-                      "${AppString.text_edit} ${AppString.text_address}"),
+                  "${AppString.text_edit} ${AppString.text_address}"),
               customSpacerHeight(height: 8),
 
               Column(
@@ -133,7 +128,7 @@ class _EditAddressState extends State<EditAddress> {
               countyField(
                 context: context,
                 controller:
-                    Get.find<InputTextFieldController>().countyTextController,
+                Get.find<InputTextFieldController>().countyTextController,
                 onAction: () {
                   showCountryPicker(
                       context: context,
@@ -154,7 +149,7 @@ class _EditAddressState extends State<EditAddress> {
               textFieldTitleText(titleText: AppString.text_phone),
               phoneAndCountyField(
                 controller:
-                    Get.find<InputTextFieldController>().phoneNumberController,
+                Get.find<InputTextFieldController>().phoneNumberController,
               ),
 
 
@@ -162,13 +157,13 @@ class _EditAddressState extends State<EditAddress> {
               customDoubleButton(
                   context: context,
                   elevatedBtnText:
-                      '${AppString.text_save}',
+                  AppString.text_save,
                   textBtnText: AppString.text_cancel,
                   textButtonAction: () => Get.back(),
                   elevatedButtonAction: () {
                     if (_formKey.currentState!.validate()) {
                       Get.find<AddressController>().addressUpdate(
-                          typeKey: widget.typeText.toString(),
+                          typeKey: typeText.toString(),
                           context: context,
                           area: Get.find<InputTextFieldController>()
                               .areaController
@@ -198,7 +193,11 @@ class _EditAddressState extends State<EditAddress> {
                               .zipCodeController
                               .value
                               .text,
-                          message: AppString.text_address_update_successfully);
+                          message: AppString.text_address_update_successfully).then((value){
+                        if(value==true){
+                          controller.getEmployeeAddressData();
+                        }
+                      });
                     }
                   }),
               customSpacerHeight(height: 250)
@@ -206,6 +205,8 @@ class _EditAddressState extends State<EditAddress> {
           ),
         ),
       ),
-    );
+    ),onLoading: const LoadingIndicator());
   }
 }
+
+final CountryPickerController _controller = Get.put(CountryPickerController());

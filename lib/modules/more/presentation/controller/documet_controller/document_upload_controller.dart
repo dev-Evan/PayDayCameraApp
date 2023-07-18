@@ -61,7 +61,7 @@ class FileUploadController extends GetxController {
     }
   }
 
-   _SnakBar() {
+  _SnakBar() {
     return showCustomSnackBar(message: AppString.text_file_upload_update_successfully);
 
   }

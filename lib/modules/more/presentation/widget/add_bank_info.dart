@@ -12,7 +12,6 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
 class AddBankInfo extends GetView<MoreDataController> {
-  
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -138,7 +137,6 @@ class AddBankInfo extends GetView<MoreDataController> {
                     if (_formKey.currentState!.validate()) {
                       Get.find<MoreDataController>()
                           .addBankInfo(context: context).then((value){
-
                         if(value==true){
                           Get.back(canPop: false);
                           Get.find<MoreDataController>().getBankInfo();
@@ -151,7 +149,7 @@ class AddBankInfo extends GetView<MoreDataController> {
           ),
         ),
       ),
-    ),onLoading: LoadingIndicator());
+    ),onLoading: const LoadingIndicator());
   }
 }
 

@@ -136,7 +136,7 @@ class AppPages {
     GetPage(
       name: _Paths.EDIT_PROFILE,
       transition: Transition.rightToLeft,
-      page: () => const EditProfile(),
+      page: () =>  EditProfile(),
     ),
 
     GetPage(

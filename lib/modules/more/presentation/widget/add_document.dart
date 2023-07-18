@@ -18,7 +18,7 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:dotted_border/dotted_border.dart';
 import '../view/change_password.dart';
 
-class AddDocument extends StatelessWidget {
+class AddDocument extends GetView<FileUploadController> {
   AddDocument({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
   @override
