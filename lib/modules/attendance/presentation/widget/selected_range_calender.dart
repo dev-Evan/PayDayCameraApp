@@ -120,6 +120,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                             0.7, MediaQuery.of(context).size.width),
                       ),
 
+
                       SizedBox(
                         height: AppLayout.getHeight(56),
                         child: ListView.builder(
