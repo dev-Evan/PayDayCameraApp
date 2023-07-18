@@ -5,7 +5,7 @@ import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
-import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_logs.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_log.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/attendance_log_text.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -15,7 +15,7 @@ import '../../../../utils/app_style.dart';
 import '../widget/break_pop_up.dart';
 import '../widget/dot_indicator.dart';
 import '../widget/info_layout.dart';
-import '../widget/log_list.dart';
+import '../widget/daily_log_list.dart';
 import '../widget/no_log_layout.dart';
 import '../widget/timer_layout.dart';
 import '../widget/timer_overview_layout.dart';
@@ -63,7 +63,7 @@ class Attendance extends GetView<AttendanceController> {
                             SizedBox(
                                 height: AppLayout.getHeight(
                                     Dimensions.paddingLarge)),
-                            logList(controller.logs.value.data!.dailyLogs!),
+                            dailyLogList(controller.logs.value.data!.dailyLogs!),
                           ]),
                     )
                   : noLogLayout(),
@@ -134,7 +134,7 @@ class Attendance extends GetView<AttendanceController> {
                           .getLogSummaryOverview();
                       customNavigator(
                           context: Get.context!,
-                          pageName: const AttendanceLogsScreen());
+                          pageName: const AttendanceLog());
                     }),
               ]),
         ),

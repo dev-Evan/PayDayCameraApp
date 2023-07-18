@@ -9,7 +9,7 @@ import '../../../../utils/app_style.dart';
 import '../../../../utils/dimensions.dart';
 import '../../../payslip/presentation/widget/summary_layout.dart';
 
-Widget attendanceLogsOverviewLayout(context) {
+Widget attendanceLogsOverviewLayout() {
   final controller = Get.find<AttendanceLogsController>();
   return SizedBox(
     width: double.infinity,

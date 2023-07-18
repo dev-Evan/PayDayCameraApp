@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
 import 'package:pay_day_mobile/modules/notification/data/notification_repository.dart';
 import 'package:pay_day_mobile/modules/notification/domain/notifications.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
@@ -66,7 +66,9 @@ class NotificationController extends GetxController with StateMixin {
       print(allNotifications.length);
       this.notifications = notifications;
       print(notifications.data!.meta!.total);
-    }, onError: (error) => print("getAllNotification ${error.message}"));
+    }, onError: (error) {
+      errorAlertPopup(_reloadPage);
+    });
 
     change(null, status: RxStatus.success());
   }
@@ -76,7 +78,9 @@ class NotificationController extends GetxController with StateMixin {
     await _notificationRepository.getAllUnreadNotification().then((value) {
       print("getAllUnreadNotification ::: called ${value.data!.data!.length}");
       length.value = value.data!.data!.length;
-    }, onError: (error) => print("getAllUnreadNotification ${error.message}"));
+    }, onError: (error) {
+      errorAlertPopup(_reloadPage);
+    });
 
     change(null, status: RxStatus.success());
   }
@@ -101,5 +105,10 @@ class NotificationController extends GetxController with StateMixin {
     }, onError: (error) => print("notificationAaALLRead ${error.message}"));
 
     change(null, status: RxStatus.success());
+  }
+
+  _reloadPage() async {
+    await getAllUnreadNotification();
+    await getAllNotification();
   }
 }

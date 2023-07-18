@@ -16,8 +16,8 @@ class LoadingIndicator extends StatelessWidget {
         color: Colors.white,
         child: Center(
             child: SizedBox(
-          height: AppLayout.getHeight(40),
-          width: AppLayout.getWidth(40),
+          height: AppLayout.getHeight(50),
+          width: AppLayout.getWidth(50),
           child: Platform.isIOS
               ? const CupertinoActivityIndicator(
                   color: AppColor.primaryBlue,

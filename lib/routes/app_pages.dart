@@ -4,7 +4,7 @@ import 'package:pay_day_mobile/modules/more/presentation/view/announce.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/edit_profile.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
 import 'package:pay_day_mobile/modules/starting/view/splash_screen.dart';
-import '../modules/attendance/presentation/view/attendance_logs.dart';
+import '../modules/attendance/presentation/view/attendance_log.dart';
 import '../modules/auth/presentation/view/sign_in.dart';
 import '../modules/home/presentation/home.dart';
 import '../modules/leave/presentation/view/leave.dart';
@@ -44,7 +44,7 @@ class AppPages {
     GetPage(
       transition: Transition.cupertino,
       name: _Paths.ATTENDANCE_LOG,
-      page: () => const AttendanceLogsScreen(),
+      page: () => const AttendanceLog(),
     ),
     GetPage(
       transition: Transition.cupertino,

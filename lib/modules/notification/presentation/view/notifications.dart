@@ -46,7 +46,6 @@ class Notifications extends GetView<NotificationController> {
           onLoading: const LoadingIndicator()),
     );
   }
-
   _contentLayout() => Column(
     children: [
       Obx(() => ListView.builder(

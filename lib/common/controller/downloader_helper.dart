@@ -24,6 +24,7 @@ class DownloadHelper extends GetxController {
     Directory? directory;
     try {
       if (Platform.isIOS) {
+        LoggerHelper.infoLog(message: "${Platform.isIOS}");
         directory = await getApplicationDocumentsDirectory();
       } else {
         directory = Directory('/storage/emulated/0/Download');
@@ -43,15 +44,16 @@ class DownloadHelper extends GetxController {
   downloadFile({required String url, fileInfo}) async {
     final status = await Permission.storage.request();
     if (status.isGranted) {
-      final baseStorage = await getExternalStorageDirectory();
-      await FlutterDownloader.enqueue(
+      print("${status.isGranted}");
+      final String? baseStorage = await getDownloadPath();
+      try{await FlutterDownloader.enqueue(
         url: url,
         savedDir: baseStorage!.path,
         fileName: fileInfo ?? "File",
         headers: _setHeaders(),
         showNotification: true,
         openFileFromNotification: true,
-      );
+      );}catch(e){print(e.toString());}
     } else {
       errorSnackBar(errorMessage: AppString.storage_permission);
     }

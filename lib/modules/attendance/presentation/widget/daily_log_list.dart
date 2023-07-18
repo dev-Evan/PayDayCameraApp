@@ -8,7 +8,7 @@ import '../../domain/daily_log/daily_log.dart';
 import '../controller/attendance_controller.dart';
 import '../view/log_details_bottomsheet.dart';
 
-Widget logList(List<DailyLogs> dailyLogs) {
+Widget dailyLogList(List<DailyLogs> dailyLogs) {
   return ListView.builder(
     physics: const NeverScrollableScrollPhysics(),
     shrinkWrap: true,
@@ -72,12 +72,11 @@ Widget _logDetails(DailyLogs dailyLog) {
   );
 }
 
-Future _openLogDetailsBottomSheet() {
-  return showModalBottomSheet(
-    enableDrag: false,
-    isScrollControlled: true,
-    backgroundColor: Colors.transparent,
-    context: Get.context!,
-    builder: (context) => const LogDetailsBottomSheet(),
-  );
-}
+_openLogDetailsBottomSheet() => showModalBottomSheet(
+  enableDrag: false,
+  isScrollControlled: true,
+  backgroundColor: Colors.transparent,
+  context: Get.context!,
+  builder: (context) => const LogDetailsBottomSheet(),
+);
+

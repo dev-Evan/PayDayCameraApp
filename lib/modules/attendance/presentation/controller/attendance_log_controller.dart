@@ -40,6 +40,8 @@ class AttendanceLogsController extends GetxController with StateMixin {
     super.onInit();
   }
 
+  final isShortSummaryClicked = false.obs;
+
   late ScrollController scrollController;
 
   late ScrollController floatingScrollController;
@@ -47,6 +49,8 @@ class AttendanceLogsController extends GetxController with StateMixin {
   final RxBool isFloatingActionVisible = true.obs;
 
   final queryString = "within=thisMonth".obs;
+
+  final clickIndex = 0.obs;
 
   final AttendanceLogsRepository _attendanceLogsRepository =
       AttendanceLogsRepository(NetworkClient());
@@ -63,7 +67,8 @@ class AttendanceLogsController extends GetxController with StateMixin {
 
   void _loadMoreFilteredLogSummary() async {
     if (filteredLogSummary.data != null) {
-      if (filteredLogSummary.data!.meta!.currentPage! < filteredLogSummary.data!.meta!.totalPages!) {
+      if (filteredLogSummary.data!.meta!.currentPage! <
+          filteredLogSummary.data!.meta!.totalPages!) {
         isMoreDataLoading(true);
         await _attendanceLogsRepository
             .getAllFilteredLogs(
@@ -83,33 +88,33 @@ class AttendanceLogsController extends GetxController with StateMixin {
     }
   }
 
-  void getLogSummaryByMonth() async {
+  getLogSummaryByMonth() async {
     change(null, status: RxStatus.loading());
     await _attendanceLogsRepository.getLogSummaryByThisMonth().then(
         (logSummaryByMonth) {
       this.logSummaryByMonth.value = logSummaryByMonth;
       LoggerHelper.infoLog(message: logSummaryByMonth.message);
     }, onError: (error) {
-      errorAlertPopup(getLogSummaryByMonth);
+      errorAlertPopup(_reloadPage);
       LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());
   }
 
-  void getLogSummaryByYear() async {
+  getLogSummaryByYear() async {
     change(null, status: RxStatus.loading());
     await _attendanceLogsRepository.getLogSummaryByThisYear().then(
         (logSummaryByYear) {
       this.logSummaryByYear.value = logSummaryByYear;
       LoggerHelper.infoLog(message: logSummaryByYear.message);
     }, onError: (error) {
-      errorAlertPopup(getLogSummaryByYear);
+      errorAlertPopup(_reloadPage);
       LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());
   }
 
-  void getAllFilteredLogSummary({String? queryParams, int? page}) async {
+  getAllFilteredLogSummary({String? queryParams, int? page}) async {
     change(null, status: RxStatus.loading());
     await _attendanceLogsRepository
         .getAllFilteredLogs(queryParams: queryString.value)
@@ -124,12 +129,12 @@ class AttendanceLogsController extends GetxController with StateMixin {
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
       LoggerHelper.errorLog(message: error.message);
-      errorAlertPopup(getAllFilteredLogSummary);
+      errorAlertPopup(_reloadPage);
     });
     change(null, status: RxStatus.success());
   }
 
-  void getLogSummaryOverview({String? queryParams}) async {
+  getLogSummaryOverview({String? queryParams}) async {
     change(null, status: RxStatus.loading());
     await _attendanceLogsRepository
         .getLogSummaryOverview(queryParams: queryParams)
@@ -138,7 +143,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
       LoggerHelper.errorLog(message: error.message);
-      errorAlertPopup(getLogSummaryOverview);
+      errorAlertPopup(_reloadPage);
     });
     change(null, status: RxStatus.success());
   }
@@ -168,5 +173,13 @@ class AttendanceLogsController extends GetxController with StateMixin {
     });
     change(null, status: RxStatus.success());
     return returnValue;
+  }
+
+
+  _reloadPage() async{
+    await getLogSummaryByMonth();
+    await getLogSummaryByYear();
+    await getAllFilteredLogSummary();
+    await getLogSummaryOverview();
   }
 }

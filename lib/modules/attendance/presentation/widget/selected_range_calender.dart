@@ -47,9 +47,9 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-      initialChildSize: .78,
-      minChildSize: .65,
-      maxChildSize: .8,
+      initialChildSize: .9,
+      minChildSize: .9,
+      maxChildSize: .9,
       builder: (context, scrollController) => Container(
         decoration: const BoxDecoration(
             color: Colors.white,

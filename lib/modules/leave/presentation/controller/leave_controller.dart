@@ -1,8 +1,8 @@
-
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
 import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/leave/data/leave_repository.dart';
 import 'package:pay_day_mobile/modules/leave/domain/individual_date_leave.dart';
@@ -34,24 +34,42 @@ class LeaveController extends GetxController with StateMixin {
 
   final RxMap<dynamic, dynamic> requestLeaveQueries = {}.obs;
 
-  final startDate = DateFormat('yyyy-MM-dd').format(DateTime.now().toUtc()).obs;
-  final endDate = DateFormat('yyyy-MM-dd').format(DateTime.now().toUtc()).obs;
+  final startDate = DateFormat('yyyy-MM-dd')
+      .format(DateTime.now().toUtc())
+      .obs;
+  final endDate = DateFormat('yyyy-MM-dd')
+      .format(DateTime.now().toUtc())
+      .obs;
 
   final isValueLoading = false.obs;
 
   final rangeName = "This Month".obs;
 
   final rangeStartDay =
-      DateTime.utc(DateTime.now().year, DateTime.now().month, 1).obs;
+      DateTime
+          .utc(DateTime
+          .now()
+          .year, DateTime
+          .now()
+          .month, 1)
+          .obs;
   final rangeEndDate =
-      DateTime.utc(DateTime.now().year, DateTime.now().month + 1, 0).obs;
+      DateTime
+          .utc(DateTime
+          .now()
+          .year, DateTime
+          .now()
+          .month + 1, 0)
+          .obs;
 
   getLeaveAllowance() async {
     change(null, status: RxStatus.loading());
     await _leaveRepository.getLeaveAllowance().then((value) {
       print("getLeaveAllowance ::: called");
       leaveAllowance = value;
-    }, onError: (error) => print("getLeaveAllowance ${error.message}"));
+    }, onError: (error) {
+      errorAlertPopup(_refreshPage);
+    });
 
     change(null, status: RxStatus.success());
   }
@@ -61,7 +79,9 @@ class LeaveController extends GetxController with StateMixin {
     await _leaveRepository.getLeaveSummary().then((value) {
       print("getLeaveSummary ::: called");
       leaveSummary = value;
-    }, onError: (error) => print("getLeaveSummary ${error.message}"));
+    }, onError: (error) {
+      errorAlertPopup(_refreshRecordPage);
+    });
 
     change(null, status: RxStatus.success());
   }
@@ -71,7 +91,9 @@ class LeaveController extends GetxController with StateMixin {
     await _leaveRepository.getLeaveRecord(params).then((value) {
       print("getLeaveRecord ::: called");
       leaveRecord = value;
-    }, onError: (error) => print("getLeaveRecord ${error.message}"));
+    }, onError: (error) {
+      errorAlertPopup(_refreshRecordPage);
+    });
 
     change(null, status: RxStatus.success());
   }
@@ -81,7 +103,7 @@ class LeaveController extends GetxController with StateMixin {
     await _leaveRepository.getLeaveType().then((LeaveType value) {
       print("getLeaveType ::: called");
       leaveType.clear();
-      leaveType = { for (var e in value.data!) e.id : e.name??'' };
+      leaveType = { for (var e in value.data!) e.id: e.name ?? ''};
       print("list data::: $leaveType");
     }, onError: (error) => print("getLeaveType ${error.message}"));
 
@@ -153,5 +175,21 @@ class LeaveController extends GetxController with StateMixin {
 
     change(null, status: RxStatus.success());
     return returnValue;
+  }
+
+
+  _refreshPage() async {
+    getLeaveAllowance();
+    Map<String, String> queryParams = {
+      "start": DateFormat("yyyy-MM-dd").format(DateTime.now()),
+      "end": DateFormat("yyyy-MM-dd").format(DateTime.now())
+    };
+    String value = json.encode(queryParams);
+    getIndividualLeaveList(queryParams: "date_range=$value");
+  }
+
+  _refreshRecordPage() async {
+    await getLeaveSummary();
+    await getLeaveRecord(params: "&within=thisMonth");
   }
 }

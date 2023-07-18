@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
+import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/leave_details.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -20,7 +21,7 @@ Widget individualDateLeaveRecord() => Container(
         children: [
           const HorizontalCalendar(),
           Obx(() => Get.find<LeaveController>().isValueLoading.isTrue
-              ? const CircularProgressIndicator()
+              ? SizedBox(height: Get.height*.3,child: const LoadingIndicator(),)
               : Get.find<LeaveController>()
                           .individualDateLeaveList
                           .value

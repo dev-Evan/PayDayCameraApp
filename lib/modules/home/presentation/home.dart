@@ -26,22 +26,21 @@ class _HomeState extends State<Home> {
     const Attendance(),
     const Leave(),
     PaySlip(),
-     MoreScreen()
+    const MoreScreen()
   ];
+
   onTap(int index) {
     setState(() {
       currentIndex = index;
     });
   }
-  
-Future dialog(){
-    return customAlertDialog(
 
-    );
-}
+  Future dialog() {
+    return customAlertDialog();
+  }
+
   @override
   Widget build(BuildContext context) {
-
     List<BottomNavigationBarItem> items = <BottomNavigationBarItem>[
       BottomNavigationBarItem(
           icon: _icon(icon: Icons.watch_later_outlined),
@@ -68,9 +67,8 @@ Future dialog(){
         body: _screens[currentIndex],
         bottomNavigationBar: Localizations.override(
           context: context,
-          child: SizedBox(
-            height: AppLayout.getHeight(71),
-            child: BottomNavigationBar(
+          child: Wrap(children: [
+            BottomNavigationBar(
               selectedItemColor: AppColor.primaryColor,
               unselectedItemColor: AppColor.hintColor.withOpacity(0.8),
               type: BottomNavigationBarType.fixed,
@@ -82,9 +80,8 @@ Future dialog(){
               backgroundColor: AppColor.backgroundColor,
               currentIndex: currentIndex,
               onTap: (index) => onTap(index),
-            ),
-
-          ),
+            )
+          ]),
         ),
       ),
     );
@@ -94,13 +91,15 @@ Future dialog(){
 Widget _icon({required icon}) {
   return Icon(icon);
 }
+
 Future<bool> _onWillPop(BuildContext context) async {
   return await exitDialog(
       context: context,
-      yesAction: (){
-    if (Platform.isAndroid) {
-      SystemNavigator.pop();
-    } else if (Platform.isIOS) {
-      exit(0);}}
-  ) ;
+      yesAction: () {
+        if (Platform.isAndroid) {
+          SystemNavigator.pop();
+        } else if (Platform.isIOS) {
+          exit(0);
+        }
+      });
 }

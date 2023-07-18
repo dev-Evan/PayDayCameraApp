@@ -88,6 +88,7 @@ class Leave extends GetView<LeaveController> {
   }
 
   _leaveAllowance() {
+
     List<Data>? data = Get.find<LeaveController>().leaveAllowance.data;
     return SingleChildScrollView(
       padding: EdgeInsets.only(left: AppLayout.getWidth(20)),
