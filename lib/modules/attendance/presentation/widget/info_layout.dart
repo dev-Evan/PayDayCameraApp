@@ -20,12 +20,15 @@ Widget infoLayout() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _userName(text:"${GetStorage().read(AppString.USER_NAME).toString()}"),
+              _userName(
+                  text: GetStorage().read(AppString.USER_NAME).toString()),
               _getCurrentDate(),
             ],
           ),
         ),
-        controller.isPunchIn.isTrue && controller.logs.value.data != null
+        controller.isPunchIn.isTrue &&
+                controller.logs.value.data != null &&
+                controller.logs.value.data!.dailyLogs!.isNotEmpty
             ? CustomStatusButton(
                 bgColor: Util.getBtnBgColor(
                     behaviour: controller.logs.value.data!.behavior.toString(),
@@ -43,7 +46,7 @@ Widget infoLayout() {
 
 _userName({required text}) {
   return Padding(
-    padding:EdgeInsets.only(right: AppLayout.getWidth(4.0)),
+    padding: EdgeInsets.only(right: AppLayout.getWidth(4.0)),
     child: Text(
       "${"greeting_text".tr}, ${GetStorage().read(AppString.USER_NAME)}",
       style: AppStyle.title_text,

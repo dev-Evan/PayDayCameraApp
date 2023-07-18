@@ -152,9 +152,7 @@ class AttendanceController extends GetxController with StateMixin {
       logDetailsById = logDetails;
       LoggerHelper.infoLog(message: logDetails.message);
     }), onError: (error) {
-      if (!error.message.startsWith("Unauthenticated")) {
-        errorSnackBar(errorMessage: error!.message);
-      }
+      errorSnackBar(errorMessage: error!.message);
       LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());

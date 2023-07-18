@@ -49,7 +49,7 @@ _logDate() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text(
-        Get.find<AttendanceController>().logDetailsById.data?.logDate ?? '',
+        Get.find<AttendanceController>().logDetailsById.data?.inDate ?? '',
         style: AppStyle.large_text_black.copyWith(fontWeight: FontWeight.w600),
       ),
       Text(
