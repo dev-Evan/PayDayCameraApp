@@ -29,7 +29,7 @@ class AppButton extends StatelessWidget {
         ? Expanded(
             child: SizedBox(
               width: double.infinity,
-              height: MediaQuery.of(context).size.height / 18,
+              height: 50,
               child: TextButton.icon(
                 icon: iconsData == null ? Container() : Icon(iconsData,size: 20,color: textColor),
                 style: ElevatedButton.styleFrom(

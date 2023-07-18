@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
+import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
@@ -10,11 +11,12 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
-class AddBankInfo extends StatelessWidget {
+class AddBankInfo extends GetView<MoreDataController> {
+  
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return controller.obx((state) => Form(
       key: _formKey,
       child: Padding(
         padding: EdgeInsets.only(
@@ -32,7 +34,7 @@ class AddBankInfo extends StatelessWidget {
               CustomTextField(
                 hintText: AppString.text_enter_bank_name,
                 controller:
-                    Get.find<InputTextFieldController>().bankNameController,
+                Get.find<InputTextFieldController>().bankNameController,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return AppString.fieldIsRequired;
@@ -129,13 +131,19 @@ class AddBankInfo extends StatelessWidget {
               customDoubleButton(
                   context: context,
                   elevatedBtnText:
-                      '${AppString.text_add}${AppString.text_details}',
+                  '${AppString.text_add}${AppString.text_details}',
                   textBtnText: AppString.text_cancel,
                   textButtonAction: () => Get.back(),
                   elevatedButtonAction: () {
                     if (_formKey.currentState!.validate()) {
                       Get.find<MoreDataController>()
-                          .addBankInfo(context: context);
+                          .addBankInfo(context: context).then((value){
+
+                        if(value==true){
+                          Get.back(canPop: false);
+                          Get.find<MoreDataController>().getBankInfo();
+                        }
+                      });
                     }
                   }),
               customSpacerHeight(height: 250)
@@ -143,7 +151,7 @@ class AddBankInfo extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ),onLoading: LoadingIndicator());
   }
 }
 

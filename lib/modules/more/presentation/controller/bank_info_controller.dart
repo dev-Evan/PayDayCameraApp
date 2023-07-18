@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -37,8 +39,10 @@ class MoreDataController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  addBankInfo({required context}) async {
-    waitingLoader();
+   Future<bool> addBankInfo({required context}) async {
+    // waitingLoader();
+     bool  retrunValue=false;
+    change(null, status: RxStatus.loading());
     await moreDataRepository.AddBankInfoRepo(
       textEditingController.bankNameController.text,
       textEditingController.bankCodeController.text,
@@ -49,14 +53,18 @@ class MoreDataController extends GetxController with StateMixin {
       textEditingController.taxPayerIdController.text,
     ).then((value) {
       print("Bank Info Added ::: $value");
-      Get.back();
-      defaultOffNavigator(context: context,routeName:const BankDetails());
-      getBankInfo();
+      // Get.back();
+      // Get.back();
+      retrunValue=true;
+      //defaultOffNavigator(context: context,routeName:const BankDetails());
       clearData();
     }, onError: (error) {
-      Get.back();
+      // Get.back();
+      retrunValue=false;
       print("Add BankInfo ::: $error");
     });
+    change(null, status: RxStatus.success());
+    return retrunValue;
   }
 
   void deletedBankInfoApi() async {

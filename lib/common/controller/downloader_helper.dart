@@ -48,7 +48,7 @@ class DownloadHelper extends GetxController {
       final String? baseStorage = await getDownloadPath();
       try{await FlutterDownloader.enqueue(
         url: url,
-        savedDir: baseStorage!.path,
+        savedDir: baseStorage!,
         fileName: fileInfo ?? "File",
         headers: _setHeaders(),
         showNotification: true,

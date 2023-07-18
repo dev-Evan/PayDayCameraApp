@@ -6,6 +6,7 @@ import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
+import 'package:pay_day_mobile/common/widget/no_data_found.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/add_bank_info.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/address_details_widget.dart';
@@ -16,7 +17,6 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
-import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/widget/loading_indicator.dart';
 import '../controller/bank_info_controller.dart';
 
@@ -118,18 +118,7 @@ class BankDetails extends GetView<MoreDataController> {
               )
                   : Column(
                 children: [
-                  Center(
-                    child: Column(
-                      children: [
-                        customSpacerHeight(height: 230),
-                        svgIcon(
-                          height: 160,
-                          width: 160,
-                          url: Images.no_data_found,
-                        ),
-                      ],
-                    ),
-                  ),
+                  noDataFound(height: 200),
                   const Spacer(),
                   _addBankInfo(onAction: () {
                     customButtonSheet(
@@ -137,7 +126,7 @@ class BankDetails extends GetView<MoreDataController> {
                         height: 0.9,
                         child: AddBankInfo());
                   }),
-                  customSpacerHeight(height: 25)
+                  customSpacerHeight(height: 30),
                 ],
               )
             ],
