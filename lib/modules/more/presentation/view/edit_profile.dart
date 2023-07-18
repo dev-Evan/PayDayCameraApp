@@ -8,6 +8,7 @@ import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/edit_profile_drop_dawon_cnt.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/defult_date_of_birth_field.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
@@ -60,7 +61,7 @@ class _EditProfileState extends State<EditProfile> {
                                     .firstNameController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    showCustomSnackBar(message: AppString.the_first_name_field_is_required,color: AppColor.errorColor);
+                                    showCustomSnackBar(message: AppString.the_first_name_field_is_required);
                                     return AppString
                                         .fieldIsRequired;
                                   }

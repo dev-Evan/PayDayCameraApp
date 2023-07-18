@@ -26,9 +26,7 @@ part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
-
   static const INITIAL = Routes.SPLASH_SCREEN;
-
   static final routes = [
     GetPage(
       name: _Paths.SPLASH_SCREEN,
@@ -71,15 +69,10 @@ class AppPages {
       page: () => const Leave(),
     ),
 
-
-
     GetPage(
       name: _Paths.PROFILE_VIEW,
       transition: Transition.rightToLeft,
       page: () =>  const ViewProfile()),
-
-
-
 
     GetPage(
       name: _Paths.UPDATE_DOCUMENT,
@@ -88,22 +81,22 @@ class AppPages {
     GetPage(
       name: _Paths.DOCUMENT_SCREEN,
       transition: Transition.rightToLeft,
-      page: () => DocumentScreen(),
+      page: () => const DocumentScreen(),
     ),
     GetPage(
       name: _Paths.JOB_HISTORY,
       transition: Transition.rightToLeft,
-      page: () => JodHistory(),
+      page: () => const JodHistory(),
     ),
     GetPage(
       name: _Paths.SALARY_OVERVIEW,
       transition: Transition.rightToLeft,
-      page: () => SalaryOverView(),
+      page: () => const SalaryOverView(),
     ),
     GetPage(
       name: _Paths.ADDRESS_DETAILS,
       transition: Transition.rightToLeft,
-      page: () => AddressDetails(),
+      page: () => const AddressDetails(),
     ),
     GetPage(
       name: _Paths.ABOUT_PAGE,
@@ -113,7 +106,7 @@ class AppPages {
     GetPage(
       name: _Paths.PAYRAN_BAGE,
       transition: Transition.rightToLeft,
-      page: () => PayRunBadge(),
+      page: () => const PayRunBadge(),
     ),
 
     GetPage(
@@ -143,7 +136,7 @@ class AppPages {
     GetPage(
       name: _Paths.EDIT_PROFILE,
       transition: Transition.rightToLeft,
-      page: () => EditProfile(),
+      page: () => const EditProfile(),
     ),
 
     GetPage(
@@ -154,8 +147,9 @@ class AppPages {
 
     GetPage(
       name: _Paths.LEAVE_RECORD,
+
       transition: Transition.rightToLeft,
-      page: () => LeaveRecordsView(),
+      page: () => const LeaveRecordsView(),
     ),
 
 

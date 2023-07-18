@@ -6,7 +6,9 @@ import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_allowance.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
+import 'package:pay_day_mobile/modules/leave/presentation/view/leve_records_view.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/apply_leave_view.dart';
+import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/widget/custom_buttom_sheet.dart';
@@ -16,11 +18,9 @@ import '../../../../utils/app_color.dart';
 import '../../../../utils/app_style.dart';
 import '../../../attendance/presentation/widget/attendance_log_text.dart';
 import '../widget/individual_leave_record.dart';
-import 'leve_records_view.dart';
 
 class Leave extends GetView<LeaveController> {
   const Leave({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     controller.getLeaveAllowance();
@@ -29,8 +29,7 @@ class Leave extends GetView<LeaveController> {
       "end": DateFormat("yyyy-MM-dd").format(DateTime.now())
     };
     String value = json.encode(queryParams);
-    Get.find<LeaveController>()
-        .getIndividualLeaveList(queryParams: "date_range=$value");
+    Get.find<LeaveController>().getIndividualLeaveList(queryParams: "date_range=$value");
     return controller.obx(
         (state) => Scaffold(
               floatingActionButton: Padding(
@@ -43,7 +42,7 @@ class Leave extends GetView<LeaveController> {
                   physics: const AlwaysScrollableScrollPhysics(),
                   child: Column(
                     children: [
-                      _leaveAllowanceLayout(),
+                      _leaveAllowanceLayout(context: context),
                       individualDateLeaveRecord(),
                     ],
                   ),
@@ -66,7 +65,7 @@ class Leave extends GetView<LeaveController> {
     );
   }
 
-  _leaveAllowanceLayout() {
+  _leaveAllowanceLayout({required context}) {
     return Container(
       decoration: const BoxDecoration(
           color: AppColor.primaryColor,
@@ -80,12 +79,9 @@ class Leave extends GetView<LeaveController> {
               context: Get.context!,
               text: AppString.text_leave_records,
               onAction: () async {
-                customNavigator(
-                    context: Get.context!, pageName: const LeaveRecordsView());
+                defaultNavigator(context:context,routeName:const LeaveRecordsView());
                 await Get.find<LeaveController>().getLeaveSummary();
-                await Get.find<LeaveController>()
-                    .getLeaveRecord(params: "&within=thisMonth");
-              }),
+                await Get.find<LeaveController>().getLeaveRecord(params: "&within=thisMonth");}),
         ],
       ),
     );

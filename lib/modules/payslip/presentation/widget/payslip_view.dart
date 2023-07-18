@@ -6,16 +6,15 @@ import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
-import 'package:pay_day_mobile/modules/payslip/presentation/controller/payslip_view_controller.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/payslip_view_sub_widget.dart';
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/controller/downloader_helper.dart';
+import '../controller/payslip_view_controller.dart';
 
 class PaySlipView extends GetView<PayslipViewController> {
   final indexVal;
-
   PaySlipView({this.indexVal});
 
   @override
@@ -207,7 +206,7 @@ Widget _payslipDownloadBtn({required payslipDateRange}) {
     child: CustomButton(
       AppString.text_download_payslip,
       () => Get.find<DownloadHelper>()
-          .downloadFile(url: BASEURL, payslipDate: "Payslip for $payslipDateRange"),
+          .downloadFile(url: BASEURL, fileInfo: "Payslip for $payslipDateRange"),
     ),
   );
 }

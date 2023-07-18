@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
@@ -12,8 +11,7 @@ import 'package:pay_day_mobile/modules/more/presentation/view/documents.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-
-import '../../../../../routes/app_pages.dart';
+import '../../../../../common/widget/custom_navigator.dart';
 
 class FileUploadController extends GetxController {
   Rx<File?> selectedFile = Rx<File?>(null);
@@ -25,6 +23,7 @@ class FileUploadController extends GetxController {
       File file = File(result.files.single.path!);
       selectedFile.value = file;
       filePath.value = result.files.single.path!;
+      print(filePath.toString());
     }
   }
 
@@ -49,9 +48,8 @@ class FileUploadController extends GetxController {
     var response = await request.send();
     if (response.statusCode == 200) {
       Get.back();
-      print("Document upload ::: $response");
       Get.find<DocumentController>().getDocumentData();
-      _navigator(context: context);
+      moveDocPage(context: context);
       _SnakBar();
       filePath.value = "";
       Get.find<InputTextFieldController>().docFileNameController.clear();
@@ -63,17 +61,12 @@ class FileUploadController extends GetxController {
     }
   }
 
-  void _SnakBar() {
-    return       showCustomSnackBar(message: AppString.text_file_upload_update_successfully);
+   _SnakBar() {
+    return showCustomSnackBar(message: AppString.text_file_upload_update_successfully);
 
   }
 
 }
-Future _navigator({context}) {
-  return Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder: (BuildContext context) => DocumentScreen(),
-    ),
-  );
+Future moveDocPage({context}) {
+  return defaultOffNavigator(context: context,routeName: const DocumentScreen());
 }

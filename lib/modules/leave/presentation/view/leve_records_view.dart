@@ -3,78 +3,73 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
+import 'package:pay_day_mobile/common/widget/no_data_found.dart';
 import 'package:pay_day_mobile/enum/range_calendar_method_imp.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/selected_range_calender.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
-import 'package:pay_day_mobile/modules/leave/presentation/widget/leave_records_layout.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/view_list_view.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
-import 'package:pay_day_mobile/utils/dimensions.dart';
+import '../../../payslip/presentation/widget/summary_layout.dart';
 
 class LeaveRecordsView extends GetView<LeaveController> {
   const LeaveRecordsView({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return controller.obx(
-        (state) => Scaffold(
-              appBar: const CustomAppbar(),
-              body: RefreshIndicator(
+    return Scaffold(
+      appBar: const CustomAppbar(),
+      body: controller.obx(
+          (state) => RefreshIndicator(
                 onRefresh: _refreshPage,
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: Column(
-                    children: [
-                      _containerView(),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: AppLayout.getWidth(20),
-                            vertical: AppLayout.getHeight(20)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [_customTexTitle(context)],
+                child: controller.obx((state) => SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height,
+                        child: Column(
+                          children: [
+                            _defaultAppbar(),
+                            summaryLayout(
+                                sentDynamic:
+                                    controller.leaveSummary.data?.approved ??
+                                        "",
+                                conflictedDynamic:
+                                    controller.leaveSummary.data?.upcoming ??
+                                        "",
+                                totalDynamic:
+                                    controller.leaveSummary.data?.pending ?? "",
+                                total: AppString.text_approved,
+                                sent: AppString.text_upcomming,
+                                conflicted: AppString.text_pending,
+                                topTextValue: "",
+                                layoutHeight: 1,context: context),
+                            Expanded(
+                              flex: 5,
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: AppLayout.getWidth(20),
+                                        vertical: AppLayout.getHeight(20)),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [_customTexTitle(context)],
+                                    ),
+                                  ),
+                                  (controller.leaveRecord.data?.leaveRecords !=null &&  controller.leaveRecord.data!.leaveRecords!.isNotEmpty)?
+                                  viewListViewLayout():noDataFound(height: 100,svgHeight: 140,svgWidth: 140),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      viewListViewLayout(),
-                    ],
-                  ),
-                ),
+                    )),
               ),
-            ),
-        onLoading: const LoadingIndicator());
-  }
-
-  Widget _containerView() {
-    return SizedBox(
-      height: AppLayout.getHeight(174),
-      child: _containerViewStyle(
-          child: Column(
-        children: [
-          customMoreAppbar(
-            titleText: AppString.text_leave_records,
-            bgColor: AppColor.primaryColor,
-            textColor: AppColor.backgroundColor,
-          ),
-          leaveRecordsLayOut(),
-        ],
-      )),
-    );
-  }
-
-  Widget _containerViewStyle({child}) {
-    return Container(
-      height: AppLayout.getHeight(222),
-      decoration: AppStyle.ContainerStyle.copyWith(
-        borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(Dimensions.radiusMid),
-            bottomRight: Radius.circular(Dimensions.radiusMid)),
-        color: AppColor.primaryColor,
-      ),
-      child: child,
+          onLoading: const LoadingIndicator()),
     );
   }
 
@@ -130,5 +125,13 @@ class LeaveRecordsView extends GetView<LeaveController> {
     await Get.find<LeaveController>().getLeaveSummary();
     await Get.find<LeaveController>()
         .getLeaveRecord(params: "&within=thisMonth");
+  }
+
+  _defaultAppbar() {
+    return customMoreAppbar(
+      titleText: AppString.text_leave_records,
+      bgColor: AppColor.primaryColor,
+      textColor: AppColor.backgroundColor,
+    );
   }
 }

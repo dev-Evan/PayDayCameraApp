@@ -18,7 +18,7 @@ class ProfileDataRepository {
   var baseUrl = Api.BASE_URL + Api.USER_CHANGE_PICTURE;
   final _box = GetStorage();
   late var accessToken = _box.read(AppString.ACCESS_TOKEN);
-  Future<UserProfile> getUserProfileData() async {
+  Future<UserProfileModel> getUserProfileData() async {
     try {
       Response response =
       await networkClient.getRequest(Api.USER_PROFILE);
@@ -26,7 +26,7 @@ class ProfileDataRepository {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
         print('User profile called ::: ${response.body.toString()}');
-        return UserProfile.fromJson(response.body);
+        return UserProfileModel.fromJson(response.body);
       }
     } catch (e) {
       return Future.error(ErrorModel(message: e.toString()));

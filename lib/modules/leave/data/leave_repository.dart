@@ -118,7 +118,8 @@ class LeaveRepository {
 
     leaveQueries.forEach((key, value) {
       if (key == "attachments[]") {
-        formData.files.add(MapEntry(
+        formData.files.add(
+            MapEntry(
             key,
             MultipartFile(File(value),
                 filename:

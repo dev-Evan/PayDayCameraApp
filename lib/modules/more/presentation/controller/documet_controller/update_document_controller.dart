@@ -8,6 +8,7 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/logout_contr
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../common_controller/more_text_editing_controller.dart';
+import 'document_upload_controller.dart';
 
 class UpdateDocumentController extends GetxController {
   Rx<File?> selectedFile = Rx<File?>(null);
@@ -40,12 +41,13 @@ class UpdateDocumentController extends GetxController {
         Get.find<InputTextFieldController>().docFileNameController.text;
     request.fields['file'] = file.path;
     request.fields['user_id'] = _box.read(AppString.ID_STORE).toString();
-    request.headers['Authorization'] = 'Bearer ${accessToken}';
+    request.headers['Authorization'] = 'Bearer $accessToken';
     request.files.add(await http.MultipartFile.fromPath('file', file.path));
     var response = await request.send();
     if (response.statusCode == 200) {
-      print("Document updated ::: ${response}");
+      print("Document updated ::: $response");
       Get.back();
+      moveDocPage(context: context);
       newValue = "value";
       Get.find<DocumentController>().getDocumentData();
       print(' Document update ::: File updated successfully');

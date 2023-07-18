@@ -21,7 +21,7 @@ class ViewDocFile extends StatelessWidget {
       appBar: const CustomAppbar(),
       body: Column(
         children: [
-          _body(docName: pathName,fullUrl: path),
+          _defaultAppbar(docName: pathName, fullUrl: path),
           customSpacerHeight(height: 20),
           Expanded(
             child: _fileView(url: path),
@@ -32,7 +32,7 @@ class ViewDocFile extends StatelessWidget {
   }
 }
 
-Widget _body({required docName,required fullUrl}) {
+Widget _defaultAppbar({required docName, required fullUrl}) {
   return AppBar(
     backgroundColor: AppColor.backgroundColor,
     centerTitle: true,
@@ -41,11 +41,13 @@ Widget _body({required docName,required fullUrl}) {
     leading: _leading(),
     actions: [
       IconButton(
-          onPressed: () {
-            Get.find<DownloadHelper>().downloadFile(url: fullUrl);
-          },
-          icon: svgIcon(url: Images.download,height: 23,width: 42,color: AppColor.normalTextColor)
-      )
+          onPressed: () => Get.find<DownloadHelper>()
+              .downloadFile(url: fullUrl, fileInfo: docName),
+          icon: svgIcon(
+              url: Images.download,
+              height: 23,
+              width: 42,
+              color: AppColor.normalTextColor))
     ],
   );
 }

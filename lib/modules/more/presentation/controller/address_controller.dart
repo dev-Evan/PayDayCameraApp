@@ -89,7 +89,7 @@ Future _navigator({context}) {
   return Navigator.pushReplacement(
     context,
     MaterialPageRoute(
-      builder: (BuildContext context) => AddressDetails(),
+      builder: (BuildContext context) => const AddressDetails(),
     ),
   );
 }

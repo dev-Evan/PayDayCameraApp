@@ -44,7 +44,6 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
     AppString.text_last_year,
     AppString.text_total,
   ];
-
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
@@ -120,6 +119,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                         child: customDivider(
                             0.7, MediaQuery.of(context).size.width),
                       ),
+
 
                       SizedBox(
                         height: AppLayout.getHeight(56),

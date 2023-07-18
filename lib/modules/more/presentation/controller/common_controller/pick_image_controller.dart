@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
+import 'package:pay_day_mobile/utils/app_string.dart';
 
 class PickImageController extends GetxController {
   var pickedImage = Rx<XFile?>(null);
@@ -10,8 +12,13 @@ class PickImageController extends GetxController {
   Future<void> pickImage(ImageSource source) async {
     XFile? image = await ImagePicker().pickImage(source: source);
     if (image != null) {
-      pickedImage.value = image;
-      await _profileDataController.changeProfileImage(image);
+      if (image.path.endsWith(".jpeg")) {
+        showCustomSnackBar(message:AppString.text_jpeg_format_not_supporte );
+      }else{
+        pickedImage.value = image;
+        await _profileDataController.changeProfileImage(image);
+      }
     }
+    
   }
 }

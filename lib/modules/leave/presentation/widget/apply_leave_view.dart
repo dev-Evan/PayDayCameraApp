@@ -487,7 +487,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
           },
           elevatedButtonAction: () {
             if (Get.find<LeaveController>().leaveNote.text.isEmpty) {
-              showCustomSnackBar(message: "Please, provide a leave note");
+              showCustomSnackBar(message: AppString.text_please_provite_a_leave_note);
             } else {
               switch (Get.find<LeaveController>().leaveDurationIndex.value) {
                 case 0:

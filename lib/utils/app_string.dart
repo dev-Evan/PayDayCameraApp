@@ -28,6 +28,7 @@ class AppString {
   static String text_leave_status = "Leave Status";
   static String text_leave_duration = "Leave Duration";
   static String text_approved = "Approved";
+  static String text_jpeg_format_not_supporte = "jpeg format not support";
   static String text_duration = "Duration";
   static String text_pending = "Pending";
   static String text_rejected = "Rejected";
@@ -122,6 +123,7 @@ class AppString {
   static String text_in_time = "In Time";
   static String text_out_time = "Out Time";
   static String text_select_time = "Select Time";
+  static String text_please_provite_a_leave_note = "Please, provide a leave note";
   static String onboardTileMainAttend = 'Maintain\nAttendance';
   static String onboardTileEasy = 'Easy\nLeave apply';
   static String onboardTileReceivePay = 'Receive\nPayments';
@@ -283,6 +285,7 @@ class AppString {
   static String text_birthday = "Birthday";
   static String text_date_of_birth = "Date of Birth";
   static String text_phone = "Phone";
+  static String text_employee_id = "Employee id";
   static String text_personal = "Personal";
   static String text_job_histroy = "Job History";
   static String text_ui_designer = "UX Designer";
@@ -356,17 +359,17 @@ class AppString {
   static String text_enter_id = "Enter ID";
   static String text_enter_massage = "Enter message";
   static String text_password_change_successfully =
-      "Password changed successfully";
+      "Password has been changed successfully";
   static String text_deleted_address_successfully =
       "Deleted address successfully";
   static String text_deleted_document_successfully =
       "Deleted document successfully";
   static String text_document_upload_successfully =
-      "Document uploaded successfully!";
+      "Document has been upload successfully";
   static String text_document_update_successfully =
-      "Document update successfully!";
+      "Document has been updated successfully";
   static String text_profile_update_successfully =
-      "Profile update successfully!";
+      "Profile has been updated successfully";
   static String text_profile_picture_update_successfully =
       "Profile picture has been updated successfully";
   static String text_file_upload_update_successfully =
@@ -451,6 +454,7 @@ class AppString {
   static const String the_password_confirmation_does_not_match= "The password confirmation does not match.";
 
   static const String the_email_field_is_required = "The email field is required.";
+  static const String the_document_field_is_required = "The document name field is required.";
   static const String the_gender_field_is_required = "The gender field is required.";
   static const String enterYourPassword = "Enter your password";
   static const String enterYourEmail = "Enter your email";

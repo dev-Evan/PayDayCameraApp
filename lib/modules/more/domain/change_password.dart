@@ -8,9 +8,7 @@ class ChangePasswordModel {
     status = json['status'];
     message = json['message'];
     if (json['data'] != null) {
-      json['data'].forEach((v) {
-
-      });
+      json['data'].forEach((v) {});
     }
   }
 }

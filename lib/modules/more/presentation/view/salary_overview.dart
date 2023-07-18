@@ -32,8 +32,7 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        customMoreAppbar(
-                            titleText: AppString.text_salary_overview),
+                        customMoreAppbar(titleText: AppString.text_salary_overview),
                         controller.salaryOverView.data != null &&
                                 controller.salaryOverView.data!.isNotEmpty
                             ? Padding(
@@ -47,16 +46,17 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       basicSalaryText,
-                                      Text(
-                                          "${Get.find<SettingController>().basicInfo?.data.currencySymbol ?? ""} ${controller.salaryOverView.data!.first.basicSalary == true ? controller.salaryOverView.data?.first.amount.toString() ?? "" : controller.salaryOverView.data!.last.basicSalary == true ? controller.salaryOverView.data?.last.amount.toString() ?? "" : ""}",
-                                          style: basicSalaryStyle),
-                                      customSpacerHeight(height: 16),
+                                      controller.salaryOverView.data!.first.basicSalary == true?
+
+                                      Text("${Get.find<SettingController>().basicInfo?.data.currencySymbol ?? ""} ${controller.salaryOverView.data!.first.basicSalary == true ? controller.salaryOverView.data?.first.amount.toString() ?? "" : controller.salaryOverView.data!.last.basicSalary == true ? controller.salaryOverView.data?.last.amount.toString() ?? "" : ""}", style: basicSalaryStyle):controller.salaryOverView.data!.last.basicSalary == true?                                      Text("${Get.find<SettingController>().basicInfo?.data.currencySymbol ?? ""} ${controller.salaryOverView.data!.first.basicSalary == true ? controller.salaryOverView.data?.first.amount.toString() ?? "" : controller.salaryOverView.data!.last.basicSalary == true ? controller.salaryOverView.data?.last.amount.toString() ?? "" : ""}", style: basicSalaryStyle):Container(),
+                                      customSpacerHeight(height: 30),
+
                                       _jobHisTitleView()
                                     ],
                                   ),
                                 ),
                               )
-                            :noDataFound,
+                            :noDataFound(),
                       ],
                     ),
                   ),

@@ -12,15 +12,13 @@ class DocumentController extends GetxController with StateMixin {
   var newValue="";
   DocumentRepository documentRepository = DocumentRepository(NetworkClient());
 
-
-
   getDocumentData() async {
     change(null, status: RxStatus.loading());
     try {
       await documentRepository.getDocumentRepoData().then((value) {
         documentModel = value;
       }, onError: (error) {
-        errorAlertPopup(getDocumentData);
+        errorAlertPopup(_refreshPage);
         print( "Document Called ::: ${error.toString()}");
       });
     } catch (ex) {
@@ -28,17 +26,10 @@ class DocumentController extends GetxController with StateMixin {
     }
     change(null, status: RxStatus.success());
   }
-
-
-
-  void deletedDocumentApi() async {
+   deletedDocumentApi() async {
     waitingLoader();
     try {
-      await documentRepository
-          .deletedDocRepo(
-        GetStorage().read(AppString.STORE_DOC_Id).toString(),
-      )
-          .then((value) {
+      await documentRepository.deletedDocRepo(GetStorage().read(AppString.STORE_DOC_Id).toString()).then((value) {
         Get.back();
         newValue="value";
         getDocumentData();
@@ -52,7 +43,9 @@ class DocumentController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-
+  Future<void> _refreshPage() async{
+    await getDocumentData();
+  }
 
 }
 

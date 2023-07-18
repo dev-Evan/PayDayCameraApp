@@ -8,15 +8,16 @@ import 'address_details_widget.dart';
 Widget customMoreAppbar({
   titleText,
   bgColor = AppColor.backgroundColor,
-  textColor=AppColor.normalTextColor,
-  Function ? onAction ,
+  textColor = AppColor.normalTextColor,
+  Function? onAction,
 }) {
   return AppBar(
-elevation: 0,    leading: IconButton(
-      onPressed: (){
-        if(onAction !=null){
+    elevation: 0,
+    leading: IconButton(
+      onPressed: () {
+        if (onAction != null) {
           onAction();
-        }else{
+        } else {
           Get.back();
         }
       },
@@ -28,9 +29,8 @@ elevation: 0,    leading: IconButton(
     centerTitle: true,
     title: Text(
       titleText,
-      style: AppStyle.title_text.copyWith(
-          color: textColor,
-          fontSize: Dimensions.fontSizeDefault + 1),
+      style: AppStyle.title_text
+          .copyWith(color: textColor, fontSize: Dimensions.fontSizeDefault + 1),
     ),
     backgroundColor: bgColor,
   );
@@ -41,7 +41,7 @@ Widget profileViewAppbar(
   return AppBar(
     elevation: 0,
     leading: IconButton(
-      onPressed: ()=>Get.back(),
+      onPressed: () => Get.back(),
       icon: const Icon(
         Icons.arrow_back,
         color: AppColor.normalTextColor,
@@ -50,9 +50,8 @@ Widget profileViewAppbar(
     centerTitle: true,
     actions: [
       IconButton(
-          onPressed: () => rightBtnAction(),
-          icon:  editIcon(),
-
+        onPressed: () => rightBtnAction(),
+        icon: editIcon(),
       )
     ],
     title: Text(

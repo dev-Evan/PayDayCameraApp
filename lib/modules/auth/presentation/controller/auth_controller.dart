@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,22 +10,23 @@ import 'package:pay_day_mobile/modules/auth/domain/reset_password_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../routes/app_pages.dart';
+import 'package:pay_day_mobile/utils/app_color.dart';
 
 class AuthController extends GetxController with StateMixin {
   final AuthDataSource _authDataSource = AuthDataSource(NetworkClient());
   ResetPasswordModel resetPasswordModel = ResetPasswordModel();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
+  RxBool isLoading = false.obs;
   final GetStorage box = GetStorage();
   @override
   void onInit() {
     restPassword();
     super.onInit();
   }
-
   void logIn() {
-    Get.dialog(const Center(child: CircularProgressIndicator()));
+    _loadingIndicator();
+    isLoading.value = true;
     try {
       _authDataSource.loginIntoAccount(emailController.text, passwordController.text)
           .then((value) {
@@ -38,6 +41,8 @@ class AuthController extends GetxController with StateMixin {
     } catch (ex) {
       print(ex.toString());
     }
+    isLoading.value = false;
+
   }
 
   void _writeUserInfo(Login? login) {
@@ -65,4 +70,14 @@ class AuthController extends GetxController with StateMixin {
       print(ex.toString());
     }
   }
+}
+
+_loadingIndicator(){
+  return  Get.dialog( Center(child: Platform.isIOS
+      ? const CupertinoActivityIndicator(
+    color: AppColor.primaryBlue,
+  )
+      : const CircularProgressIndicator(
+    color: AppColor.primaryColor,
+  ),));
 }
