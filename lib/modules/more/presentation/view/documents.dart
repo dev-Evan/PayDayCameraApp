@@ -354,7 +354,7 @@ Widget _editDeletedActionRow({required context, required id, required docUrl}) {
           Get.find<UpdateDocumentController>().newValue.toString().isNotEmpty
               ? Navigator.pop(context)
               : Navigator.pop(context);
-          
+
           Get.find<UpdateDocumentController>().filePath.value = docUrl;
           _box.write(AppString.STORE_DOC_Id, id);
           Get.find<InputTextFieldController>().docFileNameController.text =

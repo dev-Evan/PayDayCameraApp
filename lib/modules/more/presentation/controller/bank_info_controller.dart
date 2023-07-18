@@ -40,8 +40,7 @@ class MoreDataController extends GetxController with StateMixin {
   }
 
    Future<bool> addBankInfo({required context}) async {
-    // waitingLoader();
-     bool  retrunValue=false;
+     bool returnValue=false;
     change(null, status: RxStatus.loading());
     await moreDataRepository.AddBankInfoRepo(
       textEditingController.bankNameController.text,
@@ -53,18 +52,14 @@ class MoreDataController extends GetxController with StateMixin {
       textEditingController.taxPayerIdController.text,
     ).then((value) {
       print("Bank Info Added ::: $value");
-      // Get.back();
-      // Get.back();
-      retrunValue=true;
-      //defaultOffNavigator(context: context,routeName:const BankDetails());
+      returnValue=true;
       clearData();
     }, onError: (error) {
-      // Get.back();
-      retrunValue=false;
+      returnValue=false;
       print("Add BankInfo ::: $error");
     });
     change(null, status: RxStatus.success());
-    return retrunValue;
+    return returnValue;
   }
 
   void deletedBankInfoApi() async {

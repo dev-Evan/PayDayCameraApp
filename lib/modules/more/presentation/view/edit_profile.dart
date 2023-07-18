@@ -8,34 +8,30 @@ import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/edit_profile_drop_dawon_cnt.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/view/view_profile.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/defult_date_of_birth_field.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import '../../../../utils/app_color.dart';
+import '../../../../common/widget/loading_indicator.dart';
 import '../../../auth/presentation/view/sign_in.dart';
 import '../controller/common_controller/date_of_birth_controller.dart';
 import '../controller/user_profile_controller.dart';
 import '../widget/address_details_widget.dart';
 
-class EditProfile extends StatefulWidget {
-  const EditProfile({Key? key}) : super(key: key);
-  @override
-  State<EditProfile> createState() => _EditProfileState();
-}
-
-class _EditProfileState extends State<EditProfile> {
+class EditProfile extends GetView<ProfileDataController> {
+   EditProfile({Key? key}) : super(key: key);
+   
   final List<String> _locations = [AppString.text_male,AppString.text_female];
   String? dropdownValue;
   final _formKey = GlobalKey<FormState>();
+  
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
       child: Scaffold(
         appBar: const CustomAppbar(),
-        body: SingleChildScrollView(
+        body: controller.obx((state) => SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -145,13 +141,19 @@ class _EditProfileState extends State<EditProfile> {
                         dropDown: Get.find<DropdownBtnController>().value.toString(),
                         aboutMe: Get.find<InputTextFieldController>().aboutMeController.text,
                         address: Get.find<InputTextFieldController>().addressController.text
-                    );
+                    ).then((value){
+                      if(value==true){
+                        Get.back(canPop: false);
+                        controller.getProfileData();
+                      }
+                    });
                   }
                 }),
               )
+
             ],
           ),
-        ),
+        ),onLoading: const LoadingIndicator()),
       ),
     );
   }

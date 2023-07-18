@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/input_note.dart';
+import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
@@ -15,7 +16,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../controller/common_controller/county_pickar_controller.dart';
 
-class AddAddress extends StatelessWidget {
+class AddAddress extends GetView<AddressController> {
   final String typeText;
   AddAddress(this.typeText);
 
@@ -24,7 +25,7 @@ class AddAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return controller.obx((state) => Form(
         key: _formKey,
         child: Padding(
           padding: EdgeInsets.only(
@@ -157,30 +158,35 @@ class AddAddress extends StatelessWidget {
                 customDoubleButton(
                     context: context,
                     elevatedBtnText:
-                        '${AppString.text_add} ${AppString.text_address}',
+                    '${AppString.text_add} ${AppString.text_address}',
                     textBtnText: AppString.text_cancel,
                     textButtonAction: (){
                       Get.back();
                     },
                     elevatedButtonAction: () {
+
                       if (_formKey.currentState!.validate()) {
-                             Get.find<AddressController>().addressUpdate(
-                                typeKey: typeText.toString(),context: context,
-                               area: Get.find<InputTextFieldController>().addAreaController.value.text,
-                               city: Get.find<InputTextFieldController>().addCityController.value.text,
-                               country: Get.find<InputTextFieldController>().addCountyController.value.text,
-                               details: Get.find<InputTextFieldController>().addDetailsController.value.text,
-                               phone: Get.find<InputTextFieldController>().addPhoneNumberController.value.text,
-                               state: Get.find<InputTextFieldController>().addStateController.value.text,
-                               zipcode: Get.find<InputTextFieldController>().addZipCodeController.value.text,
-                               message:   AppString.text_address_added_successfully,
-                             );
+                        Get.find<AddressController>().addressUpdate(
+                          typeKey: typeText.toString(),context: context,
+                          area: Get.find<InputTextFieldController>().addAreaController.value.text,
+                          city: Get.find<InputTextFieldController>().addCityController.value.text,
+                          country: Get.find<InputTextFieldController>().addCountyController.value.text,
+                          details: Get.find<InputTextFieldController>().addDetailsController.value.text,
+                          phone: Get.find<InputTextFieldController>().addPhoneNumberController.value.text,
+                          state: Get.find<InputTextFieldController>().addStateController.value.text,
+                          zipcode: Get.find<InputTextFieldController>().addZipCodeController.value.text,
+                          message:   AppString.text_address_added_successfully,
+                        ).then((value){
+                          if(value==true){
+                            controller.getEmployeeAddressData();
+                          }
+                        });
                       }
                     }),
                 customSpacerHeight(height: 250)
               ],
             ),
           ),
-        ));
+        )),onLoading: const LoadingIndicator());
   }
 }

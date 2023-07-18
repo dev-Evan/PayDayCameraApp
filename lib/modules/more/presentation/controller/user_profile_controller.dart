@@ -18,12 +18,14 @@ import '../view/view_profile.dart';
 import '../widget/profile_container_layout.dart';
 
 class ProfileDataController extends GetxController with StateMixin {
-  ProfileDataRepository profileDataRepository = ProfileDataRepository(NetworkClient());
+  ProfileDataRepository profileDataRepository =
+      ProfileDataRepository(NetworkClient());
   UserProfileModel userProfile = UserProfileModel();
 
   getProfileData() async {
     change(null, status: RxStatus.loading());
-    await profileDataRepository.getUserProfileData().then((UserProfileModel value) {
+    await profileDataRepository.getUserProfileData().then(
+        (UserProfileModel value) {
       userProfile = value;
       print('User profile called ::: $value');
     }, onError: (e) {
@@ -36,7 +38,8 @@ class ProfileDataController extends GetxController with StateMixin {
   changeProfileImage(XFile image) async {
     change(null, status: RxStatus.loading());
     await profileDataRepository.changeImageRepo(image: image).then((value) {
-      showCustomSnackBar(message: AppString.text_profile_picture_update_successfully);
+      showCustomSnackBar(
+          message: AppString.text_profile_picture_update_successfully);
     }, onError: (error) {
       print("Change profile image ::: ${error.message}");
     });
@@ -44,34 +47,44 @@ class ProfileDataController extends GetxController with StateMixin {
   }
 
   editProfileData({required context, required firstName, required lastName, required email, required contact, required dob, required dropDown, required aboutMe, required address}) async {
-    waitingLoader();
+    bool isReturnValue = false;
+    change(null, status: RxStatus.loading());
+
     try {
       await profileDataRepository.editProfileRepo(firstName, lastName, email, contact, dob, dropDown, aboutMe, address).then((value) {
-        Get.back();
-        navigatorForViewProfile(context: context);
-        getProfileData();
-        showCustomSnackBar(message: AppString.text_profile_update_successfully);
+        isReturnValue = true;
       }, onError: (error) {
-        Get.back();
+        isReturnValue = false;
         errorSnackBar(errorMessage: error.message);
       });
     } catch (ex) {
-      Get.back();
+      isReturnValue = false;
       errorSnackBar(errorMessage: ex.toString());
     }
+    change(null, status: RxStatus.success());
+
+    return isReturnValue;
+
   }
+
 
   changePassword({required oldPassword, required newPassword, required confirmPass}) async {
     loadingIndicator();
     try {
-      await profileDataRepository.changePassIntoAccount(oldPassword, newPassword, confirmPass,)
+      await profileDataRepository
+          .changePassIntoAccount(
+        oldPassword,
+        newPassword,
+        confirmPass,
+      )
           .then((ChangePasswordModel value) {
         GetStorage().remove(AppString.STORE_TOKEN);
         GetStorage().remove(AppString.STORE_TOKEN);
         GetStorage().remove(AppString.REMEMBER_KEY);
         GetStorage().remove(AppString.LOGIN_CHECK_KEY);
         Get.back();
-        showCustomSnackBar(message: AppString.text_password_update_successfully);
+        showCustomSnackBar(
+            message: AppString.text_password_update_successfully);
         Get.offNamed(Routes.SIGN_IN);
         cleanPassData();
         Get.put(AuthController());
@@ -86,8 +99,8 @@ class ProfileDataController extends GetxController with StateMixin {
       errorSnackBar(errorMessage: ex.toString());
     }
   }
+
   Future<void> _refreshPage() async {
     getProfileData();
   }
-
 }
