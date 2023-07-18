@@ -56,7 +56,7 @@ Future breakPopUp() {
 
 _loadingButtonLayout() => SizedBox(
       height: AppLayout.getHeight(50),
-      child: LoadingIndicator(),
+      child: const LoadingIndicator(),
     );
 
 _breakAppbar() {
