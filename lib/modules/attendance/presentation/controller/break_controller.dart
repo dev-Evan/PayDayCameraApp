@@ -59,6 +59,10 @@ class BreakController extends GetxController with StateMixin {
     isLoading(false);
   }
 
+
+
+
+
   Future<bool> endBreak({required int logId, required int breakId}) async {
     bool returnValue = false;
     isLoading(true);
