@@ -28,6 +28,7 @@ class AppString {
   static String text_leave_status = "Leave Status";
   static String text_leave_duration = "Leave Duration";
   static String text_approved = "Approved";
+  static String text_jpeg_format_not_supporte = "jpeg format not support";
   static String text_duration = "Duration";
   static String text_pending = "Pending";
   static String text_rejected = "Rejected";

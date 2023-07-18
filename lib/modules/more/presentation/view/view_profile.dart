@@ -122,7 +122,8 @@ class ViewProfile extends GetView<ProfileDataController> {
                               children: [
                                 customSpacerHeight(height: 8),
                                 controller.userProfile.data?.aboutMe != null
-                                    ? controller.userProfile.data!.aboutMe!.isEmpty
+                                    ? controller
+                                            .userProfile.data!.aboutMe!.isEmpty
                                         ? Container()
                                         : Column(
                                             crossAxisAlignment:
@@ -188,16 +189,19 @@ class ViewProfile extends GetView<ProfileDataController> {
                                             "",
                                         titleText: AppString.text_phone,
                                         icon: CupertinoIcons.phone),
-                                controller.userProfile.data?.contact != null &&
-                                        controller
-                                            .userProfile.data!.contact!.isEmpty
+                                controller.userProfile.data?.employyeId !=
+                                            null &&
+                                        controller.userProfile.data!.employyeId!
+                                            .isEmpty
                                     ? Container()
                                     : cardView(
-                                        dynamicText: "UfnNiEKoQG",
+                                        dynamicText: controller
+                                                .userProfile.data?.employyeId
+                                                .toString() ??
+                                            "",
                                         titleText: AppString.text_employee_id,
                                         icon: CupertinoIcons.person),
                                 customSpacerHeight(height: 14),
-
                                 controller.userProfile.data?.address != null &&
                                         controller
                                             .userProfile.data!.address!.isEmpty

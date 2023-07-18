@@ -17,7 +17,7 @@ class LogoutController extends GetxController with StateMixin {
   final _box = GetStorage();
   LogoutModel logoutModel = LogoutModel();
   logOut() async {
-    _loadingIndicator();
+    loadingIndicator();
     try {
       await logoutRepository.getLogoutRepoData().then((value) {
         logoutModel = value;
@@ -42,7 +42,7 @@ Future waitingLoader() {
   barrierColor: AppColor.backgroundColor
   );
 }
-_loadingIndicator(){
+loadingIndicator(){
   return  Get.dialog( Center(child: Platform.isIOS
       ? const CupertinoActivityIndicator(
     color: AppColor.primaryBlue,

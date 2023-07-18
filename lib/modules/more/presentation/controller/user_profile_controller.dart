@@ -19,11 +19,11 @@ import '../widget/profile_container_layout.dart';
 
 class ProfileDataController extends GetxController with StateMixin {
   ProfileDataRepository profileDataRepository = ProfileDataRepository(NetworkClient());
-  UserProfile userProfile = UserProfile();
+  UserProfileModel userProfile = UserProfileModel();
 
   getProfileData() async {
     change(null, status: RxStatus.loading());
-    await profileDataRepository.getUserProfileData().then((UserProfile value) {
+    await profileDataRepository.getUserProfileData().then((UserProfileModel value) {
       userProfile = value;
       print('User profile called ::: $value');
     }, onError: (e) {
@@ -62,7 +62,7 @@ class ProfileDataController extends GetxController with StateMixin {
   }
 
   changePassword({required oldPassword, required newPassword, required confirmPass}) async {
-    waitingLoader();
+    loadingIndicator();
     try {
       await profileDataRepository.changePassIntoAccount(oldPassword, newPassword, confirmPass,)
           .then((ChangePasswordModel value) {

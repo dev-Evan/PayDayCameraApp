@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,11 +7,9 @@ import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/auth/data/auth_data_repository.dart';
 import 'package:pay_day_mobile/modules/auth/domain/login_res.dart';
 import 'package:pay_day_mobile/modules/auth/domain/reset_password_model.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../routes/app_pages.dart';
-import 'dart:io';
 import 'package:pay_day_mobile/utils/app_color.dart';
 
 class AuthController extends GetxController with StateMixin {
@@ -26,7 +25,7 @@ class AuthController extends GetxController with StateMixin {
     super.onInit();
   }
   void logIn() {
-   // waitingLoader();
+    _loadingIndicator();
     isLoading.value = true;
     try {
       _authDataSource.loginIntoAccount(emailController.text, passwordController.text)
