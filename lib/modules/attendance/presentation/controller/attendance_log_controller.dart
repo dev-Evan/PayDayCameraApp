@@ -95,7 +95,9 @@ class AttendanceLogsController extends GetxController with StateMixin {
       this.logSummaryByMonth.value = logSummaryByMonth;
       LoggerHelper.infoLog(message: logSummaryByMonth.message);
     }, onError: (error) {
-      errorAlertPopup(_reloadPage);
+      if (!Get.isDialogOpen!) {
+        errorAlertPopup(_reloadPage);
+      }
       LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());
@@ -108,7 +110,9 @@ class AttendanceLogsController extends GetxController with StateMixin {
       this.logSummaryByYear.value = logSummaryByYear;
       LoggerHelper.infoLog(message: logSummaryByYear.message);
     }, onError: (error) {
-      errorAlertPopup(_reloadPage);
+      if (!Get.isDialogOpen!) {
+        errorAlertPopup(_reloadPage);
+      }
       LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());
@@ -129,7 +133,9 @@ class AttendanceLogsController extends GetxController with StateMixin {
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
       LoggerHelper.errorLog(message: error.message);
-      errorAlertPopup(_reloadPage);
+      if (!Get.isDialogOpen!) {
+        errorAlertPopup(_reloadPage);
+      }
     });
     change(null, status: RxStatus.success());
   }
@@ -143,7 +149,9 @@ class AttendanceLogsController extends GetxController with StateMixin {
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
       LoggerHelper.errorLog(message: error.message);
-      errorAlertPopup(_reloadPage);
+      if (!Get.isDialogOpen!) {
+        errorAlertPopup(_reloadPage);
+      }
     });
     change(null, status: RxStatus.success());
   }

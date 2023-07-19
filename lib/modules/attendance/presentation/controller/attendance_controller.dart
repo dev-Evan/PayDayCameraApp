@@ -66,7 +66,9 @@ class AttendanceController extends GetxController with StateMixin {
         Get.delete<AttendanceController>();
       } else {
         LoggerHelper.errorLog(message: error.message);
-        errorAlertPopup(_reloadPage);
+        if (!Get.isDialogOpen!) {
+          errorAlertPopup(_reloadPage);
+        }
       }
     });
     change(null, status: RxStatus.success());
@@ -139,7 +141,9 @@ class AttendanceController extends GetxController with StateMixin {
       LoggerHelper.infoLog(message: dailyLogs.message);
     }, onError: (error) {
       if (!error.message.startsWith("Unauthenticated")) {
-        errorAlertPopup(_reloadPage);
+        if (!Get.isDialogOpen!) {
+          errorAlertPopup(_reloadPage);
+        }
       }
       LoggerHelper.errorLog(message: error.message);
     });
@@ -291,8 +295,7 @@ class AttendanceController extends GetxController with StateMixin {
     }
   }
 
-
-  _reloadPage() async{
+  _reloadPage() async {
     await checkUserIsPunchedIn();
     await getDailyLog();
   }
