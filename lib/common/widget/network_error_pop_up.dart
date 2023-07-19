@@ -122,6 +122,6 @@ class NetworkErrorPage extends StatelessWidget {
         ),
       ),
       onWillPop: () async => false,
-    ),);
+    ));
   }
 }

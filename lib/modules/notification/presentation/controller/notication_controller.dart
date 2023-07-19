@@ -23,7 +23,6 @@ class NotificationController extends GetxController with StateMixin {
   final isMoreDataLoading = false.obs;
 
   void _loadMoreData() async {
-    print("loadMoreData :: Called");
     if (notifications.data != null) {
       if (notifications.data!.meta!.currentPage! <
           notifications.data!.meta!.totalPages!) {
@@ -36,7 +35,6 @@ class NotificationController extends GetxController with StateMixin {
               .map((NotificationData notificationData) =>
                   allNotifications.add(notificationData))
               .toList(growable: true);
-          print(allNotifications.length);
           this.notifications = notifications;
         }, onError: (error) => print(error.message));
         isMoreDataLoading(false);

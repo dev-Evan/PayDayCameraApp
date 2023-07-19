@@ -1,6 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/sockets/src/sockets_io.dart';
 import 'package:pay_day_mobile/common/widget/network_error_pop_up.dart';
+import 'package:pay_day_mobile/routes/app_pages.dart';
 
 import '../../utils/logger.dart';
 
@@ -24,7 +26,7 @@ class ConnectivityController extends GetxController {
     } else {
       LoggerHelper.infoLog(message: "Connected");
       if (isDialogIsOpened.isTrue) {
-        Get.back(canPop: false);
+        Get.offAllNamed(Routes.HOME);
       }
       isDialogIsOpened(false);
     }
