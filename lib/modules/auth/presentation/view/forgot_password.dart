@@ -75,7 +75,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                       Navigator.push(
                           context,
                           CupertinoPageRoute(
-                            builder: (context) => const SignInScreen(),
+                            builder: (context) =>  SignInScreen(),
                           ));
                     },
                     child: const Icon(Icons.arrow_back)),
