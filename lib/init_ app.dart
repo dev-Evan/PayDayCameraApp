@@ -41,9 +41,8 @@ Future<void> initApp() async {
   Get.put(LanguageController(), permanent: true);
   Get.put(ConnectivityController(), permanent: true);
   Get.lazyPut(() => DownloadHelper(), fenix: true);
-  Get.put(StatusController(), permanent: true);
-  Get.put(SettingController(), permanent: true);
-  Get.put(ConnectivityController(), permanent: true);
+  Get.lazyPut(() => StatusController(), fenix: true);
+  Get.lazyPut(() => SettingController(), fenix: true);
   Get.lazyPut(() => AttendanceController(), fenix: true);
   Get.lazyPut(() => AttendanceLogsController(), fenix: true);
   Get.lazyPut(() => LeaveController(), fenix: true);
@@ -66,10 +65,7 @@ Future<void> initApp() async {
   Get.lazyPut(() => DatePickerController(), fenix: true);
   Get.lazyPut(() => AnnouncementController(), fenix: true);
 
-
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark));
-  Get.find<SettingController>().getCurrencyData();
-
 }
