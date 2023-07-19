@@ -32,7 +32,6 @@ class _TimerProgressBarState extends State<TimerProgressBar>
     animation = Tween<double>(begin: 0.0, end: 3.14).animate(curveAnimation)
       ..addListener(() {});
     animationController.reset();
-    print("animation.value ${animation.value}, ${Get.find<AttendanceController>().duration.value}");
     return SizedBox(
       height: AppLayout.getHeight(100),
       width: AppLayout.getWidth(160),

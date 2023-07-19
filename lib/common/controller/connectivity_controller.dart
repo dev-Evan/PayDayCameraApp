@@ -19,7 +19,7 @@ class ConnectivityController extends GetxController {
   void _updateConnectivity(ConnectivityResult connectivityResult) {
     if (connectivityResult == ConnectivityResult.none) {
       LoggerHelper.infoLog(message: "Lost Internet");
-      networkErrorAlertPopup();
+      Get.to(const NetworkErrorPage());
       isDialogIsOpened(true);
     } else {
       LoggerHelper.infoLog(message: "Connected");
