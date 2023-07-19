@@ -102,6 +102,7 @@ class LoadingButtonLayout extends StatelessWidget {
             ),
     );
   }
+
 }
 
 RoundedRectangleBorder get roundedRectangleBorder {
