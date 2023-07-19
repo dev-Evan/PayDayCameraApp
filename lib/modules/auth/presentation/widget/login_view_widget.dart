@@ -10,12 +10,16 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../../common/widget/custom_spacer.dart';
 
-
 Widget logInButton({required onAction}) {
   return Padding(
-    padding:  EdgeInsets.only(left: AppLayout.getWidth(18),right: AppLayout.getWidth(18)),
+    padding: buttonPadding,
     child: CustomButton(AppString.text_log_in, () => onAction()),
   );
+}
+
+EdgeInsets get buttonPadding {
+  return EdgeInsets.only(
+      left: AppLayout.getWidth(18), right: AppLayout.getWidth(18));
 }
 
 Widget containerLayout({isLeft}) {
@@ -34,10 +38,9 @@ Widget animatedContainer({required isLeft}) {
     duration: const Duration(milliseconds: 400),
     alignment: isLeft ? Alignment.topCenter : Alignment.topRight,
     curve: Curves.easeInOut,
-    child: svgIcon(width: 44,height: 44),
+    child: svgIcon(width: 44, height: 44),
   );
 }
-
 
 Widget rememberText() {
   return Text(
@@ -46,7 +49,6 @@ Widget rememberText() {
       color: AppColor.normalTextColor.withOpacity(0.7),
       letterSpacing: 0.2,
       fontWeight: FontWeight.w600,
-
     ),
   );
 }
@@ -58,11 +60,12 @@ Widget forgotButton({required onAction}) {
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           alignment: Alignment.centerLeft),
       onPressed: () => onAction(),
-      child: Text(
-          AppString.text_forgot_password,
+      child: Text(AppString.text_forgot_password,
           style: GoogleFonts.poppins(
               fontSize: Dimensions.fontSizeDefault,
-              color: AppColor.primaryColor,fontWeight: FontWeight.w500,letterSpacing: 0.2)));
+              color: AppColor.primaryColor,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 0.2)));
 }
 
 Widget bodyContent() {
@@ -73,11 +76,11 @@ Widget bodyContent() {
         "login".tr,
         style: GoogleFonts.poppins(
             fontWeight: FontWeight.w600,
-            fontSize: Dimensions.fontSizeLarge+5),
+            fontSize: Dimensions.fontSizeLarge + 5),
       ),
-      customSpacerHeight(height: Dimensions.fontSizeDefault-7),
+      customSpacerHeight(height: Dimensions.fontSizeDefault - 7),
       titleSubText(),
-      customSpacerHeight(height: Dimensions.fontSizeLarge-6),
+      customSpacerHeight(height: Dimensions.fontSizeLarge - 6),
     ],
   );
 }

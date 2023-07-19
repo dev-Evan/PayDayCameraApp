@@ -17,33 +17,30 @@ class AuthController extends GetxController with StateMixin {
   ResetPasswordModel resetPasswordModel = ResetPasswordModel();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  RxBool isLoading = false.obs;
+  final RxBool isLoading = false.obs;
   final GetStorage box = GetStorage();
+
   @override
   void onInit() {
     restPassword();
     super.onInit();
   }
-  void logIn() {
-    _loadingIndicator();
+
+   logIn() {
     isLoading.value = true;
-    try {
-      _authDataSource.loginIntoAccount(emailController.text, passwordController.text)
-          .then((value) {
-        print(value);
-        _writeUserInfo(value);
-        Get.back();
-        Get.offAllNamed(Routes.HOME);
+      _authDataSource.loginIntoAccount(emailController.text, passwordController.text).then((value) {
+       _writeUserInfo(value);
+        isLoading.value = false;
+       Get.offAllNamed(Routes.HOME);
       }, onError: (error) {
-        Get.back();
+        isLoading.value = false;
         showCustomSnackBar( message: error.message);
       });
-    } catch (ex) {
-      print(ex.toString());
-    }
-    isLoading.value = false;
 
   }
+
+
+
 
   void _writeUserInfo(Login? login) {
     box.write(AppString.ID_STORE, login?.data!.id);
@@ -58,7 +55,6 @@ class AuthController extends GetxController with StateMixin {
 
   void restPassword() async {
     change(null, status: RxStatus.loading());
-    try {
       await _authDataSource.restPasswordRepo().then((value) {
         print(value);
         resetPasswordModel = value;
@@ -66,18 +62,6 @@ class AuthController extends GetxController with StateMixin {
         print(error.message);
       });
       change(null, status: RxStatus.success());
-    } catch (ex) {
-      print(ex.toString());
-    }
   }
 }
 
-_loadingIndicator(){
-  return  Get.dialog( Center(child: Platform.isIOS
-      ? const CupertinoActivityIndicator(
-    color: AppColor.primaryBlue,
-  )
-      : const CircularProgressIndicator(
-    color: AppColor.primaryColor,
-  ),));
-}
