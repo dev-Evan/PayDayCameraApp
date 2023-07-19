@@ -27,49 +27,60 @@ class AddressController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
- Future<bool>  addressUpdate({required typeKey,required context, required area, required city, required country, required details, required phone, required state, required zipcode, required String message}) async {
-    bool isReturnValue=false;
+  Future<bool> addressUpdate(
+      {required typeKey,
+      required context,
+      required area,
+      required city,
+      required country,
+      required details,
+      required phone,
+      required state,
+      required zipcode,
+      required String message}) async {
+    bool isReturnValue = false;
     change(null, status: RxStatus.loading());
     try {
-      await addressRepository.getAddressUpdate(area, city, country, details, phone, state, typeKey, zipcode).then((value) {
-        isReturnValue=true;
-         FutureDelayed(onAction: () => showCustomSnackBar(message: message));
-         FutureDelayed(onAction: () => _fieldClear());
+      await addressRepository
+          .getAddressUpdate(
+              area, city, country, details, phone, state, typeKey, zipcode)
+          .then((value) {
+        isReturnValue = true;
+        FutureDelayed(onAction: () => showCustomSnackBar(message: message));
+        FutureDelayed(onAction: () => _fieldClear());
         print("Address update called ::: $value");
       }, onError: (error) {
-
-        isReturnValue=false;
+        isReturnValue = false;
         errorSnackBar(errorMessage: error.toString());
       });
     } catch (ex) {
-      isReturnValue=false;
-      errorSnackBar(errorMessage: ex.toString());
+      isReturnValue = false;
     }
     change(null, status: RxStatus.success());
     return isReturnValue;
+  }
 
-   }
-
- deletedAddressApi({required addressType, required context}) async {
-    bool isDetReturnValue=false;
+  deletedAddressApi({required addressType, required context}) async {
+    bool isDetReturnValue = false;
     change(null, status: RxStatus.loading());
     try {
       await addressRepository.deletedAddressRepo(addressType.toString()).then(
           (DeletedAddressModel value) async {
-            isDetReturnValue=true;
-        showCustomSnackBar(message: AppString.text_address_deleted_successfully);
+        isDetReturnValue = true;
+        showCustomSnackBar(
+            message: AppString.text_address_deleted_successfully);
       }, onError: (error) {
-        isDetReturnValue=false;
+        isDetReturnValue = false;
+        errorSnackBar(errorMessage: error.toString());
         print("Deleted Address ::: ${error.toString()}");
       });
     } catch (ex) {
-      isDetReturnValue=false;
+      isDetReturnValue = false;
       print("Deleted Address ex ::: ${ex.toString()}");
-      errorSnackBar(errorMessage: ex.toString());
     }
     change(null, status: RxStatus.success());
 
-   return isDetReturnValue;
+    return isDetReturnValue;
   }
 }
 
@@ -82,5 +93,3 @@ _fieldClear() {
   Get.find<InputTextFieldController>().addDetailsController.clear();
   Get.find<InputTextFieldController>().addCountyController.clear();
 }
-
-
