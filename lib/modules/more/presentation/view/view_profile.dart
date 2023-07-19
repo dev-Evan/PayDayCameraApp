@@ -85,8 +85,6 @@ class ViewProfile extends GetView<ProfileDataController> {
                                 .value
                                 .text = _dateFormat;
                             defaultNavigator(context: context,routeName: EditProfile());
-
-                           // Get.toNamed(Routes.EDIT_PROFILE);
                           }),
                       customSpacerHeight(height: 10),
                       Obx(() => circleAvatarStyle(

@@ -91,6 +91,5 @@ _fieldClear() {
   Get.find<InputTextFieldController>().addZipCodeController.clear();
   Get.find<InputTextFieldController>().addDetailsController.clear();
   Get.find<InputTextFieldController>().addCountyController.clear();
-
   Get.find<InputTextFieldController>().addStateController.clear();
 }

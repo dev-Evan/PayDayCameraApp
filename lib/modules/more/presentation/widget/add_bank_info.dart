@@ -11,8 +11,10 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
-class AddBankInfo extends GetView<MoreDataController> {
+class AddBankInfo extends GetView<BankInfoController> {
   final _formKey = GlobalKey<FormState>();
+
+  AddBankInfo({super.key});
   @override
   Widget build(BuildContext context) {
     return controller.obx((state) => Form(
@@ -135,11 +137,11 @@ class AddBankInfo extends GetView<MoreDataController> {
                   textButtonAction: () => Get.back(),
                   elevatedButtonAction: () {
                     if (_formKey.currentState!.validate()) {
-                      Get.find<MoreDataController>()
+                      Get.find<BankInfoController>()
                           .addBankInfo(context: context).then((value){
                         if(value==true){
                           Get.back(canPop: false);
-                          Get.find<MoreDataController>().getBankInfo();
+                          Get.find<BankInfoController>().getBankInfo();
                         }
                       });
                     }

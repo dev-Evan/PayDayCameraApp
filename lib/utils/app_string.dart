@@ -28,7 +28,7 @@ class AppString {
   static String text_leave_status = "Leave Status";
   static String text_leave_duration = "Leave Duration";
   static String text_approved = "Approved";
-  static String text_jpeg_format_not_supporte = "jpeg format not support";
+  static String text_jpeg_format_not_supporte = "The file is too big! Maximum allowed 5MB";
   static String text_duration = "Duration";
   static String text_pending = "Pending";
   static String text_rejected = "Rejected";
@@ -400,8 +400,6 @@ class AppString {
   static String text_this_enter_phone_number = "Enter phone Number";
   static String text_this_all_holiday = "All Holiday";
   static String text_calender_text = "Calender";
-  static String text_about_me_dec =
-      "Hello. I am an UX/UI designer. I am in love with designing since my childhood. It gives me the freedom of my mind and helps me to express myself and my personality ";
 
 
   // Local store string here

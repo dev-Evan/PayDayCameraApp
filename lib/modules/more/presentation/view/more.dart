@@ -112,7 +112,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                                       cardText: AppString.text_bank_details,
                                       onAction: () async {
                                         Get.toNamed(Routes.BANK_DETAILS);
-                                        await Get.find<MoreDataController>()
+                                        await Get.find<BankInfoController>()
                                             .getBankInfo();
                                       },
                                     ),

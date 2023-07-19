@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
+import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
@@ -10,11 +11,11 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
-class EditBankInfo extends StatelessWidget {
+class EditBankInfo extends GetView<BankInfoController> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return controller.obx((state) => Form(
       key: _formKey,
       child: Padding(
         padding: EdgeInsets.only(
@@ -42,6 +43,7 @@ class EditBankInfo extends StatelessWidget {
               ),
               customSpacerHeight(height: 8),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Flexible(
                     child: Column(
@@ -49,10 +51,9 @@ class EditBankInfo extends StatelessWidget {
                       children: [
                         textFieldTitleText(titleText: AppString.text_branch),
                         CustomTextField(
-                          hintText:AppString.text_enter_branch,
+                          hintText: AppString.text_enter_branch,
                           controller: Get.find<InputTextFieldController>()
                               .branchNameController,
-
                           validator: (value) {
                             if (value!.isEmpty) {
                               return AppString.fieldIsRequired;
@@ -70,17 +71,9 @@ class EditBankInfo extends StatelessWidget {
                       children: [
                         textFieldTitleText(titleText: AppString.text_bank_code),
                         CustomTextField(
-                            hintText:AppString.text_enter_bank_code,
-                            controller: Get.find<InputTextFieldController>()
-                                .bankCodeController,
-
-
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return AppString.fieldIsRequired;
-                            }
-                            return null;
-                          },
+                          hintText: AppString.text_enter_bank_code,
+                          controller: Get.find<InputTextFieldController>()
+                              .bankCodeController,
                         ),
                       ],
                     ),
@@ -90,10 +83,9 @@ class EditBankInfo extends StatelessWidget {
               customSpacerHeight(height: 8),
               textFieldTitleText(titleText: AppString.text_account_holder),
               CustomTextField(
-                hintText:  AppString.text_enter_name,
+                hintText: AppString.text_enter_name,
                 controller: Get.find<InputTextFieldController>()
                     .accountHolderNameController,
-
                 validator: (value) {
                   if (value!.isEmpty) {
                     return AppString.fieldIsRequired;
@@ -107,7 +99,6 @@ class EditBankInfo extends StatelessWidget {
                 hintText: AppString.text_enter_account_number,
                 controller: Get.find<InputTextFieldController>()
                     .accountNumberController,
-
                 validator: (value) {
                   if (value!.isEmpty) {
                     return AppString.fieldIsRequired;
@@ -119,9 +110,8 @@ class EditBankInfo extends StatelessWidget {
               textFieldTitleText(titleText: AppString.text_account_title),
               CustomTextField(
                 hintText: AppString.text_enter_title,
-                controller: Get.find<InputTextFieldController>()
-                    .accountTitleController,
-
+                controller:
+                Get.find<InputTextFieldController>().accountTitleController,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return AppString.fieldIsRequired;
@@ -135,30 +125,31 @@ class EditBankInfo extends StatelessWidget {
                 hintText: AppString.text_enter_id,
                 controller:
                 Get.find<InputTextFieldController>().taxPayerIdController,
-
-
               ),
               customSpacerHeight(height: 50),
               customDoubleButton(
                   context: context,
-                  elevatedBtnText:
-                  '${AppString.text_save}',
+                  elevatedBtnText: AppString.text_save,
                   textBtnText: AppString.text_cancel,
                   textButtonAction: () => Get.back(),
                   elevatedButtonAction: () {
-
-    if (_formKey.currentState!.validate()) {
-      Get.find<MoreDataController>().updateBankInfo(context: context);
-
-    }
-
+                    if (_formKey.currentState!.validate()) {
+                      Get.find<BankInfoController>()
+                          .updateBankInfo(context: context)
+                          .then((value) {
+                        if (value == true) {
+                          Get.back(canPop: false);
+                          Get.find<BankInfoController>().getBankInfo();
+                        }
+                      });
+                    }
                   }),
               customSpacerHeight(height: 250)
             ],
           ),
         ),
       ),
-    );
+    ),onLoading: const LoadingIndicator());
   }
 }
 

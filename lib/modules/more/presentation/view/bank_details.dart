@@ -20,118 +20,120 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../../common/widget/loading_indicator.dart';
 import '../controller/bank_info_controller.dart';
 
-class BankDetails extends GetView<MoreDataController> {
+class BankDetails extends GetView<BankInfoController> {
   const BankDetails({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppbar(),
-      body: controller.obx(
-              (state) => Stack(
-            children: [
-              customMoreAppbar(
-                  titleText:AppString.text_bank_details),
+        body: controller.obx((state) => RefreshIndicator(
+          onRefresh: _refreshPage,
+          child: SingleChildScrollView(physics: const AlwaysScrollableScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                customMoreAppbar(
+                    titleText:
+                    controller
+                        .bankInfoModel.data?.name !=null?
+                    AppString.text_bank_details:""
+                ),
+                (controller.bankInfoModel.data?.accountTitle != null && controller.bankInfoModel.data!.accountTitle!.isNotEmpty)?
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
 
-              (controller.bankInfoModel.data?.accountTitle != null &&
-                  controller
-                      .bankInfoModel.data!.accountTitle!.isNotEmpty)
-                  ? RefreshIndicator(
-                onRefresh: _refreshPage,
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
+                    _bankTitleRow(
+                        bankTitleText: controller
+                            .bankInfoModel.data?.name
+                            ?.toString() ??
+                            "",
+                        context: context),
+                    controller
+                        .bankInfoModel.data?.accountHolderName !=null?
+                    _bankUserInfo(
+                        infoTitleText: AppString.text_account_holder,
+                        infoDetailsText: controller.bankInfoModel
+                            .data?.accountHolderName
+                            ?.toString() ??
+                            ""):Container(),
+                    controller
+                        .bankInfoModel.data?.accountNumber !=null?
+                    _bankUserInfo(
+                        infoTitleText:
+                        AppString.text_account_number,
+                        infoDetailsText: controller
+                            .bankInfoModel.data?.accountNumber
+                            ?.toString() ??
+                            ""):Container(),
+
+                    controller
+                        .bankInfoModel.data?.accountTitle !=null?
+                    _bankUserInfo(
+                        infoTitleText:
+
+                        AppString.text_account_title,
+                        infoDetailsText: controller
+                            .bankInfoModel.data?.accountTitle
+                            ?.toString() ??
+                            ""):Container(),
+
+                    controller
+                        .bankInfoModel.data?.branchName !=null?
+                    _bankUserInfo(
+                        infoTitleText:
+
+
+
+                        AppString.text_branch,
+                        infoDetailsText: controller
+                            .bankInfoModel.data?.branchName
+                            ?.toString() ??
+                            ""):Container(),
+
+                    controller
+                        .bankInfoModel.data?.code !=null?
+                    _bankUserInfo(
+                        infoTitleText: controller
+                            .bankInfoModel.data?.code !=null?
+
+                        AppString.text_bank_code:"",
+                        infoDetailsText: controller
+                            .bankInfoModel.data?.code
+                            ?.toString() ??
+                            ""):Container(),
+
+                    controller
+                        .bankInfoModel.data?.taxPayerId !=null?
+                    _bankUserInfo(
+                        infoTitleText:
+                        AppString.text_tax_payer_id,
+                        infoDetailsText: controller
+                            .bankInfoModel.data?.taxPayerId
+                            ?.toString() ??
+                            ""):Container()
+                  ],
+                ): SizedBox(
+                  height: MediaQuery.of(context).size.height,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      customMoreAppbar(
-                          titleText:
-                          controller
-                              .bankInfoModel.data?.name !=null?
-                          AppString.text_bank_details:""
-                      ),
-                      _bankTitleRow(
-                          bankTitleText: controller
-                              .bankInfoModel.data?.name
-                              ?.toString() ??
-                              "",
-                          context: context),
-
-                      _bankUserInfo(
-                          infoTitleText:controller
-                              .bankInfoModel.data?.accountHolderName !=null?
-                          AppString.text_account_holder:"",
-                          infoDetailsText: controller.bankInfoModel
-                              .data?.accountHolderName
-                              ?.toString() ??
-                              ""),
-                      _bankUserInfo(
-                          infoTitleText:controller
-                              .bankInfoModel.data?.accountNumber !=null?
-                          AppString.text_account_number:"",
-                          infoDetailsText: controller
-                              .bankInfoModel.data?.accountNumber
-                              ?.toString() ??
-                              ""),
-                      _bankUserInfo(
-                          infoTitleText:
-                          controller
-                              .bankInfoModel.data?.accountTitle !=null?
-
-                          AppString.text_account_title:"",
-                          infoDetailsText: controller
-                              .bankInfoModel.data?.accountTitle
-                              ?.toString() ??
-                              ""),
-                      _bankUserInfo(
-                          infoTitleText:
-                          controller
-                              .bankInfoModel.data?.branchName !=null?
-
-
-                          AppString.text_branch:"",
-                          infoDetailsText: controller
-                              .bankInfoModel.data?.branchName
-                              ?.toString() ??
-                              ""),
-                      _bankUserInfo(
-                          infoTitleText: controller
-                              .bankInfoModel.data?.code !=null?
-
-
-                          AppString.text_bank_code:"",
-                          infoDetailsText: controller
-                              .bankInfoModel.data?.code
-                              ?.toString() ??
-                              ""),
-                      _bankUserInfo(
-                          infoTitleText:
-                          controller
-                              .bankInfoModel.data?.taxPayerId !=null?
-
-                          AppString.text_tax_payer_id:"",
-                          infoDetailsText: controller
-                              .bankInfoModel.data?.taxPayerId
-                              ?.toString() ??
-                              "")
+                      noDataFound(height: 200),
+                      const Spacer(),
+                      _addBankInfo(onAction: () {
+                        customButtonSheet(
+                            context: context,
+                            height: 0.9,
+                            child: AddBankInfo());
+                      }),
+                      const Spacer(),
                     ],
                   ),
                 ),
-              )
-                  : Column(
-                children: [
-                  noDataFound(height: 200),
-                  const Spacer(),
-                  _addBankInfo(onAction: () {
-                    customButtonSheet(
-                        context: context,
-                        height: 0.9,
-                        child: AddBankInfo());
-                  }),
-                  customSpacerHeight(height: 30),
-                ],
-              )
-            ],
+
+              ],
+            ),
           ),
-          onLoading: const LoadingIndicator()),
+        ),onLoading: const LoadingIndicator()),
     );
   }
 
@@ -155,7 +157,7 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
             onAction: () => _deletedAlert(
               context: context,
               onAction: () =>
-                  Get.find<MoreDataController>().deletedBankInfoApi(),
+                  Get.find<BankInfoController>().deletedBankInfoApi(),
             ),
             editAction: () {
               customButtonSheet(
@@ -164,7 +166,7 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
                 child: EditBankInfo(),
               );
               Get.find<InputTextFieldController>().bankNameController.text =
-                  Get.find<MoreDataController>()
+                  Get.find<BankInfoController>()
                       .bankInfoModel
                       .data
                       ?.name
@@ -172,7 +174,7 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
                       "";
               Get.find<InputTextFieldController>()
                   .branchNameController
-                  .text = Get.find<MoreDataController>()
+                  .text = Get.find<BankInfoController>()
                   .bankInfoModel
                   .data
                   ?.branchName
@@ -180,7 +182,7 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
                   "";
 
               Get.find<InputTextFieldController>().bankCodeController.text =
-                  Get.find<MoreDataController>()
+                  Get.find<BankInfoController>()
                       .bankInfoModel
                       .data
                       ?.code
@@ -188,7 +190,7 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
                       "";
               Get.find<InputTextFieldController>()
                   .accountHolderNameController
-                  .text = Get.find<MoreDataController>()
+                  .text = Get.find<BankInfoController>()
                   .bankInfoModel
                   .data
                   ?.accountHolderName
@@ -197,7 +199,7 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
 
               Get.find<InputTextFieldController>()
                   .accountNumberController
-                  .text = Get.find<MoreDataController>()
+                  .text = Get.find<BankInfoController>()
                   .bankInfoModel
                   .data
                   ?.accountNumber
@@ -206,7 +208,7 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
 
               Get.find<InputTextFieldController>()
                   .accountTitleController
-                  .text = Get.find<MoreDataController>()
+                  .text = Get.find<BankInfoController>()
                   .bankInfoModel
                   .data
                   ?.accountTitle
@@ -214,7 +216,7 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
                   "";
               Get.find<InputTextFieldController>()
                   .taxPayerIdController
-                  .text = Get.find<MoreDataController>()
+                  .text = Get.find<BankInfoController>()
                   .bankInfoModel
                   .data
                   ?.taxPayerId
@@ -249,7 +251,7 @@ Future _deletedAlert({required context, onAction}) {
       context: context,
       icon: CupertinoIcons.delete,
       backAction: () {
-        if (Get.find<MoreDataController>().newValue.toString().isNotEmpty) {
+        if (Get.find<BankInfoController>().newValue.toString().isNotEmpty) {
           Navigator.pop(context);
         } else {
           Navigator.pop(context);

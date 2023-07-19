@@ -60,7 +60,7 @@ Future<void> initApp() async {
   Get.lazyPut(() => FileUploadController(), fenix: true);
   Get.lazyPut(() => UpdateDocumentController(), fenix: true);
   Get.lazyPut(() => AuthController(), fenix: true);
-  Get.lazyPut(() => MoreDataController(), fenix: true);
+  Get.lazyPut(() => BankInfoController(), fenix: true);
   Get.lazyPut(() => InputTextFieldController(), fenix: true);
   Get.lazyPut(() => DatePickerController(), fenix: true);
   Get.lazyPut(() => AnnouncementController(), fenix: true);

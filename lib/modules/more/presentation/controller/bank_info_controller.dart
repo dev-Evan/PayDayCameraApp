@@ -1,6 +1,3 @@
-import 'dart:ffi';
-
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
@@ -9,15 +6,12 @@ import 'package:pay_day_mobile/modules/more/data/bank_info_repository.dart';
 import 'package:pay_day_mobile/modules/more/domain/bank_info_model.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/view/bank_details.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/add_bank_info.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-
-import '../../../../common/widget/custom_navigator.dart';
 import '../../../../common/widget/error_alert_pop_up.dart';
 
-class MoreDataController extends GetxController with StateMixin {
+class BankInfoController extends GetxController with StateMixin {
   final box = GetStorage();
   BankInfoModel bankInfoModel = BankInfoModel();
   var newValue="";
@@ -87,7 +81,9 @@ class MoreDataController extends GetxController with StateMixin {
   }
 
   updateBankInfo({required context}) async {
-    waitingLoader();
+    bool updatedBankInfoValue=false;
+    change(null, status: RxStatus.loading());
+
     await moreDataRepository.UpdateBankInfoRepo(
       textEditingController.bankNameController.text,
       textEditingController.bankCodeController.text,
@@ -98,15 +94,17 @@ class MoreDataController extends GetxController with StateMixin {
       textEditingController.taxPayerIdController.text,
     ).then((value) {
       print("BANK INFO UPDATED ::: $value");
-      Get.back();
+      updatedBankInfoValue=true;
       showCustomSnackBar(message: AppString.text_bank_details_update_successfully);
-      defaultOffNavigator(context: context,routeName:const BankDetails());
-      getBankInfo();
       clearData();
     }, onError: (error) {
-      Get.back();
+      updatedBankInfoValue=false;
+      errorSnackBar(errorMessage: error);
       print("BANK INFO UPDATED ::: $error");
     });
+    change(null, status: RxStatus.success());
+    return updatedBankInfoValue;
   }
+
 
 }
