@@ -85,6 +85,7 @@ class AddressController extends GetxController with StateMixin {
 }
 
 _fieldClear() {
+  //test data
   Get.find<InputTextFieldController>().addPhoneNumberController.clear();
   Get.find<InputTextFieldController>().addAreaController.clear();
   Get.find<InputTextFieldController>().addCityController.clear();
