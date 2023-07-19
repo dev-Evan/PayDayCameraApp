@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_controller.dart';
@@ -11,7 +12,6 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../starting/view/onboarding_screen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -24,6 +24,8 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   bool _isLeft = false;
   bool _rememberMe = false;
+  final _formKey = GlobalKey<FormState>();
+  final ExitAppController _controller = Get.put(ExitAppController());
 
   leftRight() {
     setState(() {
@@ -39,10 +41,6 @@ class _SignInScreenState extends State<SignInScreen> {
     super.initState();
   }
 
-  final _formKey = GlobalKey<FormState>();
-  final ExitAppController _controller = Get.put(ExitAppController());
-
-  final AuthController _authService = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height / 6;
@@ -59,11 +57,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: Dimensions.paddingLarge,
-                          right: Dimensions.paddingLarge,
-                          bottom: Dimensions.paddingDefault + 4,
-                          top: Dimensions.paddingDefaultExtra + 3),
+                      padding: _padding,
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,18 +126,13 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: AppLayout.getWidth(13),
-                          right: AppLayout.getWidth(18),
-                          top: 0),
+                      padding: _checkBoxPadding,
                       child: Row(
                         children: [
                           Checkbox(
                             visualDensity: const VisualDensity(
                                 horizontal: -4, vertical: -4),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    Dimensions.radiusSmall)),
+                            shape: _roundedRectangleBorder,
                             value: _rememberMe,
                             onChanged: (bool? rememberMe) {
                               setState(() {
@@ -162,11 +151,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                     customSpacerHeight(height: Dimensions.fontSizeDefault + 4),
-                    logInButton(onAction: () {
-                      if (_formKey.currentState!.validate()) {
-                        Get.find<AuthController>().logIn();
-                      }
-                    })
+                    Obx(() => _logIn()),
                   ],
                 ),
               )),
@@ -185,6 +170,16 @@ class _SignInScreenState extends State<SignInScreen> {
       throw 'Could not launch $url';
     }
   }
+
+  _logIn() {
+    return Get.find<AuthController>().isLoading.value
+        ? const LoadingButtonLayout() // Show loading indicator
+        : logInButton(onAction: () {
+            if (_formKey.currentState!.validate()) {
+              Get.find<AuthController>().logIn();
+            }
+          });
+  }
 }
 
 emailExp() {
@@ -195,4 +190,22 @@ emailExp() {
 
 passwordExp() {
   return r"(?=.*\d)(?=.*[a-z])(?=.*\W)";
+}
+
+RoundedRectangleBorder get _roundedRectangleBorder {
+  return RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(Dimensions.radiusSmall));
+}
+
+EdgeInsets get _padding {
+  return EdgeInsets.only(
+      left: Dimensions.paddingLarge,
+      right: Dimensions.paddingLarge,
+      bottom: Dimensions.paddingDefault + 4,
+      top: Dimensions.paddingDefaultExtra + 3);
+}
+
+EdgeInsets get _checkBoxPadding {
+  return EdgeInsets.only(
+      left: AppLayout.getWidth(13), right: AppLayout.getWidth(18), top: 0);
 }

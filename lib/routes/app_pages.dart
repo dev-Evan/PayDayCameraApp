@@ -35,7 +35,7 @@ class AppPages {
     GetPage(
         name: _Paths.SIGN_IN,
         transition: Transition.rightToLeft,
-        page: () => const SignInScreen()),
+        page: () =>  SignInScreen()),
     GetPage(
       transition: Transition.cupertino,
       name: _Paths.ONBOARD_SCREEN,
