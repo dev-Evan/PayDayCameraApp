@@ -1,8 +1,10 @@
-
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pay_day_mobile/common/controller/connectivity_controller.dart';
+import 'package:pay_day_mobile/common/widget/network_error_pop_up.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -12,6 +14,7 @@ import '../../../routes/app_pages.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
+
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
@@ -26,9 +29,9 @@ class _SplashScreenState extends State<SplashScreen> {
     dynamic logValue = box.read(AppString.LOGIN_CHECK_KEY);
     if (idStore == null) {
       Get.toNamed(Routes.ONBOARD_SCREEN);
-    }else if (logValue != null && remValue != null) {
+    } else if (logValue != null && remValue != null) {
       Get.toNamed(Routes.HOME);
-    }else {
+    } else {
       Get.toNamed(Routes.SIGN_IN);
     }
   }
@@ -48,8 +51,15 @@ class _SplashScreenState extends State<SplashScreen> {
       isMove();
     });
 
-    Future.delayed( const Duration(milliseconds: 1700), () {
-      chooseScreen();
+    Future.delayed(const Duration(milliseconds: 1700), () async {
+      ConnectivityResult connectivityResult =
+          await Connectivity().checkConnectivity();
+      if (connectivityResult == ConnectivityResult.none) {
+        Get.find<ConnectivityController>().isDialogIsOpened(true);
+        Get.to(() => const NetworkErrorPage());
+      } else {
+        chooseScreen();
+      }
     });
 
     Future.delayed(const Duration(milliseconds: 800), () {
@@ -73,7 +83,7 @@ class _SplashScreenState extends State<SplashScreen> {
           height: bodyH,
           child: Stack(
             children: [
-              _containerLayout(height: _height,width: _width,isLoad: _isLoad)
+              _containerLayout(height: _height, width: _width, isLoad: _isLoad)
             ],
           ),
         ),
@@ -82,27 +92,24 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-Widget _containerLayout({isLoad,width,height}){
+Widget _containerLayout({isLoad, width, height}) {
   return AnimatedContainer(
     duration: const Duration(milliseconds: 900),
     alignment: isLoad ? Alignment.topCenter : Alignment.center,
-    child: _animatedLogo(height: height,width: width),
+    child: _animatedLogo(height: height, width: width),
   );
 }
 
-Widget _animatedLogo({required height,required width}){
+Widget _animatedLogo({required height, required width}) {
   return AnimatedContainer(
-      duration:  const Duration(milliseconds: 900),
+      duration: const Duration(milliseconds: 900),
       width: width,
       height: height,
-      child: _logoView(logo: Images.favIcon)
-  );
-
+      child: _logoView(logo: Images.favIcon));
 }
 
-Widget _logoView({required logo}){
-  return  SvgPicture.asset(
+Widget _logoView({required logo}) {
+  return SvgPicture.asset(
     logo.toString(),
-
   );
 }

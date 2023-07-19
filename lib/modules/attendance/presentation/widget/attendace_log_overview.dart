@@ -26,14 +26,15 @@ Widget attendanceLogsOverviewLayout() {
             SizedBox(
               height: AppLayout.getHeight(210),
               child: Padding(
-                padding:
-                     EdgeInsets.only(left:AppLayout.getWidth(20), right:AppLayout.getWidth(20), top:AppLayout.getHeight(10)),
+                padding: EdgeInsets.only(
+                    left: AppLayout.getWidth(20),
+                    right: AppLayout.getWidth(20),
+                    top: AppLayout.getHeight(10)),
                 child: GridView.count(
                     childAspectRatio:
                         AppLayout.getWidth(90) / AppLayout.getHeight(65),
                     crossAxisCount: 3,
                     shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
                     children: [
                       _logSummaryCard(
                           title: AppString.text_scheduled,
@@ -45,8 +46,8 @@ Widget attendanceLogsOverviewLayout() {
                               controller.logSummaryByMonth.value.data?.worked),
                       _logSummaryCard(
                           title: AppString.text_balance,
-                          count: controller
-                              .logSummaryByMonth.value.data?.balance),
+                          count:
+                              controller.logSummaryByMonth.value.data?.balance),
                       _logSummaryCard(
                           title: AppString.text_leave_hour,
                           count: controller
@@ -57,8 +58,9 @@ Widget attendanceLogsOverviewLayout() {
                               .logSummaryByMonth.value.data?.behavior),
                       _logSummaryCard(
                           title: AppString.text_availablity,
-                          count:"${ controller
-                              .logSummaryByMonth.value.data?.availablity} %"),
+                          count: controller.logSummaryByMonth.value.data != null
+                              ? "${controller.logSummaryByMonth.value.data?.availablity} %"
+                              : ''),
                     ]),
               ),
             ),
@@ -78,7 +80,6 @@ Widget attendanceLogsOverviewLayout() {
                         AppLayout.getWidth(90) / AppLayout.getHeight(65),
                     crossAxisCount: 3,
                     shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
                     children: [
                       _logSummaryCard(
                           title: AppString.text_scheduled,
@@ -98,12 +99,12 @@ Widget attendanceLogsOverviewLayout() {
                               .logSummaryByYear.value.data?.paidLeave),
                       _logSummaryCard(
                           title: AppString.text_behaviour,
-                          count: controller
-                              .logSummaryByYear.value.data?.behavior),
+                          count:
+                              controller.logSummaryByYear.value.data?.behavior),
                       _logSummaryCard(
                           title: AppString.text_availablity,
-                          count: "${controller
-                              .logSummaryByYear.value.data?.availablity} %"),
+                          count:
+                              "${controller.logSummaryByYear.value.data?.availablity} %"),
                     ]),
               ),
             ),
@@ -153,7 +154,7 @@ Widget _logSummaryCard({String? count, String? title}) => SizedBox(
         elevation: 0,
         color: AppColor.cardColor.withOpacity(0.1),
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(Dimensions.radiusDefault+2),
+            borderRadius: BorderRadius.circular(Dimensions.radiusDefault + 2),
             side: BorderSide(
                 width: 1, color: AppColor.cardColor.withOpacity(0.2))),
         child: Row(
@@ -166,14 +167,8 @@ Widget _logSummaryCard({String? count, String? title}) => SizedBox(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    count ?? "",
-                    style: dynamicTextStyle
-                  ),
-                  Text(
-                    title ?? "",
-                    style:countTextStyle
-                  ),
+                  Text(count ?? "", style: dynamicTextStyle),
+                  Text(title ?? "", style: countTextStyle),
                 ],
               ),
             ),

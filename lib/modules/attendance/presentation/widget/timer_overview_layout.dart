@@ -46,8 +46,10 @@ overtimeTimeLog() {
     children: [
       logInfo(
           title: AppString.text_overtime,
-          time: TimeCounterHelper.getTimeStringFromDouble(
-              data?.todayOvertime.toDouble() ?? 0.0))
+          time: data != null && data.dailyLogs!.isNotEmpty
+              ? TimeCounterHelper.getTimeStringFromDouble(
+                  data.todayOvertime.toDouble())
+              : '')
     ],
   );
 }
@@ -60,8 +62,10 @@ remainingTimeLog() {
       customSpacerWidth(width: 16),
       scheduledLogInfo(
           title: AppString.text_remaining,
-          time: TimeCounterHelper.getTimeStringFromDouble(
-              data?.todayShortage.toDouble() ?? 0.0)),
+          time: data != null && data.dailyLogs!.isNotEmpty
+              ? TimeCounterHelper.getTimeStringFromDouble(
+                  data.todayShortage.toDouble())
+              : ''),
       verticalDivider(),
     ],
   );
@@ -74,8 +78,10 @@ scheduledTimeLog() {
     children: [
       scheduledLogInfo(
           title: "text_scheduled".tr,
-          time: TimeCounterHelper.getTimeStringFromDouble(
-              data?.todayScheduled.toDouble() ?? 0.0)),
+          time: data != null && data.dailyLogs!.isNotEmpty
+              ? TimeCounterHelper.getTimeStringFromDouble(
+                  data.todayScheduled.toDouble())
+              : ''),
       verticalDivider()
     ],
   );
@@ -83,6 +89,7 @@ scheduledTimeLog() {
 
 overTimedBalanceTime() {
   Duration timerTime = Get.find<AttendanceController>().balanceDuration.value;
+  Data? data = Get.find<AttendanceController>().logs.value.data;
   String hrs = timerTime.inHours.remainder(60).toString();
   String mins = timerTime.inMinutes.remainder(60).toString();
 
@@ -90,10 +97,13 @@ overTimedBalanceTime() {
   if (hrs.length.isEqual(1) && hrs.startsWith('0') && mins.length < 2) {
     hrs = '';
   }
-  return logInfo(title: "text_balance".tr, time: "$hrs h $mins m");
+  return logInfo(
+      title: "text_balance".tr,
+      time: data != null && data.dailyLogs!.isNotEmpty ? "$hrs h $mins m" : '');
 }
 
 Widget normalBalanceTime() {
+  Data? data = Get.find<AttendanceController>().logs.value.data;
   Duration timerTime = Get.find<AttendanceController>().countdownDuration.value;
   String hrs = timerTime.inHours.remainder(60).toString();
   String mins = timerTime.inMinutes.remainder(60).toString();
@@ -102,7 +112,10 @@ Widget normalBalanceTime() {
   if (hrs.length.isEqual(1) && hrs.startsWith('0') && mins.length < 2) {
     hrs = '';
   }
-  return logInfo(title: "text_balance".tr, time: "-$hrs h $mins m");
+  return logInfo(
+      title: "text_balance".tr,
+      time:
+          data != null && data.dailyLogs!.isNotEmpty ? "-$hrs h $mins m" : '');
 }
 
 outTimeLog() {

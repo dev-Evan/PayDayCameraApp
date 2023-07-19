@@ -64,8 +64,4 @@ Future<void> initApp() async {
   Get.lazyPut(() => InputTextFieldController(), fenix: true);
   Get.lazyPut(() => DatePickerController(), fenix: true);
   Get.lazyPut(() => AnnouncementController(), fenix: true);
-
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark));
 }
