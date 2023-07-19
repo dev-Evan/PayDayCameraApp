@@ -88,8 +88,9 @@ _fieldClear() {
   Get.find<InputTextFieldController>().addPhoneNumberController.clear();
   Get.find<InputTextFieldController>().addAreaController.clear();
   Get.find<InputTextFieldController>().addCityController.clear();
-  Get.find<InputTextFieldController>().addStateController.clear();
   Get.find<InputTextFieldController>().addZipCodeController.clear();
   Get.find<InputTextFieldController>().addDetailsController.clear();
   Get.find<InputTextFieldController>().addCountyController.clear();
+
+  Get.find<InputTextFieldController>().addStateController.clear();
 }
