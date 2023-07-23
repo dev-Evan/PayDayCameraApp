@@ -13,7 +13,7 @@ import '../../utils/app_string.dart';
 class DownloadHelper extends GetxController {
   @override
   void onInit() {
-    IsolateNameServer.registerPortWithName(_port.sendPort, "Downloading");
+    IsolateNameServer.registerPortWithName(_port.sendPort, "downloader_send_port");
     FlutterDownloader.registerCallback(downloadCallback);
     super.onInit();
   }
@@ -67,12 +67,14 @@ class DownloadHelper extends GetxController {
 
   @override
   void dispose() {
-    IsolateNameServer.removePortNameMapping('Downloading');
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
     super.dispose();
   }
 
+  @pragma('vm:entry-point')
   static void downloadCallback(String id, int status, int progress) {
-    SendPort? sendPort = IsolateNameServer.lookupPortByName("Downloading");
-    sendPort!.send(progress);
+    final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port');
+    send!.send([id, status, progress]);
   }
 }
+
