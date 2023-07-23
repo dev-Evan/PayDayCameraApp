@@ -39,13 +39,12 @@ class CustomButton extends StatelessWidget {
 class CustomSmallButton extends StatelessWidget {
   String text;
   final Function onAction;
-
   CustomSmallButton(this.text, this.onAction, {super.key});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
-      height: AppLayout.getHeight(50),
+      width: MediaQuery.of(context).size.width / 3,
+      height: MediaQuery.of(context).size.height / 18,
       child: ElevatedButton(
         onPressed: () => onAction(),
         style: ElevatedButton.styleFrom(

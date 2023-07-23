@@ -11,6 +11,7 @@ import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../../utils/app_layout.dart';
 
 class LogoutController extends GetxController with StateMixin {
   LogoutRepository logoutRepository = LogoutRepository(NetworkClient());
@@ -39,15 +40,22 @@ class LogoutController extends GetxController with StateMixin {
 
 Future waitingLoader() {
   return Get.dialog(const Center(child: LoadingIndicator()),
-  barrierColor: AppColor.backgroundColor
-  );
+      barrierColor: AppColor.backgroundColor);
 }
-loadingIndicator(){
-  return  Get.dialog( Center(child: Platform.isIOS
-      ? const CupertinoActivityIndicator(
-    color: AppColor.primaryBlue,
-  )
-      : const CircularProgressIndicator(
-    color: AppColor.primaryColor,
-  ),));
+
+loadingIndicator() {
+  return Get.dialog(Center(
+    child:Center(
+        child: SizedBox(
+          height: AppLayout.getHeight(50),
+          width: AppLayout.getWidth(50),
+          child: Platform.isIOS
+              ? const CupertinoActivityIndicator(
+            color: AppColor.primaryBlue,
+          )
+              : const CircularProgressIndicator(
+            color: AppColor.primaryColor,
+          ),
+        ))
+  ));
 }

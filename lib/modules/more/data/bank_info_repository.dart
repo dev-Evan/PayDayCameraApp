@@ -9,18 +9,14 @@ import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
-class MoreDataRepository {
+class BankInfoRepository {
   NetworkClient networkClient;
-  MoreDataRepository(this.networkClient);
+  BankInfoRepository(this.networkClient);
   final box=GetStorage();
 
   Future<BankInfoModel> bankInfoRepo() async {
     try {
-      Response response =
-
-          await networkClient.getRequest(Api.EMPLOYEE_BANK_INFORMATION);
-
-      print(response.body);
+      Response response = await networkClient.getRequest(Api.EMPLOYEE_BANK_INFORMATION);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -28,12 +24,12 @@ class MoreDataRepository {
         return BankInfoModel.fromJson(response.body);
       }
     } catch (ex) {
-      print(ex.toString());
+      print("Bank info ::: $ex");
       return Future.error(ErrorModel(message: ex.toString()));
     }
   }
 
-  Future<AddBankInfoModel> AddBankInfoRepo(String bankName, String code, String branchName, String accountTitle, String accountHolderName, String accountNumber, String taxPayerId,
+  Future<AddBankInfoModel> addBankInfoRepo(String bankName, String code, String branchName, String accountTitle, String accountHolderName, String accountNumber, String taxPayerId,
       ) async {
     try {
       Response response = await networkClient.postRequest(
@@ -64,7 +60,7 @@ class MoreDataRepository {
   Future<AddBankInfoDeletedModel> deletedBankInfoRepo() async {
     try {
       Response  response = await networkClient.deletedRequest(
-        Api.EMPLOYEE_BANK_INFORMATION+"/${box.read(AppString.ID_STORE)}?contact_id=${box.read(AppString.BANK_USER_ID_STORE)}");
+        "${Api.EMPLOYEE_BANK_INFORMATION}/${box.read(AppString.ID_STORE)}?contact_id=${box.read(AppString.BANK_USER_ID_STORE)}");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -76,7 +72,7 @@ class MoreDataRepository {
     }
   }
 
-  Future<BankInfoUpdated> UpdateBankInfoRepo(String bankName, String code, String branchName, String accountTitle, String accountHolderName, String accountNumber, String taxPayerId,
+  Future<BankInfoUpdated> updateBankInfoRepo(String bankName, String code, String branchName, String accountTitle, String accountHolderName, String accountNumber, String taxPayerId,
       ) async {
     try {
       Response response = await networkClient.patchRequest(
@@ -96,7 +92,7 @@ class MoreDataRepository {
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
-        print(response.body.toString());
+        print("BankInfo Called ::: ${response.body}");
         return BankInfoUpdated.fromJson(response.body);
       }
     } catch (ex) {

@@ -86,7 +86,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Obx(
-                      () => _dotsDecorator(
+                          () => _dotsDecorator(
                           onboardImg: _onboardImage.length,
                           currentIndex: _currentIndex.toDouble()),
                     ),

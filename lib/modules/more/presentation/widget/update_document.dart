@@ -16,7 +16,9 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:dotted_border/dotted_border.dart';
+import '../../../../common/widget/loading_indicator.dart';
 import '../../../../common/widget/success_snakbar.dart';
+import '../controller/documet_controller/document_controller.dart';
 import '../view/change_password.dart';
 
 // ignore: must_be_immutable
@@ -154,26 +156,31 @@ class UpdateDocument extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: customDoubleButton(
-                  textButtonAction: () => Get.back(),
-                  elevatedButtonAction: () {
-                    if (_formKey.currentState!.validate()) {
-                      Get.find<UpdateDocumentController>()
-                              .filePath
-                              .startsWith("https://")
-                          ? showCustomSnackBar(
-                              message: AppString.text_please_selected_document,
-                            )
-                          : Get.find<UpdateDocumentController>()
-                              .updateDocFile(context: context);
-                    }
-                  },
-                  textBtnText: AppString.text_cancel,
-                  elevatedBtnText: AppString.text_save,
-                  context: context),
-            ),
+         Obx(() =>  Get.find<UpdateDocumentController>().isLoading.isTrue?loadingIndicatorLayout():  Padding(
+           padding: const EdgeInsets.all(16.0),
+           child: customDoubleButton(
+               textButtonAction: () => Get.back(),
+               elevatedButtonAction: () {
+                 if (_formKey.currentState!.validate()) {
+                   Get.find<UpdateDocumentController>()
+                       .filePath
+                       .startsWith("https://")
+                       ? showCustomSnackBar(
+                     message: AppString.text_please_selected_document,
+                   )
+                       : Get.find<UpdateDocumentController>()
+                       .updateDocFile(context: context).then((value){
+                         Get.back(canPop: false);
+                         Get.find<DocumentController>().getDocumentData();
+                   });
+                 }
+               },
+               textBtnText: AppString.text_cancel,
+               elevatedBtnText: AppString.text_save,
+               context: context),
+         ),),
+            customSpacerHeight(height: 18)
+
           ],
         ));
   }

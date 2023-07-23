@@ -4,8 +4,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/document_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/documents.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -16,6 +14,8 @@ import '../../../../../common/widget/custom_navigator.dart';
 class FileUploadController extends GetxController {
   Rx<File?> selectedFile = Rx<File?>(null);
   RxString filePath = ''.obs;
+  final isLoading = false.obs;
+
   final _box = GetStorage();
   Future<void> pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -32,8 +32,11 @@ class FileUploadController extends GetxController {
   var baseUrl = Api.BASE_URL + Api.DOCUMENT_UPLOAD;
   late var accessToken = _box.read(AppString.ACCESS_TOKEN);
   late var accessId = _box.read(AppString.ID_STORE);
-  Future<void> uploadFile({required context}) async {
-    waitingLoader();
+  Future<dynamic> uploadFile({required context}) async {
+    isLoading(true);
+    bool isReturnValue = false;
+
+
     File? file = selectedFile.value;
     if (file == null) {
       return;
@@ -47,18 +50,20 @@ class FileUploadController extends GetxController {
     request.files.add(await http.MultipartFile.fromPath('file', file.path));
     var response = await request.send();
     if (response.statusCode == 200) {
-      Get.back();
-      Get.find<DocumentController>().getDocumentData();
-      moveDocPage(context: context);
+      isLoading(false);
+      isReturnValue=true;
       _SnakBar();
       filePath.value = "";
       Get.find<InputTextFieldController>().docFileNameController.clear();
     } else {
-      Get.back();
+      isLoading(false);
+      isReturnValue=false;
       showCustomSnackBar(
           message: AppString.text_file_upload_file,color: AppColor.errorColor);
       print('Failed to upload file');
     }
+    isLoading(false);
+    return  isReturnValue;
   }
 
   _SnakBar() {
@@ -66,7 +71,4 @@ class FileUploadController extends GetxController {
 
   }
 
-}
-Future moveDocPage({context}) {
-  return defaultOffNavigator(context: context,routeName: const DocumentScreen());
 }

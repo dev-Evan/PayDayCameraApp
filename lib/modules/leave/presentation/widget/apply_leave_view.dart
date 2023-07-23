@@ -65,8 +65,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
 
   @override
   Widget build(BuildContext context) {
-    return Get.find<LeaveController>().obx(
-        (state) => SingleChildScrollView(
+    return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -101,14 +100,17 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                         customSpacerHeight(height: 8),
                         _addAttachment(),
                         customSpacerHeight(height: 24),
-                        _applyLeaveButtons(),
+                        Obx(() => Get.find<LeaveController>().isLoading.isTrue
+                            ? loadingIndicatorLayout(): _applyLeaveButtons(),),
+                        customSpacerHeight(height: 70)
+
                       ],
                     ),
                   )
                 ],
               ),
-            ),
-        onLoading: const LoadingIndicator());
+            );
+
   }
 
   _leaveTypeDropDown() {
@@ -256,8 +258,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
     } catch (e) {
       print(e);
     }
-    Get.find<LeaveController>()
-        .requestLeave(
+    Get.find<LeaveController>().requestLeave(
             leaveARequestQueries:
                 Get.find<LeaveController>().requestLeaveQueries)
         .then((value) {
@@ -336,6 +337,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
         .requestLeave(
             leaveARequestQueries:
                 Get.find<LeaveController>().requestLeaveQueries)
+
         .then((value) {
       if (value == true) {
         Get.back();

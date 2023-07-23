@@ -11,6 +11,7 @@ import '../../domain/address_details_model.dart';
 import 'common_controller/more_text_editing_controller.dart';
 
 class AddressController extends GetxController with StateMixin {
+  final isLoading = false.obs;
   AddressDetailsModel addressDetailsModel = AddressDetailsModel();
   DeletedAddressModel deletedAddressModel = DeletedAddressModel();
   AddressRepository addressRepository = AddressRepository(NetworkClient());
@@ -27,59 +28,45 @@ class AddressController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  Future<bool> addressUpdate(
-      {required typeKey,
-      required context,
-      required area,
-      required city,
-      required country,
-      required details,
-      required phone,
-      required state,
-      required zipcode,
-      required String message}) async {
+  Future<bool> addressUpdate({required typeKey, required context, required area, required city, required country, required details, required phone, required state, required zipcode, required String message}) async {
     bool isReturnValue = false;
-    change(null, status: RxStatus.loading());
+    isLoading(true);
     try {
       await addressRepository
           .getAddressUpdate(
               area, city, country, details, phone, state, typeKey, zipcode)
           .then((value) {
         isReturnValue = true;
+        isLoading(true);
         FutureDelayed(onAction: () => showCustomSnackBar(message: message));
         FutureDelayed(onAction: () => _fieldClear());
         print("Address update called ::: $value");
       }, onError: (error) {
         isReturnValue = false;
+        isLoading(false);
         errorSnackBar(errorMessage: error.toString());
       });
     } catch (ex) {
       isReturnValue = false;
     }
-    change(null, status: RxStatus.success());
+    isLoading(false);
     return isReturnValue;
   }
 
   deletedAddressApi({required addressType, required context}) async {
     bool isDetReturnValue = false;
-    change(null, status: RxStatus.loading());
-    try {
+    isLoading(true);
       await addressRepository.deletedAddressRepo(addressType.toString()).then(
           (DeletedAddressModel value) async {
         isDetReturnValue = true;
-        showCustomSnackBar(
-            message: AppString.text_address_deleted_successfully);
+        showCustomSnackBar(message: AppString.text_address_deleted_successfully);
       }, onError: (error) {
+        isLoading(false);
         isDetReturnValue = false;
         errorSnackBar(errorMessage: error.toString());
         print("Deleted Address ::: ${error.toString()}");
       });
-    } catch (ex) {
-      isDetReturnValue = false;
-      print("Deleted Address ex ::: ${ex.toString()}");
-    }
-    change(null, status: RxStatus.success());
-
+    isLoading(false);
     return isDetReturnValue;
   }
 }
