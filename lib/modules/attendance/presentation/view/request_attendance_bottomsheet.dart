@@ -6,6 +6,7 @@ import 'package:pay_day_mobile/modules/attendance/presentation/controller/attend
 import 'package:pay_day_mobile/utils/app_style.dart';
 import '../../../../common/widget/custom_app_button.dart';
 import '../../../../common/widget/custom_time_picker.dart';
+import '../../../../common/widget/loading_indicator.dart';
 import '../../../../common/widget/note_layout.dart';
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_layout.dart';
@@ -83,14 +84,16 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
         bottom: AppLayout.getHeight(Dimensions.paddingLarge),
       ),
       color: Colors.white,
-      child: Row(
+      child: Obx(() => Get.find<AttendanceLogsController>().isLoading.isTrue
+    ? loadingIndicatorLayout():
+    Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _cancelButton(context),
           SizedBox(width: AppLayout.getWidth(10)),
           _requestButton(context),
         ],
-      ),
+      ),)
     );
   }
 

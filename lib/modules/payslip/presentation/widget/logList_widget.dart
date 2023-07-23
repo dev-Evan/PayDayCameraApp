@@ -157,12 +157,12 @@ Widget _cardMidText(
       customSpacerHeight(height: 8),
       Row(
         children: [
-          _statusBox(AppColor.successColor.withOpacity(0.1), AppColor.successColor, statusText,),
+          _statusBox(AppColor.successColor.withOpacity(0.1), AppColor.successColor.withOpacity(0.9), statusText,),
           customSpacerWidth(width: 8),
           conflicted>0?
           _statusBox(
          AppColor.errorColor.withOpacity(0.1),
-            AppColor.errorColor,
+            AppColor.errorColor.withOpacity(0.5),
             AppString.text_conflicted,
           ):Container(),
         ],

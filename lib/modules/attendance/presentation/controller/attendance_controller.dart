@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dart_ipify/dart_ipify.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -24,6 +23,7 @@ import 'break_controller.dart';
 class AttendanceController extends GetxController with StateMixin {
   final AttendanceDataRepository _attendanceDataRepository =
       AttendanceDataRepository(NetworkClient());
+  final isLoading=false.obs;
 
   @override
   void onInit() async {
@@ -53,14 +53,14 @@ class AttendanceController extends GetxController with StateMixin {
       change(null, status: RxStatus.loading());
       await _attendanceDataRepository.checkEntryStatus().then(
           (checkEntryStatus) {
-        try {
+            try {
           isPunchIn.value = checkEntryStatus.data!.punchIn!;
           breakTimes = checkEntryStatus.data!.breakTimes!;
           breakDetails.value =
               checkEntryStatus.data!.breakDetails ?? BreakDetails();
           LoggerHelper.infoLog(message: isPunchIn.value.toString());
         } catch (e) {
-          LoggerHelper.errorLog(message: e.toString());
+              LoggerHelper.errorLog(message: e.toString());
         }
       }, onError: (error) {
         if (error.message.startsWith("Unauthenticated")) {
@@ -78,10 +78,12 @@ class AttendanceController extends GetxController with StateMixin {
 
   Future<bool> punchIn(LogEntryRequest punchInRequest) async {
     bool returnValue = false;
-    change(null, status: RxStatus.loading());
+    isLoading(true);
+
     await _attendanceDataRepository
         .punchIn(punchInRequest: punchInRequest)
         .then((value) {
+      isLoading(false);
       checkUserIsPunchedIn();
       getDailyLog();
       startTimer();
@@ -89,23 +91,25 @@ class AttendanceController extends GetxController with StateMixin {
       returnValue = true;
       LoggerHelper.infoLog(message: value.message ?? "");
     }, onError: (error) {
+      isLoading(false);
       errorSnackBar(errorMessage: error.message);
       returnValue = false;
       LoggerHelper.errorLog(message: error.message);
     });
-    change(null, status: RxStatus.success());
+    isLoading(false);
     return returnValue;
   }
 
   Future<bool> punchOut(LogEntryRequest punchOutRequest) async {
     bool returnValue = false;
-    change(null, status: RxStatus.loading());
+    isLoading(true);
     await _attendanceDataRepository
         .punchOut(
       punchOutRequest: punchOutRequest,
     )
         .then(
       (LogEntryResponse value) {
+        isLoading(false);
         checkUserIsPunchedIn();
         getDailyLog();
         stopTimer();
@@ -115,12 +119,14 @@ class AttendanceController extends GetxController with StateMixin {
         LoggerHelper.infoLog(message: value.message ?? "");
       },
       onError: (error) {
+        isLoading(false);
+
         errorSnackBar(errorMessage: error.message);
         returnValue = false;
         LoggerHelper.errorLog(message: error.message);
       },
     );
-    change(null, status: RxStatus.success());
+    isLoading(false);
     return returnValue;
   }
 
@@ -171,19 +177,22 @@ class AttendanceController extends GetxController with StateMixin {
       required String outTime,
       required String note}) async {
     bool returnValue = false;
-    change(null, status: RxStatus.loading());
+    isLoading(true);
     await _attendanceDataRepository
         .changeAttendanceRequest(
             logId: logId, note: note, outTime: outTime, inTime: inTime)
         .then((value) {
+      isLoading(false);
       returnValue = true;
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
+      isLoading(false);
+
       LoggerHelper.errorLog(message: error.message);
       errorSnackBar(errorMessage: error.message);
       returnValue = false;
     });
-    change(null, status: RxStatus.success());
+    isLoading(false);
     return returnValue;
   }
 

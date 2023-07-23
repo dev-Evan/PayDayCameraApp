@@ -184,14 +184,17 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
         right: AppLayout.getWidth(Dimensions.paddingLarge),
         bottom: AppLayout.getHeight(Dimensions.paddingLarge),
       ),
-      child: Row(
+      child:
+      Obx(() => Get.find<AttendanceController>().isLoading.isTrue
+          ? loadingIndicatorLayout(): Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _cancelButton(),
           SizedBox(width: AppLayout.getWidth(10)),
-          _punchButton(),
+          _punchButton()
         ],
-      ),
+      ),),
+
     );
   }
 
