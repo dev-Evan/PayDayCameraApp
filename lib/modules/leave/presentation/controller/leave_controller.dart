@@ -155,7 +155,6 @@ class LeaveController extends GetxController with StateMixin {
       {required Map<dynamic, dynamic> leaveARequestQueries}) async {
     isLoading(true);
     bool returnValue = false;
-   // change(null, status: RxStatus.loading());
     await _leaveRepository
         .requestLeave(leaveQueries: leaveARequestQueries)
         .then((value) async {
@@ -177,7 +176,6 @@ class LeaveController extends GetxController with StateMixin {
       returnValue = false;
     });
     isLoading(false);
-    //change(null, status: RxStatus.success());
     return returnValue;
   }
 

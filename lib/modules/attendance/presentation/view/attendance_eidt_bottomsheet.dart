@@ -143,14 +143,17 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
         bottom: AppLayout.getHeight(Dimensions.paddingLarge),
       ),
       color: Colors.white,
-      child: Row(
+      child:
+      Obx(() => Get.find<AttendanceController>().isLoading.isTrue
+          ? loadingIndicatorLayout(): Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _cancelButton(context),
           SizedBox(width: AppLayout.getWidth(10)),
-          _saveButton(),
-        ],
-      ),
+          _saveButton()
+        ]
+      )),
+
     );
   }
 

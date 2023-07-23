@@ -25,31 +25,31 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
 
   @override
   Widget build(BuildContext context) {
-    return controller.obx(
-            (state) =>
-            Scaffold(
-              appBar: const CustomAppbar(),
-              floatingActionButton: Padding(
-                padding: EdgeInsets.only(left: AppLayout.getWidth(30)),
-                child: CustomButton(AppString.text_requstAttendance, () {
-                  _openRequestAttendanceBottomSheet(context: context);
-                }),
-              ),
-              body: _body(),
-            ),
-        onLoading: const LoadingIndicator());
+    return Scaffold(
+      appBar: const CustomAppbar(),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(left: AppLayout.getWidth(30)),
+        child: CustomButton(AppString.text_requstAttendance, () {
+          _openRequestAttendanceBottomSheet(context: context);
+        }),
+      ),
+      body: controller.obx((state) => _body(),
+          onLoading: const LoadingIndicator()),
+    );
   }
 
   _body() {
-    return RefreshIndicator(onRefresh: _reloadPage, child: SingleChildScrollView(
-      controller: controller.scrollController,
-      physics: const AlwaysScrollableScrollPhysics(),
-      child: Column(children: [
-        _totalLogInfoSummary(),
-        customSpacerHeight(height: 20),
-        _attendanceLogLayout()
-      ]),
-    ));
+    return RefreshIndicator(
+        onRefresh: _reloadPage,
+        child: SingleChildScrollView(
+          controller: controller.scrollController,
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Column(children: [
+            _totalLogInfoSummary(),
+            customSpacerHeight(height: 20),
+            _attendanceLogLayout()
+          ]),
+        ));
   }
 
   _totalLogInfoSummary() {
@@ -84,12 +84,11 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
           _tabButton(),
           customSpacerHeight(height: 20),
           Obx(
-                () =>
-                Visibility(
-                  child: _summaryLogScreen(),
-                  visible: controller.isShortSummaryClicked.value,
-                  replacement: _allLogScreen(),
-                ),
+            () => Visibility(
+              child: _summaryLogScreen(),
+              visible: controller.isShortSummaryClicked.value,
+              replacement: _allLogScreen(),
+            ),
           ),
           // _tabScreen(),
         ],
@@ -104,8 +103,7 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
         color: Colors.grey.shade200,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Obx(() =>
-          Row(
+      child: Obx(() => Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Expanded(
@@ -176,27 +174,25 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
                 children: [
                   controller.filteredLogSummary.data != null
                       ? Text(
-                    controller.filteredLogSummary.data!.queryString!
-                        .start!.isNotEmpty
-                        ? "Custom"
-                        : "This Month",
-                    style: AppStyle.mid_large_text.copyWith(
-                        color: AppColor.secondaryColor,
-                        fontWeight: FontWeight.w700),
-                  )
+                          controller.filteredLogSummary.data!.queryString!
+                                  .start!.isNotEmpty
+                              ? "Custom"
+                              : "This Month",
+                          style: AppStyle.mid_large_text.copyWith(
+                              color: AppColor.secondaryColor,
+                              fontWeight: FontWeight.w700),
+                        )
                       : Container(),
                   controller.filteredLogSummary.data != null
                       ? Text(
-                    controller.filteredLogSummary.data!.queryString!
-                        .start!.isNotEmpty
-                        ? "${controller.filteredLogSummary.data?.queryString
-                        ?.start} - ${controller.filteredLogSummary.data
-                        ?.queryString?.end}"
-                        : DateFormat('MMMM yyyy')
-                        .format(DateTime.now())
-                        .toString(),
-                    style: AppStyle.normal_text_grey,
-                  )
+                          controller.filteredLogSummary.data!.queryString!
+                                  .start!.isNotEmpty
+                              ? "${controller.filteredLogSummary.data?.queryString?.start} - ${controller.filteredLogSummary.data?.queryString?.end}"
+                              : DateFormat('MMMM yyyy')
+                                  .format(DateTime.now())
+                                  .toString(),
+                          style: AppStyle.normal_text_grey,
+                        )
                       : Container(),
                 ],
               ),
@@ -224,8 +220,7 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       context: Get.context!,
-      builder: (context) =>
-      const SelectRangeCalender(
+      builder: (context) => const SelectRangeCalender(
           rangeCalendarMethodImp: RangeCalendarMethodImp.ALL_LOG),
     );
   }
@@ -259,8 +254,7 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
     );
   }
 
-  _filterBox() =>
-      InkWell(
+  _filterBox() => InkWell(
         onTap: () => _openShortSummaryLogSheet(),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -270,27 +264,25 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
               children: [
                 controller.logSummaryOverview.data != null
                     ? Text(
-                  controller.logSummaryOverview.data!.queryString!.start!
-                      .isNotEmpty
-                      ? "Custom"
-                      : "This Month",
-                  style: AppStyle.mid_large_text.copyWith(
-                      color: AppColor.secondaryColor,
-                      fontWeight: FontWeight.w700),
-                )
+                        controller.logSummaryOverview.data!.queryString!.start!
+                                .isNotEmpty
+                            ? "Custom"
+                            : "This Month",
+                        style: AppStyle.mid_large_text.copyWith(
+                            color: AppColor.secondaryColor,
+                            fontWeight: FontWeight.w700),
+                      )
                     : Container(),
                 controller.logSummaryOverview.data != null
                     ? Text(
-                  controller.logSummaryOverview.data!.queryString!.start!
-                      .isNotEmpty
-                      ? "${controller.logSummaryOverview.data?.queryString
-                      ?.start} - ${controller.logSummaryOverview.data
-                      ?.queryString?.end}"
-                      : DateFormat('MMMM yyyy')
-                      .format(DateTime.now())
-                      .toString(),
-                  style: AppStyle.normal_text_grey,
-                )
+                        controller.logSummaryOverview.data!.queryString!.start!
+                                .isNotEmpty
+                            ? "${controller.logSummaryOverview.data?.queryString?.start} - ${controller.logSummaryOverview.data?.queryString?.end}"
+                            : DateFormat('MMMM yyyy')
+                                .format(DateTime.now())
+                                .toString(),
+                        style: AppStyle.normal_text_grey,
+                      )
                     : Container(),
               ],
             ),
@@ -397,18 +389,14 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
       shrinkWrap: true,
       separatorBuilder: (context, index) => customSpacerHeight(height: 30),
       itemCount:
-      (Get
-          .find<AttendanceLogsController>()
-          .logSummaryOverview
-          .data != null)
-          ? Get
-          .find<AttendanceLogsController>()
-          .logSummaryOverview
-          .data!
-          .attendanceDetails!
-          .length +
-          1
-          : 0,
+          (Get.find<AttendanceLogsController>().logSummaryOverview.data != null)
+              ? Get.find<AttendanceLogsController>()
+                      .logSummaryOverview
+                      .data!
+                      .attendanceDetails!
+                      .length +
+                  1
+              : 0,
       itemBuilder: (context, index) {
         if (index ==
             controller.logSummaryOverview.data?.attendanceDetails?.length) {
@@ -437,24 +425,24 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
             children: [
               controller.logSummaryOverview.data != null
                   ? Text(
-                controller.logSummaryOverview.data!
-                    .attendanceDetails![index].dateInNumber
-                    .toString(),
-                style: AppStyle.mid_large_text.copyWith(
-                    color: AppColor.normalTextColor,
-                    fontSize: Dimensions.fontSizeExtraLarge,
-                    fontWeight: FontWeight.w900),
-              )
+                      controller.logSummaryOverview.data!
+                          .attendanceDetails![index].dateInNumber
+                          .toString(),
+                      style: AppStyle.mid_large_text.copyWith(
+                          color: AppColor.normalTextColor,
+                          fontSize: Dimensions.fontSizeExtraLarge,
+                          fontWeight: FontWeight.w900),
+                    )
                   : Container(),
               controller.logSummaryOverview.data != null
                   ? Text(
-                controller.logSummaryOverview.data!
-                    .attendanceDetails![index].month
-                    .toString(),
-                style: AppStyle.small_text.copyWith(
-                    color: AppColor.hintColor,
-                    fontSize: Dimensions.fontSizeSmall),
-              )
+                      controller.logSummaryOverview.data!
+                          .attendanceDetails![index].month
+                          .toString(),
+                      style: AppStyle.small_text.copyWith(
+                          color: AppColor.hintColor,
+                          fontSize: Dimensions.fontSizeSmall),
+                    )
                   : Container(),
             ],
           ),
@@ -475,16 +463,16 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
                 title: AppString.pop_up_scheduled_short,
                 count: controller.logSummaryOverview.data != null
                     ? controller.logSummaryOverview.data!
-                    .attendanceDetails![index].scheduledHours
-                    .toString()
+                        .attendanceDetails![index].scheduledHours
+                        .toString()
                     : ""),
             customSpacerHeight(height: 10),
             _logOverviewInfos(
                 title: AppString.pop_up_worked_short,
                 count: controller.logSummaryOverview.data != null
                     ? controller.logSummaryOverview.data!
-                    .attendanceDetails![index].totalWorkingHours
-                    .toString()
+                        .attendanceDetails![index].totalWorkingHours
+                        .toString()
                     : ""),
           ],
         ),
@@ -495,16 +483,16 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
                 title: AppString.pop_up_paid_leave_short,
                 count: controller.logSummaryOverview.data != null
                     ? controller.logSummaryOverview.data!
-                    .attendanceDetails![index].paidLeaves
-                    .toString()
+                        .attendanceDetails![index].paidLeaves
+                        .toString()
                     : ""),
             customSpacerHeight(height: 10),
             _logOverviewInfos(
                 title: AppString.pop_up_balance_short,
                 count: controller.logSummaryOverview.data != null
                     ? controller.logSummaryOverview.data!
-                    .attendanceDetails![index].balance
-                    .toString()
+                        .attendanceDetails![index].balance
+                        .toString()
                     : ""),
           ],
         ),
@@ -512,15 +500,14 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
             title: AppString.pop_up_break_time_short,
             count: controller.logSummaryOverview.data != null
                 ? controller.logSummaryOverview.data!.attendanceDetails![index]
-                .breakTime
-                .toString()
+                    .breakTime
+                    .toString()
                 : ""),
       ],
     );
   }
 
-  _logOverviewInfos({required String title, required String count}) =>
-      Row(
+  _logOverviewInfos({required String title, required String count}) => Row(
         children: [
           SizedBox(
             child: Text(
@@ -542,8 +529,7 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       context: Get.context!,
-      builder: (context) =>
-      const SelectRangeCalender(
+      builder: (context) => const SelectRangeCalender(
         rangeCalendarMethodImp: RangeCalendarMethodImp.LOG_SUMMARY,
       ),
     );
@@ -558,7 +544,7 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
     );
   }
 
-  Future<void> _reloadPage() async{
+  Future<void> _reloadPage() async {
     await controller.getLogSummaryByMonth();
     await controller.getLogSummaryByYear();
     await controller.getAllFilteredLogSummary();
