@@ -15,6 +15,7 @@ import 'package:pay_day_mobile/network/network_client.dart';
 
 class LeaveController extends GetxController with StateMixin {
   final LeaveRepository _leaveRepository = LeaveRepository(NetworkClient());
+  final isLoading = false.obs;
 
   LeaveAllowance leaveAllowance = LeaveAllowance();
 
@@ -152,11 +153,13 @@ class LeaveController extends GetxController with StateMixin {
 
   Future<bool> requestLeave(
       {required Map<dynamic, dynamic> leaveARequestQueries}) async {
+    isLoading(true);
     bool returnValue = false;
-    change(null, status: RxStatus.loading());
+   // change(null, status: RxStatus.loading());
     await _leaveRepository
         .requestLeave(leaveQueries: leaveARequestQueries)
         .then((value) async {
+      isLoading(false);
       print("requestLeave ::: called");
       showCustomSnackBar(message: value.message ?? "");
       Map<String, String> queryParams = {
@@ -168,12 +171,13 @@ class LeaveController extends GetxController with StateMixin {
           .getIndividualLeaveList(queryParams: "date_range=$dateValue");
       returnValue = true;
     }, onError: (error) {
+      isLoading(false);
       showCustomSnackBar(message: "${error.message}");
       print("getILeaveDetails $error");
       returnValue = false;
     });
-
-    change(null, status: RxStatus.success());
+    isLoading(false);
+    //change(null, status: RxStatus.success());
     return returnValue;
   }
 

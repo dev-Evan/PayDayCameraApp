@@ -8,8 +8,8 @@ import '../../../../../common/widget/error_alert_pop_up.dart';
 import '../logout_controller.dart';
 
 class DocumentController extends GetxController with StateMixin {
+  final isLoading = false.obs;
   DocumentModel documentModel =DocumentModel();
-  var newValue="";
   DocumentRepository documentRepository = DocumentRepository(NetworkClient());
 
   getDocumentData() async {
@@ -26,21 +26,22 @@ class DocumentController extends GetxController with StateMixin {
     }
     change(null, status: RxStatus.success());
   }
+
+
    deletedDocumentApi() async {
-    waitingLoader();
-    try {
+     bool isReturnValue = false;
+     isLoading(true);
       await documentRepository.deletedDocRepo(GetStorage().read(AppString.STORE_DOC_Id).toString()).then((value) {
-        Get.back();
-        newValue="value";
-        getDocumentData();
+        isLoading(false);
+        isReturnValue=true;
+
       }, onError: (error) {
-        Get.back();
+        isLoading(false);
+        isReturnValue=false;
         print("Deleted document ::: $error");
       });
-    } catch (ex) {
-      print("Deleted document ::: $ex");
-    }
-    change(null, status: RxStatus.success());
+    isLoading(false);
+    return isReturnValue;
   }
 
   Future<void> _refreshPage() async{

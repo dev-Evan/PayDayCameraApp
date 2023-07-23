@@ -18,7 +18,7 @@ import 'address_details_widget.dart';
 
 class EditAddress extends GetView<AddressController> {
   final String typeText;
-  EditAddress(this.typeText);
+  EditAddress(this.typeText, {super.key});
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -142,19 +142,18 @@ class EditAddress extends GetView<AddressController> {
                       ),
                       onSelect: (Country country) {
                         _controller.editSetSelectedCountry(country.name);
-                        print(country.name);
                       });
                 },
               ),
               textFieldTitleText(titleText: AppString.text_phone),
-              phoneAndCountyField(
-                controller:
-                Get.find<InputTextFieldController>().phoneNumberController,
+              editPhoneAndCountyField(
+                controller: Get.find<InputTextFieldController>().phoneNumberController,
               ),
-
+              customSpacerHeight(height: 24),
 
               customSpacerHeight(height: 24),
-              customDoubleButton(
+
+              Obx(() =>Get.find<AddressController>().isLoading.isTrue?loadingIndicatorLayout(): customDoubleButton(
                   context: context,
                   elevatedBtnText:
                   AppString.text_save,
@@ -199,7 +198,7 @@ class EditAddress extends GetView<AddressController> {
                         }
                       });
                     }
-                  }),
+                  }),),
               customSpacerHeight(height: 250)
             ],
           ),

@@ -12,6 +12,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../../common/widget/no_data_found.dart';
+import '../../../setting/presentation/controller/setting_controller.dart';
 
 class PaySlip extends GetView<PayslipController> {
   PaySlip({Key? key}) : super(key: key);
@@ -25,6 +26,7 @@ class PaySlip extends GetView<PayslipController> {
   Widget build(BuildContext context) {
     controller.getPayslipListData(value: thisYarKey());
     controller.getSummaryData();
+    Get.find<SettingController>().getCurrencyData();
     return controller.obx(
         (state) => Scaffold(
               body: RefreshIndicator(
@@ -137,6 +139,12 @@ class PaySlip extends GetView<PayslipController> {
                                                       ?.payslips?[index]
                                                       .startDate ??
                                                   "",
+                                              conflicted: controller
+                                                  .payslipListModel
+                                                  .data
+                                                  ?.payslips?[index]
+                                                  .conflicted ??
+                                                  "",
                                               endDate:
                                                   controller.payslipListModel.data?.payslips?[index].endDate ?? "",
                                               monthly: controller.payslipListModel.data?.payslips?[index].period ?? "",
@@ -161,5 +169,7 @@ class PaySlip extends GetView<PayslipController> {
   Future<void> _refreshPage() async {
     controller.getPayslipListData(value: thisYarKey());
     controller.getSummaryData();
+    Get.find<SettingController>().getCurrencyData();
+
   }
 }

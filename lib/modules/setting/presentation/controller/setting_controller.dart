@@ -23,7 +23,6 @@ class SettingController extends GetxController with StateMixin {
     change(null, status: RxStatus.loading());
     try {
       await settingDataRepository.getSettingData().then((value) {
-        print(value);
         basicInfo = value;
         _box.write(AppString.STORE_CURRENCY,
             basicInfo?.data.currencySymbol.toString() ?? "");

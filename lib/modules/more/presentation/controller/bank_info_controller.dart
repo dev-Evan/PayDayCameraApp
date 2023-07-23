@@ -4,7 +4,6 @@ import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
 import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/more/data/bank_info_repository.dart';
 import 'package:pay_day_mobile/modules/more/domain/bank_info_model.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/add_bank_info.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
@@ -13,9 +12,10 @@ import '../../../../common/widget/error_alert_pop_up.dart';
 
 class BankInfoController extends GetxController with StateMixin {
   final box = GetStorage();
+  bool deleteReturnValue=false;
+  final isLoading = false.obs;
   BankInfoModel bankInfoModel = BankInfoModel();
-  var newValue="";
-  MoreDataRepository moreDataRepository = MoreDataRepository(NetworkClient());
+  BankInfoRepository moreDataRepository = BankInfoRepository(NetworkClient());
   InputTextFieldController textEditingController =
   Get.put(InputTextFieldController());
 
@@ -35,8 +35,8 @@ class BankInfoController extends GetxController with StateMixin {
 
    Future<bool> addBankInfo({required context}) async {
      bool returnValue=false;
-    change(null, status: RxStatus.loading());
-    await moreDataRepository.AddBankInfoRepo(
+     isLoading(true);
+    await moreDataRepository.addBankInfoRepo(
       textEditingController.bankNameController.text,
       textEditingController.bankCodeController.text,
       textEditingController.branchNameController.text,
@@ -49,31 +49,29 @@ class BankInfoController extends GetxController with StateMixin {
       returnValue=true;
       clearData();
     }, onError: (error) {
+      isLoading(false);
       returnValue=false;
       print("Add BankInfo ::: $error");
     });
-    change(null, status: RxStatus.success());
-    return returnValue;
+     isLoading(false);
+     return returnValue;
   }
 
-  void deletedBankInfoApi() async {
-    waitingLoader();
-    try {
+
+
+  Future<bool> deletedBankInfoApi() async {
+    isLoading(true);
       await moreDataRepository.deletedBankInfoRepo().then((value) {
-        getBankInfo();
+        deleteReturnValue=true;
         showCustomSnackBar(message: AppString.text_bank_details_deleted_successfully);
-        newValue="value";
-        Get.back();
         clearData();
       }, onError: (error) {
-        Get.back();
-        print(error.toString());
+        isLoading(false);
+        deleteReturnValue=false;
+        print("Bank info ::: $error");
       });
-    } catch (ex) {
-      Get.back();
-      errorSnackBar(errorMessage: ex.toString());
-    }
-    Get.back();
+    isLoading(false);
+    return deleteReturnValue;
   }
 
   void _bankInfo(BankInfoModel? info) {
@@ -82,9 +80,8 @@ class BankInfoController extends GetxController with StateMixin {
 
   updateBankInfo({required context}) async {
     bool updatedBankInfoValue=false;
-    change(null, status: RxStatus.loading());
-
-    await moreDataRepository.UpdateBankInfoRepo(
+    isLoading(true);
+    await moreDataRepository.updateBankInfoRepo(
       textEditingController.bankNameController.text,
       textEditingController.bankCodeController.text,
       textEditingController.branchNameController.text,
@@ -98,13 +95,12 @@ class BankInfoController extends GetxController with StateMixin {
       showCustomSnackBar(message: AppString.text_bank_details_update_successfully);
       clearData();
     }, onError: (error) {
+      isLoading(false);
       updatedBankInfoValue=false;
       errorSnackBar(errorMessage: error);
       print("BANK INFO UPDATED ::: $error");
     });
-    change(null, status: RxStatus.success());
+    isLoading(false);
     return updatedBankInfoValue;
   }
-
-
 }

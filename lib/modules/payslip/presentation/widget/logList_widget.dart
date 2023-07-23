@@ -25,7 +25,7 @@ Widget logsList({
   required startDate,
   required endDate,
   required monthly,
-  required indexId,
+  required indexId, required conflicted,
 }) {
   final box = GetStorage();
 
@@ -55,7 +55,9 @@ Widget logsList({
                 statusText: statusText,
                 endDate: endDate,
                 startDate: startDate,
-                monthly: monthly),
+                monthly: monthly,
+            conflicted: conflicted
+            ),
           ),
         ),
         _divider(
@@ -73,7 +75,10 @@ Widget _logListRow(
     required statusText,
     required startDate,
     required endDate,
-    required monthly}) {
+    required monthly,
+    required conflicted,
+
+    }) {
   return Row(
     children: [
       _dateTitle(dateText: titleDate, monthText: titleMonth),
@@ -87,9 +92,10 @@ Widget _logListRow(
             startDate: startDate,
             endDate: endDate,
             monthly: monthly,
+            conflicted: conflicted,
             statusText: statusText.toString()),
       ),
-      Spacer(),
+      const Spacer(),
       avatarArrowIcon(),
     ],
   );
@@ -97,7 +103,7 @@ Widget _logListRow(
 
 Widget _divider({context}) {
   return Container(
-    margin: EdgeInsets.only(top: 14, bottom: 0),
+    margin: const EdgeInsets.only(top: 14, bottom: 0),
     child: customDivider(
         AppLayout.getHeight(0.6), MediaQuery.of(context).size.width),
   );
@@ -127,7 +133,10 @@ Widget _cardMidText(
     required startDate,
     required endDate,
     required statusText,
-    required monthly}) {
+    required monthly,
+    required conflicted,
+
+    }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -146,15 +155,41 @@ Widget _cardMidText(
       customSpacerHeight(height: 8),
       _midTextRow(startDate: startDate, endDate: endDate, monthly: monthly),
       customSpacerHeight(height: 8),
-      CustomStatusButton(
-        bgColor: AppColor.successColor.withOpacity(0.2),
-        text: statusText,
-        textColor: AppColor.successColor,
-      )
+      Row(
+        children: [
+          _statusBox(AppColor.successColor.withOpacity(0.1), AppColor.successColor, statusText,),
+          customSpacerWidth(width: 8),
+          conflicted>0?
+          _statusBox(
+         AppColor.errorColor.withOpacity(0.1),
+            AppColor.errorColor,
+            AppString.text_conflicted,
+          ):Container(),
+        ],
+      ),
     ],
   );
 }
 
+_statusBox(Color bgColor,Color textColor,text) {
+ return Container(
+    decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.all(
+          Radius.circular(Dimensions.radiusMid),
+        )),
+    padding: _boxPadding,
+    child: Text(text??"", style: AppStyle.small_text.copyWith(color: textColor)),
+  );
+}
+
+
+EdgeInsets  get _boxPadding {
+  return EdgeInsets.symmetric(
+horizontal: AppLayout.getHeight(Dimensions.paddingDefault),
+vertical: AppLayout.getWidth(3),
+);
+}
 Widget _midTextRow({required startDate, required endDate, required monthly}) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,

@@ -7,6 +7,7 @@ import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/bank_info_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
+import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -127,6 +128,7 @@ class EditBankInfo extends GetView<BankInfoController> {
                 Get.find<InputTextFieldController>().taxPayerIdController,
               ),
               customSpacerHeight(height: 50),
+              Obx(() => Get.find<BankInfoController>().isLoading.isTrue?loadingIndicatorLayout():
               customDoubleButton(
                   context: context,
                   elevatedBtnText: AppString.text_save,
@@ -144,14 +146,18 @@ class EditBankInfo extends GetView<BankInfoController> {
                       });
                     }
                   }),
+              ),
               customSpacerHeight(height: 250)
             ],
           ),
         ),
       ),
-    ),onLoading: const LoadingIndicator());
+    ),onLoading:  const LoadingIndicator());
   }
 }
+
+
+
 
 Future clearData() async {
   Get.find<InputTextFieldController>().bankNameController.clear();

@@ -5,7 +5,16 @@ import 'more_text_editing_controller.dart';
 class CountryPickerController extends GetxController {
 
 
-  InputTextFieldController _inputTextFieldController =
+  RxString phoneNumber = ''.obs;
+  RxString flag = ''.obs;
+
+  void onPhoneNumberChanged(String number) {
+    phoneNumber.value = number;
+  }  void flagChanged(String number) {
+    flag.value = number;
+  }
+
+  final InputTextFieldController _inputTextFieldController =
       Get.put(InputTextFieldController());
 
   void setSelectedCountry(String country) {
@@ -15,5 +24,9 @@ class CountryPickerController extends GetxController {
   void editSetSelectedCountry(String country) {
     _inputTextFieldController.countyTextController.text = country;
   }
+
+
+
+
 }
 
