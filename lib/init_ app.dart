@@ -33,7 +33,7 @@ import 'modules/setting/presentation/controller/setting_controller.dart';
 Future<void> initApp() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterDownloader.initialize();
+  await FlutterDownloader.initialize(ignoreSsl: true);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark));
