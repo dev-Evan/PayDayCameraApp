@@ -15,13 +15,15 @@ class CheckEntryStatus {
 
 class Data {
   bool? punchIn;
+  int? lastAttendanceId;
   List<BreakTimes>? breakTimes;
   BreakDetails? breakDetails;
 
-  Data({this.punchIn, this.breakTimes, this.breakDetails});
+  Data({this.punchIn, this.breakTimes, this.breakDetails,this.lastAttendanceId});
 
   Data.fromJson(Map<String, dynamic> json) {
     punchIn = json['punch_in'];
+    lastAttendanceId = json['attendance_details_id'];
     if (json['break_times'] != null) {
       breakTimes = <BreakTimes>[];
       json['break_times'].forEach((v) {

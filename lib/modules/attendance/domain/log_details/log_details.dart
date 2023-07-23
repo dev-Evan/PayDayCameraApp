@@ -37,6 +37,7 @@ class Data {
   dynamic parentAttendanceDetails;
   String? checkInTime;
   String? checkOutTime;
+  dynamic breakTime;
 
   Data(
       {this.id,
@@ -60,7 +61,7 @@ class Data {
         this.logTime,
         this.parentAttendanceDetails,
       this.checkInTime,
-      this.checkOutTime});
+      this.checkOutTime,this.breakTime});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -94,6 +95,7 @@ class Data {
     parentAttendanceDetails = json['parent_attendance_details'];
     checkInTime = json['check_in_time'];
     checkOutTime = json['check_out_time'];
+    breakTime = json['break_times'];
   }
 
 }

@@ -48,32 +48,33 @@ class AttendanceController extends GetxController with StateMixin {
   late LogDetails logDetailsById;
   List<BreakTimes> breakTimes = [];
   Rx<BreakDetails> breakDetails = BreakDetails().obs;
+  int lastAttendanceId = 0;
 
   checkUserIsPunchedIn() async {
-      change(null, status: RxStatus.loading());
-      await _attendanceDataRepository.checkEntryStatus().then(
-          (checkEntryStatus) {
-        try {
-          isPunchIn.value = checkEntryStatus.data!.punchIn!;
-          breakTimes = checkEntryStatus.data!.breakTimes!;
-          breakDetails.value =
-              checkEntryStatus.data!.breakDetails ?? BreakDetails();
-          LoggerHelper.infoLog(message: isPunchIn.value.toString());
-        } catch (e) {
-          LoggerHelper.errorLog(message: e.toString());
+    change(null, status: RxStatus.loading());
+    await _attendanceDataRepository.checkEntryStatus().then((checkEntryStatus) {
+      try {
+        isPunchIn.value = checkEntryStatus.data!.punchIn!;
+        lastAttendanceId = checkEntryStatus.data!.lastAttendanceId ?? 0;
+        breakTimes = checkEntryStatus.data!.breakTimes!;
+        breakDetails.value =
+            checkEntryStatus.data!.breakDetails ?? BreakDetails();
+        LoggerHelper.infoLog(message: isPunchIn.value.toString());
+      } catch (e) {
+        LoggerHelper.errorLog(message: e.toString());
+      }
+    }, onError: (error) {
+      if (error.message.startsWith("Unauthenticated")) {
+        Get.offNamed(Routes.SIGN_IN);
+        Get.delete<AttendanceController>();
+      } else {
+        LoggerHelper.errorLog(message: error.message);
+        if (!Get.isDialogOpen!) {
+          errorAlertPopup(_reloadPage);
         }
-      }, onError: (error) {
-        if (error.message.startsWith("Unauthenticated")) {
-          Get.offNamed(Routes.SIGN_IN);
-          Get.delete<AttendanceController>();
-        } else {
-          LoggerHelper.errorLog(message: error.message);
-          if (!Get.isDialogOpen!) {
-            errorAlertPopup(_reloadPage);
-          }
-        }
-      });
-      change(null, status: RxStatus.success());
+      }
+    });
+    change(null, status: RxStatus.success());
   }
 
   Future<bool> punchIn(LogEntryRequest punchInRequest) async {
@@ -125,32 +126,31 @@ class AttendanceController extends GetxController with StateMixin {
   }
 
   getDailyLog() async {
-      change(null, status: RxStatus.loading());
-      await _attendanceDataRepository.getDailyLog().then((dailyLogs) {
-        logs.value = dailyLogs;
-        //set the duration value for timer
-        // it may have some existing value[other device or removing app from bg]
-        duration =
-            Duration(minutes: (dailyLogs.data?.todayWorked * 60).toInt()).obs;
-        countdownDuration =
-            Duration(minutes: (logs.value.data?.todayShortage * 60).toInt())
-                .obs;
-        balanceDuration =
-            Duration(minutes: (dailyLogs.data?.todayOvertime * 60).toInt()).obs;
+    change(null, status: RxStatus.loading());
+    await _attendanceDataRepository.getDailyLog().then((dailyLogs) {
+      logs.value = dailyLogs;
+      //set the duration value for timer
+      // it may have some existing value[other device or removing app from bg]
+      duration =
+          Duration(minutes: (dailyLogs.data?.todayWorked * 60).toInt()).obs;
+      countdownDuration =
+          Duration(minutes: (logs.value.data?.todayShortage * 60).toInt()).obs;
+      balanceDuration =
+          Duration(minutes: (dailyLogs.data?.todayOvertime * 60).toInt()).obs;
 
-        if (isPunchIn.isTrue && !timer.isActive) {
-          startTimer();
+      if (isPunchIn.isTrue && !timer.isActive) {
+        startTimer();
+      }
+      LoggerHelper.infoLog(message: dailyLogs.message);
+    }, onError: (error) {
+      if (!error.message.startsWith("Unauthenticated")) {
+        if (!Get.isDialogOpen!) {
+          errorAlertPopup(_reloadPage);
         }
-        LoggerHelper.infoLog(message: dailyLogs.message);
-      }, onError: (error) {
-        if (!error.message.startsWith("Unauthenticated")) {
-          if (!Get.isDialogOpen!) {
-            errorAlertPopup(_reloadPage);
-          }
-        }
-        LoggerHelper.errorLog(message: error.message);
-      });
-      change(null, status: RxStatus.success());
+      }
+      LoggerHelper.errorLog(message: error.message);
+    });
+    change(null, status: RxStatus.success());
   }
 
   logDetails(int logId) async {

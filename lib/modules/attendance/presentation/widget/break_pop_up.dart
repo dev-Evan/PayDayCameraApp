@@ -13,7 +13,9 @@ import '../../../../utils/app_layout.dart';
 import '../../../../utils/dimensions.dart';
 
 Future breakPopUp() {
-  Get.put(BreakController());
+  if (!Get.isRegistered<BreakController>()) {
+    Get.put(BreakController());
+  }
   Get.find<BreakController>().selectedIndex(100);
   return showDialog(
     barrierDismissible: true,
@@ -61,43 +63,47 @@ _loadingButtonLayout() => SizedBox(
 
 _breakAppbar() {
   return Container(
-    padding: EdgeInsets.symmetric(
-        horizontal: AppLayout.getWidth(Dimensions.paddingDefault)),
-    decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(16), topRight: Radius.circular(16)),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade50,
-            offset: const Offset(0, 3),
-          )
-        ]),
-    child: AppBar(
-      backgroundColor: Colors.transparent,
-      centerTitle: true,
-      elevation: 0,
-      automaticallyImplyLeading: false,
-      title: Text(
-        AppString.text_take_break.tr,
-        style: AppStyle.normal_text_black.copyWith(
-            fontWeight: FontWeight.w600,
-            fontSize: Dimensions.fontSizeDefault + 2),
-      ),
-      actions: [
-        IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            Icons.close,
-            size: Dimensions.fontSizeLarge,
-            color: AppColor.secondaryColor,
+      padding: EdgeInsets.symmetric(
+          horizontal: AppLayout.getWidth(Dimensions.paddingDefault)),
+      decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.shade50,
+              offset: const Offset(0, 3),
+            )
+          ]),
+      child: Obx(
+        () => AppBar(
+          backgroundColor: Colors.transparent,
+          centerTitle: true,
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          title: Text(
+            Get.find<AttendanceController>().breakDetails.value.breakTimeId ==
+                    null
+                ? AppString.text_take_break.tr
+                : "text_on_break".tr,
+            style: AppStyle.normal_text_black.copyWith(
+                fontWeight: FontWeight.w600,
+                fontSize: Dimensions.fontSizeDefault + 2),
           ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: Icon(
+                Icons.close,
+                size: Dimensions.fontSizeLarge,
+                color: AppColor.secondaryColor,
+              ),
+            ),
+          ],
         ),
-      ],
-    ),
-  );
+      ));
 }
 
 _timerLayout() {
@@ -169,18 +175,19 @@ _breakTimes() {
 
 _breakInfo() {
   return Padding(
-    padding: EdgeInsets.symmetric(vertical: AppLayout.getHeight(20)),
+    padding: EdgeInsets.symmetric(vertical: AppLayout.getHeight(20),horizontal: AppLayout.getWidth(20)),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Icon(
           Icons.watch_later_outlined,
           size: AppLayout.getWidth(16),
         ),
         customSpacerWidth(width: 10),
-        Text(
-          "${Get.find<AttendanceController>().breakDetails.value.breakReason} ( ${Get.find<AttendanceController>().breakDetails.value.duration} )",
-        )
+        Expanded(child: Text(
+          "${Get.find<AttendanceController>().breakDetails.value.breakReason} ( ${Get.find<AttendanceController>().breakDetails.value.duration} )",textAlign: TextAlign.center,
+        ))
       ],
     ),
   );
@@ -224,13 +231,7 @@ _buttonLayout() {
                         //find break id by indexing from break controller
                         Get.find<BreakController>().startBreak(
                             logId: Get.find<AttendanceController>()
-                                    .logs
-                                    .value
-                                    .data!
-                                    .dailyLogs![0]
-                                    .id
-                                    ?.toInt() ??
-                                0,
+                                .lastAttendanceId,
                             breakId: Get.find<AttendanceController>()
                                     .breakTimes[Get.find<BreakController>()
                                         .selectedIndex
@@ -248,13 +249,7 @@ _buttonLayout() {
                           null) {
                         Get.find<BreakController>().endBreak(
                             logId: Get.find<AttendanceController>()
-                                    .logs
-                                    .value
-                                    .data!
-                                    .dailyLogs![0]
-                                    .id
-                                    ?.toInt() ??
-                                0,
+                                .lastAttendanceId,
                             breakId: Get.find<AttendanceController>()
                                     .breakDetails
                                     .value
