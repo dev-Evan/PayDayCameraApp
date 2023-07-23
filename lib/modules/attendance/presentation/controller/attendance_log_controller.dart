@@ -44,6 +44,8 @@ class AttendanceLogsController extends GetxController with StateMixin {
 
   late ScrollController scrollController;
 
+  final isLoading = false.obs;
+
   late ScrollController floatingScrollController;
 
   final RxBool isFloatingActionVisible = true.obs;
@@ -158,7 +160,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
 
   Future<bool> requestAttendance() async {
     bool returnValue = false;
-    change(null, status: RxStatus.loading());
+    isLoading(true);
     var controller = Get.find<DateTimeController>();
     await _attendanceLogsRepository
         .requestAttendance(RequestAttendanceChangeReq(
@@ -170,21 +172,25 @@ class AttendanceLogsController extends GetxController with StateMixin {
           "${DateFormat("yyyy-MM-dd hh:mm a").parse("${controller.requestedDate.value} ${controller.pickedOutTime.value}")}",
     ))
         .then((value) {
+      isLoading(false);
+
       textEditingController.clear();
       returnValue = true;
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
+      isLoading(false);
+
       textEditingController.clear();
       errorSnackBar(errorMessage: error.message);
       returnValue = false;
       LoggerHelper.errorLog(message: error.message);
     });
-    change(null, status: RxStatus.success());
+    isLoading(false);
+
     return returnValue;
   }
 
-
-  _reloadPage() async{
+  _reloadPage() async {
     await getLogSummaryByMonth();
     await getLogSummaryByYear();
     await getAllFilteredLogSummary();

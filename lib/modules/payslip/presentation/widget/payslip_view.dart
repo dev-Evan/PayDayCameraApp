@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
+import 'package:pay_day_mobile/common/widget/no_data_found.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/payslip_view_sub_widget.dart';
@@ -28,6 +29,10 @@ class PaySlipView extends GetView<PayslipViewController> {
                 children: [
                   bottomSheetAppbar(
                       appbarTitle: AppString.text_payslip, context: context),
+                  controller.payslipViewModel.data !=null?
+
+
+
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
@@ -180,7 +185,7 @@ class PaySlipView extends GetView<PayslipViewController> {
                             text: AppString.text_net_payable),
                       ],
                     ),
-                  ),
+                  ):noDataFound(),
                   _payslipDownloadBtn(
                     payslipDateRange:
                         '${controller.payslipViewModel.data?.payslip?.startDate ?? ""} - ${controller.payslipViewModel.data?.payslip?.endDate ?? ""}',

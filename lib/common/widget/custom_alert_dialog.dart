@@ -129,7 +129,7 @@ Widget _iconBox({required iconBgColor, required icon, required iconColor}) {
 
 BoxDecoration boxDecoration({iconBgColor}) {
   return BoxDecoration(
-    borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+    borderRadius: BorderRadius.circular(Dimensions.radiusDefault + 2),
     color: iconBgColor,
   );
 }
@@ -171,7 +171,8 @@ ButtonStyle get elevatedBtmStyle {
   return ElevatedButton.styleFrom(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10.0),
-    ), backgroundColor: AppColor.backgroundColor,
+    ),
+    backgroundColor: AppColor.backgroundColor,
     elevation: 0,
     side: borderSide,
   );
@@ -221,6 +222,7 @@ ButtonStyle saveBtnStyle({required buttonColor}) {
   return ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
-      ), backgroundColor: buttonColor,
+      ),
+      backgroundColor: buttonColor,
       elevation: 0);
 }

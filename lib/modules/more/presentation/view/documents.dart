@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pay_day_mobile/common/widget/custom_dialog_layout.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/common/widget/no_data_found.dart';
@@ -361,17 +362,21 @@ Widget _editDeletedActionRow({required context, required id, required docUrl}) {
               _box.read(AppString.STORE_DOC_NAME_TEXT) ?? "";
         },
         child: _iconShape(icon: Icons.edit, text: AppString.text_edit),
+
       ),
       customSpacerWidth(width: 40),
       InkWell(
         onTap: () {
-          if (Get.find<DocumentController>().newValue.toString().isNotEmpty) {
-            Navigator.pop(context);
-          } else {
-            Navigator.pop(context);
-          }
           _box.write(AppString.STORE_DOC_Id, id);
-          Get.find<DocumentController>().deletedDocumentApi();
+          customDialogLayout(
+              controller: Get.find<DocumentController>(),
+              onAction: () {
+                Get.find<DocumentController>().deletedDocumentApi()
+                    .then((value) {
+                      Get.back(canPop: false); Get.back(canPop: false);
+                  Get.find<DocumentController>().getDocumentData();
+                });
+              });
         },
         child: _iconShape(icon: Icons.delete, text: AppString.text_deleted),
       )

@@ -129,6 +129,8 @@ class AddBankInfo extends GetView<BankInfoController> {
                     .taxPayerIdController,
               ),
               customSpacerHeight(height: 50),
+
+              Obx(() => Get.find<BankInfoController>().isLoading.isTrue?loadingIndicatorLayout():
               customDoubleButton(
                   context: context,
                   elevatedBtnText:
@@ -146,6 +148,7 @@ class AddBankInfo extends GetView<BankInfoController> {
                       });
                     }
                   }),
+              ),
               customSpacerHeight(height: 250)
             ],
           ),

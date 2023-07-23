@@ -14,7 +14,6 @@ class SettingDataRepository {
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
-
         print("basic information ::: ${response.body}");
         return BasicInfo.fromJson(response.body);
       }

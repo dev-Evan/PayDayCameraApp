@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 
@@ -30,3 +31,11 @@ class LoadingIndicator extends StatelessWidget {
     );
   }
 }
+
+ loadingIndicatorLayout() {
+  return SizedBox(
+    height: AppLayout.getHeight(50),
+    child: const LoadingIndicator(),
+  );
+}
+

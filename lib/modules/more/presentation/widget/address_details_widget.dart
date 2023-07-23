@@ -13,6 +13,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/widget/custom_spacer.dart';
+import '../controller/common_controller/county_pickar_controller.dart';
 
 Widget test({required titleText, required subTitleText}) {
   return Column(
@@ -430,11 +431,9 @@ Widget countyField({context, onAction, String? Function(String?)? validator,requ
     child: TextFormField(
       validator: validator,
 
-
       controller:controller,
       readOnly: true,
       onTap: () => onAction(),
-
       decoration: InputDecoration(
         contentPadding: EdgeInsets.only(
             left: AppLayout.getWidth(16),
@@ -459,7 +458,7 @@ Widget countyField({context, onAction, String? Function(String?)? validator,requ
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault + 2),
         ),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColor.solidGray),
+            borderSide: const BorderSide(color: AppColor.solidGray),
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
         border: OutlineInputBorder(
           borderSide:
@@ -471,22 +470,66 @@ Widget countyField({context, onAction, String? Function(String?)? validator,requ
   );
 }
 
+
+
+
+
+
+
+
+
+
+
 Widget phoneAndCountyField({required TextEditingController controller,final String? Function(String?)? validator}) {
   return IntlPhoneField(
     disableLengthCheck: true,
-      decoration: InputDecoration(
-        labelText: AppString.text_not_added_yet,
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColor.solidGray),
-            borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
-        border: OutlineInputBorder(
-            borderSide: BorderSide(width: 0.0, color: AppColor.disableColor),
-            borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
-      ),
+      initialCountryCode: 'BD',
+      onChanged: (phoneNumber) {
+        Get.find<CountryPickerController>().onPhoneNumberChanged(phoneNumber.completeNumber);
+      },
+      decoration:inputDecoration,
       controller:controller
+  );
+}
+Widget editPhoneAndCountyField({required TextEditingController controller,final String? Function(String?)? validator}) {
+  return IntlPhoneField(
+    disableLengthCheck: true,
+      initialCountryCode: 'BD',
+      onCountryChanged: (county) {
+        Get.find<CountryPickerController>().flag(county.flag);
+      },
+      decoration:inputDecoration,
+      controller:controller
+  );
+}
+
+
+InputDecoration get inputDecoration{
+  return  InputDecoration(
+    labelText: AppString.text_not_added_yet,
+    enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColor.solidGray),
+        borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
+    border: OutlineInputBorder(
+        borderSide: const BorderSide(width: 0.0, color: AppColor.disableColor),
+        borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
+  );
+}
+Widget phoneAndCountyFieldTest({required TextEditingController controller,final String? Function(String?)? validator}) {
+
+  return IntlPhoneField(
+    disableLengthCheck: true,
+      initialCountryCode: 'BD',
+    onChanged: (phoneNumber) {
+      Get.find<CountryPickerController>().onPhoneNumberChanged(phoneNumber.completeNumber);
+    },
 
   );
 }
+
+
+
+
 
 TextStyle get countyTextStyle {
   return const TextStyle(fontSize: 16, color: AppColor.normalTextColor);

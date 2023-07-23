@@ -3,14 +3,13 @@ import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/document_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../common_controller/more_text_editing_controller.dart';
-import 'document_upload_controller.dart';
 
 class UpdateDocumentController extends GetxController {
+  final isLoading = false.obs;
+
   Rx<File?> selectedFile = Rx<File?>(null);
   final _box = GetStorage();
   var baseUrl = Api.BASE_URL + Api.UPDATE_DOCUMENT;
@@ -28,8 +27,10 @@ class UpdateDocumentController extends GetxController {
     }
   }
 
-  Future<void> updateDocFile({required context}) async {
-    waitingLoader();
+  Future<dynamic> updateDocFile({required context}) async {
+    isLoading(true);
+    bool isReturnValue = false;
+
     File? file = selectedFile.value;
     if (file == null) {
       return;
@@ -46,14 +47,16 @@ class UpdateDocumentController extends GetxController {
     var response = await request.send();
     if (response.statusCode == 200) {
       print("Document updated ::: $response");
-      Get.back();
-      moveDocPage(context: context);
-      newValue = "value";
-      Get.find<DocumentController>().getDocumentData();
+      isLoading(false);
+      isReturnValue=true;
       print(' Document update ::: File updated successfully');
     } else {
+      isReturnValue=false;
+      isLoading(false);
       print('Document update ::: Failed to upload file');
     }
-    Get.back();
+    isLoading(false);
+    return  isReturnValue;
+
   }
 }
