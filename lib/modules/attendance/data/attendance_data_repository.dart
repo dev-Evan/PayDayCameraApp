@@ -64,12 +64,12 @@ class AttendanceDataRepository {
 
   Future<DailyLog> getDailyLog() async {
     try {
-      Response response = await networkClient.getRequest(
+      http.Response response = await networkClient.getReq(
           "${Api.DAILY_LOG}?timezone=${DateTime.now().timeZoneName}");
-      if (response.status.hasError) {
-        return Future.error(ErrorModel.fromJson(response.body));
+      if (response.statusCode!=200) {
+        return Future.error(ErrorModel.fromJson(json.decode(response.body)));
       } else {
-        return DailyLog.fromJson(response.body);
+        return DailyLog.fromJson(json.decode(response.body));
       }
     } catch (ex) {
       return Future.error(ErrorModel(message: ex.toString()));
@@ -78,12 +78,12 @@ class AttendanceDataRepository {
 
   Future<LogDetails> getLogDetails(int logId) async {
     try {
-      Response response = await networkClient.getRequest(
+      http.Response response = await networkClient.getReq(
           "${Api.LOG_DETAILS}/$logId?timezone=${DateTime.now().timeZoneName}");
-      if (response.status.hasError) {
-        return Future.error(ErrorModel.fromJson(response.body));
+      if (response.statusCode!=200) {
+        return Future.error(ErrorModel.fromJson(json.decode(response.body)));
       } else {
-        return LogDetails.fromJson(response.body);
+        return LogDetails.fromJson(json.decode(response.body));
       }
     } catch (ex) {
       return Future.error(ErrorModel(message: ex.toString()));
