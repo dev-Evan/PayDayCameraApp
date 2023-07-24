@@ -111,11 +111,11 @@ class AttendanceController extends GetxController with StateMixin {
         .then(
       (LogEntryResponse value) {
         isLoading(false);
+        _endBreak();
         checkUserIsPunchedIn();
         getDailyLog();
         stopTimer();
         showCustomSnackBar(message: value.message ?? "");
-        _endBreak();
         returnValue = true;
         LoggerHelper.infoLog(message: value.message ?? "");
       },
@@ -291,18 +291,12 @@ class AttendanceController extends GetxController with StateMixin {
 
   void _endBreak() {
     if (Get.find<AttendanceController>().breakDetails.value.id != null) {
-      Get.find<BreakController>().endBreak(
-          logId: Get.find<AttendanceController>()
-                  .logs
-                  .value
-                  .data!
-                  .dailyLogs![0]
-                  .id
-                  ?.toInt() ??
-              0,
-          breakId:
-              Get.find<AttendanceController>().breakDetails.value.breakTimeId ??
-                  0);
+      // Get.find<BreakController>().endBreak(
+      //     logId: Get.find<AttendanceController>()
+      //             .lastAttendanceId,
+      //     breakId:
+      //         Get.find<AttendanceController>().breakDetails.value.breakTimeId ??
+      //             0);
       Get.find<BreakController>().stopTimer();
     }
   }

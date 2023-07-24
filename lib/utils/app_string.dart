@@ -72,6 +72,7 @@ class AppString {
   static String text_multi = "Multi";
   static String text_bank_name = "Bank Name";
   static String text_early = "Early";
+  static String text_cancel_request = "Cancel Request";
   static String text_no_document_found = "No Document Found";
   static String text_regular = "Regular";
   static String text_scheduled = "Scheduled";

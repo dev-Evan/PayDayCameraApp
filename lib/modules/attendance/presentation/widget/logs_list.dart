@@ -33,7 +33,7 @@ class LogsList extends GetView<AttendanceLogsController> {
             child: const Divider(),
           );
         },
-        itemCount: controller.logList.length+1,
+        itemCount: controller.logList.length + 1,
         itemBuilder: (context, dataIndex) {
           if (dataIndex == controller.logList.length) {
             return customSpacerHeight(height: 70);
@@ -53,7 +53,7 @@ class LogsList extends GetView<AttendanceLogsController> {
   _normalLogInfoCard(int dataIndex) {
     return InkWell(
       onTap: () async {
-        _openLogDetailsBottomSheet();
+        _openLogDetailsBottomSheet(controller.logList[dataIndex].details[0].statusClass);
         await Get.find<AttendanceController>()
             .logDetails(controller.logList[dataIndex].details[0].id);
       },
@@ -75,10 +75,11 @@ class LogsList extends GetView<AttendanceLogsController> {
   }
 }
 
-_openLogDetailsBottomSheet() => showModalBottomSheet(
+_openLogDetailsBottomSheet(String? statusClass) => showModalBottomSheet(
       enableDrag: false,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       context: Get.context!,
-      builder: (context) => const LogDetailsBottomSheet(),
+      builder: (context) => LogDetailsBottomSheet(
+          pendingText: statusClass??'log-details'),
     );
