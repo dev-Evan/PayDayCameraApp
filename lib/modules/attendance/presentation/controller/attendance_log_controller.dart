@@ -195,7 +195,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
     isLoading.value=true;
     _attendanceLogsRepository.cancelRequest(requestId).then((value) {
       LoggerHelper.infoLog(message: value.message);
-      Get.offNamed(Routes.ATTENDANCE_LOG);
+      Get.back(canPop: false);
       getAllFilteredLogSummary();
     }, onError: (error) {
       LoggerHelper.errorLog(message: error.message);

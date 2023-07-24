@@ -216,9 +216,11 @@ _punchInDetails() {
     children: [
       punchDetails(
           title: AppString.text_punch_in,
-          note: (logDetails.data?.comments != null &&
-                  logDetails.data!.comments!.isNotEmpty)
-              ? logDetails.data?.comments?.first.comment
+          note:(logDetails.data?.comments != null &&
+              logDetails.data!.comments!.isNotEmpty)
+              ? (logDetails.data!.comments!.last.type!
+              .startsWith("in-note")
+              ? logDetails.data?.comments?.last.comment : "")
               : ""),
       SizedBox(height: AppLayout.getHeight(Dimensions.paddingExtraLarge)),
       UsersCurrentInfoLayout(
