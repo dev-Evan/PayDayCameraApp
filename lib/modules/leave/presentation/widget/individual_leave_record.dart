@@ -34,7 +34,10 @@ Widget individualDateLeaveRecord() => Container(
                           .isNotEmpty
                       ? _individualDateLeaveRecordList()
                       : _noDataImg())
-                  : _noDataImg())
+                  : _noDataImg()),
+
+
+          customSpacerHeight(height: 140),
           // ,
         ],
       ),
@@ -207,7 +210,7 @@ _listCard(int index) => Padding(
 Widget _noDataImg() {
   return svgIcon(
     url: Images.calendar,
-    width: 180,
-    height: 180
+    width: 130,
+    height: 130
   );
 }

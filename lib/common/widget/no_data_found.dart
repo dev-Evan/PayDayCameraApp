@@ -11,10 +11,13 @@ Center  noDataFound({double height=158,double svgHeight =160,double svgWidth=160
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         customSpacerHeight(height: height),
-        svgIcon(
-          height: AppLayout.getHeight(svgHeight),
-          width: AppLayout.getWidth(svgWidth),
-          url: Images.no_data_found,
+        Align(
+          alignment: Alignment.center,
+          child: svgIcon(
+            height: AppLayout.getHeight(svgHeight),
+            width: AppLayout.getWidth(svgWidth),
+            url: Images.no_data_found,
+          ),
         ),
       ],
     ),

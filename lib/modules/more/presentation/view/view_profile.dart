@@ -205,18 +205,10 @@ class ViewProfile extends GetView<ProfileDataController> {
                                 customSpacerHeight(height: 14),
                                 controller.userProfile.data?.address != null &&
                                         controller
-                                            .userProfile.data!.address!.isEmpty
-                                    ? controller.userProfile.data?.address ==
-                                            null
-                                        ? controller.userProfile.data?.gender ==
-                                                null
-                                            ? controller.userProfile.data
-                                                        ?.dateOfBirth ==
-                                                    null
-                                                ? Container()
-                                                : Container()
-                                            : Container()
-                                        : Container()
+                                            .userProfile.data!.address!.isEmpty && controller
+                                    .userProfile.data!.dateOfBirth!.isEmpty &&controller
+                                    .userProfile.data!.gender!.isEmpty
+                                    ? Container()
                                     : textFieldTitleText(
                                         titleText: AppString.text_personal),
                                 controller.userProfile.data?.address != null &&
@@ -270,6 +262,8 @@ class ViewProfile extends GetView<ProfileDataController> {
   Future<void> _refreshPage() async {
     await controller.getProfileData();
   }
+
+
 }
 
 String get _dateFormat {

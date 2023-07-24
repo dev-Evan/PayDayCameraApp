@@ -22,15 +22,12 @@ Widget viewDate({required dateText}) {
 }
 
 Widget vertical({required child,layoutHeight}) {
-  return Expanded(
-    flex: layoutHeight,
-    child: Padding(
-      padding: EdgeInsets.only(
-          left: AppLayout.getWidth(8),
-          right: AppLayout.getWidth(8),
-          top: AppLayout.getHeight(8)),
-      child: child,
-    ),
+  return Padding(
+    padding: EdgeInsets.only(
+        left: AppLayout.getWidth(8),
+        right: AppLayout.getWidth(8),
+        top: AppLayout.getHeight(8)),
+    child: child,
   );
 }
 

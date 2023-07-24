@@ -70,7 +70,7 @@ class _ExpandedTextState extends State<ExpandedText> {
             style: disTextStyle,
           ),
           TextSpan(
-            text: isExpanded ? " ${AppString.text_read_less}" : "...${AppString.text_read_more}",
+            text: isExpanded ? " ${AppString.text_read_less}" : " ...${AppString.text_read_more}",
             style: AppStyle.normal_text_black.copyWith(color: Colors.blue),
             recognizer: TapGestureRecognizer()
               ..onTap = () {

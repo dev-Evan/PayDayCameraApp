@@ -8,7 +8,6 @@ import 'package:pay_day_mobile/modules/payslip/presentation/controller/payslip_s
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/drop_dawon_seleted_date.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 
-
 class PayslipController extends GetxController with StateMixin {
   SummaryModel summaryModel = SummaryModel();
   PayslipListModel payslipListModel = PayslipListModel();
@@ -20,8 +19,10 @@ class PayslipController extends GetxController with StateMixin {
   List<PayrunBeneficiaryElement> defaultAllowance = [];
   List<PayrunBeneficiaryElement> defaultDeduction = [];
 
-  DropdownBtnStdController dropdownBtnStdController = Get.put(DropdownBtnStdController());
-  PayslipDataRepository payslipDataRepository = PayslipDataRepository(NetworkClient());
+  DropdownBtnStdController dropdownBtnStdController =
+      Get.put(DropdownBtnStdController());
+  PayslipDataRepository payslipDataRepository =
+      PayslipDataRepository(NetworkClient());
 
   getPayslipListData({value}) async {
     change(null, status: RxStatus.loading());
@@ -45,27 +46,28 @@ class PayslipController extends GetxController with StateMixin {
     });
     change(null, status: RxStatus.success());
   }
+
   getPayrunBadgeData() async {
     change(null, status: RxStatus.loading());
     await payslipDataRepository.getPayrunBagReoData().then(
-            (PayrunBadgeModel value) {
-          payrunBadgeModel = value;
+        (PayrunBadgeModel value) {
+      payrunBadgeModel = value;
 
-          allowance = value.data!.payrunBeneficiaries!
-              .where((element) => element.beneficiary!.type == "allowance")
-              .toList();
-          deduction = value.data!.payrunBeneficiaries!
-              .where((element) => element.beneficiary!.type == "deduction")
-              .toList();
+      allowance = value.data!.payrunBeneficiaries!
+          .where((element) => element.beneficiary!.type == "allowance")
+          .toList();
+      deduction = value.data!.payrunBeneficiaries!
+          .where((element) => element.beneficiary!.type == "deduction")
+          .toList();
 
-          defaultAllowance = value.data!.defaultPayrun!.beneficiaries!
-              .where((element) => element.beneficiary!.type == "allowance")
-              .toList();
+      defaultAllowance = value.data!.defaultPayrun!.beneficiaries!
+          .where((element) => element.beneficiary!.type == "allowance")
+          .toList();
 
-          defaultDeduction = value.data!.defaultPayrun!.beneficiaries!
-              .where((element) => element.beneficiary!.type == "deduction")
-              .toList();
-        }, onError: (error) {
+      defaultDeduction = value.data!.defaultPayrun!.beneficiaries!
+          .where((element) => element.beneficiary!.type == "deduction")
+          .toList();
+    }, onError: (error) {
       errorAlertPopup(getPayrunBadgeData);
       print(error.message);
     });
@@ -73,7 +75,7 @@ class PayslipController extends GetxController with StateMixin {
   }
 
   Future<void> _refreshPage() async {
-   await getPayslipListData(value: thisYarKey());
+    await getPayslipListData(value: thisYarKey());
     await getSummaryData();
   }
 }
