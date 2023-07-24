@@ -116,6 +116,11 @@ class LeaveRepository {
       {required Map<dynamic, dynamic> leaveQueries}) async {
     final formData = FormData({});
 
+
+    leaveQueries.forEach((key, value) {
+      print("Key::$key value:: $value");
+    });
+
     leaveQueries.forEach((key, value) {
       if (key == "attachments[]") {
         formData.files.add(

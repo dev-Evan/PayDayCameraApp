@@ -2,10 +2,21 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
 
 class NetworkClient extends GetConnect {
   Future<Response> getRequest(String apiEndPoint) async {
     return await get(_getRequestUrl(apiEndPoint), headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": GetStorage().read(AppString.ACCESS_TOKEN) != null
+          ? "Bearer ${GetStorage().read(AppString.ACCESS_TOKEN)}"
+          : ""
+    }).timeout(const Duration(seconds: 20));
+  }
+
+  Future<http.Response> getReq(String apiEndPoint) async {
+    return await http.get(Uri.parse(_getRequestUrl(apiEndPoint)), headers: {
       "Content-Type": "application/json",
       "Accept": "application/json",
       "Authorization": GetStorage().read(AppString.ACCESS_TOKEN) != null

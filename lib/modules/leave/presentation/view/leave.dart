@@ -155,7 +155,7 @@ class Leave extends GetView<LeaveController> {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 8,
-        mainAxisExtent: AppLayout.getHeight(40),
+        mainAxisExtent: AppLayout.getHeight(25),
       ),
       children: data.values!
           .map((value) => _allowanceCounter(value))
@@ -172,7 +172,7 @@ class Leave extends GetView<LeaveController> {
             values.leaveType ?? "",
             style: AppStyle.small_text,
             overflow: TextOverflow.ellipsis,
-            maxLines: 2,
+            maxLines: 1,
           ),
         ),
         Text(

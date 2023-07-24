@@ -18,41 +18,48 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
 
   @override
   Widget build(BuildContext context) {
-    return controller.obx(
-        (state) => DraggableScrollableSheet(
-              initialChildSize: .9,
-              maxChildSize: .9,
-              minChildSize: .7,
-              builder:
-                  (BuildContext context, ScrollController scrollController) =>
-                      Container(
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(16))),
-                child: Stack(
-                  children: [
-                    ListView(
-                      controller: scrollController,
-                      children: [
-                        bottomSheetAppbar(
-                            context: context,
-                            appbarTitle: AppString.text_log_details),
-                        contentLayout(),
-                        SizedBox(
-                          height: AppLayout.getHeight(60),
-                        )
-                      ],
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: _buttonLayout(context),
-                    ),
-                  ],
-                ),
-              ),
+    return DraggableScrollableSheet(
+      initialChildSize: .9,
+      maxChildSize: .9,
+      minChildSize: .7,
+      builder: (BuildContext context, ScrollController scrollController) =>
+          Container(
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+        child: Stack(
+          children: [
+            ListView(
+              controller: scrollController,
+              children: [
+                bottomSheetAppbar(
+                    context: context,
+                    appbarTitle:
+                        Get.find<AttendanceController>().logDetailsById.data !=
+                                    null &&
+                                Get.find<AttendanceController>()
+                                    .logDetailsById
+                                    .data!
+                                    .punchInStatus!
+                                    .contains("Auto")
+                            ? AppString.text_log_details
+                            : AppString.text_log_request_details),
+                controller.obx((state) => contentLayout(),
+                    onLoading: bottomSheetLoader()),
+                SizedBox(
+                  height: AppLayout.getHeight(60),
+                )
+              ],
             ),
-        onLoading: const LoadingIndicator());
+            controller.obx((state) => Align(
+              alignment: Alignment.bottomCenter,
+              child: _buttonLayout(context),
+            ),
+                onLoading: Container()),
+          ],
+        ),
+      ),
+    );
   }
 
   _buttonLayout(BuildContext context) {

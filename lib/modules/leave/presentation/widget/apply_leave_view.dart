@@ -102,7 +102,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                         customSpacerHeight(height: 24),
                         Obx(() => Get.find<LeaveController>().isLoading.isTrue
                             ? loadingIndicatorLayout(): _applyLeaveButtons(),),
-                        customSpacerHeight(height: 70)
+                        customSpacerHeight(height: 200)
 
                       ],
                     ),
@@ -529,10 +529,8 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
 }
 
 Widget _noteTextField() {
-  return Padding(
-    padding: EdgeInsets.only(bottom: MediaQuery.of(Get.context!).viewInsets.bottom ),
-    child: InputNote(controller: Get.find<LeaveController>().leaveNote),
-  );
+  return
+    InputNote(controller: Get.find<LeaveController>().leaveNote);
 }
 
 Widget _hintText({hintText, Color textColor = AppColor.normalTextColor}) {

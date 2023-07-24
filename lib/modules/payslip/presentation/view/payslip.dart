@@ -57,7 +57,7 @@ class PaySlip extends GetView<PayslipController> {
                             layoutHeight: 2,
                         context: context),
                         vertical(
-                            layoutHeight: 6,
+                            layoutHeight: 5,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [

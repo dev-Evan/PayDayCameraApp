@@ -45,7 +45,7 @@ class AttendanceController extends GetxController with StateMixin {
   Rx<Duration> countdownDuration = const Duration().obs;
   Rx<Duration> balanceDuration = const Duration().obs;
   final currentIndex = 0.obs;
-  late LogDetails logDetailsById;
+  LogDetails logDetailsById=LogDetails();
   List<BreakTimes> breakTimes = [];
   Rx<BreakDetails> breakDetails = BreakDetails().obs;
   int lastAttendanceId = 0;

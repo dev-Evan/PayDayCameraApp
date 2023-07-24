@@ -32,6 +32,27 @@ class LoadingIndicator extends StatelessWidget {
   }
 }
 
+bottomSheetLoader(){
+  return Center(
+    child: Container(
+      height: Get.height*.8,
+      color: Colors.white,
+      child: Center(
+          child: SizedBox(
+            height: AppLayout.getHeight(50),
+            width: AppLayout.getWidth(50),
+            child: Platform.isIOS
+                ? const CupertinoActivityIndicator(
+              color: AppColor.primaryBlue,
+            )
+                : const CircularProgressIndicator(
+              color: AppColor.primaryColor,
+            ),
+          )),
+    ),
+  );
+}
+
  loadingIndicatorLayout() {
   return SizedBox(
     height: AppLayout.getHeight(50),
