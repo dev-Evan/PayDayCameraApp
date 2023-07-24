@@ -17,6 +17,7 @@ class BankInfoRepository {
   Future<BankInfoModel> bankInfoRepo() async {
     try {
       Response response = await networkClient.getRequest(Api.EMPLOYEE_BANK_INFORMATION);
+
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

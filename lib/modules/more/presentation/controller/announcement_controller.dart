@@ -15,6 +15,8 @@ class AnnouncementController extends GetxController with StateMixin {
   late ScrollController announceScrollController;
   final RxBool isFloatingActionVisible = false.obs;
   RxList announcementIndex = [].obs;
+
+
   List<LeaveAllowanceElement> paidLeave = [];
   List<LeaveAllowanceElement> unpaidLeave = [];
 

@@ -169,18 +169,7 @@ class DocumentScreen extends GetView<DocumentController> {
                             ],
                           ),
                         )
-                      : Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              noDataFound(),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height / 2.5,
-                              )
-                            ],
-                          ),
-                        ),
+                      : noDataFound(),
                 ],
               ),
             ),

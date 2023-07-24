@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
@@ -15,7 +16,7 @@ Widget customDoubleButton(
       Flexible(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height / 18,
+          height: AppLayout.getHeight(50),
           child: TextButton(
               onPressed: () => textButtonAction(),
               style: ElevatedButton.styleFrom(
@@ -33,13 +34,12 @@ Widget customDoubleButton(
               )),
         ),
       ),
-      SizedBox(
-        width: AppLayout.getWidth(12),
-      ),
+
+      customSpacerWidth(width: 12),
       Flexible(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height / 18,
+          height: AppLayout.getHeight(50),
           child: TextButton(
               onPressed: () => elevatedButtonAction(),
               style: ElevatedButton.styleFrom(

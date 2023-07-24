@@ -26,46 +26,40 @@ class LeaveRecordsView extends GetView<LeaveController> {
                 onRefresh: _refreshPage,
                 child: controller.obx((state) => SingleChildScrollView(
                       physics: const AlwaysScrollableScrollPhysics(),
-                      child: SizedBox(
-                        height: MediaQuery.of(context).size.height,
-                        child: Column(
-                          children: [
-                            _defaultAppbar(),
-                            summaryLayout(
-                                sentDynamic:
-                                    controller.leaveSummary.data?.approved ??
-                                        "",
-                                conflictedDynamic:
-                                    controller.leaveSummary.data?.upcoming ??
-                                        "",
-                                totalDynamic:
-                                    controller.leaveSummary.data?.pending ?? "",
-                                total: AppString.text_approved,
-                                sent: AppString.text_upcomming,
-                                conflicted: AppString.text_pending,
-                                topTextValue: "",
-                                layoutHeight: 1,context: context),
-                            Expanded(
-                              flex: 5,
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: AppLayout.getWidth(20),
-                                        vertical: AppLayout.getHeight(20)),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [_customTexTitle(context)],
-                                    ),
-                                  ),
-                                  (controller.leaveRecord.data?.leaveRecords !=null &&  controller.leaveRecord.data!.leaveRecords!.isNotEmpty)?
-                                  viewListViewLayout():noDataFound(height: 100,svgHeight: 140,svgWidth: 140),
-                                ],
+                      child: Column(
+                        children: [
+                          _defaultAppbar(),
+                          summaryLayout(
+                              sentDynamic:
+                                  controller.leaveSummary.data?.approved ??
+                                      "",
+                              conflictedDynamic:
+                                  controller.leaveSummary.data?.upcoming ??
+                                      "",
+                              totalDynamic:
+                                  controller.leaveSummary.data?.pending ?? "",
+                              total: AppString.text_approved,
+                              sent: AppString.text_upcomming,
+                              conflicted: AppString.text_pending,
+                              topTextValue: "",
+                              layoutHeight: 20,context: context),
+                          Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: AppLayout.getWidth(20),
+                                    vertical: AppLayout.getHeight(20)),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [_customTexTitle(context)],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
+                              (controller.leaveRecord.data?.leaveRecords !=null &&  controller.leaveRecord.data!.leaveRecords!.isNotEmpty)?
+                              viewListViewLayout():noDataFound(height: 100,svgHeight: 140,svgWidth: 140),
+                            ],
+                          ),
+                        ],
                       ),
                     )),
               ),

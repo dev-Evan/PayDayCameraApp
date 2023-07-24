@@ -89,7 +89,7 @@ class LeaveController extends GetxController with StateMixin {
 
   getLeaveRecord({required String params}) async {
     change(null, status: RxStatus.loading());
-    await _leaveRepository.getLeaveRecord(params).then((value) {
+    await _leaveRepository.getLeaveRecord(params).then((LeaveRecord value) {
       print("getLeaveRecord ::: called");
       leaveRecord = value;
     }, onError: (error) {

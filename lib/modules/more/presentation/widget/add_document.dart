@@ -27,20 +27,20 @@ class AddDocument extends GetView<FileUploadController> {
   Widget build(BuildContext context) {
     return Form(
         key: _formKey,
-        child: Column(
-          children: [
-            bottomSheetAppbar(
-                context: context,
-                appbarTitle: AppString.text_add_documents,
-                onAction: () {
-                  Get.find<InputTextFieldController>()
-                      .docFileNameController
-                      .clear();
-                  Get.find<FileUploadController>().filePath.value = "";
-                }),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: SingleChildScrollView(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              bottomSheetAppbar(
+                  context: context,
+                  appbarTitle: AppString.text_add_documents,
+                  onAction: () {
+                    Get.find<InputTextFieldController>()
+                        .docFileNameController
+                        .clear();
+                    Get.find<FileUploadController>().filePath.value = "";
+                  }),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: [
                     Column(
@@ -176,46 +176,46 @@ class AddDocument extends GetView<FileUploadController> {
                   ],
                 ),
               ),
-            ),
-            const Spacer(),
-         Obx(() =>  Get.find<FileUploadController>().isLoading.isTrue?loadingIndicatorLayout(): Padding(
-           padding: const EdgeInsets.all(16.0),
-           child: customDoubleButton(
-               textButtonAction: () {
-                 Get.find<InputTextFieldController>()
-                     .docFileNameController
-                     .clear();
-                 Get.back();
-                 Get.find<FileUploadController>().filePath.value = "";
-               },
-               elevatedButtonAction: () {
-                 if (_formKey.currentState!.validate()) {
+           customSpacerHeight(height: 78),
+           Obx(() =>  Get.find<FileUploadController>().isLoading.isTrue?loadingIndicatorLayout(): Padding(
+             padding: const EdgeInsets.all(16.0),
+             child: customDoubleButton(
+                 textButtonAction: () {
                    Get.find<InputTextFieldController>()
                        .docFileNameController
-                       .text
-                       .isEmpty
-                       ? showCustomSnackBar(
-                     message: AppString.text_document_name_is_required,
-                   )
-                       : Get.find<FileUploadController>().filePath.isEmpty
-                       ? showCustomSnackBar(
-                     message: AppString.text_please_selected_document,
-                   )
-                       : Get.find<FileUploadController>()
-                       .uploadFile(context: context).then((value){
-                     Get.back(canPop: false);
-                     Get.find<DocumentController>().getDocumentData();
+                       .clear();
+                   Get.back();
+                   Get.find<FileUploadController>().filePath.value = "";
+                 },
+                 elevatedButtonAction: () {
+                   if (_formKey.currentState!.validate()) {
+                     Get.find<InputTextFieldController>()
+                         .docFileNameController
+                         .text
+                         .isEmpty
+                         ? showCustomSnackBar(
+                       message: AppString.text_document_name_is_required,
+                     )
+                         : Get.find<FileUploadController>().filePath.isEmpty
+                         ? showCustomSnackBar(
+                       message: AppString.text_please_selected_document,
+                     )
+                         : Get.find<FileUploadController>()
+                         .uploadFile(context: context).then((value){
+                       Get.back(canPop: false);
+                       Get.find<DocumentController>().getDocumentData();
 
-                   });
-                 }},
-               textBtnText: AppString.text_cancel,
-               elevatedBtnText: AppString.text_add_document,
-               context: context),
-         ),),
-            
-            customSpacerHeight(height: 18)
+                     });
+                   }},
+                 textBtnText: AppString.text_cancel,
+                 elevatedBtnText: AppString.text_add_document,
+                 context: context),
+           ),),
+              
+              customSpacerHeight(height: 18)
 
-          ],
+            ],
+          ),
         ));
   }
 }

@@ -175,6 +175,7 @@ class _SignInScreenState extends State<SignInScreen> {
     return Get.find<AuthController>().isLoading.value
         ? const LoadingButtonLayout() // Show loading indicator
         : logInButton(onAction: () {
+            FocusScope.of(context).requestFocus(FocusNode());
             if (_formKey.currentState!.validate()) {
               Get.find<AuthController>().logIn();
             }
