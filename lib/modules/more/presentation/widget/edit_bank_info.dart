@@ -7,13 +7,14 @@ import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/bank_info_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
 class EditBankInfo extends GetView<BankInfoController> {
   final _formKey = GlobalKey<FormState>();
+
+  EditBankInfo({super.key});
   @override
   Widget build(BuildContext context) {
     return controller.obx((state) => Form(
@@ -135,6 +136,7 @@ class EditBankInfo extends GetView<BankInfoController> {
                   textBtnText: AppString.text_cancel,
                   textButtonAction: () => Get.back(),
                   elevatedButtonAction: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
                     if (_formKey.currentState!.validate()) {
                       Get.find<BankInfoController>()
                           .updateBankInfo(context: context)

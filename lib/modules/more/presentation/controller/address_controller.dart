@@ -28,13 +28,13 @@ class AddressController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  Future<bool> addressUpdate({required typeKey, required context, required area, required city, required country, required details, required phone, required state, required zipcode, required String message}) async {
+  Future<bool> addressUpdate({required typeKey, required context, required area, required city, required country, required details, required phone, required state, required zipcode, required String message,required isoCode}) async {
     bool isReturnValue = false;
     isLoading(true);
     try {
       await addressRepository
           .getAddressUpdate(
-              area, city, country, details, phone, state, typeKey, zipcode)
+              area, city, country, details, phone, state, typeKey, zipcode,isoCode)
           .then((value) {
         isReturnValue = true;
         isLoading(true);

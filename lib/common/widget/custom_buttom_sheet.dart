@@ -3,7 +3,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 
-Future customButtonSheet({context,double? height, child}) {
+Future customButtonSheet({context,double? height=0.9, child}) {
   return showModalBottomSheet(
     context: context,
     isScrollControlled: true,

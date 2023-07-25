@@ -1,5 +1,3 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
@@ -50,9 +48,11 @@ class AddressDetails extends GetView<AddressController> {
                                   addressType:
                                   "permanent_address",
                                 ),
-
                                 editAction:
-                                EditAddress("permanent_address"),
+                                EditAddress("permanent_address",
+
+                                controller.addressDetailsModel.data?.permanentAddress?.countryCode ??""
+                                ),
                                 type: "permanent_address")
                                 : addButton(onAction: () {
                               customButtonSheet(
@@ -224,7 +224,7 @@ class AddressDetails extends GetView<AddressController> {
                                   "present_address",
                                 ),
                                 editAction:
-                                EditAddress("present_address"),
+                                EditAddress("present_address",controller.addressDetailsModel.data?.presentAddress?.countryCode ??""),
                                 type: "present_address")
                                 : addButton(onAction: () {
                               customButtonSheet(

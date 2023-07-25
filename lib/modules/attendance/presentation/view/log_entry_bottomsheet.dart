@@ -13,7 +13,6 @@ import '../../../../common/widget/input_note.dart';
 import '../../../../utils/dimensions.dart';
 import '../../domain/log_entry/log_entry_request.dart';
 import '../widget/timer_overview_layout.dart';
-
 import '../../../../utils/app_layout.dart';
 import '../widget/bottom_sheet_appbar.dart';
 import '../widget/vertical_divider.dart';
@@ -23,42 +22,32 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
 
   @override
   Widget build(BuildContext context) {
-    return controller.obx(
-        (state) => DraggableScrollableSheet(
-              initialChildSize: .9,
-              maxChildSize: .9,
-              minChildSize: .7,
-              builder:
-                  (BuildContext context, ScrollController scrollController) =>
-                      Container(
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(16))),
-                child: Stack(
-                  children: [
-                    ListView(
-                      controller: scrollController,
-                      children: [
-                        bottomSheetAppbar(
-                            context: context,
-                            appbarTitle:
-                                Get.find<AttendanceController>().isPunchIn.value
-                                    ? AppString.text_punch_out
-                                    : AppString.text_punch_in),
-                        _contentLayout(),
-                        SizedBox(height: AppLayout.getHeight(60)),
-                      ],
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: _buttonLayout(),
-                    ),
-                  ],
-                ),
+    return Container(
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+        child: Column(
+          children: [
+            bottomSheetAppbar(
+                context: context,
+                appbarTitle: Get.find<AttendanceController>().isPunchIn.value
+                    ? AppString.text_punch_out
+                    : AppString.text_punch_in),
+            Expanded(
+              flex: 5,
+              child: controller.obx(
+                (state) => _contentLayout(),
+                onLoading: _loadingIndicator(),
               ),
             ),
-        onLoading: const LoadingIndicator());
+            controller.obx((state) =>  Align(
+              alignment: Alignment.bottomCenter,
+              child: _buttonLayout(),
+            ),onLoading: Container())
+          ],
+        ),
+
+    );
   }
 
   _contentLayout() {
@@ -66,26 +55,29 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
       padding: EdgeInsets.symmetric(
           vertical: AppLayout.getHeight(Dimensions.paddingLarge),
           horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _timeLayout(),
-          SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-          _noteLayout(),
-          SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-          SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-          Obx(
-            () => UsersCurrentInfoLayout(
-                title: AppString.text_my_location,
-                data: Get.find<AttendanceController>().address.value),
-          ),
-          SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-          Obx(
-            () => UsersCurrentInfoLayout(
-                title: AppString.text_ip_address,
-                data: Get.find<AttendanceController>().ipAddress.value),
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _timeLayout(),
+            SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
+            _noteLayout(),
+            SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
+            SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
+            Obx(
+              () => UsersCurrentInfoLayout(
+                  title: AppString.text_my_location,
+                  data: Get.find<AttendanceController>().address.value),
+            ),
+            SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
+            Obx(
+              () => UsersCurrentInfoLayout(
+                  title: AppString.text_ip_address,
+                  data: Get.find<AttendanceController>().ipAddress.value),
+            ),
+            
+          ],
+        ),
       ),
     );
   }
@@ -177,24 +169,24 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
 //output (in seconds): 103510200
 
   _buttonLayout() {
-    return Container(
-      color: Colors.white,
+    return Padding(
       padding: EdgeInsets.only(
-        left: AppLayout.getWidth(Dimensions.paddingLarge),
-        right: AppLayout.getWidth(Dimensions.paddingLarge),
+        left: AppLayout.getWidth(Dimensions.paddingLarge-2),
+        right: AppLayout.getWidth(Dimensions.paddingLarge-2),
         bottom: AppLayout.getHeight(Dimensions.paddingLarge),
       ),
-      child:
-      Obx(() => Get.find<AttendanceController>().isLoading.isTrue
-          ? loadingIndicatorLayout(): Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _cancelButton(),
-          SizedBox(width: AppLayout.getWidth(10)),
-          _punchButton()
-        ],
-      ),),
-
+      child: Obx(
+        () => Get.find<AttendanceController>().isLoading.isTrue
+            ? loadingIndicatorLayout()
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _cancelButton(),
+                  SizedBox(width: AppLayout.getWidth(10)),
+                  _punchButton()
+                ],
+              ),
+      ),
     );
   }
 
@@ -265,5 +257,9 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
       borderColor: Colors.black,
       textColor: Colors.black,
     );
+  }
+
+  _loadingIndicator() {
+    return const LoadingIndicator();
   }
 }

@@ -6,6 +6,7 @@ import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
+import 'package:pay_day_mobile/modules/auth/presentation/widget/login_view_widget.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
@@ -115,29 +116,34 @@ class ChangePassword extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: CustomButton(AppString.text_save, () {
-                  if (_formKey.currentState!.validate()) {
-                    Get.find<ProfileDataController>().changePassword(
-                        oldPassword: Get.find<InputTextFieldController>()
-                            .oldPassController
-                            .text,
-                        newPassword: Get.find<InputTextFieldController>()
-                            .newPasswordController
-                            .text,
-                        confirmPass: Get.find<InputTextFieldController>()
-                            .confirmPasswordController
-                            .text);
-                  }
-                }),
-              ),
+              customSpacerHeight(height: 30),
+              Obx(() =>_save(context)),
               customSpacerHeight(height: 14),
             ],
           ),
         ),
       ),
     );
+  }
+
+  _save(context) {
+      return Get.find<ProfileDataController>().isLoaded.value
+          ? const LoadingButtonLayout() // Show loading indicator
+          : logInButton(onAction: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+        if (_formKey.currentState!.validate()) {
+          Get.find<ProfileDataController>().changePassword(
+              oldPassword: Get.find<InputTextFieldController>()
+                  .oldPassController
+                  .text,
+              newPassword: Get.find<InputTextFieldController>()
+                  .newPasswordController
+                  .text,
+              confirmPass: Get.find<InputTextFieldController>()
+                  .confirmPasswordController
+                  .text);}
+      });
+
   }
 }
 

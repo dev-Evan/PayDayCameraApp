@@ -18,11 +18,8 @@ import '../controller/common_controller/county_pickar_controller.dart';
 
 class AddAddress extends GetView<AddressController> {
   final String typeText;
-  AddAddress(this.typeText);
-
+  AddAddress(this.typeText, {super.key});
   final _formKey = GlobalKey<FormState>();
-  final CountryPickerController _controller =
-      Get.put(CountryPickerController());
 
   @override
   Widget build(BuildContext context) {
@@ -150,13 +147,14 @@ class AddAddress extends GetView<AddressController> {
                               inputDecoration: countryDecoration,
                             ),
                             onSelect: (Country country) {
-                              _controller.setSelectedCountry(country.name);
+                              Get.find<CountryPickerController>().setSelectedCountry(country.name);
                             });
                       },
                     ),
                     textFieldTitleText(titleText: AppString.text_phone),
                     phoneAndCountyField(
-                      controller: Get.find<InputTextFieldController>().addPhoneNumberController,
+                      controller: Get.find<InputTextFieldController>()
+                          .addPhoneNumberController,
                     ),
                     customSpacerHeight(height: 30),
                     Obx(
@@ -171,6 +169,7 @@ class AddAddress extends GetView<AddressController> {
                                 Get.back();
                               },
                               elevatedButtonAction: () {
+                                FocusScope.of(context).requestFocus(FocusNode());
                                 if (_formKey.currentState!.validate()) {
                                   Get.find<AddressController>()
                                       .addressUpdate(
@@ -194,7 +193,10 @@ class AddAddress extends GetView<AddressController> {
                                             .addDetailsController
                                             .value
                                             .text,
-                                    phone: Get.find<CountryPickerController>().phoneNumber.value.toString(),
+                                    phone: Get.find<CountryPickerController>()
+                                        .phoneNumber
+                                        .value
+                                        .toString(),
                                     state: Get.find<InputTextFieldController>()
                                         .addStateController
                                         .value
@@ -206,6 +208,10 @@ class AddAddress extends GetView<AddressController> {
                                             .text,
                                     message: AppString
                                         .text_address_added_successfully,
+                                    isoCode: Get.find<CountryPickerController>()
+                                        .isoCode
+                                        .value
+                                        .toString()
                                   )
                                       .then((value) {
                                     if (value == true) {

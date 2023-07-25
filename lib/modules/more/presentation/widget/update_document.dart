@@ -191,21 +191,26 @@ class UpdateDocument extends StatelessWidget {
 
 Widget _fileTitle({required text}) {
   return Center(
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Icon(
-          CupertinoIcons.doc_fill,
-          color: AppColor.primaryColor,
-        ),
-        customSpacerWidth(width: 8),
-        Text(
-          text,
-          style: AppStyle.mid_large_text.copyWith(
-              color: AppColor.normalTextColor,
-              fontSize: Dimensions.fontSizeDefault),
-        ),
-      ],
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            CupertinoIcons.doc_fill,
+            color: AppColor.primaryColor,
+          ),
+          customSpacerWidth(width: 8),
+          Expanded(
+            child: Text(
+              text,
+              style: AppStyle.mid_large_text.copyWith(
+                  color: AppColor.normalTextColor,
+                  fontSize: Dimensions.fontSizeDefault),
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }

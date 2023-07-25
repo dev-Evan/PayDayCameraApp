@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_app_button.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/bank_info_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
@@ -12,7 +11,7 @@ import '../../../../utils/app_layout.dart';
 import '../../../../utils/dimensions.dart';
 import 'custom_alert_dialog.dart';
 
-Future customDialogLayout({required controller, required onAction}) {
+Future customDialogLayout({required controller, required onAction,    IconData? icon=CupertinoIcons.delete,}) {
   return showDialog(
     barrierDismissible: true,
     context: Get.context!,
@@ -41,7 +40,7 @@ Future customDialogLayout({required controller, required onAction}) {
                 customSpacerHeight(height: 20),
                 _iconBox(
                     iconColor: AppColor.iconBoxColor,
-                    icon:  Icon(CupertinoIcons.delete, color: AppColor.errorColor.withOpacity(0.5),
+                    icon:  Icon(icon, color: AppColor.errorColor.withOpacity(0.5),
                         size: Dimensions.fontSizeDoubleLarge + 5),
                     iconBgColor: AppColor.iconBoxColor.withOpacity(0.2)
                 ),
@@ -50,8 +49,6 @@ Future customDialogLayout({required controller, required onAction}) {
                 customSpacerHeight(height: 15),
                 _contentText(),
                 customSpacerHeight(height: 36),
-
-
                  Obx(() => controller.isLoading.value==true
                      ? _loadingButtonLayout()
                      : _buttonLayout(context: context,onAction: onAction),),
@@ -121,14 +118,16 @@ _buttonLayout({ required context,required onAction}) {
             Get.back();
           },
           buttonColor: Colors.transparent,
-          textColor: Colors.black,
-          borderColor: Colors.black,
+          textColor: AppColor.normalTextColor,
+          borderColor: AppColor.normalTextColor,
+
         ),
         customSpacerWidth(width: 10),
         AppButton(
             buttonText: AppString.text_yes,
             onPressed: ()=>onAction(),
             hasOutline: false,
+            borderColor: AppColor.iconBoxColor,
             buttonColor: AppColor.iconBoxColor),
       ],
     ),

@@ -80,7 +80,6 @@ class AttendanceController extends GetxController with StateMixin {
   Future<bool> punchIn(LogEntryRequest punchInRequest) async {
     bool returnValue = false;
     isLoading(true);
-
     await _attendanceDataRepository
         .punchIn(punchInRequest: punchInRequest)
         .then((value) {
@@ -308,3 +307,4 @@ class AttendanceController extends GetxController with StateMixin {
     await getDailyLog();
   }
 }
+

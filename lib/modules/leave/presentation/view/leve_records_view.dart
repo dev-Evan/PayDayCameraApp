@@ -42,7 +42,7 @@ class LeaveRecordsView extends GetView<LeaveController> {
                               sent: AppString.text_upcomming,
                               conflicted: AppString.text_pending,
                               topTextValue: "",
-                              layoutHeight: 20,context: context),
+                              layoutHeight: 38,context: context),
                           Column(
                             children: [
                               Padding(
@@ -56,7 +56,7 @@ class LeaveRecordsView extends GetView<LeaveController> {
                                 ),
                               ),
                               (controller.leaveRecord.data?.leaveRecords !=null &&  controller.leaveRecord.data!.leaveRecords!.isNotEmpty)?
-                              viewListViewLayout():noDataFound(height: 100,svgHeight: 140,svgWidth: 140),
+                              viewListViewLayout():_noDataLayout(context),
                             ],
                           ),
                         ],
@@ -127,5 +127,10 @@ class LeaveRecordsView extends GetView<LeaveController> {
       bgColor: AppColor.primaryColor,
       textColor: AppColor.backgroundColor,
     );
+  }
+
+  _noDataLayout(context) {
+
+    return noDataFound(svgWidth: 130,svgHeight: 130,height: MediaQuery.of(context).size.height/12);
   }
 }

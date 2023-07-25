@@ -27,7 +27,7 @@ class AddressRepository {
     }
   }
 
-  Future<AddressUpdateModel> getAddressUpdate(area,city,county,details,phoneNumber,state,type,zipCode) async {
+  Future<AddressUpdateModel> getAddressUpdate(area,city,county,details,phoneNumber,state,type,zipCode,isoCode) async {
     try {
       Response response = await networkClient.postRequest(
         Api.ADDRESS_UPDATE,
@@ -40,7 +40,7 @@ class AddressRepository {
           "state": state,
           "type": type,
           "zip_code": zipCode,
-
+          "country_code": isoCode,
         },
       );
       if (response.status.hasError) {

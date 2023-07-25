@@ -6,12 +6,12 @@ class CountryPickerController extends GetxController {
 
 
   RxString phoneNumber = ''.obs;
-  RxString flag = ''.obs;
+  RxString isoCode = ''.obs;
 
   void onPhoneNumberChanged(String number) {
     phoneNumber.value = number;
-  }  void flagChanged(String number) {
-    flag.value = number;
+  }  void isoCodeChanged(String iso) {
+    isoCode.value = iso;
   }
 
   final InputTextFieldController _inputTextFieldController =

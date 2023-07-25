@@ -10,8 +10,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../setting/presentation/controller/setting_controller.dart';
 
-Widget profileCard(
-    {required nameText, required userEmail, required payslipId}) {
+Widget profileCard({required nameText, required userEmail, required payslipId}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -37,7 +36,7 @@ Widget profileCard(
                 AppStyle.small_text.copyWith(color: AppColor.normalTextColor),
           ),
           Text(
-            "${payslipId}",
+            "$payslipId",
             style: AppStyle.small_text.copyWith(color: AppColor.hintColor),
           ),
         ],
@@ -87,7 +86,7 @@ Widget subTitleContainer({required leftText, required rightText}) {
         color: AppColor.disableColor.withOpacity(0.3),
         borderRadius: BorderRadius.circular(Dimensions.radiusDefault - 6)),
     child: Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: _padding,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -111,17 +110,17 @@ Widget subTitleContainer({required leftText, required rightText}) {
   );
 }
 
-Widget subTextCard(
-    {required subLeftText,
-    required subRightText,
-    isPercentage,
-    required value}) {
+EdgeInsets get _padding {
+  return EdgeInsets.only(
+      top: AppLayout.getHeight(8),
+      bottom: AppLayout.getHeight(8),
+      left: AppLayout.getWidth(6),
+      right: AppLayout.getWidth(6));
+}
+
+Widget subTextCard({required subLeftText, required subRightText, isPercentage, required value}) {
   return Padding(
-    padding: EdgeInsets.only(
-        bottom: AppLayout.getHeight(8),
-        left: AppLayout.getWidth(2),
-        right: AppLayout.getWidth(2),
-        top: AppLayout.getHeight(8)),
+    padding: _subTextLayoutPadding,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -135,7 +134,7 @@ Widget subTextCard(
                   fontWeight: FontWeight.w500),
             ),
             customSpacerWidth(width: 5),
-            Text(("( ${value}${isPercentage.toString() == "1" ? "%" : ""} )")),
+            Text(("( $value${isPercentage.toString() == "1" ? "%" : ""} )")),
           ],
         ),
         Row(
@@ -153,6 +152,14 @@ Widget subTextCard(
       ],
     ),
   );
+}
+
+EdgeInsets get _subTextLayoutPadding {
+  return EdgeInsets.only(
+      bottom: AppLayout.getHeight(8),
+      left: AppLayout.getWidth(2),
+      right: AppLayout.getWidth(2),
+      top: AppLayout.getHeight(8));
 }
 
 Container get currencySymbolSmall {
@@ -175,8 +182,8 @@ Widget summaryTextCard({required subLeftText, required subRightText}) {
   return Padding(
     padding: EdgeInsets.only(
         bottom: AppLayout.getHeight(8),
-        left: AppLayout.getWidth(8),
-        right: AppLayout.getWidth(8),
+        left: AppLayout.getWidth(0),
+        right: AppLayout.getWidth(0),
         top: AppLayout.getHeight(8)),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -216,7 +223,8 @@ Widget _subTextRight({required subRightText}) {
 
 Widget totalRowView({required amount, required text}) {
   return Padding(
-    padding: const EdgeInsets.all(6.0),
+    padding: EdgeInsets.only(
+        top: AppLayout.getHeight(6), bottom: AppLayout.getHeight(6)),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -246,7 +254,8 @@ Widget totalRowView({required amount, required text}) {
 
 Widget summaryText() {
   return Padding(
-    padding: const EdgeInsets.all(8.0),
+    padding: EdgeInsets.only(
+        top: AppLayout.getHeight(8), bottom: AppLayout.getHeight(8)),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

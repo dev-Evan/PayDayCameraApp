@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/time_counter_helper.dart';
 import '../../../../utils/app_layout.dart';
@@ -72,11 +73,8 @@ Widget _logDetails(DailyLogs dailyLog) {
   );
 }
 
-_openLogDetailsBottomSheet() => showModalBottomSheet(
-  enableDrag: false,
-  isScrollControlled: true,
-  backgroundColor: Colors.transparent,
-  context: Get.context!,
-  builder: (context) => const LogDetailsBottomSheet(),
+_openLogDetailsBottomSheet() => customButtonSheet(
+  context: Get.context,
+  height: 0.9,
+  child: const LogDetailsBottomSheet(),
 );
-

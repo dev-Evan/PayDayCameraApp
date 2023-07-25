@@ -6,7 +6,6 @@ import 'package:pay_day_mobile/modules/attendance/presentation/controller/attend
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/timer_overview_layout.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/vertical_divider.dart';
 import 'package:pay_day_mobile/utils/time_counter_helper.dart';
-
 import '../../../../common/widget/custom_status_button.dart';
 import '../../../../common/widget/users_current_info_layout.dart';
 import '../../../../utils/app_color.dart';
@@ -21,16 +20,18 @@ Widget contentLayout() {
       padding: EdgeInsets.symmetric(
           vertical: AppLayout.getHeight(Dimensions.paddingLarge),
           horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _topLayout(),
-          SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-          _logTimeLayout(),
-          SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-          _punchInDetails(),
-          _punchOutDetails(),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _topLayout(),
+            SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
+            _logTimeLayout(),
+            SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
+            _punchInDetails(),
+            _punchOutDetails(),
+          ],
+        ),
       ));
 }
 

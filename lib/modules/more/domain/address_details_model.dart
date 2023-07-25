@@ -24,7 +24,7 @@ class AddressDetailsModel {
 
 class Data {
   PresentAddress? presentAddress;
-  PermanentAddress? permanentAddress;
+  PresentAddress? permanentAddress;
 
   Data({this.presentAddress, this.permanentAddress});
 
@@ -33,7 +33,7 @@ class Data {
         ? new PresentAddress.fromJson(json['present_address'])
         : null;
     permanentAddress = json['permanent_address'] != null
-        ? new PermanentAddress.fromJson(json['permanent_address'])
+        ? new PresentAddress.fromJson(json['permanent_address'])
         : null;
   }
 
@@ -53,10 +53,11 @@ class PresentAddress {
   String? details;
   String? area;
   String? city;
-  dynamic state;
-  dynamic zipCode;
-  dynamic country;
-  dynamic phoneNumber;
+  String? state;
+  String? zipCode;
+  String? country;
+  String? phoneNumber;
+  String? countryCode;
 
   PresentAddress(
       {this.details,
@@ -65,7 +66,8 @@ class PresentAddress {
         this.state,
         this.zipCode,
         this.country,
-        this.phoneNumber});
+        this.phoneNumber,
+        this.countryCode});
 
   PresentAddress.fromJson(Map<String, dynamic> json) {
     details = json['details'];
@@ -75,6 +77,7 @@ class PresentAddress {
     zipCode = json['zip_code'];
     country = json['country'];
     phoneNumber = json['phone_number'];
+    countryCode = json['country_code'];
   }
 
   Map<String, dynamic> toJson() {
@@ -86,47 +89,7 @@ class PresentAddress {
     data['zip_code'] = this.zipCode;
     data['country'] = this.country;
     data['phone_number'] = this.phoneNumber;
-    return data;
-  }
-}
-
-class PermanentAddress {
-  String? details;
-  String? area;
-  String? city;
-  String? state;
-  String? zipCode;
-  String? country;
-  String? phoneNumber;
-
-  PermanentAddress(
-      {this.details,
-        this.area,
-        this.city,
-        this.state,
-        this.zipCode,
-        this.country,
-        this.phoneNumber});
-
-  PermanentAddress.fromJson(Map<String, dynamic> json) {
-    details = json['details'];
-    area = json['area'];
-    city = json['city'];
-    state = json['state'];
-    zipCode = json['zip_code'];
-    country = json['country'];
-    phoneNumber = json['phone_number'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['details'] = this.details;
-    data['area'] = this.area;
-    data['city'] = this.city;
-    data['state'] = this.state;
-    data['zip_code'] = this.zipCode;
-    data['country'] = this.country;
-    data['phone_number'] = this.phoneNumber;
+    data['country_code'] = this.countryCode;
     return data;
   }
 }

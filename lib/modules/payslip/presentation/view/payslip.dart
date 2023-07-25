@@ -148,11 +148,8 @@ class PaySlip extends GetView<PayslipController> {
                                             monthly: controller.payslipListModel.data?.payslips?[index].period ?? "",
                                             indexId: controller.payslipListModel.data?.payslips?[index].id.toString() ?? "");
                                       },
-                                    )
-                                  : noDataFound(
-                                      height: 90,
-                                      svgHeight: 140,
-                                      svgWidth: 140),
+                                    ):_noDataLayout(context)
+
                             ],
                           ))
                     ],
@@ -168,5 +165,9 @@ class PaySlip extends GetView<PayslipController> {
     controller.getSummaryData();
     Get.find<SettingController>().getCurrencyData();
 
+  }
+
+  _noDataLayout(context) {
+    return noDataFound(svgWidth: 130,svgHeight: 130,height: MediaQuery.of(context).size.height/12);
   }
 }

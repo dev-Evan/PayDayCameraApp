@@ -138,6 +138,7 @@ class AddBankInfo extends GetView<BankInfoController> {
                   textBtnText: AppString.text_cancel,
                   textButtonAction: () => Get.back(),
                   elevatedButtonAction: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
                     if (_formKey.currentState!.validate()) {
                       Get.find<BankInfoController>()
                           .addBankInfo(context: context).then((value){
