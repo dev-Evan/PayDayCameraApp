@@ -14,7 +14,7 @@ import '../../../../utils/dimensions.dart';
 
 Future breakPopUp() {
   if (!Get.isRegistered<BreakController>()) {
-    Get.put(BreakController());
+    Get.put(BreakController(),permanent: true);
   }
   Get.find<BreakController>().selectedIndex(100);
   return showDialog(

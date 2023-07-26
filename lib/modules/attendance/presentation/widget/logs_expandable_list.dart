@@ -69,7 +69,11 @@ class _LogsExpandableListState extends State<LogsExpandableList> {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () async {
-                    _openLogDetailsBottomSheet();
+                    _openLogDetailsBottomSheet(
+                        Get.find<AttendanceLogsController>()
+                            .logList[widget.dataIndex]
+                            .details[index]
+                            .statusClass);
                     await Get.find<AttendanceController>().logDetails(
                         Get.find<AttendanceLogsController>()
                             .logList[widget.dataIndex]
@@ -139,13 +143,15 @@ class _LogsExpandableListState extends State<LogsExpandableList> {
       ],
     );
   }
-  Future _openLogDetailsBottomSheet() {
+
+  Future _openLogDetailsBottomSheet(String? statusClass) {
     return showModalBottomSheet(
       enableDrag: false,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       context: Get.context!,
-      builder: (context) => const LogDetailsBottomSheet(),
+      builder: (context) =>
+          LogDetailsBottomSheet(pendingText: statusClass ?? "log-details"),
     );
   }
 }

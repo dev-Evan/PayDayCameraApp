@@ -35,33 +35,17 @@ class LeaveController extends GetxController with StateMixin {
 
   final RxMap<dynamic, dynamic> requestLeaveQueries = {}.obs;
 
-  final startDate = DateFormat('yyyy-MM-dd')
-      .format(DateTime.now().toUtc())
-      .obs;
-  final endDate = DateFormat('yyyy-MM-dd')
-      .format(DateTime.now().toUtc())
-      .obs;
+  final startDate = DateFormat('yyyy-MM-dd').format(DateTime.now().toUtc()).obs;
+  final endDate = DateFormat('yyyy-MM-dd').format(DateTime.now().toUtc()).obs;
 
   final isValueLoading = false.obs;
 
   final rangeName = "This Month".obs;
 
   final rangeStartDay =
-      DateTime
-          .utc(DateTime
-          .now()
-          .year, DateTime
-          .now()
-          .month, 1)
-          .obs;
+      DateTime.utc(DateTime.now().year, DateTime.now().month, 1).obs;
   final rangeEndDate =
-      DateTime
-          .utc(DateTime
-          .now()
-          .year, DateTime
-          .now()
-          .month + 1, 0)
-          .obs;
+      DateTime.utc(DateTime.now().year, DateTime.now().month + 1, 0).obs;
 
   getLeaveAllowance() async {
     change(null, status: RxStatus.loading());
@@ -104,7 +88,7 @@ class LeaveController extends GetxController with StateMixin {
     await _leaveRepository.getLeaveType().then((LeaveType value) {
       print("getLeaveType ::: called");
       leaveType.clear();
-      leaveType = { for (var e in value.data!) e.id: e.name ?? ''};
+      leaveType = {for (var e in value.data!) e.id: e.name ?? ''};
       print("list data::: $leaveType");
     }, onError: (error) => print("getLeaveType ${error.message}"));
 
@@ -151,10 +135,8 @@ class LeaveController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  Future<bool> requestLeave(
-      {required Map<dynamic, dynamic> leaveARequestQueries}) async {
+  requestLeave({required Map<dynamic, dynamic> leaveARequestQueries}) async {
     isLoading(true);
-    bool returnValue = false;
     await _leaveRepository
         .requestLeave(leaveQueries: leaveARequestQueries)
         .then((value) async {
@@ -168,17 +150,16 @@ class LeaveController extends GetxController with StateMixin {
       String dateValue = json.encode(queryParams);
       await Get.find<LeaveController>()
           .getIndividualLeaveList(queryParams: "date_range=$dateValue");
-      returnValue = true;
+      Get.back(canPop: false);
+      //clear queries after api call
+      Get.find<LeaveController>().requestLeaveQueries.clear();
     }, onError: (error) {
       isLoading(false);
       showCustomSnackBar(message: "${error.message}");
       print("getILeaveDetails $error");
-      returnValue = false;
     });
     isLoading(false);
-    return returnValue;
   }
-
 
   _refreshPage() async {
     getLeaveAllowance();

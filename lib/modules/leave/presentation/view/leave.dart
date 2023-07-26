@@ -8,7 +8,6 @@ import 'package:pay_day_mobile/modules/leave/domain/leave_allowance.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/view/leve_records_view.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/widget/apply_leave_view.dart';
-import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/widget/custom_buttom_sheet.dart';
@@ -158,7 +157,7 @@ class Leave extends GetView<LeaveController> {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 8,
-        mainAxisExtent: AppLayout.getHeight(40),
+        mainAxisExtent: AppLayout.getHeight(25),
       ),
       children: data.values!
           .map((value) => _allowanceCounter(value))
@@ -175,7 +174,7 @@ class Leave extends GetView<LeaveController> {
             values.leaveType ?? "",
             style: AppStyle.small_text,
             overflow: TextOverflow.ellipsis,
-            maxLines: 2,
+            maxLines: 1,
           ),
         ),
         Text(

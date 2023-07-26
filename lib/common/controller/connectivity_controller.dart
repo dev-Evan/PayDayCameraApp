@@ -1,6 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/sockets/src/sockets_io.dart';
 import 'package:pay_day_mobile/common/widget/network_error_pop_up.dart';
 import 'package:pay_day_mobile/routes/app_pages.dart';
 
