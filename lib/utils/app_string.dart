@@ -10,6 +10,7 @@ class AppString {
   static String text_total = "Total";
   static const String text_yes = "Yes";
   static String text_no = "No";
+  static String test_reason_note = "Reason Note";
   static String text_error = "Error!";
   static String notification = "Notification";
   static String text_log_out = "Log Out";
@@ -71,6 +72,7 @@ class AppString {
   static String text_multi = "Multi";
   static String text_bank_name = "Bank Name";
   static String text_early = "Early";
+  static String text_cancel_request = "Cancel Request";
   static String text_no_document_found = "No Document Found";
   static String text_regular = "Regular";
   static String text_scheduled = "Scheduled";
@@ -112,6 +114,7 @@ class AppString {
   static String text_cancel = "Cancel";
   static String text_net_payable = "Net payable";
   static String text_log_details = "Log Details";
+  static String text_log_request_details = "Request Log Details";
   static String text_punch_in = "Punch In";
   static String text_punch_out = "Punch Out";
   static String text_my_location = "My Location";

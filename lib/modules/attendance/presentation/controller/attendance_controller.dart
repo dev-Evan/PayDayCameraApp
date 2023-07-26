@@ -45,7 +45,7 @@ class AttendanceController extends GetxController with StateMixin {
   Rx<Duration> countdownDuration = const Duration().obs;
   Rx<Duration> balanceDuration = const Duration().obs;
   final currentIndex = 0.obs;
-  late LogDetails logDetailsById;
+  LogDetails logDetailsById=LogDetails();
   List<BreakTimes> breakTimes = [];
   Rx<BreakDetails> breakDetails = BreakDetails().obs;
   int lastAttendanceId = 0;
@@ -107,11 +107,11 @@ class AttendanceController extends GetxController with StateMixin {
     await _attendanceDataRepository.punchOut(punchOutRequest: punchOutRequest).then(
       (LogEntryResponse value) {
         isLoading(false);
+        _endBreak();
         checkUserIsPunchedIn();
         getDailyLog();
         stopTimer();
         showCustomSnackBar(message: value.message ?? "");
-        _endBreak();
         returnValue = true;
         LoggerHelper.infoLog(message: value.message ?? "");
       },
@@ -287,18 +287,12 @@ class AttendanceController extends GetxController with StateMixin {
 
   void _endBreak() {
     if (Get.find<AttendanceController>().breakDetails.value.id != null) {
-      Get.find<BreakController>().endBreak(
-          logId: Get.find<AttendanceController>()
-                  .logs
-                  .value
-                  .data!
-                  .dailyLogs![0]
-                  .id
-                  ?.toInt() ??
-              0,
-          breakId:
-              Get.find<AttendanceController>().breakDetails.value.breakTimeId ??
-                  0);
+      // Get.find<BreakController>().endBreak(
+      //     logId: Get.find<AttendanceController>()
+      //             .lastAttendanceId,
+      //     breakId:
+      //         Get.find<AttendanceController>().breakDetails.value.breakTimeId ??
+      //             0);
       Get.find<BreakController>().stopTimer();
     }
   }

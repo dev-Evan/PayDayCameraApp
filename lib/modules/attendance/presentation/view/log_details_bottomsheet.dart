@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/attendance_eidt_bottomsheet.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/controller/date_time_helper_controller.dart';
@@ -14,65 +16,77 @@ import '../widget/bottom_sheet_appbar.dart';
 import '../widget/log_details_bottom_sheet_content.dart';
 
 class LogDetailsBottomSheet extends GetView<AttendanceController> {
-  const LogDetailsBottomSheet({super.key});
+  final String pendingText;
+
+  const LogDetailsBottomSheet({required this.pendingText, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return controller.obx(
-        (state) => DraggableScrollableSheet(
-              initialChildSize: .9,
-              maxChildSize: .9,
-              minChildSize: .7,
-              builder:
-                  (BuildContext context, ScrollController scrollController) =>
-                      Container(
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(16))),
-                child: Stack(
-                  children: [
-                    ListView(
-                      controller: scrollController,
-                      children: [
-                        bottomSheetAppbar(
-                            context: context,
-                            appbarTitle: AppString.text_log_details),
-                        contentLayout(),
-                        SizedBox(
-                          height: AppLayout.getHeight(60),
-                        )
-                      ],
-                    ),
-                    Align(
+    print(pendingText);
+    return DraggableScrollableSheet(
+      initialChildSize: .9,
+      maxChildSize: .9,
+      minChildSize: .7,
+      builder: (BuildContext context, ScrollController scrollController) =>
+          Container(
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+        child: Stack(
+          children: [
+            ListView(
+              controller: scrollController,
+              children: [
+                bottomSheetAppbar(
+                    context: context,
+                    appbarTitle: pendingText == "warning"
+                        ? AppString.text_log_request_details
+                        : AppString.text_log_details),
+                controller.obx((state) => contentLayout(),
+                    onLoading: bottomSheetLoader()),
+                SizedBox(
+                  height: AppLayout.getHeight(60),
+                )
+              ],
+            ),
+            controller.obx(
+                (state) => Align(
                       alignment: Alignment.bottomCenter,
                       child: _buttonLayout(context),
                     ),
-                  ],
-                ),
-              ),
-            ),
-        onLoading: const LoadingIndicator());
-  }
-
-  _buttonLayout(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-        left: AppLayout.getWidth(Dimensions.paddingLarge),
-        right: AppLayout.getWidth(Dimensions.paddingLarge),
-        bottom: AppLayout.getHeight(Dimensions.paddingLarge),
-      ),
-      color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _editButton(context),
-        ],
+                onLoading: Container()),
+          ],
+        ),
       ),
     );
   }
 
-  _editButton(BuildContext context) {
+  _buttonLayout(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.only(
+          left: AppLayout.getWidth(Dimensions.paddingLarge),
+          right: AppLayout.getWidth(Dimensions.paddingLarge),
+          bottom: AppLayout.getHeight(Dimensions.paddingLarge),
+        ),
+        color: Colors.white,
+        child: pendingText == "warning"
+            ? Obx(() => _manualEntryButtonLayout())
+            : _autoEntryLogDetail());
+  }
+
+  _cancelRequest() {
+    return AppButton(
+        buttonText: AppString.text_cancel_request,
+        onPressed: () {
+          Get.find<AttendanceLogsController>()
+              .cancelRequest(requestId: controller.logDetailsById.data?.id ?? 0);
+        },
+        buttonColor: Colors.white,
+        borderColor: Colors.black,
+        textColor: Colors.black87);
+  }
+
+  _editButton() {
     return AppButton(
       buttonColor: AppColor.primaryBlue,
       buttonText: AppString.text_edit,
@@ -80,12 +94,32 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
         Get.delete<DateTimeController>();
         Get.put(DateTimeController());
         customButtonSheet(
-          context: context,
+          context: Get.context!,
           height: 0.9,
           child: EditAttendanceBottomSheet(
               Get.find<AttendanceController>().logDetailsById),
         );
       },
     );
+  }
+
+  _autoEntryLogDetail() => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _editButton(),
+        ],
+      );
+
+  _manualEntryButtonLayout() {
+   return Get.find<AttendanceLogsController>().isLoading.value == true
+        ? loadingIndicatorLayout()
+        : Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _cancelRequest(),
+              customSpacerWidth(width: 10),
+              _editButton(),
+            ],
+          );
   }
 }

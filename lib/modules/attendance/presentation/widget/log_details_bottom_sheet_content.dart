@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
+import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/timer_overview_layout.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/vertical_divider.dart';
 import 'package:pay_day_mobile/utils/time_counter_helper.dart';
@@ -25,13 +26,54 @@ Widget contentLayout() {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _topLayout(),
-          SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
+          customSpacerHeight(height: 20),
           _logTimeLayout(),
-          SizedBox(height: AppLayout.getHeight(Dimensions.paddingLarge)),
-          _punchInDetails(),
-          _punchOutDetails(),
+          Get.find<AttendanceController>().logDetailsById.data != null &&
+                  Get.find<AttendanceController>()
+                      .logDetailsById
+                      .data!
+                      .punchInStatus!
+                      .contains("Auto")
+              ? _autoEntryLayout()
+              : _manualEntryLog(),
         ],
       ));
+}
+
+_manualEntryLog() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      customSpacerHeight(height: 20),
+      Text(
+        AppString.test_reason_note,
+        style: AppStyle.large_text_black.copyWith(fontWeight: FontWeight.bold),
+        overflow: TextOverflow.ellipsis,
+      ),
+      customSpacerHeight(height: 4),
+      Text(
+        Get.find<AttendanceController>()
+                .logDetailsById
+                .data
+                ?.comments
+                ?.first
+                .comment ??
+            "",
+        style: AppStyle.normal_text_black.copyWith(fontWeight: FontWeight.w400),
+        overflow: TextOverflow.ellipsis,
+      )
+    ],
+  );
+}
+
+_autoEntryLayout() {
+  return Column(
+    children: [
+      customSpacerHeight(height: 20),
+      _punchInDetails(),
+      _punchOutDetails(),
+    ],
+  );
 }
 
 _topLayout() {
@@ -174,9 +216,11 @@ _punchInDetails() {
     children: [
       punchDetails(
           title: AppString.text_punch_in,
-          note: (logDetails.data?.comments != null &&
-                  logDetails.data!.comments!.isNotEmpty)
-              ? logDetails.data?.comments?.first.comment
+          note:(logDetails.data?.comments != null &&
+              logDetails.data!.comments!.isNotEmpty)
+              ? (logDetails.data!.comments!.last.type!
+              .startsWith("in-note")
+              ? logDetails.data?.comments?.last.comment : "")
               : ""),
       SizedBox(height: AppLayout.getHeight(Dimensions.paddingExtraLarge)),
       UsersCurrentInfoLayout(

@@ -77,6 +77,6 @@ _openLogDetailsBottomSheet() => showModalBottomSheet(
   isScrollControlled: true,
   backgroundColor: Colors.transparent,
   context: Get.context!,
-  builder: (context) => const LogDetailsBottomSheet(),
+  builder: (context) => const LogDetailsBottomSheet(pendingText: "log-details"),
 );
 

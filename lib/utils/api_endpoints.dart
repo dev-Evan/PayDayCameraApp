@@ -48,6 +48,7 @@ class Api{
   static String INDIVIDUAL_DATE_LEAVE = "/leave/list/view";
   static String LEAVE_DETAILS = "/leave/log";
   static String CANCEL_LEAVE = "/leave/cancel";
+  static String CANCEL_ATTENDANCE_REQUEST = "/attendance/status/cancel";
   static String REQUEST_LEAVE = "/leave/store";
   static String ALL_NOTIFICATION = "/notifications";
   static String ALL_UNREAD_NOTIFICATION = "/notifications?unread=true";
