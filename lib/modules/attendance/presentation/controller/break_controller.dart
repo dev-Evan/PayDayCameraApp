@@ -74,7 +74,6 @@ class BreakController extends GetxController with StateMixin {
       LoggerHelper.errorLog(message: error.message);
     });
     isLoading(false);
-
     return returnValue;
   }
 }
