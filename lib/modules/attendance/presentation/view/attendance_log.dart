@@ -27,12 +27,12 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppbar(),
-      floatingActionButton: Padding(
+      floatingActionButton: controller.obx((state) => Padding(
         padding: EdgeInsets.only(left: AppLayout.getWidth(30)),
         child: CustomButton(AppString.text_requstAttendance, () {
           _openRequestAttendanceBottomSheet(context: context);
         }),
-      ),
+      ),onLoading: Container()),
       body: controller.obx((state) => _body(),
           onLoading: const LoadingIndicator()),
     );

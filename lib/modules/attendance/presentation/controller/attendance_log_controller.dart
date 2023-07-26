@@ -11,6 +11,7 @@ import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/logger.dart';
 
 import '../../../../common/widget/error_snackbar.dart';
+import '../../../../routes/app_pages.dart';
 import '../../domain/all_log_summary/all_log_summay.dart';
 
 class AttendanceLogsController extends GetxController with StateMixin {
@@ -188,6 +189,18 @@ class AttendanceLogsController extends GetxController with StateMixin {
     isLoading(false);
 
     return returnValue;
+  }
+
+  cancelRequest({required int requestId}) async {
+    isLoading.value=true;
+    _attendanceLogsRepository.cancelRequest(requestId).then((value) {
+      LoggerHelper.infoLog(message: value.message);
+      Get.back(canPop: false);
+      getAllFilteredLogSummary();
+    }, onError: (error) {
+      LoggerHelper.errorLog(message: error.message);
+    });
+    isLoading.value=false;
   }
 
   _reloadPage() async {

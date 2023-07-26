@@ -8,6 +8,7 @@ import '../../../common/domain/success_model.dart';
 import '../domain/all_log_summary/all_log_summay.dart';
 import '../domain/log_summary/log_summary.dart';
 import '../domain/log_summary/log_summary_overview.dart';
+import 'package:http/http.dart' as http;
 
 class AttendanceLogsRepository {
   final NetworkClient networkClient;
@@ -16,12 +17,12 @@ class AttendanceLogsRepository {
 
   Future<LogSummary> getLogSummaryByThisMonth() async {
     try {
-      Response response =
-          await networkClient.getRequest(Api.LOG_SUMMARY_BY_THIS_MONTH);
-      if (response.status.hasError) {
-        return Future.error(ErrorModel.fromJson(response.body));
+      http.Response response =
+          await networkClient.getReq(Api.LOG_SUMMARY_BY_THIS_MONTH);
+      if (response.statusCode != 200) {
+        return Future.error(ErrorModel.fromJson(json.decode(response.body)));
       } else {
-        return LogSummary.fromJson(response.body);
+        return LogSummary.fromJson(json.decode(response.body));
       }
     } catch (ex) {
       return Future.error(ErrorModel(message: ex.toString()));
@@ -30,12 +31,12 @@ class AttendanceLogsRepository {
 
   Future<LogSummary> getLogSummaryByThisYear() async {
     try {
-      Response response =
-          await networkClient.getRequest(Api.LOG_SUMMARY_BY_THIS_YEAR);
-      if (response.status.hasError) {
-        return Future.error(ErrorModel.fromJson(response.body));
+      http.Response response =
+          await networkClient.getReq(Api.LOG_SUMMARY_BY_THIS_YEAR);
+      if (response.statusCode != 200) {
+        return Future.error(ErrorModel.fromJson(json.decode(response.body)));
       } else {
-        return LogSummary.fromJson(response.body);
+        return LogSummary.fromJson(json.decode(response.body));
       }
     } catch (ex) {
       return Future.error(ErrorModel(message: ex.toString()));
@@ -46,12 +47,12 @@ class AttendanceLogsRepository {
       {String? queryParams}) async {
     queryParams ??= "within=thisMonth";
     try {
-      Response response = await networkClient
-          .getRequest("${Api.DETAILS_SUMMARY}$queryParams");
-      if (response.status.hasError) {
-        return Future.error(ErrorModel.fromJson(response.body));
+      http.Response response =
+          await networkClient.getReq("${Api.DETAILS_SUMMARY}$queryParams");
+      if (response.statusCode != 200) {
+        return Future.error(ErrorModel.fromJson(json.decode(response.body)));
       } else {
-        return LogSummaryOverview.fromJson(response.body);
+        return LogSummaryOverview.fromJson(json.decode(response.body));
       }
     } catch (ex) {
       return Future.error(ErrorModel(message: ex.toString()));
@@ -61,12 +62,12 @@ class AttendanceLogsRepository {
   Future<FilteredLogSummary> getAllFilteredLogs(
       {required String queryParams, int? page = 1}) async {
     try {
-      Response response = await networkClient.getRequest(
+      http.Response response = await networkClient.getReq(
           "${Api.SUMMARY_ALL_LOG}$queryParams&timezone=${DateTime.now().timeZoneName}&per_page=10&page=$page");
-      if (response.status.hasError) {
-        return Future.error(ErrorModel.fromJson(response.body));
+      if (response.statusCode != 200) {
+        return Future.error(ErrorModel.fromJson(json.decode(response.body)));
       } else {
-        return FilteredLogSummary.fromJson(response.body);
+        return FilteredLogSummary.fromJson(json.decode(response.body));
       }
     } catch (ex) {
       return Future.error(ErrorModel(message: ex.toString()));
@@ -77,12 +78,26 @@ class AttendanceLogsRepository {
       RequestAttendanceChangeReq attendanceChangeReq) async {
     try {
       Response response = await networkClient.postRequest(
-          Api.REQUEST_ATTENDANCE,
-          json.encode(attendanceChangeReq.toJson()));
+          Api.REQUEST_ATTENDANCE, json.encode(attendanceChangeReq.toJson()));
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
         return SuccessModel.fromJson(response.body);
+      }
+    } catch (e) {
+      return Future.error(ErrorModel(message: e.toString()));
+    }
+  }
+
+  Future<SuccessModel> cancelRequest(int requestId) async {
+    try {
+      http.Response response = await networkClient
+          .getReq("${Api.CANCEL_ATTENDANCE_REQUEST}/$requestId");
+
+      if (response.statusCode != 200) {
+        return Future.error(ErrorModel.fromJson(json.decode(response.body)));
+      } else {
+        return SuccessModel.fromJson(json.decode(response.body));
       }
     } catch (e) {
       return Future.error(ErrorModel(message: e.toString()));

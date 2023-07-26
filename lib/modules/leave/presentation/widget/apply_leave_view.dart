@@ -21,6 +21,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../../common/widget/custom_double_button.dart';
 import '../../../../common/widget/input_note.dart';
+import '../../../../utils/logger.dart';
 
 class ApplyLeaveView extends StatefulWidget {
   const ApplyLeaveView({Key? key}) : super(key: key);
@@ -57,7 +58,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
       Get.find<LeaveController>().requestLeaveQueries["attachments[]"] =
           result!.files.first.path.toString();
     } catch (e) {
-      print(e);
+      LoggerHelper.errorLog(message: e.toString());
     }
   }
 
@@ -66,7 +67,6 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
   @override
   Widget build(BuildContext context) {
     final  controller =Get.find<LeaveController>();
-
     return Container(
       decoration:_openModelRadius,
       child: Column(
@@ -125,7 +125,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
         leaveType.add(element);
       });
     } catch (e) {
-      print(e.toString());
+      LoggerHelper.errorLog(message: e.toString());
     }
     return Container(
       padding: EdgeInsets.symmetric(horizontal: AppLayout.getWidth(10)),
@@ -261,7 +261,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
       Get.find<LeaveController>().requestLeaveQueries["note"] =
           Get.find<LeaveController>().leaveNote.text;
     } catch (e) {
-      print(e);
+      LoggerHelper.errorLog(message: e.toString());
     }
     Get.find<LeaveController>().requestLeave(
         leaveARequestQueries:
@@ -301,7 +301,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
       Get.find<LeaveController>().requestLeaveQueries["note"] =
           Get.find<LeaveController>().leaveNote.text;
     } catch (e) {
-      print(e);
+      LoggerHelper.errorLog(message: e.toString());
     }
 
     Get.find<LeaveController>()
@@ -336,7 +336,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
       Get.find<LeaveController>().requestLeaveQueries["note"] =
           Get.find<LeaveController>().leaveNote.text;
     } catch (e) {
-      print(e);
+      LoggerHelper.errorLog(message: e.toString());
     }
     Get.find<LeaveController>()
         .requestLeave(
@@ -372,7 +372,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
           "${Get.find<DateTimeController>().requestedDate.value} ${Get.find<DateTimeController>().pickedOutTime.value.replaceAll(" ", "")}")
           .toString();
     } catch (e) {
-      print(e);
+      LoggerHelper.errorLog(message: e.toString());
     }
     //check if leave type is set
     //its a mandatory
@@ -388,13 +388,8 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
 
     Get.find<LeaveController>()
         .requestLeave(
-        leaveARequestQueries:
-        Get.find<LeaveController>().requestLeaveQueries)
-        .then((value) {
-      if (value == true) {
-        Get.back();
-      }
-    });
+            leaveARequestQueries:
+                Get.find<LeaveController>().requestLeaveQueries);
   }
 
   _addAttachment() => Column(
@@ -500,33 +495,28 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                 case 0:
                   {
                     _applySingleLeave();
-                    //clear queries after api call
-                    Get.find<LeaveController>().requestLeaveQueries.clear();
                   }
                   break;
                 case 1:
                   {
                     _applyMultiDayLeave();
-                    //clear queries after api call
-                    Get.find<LeaveController>().requestLeaveQueries.clear();
                   }
                   break;
                 case 2:
                   {
                     _applyHalfDayLeave();
-                    //clear queries after api call
-                    Get.find<LeaveController>().requestLeaveQueries.clear();
                   }
                   break;
                 case 3:
                   {
                     _applyHourLeave();
-                    //clear queries after api call
-                    Get.find<LeaveController>().requestLeaveQueries.clear();
                   }
                   break;
               }
               Get.find<LeaveController>().leaveNote.clear();
+              setState(() {
+                isFilePicked=false;
+              });
             }
           }),
     );
@@ -534,7 +524,8 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
 }
 
 Widget _noteTextField() {
-  return InputNote(controller: Get.find<LeaveController>().leaveNote);
+  return
+    InputNote(controller: Get.find<LeaveController>().leaveNote);
 }
 
 Widget _hintText({hintText, Color textColor = AppColor.normalTextColor}) {
