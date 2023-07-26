@@ -106,7 +106,6 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                 Obx(() => Get.find<LeaveController>().isLoading.isTrue
                     ? loadingIndicatorLayout(): _applyLeaveButtons(),),
                 customSpacerHeight(height: 70)
-
               ],
             ),
           ),
