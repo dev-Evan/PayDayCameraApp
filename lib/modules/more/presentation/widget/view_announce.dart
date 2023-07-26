@@ -109,9 +109,7 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                                         }
                                       },
                                     ))),
-                            Obx(
-                              () => _progressBar(),
-                            ),
+                            Obx(() => _progressBar()),
                             customSpacerHeight(height: 52)
                           ],
                         ),
@@ -129,9 +127,7 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                 ? const CupertinoActivityIndicator(
                     color: AppColor.primaryBlue,
                   )
-                : const CircularProgressIndicator(
-                    color: AppColor.primaryColor,
-                  ),
+                : const CircularProgressIndicator(color: AppColor.primaryColor, strokeWidth: 3,),
           )
         : Container();
   }

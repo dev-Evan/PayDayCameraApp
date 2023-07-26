@@ -1,7 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
+import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/common/widget/users_current_info_layout.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/map_layout.dart';
@@ -42,7 +44,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
             ),
             controller.obx((state) =>  Align(
               alignment: Alignment.bottomCenter,
-              child: _buttonLayout(),
+              child: _buttonLayout(context),
             ),onLoading: Container())
           ],
         ),
@@ -168,7 +170,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
 
 //output (in seconds): 103510200
 
-  _buttonLayout() {
+  _buttonLayout(context) {
     return Padding(
       padding: EdgeInsets.only(
         left: AppLayout.getWidth(Dimensions.paddingLarge-2),
@@ -183,14 +185,14 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
                 children: [
                   _cancelButton(),
                   SizedBox(width: AppLayout.getWidth(10)),
-                  _punchButton()
+                  _punchButton(context)
                 ],
               ),
       ),
     );
   }
 
-  _punchButton() {
+  _punchButton(context) {
     Get.find<AttendanceController>().editTextController.clear();
     final controller = Get.find<AttendanceController>();
     return Obx(() => AppButton(
@@ -201,12 +203,12 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
               ? AppString.text_punch_out
               : AppString.text_punch_in,
           onPressed: () => controller.isPunchIn.value
-              ? _punchOut(controller)
-              : _punchIn(controller),
+              ? _punchOut(controller,context)
+              : _punchIn(controller,context),
         ));
   }
 
-  _punchOut(AttendanceController controller) async {
+  _punchOut(AttendanceController controller,context) async {
     await controller
         .punchOut(LogEntryRequest(
             ipData: IpData(
@@ -218,7 +220,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
                 location: controller.address.value,
                 workFromHome: false),
             note: controller.editTextController.value.text,
-            today: DateFormat('y-M-d').format(DateTime.now())))
+            today: DateFormat('y-M-d').format(DateTime.now())),context)
         .then((value) {
       if (value == true) {
         controller.editTextController.clear();
@@ -227,7 +229,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
     });
   }
 
-  _punchIn(AttendanceController controller) {
+  _punchIn(AttendanceController controller,context) {
     controller
         .punchIn(LogEntryRequest(
             ipData: IpData(
@@ -239,7 +241,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
                 location: controller.address.value,
                 workFromHome: false),
             note: controller.editTextController.value.text,
-            today: DateFormat('y-M-d').format(DateTime.now())))
+            today: DateFormat('y-M-d').format(DateTime.now())),context)
         .then((value) {
       if (value == true) {
         controller.editTextController.clear();
