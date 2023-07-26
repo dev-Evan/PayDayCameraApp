@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_divider.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
@@ -53,7 +54,8 @@ class LogsList extends GetView<AttendanceLogsController> {
   _normalLogInfoCard(int dataIndex) {
     return InkWell(
       onTap: () async {
-        _openLogDetailsBottomSheet(controller.logList[dataIndex].details[0].statusClass);
+        _openLogDetailsBottomSheet(
+            controller.logList[dataIndex].details[0].statusClass);
         await Get.find<AttendanceController>()
             .logDetails(controller.logList[dataIndex].details[0].id);
       },
@@ -75,11 +77,7 @@ class LogsList extends GetView<AttendanceLogsController> {
   }
 }
 
-_openLogDetailsBottomSheet(String? statusClass) => showModalBottomSheet(
-      enableDrag: false,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      context: Get.context!,
-      builder: (context) => LogDetailsBottomSheet(
-          pendingText: statusClass??'log-details'),
-    );
+_openLogDetailsBottomSheet(String? statusClass) => customButtonSheet(
+    child: LogDetailsBottomSheet(pendingText: statusClass ?? 'log-details'),
+    context: Get.context!,
+    height: .9);

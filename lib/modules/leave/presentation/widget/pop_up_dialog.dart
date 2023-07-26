@@ -22,7 +22,7 @@ Future popUpDialog({context, child,dobSaveAction,double?  height,double?  width}
             context: context, appbarTitle: AppString.text_select_date),
         content: SizedBox(
           height: height=MediaQuery.of(context).size.height / 2,
-          width: width=AppLayout.getWidth(420),
+          width: width=AppLayout.getWidth(460),
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20.0),

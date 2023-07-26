@@ -12,7 +12,7 @@ import '../../../../utils/app_style.dart';
 class ApplyLevPopUpCalendar extends StatefulWidget {
   final bool? isStartDay;
 
-  const ApplyLevPopUpCalendar({ this.isStartDay, super.key});
+  const ApplyLevPopUpCalendar({this.isStartDay, super.key});
 
   @override
   State<ApplyLevPopUpCalendar> createState() => _ApplyLevPopUpCalendarState();
@@ -88,6 +88,7 @@ class _ApplyLevPopUpCalendarState extends State<ApplyLevPopUpCalendar> {
                   DateFormat('yyyy-MM-dd').format(_selectedDate!);
           Get.back();
         }),
+        customSpacerHeight(height: 20),
       ],
     );
   }
