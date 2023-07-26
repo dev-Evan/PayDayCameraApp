@@ -20,6 +20,7 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/images.dart';
+import '../../../../common/widget/custom_dialog_layout.dart';
 import '../../../../common/widget/custom_spacer.dart';
 import '../controller/announcement_controller.dart';
 
@@ -135,14 +136,11 @@ class MoreScreen extends GetView<ProfileDataController> {
                                     jobDeskCard(
                                       cardIcon: Images.log_out,
                                       cardText: AppString.text_log_out,
-                                      onAction: () => customAlertDialog(
-                                          context: context,
-                                          icon: Icons.logout,
-                                          yesText: AppString.text_log_out,
-                                          iconBgColor: Colors.orange.shade50,
-                                          yesAction: () =>
-                                              Get.find<LogoutController>()
-                                                  .logOut()),
+                                      onAction: (){
+                                        customDialogLayout(onAction: ()=>Get.find<LogoutController>()
+                                            .logOut(),
+                                        icon: Icons.logout_outlined,controller:Get.find<LogoutController>());
+                                      }
                                     ),
                                     _languageDropDown(),
                                     customSpacerHeight(height: 30),

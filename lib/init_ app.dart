@@ -17,6 +17,7 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/documet_cont
 import 'common/controller/status_controller.dart';
 import 'modules/more/presentation/controller/address_controller.dart';
 import 'modules/more/presentation/controller/announcement_controller.dart';
+import 'modules/more/presentation/controller/common_controller/county_pickar_controller.dart';
 import 'modules/more/presentation/controller/common_controller/date_of_birth_controller.dart';
 import 'modules/more/presentation/controller/documet_controller/document_upload_controller.dart';
 import 'modules/more/presentation/controller/common_controller/edit_profile_drop_dawon_cnt.dart';
@@ -64,4 +65,5 @@ Future<void> initApp() async {
   Get.lazyPut(() => InputTextFieldController(), fenix: true);
   Get.lazyPut(() => DatePickerController(), fenix: true);
   Get.lazyPut(() => AnnouncementController(), fenix: true);
+  Get.lazyPut(() => CountryPickerController(), fenix: true);
 }

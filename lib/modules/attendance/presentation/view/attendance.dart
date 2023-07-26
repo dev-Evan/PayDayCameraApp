@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_app_button.dart';
+import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_navigator.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
@@ -59,7 +60,7 @@ class Attendance extends GetView<AttendanceController> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            todaysLogIntroText(),
+                            todayLogIntroText(),
                             SizedBox(
                                 height: AppLayout.getHeight(
                                     Dimensions.paddingLarge)),
@@ -74,14 +75,21 @@ class Attendance extends GetView<AttendanceController> {
     ));
   }
 
-  Future _openBottomSheet() {
-    return showModalBottomSheet(
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      context: Get.context!,
-      builder: (context) => const LogEntryBottomSheet(),
-    );
-  }
+  // Future _openBottomSheet() {
+  //   return showModalBottomSheet(
+  //     isScrollControlled: true,
+  //     backgroundColor: Colors.transparent,
+  //     context: Get.context!,
+  //     builder: (context) => const LogEntryBottomSheet(),
+  //   );
+  // }
+
+
+  _openBottomSheet() => customButtonSheet(
+    context: Get.context,
+    height: 0.9,
+    child: const LogEntryBottomSheet(),
+  );
 
   _upperLayout() => Obx(() => Container(
         width: double.infinity,
@@ -141,9 +149,9 @@ class Attendance extends GetView<AttendanceController> {
       ));
 
   punchInLayout() => InkWell(
-        onTap: () async {
-          await controller.getLatLong();
+        onTap: ()async  {
           _openBottomSheet();
+          await controller.getLatLong();
         },
         child: Container(
           decoration: BoxDecoration(
@@ -176,8 +184,8 @@ class Attendance extends GetView<AttendanceController> {
         AppButton(
           buttonText: "text_punch_out".tr,
           onPressed: () async {
-            await controller.getLatLong();
             _openBottomSheet();
+            await controller.getLatLong();
           },
           borderColor: Colors.white,
           buttonColor: Colors.white.withOpacity(.18),

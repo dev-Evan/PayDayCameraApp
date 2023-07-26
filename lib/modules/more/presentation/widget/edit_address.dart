@@ -18,7 +18,8 @@ import 'address_details_widget.dart';
 
 class EditAddress extends GetView<AddressController> {
   final String typeText;
-  EditAddress(this.typeText, {super.key});
+  final String isoCode;
+  EditAddress(this.typeText,this.isoCode, {super.key});
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -148,6 +149,7 @@ class EditAddress extends GetView<AddressController> {
               textFieldTitleText(titleText: AppString.text_phone),
               editPhoneAndCountyField(
                 controller: Get.find<InputTextFieldController>().phoneNumberController,
+                isoCode: isoCode
               ),
               customSpacerHeight(height: 24),
 
@@ -160,6 +162,7 @@ class EditAddress extends GetView<AddressController> {
                   textBtnText: AppString.text_cancel,
                   textButtonAction: () => Get.back(),
                   elevatedButtonAction: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
                     if (_formKey.currentState!.validate()) {
                       Get.find<AddressController>().addressUpdate(
                           typeKey: typeText.toString(),
@@ -192,6 +195,10 @@ class EditAddress extends GetView<AddressController> {
                               .zipCodeController
                               .value
                               .text,
+                          isoCode: Get.find<CountryPickerController>()
+                              .isoCode
+                              .value
+                              .toString(),
                           message: AppString.text_address_update_successfully).then((value){
                         if(value==true){
                           controller.getEmployeeAddressData();

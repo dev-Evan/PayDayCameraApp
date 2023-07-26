@@ -34,11 +34,6 @@ class _HomeState extends State<Home> {
       currentIndex = index;
     });
   }
-
-  Future dialog() {
-    return customAlertDialog();
-  }
-
   @override
   Widget build(BuildContext context) {
     List<BottomNavigationBarItem> items = <BottomNavigationBarItem>[

@@ -7,65 +7,6 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'custom_spacer.dart';
 
-Future customAlertDialog(
-    {context,
-    yesAction,
-    IconData? icon,
-    IconData? decIcon,
-    String? titleText = AppString.text_are_you_sure,
-    String? contentText = AppString.text_dialog_dec,
-    String? yesText = AppString.text_yes,
-    Color? buttonColor = Colors.orange,
-    Color? iconBgColor = AppColor.alertDgIconBgColor,
-    Color? iconColor = Colors.orange,
-    backAction}) {
-  return showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: _titleText(titleText: titleText),
-        shape: roundedRectangleBorder,
-        icon: _iconBox(
-          iconBgColor: iconBgColor,
-          icon: icon,
-          iconColor: iconColor,
-        ),
-        content: _contentText(contentText: contentText),
-        actionsAlignment: MainAxisAlignment.center,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 8),
-            child: Row(
-              children: [
-                Flexible(
-                    child: _cancelBtn(
-                        child: TextButton(
-                            onPressed: () {
-                              if (backAction != null) {
-                                backAction();
-                              } else {
-                                Navigator.pop(context);
-                              }
-                            },
-                            style: elevatedBtmStyle,
-                            child: _noText),
-                        context: context)),
-                customSpacerWidth(width: 12),
-                Flexible(
-                    child: _saveBtn(
-                  child: ElevatedButton(
-                      onPressed: () => yesAction(),
-                      style: saveBtnStyle(buttonColor: buttonColor),
-                      child: _saveText(yesText: yesText)),
-                ))
-              ],
-            ),
-          ),
-        ],
-      );
-    },
-  );
-}
 
 Future exitDialog({context, yesAction}) {
   return showDialog(

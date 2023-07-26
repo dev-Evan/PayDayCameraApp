@@ -66,52 +66,55 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  bottomSheetAppbar(
-                    context: context,
-                    appbarTitle: AppString.text_apply_leve,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: AppLayout.getWidth(20)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: AppLayout.getHeight(
-                                  Dimensions.paddingDefaultExtra),
-                              bottom: AppLayout.getHeight(10)),
-                          child: Text(AppString.text_leave_duration,
-                              style: AppStyle.normal_text_black),
-                        ),
-                        const ApplyLeaveButtonLayout(),
-                        customSpacerHeight(height: 10),
-                        textFieldTitleText(
-                            titleText: AppString.text_leave_type),
-                        _leaveTypeDropDown(),
-                        customSpacerHeight(height: 20),
-                        _leaveCount(),
-                        customSpacerHeight(height: 10),
-                        textFieldTitleText(titleText: AppString.text_note),
-                        _noteTextField(),
-                        customSpacerHeight(height: 8),
-                        _addAttachment(),
-                        customSpacerHeight(height: 24),
-                        Obx(() => Get.find<LeaveController>().isLoading.isTrue
-                            ? loadingIndicatorLayout(): _applyLeaveButtons(),),
-                        customSpacerHeight(height: 200)
+    final  controller =Get.find<LeaveController>();
+    return Container(
+      decoration:_openModelRadius,
+      child: Column(
+        children: [
+          bottomSheetAppbar(
+            context: context,
+            appbarTitle: AppString.text_apply_leve,
+          ),
+        controller.obx((state) =>  Expanded(child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: AppLayout.getWidth(20)),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: AppLayout.getHeight(
+                          Dimensions.paddingDefaultExtra),
+                      bottom: AppLayout.getHeight(10)),
+                  child: Text(AppString.text_leave_duration,
+                      style: AppStyle.normal_text_black),
+                ),
+                const ApplyLeaveButtonLayout(),
+                customSpacerHeight(height: 10),
+                textFieldTitleText(
+                    titleText: AppString.text_leave_type),
+                _leaveTypeDropDown(),
+                customSpacerHeight(height: 20),
+                _leaveCount(),
+                customSpacerHeight(height: 10),
+                textFieldTitleText(titleText: AppString.text_note),
+                _noteTextField(),
+                customSpacerHeight(height: 8),
+                _addAttachment(),
+                customSpacerHeight(height: 24),
+                Obx(() => Get.find<LeaveController>().isLoading.isTrue
+                    ? loadingIndicatorLayout(): _applyLeaveButtons(),),
+                customSpacerHeight(height: 70)
 
-                      ],
-                    ),
-                  ),
-                  customSpacerHeight(height: 200),
-                ],
-              ),
-            );
+              ],
+            ),
+          ),
+        )),onLoading: const Expanded(child: Center(child: LoadingIndicator())))
+
+        ],
+      ),
+    );
 
   }
 
@@ -160,9 +163,9 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
               .keys
               .firstWhere(
                   (element) =>
-                      Get.find<LeaveController>().leaveType[element] ==
-                      newValue,
-                  orElse: () => null);
+              Get.find<LeaveController>().leaveType[element] ==
+                  newValue,
+              orElse: () => null);
           _setData(indexValue: indexValue);
           setState(() {
             dropdownValue = newValue;
@@ -188,43 +191,43 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
         onTap: () => onAction(),
         child: isFilePicked == true
             ? Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: AppLayout.getWidth(20),
-                    vertical: AppLayout.getHeight(20)),
-                color: AppColor.disableColor.withOpacity(0.4),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(child: Text(result?.files.first.name ?? ""))
-                  ],
-                ),
-              )
+          padding: EdgeInsets.symmetric(
+              horizontal: AppLayout.getWidth(20),
+              vertical: AppLayout.getHeight(20)),
+          color: AppColor.disableColor.withOpacity(0.4),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(child: Text(result?.files.first.name ?? ""))
+            ],
+          ),
+        )
             : Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: AppLayout.getWidth(20),
-                    vertical: AppLayout.getHeight(20)),
-                color: AppColor.disableColor.withOpacity(0.4),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(CupertinoIcons.link),
-                    customSpacerWidth(width: 6),
-                    Text(
-                      AppString.text_click,
-                      style: AppStyle.mid_large_text.copyWith(
-                          color: AppColor.primaryColor,
-                          fontSize: Dimensions.fontSizeDefault),
-                    ),
-                    customSpacerWidth(width: 6),
-                    Text(
-                      AppString.text_to_add_fils,
-                      style: AppStyle.mid_large_text.copyWith(
-                          color: AppColor.hintColor,
-                          fontSize: Dimensions.fontSizeDefault + 2),
-                    ),
-                  ],
-                ),
+          padding: EdgeInsets.symmetric(
+              horizontal: AppLayout.getWidth(20),
+              vertical: AppLayout.getHeight(20)),
+          color: AppColor.disableColor.withOpacity(0.4),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(CupertinoIcons.link),
+              customSpacerWidth(width: 6),
+              Text(
+                AppString.text_click,
+                style: AppStyle.mid_large_text.copyWith(
+                    color: AppColor.primaryColor,
+                    fontSize: Dimensions.fontSizeDefault),
               ),
+              customSpacerWidth(width: 6),
+              Text(
+                AppString.text_to_add_fils,
+                style: AppStyle.mid_large_text.copyWith(
+                    color: AppColor.hintColor,
+                    fontSize: Dimensions.fontSizeDefault + 2),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -244,7 +247,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
           .requestLeaveQueries
           .containsKey("leave_duration")) {
         Get.find<LeaveController>().requestLeaveQueries["leave_duration"] =
-            "single_day";
+        "single_day";
       }
       //check if leave type is set
       //its a mandatory
@@ -261,8 +264,8 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
       LoggerHelper.errorLog(message: e.toString());
     }
     Get.find<LeaveController>().requestLeave(
-            leaveARequestQueries:
-                Get.find<LeaveController>().requestLeaveQueries)
+        leaveARequestQueries:
+        Get.find<LeaveController>().requestLeaveQueries)
         .then((value) {
       if (value == true) {
         Get.back();
@@ -279,7 +282,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
           .requestLeaveQueries
           .containsKey("leave_duration")) {
         Get.find<LeaveController>().requestLeaveQueries["leave_duration"] =
-            "multi_day";
+        "multi_day";
       }
       //Add multiple date
       Get.find<LeaveController>().requestLeaveQueries["start_date"] =
@@ -303,8 +306,8 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
 
     Get.find<LeaveController>()
         .requestLeave(
-            leaveARequestQueries:
-                Get.find<LeaveController>().requestLeaveQueries)
+        leaveARequestQueries:
+        Get.find<LeaveController>().requestLeaveQueries)
         .then((value) {
       if (value == true) {
         Get.back();
@@ -337,8 +340,8 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
     }
     Get.find<LeaveController>()
         .requestLeave(
-            leaveARequestQueries:
-                Get.find<LeaveController>().requestLeaveQueries)
+        leaveARequestQueries:
+        Get.find<LeaveController>().requestLeaveQueries)
 
         .then((value) {
       if (value == true) {
@@ -358,15 +361,15 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
 
       Get.find<LeaveController>()
           .requestLeaveQueries["start_time"] = DateFormat(
-              "yyyy-MM-dd hh:mma")
+          "yyyy-MM-dd hh:mma")
           .parse(
-              "${Get.find<DateTimeController>().requestedDate.value} ${Get.find<DateTimeController>().pickedInTime.value.replaceAll(" ", "")}")
+          "${Get.find<DateTimeController>().requestedDate.value} ${Get.find<DateTimeController>().pickedInTime.value.replaceAll(" ", "")}")
           .toString();
 
       Get.find<LeaveController>().requestLeaveQueries["end_time"] = DateFormat(
-              "yyyy-MM-dd hh:mma")
+          "yyyy-MM-dd hh:mma")
           .parse(
-              "${Get.find<DateTimeController>().requestedDate.value} ${Get.find<DateTimeController>().pickedOutTime.value.replaceAll(" ", "")}")
+          "${Get.find<DateTimeController>().requestedDate.value} ${Get.find<DateTimeController>().pickedOutTime.value.replaceAll(" ", "")}")
           .toString();
     } catch (e) {
       LoggerHelper.errorLog(message: e.toString());
@@ -390,21 +393,21 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
   }
 
   _addAttachment() => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          textFieldTitleText(
-              titleText:
-                  '${AppString.text_attachments} ${AppString.text_if_any}'),
-          _dottedBorder(onAction: () => pickFile1()),
-          customSpacerHeight(height: 8),
-          Text(
-            AppString.text_jpeg_jpg_png_etc,
-            style: AppStyle.mid_large_text.copyWith(
-                color: AppColor.hintColor,
-                fontSize: Dimensions.fontSizeDefault - 2),
-          ),
-        ],
-      );
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      textFieldTitleText(
+          titleText:
+          '${AppString.text_attachments} ${AppString.text_if_any}'),
+      _dottedBorder(onAction: () => pickFile1()),
+      customSpacerHeight(height: 8),
+      Text(
+        AppString.text_jpeg_jpg_png_etc,
+        style: AppStyle.mid_large_text.copyWith(
+            color: AppColor.hintColor,
+            fontSize: Dimensions.fontSizeDefault - 2),
+      ),
+    ],
+  );
 
   _leaveCount() {
     var data = Get.find<LeaveController>().leaveAllowance.data;
@@ -434,7 +437,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                 child: Column(
                   children: dataValue.first!
                       .map((e) => _leaveCounter(
-                          leaveType: e.leaveType, leaveValue: e.value))
+                      leaveType: e.leaveType, leaveValue: e.value))
                       .toList(),
                 ),
               ),
@@ -443,7 +446,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                 child: Column(
                   children: dataValue.last!
                       .map((e) => _leaveCounter(
-                          leaveType: e.leaveType, leaveValue: e.value))
+                      leaveType: e.leaveType, leaveValue: e.value))
                       .toList(),
                 ),
               ),
@@ -530,4 +533,10 @@ Widget _hintText({hintText, Color textColor = AppColor.normalTextColor}) {
     hintText,
     style: AppStyle.normal_text.copyWith(color: textColor),
   );
+}
+
+Decoration  get _openModelRadius{
+  return  const BoxDecoration(
+      color: AppColor.cardColor,
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16)));
 }

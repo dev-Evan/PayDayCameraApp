@@ -16,32 +16,26 @@ import '../../../../utils/app_layout.dart';
 class LogoutController extends GetxController with StateMixin {
   LogoutRepository logoutRepository = LogoutRepository(NetworkClient());
   final _box = GetStorage();
+  final isLoading=false.obs;
   LogoutModel logoutModel = LogoutModel();
   logOut() async {
-    loadingIndicator();
-    try {
+    isLoading(true);
       await logoutRepository.getLogoutRepoData().then((value) {
         logoutModel = value;
+        isLoading(false);
         _box.remove(AppString.STORE_TOKEN);
         _box.remove(AppString.REMEMBER_KEY);
         _box.remove(AppString.LOGIN_CHECK_KEY);
-        Get.back();
         Get.offAllNamed(Routes.SIGN_IN);
         Get.put(AuthController());
       }, onError: (error) {
-        print(error.message);
+        isLoading(false);
       });
-    } catch (ex) {
-      print(ex.toString());
-    }
-    change(null, status: RxStatus.success());
+    isLoading(false);
   }
 }
 
-Future waitingLoader() {
-  return Get.dialog(const Center(child: LoadingIndicator()),
-      barrierColor: AppColor.backgroundColor);
-}
+
 
 loadingIndicator() {
   return Get.dialog(Center(

@@ -37,6 +37,7 @@ Widget logsList({
       top: AppLayout.getHeight(0),
     ),
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         InkWell(
           onTap: () async {

@@ -1,6 +1,8 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
@@ -470,33 +472,24 @@ Widget countyField({context, onAction, String? Function(String?)? validator,requ
   );
 }
 
-
-
-
-
-
-
-
-
-
-
 Widget phoneAndCountyField({required TextEditingController controller,final String? Function(String?)? validator}) {
   return IntlPhoneField(
     disableLengthCheck: true,
-      initialCountryCode: 'BD',
       onChanged: (phoneNumber) {
-        Get.find<CountryPickerController>().onPhoneNumberChanged(phoneNumber.completeNumber);
+        Get.find<CountryPickerController>().onPhoneNumberChanged(phoneNumber.number);
+        Get.find<CountryPickerController>().isoCodeChanged(phoneNumber.countryISOCode);
       },
       decoration:inputDecoration,
       controller:controller
   );
 }
-Widget editPhoneAndCountyField({required TextEditingController controller,final String? Function(String?)? validator}) {
+Widget editPhoneAndCountyField({required TextEditingController controller,final String? Function(String?)? validator,required isoCode}) {
   return IntlPhoneField(
     disableLengthCheck: true,
-      initialCountryCode: 'BD',
-      onCountryChanged: (county) {
-        Get.find<CountryPickerController>().flag(county.flag);
+      initialCountryCode: '$isoCode',
+      onChanged: (phoneNumber) {
+        Get.find<CountryPickerController>().onPhoneNumberChanged(phoneNumber.number);
+        Get.find<CountryPickerController>().isoCodeChanged(phoneNumber.countryISOCode);
       },
       decoration:inputDecoration,
       controller:controller

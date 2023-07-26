@@ -10,6 +10,7 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
+import 'package:pay_day_mobile/utils/utils.dart';
 
 Widget cardView({icon, dynamicText, titleText}) {
   return Padding(
@@ -23,7 +24,7 @@ Widget cardView({icon, dynamicText, titleText}) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                dynamicText,
+                capitalize(dynamicText),
                 style: AppStyle.small_text_black.copyWith(
                     fontSize: Dimensions.fontSizeSmall + 3,
                     color: AppColor.normalTextColor),

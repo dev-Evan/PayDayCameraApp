@@ -21,6 +21,8 @@ class ProfileDataController extends GetxController with StateMixin {
   ProfileDataRepository profileDataRepository =
       ProfileDataRepository(NetworkClient());
   UserProfileModel userProfile = UserProfileModel();
+  final isLoaded=false.obs;
+
 
   getProfileData() async {
     change(null, status: RxStatus.loading());
@@ -67,9 +69,9 @@ class ProfileDataController extends GetxController with StateMixin {
 
   }
 
-
   changePassword({required oldPassword, required newPassword, required confirmPass}) async {
-    loadingIndicator();
+
+    isLoaded(true);
     try {
       await profileDataRepository
           .changePassIntoAccount(
@@ -82,22 +84,22 @@ class ProfileDataController extends GetxController with StateMixin {
         GetStorage().remove(AppString.STORE_TOKEN);
         GetStorage().remove(AppString.REMEMBER_KEY);
         GetStorage().remove(AppString.LOGIN_CHECK_KEY);
-        Get.back();
+        isLoaded(false);
+
         showCustomSnackBar(
             message: AppString.text_password_update_successfully);
         Get.offNamed(Routes.SIGN_IN);
         cleanPassData();
         Get.put(AuthController());
       }, onError: (error) {
-        print(error.toString());
-        Get.back();
-        print(error.message);
+        isLoaded(false);
         errorSnackBar(errorMessage: error.message);
       });
     } catch (ex) {
-      Get.back();
-      errorSnackBar(errorMessage: ex.toString());
+      isLoaded(false);
     }
+    isLoaded(false);
+
   }
 
   Future<void> _refreshPage() async {
