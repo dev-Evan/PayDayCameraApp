@@ -13,8 +13,6 @@ void showCustomSnackBar({required String message,color=AppColor.secondaryColor})
       backgroundColor: color,
       textColor: Colors.white,
       fontSize: 16.0);
-
-
 }
 
 
@@ -22,6 +20,7 @@ void showCustomSnackBar({required String message,color=AppColor.secondaryColor})
  toastMessage({context,message,double ?height=60}){
   ElegantNotification.success(
       height:AppLayout.getHeight(height!),
+      progressIndicatorBackground: AppColor.pendingTextColor,
       description: Text("$message")
   ).show(context);
 }
