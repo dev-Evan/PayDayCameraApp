@@ -59,6 +59,7 @@ dependencies:
   logger: ^1.4.0
   html: ^0.15.0
   motion_toast: ^2.7.8
+  elegant_notification:
 
 dev_dependencies:
   flutter_test:

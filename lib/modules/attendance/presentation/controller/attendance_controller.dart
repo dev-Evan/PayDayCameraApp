@@ -77,7 +77,7 @@ class AttendanceController extends GetxController with StateMixin {
     change(null, status: RxStatus.success());
   }
 
-  Future<bool> punchIn(LogEntryRequest punchInRequest) async {
+  Future<bool> punchIn(LogEntryRequest punchInRequest,context) async {
     bool returnValue = false;
     isLoading(true);
     await _attendanceDataRepository
@@ -87,7 +87,8 @@ class AttendanceController extends GetxController with StateMixin {
       checkUserIsPunchedIn();
       getDailyLog();
       startTimer();
-      showCustomSnackBar(message: value.message ?? "");
+      //showCustomSnackBar(message: value.message ?? "");
+      toastMessage(context:context,message:value.message ?? "");
       returnValue = true;
       LoggerHelper.infoLog(message: value.message ?? "");
     }, onError: (error) {
@@ -100,7 +101,7 @@ class AttendanceController extends GetxController with StateMixin {
     return returnValue;
   }
 
-  Future<bool> punchOut(LogEntryRequest punchOutRequest) async {
+  Future<bool> punchOut(LogEntryRequest punchOutRequest,context) async {
     bool returnValue = false;
     isLoading(true);
     await _attendanceDataRepository.punchOut(punchOutRequest: punchOutRequest).then(
@@ -110,7 +111,8 @@ class AttendanceController extends GetxController with StateMixin {
         checkUserIsPunchedIn();
         getDailyLog();
         stopTimer();
-        showCustomSnackBar(message: value.message ?? "");
+        toastMessage(context:context,message:value.message ?? "");
+        // showCustomSnackBar(message: value.message ?? "");
         returnValue = true;
         LoggerHelper.infoLog(message: value.message ?? "");
       },

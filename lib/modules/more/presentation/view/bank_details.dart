@@ -124,7 +124,7 @@ class BankDetails extends GetView<BankInfoController> {
                               height: MediaQuery.of(context).size.height,
                               child: Column(
                                 children: [
-                                  noDataFound(),
+                                  noDataFound(height: 136),
                                   const Spacer(),
                                   _addBankInfo(onAction: () {
                                     customButtonSheet(

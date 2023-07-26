@@ -44,10 +44,7 @@ class ApplyLeaveDobHours extends StatelessWidget {
   }
 }
 
-Widget _applyLeaveEndTime({
-  context,
-  fieldTitleText,
-}) {
+Widget _applyLeaveEndTime({context, fieldTitleText}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -65,10 +62,7 @@ Widget _applyLeaveEndTime({
   );
 }
 
-Widget _applyLeaveStartTime({
-  context,
-  fieldTitleText,
-}) {
+Widget _applyLeaveStartTime({context, fieldTitleText}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [

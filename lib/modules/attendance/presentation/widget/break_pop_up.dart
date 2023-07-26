@@ -21,38 +21,51 @@ Future breakPopUp() {
     barrierDismissible: true,
     context: Get.context!,
     builder: (context) {
-      return Dialog(
-        backgroundColor: Colors.transparent,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16))),
-        insetPadding: EdgeInsets.zero,
-        child: Container(
-            decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(16)),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade200,
-                    offset: const Offset(0, 3),
-                  )
-                ]),
-            margin: EdgeInsets.symmetric(
-                horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _breakAppbar(),
-                customSpacerHeight(height: 20),
-                Obx(() => _timerLayout()),
-                Center(child: Obx(() => _breakTimes())),
-                customSpacerHeight(height: 20),
-                Obx(() => _buttonLayout()),
-                customSpacerHeight(height: 20)
-              ],
-            )),
+      return Container(
+        margin: EdgeInsets.only(bottom: AppLayout.getHeight(36)),
+        child: Dialog(
+          backgroundColor: Colors.transparent,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(16))),
+          insetPadding: EdgeInsets.zero,
+          child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(16)),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade200,
+                      offset: const Offset(0, 3),
+                    )
+                  ]),
+              margin: EdgeInsets.symmetric(
+                  horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                   _breakAppbar(),
+                    customSpacerHeight(height: 20),
+                    _breakInfoLayout(),
+                    customSpacerHeight(height: 20)
+                  ],
+                ),
+              )),
+        ),
       );
     },
+  );
+}
+
+_breakInfoLayout() {
+  return Column(
+    children: [
+      Obx(() => _timerLayout()),
+      Center(child: Obx(() => _breakTimes())),
+      customSpacerHeight(height: 20),
+      Obx(() => _buttonLayout()),
+    ],
   );
 }
 
@@ -185,9 +198,10 @@ _breakInfo() {
           size: AppLayout.getWidth(16),
         ),
         customSpacerWidth(width: 10),
-        Expanded(child: Text(
+        Text(
           "${Get.find<AttendanceController>().breakDetails.value.breakReason} ( ${Get.find<AttendanceController>().breakDetails.value.duration} )",textAlign: TextAlign.center,
-        ))
+        ),
+
       ],
     ),
   );

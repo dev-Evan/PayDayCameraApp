@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
@@ -6,30 +7,37 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 
 
 
-Future popUpDialog({context, child,dobSaveAction,double?  height,double?  width}) {
+Future popUpDialog({context, child}) {
   return showDialog(
-    barrierDismissible: false,
+    barrierDismissible: true,
     context: context,
     builder: (context) {
-      return AlertDialog(
-        contentPadding: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(Dimensions.radiusMid - 4),
-        ),
-        titlePadding: const EdgeInsets.only(top: 0, left: 0, right: 0),
-        insetPadding: const EdgeInsets.symmetric(horizontal: 20),
-        title: bottomSheetAppbar(
-            context: context, appbarTitle: AppString.text_select_date),
-        content: SizedBox(
-          height: height=MediaQuery.of(context).size.height / 2,
-          width: width=AppLayout.getWidth(460),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: child,
-            ),
-          ),
-        ),
+      return Dialog(
+        backgroundColor: Colors.transparent,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(16))),
+        insetPadding: EdgeInsets.zero,
+        child: Container(
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(16)),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade200,
+                    offset: const Offset(0, 3),
+                  )
+                ]),
+            margin: EdgeInsets.symmetric(
+                horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                 child
+                ],
+              ),
+            )),
       );
     },
   );

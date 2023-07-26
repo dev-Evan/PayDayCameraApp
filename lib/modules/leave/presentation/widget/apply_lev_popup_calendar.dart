@@ -8,6 +8,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../../../common/widget/custom_button.dart';
 import '../../../../utils/app_string.dart';
 import '../../../../utils/app_style.dart';
+import '../../../attendance/presentation/widget/bottom_sheet_appbar.dart';
 
 class ApplyLevPopUpCalendar extends StatefulWidget {
   final bool? isStartDay;
@@ -37,6 +38,8 @@ class _ApplyLevPopUpCalendarState extends State<ApplyLevPopUpCalendar> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        bottomSheetAppbar(
+            context: context, appbarTitle: AppString.text_select_date),
         TableCalendar(
           locale: "en_US",
           rowHeight: 38,
@@ -80,16 +83,20 @@ class _ApplyLevPopUpCalendarState extends State<ApplyLevPopUpCalendar> {
           },
         ),
         customSpacerHeight(height: 20),
-        CustomSmallButton(AppString.text_save, () {
-          widget.isStartDay!
-              ? Get.find<LeaveController>().startDate.value =
-                  DateFormat('yyyy-MM-dd').format(_selectedDate!)
-              : Get.find<LeaveController>().endDate.value =
-                  DateFormat('yyyy-MM-dd').format(_selectedDate!);
-          Get.back();
-        }),
-        customSpacerHeight(height: 20),
+        _save(),
+        customSpacerHeight(height: 8),
       ],
     );
+  }
+
+  _save() {
+    return  CustomSmallButton(AppString.text_save, () {
+      widget.isStartDay!
+          ? Get.find<LeaveController>().startDate.value =
+          DateFormat('yyyy-MM-dd').format(_selectedDate!)
+          : Get.find<LeaveController>().endDate.value =
+          DateFormat('yyyy-MM-dd').format(_selectedDate!);
+      Get.back();
+    });
   }
 }

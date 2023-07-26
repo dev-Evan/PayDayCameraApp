@@ -22,13 +22,12 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final focusedCtx = FocusManager.instance.primaryFocus!.context;
-    Future.delayed(const Duration(milliseconds: 200))
+    Future.delayed(const Duration(milliseconds: 180))
         .then((value) => Scrollable.ensureVisible(
               focusedCtx!,
-              duration: const Duration(milliseconds: 100),
+              duration: const Duration(milliseconds: 80),
               curve: Curves.easeOut,
             ));
-
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
