@@ -52,7 +52,7 @@ class AttendanceDataRepository {
       http.Response response = await networkClient.getReq(
           "${Api.CHECK_PUNCH_IN}?timezone=${DateTime.now().timeZoneName}");
 
-      if (response.statusCode!=200) {
+      if (response.statusCode != 200) {
         return Future.error(ErrorModel.fromJson(json.decode(response.body)));
       } else {
         return CheckEntryStatus.fromJson(json.decode(response.body));
@@ -64,9 +64,9 @@ class AttendanceDataRepository {
 
   Future<DailyLog> getDailyLog() async {
     try {
-      http.Response response = await networkClient.getReq(
-          "${Api.DAILY_LOG}?timezone=${DateTime.now().timeZoneName}");
-      if (response.statusCode!=200) {
+      http.Response response = await networkClient
+          .getReq("${Api.DAILY_LOG}?timezone=${DateTime.now().timeZoneName}");
+      if (response.statusCode != 200) {
         return Future.error(ErrorModel.fromJson(json.decode(response.body)));
       } else {
         return DailyLog.fromJson(json.decode(response.body));
@@ -80,7 +80,7 @@ class AttendanceDataRepository {
     try {
       http.Response response = await networkClient.getReq(
           "${Api.LOG_DETAILS}/$logId?timezone=${DateTime.now().timeZoneName}");
-      if (response.statusCode!=200) {
+      if (response.statusCode != 200) {
         return Future.error(ErrorModel.fromJson(json.decode(response.body)));
       } else {
         return LogDetails.fromJson(json.decode(response.body));
@@ -89,7 +89,6 @@ class AttendanceDataRepository {
       return Future.error(ErrorModel(message: ex.toString()));
     }
   }
-
 
   Future<ChangeRequestResponseModel> changeAttendanceRequest(
       {required int logId,
@@ -100,6 +99,8 @@ class AttendanceDataRepository {
       Response response = await networkClient.postRequest(
           "${Api.ATTENDANCE_REQUEST}/$logId",
           {"in_time": inTime, "out_time": outTime, "note": note});
+      print("in_time: $inTime, out_time: $outTime, note: $note");
+      print(response.body.toString());
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
@@ -138,4 +139,3 @@ class AttendanceDataRepository {
     }
   }
 }
-

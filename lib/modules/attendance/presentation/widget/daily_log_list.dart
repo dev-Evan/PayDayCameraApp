@@ -73,10 +73,7 @@ Widget _logDetails(DailyLogs dailyLog) {
   );
 }
 
-_openLogDetailsBottomSheet() => showModalBottomSheet(
-  enableDrag: false,
-  isScrollControlled: true,
-  backgroundColor: Colors.transparent,
-  context: Get.context!,
-  builder: (context) => const LogDetailsBottomSheet(pendingText: "log-details"),
-);
+_openLogDetailsBottomSheet() => customButtonSheet(
+    child: const LogDetailsBottomSheet(pendingText: "log-details"),
+    context: Get.context!,
+    height: .9);

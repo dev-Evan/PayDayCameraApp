@@ -43,7 +43,6 @@ class Leave extends GetView<LeaveController> {
                     children: [
                       _leaveAllowanceLayout(context: context),
                       individualDateLeaveRecord(),
-
                     ],
                   ),
                 ),

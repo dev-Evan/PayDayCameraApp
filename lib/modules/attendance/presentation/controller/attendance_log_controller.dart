@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
 import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
+import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attandance_logs_repository.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_summary/log_summary.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_summary/log_summary_overview.dart';
@@ -174,13 +175,13 @@ class AttendanceLogsController extends GetxController with StateMixin {
     ))
         .then((value) {
       isLoading(false);
-
       textEditingController.clear();
       returnValue = true;
+      showCustomSnackBar(message: value.message ?? "");
+      getAllFilteredLogSummary();
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
       isLoading(false);
-
       textEditingController.clear();
       errorSnackBar(errorMessage: error.message);
       returnValue = false;
@@ -192,15 +193,16 @@ class AttendanceLogsController extends GetxController with StateMixin {
   }
 
   cancelRequest({required int requestId}) async {
-    isLoading.value=true;
+    isLoading.value = true;
     _attendanceLogsRepository.cancelRequest(requestId).then((value) {
       LoggerHelper.infoLog(message: value.message);
       Get.back(canPop: false);
       getAllFilteredLogSummary();
+      isLoading.value = false;
     }, onError: (error) {
       LoggerHelper.errorLog(message: error.message);
+      isLoading.value = false;
     });
-    isLoading.value=false;
   }
 
   _reloadPage() async {

@@ -182,7 +182,6 @@ class AttendanceController extends GetxController with StateMixin {
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
       isLoading(false);
-
       LoggerHelper.errorLog(message: error.message);
       errorSnackBar(errorMessage: error.message);
       returnValue = false;
