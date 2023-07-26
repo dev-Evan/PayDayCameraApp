@@ -107,7 +107,8 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
 
                       ],
                     ),
-                  )
+                  ),
+                  customSpacerHeight(height: 200),
                 ],
               ),
             );

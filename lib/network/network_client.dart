@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 
 class NetworkClient extends GetConnect {
   Future<Response> getRequest(String apiEndPoint) async {
-    return await get(_getRequestUrl(apiEndPoint), headers: {
+    return await get(_getRequestUrl(apiEndPoint),
+        headers: {
       "Content-Type": "application/json",
       "Accept": "application/json",
       "Authorization": GetStorage().read(AppString.ACCESS_TOKEN) != null
@@ -58,6 +59,7 @@ class NetworkClient extends GetConnect {
     return response;
   }
 
+
   Future<Response> patchRequest(String apiEndPoint, dynamic body) async {
     Response response =
         await patch(_getRequestUrl(apiEndPoint), body, headers: {
@@ -70,6 +72,31 @@ class NetworkClient extends GetConnect {
 
     return response;
   }
+
+  static const int TIME_OUT_DURATION = 20;
+
+
+
+  // Future<dynamic> getRequest1(String baseUrl, String apiEndPoint1) async {
+  //   // var url = Uri.parse(baseUrl + apiEndPoint);
+  //
+  //   try {
+  //     var response = await get(_getRequestUrl(apiEndPoint1)).timeout( const Duration(seconds: TIME_OUT_DURATION));
+  //     return _processResponse(response);
+  //   } on SocketException {
+  //     throw FetchDataException("Not Internet connection", url.toString());
+  //   } on TimeoutException {
+  //     throw ApiNotRespondException("Api not respond in time", url.toString());
+  //   }
+  // }
+  //
+
+
+
+
+
+
+
 
   String _getRequestUrl(String apiEndPoint) => Api.BASE_URL + apiEndPoint;
 }

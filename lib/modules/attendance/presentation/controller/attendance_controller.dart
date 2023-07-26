@@ -104,11 +104,7 @@ class AttendanceController extends GetxController with StateMixin {
   Future<bool> punchOut(LogEntryRequest punchOutRequest) async {
     bool returnValue = false;
     isLoading(true);
-    await _attendanceDataRepository
-        .punchOut(
-      punchOutRequest: punchOutRequest,
-    )
-        .then(
+    await _attendanceDataRepository.punchOut(punchOutRequest: punchOutRequest).then(
       (LogEntryResponse value) {
         isLoading(false);
         _endBreak();

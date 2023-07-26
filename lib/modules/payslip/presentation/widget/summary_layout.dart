@@ -13,21 +13,18 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../attendance/presentation/widget/attendance_log_text.dart';
 
 
-Widget summaryLayout({required total, required sent, required conflicted,required totalDynamic, required sentDynamic, required conflictedDynamic,topTextValue, required layoutHeight,required context}) {
-  return Expanded(
-    flex:layoutHeight,
-    child: Container(
-      decoration: AppStyle.ContainerStyle.copyWith(
-          color: AppColor.primaryColor,
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(Dimensions.radiusMid),
-              bottomRight: Radius.circular(Dimensions.radiusMid))),
-      child: layout(totalDynamic:totalDynamic,sentDynamic:sentDynamic,conflictedDynamic:conflictedDynamic,total: total,sent: sent,conflicted: conflicted,topTextValue: topTextValue,context: context),
-    ),
+Widget summaryLayout({required total, required sent, required conflicted,required totalDynamic, required sentDynamic, required conflictedDynamic,topTextValue, int layoutHeight=8,required context}) {
+  return Container(
+    decoration: AppStyle.ContainerStyle.copyWith(
+        color: AppColor.primaryColor,
+        borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(Dimensions.radiusMid),
+            bottomRight: Radius.circular(Dimensions.radiusMid))),
+    child: layout(totalDynamic:totalDynamic,sentDynamic:sentDynamic,conflictedDynamic:conflictedDynamic,total: total,sent: sent,conflicted: conflicted,topTextValue: topTextValue,context: context,layoutHeight: layoutHeight.toInt()),
   );
 }
 
-Widget layout({required totalDynamic, required sentDynamic, required conflictedDynamic,required total, required sent, required conflicted,String ?topTextValue,required context}) {
+Widget layout({required totalDynamic, required sentDynamic, required conflictedDynamic,required total, required sent, required conflicted,String ?topTextValue,required context, required int layoutHeight}) {
   return Padding(
     padding: boxPadding,
     child: Column(
@@ -45,7 +42,7 @@ Widget layout({required totalDynamic, required sentDynamic, required conflictedD
             Expanded(child: container(dynamicInt: "$conflictedDynamic",countText: conflicted)),
           ],
         ),
-        customSpacerHeight(height: 8),
+        customSpacerHeight(height: layoutHeight.toDouble()),
         if (topTextValue.isEmpty) Container() else  attendanceLogText(
             context: Get.context,
             text: AppString.text_payrun_badge,

@@ -32,133 +32,130 @@ class PaySlip extends GetView<PayslipController> {
               body: RefreshIndicator(
                 onRefresh: _refreshPage,
                 child: SingleChildScrollView(
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        summaryLayout(
-                            sentDynamic: controller
-                                    .summaryModel.data?.summary?.sent
-                                    .toString() ??
-                                "",
-                            conflictedDynamic: controller
-                                    .summaryModel.data?.summary?.conflicted
-                                    .toString() ??
-                                "",
-                            totalDynamic: controller
-                                    .summaryModel.data?.summary?.total
-                                    .toString() ??
-                                "",
-                            total: AppString.text_total,
-                            sent: AppString.text_sent,
-                            conflicted: AppString.text_conflicted,
-                            topTextValue: AppString.text_total,
-                            layoutHeight: 2,
-                        context: context),
-                        vertical(
-                            layoutHeight: 5,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Obx(() => dropDawnBtnCard(
-                                        child: DropdownButton<String>(
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w500),
-                                      isDense: true,
-                                      isExpanded: false,
-                                      underline: const SizedBox.shrink(),
-                                      icon: const Icon(Icons.expand_more),
-                                      iconEnabledColor:
-                                          AppColor.normalTextColor,
-                                      hint: dropDawHintText(),
-                                      value:
-                                          Get.find<DropdownBtnStdController>()
-                                              .dropdownValue
-                                              .value,
-                                      borderRadius: BorderRadius.circular(
-                                          Dimensions.radiusDefault),
-                                      items: _selectedValue
-                                          .map<DropdownMenuItem<String>>(
-                                              (String value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: calTitleRow(titleText: value),
-                                        );
-                                      }).toList(),
-                                      onChanged: (newValue) {
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      summaryLayout(
+                          sentDynamic: controller
+                                  .summaryModel.data?.summary?.sent
+                                  .toString() ??
+                              "",
+                          conflictedDynamic: controller
+                                  .summaryModel.data?.summary?.conflicted
+                                  .toString() ??
+                              "",
+                          totalDynamic: controller
+                                  .summaryModel.data?.summary?.total
+                                  .toString() ??
+                              "",
+                          total: AppString.text_total,
+                          sent: AppString.text_sent,
+                          conflicted: AppString.text_conflicted,
+                          topTextValue: AppString.text_total,
+                      context: context),
+                      vertical(
+                          layoutHeight: 0,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Obx(() => dropDawnBtnCard(
+                                      child: DropdownButton<String>(
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500),
+                                    isDense: true,
+                                    isExpanded: false,
+                                    underline: const SizedBox.shrink(),
+                                    icon: const Icon(Icons.expand_more),
+                                    iconEnabledColor:
+                                        AppColor.normalTextColor,
+                                    hint: dropDawHintText(),
+                                    value:
                                         Get.find<DropdownBtnStdController>()
-                                            .onValueChanged(newValue);
+                                            .dropdownValue
+                                            .value,
+                                    borderRadius: BorderRadius.circular(
+                                        Dimensions.radiusDefault),
+                                    items: _selectedValue
+                                        .map<DropdownMenuItem<String>>(
+                                            (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: calTitleRow(titleText: value),
+                                      );
+                                    }).toList(),
+                                    onChanged: (newValue) {
+                                      Get.find<DropdownBtnStdController>()
+                                          .onValueChanged(newValue);
+                                    },
+                                  ))),
+                              viewDate(
+                                  dateText:
+                                      Get.find<DropdownBtnStdController>()
+                                          .sltDate
+                                          .toString()),
+                              customSpacerHeight(height: 12),
+                              (controller.payslipListModel.data?.payslips !=
+                                          null &&
+                                      controller.payslipListModel.data!
+                                          .payslips!.isNotEmpty)
+                                  ? ListView.builder(
+                                      itemCount: controller.payslipListModel
+                                          .data?.payslips?.length,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) {
+                                        return logsList(
+                                            titleMonth: controller
+                                                    .payslipListModel
+                                                    .data
+                                                    ?.payslips?[index]
+                                                    .month ??
+                                                "",
+                                            titleDate: controller
+                                                    .payslipListModel
+                                                    .data
+                                                    ?.payslips?[index]
+                                                    .dateInNumber ??
+                                                "",
+                                            basicSalary: controller
+                                                    .payslipListModel
+                                                    .data
+                                                    ?.payslips?[index]
+                                                    .netSalary ??
+                                                "",
+                                            statusText: controller
+                                                    .payslipListModel
+                                                    .data
+                                                    ?.payslips?[index]
+                                                    .statusName ??
+                                                "",
+                                            startDate: controller
+                                                    .payslipListModel
+                                                    .data
+                                                    ?.payslips?[index]
+                                                    .startDate ??
+                                                "",
+                                            conflicted: controller
+                                                .payslipListModel
+                                                .data
+                                                ?.payslips?[index]
+                                                .conflicted ??
+                                                "",
+                                            endDate:
+                                                controller.payslipListModel.data?.payslips?[index].endDate ?? "",
+                                            monthly: controller.payslipListModel.data?.payslips?[index].period ?? "",
+                                            indexId: controller.payslipListModel.data?.payslips?[index].id.toString() ?? "");
                                       },
-                                    ))),
-                                viewDate(
-                                    dateText:
-                                        Get.find<DropdownBtnStdController>()
-                                            .sltDate
-                                            .toString()),
-                                customSpacerHeight(height: 12),
-                                (controller.payslipListModel.data?.payslips !=
-                                            null &&
-                                        controller.payslipListModel.data!
-                                            .payslips!.isNotEmpty)
-                                    ? ListView.builder(
-                                        itemCount: controller.payslipListModel
-                                            .data?.payslips?.length,
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemBuilder: (context, index) {
-                                          return logsList(
-                                              titleMonth: controller
-                                                      .payslipListModel
-                                                      .data
-                                                      ?.payslips?[index]
-                                                      .month ??
-                                                  "",
-                                              titleDate: controller
-                                                      .payslipListModel
-                                                      .data
-                                                      ?.payslips?[index]
-                                                      .dateInNumber ??
-                                                  "",
-                                              basicSalary: controller
-                                                      .payslipListModel
-                                                      .data
-                                                      ?.payslips?[index]
-                                                      .netSalary ??
-                                                  "",
-                                              statusText: controller
-                                                      .payslipListModel
-                                                      .data
-                                                      ?.payslips?[index]
-                                                      .statusName ??
-                                                  "",
-                                              startDate: controller
-                                                      .payslipListModel
-                                                      .data
-                                                      ?.payslips?[index]
-                                                      .startDate ??
-                                                  "",
-                                              conflicted: controller
-                                                  .payslipListModel
-                                                  .data
-                                                  ?.payslips?[index]
-                                                  .conflicted ??
-                                                  "",
-                                              endDate:
-                                                  controller.payslipListModel.data?.payslips?[index].endDate ?? "",
-                                              monthly: controller.payslipListModel.data?.payslips?[index].period ?? "",
-                                              indexId: controller.payslipListModel.data?.payslips?[index].id.toString() ?? "");
-                                        },
-                                      )
-                                    : noDataFound(
-                                        height: 90,
-                                        svgHeight: 140,
-                                        svgWidth: 140),
-                              ],
-                            ))
-                      ],
-                    ),
+                                    )
+                                  : noDataFound(
+                                      height: 90,
+                                      svgHeight: 140,
+                                      svgWidth: 140),
+                            ],
+                          ))
+                    ],
                   ),
                 ),
               ),

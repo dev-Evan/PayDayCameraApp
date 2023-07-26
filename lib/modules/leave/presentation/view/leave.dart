@@ -43,6 +43,7 @@ class Leave extends GetView<LeaveController> {
                     children: [
                       _leaveAllowanceLayout(context: context),
                       individualDateLeaveRecord(),
+
                     ],
                   ),
                 ),
@@ -60,6 +61,7 @@ class Leave extends GetView<LeaveController> {
         await controller.getLeaveType();
         customButtonSheet(
             context: context, height: 0.9, child: const ApplyLeaveView());
+
       }),
     );
   }

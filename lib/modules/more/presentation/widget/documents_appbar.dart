@@ -36,8 +36,7 @@ Widget customMoreAppbar({
   );
 }
 
-Widget profileViewAppbar(
-    {titleText, bgColor = AppColor.backgroundColor, rightBtnAction}) {
+Widget profileViewAppbar({titleText, bgColor = AppColor.backgroundColor, rightBtnAction}) {
   return AppBar(
     elevation: 0,
     leading: IconButton(
