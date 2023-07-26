@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
+import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_time_in_time_picker.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
@@ -22,79 +23,63 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
   Widget build(BuildContext context) {
     Get.delete<DateTimeController>();
     Get.put(DateTimeController());
-    return DraggableScrollableSheet(
-      initialChildSize: .9,
-      maxChildSize: .9,
-      minChildSize: .5,
-      builder: (BuildContext context, ScrollController scrollController) =>
-          Container(
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-        child: Stack(
+    return Container(
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+      child: Column(
+        children: [
+          bottomSheetAppbar(
+              context: context, appbarTitle: AppString.text_request_attendance),
+          _contentLayout(context),
+          const Spacer(),
+          _buttonLayout(context),
+        ],
+      ),
+    );
+  }
+
+  _contentLayout(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsets.symmetric(
+            vertical: AppLayout.getHeight(Dimensions.paddingLarge),
+            horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ListView(
-              controller: scrollController,
-              children: [
-                bottomSheetAppbar(
-                    context: context,
-                    appbarTitle: AppString.text_request_attendance),
-                SizedBox(
-                  height: AppLayout.getHeight(Dimensions.paddingLarge),
-                ),
-                _contentLayout(context),
-                SizedBox(
-                  height: AppLayout.getHeight(60),
-                )
-              ],
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: _buttonLayout(context),
-            )
+            _dateEntry(),
+            SizedBox(height: AppLayout.getHeight(24)),
+            _timeLayout(),
+            SizedBox(height: AppLayout.getHeight(24)),
+            noteLayout(),
+            customSpacerHeight(height: 70)
           ],
         ),
       ),
     );
   }
 
-  _contentLayout(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-          vertical: AppLayout.getHeight(Dimensions.paddingLarge),
-          horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _dateEntry(),
-          SizedBox(height: AppLayout.getHeight(24)),
-          _timeLayout(),
-          SizedBox(height: AppLayout.getHeight(24)),
-          noteLayout(),
-        ],
-      ),
-    );
-  }
-
   _buttonLayout(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
-        left: AppLayout.getWidth(Dimensions.paddingLarge),
-        right: AppLayout.getWidth(Dimensions.paddingLarge),
-        bottom: AppLayout.getHeight(Dimensions.paddingLarge),
-      ),
-      color: Colors.white,
-      child: Obx(() => Get.find<AttendanceLogsController>().isLoading.isTrue
-    ? loadingIndicatorLayout():
-    Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _cancelButton(context),
-          SizedBox(width: AppLayout.getWidth(10)),
-          _requestButton(context),
-        ],
-      ),)
-    );
+        padding: EdgeInsets.only(
+          left: AppLayout.getWidth(Dimensions.paddingLarge),
+          right: AppLayout.getWidth(Dimensions.paddingLarge),
+          bottom: AppLayout.getHeight(Dimensions.paddingLarge),
+        ),
+        color: Colors.white,
+        child: Obx(
+          () => Get.find<AttendanceLogsController>().isLoading.isTrue
+              ? loadingIndicatorLayout()
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _cancelButton(context),
+                    SizedBox(width: AppLayout.getWidth(10)),
+                    _requestButton(context),
+                  ],
+                ),
+        ));
   }
 
   _requestButton(BuildContext context) {

@@ -79,6 +79,8 @@ class AttendanceLogsRepository {
     try {
       Response response = await networkClient.postRequest(
           Api.REQUEST_ATTENDANCE, json.encode(attendanceChangeReq.toJson()));
+      print(attendanceChangeReq.toString());
+      print(response.body.toString());
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

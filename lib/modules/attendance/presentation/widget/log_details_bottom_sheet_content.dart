@@ -17,26 +17,28 @@ import '../../../../utils/dimensions.dart';
 import '../../../../utils/utils.dart';
 
 Widget contentLayout() {
-  return Container(
-      padding: EdgeInsets.symmetric(
-          vertical: AppLayout.getHeight(Dimensions.paddingLarge),
-          horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _topLayout(),
-          customSpacerHeight(height: 20),
-          _logTimeLayout(),
-          Get.find<AttendanceController>().logDetailsById.data != null &&
-                  Get.find<AttendanceController>()
-                      .logDetailsById
-                      .data!
-                      .punchInStatus!
-                      .contains("Auto")
-              ? _autoEntryLayout()
-              : _manualEntryLog(),
-        ],
-      ));
+  return SingleChildScrollView(
+    child: Container(
+        padding: EdgeInsets.symmetric(
+            vertical: AppLayout.getHeight(Dimensions.paddingLarge),
+            horizontal: AppLayout.getWidth(Dimensions.paddingLarge)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _topLayout(),
+            customSpacerHeight(height: 20),
+            _logTimeLayout(),
+            Get.find<AttendanceController>().logDetailsById.data != null &&
+                    Get.find<AttendanceController>()
+                        .logDetailsById
+                        .data!
+                        .punchInStatus!
+                        .contains("Auto")
+                ? _autoEntryLayout()
+                : _manualEntryLog(),
+          ],
+        )),
+  );
 }
 
 _manualEntryLog() {

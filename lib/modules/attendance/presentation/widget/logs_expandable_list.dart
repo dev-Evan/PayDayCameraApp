@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/logs_date.dart';
 import '../../../../common/widget/custom_spacer.dart';
 import '../../../../utils/app_color.dart';
@@ -145,13 +146,10 @@ class _LogsExpandableListState extends State<LogsExpandableList> {
   }
 
   Future _openLogDetailsBottomSheet(String? statusClass) {
-    return showModalBottomSheet(
-      enableDrag: false,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
+    return customButtonSheet(
+      height: .9,
       context: Get.context!,
-      builder: (context) =>
-          LogDetailsBottomSheet(pendingText: statusClass ?? "log-details"),
+      child: LogDetailsBottomSheet(pendingText: statusClass ?? "log-details")
     );
   }
 }

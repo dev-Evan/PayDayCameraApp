@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
@@ -27,12 +28,14 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppbar(),
-      floatingActionButton: controller.obx((state) => Padding(
-        padding: EdgeInsets.only(left: AppLayout.getWidth(30)),
-        child: CustomButton(AppString.text_requstAttendance, () {
-          _openRequestAttendanceBottomSheet(context: context);
-        }),
-      ),onLoading: Container()),
+      floatingActionButton: controller.obx(
+          (state) => Padding(
+                padding: EdgeInsets.only(left: AppLayout.getWidth(30)),
+                child: CustomButton(AppString.text_requstAttendance, () {
+                  _openRequestAttendanceBottomSheet();
+                }),
+              ),
+          onLoading: Container()),
       body: controller.obx((state) => _body(),
           onLoading: const LoadingIndicator()),
     );
@@ -535,13 +538,11 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
     );
   }
 
-  Future _openRequestAttendanceBottomSheet({required BuildContext context}) {
-    return showModalBottomSheet(
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      context: context,
-      builder: (context) => const RequestAttendanceBottomSheet(),
-    );
+  Future _openRequestAttendanceBottomSheet() {
+    return customButtonSheet(
+        child: const RequestAttendanceBottomSheet(),
+        context: Get.context!,
+        height: .9);
   }
 
   Future<void> _reloadPage() async {

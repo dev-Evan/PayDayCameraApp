@@ -23,42 +23,24 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
   @override
   Widget build(BuildContext context) {
     print(pendingText);
-    return DraggableScrollableSheet(
-      initialChildSize: .9,
-      maxChildSize: .9,
-      minChildSize: .7,
-      builder: (BuildContext context, ScrollController scrollController) =>
-          Container(
+    return Container(
         decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-        child: Stack(
+        child: Column(
           children: [
-            ListView(
-              controller: scrollController,
-              children: [
-                bottomSheetAppbar(
-                    context: context,
-                    appbarTitle: pendingText == "warning"
-                        ? AppString.text_log_request_details
-                        : AppString.text_log_details),
-                controller.obx((state) => contentLayout(),
-                    onLoading: bottomSheetLoader()),
-                SizedBox(
-                  height: AppLayout.getHeight(60),
-                )
-              ],
-            ),
-            controller.obx(
-                (state) => Align(
-                      alignment: Alignment.bottomCenter,
-                      child: _buttonLayout(context),
-                    ),
-                onLoading: Container()),
+            bottomSheetAppbar(
+                context: context,
+                appbarTitle: pendingText == "warning"
+                    ? AppString.text_log_request_details
+                    : AppString.text_log_details),
+            controller.obx((state) => contentLayout(),
+                onLoading: bottomSheetLoader()),
+            const Spacer(),
+            controller.obx((state) => _buttonLayout(context),
+                onLoading: Container())
           ],
-        ),
-      ),
-    );
+        ));
   }
 
   _buttonLayout(BuildContext context) {
@@ -70,7 +52,10 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
         ),
         color: Colors.white,
         child: pendingText == "warning"
-            ? Obx(() => _manualEntryButtonLayout())
+            ? Obx(() =>
+                Get.find<AttendanceLogsController>().isLoading.value == true
+                    ? loadingIndicatorLayout()
+                    : _manualEntryButtonLayout())
             : _autoEntryLogDetail());
   }
 
@@ -78,8 +63,8 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
     return AppButton(
         buttonText: AppString.text_cancel_request,
         onPressed: () {
-          Get.find<AttendanceLogsController>()
-              .cancelRequest(requestId: controller.logDetailsById.data?.id ?? 0);
+          Get.find<AttendanceLogsController>().cancelRequest(
+              requestId: controller.logDetailsById.data?.id ?? 0);
         },
         buttonColor: Colors.white,
         borderColor: Colors.black,
@@ -111,15 +96,13 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
       );
 
   _manualEntryButtonLayout() {
-   return Get.find<AttendanceLogsController>().isLoading.value == true
-        ? loadingIndicatorLayout()
-        : Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _cancelRequest(),
-              customSpacerWidth(width: 10),
-              _editButton(),
-            ],
-          );
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _cancelRequest(),
+        customSpacerWidth(width: 10),
+        _editButton(),
+      ],
+    );
   }
 }

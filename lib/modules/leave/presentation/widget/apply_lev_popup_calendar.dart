@@ -13,7 +13,7 @@ import '../../../attendance/presentation/widget/bottom_sheet_appbar.dart';
 class ApplyLevPopUpCalendar extends StatefulWidget {
   final bool? isStartDay;
 
-  const ApplyLevPopUpCalendar({ this.isStartDay, super.key});
+  const ApplyLevPopUpCalendar({this.isStartDay, super.key});
 
   @override
   State<ApplyLevPopUpCalendar> createState() => _ApplyLevPopUpCalendarState();
@@ -83,10 +83,8 @@ class _ApplyLevPopUpCalendarState extends State<ApplyLevPopUpCalendar> {
           },
         ),
         customSpacerHeight(height: 20),
-
         _save(),
         customSpacerHeight(height: 8),
-
       ],
     );
   }
