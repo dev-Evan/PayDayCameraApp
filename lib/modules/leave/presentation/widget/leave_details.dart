@@ -40,11 +40,13 @@ class LeaveDetails extends GetView<LeaveController> {
             children: [
               Row(
                 children: [
-                  Text(
-                    controller.leaveDetails.data?.leaveType ?? "",
-                    style: AppStyle.title_text.copyWith(
-                        color: AppColor.normalTextColor,
-                        fontSize: Dimensions.fontSizeMid),
+                  Expanded(
+                    child: Text(
+                      controller.leaveDetails.data?.leaveType ?? "",
+                      style: AppStyle.title_text.copyWith(
+                          color: AppColor.normalTextColor,
+                          fontSize: Dimensions.fontSizeMid),
+                    ),
                   ),
                   SizedBox(
                     width: AppLayout.getWidth(12),
