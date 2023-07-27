@@ -287,12 +287,6 @@ class AttendanceController extends GetxController with StateMixin {
 
   void _endBreak() {
     if (Get.find<AttendanceController>().breakDetails.value.id != null) {
-      // Get.find<BreakController>().endBreak(
-      //     logId: Get.find<AttendanceController>()
-      //             .lastAttendanceId,
-      //     breakId:
-      //         Get.find<AttendanceController>().breakDetails.value.breakTimeId ??
-      //             0);
       Get.find<BreakController>().stopTimer();
     }
   }

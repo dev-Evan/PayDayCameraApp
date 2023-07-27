@@ -14,7 +14,7 @@ import '../../../../utils/dimensions.dart';
 
 Future breakPopUp() {
   if (!Get.isRegistered<BreakController>()) {
-    Get.put(BreakController(),permanent: true);
+    Get.put(BreakController(), permanent: true);
   }
   Get.find<BreakController>().selectedIndex(100);
   return showDialog(
@@ -45,7 +45,7 @@ Future breakPopUp() {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                   _breakAppbar(),
+                    _breakAppbar(),
                     customSpacerHeight(height: 20),
                     _breakInfoLayout(),
                     customSpacerHeight(height: 20)
@@ -188,20 +188,29 @@ _breakTimes() {
 
 _breakInfo() {
   return Padding(
-    padding: EdgeInsets.symmetric(vertical: AppLayout.getHeight(20),horizontal: AppLayout.getWidth(20)),
+    padding: EdgeInsets.symmetric(
+        vertical: AppLayout.getHeight(20), horizontal: AppLayout.getWidth(20)),
     child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(
-          Icons.watch_later_outlined,
-          size: AppLayout.getWidth(16),
-        ),
-        customSpacerWidth(width: 10),
-        Text(
-          "${Get.find<AttendanceController>().breakDetails.value.breakReason} ( ${Get.find<AttendanceController>().breakDetails.value.duration} )",textAlign: TextAlign.center,
-        ),
-
+        Expanded(
+            child: Text.rich(
+              textAlign: TextAlign.center,
+          TextSpan(
+            children: [
+              WidgetSpan(
+                child: Icon(
+                  Icons.watch_later_outlined,
+                  size: AppLayout.getWidth(16),
+                ),
+              ),
+              WidgetSpan(child: customSpacerWidth(width: 8)),
+              TextSpan(
+                text:
+                    "${Get.find<AttendanceController>().breakDetails.value.breakReason} ( ${Get.find<AttendanceController>().breakDetails.value.duration} )",
+              ),
+            ],
+          ),
+        ))
       ],
     ),
   );
