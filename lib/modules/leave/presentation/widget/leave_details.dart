@@ -40,11 +40,13 @@ class LeaveDetails extends GetView<LeaveController> {
             children: [
               Row(
                 children: [
-                  Text(
-                    controller.leaveDetails.data?.leaveType ?? "",
-                    style: AppStyle.title_text.copyWith(
-                        color: AppColor.normalTextColor,
-                        fontSize: Dimensions.fontSizeMid),
+                  Expanded(
+                    child: Text(
+                      controller.leaveDetails.data?.leaveType ?? "",
+                      style: AppStyle.title_text.copyWith(
+                          color: AppColor.normalTextColor,
+                          fontSize: Dimensions.fontSizeMid),
+                    ),
                   ),
                   SizedBox(
                     width: AppLayout.getWidth(12),
@@ -186,7 +188,7 @@ class LeaveDetails extends GetView<LeaveController> {
   _attachmentCard(int index) {
     return InkWell(
         child: Image.asset(Images.documents),
-        onTap: () => Get.find<DownloadHelper>().downloadFile(
+        onTap: () => Get.find<DownloadHelper>().downloadFileForAndroid(
             url: controller.leaveDetails.data?.attachments?[index].fullUrl ??
                 ""));
   }
