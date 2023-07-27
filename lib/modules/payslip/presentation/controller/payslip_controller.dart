@@ -31,7 +31,9 @@ class PayslipController extends GetxController with StateMixin {
         .then((payslipListData) {
       payslipListModel = payslipListData;
     }, onError: (error) {
-      errorAlertPopup(_refreshPage);
+      if (!Get.isDialogOpen!) {
+        errorAlertPopup(_refreshPage);
+      }
     });
     change(null, status: RxStatus.success());
   }
@@ -42,7 +44,8 @@ class PayslipController extends GetxController with StateMixin {
       print(value);
       summaryModel = value;
     }, onError: (error) {
-      errorAlertPopup(_refreshPage);
+      if (!Get.isDialogOpen!) {
+        errorAlertPopup(_refreshPage);      }
     });
     change(null, status: RxStatus.success());
   }
@@ -68,7 +71,9 @@ class PayslipController extends GetxController with StateMixin {
           .where((element) => element.beneficiary!.type == "deduction")
           .toList();
     }, onError: (error) {
-      errorAlertPopup(getPayrunBadgeData);
+      if (!Get.isDialogOpen!) {
+        errorAlertPopup(getPayrunBadgeData);
+      }
       print(error.message);
     });
     change(null, status: RxStatus.success());

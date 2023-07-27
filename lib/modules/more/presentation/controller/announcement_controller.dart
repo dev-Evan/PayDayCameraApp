@@ -57,7 +57,9 @@ class AnnouncementController extends GetxController with StateMixin {
           .toList(growable: true);
       change(null, status: RxStatus.success());
     }, onError: (error) {
-      errorAlertPopup(getAnnouncement);
+      if (!Get.isDialogOpen!) {
+        errorAlertPopup(getAnnouncement);
+      }
       print("Get Announcement ::: ${error.message}");
     });
   }
@@ -94,7 +96,9 @@ class AnnouncementController extends GetxController with StateMixin {
       leaveAllowanceDetailsModel = value;
       change(null, status: RxStatus.success());
     }, onError: (error) {
-      errorAlertPopup(getLeaveAllowanceDetails);
+      if (!Get.isDialogOpen!) {
+        errorAlertPopup(getLeaveAllowanceDetails);
+      }
       print("Get Leave allowance ::: $error");
     });
   }

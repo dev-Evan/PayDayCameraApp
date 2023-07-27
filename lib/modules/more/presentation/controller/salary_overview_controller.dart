@@ -14,7 +14,9 @@ class SalaryOverviewController extends GetxController with StateMixin {
       await salaryOverViewRepository.getSalaryOverViewData().then((SalaryOverViewModel value) {
         salaryOverView = value;
       }, onError: (error) {
-        errorAlertPopup(getSalaryOveData);
+        if (!Get.isDialogOpen!) {
+          errorAlertPopup(getSalaryOveData);
+        }
         print(error.message);
       });
     } catch (ex) {

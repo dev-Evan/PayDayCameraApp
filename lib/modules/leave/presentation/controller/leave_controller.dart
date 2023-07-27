@@ -53,7 +53,9 @@ class LeaveController extends GetxController with StateMixin {
       print("getLeaveAllowance ::: called");
       leaveAllowance = value;
     }, onError: (error) {
-      errorAlertPopup(_refreshPage);
+      if (!Get.isDialogOpen!) {
+        errorAlertPopup(_refreshPage);
+      }
     });
 
     change(null, status: RxStatus.success());
@@ -65,7 +67,9 @@ class LeaveController extends GetxController with StateMixin {
       print("getLeaveSummary ::: called");
       leaveSummary = value;
     }, onError: (error) {
-      errorAlertPopup(_refreshRecordPage);
+      if (!Get.isDialogOpen!) {
+        errorAlertPopup(_refreshRecordPage);
+      }
     });
 
     change(null, status: RxStatus.success());
@@ -77,7 +81,9 @@ class LeaveController extends GetxController with StateMixin {
       print("getLeaveRecord ::: called");
       leaveRecord = value;
     }, onError: (error) {
-      errorAlertPopup(_refreshRecordPage);
+      if (!Get.isDialogOpen!) {
+        errorAlertPopup(_refreshRecordPage);
+      }
     });
 
     change(null, status: RxStatus.success());
