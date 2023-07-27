@@ -22,7 +22,9 @@ class AddressController extends GetxController with StateMixin {
       print("Address details called ::: $value");
       addressDetailsModel = value;
     }, onError: (error) {
-      errorAlertPopup(getEmployeeAddressData);
+      if (!Get.isDialogOpen!) {
+        errorAlertPopup(getEmployeeAddressData);
+      }
       print(error.message);
     });
     change(null, status: RxStatus.success());

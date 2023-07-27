@@ -4,18 +4,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pay_day_mobile/modules/more/data/profile_data_repo.dart';
 import 'package:pay_day_mobile/modules/more/domain/change_password.dart';
 import 'package:pay_day_mobile/modules/more/domain/user_profile.dart';
-import 'package:pay_day_mobile/modules/more/presentation/controller/logout_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/change_password.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-import '../../../../common/widget/custom_navigator.dart';
 import '../../../../common/widget/error_alert_pop_up.dart';
 import '../../../../common/widget/error_snackbar.dart';
 import '../../../../common/widget/success_snakbar.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../utils/app_string.dart';
 import '../../../auth/presentation/controller/auth_controller.dart';
-import '../view/view_profile.dart';
-import '../widget/profile_container_layout.dart';
 
 class ProfileDataController extends GetxController with StateMixin {
   ProfileDataRepository profileDataRepository =
@@ -31,7 +27,9 @@ class ProfileDataController extends GetxController with StateMixin {
       userProfile = value;
       print('User profile called ::: $value');
     }, onError: (e) {
-      errorAlertPopup(_refreshPage);
+      if (!Get.isDialogOpen!) {
+        errorAlertPopup(_refreshPage);
+      }
       print('User profile called ::: ${e.message}');
     });
     change(null, status: RxStatus.success());

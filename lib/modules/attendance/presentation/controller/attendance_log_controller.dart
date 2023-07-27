@@ -10,9 +10,7 @@ import 'package:pay_day_mobile/modules/attendance/domain/log_summary/log_summary
 import 'package:pay_day_mobile/modules/attendance/domain/request_attendance/request_attendance.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/logger.dart';
-
 import '../../../../common/widget/error_snackbar.dart';
-import '../../../../routes/app_pages.dart';
 import '../../domain/all_log_summary/all_log_summay.dart';
 
 class AttendanceLogsController extends GetxController with StateMixin {

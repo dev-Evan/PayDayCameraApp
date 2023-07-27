@@ -18,7 +18,9 @@ class DocumentController extends GetxController with StateMixin {
       await documentRepository.getDocumentRepoData().then((value) {
         documentModel = value;
       }, onError: (error) {
-        errorAlertPopup(_refreshPage);
+        if (!Get.isDialogOpen!) {
+          errorAlertPopup(_refreshPage);
+        }
         print( "Document Called ::: ${error.toString()}");
       });
     } catch (ex) {
