@@ -2,10 +2,12 @@ import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
+import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/utils/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../utils/app_string.dart';
@@ -13,7 +15,8 @@ import '../../utils/app_string.dart';
 class DownloadHelper extends GetxController {
   @override
   void onInit() {
-    IsolateNameServer.registerPortWithName(_port.sendPort, "downloader_send_port");
+    IsolateNameServer.registerPortWithName(
+        _port.sendPort, "downloader_send_port");
     FlutterDownloader.registerCallback(downloadCallback);
     super.onInit();
   }
@@ -40,26 +43,30 @@ class DownloadHelper extends GetxController {
     return directory?.path;
   }
 
-
   downloadFile({required String url, fileInfo}) async {
     final status = await Permission.storage.request();
     if (status.isGranted) {
       print("${status.isGranted}");
       final String? baseStorage = await getDownloadPath();
-      try{await FlutterDownloader.enqueue(
-        url: url,
-        savedDir: baseStorage!,
-        fileName: fileInfo ?? "File",
-        headers: _setHeaders(),
-        showNotification: true,
-        openFileFromNotification: true,
-      );}catch(e){print(e.toString());}
+      try {
+        await FlutterDownloader.enqueue(
+          url: url,
+          savedDir: baseStorage!,
+          fileName: fileInfo ?? "File",
+          headers: _setHeaders(),
+          showNotification: true,
+          openFileFromNotification: true,
+        );
+      } catch (e) {
+        print(e.toString());
+      }
     } else {
       errorSnackBar(errorMessage: AppString.storage_permission);
     }
   }
 
   var token = GetStorage().read(AppString.ACCESS_TOKEN);
+
   _setHeaders() => {
         'Authorization': 'Bearer $token',
         'Accept': '*/*',
@@ -73,8 +80,38 @@ class DownloadHelper extends GetxController {
 
   @pragma('vm:entry-point')
   static void downloadCallback(String id, int status, int progress) {
-    final SendPort? send = IsolateNameServer.lookupPortByName('downloader_send_port');
+    final SendPort? send =
+        IsolateNameServer.lookupPortByName('downloader_send_port');
     send!.send([id, status, progress]);
   }
-}
 
+  String extractFileNameFromUrl(String url) {
+    Uri uri = Uri.parse(url);
+    return uri.pathSegments.last;
+  }
+
+  downloadFileForAndroid({required String url, fileInfo}) async {
+
+    final status = await Permission.storage.request();
+    if (status.isGranted) {
+      try {
+        FileDownloader.downloadFile(
+            url: url,
+            name: extractFileNameFromUrl(url),
+            onProgress: (fileName, progress) {
+              showCustomSnackBar(message: "Download Started");
+            },
+            onDownloadCompleted: (String path) {
+              showCustomSnackBar(message: "Download Completed");
+            },
+            onDownloadError: (String error) {
+              showCustomSnackBar(message: "Something went wrong! \n$error");
+            });
+      } catch (e) {
+        print(e.toString());
+      }
+    } else {
+      errorSnackBar(errorMessage: AppString.storage_permission);
+    }
+  }
+}

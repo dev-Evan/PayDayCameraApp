@@ -60,7 +60,7 @@ dependencies:
   html: ^0.15.0
   motion_toast: ^2.7.8
   elegant_notification:
-
+  flutter_file_downloader: ^1.1.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
