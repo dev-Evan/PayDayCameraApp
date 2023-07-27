@@ -17,7 +17,9 @@ class PayslipViewController extends GetxController with StateMixin {
         print(payslipViewModel.data?.payslip?.considerOvertime?.toInt());
       }, onError: (error) {
         print(error.message);
-        errorAlertPopup(getPayslipViewData);
+        if (!Get.isDialogOpen!) {
+          errorAlertPopup(getPayslipViewData);
+        }
       });
       change(null, status: RxStatus.success());
   }

@@ -14,7 +14,7 @@ Widget dottedSalaryView({required double height}){
       child: Row(
         children: [
           Divider(
-            height: AppLayout.getHeight(215),
+            height: AppLayout.getHeight(height),
             color: AppColor.noColor,
           ),
         ],
@@ -26,7 +26,7 @@ Widget dottedSalaryView({required double height}){
 
 Widget dottedView(){
   return  Padding(
-    padding: const EdgeInsets.only(left: 28.0),
+    padding:  EdgeInsets.only(left: AppLayout.getWidth(28)),
     child: DottedBorder(
       customPath: (p0) => Path()..lineTo(0, 100),
       color: AppColor.hintColor.withOpacity(0.6),

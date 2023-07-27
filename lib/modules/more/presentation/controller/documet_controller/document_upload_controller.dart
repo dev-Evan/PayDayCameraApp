@@ -52,7 +52,7 @@ class FileUploadController extends GetxController {
     if (response.statusCode == 200) {
       isLoading(false);
       isReturnValue=true;
-      _SnakBar();
+      _toastMessage();
       filePath.value = "";
       Get.find<InputTextFieldController>().docFileNameController.clear();
     } else {
@@ -66,7 +66,7 @@ class FileUploadController extends GetxController {
     return  isReturnValue;
   }
 
-  _SnakBar() {
+  _toastMessage() {
     return showCustomSnackBar(message: AppString.text_file_upload_update_successfully);
 
   }

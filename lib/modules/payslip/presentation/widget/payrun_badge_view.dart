@@ -418,7 +418,7 @@ Widget _subTextRight({required subTextRight}) {
   return Padding(
     padding: EdgeInsets.only(bottom: AppLayout.getHeight(8)),
     child: Text(
-      subTextRight,
+      subTextRight.replaceAll("_"," "),
       style: AppStyle.mid_large_text.copyWith(
           color: AppColor.normalTextColor,
           fontSize: Dimensions.fontSizeDefault,

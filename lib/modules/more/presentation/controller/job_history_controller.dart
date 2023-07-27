@@ -15,7 +15,9 @@ class JobHistoryController extends GetxController with StateMixin {
         print(value);
         jobHistoryModel = value;
       }, onError: (error) {
-        errorAlertPopup(getJobHistoryData);
+        if (!Get.isDialogOpen!) {
+          errorAlertPopup(getJobHistoryData);
+        }
         print(error.message);
       });
     } catch (ex) {

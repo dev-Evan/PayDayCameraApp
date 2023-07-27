@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_controller.dart';
 import 'package:pay_day_mobile/modules/more/data/log_out_repo.dart';
 import 'package:pay_day_mobile/modules/more/domain/logout_model.dart';

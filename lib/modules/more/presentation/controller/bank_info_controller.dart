@@ -28,7 +28,9 @@ class BankInfoController extends GetxController with StateMixin {
       _bankInfo(value);
     }, onError: (error) {
       print("Bank info called:::$error");
-      errorAlertPopup(getBankInfo);
+      if (!Get.isDialogOpen!) {
+        errorAlertPopup(getBankInfo);
+      }
     });
     change(null, status: RxStatus.success());
   }

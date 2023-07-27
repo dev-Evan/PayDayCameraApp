@@ -30,14 +30,14 @@ class LeaveRecordsView extends GetView<LeaveController> {
                         children: [
                           _defaultAppbar(),
                           summaryLayout(
+                              totalDynamic:
+                              controller.leaveSummary.data?.approved ?? "",
                               sentDynamic:
-                                  controller.leaveSummary.data?.approved ??
-                                      "",
-                              conflictedDynamic:
                                   controller.leaveSummary.data?.upcoming ??
                                       "",
-                              totalDynamic:
-                                  controller.leaveSummary.data?.pending ?? "",
+                              conflictedDynamic:
+                                  controller.leaveSummary.data?.pending ??
+                                      "",
                               total: AppString.text_approved,
                               sent: AppString.text_upcomming,
                               conflicted: AppString.text_pending,
