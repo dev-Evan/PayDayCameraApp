@@ -16,7 +16,7 @@ class SalaryOverViewRepository {
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
-        print(response.body);
+        print("Salary overview ::: ${response.body}");
         return SalaryOverViewModel.fromJson(response.body);
       }
     } catch (e) {

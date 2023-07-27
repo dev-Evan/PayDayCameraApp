@@ -47,7 +47,6 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
                                     children: [
                                       basicSalaryText,
                                       controller.salaryOverView.data!.first.basicSalary == true?
-
                                       Text("${Get.find<SettingController>().basicInfo?.data.currencySymbol ?? ""} ${controller.salaryOverView.data!.first.basicSalary == true ? controller.salaryOverView.data?.first.amount.toString() ?? "" : controller.salaryOverView.data!.last.basicSalary == true ? controller.salaryOverView.data?.last.amount.toString() ?? "" : ""}", style: basicSalaryStyle):controller.salaryOverView.data!.last.basicSalary == true?                                      Text("${Get.find<SettingController>().basicInfo?.data.currencySymbol ?? ""} ${controller.salaryOverView.data!.first.basicSalary == true ? controller.salaryOverView.data?.first.amount.toString() ?? "" : controller.salaryOverView.data!.last.basicSalary == true ? controller.salaryOverView.data?.last.amount.toString() ?? "" : ""}", style: basicSalaryStyle):Container(),
                                       customSpacerHeight(height: 30),
 
@@ -81,9 +80,8 @@ Widget _jobHisTitleView() {
           Get.find<SalaryOverviewController>().salaryOverView.data?.length,
       itemBuilder: (context, index) {
         Color itemColor = AppColor.disableColor; // Default color
-        if (index == 0) {
-          itemColor = AppColor.primaryColor;
-        }
+        if (index == 0) itemColor = AppColor.primaryColor;
+
         return Stack(
           alignment: Alignment.center,
           children: [
@@ -98,8 +96,8 @@ Widget _jobHisTitleView() {
                             .data![index]
                             .message!
                             .isNotEmpty)
-                    ? 250
-                    : 106),
+                    ? 200
+                    : 90),
             Positioned(
                 top: 0,
                 left: AppLayout.getWidth(23),
@@ -130,6 +128,7 @@ Widget _jobHisTitleView() {
                                 ? AppColor.primaryColor
                                 : AppColor.disableColor,
                             firstIndex: itemColor),
+
                         customSpacerHeight(height: 6),
                         _salaryRow(
                             salaryText: Get.find<SalaryOverviewController>()
@@ -138,6 +137,7 @@ Widget _jobHisTitleView() {
                                     .amount
                                     .toString() ??
                                 ""),
+
                         (Get.find<SalaryOverviewController>().salaryOverView.data?[index].message != null &&
                                 Get.find<SalaryOverviewController>()
                                     .salaryOverView
@@ -308,9 +308,9 @@ RichText textSpan(
       children: <TextSpan>[
         TextSpan(text: "$addedBy", style: cardDynamicTextStyle),
         TextSpan(text: " $drcText", style: cardSubTextStyle),
-        TextSpan(text: "$symbol$previousSalary", style: cardDynamicTextStyle),
+        TextSpan(text: "$symbol $previousSalary", style: cardDynamicTextStyle),
         TextSpan(text: " ${AppString.text_to} ", style: cardSubTextStyle),
-        TextSpan(text: "$symbol$currentSalary", style: cardDynamicTextStyle),
+        TextSpan(text: "$symbol $currentSalary", style: cardDynamicTextStyle),
         TextSpan(
             text: " ${AppString.text_on} $createdDate",
             style: cardSubTextStyle),
@@ -332,8 +332,7 @@ TextStyle get cardSubTextStyle {
 }
 
 TextStyle get cardDynamicTextStyle {
-  return AppStyle.small_text_grey
-      .copyWith(color: AppColor.primaryColor, fontWeight: FontWeight.w500);
+  return TextStyle(color: AppColor.primaryColor,fontWeight: FontWeight.w500,    fontSize: AppLayout.getWidth(12));
 }
 
 BorderRadius get borderRadius {
@@ -348,10 +347,7 @@ TextStyle get currencyStyle {
 }
 
 TextStyle get basicSalaryStyle {
-  return AppStyle.mid_large_text.copyWith(
-      color: AppColor.normalTextColor.withOpacity(0.5),
-      fontWeight: FontWeight.w500,
-      fontSize: Dimensions.fontSizeMid - 4);
+  return TextStyle(color: AppColor.normalTextColor.withOpacity(0.5),fontWeight: FontWeight.w500,    fontSize: Dimensions.fontSizeMid - 4);
 }
 
 Text get basicSalaryText {

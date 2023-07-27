@@ -25,7 +25,8 @@ Widget logsList({
   required startDate,
   required endDate,
   required monthly,
-  required indexId, required conflicted,
+  required indexId,
+  required conflicted,
 }) {
   final box = GetStorage();
 
@@ -57,8 +58,7 @@ Widget logsList({
                 endDate: endDate,
                 startDate: startDate,
                 monthly: monthly,
-            conflicted: conflicted
-            ),
+                conflicted: conflicted),
           ),
         ),
         _divider(
@@ -69,17 +69,16 @@ Widget logsList({
   );
 }
 
-Widget _logListRow(
-    {required titleDate,
-    required titleMonth,
-    required basicSalary,
-    required statusText,
-    required startDate,
-    required endDate,
-    required monthly,
-    required conflicted,
-
-    }) {
+Widget _logListRow({
+  required titleDate,
+  required titleMonth,
+  required basicSalary,
+  required statusText,
+  required startDate,
+  required endDate,
+  required monthly,
+  required conflicted,
+}) {
   return Row(
     children: [
       _dateTitle(dateText: titleDate, monthText: titleMonth),
@@ -129,15 +128,14 @@ Widget _dateTitle({dateText, monthText}) {
   );
 }
 
-Widget _cardMidText(
-    {required amountText,
-    required startDate,
-    required endDate,
-    required statusText,
-    required monthly,
-    required conflicted,
-
-    }) {
+Widget _cardMidText({
+  required amountText,
+  required startDate,
+  required endDate,
+  required statusText,
+  required monthly,
+  required conflicted,
+}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -158,39 +156,53 @@ Widget _cardMidText(
       customSpacerHeight(height: 8),
       Row(
         children: [
-          _statusBox(AppColor.successColor.withOpacity(0.1), AppColor.successColor.withOpacity(0.9), statusText,),
-          customSpacerWidth(width: 8),
-          conflicted>0?
+
           _statusBox(
-         AppColor.errorColor.withOpacity(0.1),
-            AppColor.errorColor.withOpacity(0.5),
-            AppString.text_conflicted,
-          ):Container(),
+            statusText == "Sent"
+                ? AppColor.successColor.withOpacity(0.1)
+                : AppColor.pendingBgColor.withOpacity(0.1),
+            statusText == "Sent"
+                ? AppColor.successColor.withOpacity(0.9)
+                : AppColor.pendingBgColor,
+
+            statusText,
+          ),
+
+
+          customSpacerWidth(width: 8),
+          conflicted > 0
+              ? _statusBox(
+                  AppColor.errorColor.withOpacity(0.1),
+                  AppColor.errorColor.withOpacity(0.5),
+                  AppString.text_conflicted,
+                )
+              : Container(),
         ],
       ),
     ],
   );
 }
 
-_statusBox(Color bgColor,Color textColor,text) {
- return Container(
+_statusBox(Color bgColor, Color textColor, text) {
+  return Container(
     decoration: BoxDecoration(
         color: bgColor,
         borderRadius: BorderRadius.all(
           Radius.circular(Dimensions.radiusMid),
         )),
     padding: _boxPadding,
-    child: Text(text??"", style: AppStyle.small_text.copyWith(color: textColor)),
+    child:
+        Text(text ?? "", style: AppStyle.small_text.copyWith(color: textColor)),
   );
 }
 
-
-EdgeInsets  get _boxPadding {
+EdgeInsets get _boxPadding {
   return EdgeInsets.symmetric(
-horizontal: AppLayout.getHeight(Dimensions.paddingDefault),
-vertical: AppLayout.getWidth(3),
-);
+    horizontal: AppLayout.getHeight(Dimensions.paddingDefault),
+    vertical: AppLayout.getWidth(3),
+  );
 }
+
 Widget _midTextRow({required startDate, required endDate, required monthly}) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,

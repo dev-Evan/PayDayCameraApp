@@ -86,6 +86,7 @@ class AttendanceController extends GetxController with StateMixin {
       isLoading(false);
       checkUserIsPunchedIn();
       getDailyLog();
+
       startTimer();
       //showCustomSnackBar(message: value.message ?? "");
       toastMessage(context:context,message:value.message ?? "");
