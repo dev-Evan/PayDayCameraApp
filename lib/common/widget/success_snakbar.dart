@@ -1,13 +1,13 @@
-import 'package:elegant_notification/elegant_notification.dart';
-import 'package:elegant_notification/resources/arrays.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:motion_toast/motion_toast.dart';
+import 'package:motion_toast/resources/arrays.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
-import 'package:pay_day_mobile/utils/app_layout.dart';
+import 'package:pay_day_mobile/utils/app_style.dart';
 
-void showCustomSnackBar({required String message,color=AppColor.secondaryColor}) {
+void showCustomSnackBar(
+    {required String message, color = AppColor.secondaryColor}) {
   Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
@@ -18,17 +18,53 @@ void showCustomSnackBar({required String message,color=AppColor.secondaryColor})
       fontSize: 16.0);
 }
 
- // toastMessage({context,message,double ?height=60}) async => ElegantNotification.success(
- //      height:AppLayout.getHeight(height!),
- //      background: AppColor.normalTextColor,
- //      progressIndicatorBackground: AppColor.pendingTextColor,
- //      notificationPosition: NotificationPosition.bottomRight,
- //      description: Text("$message",style: const TextStyle(color: AppColor.cardColor),)
- //  ).show(context);
+showSuccessMessage({String? message}) async => MotionToast.success(
+      borderRadius: 4,
+      position: MotionToastPosition.bottom,
+      padding: const EdgeInsets.only(bottom: 60, right: 20, left: 20),
+      animationType: AnimationType.fromRight,
+      height: 60,
+      animationDuration: const Duration(
+        milliseconds: 1000,
+      ),
+      toastDuration: const Duration(milliseconds: 2500),
+      width: double.infinity,
+      displaySideBar: false,
+      iconSize: 40,
+      description: Text(message??"",style: AppStyle.normal_text_black,overflow: TextOverflow.ellipsis,maxLines: 2),
+    ).show(Get.context!);
+
+showErrorMessage({String? message}) async => MotionToast.error(
+      borderRadius: 4,
+      position: MotionToastPosition.bottom,
+      padding: const EdgeInsets.only(bottom: 60, right: 20, left: 20),
+      animationType: AnimationType.fromRight,
+      height: 60,
+      animationDuration: const Duration(
+            milliseconds: 1000,
+      ),
+      toastDuration: const Duration(milliseconds: 2500),
+      width: double.infinity,
+      displaySideBar: false,
+      iconSize: 40,
+      description: Text(message??"",style: AppStyle.normal_text_black,overflow: TextOverflow.ellipsis,maxLines: 2),
+    ).show(Get.context!);
 
 
- toastMessage({context,message}) async =>
-     showToast('$message',
-       context: context,
-       animation: StyledToastAnimation.slideFromRightFade,
-     );
+
+toastMessage({context, message, double? height = 60}) async =>
+    MotionToast.success(
+      borderRadius: 4,
+      position: MotionToastPosition.bottom,
+      padding: EdgeInsets.only(bottom: 60, right: 20, left: 20),
+      animationType: AnimationType.fromRight,
+      height: 80,
+      animationDuration: const Duration(
+        milliseconds: 1000,
+      ),
+      toastDuration: const Duration(milliseconds: 2500),
+      width: double.infinity,
+      displaySideBar: false,
+      iconSize: 30,
+      description: Text("You can customize the toast!"),
+    ).show(Get.context!);
