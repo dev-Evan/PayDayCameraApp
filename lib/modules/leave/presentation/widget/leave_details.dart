@@ -39,9 +39,11 @@ class LeaveDetails extends GetView<LeaveController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           controller.leaveDetails.data?.leaveType ?? "",
