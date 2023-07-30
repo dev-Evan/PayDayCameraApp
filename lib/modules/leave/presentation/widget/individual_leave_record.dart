@@ -157,34 +157,31 @@ _listCard(int index) => Padding(
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      Get.find<LeaveController>()
-                              .individualDateLeaveList
-                              .value
-                              .data?[index]
-                              .leaveType ??
-                          '',
-                      style: AppStyle.large_text_black,
-                    )
-                  ],
-                ),
-                customSpacerHeight(height: 6),
-                Text(
-                  Get.find<LeaveController>()
-                          .individualDateLeaveList
-                          .value
-                          .data?[index]
-                          .leaveDuration ??
-                      '',
-                  style: AppStyle.small_text_black,
-                )
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    Get.find<LeaveController>()
+                            .individualDateLeaveList
+                            .value
+                            .data?[index]
+                            .leaveType ??
+                        '',
+                    style: AppStyle.large_text_black,
+                  ),
+                  customSpacerHeight(height: 6),
+                  Text(
+                    Get.find<LeaveController>()
+                            .individualDateLeaveList
+                            .value
+                            .data?[index]
+                            .leaveDuration ??
+                        '',
+                    style: AppStyle.small_text_black,
+                  )
+                ],
+              ),
             ),
             CircleAvatar(
                 radius: 14,

@@ -39,13 +39,19 @@ class LeaveDetails extends GetView<LeaveController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: Text(
-                      controller.leaveDetails.data?.leaveType ?? "",
-                      style: AppStyle.title_text.copyWith(
-                          color: AppColor.normalTextColor,
-                          fontSize: Dimensions.fontSizeMid),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          controller.leaveDetails.data?.leaveType ?? "",
+                          style: AppStyle.title_text.copyWith(
+                              color: AppColor.normalTextColor,
+                              fontSize: Dimensions.fontSizeMid),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(
