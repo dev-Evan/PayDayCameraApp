@@ -194,7 +194,7 @@ class LeaveDetails extends GetView<LeaveController> {
   _attachmentCard(int index) {
     return InkWell(
         child: Image.asset(Images.documents),
-        onTap: () => Get.find<DownloadHelper>().downloadFile(
+        onTap: () => Get.find<DownloadHelper>().downloadFileForAndroid(
             url: controller.leaveDetails.data?.attachments?[index].fullUrl ??
                 ""));
   }

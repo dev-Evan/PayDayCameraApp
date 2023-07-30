@@ -46,7 +46,9 @@ class Util {
       return AppColor.primaryYellow.withOpacity(.15);
     } else if (status.toLowerCase() == ApprovalStatus.danger.name) {
       return AppColor.primaryRed.withOpacity(.15);
-    }else if (status.toLowerCase() == ApprovalStatus.dark.name) {
+    } else if (status.toLowerCase() == ApprovalStatus.success.name) {
+      return AppColor.primaryGreen.withOpacity(.15);
+    } else if (status.toLowerCase() == ApprovalStatus.dark.name) {
       return AppColor.primaryRed.withOpacity(.15);
     } else {
       return Colors.transparent;
@@ -56,6 +58,8 @@ class Util {
   static Color getChipTextColor({required String status}) {
     if (status.toLowerCase() == ApprovalStatus.warning.name) {
       return AppColor.primaryYellow;
+    } else if (status.toLowerCase() == ApprovalStatus.success.name) {
+      return AppColor.primaryGreen;
     } else if (status.toLowerCase() == ApprovalStatus.danger.name) {
       return AppColor.primaryRed;
     } else if (status.toLowerCase() == ApprovalStatus.dark.name) {
@@ -68,6 +72,8 @@ class Util {
   static String getChipText(String status) {
     if (status.toLowerCase() == ApprovalStatus.warning.name) {
       return AppString.text_pending;
+    } else if (status.toLowerCase() == ApprovalStatus.success.name) {
+      return AppString.text_success;
     } else if (status.toLowerCase() == ApprovalStatus.danger.name) {
       return AppString.text_rejected;
     } else if (status.toLowerCase() == ApprovalStatus.dark.name) {

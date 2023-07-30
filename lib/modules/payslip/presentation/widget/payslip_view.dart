@@ -5,6 +5,7 @@ import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/common/widget/no_data_found.dart';
+import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/payslip_view_sub_widget.dart';
@@ -17,6 +18,7 @@ import '../controller/payslip_view_controller.dart';
 
 class PaySlipView extends GetView<PayslipViewController> {
   final indexVal;
+
   const PaySlipView({super.key, this.indexVal});
 
   @override
@@ -238,11 +240,11 @@ _payslipDownloadBtn({required payslipDateRange}) {
   var baseUrl = "${Api.BASE_URL}${Api.PAYSLIP_DOWNLOAD}$id?download=true";
   return Padding(
     padding: padding,
-    child: CustomButton(
-      AppString.text_download_payslip,
-      () => Get.find<DownloadHelper>().downloadFile(
-          url: baseUrl, fileInfo: "Payslip for $payslipDateRange"),
-    ),
+    child: CustomButton(AppString.text_download_payslip, () {
+      showCustomSnackBar(message: "Download Stared");
+      Get.find<DownloadHelper>().downloadFile(
+          url: baseUrl, fileInfo: "Payslip for $payslipDateRange");
+    }),
   );
 }
 
