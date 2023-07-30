@@ -30,5 +30,5 @@ void showCustomSnackBar({required String message,color=AppColor.secondaryColor})
  toastMessage({context,message}) async =>
      showToast('$message',
        context: context,
-       animation: StyledToastAnimation.slideFromRightFade,
+       animation: StyledToastAnimation.fadeScale,
      );

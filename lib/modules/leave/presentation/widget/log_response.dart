@@ -60,39 +60,41 @@ class LogResponse extends GetView<LeaveController> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              controller.leaveDetails.data?.leaveType ?? "",
-              style: AppStyle.extra_large_text_black
-                  .copyWith(fontWeight: FontWeight.bold),
-            ),
-            customSpacerHeight(height: 8),
-            Row(
-              children: [
-                const Icon(
-                  Icons.watch_later_outlined,
-                  size: 16,
-                  color: Colors.grey,
-                ),
-                customSpacerWidth(width: 4),
-                Text(controller.leaveDetails.data?.leaveDuration ?? "",
-                    style:
-                        AppStyle.small_text_black.copyWith(color: Colors.grey)),
-                customSpacerWidth(width: 20),
-                Image.asset(Images.attachment_file,
-                    height: AppLayout.getWidth(12),
-                    width: AppLayout.getHeight(12)),
-                customSpacerWidth(width: 4),
-                Text(
-                    controller.leaveDetails.data?.attachmentCount.toString() ??
-                        "",
-                    style:
-                        AppStyle.small_text_black.copyWith(color: Colors.grey)),
-              ],
-            ),
-          ],
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                controller.leaveDetails.data?.leaveType ?? "",
+                style: AppStyle.extra_large_text_black
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+              customSpacerHeight(height: 8),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.watch_later_outlined,
+                    size: 16,
+                    color: Colors.grey,
+                  ),
+                  customSpacerWidth(width: 4),
+                  Text(controller.leaveDetails.data?.leaveDuration ?? "",
+                      style:
+                          AppStyle.small_text_black.copyWith(color: Colors.grey)),
+                  customSpacerWidth(width: 20),
+                  Image.asset(Images.attachment_file,
+                      height: AppLayout.getWidth(12),
+                      width: AppLayout.getHeight(12)),
+                  customSpacerWidth(width: 4),
+                  Text(
+                      controller.leaveDetails.data?.attachmentCount.toString() ??
+                          "",
+                      style:
+                          AppStyle.small_text_black.copyWith(color: Colors.grey)),
+                ],
+              ),
+            ],
+          ),
         ),
         CustomStatusButton(
             bgColor: Util.getChipBgColor(
