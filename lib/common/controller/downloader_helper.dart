@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:get/get.dart';
@@ -44,9 +45,15 @@ class DownloadHelper extends GetxController {
   }
 
   downloadFile({required String url, fileInfo}) async {
-    final status = await Permission.storage.request();
-    if (status.isGranted) {
-      print("${status.isGranted}");
+    PermissionStatus permissionStatus;
+    final deviceInfo = await DeviceInfoPlugin().androidInfo;
+
+    if (deviceInfo.version.sdkInt > 32) {
+      permissionStatus = await Permission.photos.request();
+    } else {
+      permissionStatus = await Permission.storage.request();
+    }
+    if (permissionStatus.isGranted) {
       final String? baseStorage = await getDownloadPath();
       try {
         await FlutterDownloader.enqueue(
@@ -60,7 +67,9 @@ class DownloadHelper extends GetxController {
       } catch (e) {
         print(e.toString());
       }
-    } else {
+    }else if (permissionStatus.isPermanentlyDenied) {
+      openAppSettings();
+    }else {
       errorSnackBar(errorMessage: AppString.storage_permission);
     }
   }
@@ -92,8 +101,15 @@ class DownloadHelper extends GetxController {
 
   downloadFileForAndroid({required String url, fileInfo}) async {
 
-    final status = await Permission.storage.request();
-    if (status.isGranted) {
+    PermissionStatus permissionStatus;
+    final deviceInfo = await DeviceInfoPlugin().androidInfo;
+
+    if (deviceInfo.version.sdkInt > 32) {
+      permissionStatus = await Permission.photos.request();
+    } else {
+      permissionStatus = await Permission.storage.request();
+    }
+    if (permissionStatus.isGranted) {
       try {
         FileDownloader.downloadFile(
             url: url,
@@ -110,6 +126,8 @@ class DownloadHelper extends GetxController {
       } catch (e) {
         print(e.toString());
       }
+    }else if (permissionStatus.isPermanentlyDenied) {
+      openAppSettings();
     } else {
       errorSnackBar(errorMessage: AppString.storage_permission);
     }

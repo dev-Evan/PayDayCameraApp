@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +20,9 @@ import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../../../common/widget/custom_double_button.dart';
+import '../../../../common/widget/error_snackbar.dart';
 import '../../../../common/widget/input_note.dart';
 import '../../../../utils/logger.dart';
 
@@ -44,21 +47,35 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
   bool isFilePicked = false;
 
   void pickFile1() async {
-    try {
-      result = await FilePicker.platform.pickFiles(
-        type: FileType.any,
-        allowMultiple: false,
-      );
+    PermissionStatus permissionStatus;
+    final deviceInfo = await DeviceInfoPlugin().androidInfo;
 
-      if (result != null) {
-        setState(() {
-          isFilePicked = true;
-        });
+    if (deviceInfo.version.sdkInt > 32) {
+      permissionStatus = await Permission.photos.request();
+    } else {
+      permissionStatus = await Permission.storage.request();
+    }
+    if(permissionStatus.isGranted){
+      try {
+        result = await FilePicker.platform.pickFiles(
+          type: FileType.any,
+          allowMultiple: false,
+        );
+
+        if (result != null) {
+          setState(() {
+            isFilePicked = true;
+          });
+        }
+        Get.find<LeaveController>().requestLeaveQueries["attachments[]"] =
+            result!.files.first.path.toString();
+      } catch (e) {
+        LoggerHelper.errorLog(message: e.toString());
       }
-      Get.find<LeaveController>().requestLeaveQueries["attachments[]"] =
-          result!.files.first.path.toString();
-    } catch (e) {
-      LoggerHelper.errorLog(message: e.toString());
+    }else if(permissionStatus.isPermanentlyDenied){
+      openAppSettings();
+    }else{
+      errorSnackBar(errorMessage: AppString.storage_permission);
     }
   }
 
