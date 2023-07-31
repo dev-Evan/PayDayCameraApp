@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
+import 'package:pay_day_mobile/common/widget/success_message.dart';
 import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/common/widget/users_current_info_layout.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
@@ -231,7 +232,8 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
 
   _punchIn(AttendanceController controller,context) {
     controller
-        .punchIn(LogEntryRequest(
+        .punchIn(
+        LogEntryRequest(
             ipData: IpData(
                 ip: controller.ipAddress.value,
                 coordinate: Coordinate(
@@ -246,6 +248,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
       if (value == true) {
         controller.editTextController.clear();
         Get.back(canPop: false);
+        showSuccessMessage(message: "Punch in successfully 2");
       }
     });
   }

@@ -47,7 +47,8 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
         child: SingleChildScrollView(
           controller: controller.scrollController,
           physics: const AlwaysScrollableScrollPhysics(),
-          child: Column(children: [
+          child: Column(
+              children: [
             _totalLogInfoSummary(),
             customSpacerHeight(height: 20),
             _attendanceLogLayout()
@@ -86,12 +87,10 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
         children: [
           _tabButton(),
           customSpacerHeight(height: 20),
-          Obx(
-            () => Visibility(
-              child: _summaryLogScreen(),
+          Obx(() => Visibility(child: _summaryLogScreen(),
               visible: controller.isShortSummaryClicked.value,
-              replacement: _allLogScreen(),
-            ),
+              replacement: _allLogScreen()
+          ),
           ),
           // _tabScreen(),
         ],
@@ -164,52 +163,45 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
   }
 
   _filterLayoutAllLogs() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        InkWell(
-          onTap: () => _openBottomSheet(),
-          child: Row(
+    return InkWell(
+      onTap: () => _openBottomSheet(),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  controller.filteredLogSummary.data != null
-                      ? Text(
-                          controller.filteredLogSummary.data!.queryString!
-                                  .start!.isNotEmpty
-                              ? "Custom"
-                              : "This Month",
-                          style: AppStyle.mid_large_text.copyWith(
-                              color: AppColor.secondaryColor,
-                              fontWeight: FontWeight.w700),
-                        )
-                      : Container(),
-                  controller.filteredLogSummary.data != null
-                      ? Text(
-                          controller.filteredLogSummary.data!.queryString!
-                                  .start!.isNotEmpty
-                              ? "${controller.filteredLogSummary.data?.queryString?.start} - ${controller.filteredLogSummary.data?.queryString?.end}"
-                              : DateFormat('MMMM yyyy')
-                                  .format(DateTime.now())
-                                  .toString(),
-                          style: AppStyle.normal_text_grey,
-                        )
-                      : Container(),
-                ],
-              ),
-              SizedBox(
-                width: AppLayout.getWidth(12),
-              ),
-              const Icon(
-                Icons.keyboard_arrow_down,
-                color: AppColor.hintColor,
-              ),
+              controller.filteredLogSummary.data != null
+                  ? Text(
+                      controller.filteredLogSummary.data!.queryString!
+                              .start!.isNotEmpty
+                          ? "Custom"
+                          : "This Month",
+                      style: AppStyle.mid_large_text.copyWith(
+                          color: AppColor.secondaryColor,
+                          fontWeight: FontWeight.w700),
+                    )
+                  : Container(),
+              controller.filteredLogSummary.data != null
+                  ? Text(
+                      controller.filteredLogSummary.data!.queryString!
+                              .start!.isNotEmpty
+                          ? "${controller.filteredLogSummary.data?.queryString?.start} - ${controller.filteredLogSummary.data?.queryString?.end}"
+                          : DateFormat('MMMM yyyy')
+                              .format(DateTime.now())
+                              .toString(),
+                      style: AppStyle.normal_text_grey,
+                    )
+                  : Container(),
             ],
           ),
-        ),
-      ],
+         customSpacerHeight(height: 12),
+          const Icon(
+            Icons.keyboard_arrow_down,
+            color: AppColor.hintColor,
+          ),
+        ],
+      ),
     );
   }
 

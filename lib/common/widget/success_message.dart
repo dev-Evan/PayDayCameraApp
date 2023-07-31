@@ -5,7 +5,7 @@ import 'package:motion_toast/resources/arrays.dart';
 
 import '../../utils/app_style.dart';
 
-showSuccessMessage({String? message}) async => MotionToast.success(
+void showSuccessMessage({String? message}) async => MotionToast.success(
   borderRadius: 4,
   position: MotionToastPosition.bottom,
   padding: const EdgeInsets.only(bottom: 60, right: 20, left: 20),
@@ -20,3 +20,5 @@ showSuccessMessage({String? message}) async => MotionToast.success(
   iconSize: 40,
   description: Text(message??"",style: AppStyle.normal_text_black,overflow: TextOverflow.ellipsis,maxLines: 2),
 ).show(Get.context!);
+
+
