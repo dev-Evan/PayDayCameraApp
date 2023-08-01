@@ -181,6 +181,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                           setState(() {
                                             _rangeStartDay = today;
                                             _rangeEndDate = today;
+
                                           });
                                         }
                                         break;
@@ -272,7 +273,6 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                       }
 
                                       break;
-
                                     case 4:
                                       if (widget.rangeCalendarMethodImp ==
                                           RangeCalendarMethodImp.LEAVE_RECORD) {
@@ -329,7 +329,6 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                 elevatedBtnText: AppString.text_apply,
                                 elevatedButtonAction: () {
                                   print("start ::: ${DateFormat("yyyy-MM-dd").format(_rangeStartDay!)} End ::: ${DateFormat("yyyy-MM-dd").format(_rangeEndDate!)}");
-
                                   switch (widget.rangeCalendarMethodImp) {
                                     case RangeCalendarMethodImp.ALL_LOG:
                                       print(RangeCalendarMethodImp.ALL_LOG);
