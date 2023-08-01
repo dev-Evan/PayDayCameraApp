@@ -12,71 +12,52 @@ import 'package:permission_handler/permission_handler.dart';
 import '../common_controller/more_text_editing_controller.dart';
 
 class UpdateDocumentController extends GetxController {
-  PickedFormUpdatedStorage storageForUpdate=PickedFormUpdatedStorage();
-
+  PickedFormUpdatedStorage storageForUpdate = PickedFormUpdatedStorage();
 
   Future<dynamic> updateDocFile({required context}) async {
+    storageForUpdate.isLoading(true);
+    bool isReturnValue = false;
 
-    PermissionStatus permissionStatus;
-    final deviceInfo = await DeviceInfoPlugin().androidInfo;
+    File? file = storageForUpdate.selectedFile.value;
+    if (file == null) {
+      return;
+    }
+    final url = Uri.parse(storageForUpdate.baseUrl);
+    var request = _request(url);
 
-    if (deviceInfo.version.sdkInt > 32) {
-      permissionStatus = await Permission.photos.request();
+    request.fields['id'] =
+        storageForUpdate._box.read(AppString.STORE_DOC_Id).toString();
+    request.fields['name'] =
+        Get.find<InputTextFieldController>().docFileNameController.text;
+    request.fields['file'] = file.path;
+    request.fields['user_id'] =
+        storageForUpdate._box.read(AppString.ID_STORE).toString();
+    request.headers['Authorization'] = 'Bearer ${storageForUpdate.accessToken}';
+    request.files.add(await http.MultipartFile.fromPath('file', file.path));
+    var response = await request.send();
+    if (response.statusCode == 200) {
+      print("Document updated ::: $response");
+      storageForUpdate.isLoading(false);
+      isReturnValue = true;
+      storageForUpdate._inputClear();
+      storageForUpdate.toastMessage(false);
+      print(' Document update ::: File updated successfully');
     } else {
-      permissionStatus = await Permission.storage.request();
+      isReturnValue = false;
+      storageForUpdate.toastMessage(true);
+      storageForUpdate.isLoading(false);
+      print('Document update ::: Failed to upload file');
     }
-
-    if(permissionStatus.isGranted){
-
-      storageForUpdate. isLoading(true);
-      bool isReturnValue = false;
-
-      File? file =storageForUpdate. selectedFile.value;
-      if (file == null) {
-        return;
-      }
-      final url = Uri.parse(storageForUpdate.baseUrl);
-      var request = _request(url);
-
-      request.fields['id'] = storageForUpdate._box.read(AppString.STORE_DOC_Id).toString();
-      request.fields['name'] =
-          Get.find<InputTextFieldController>().docFileNameController.text;
-      request.fields['file'] = file.path;
-      request.fields['user_id'] =storageForUpdate. _box.read(AppString.ID_STORE).toString();
-      request.headers['Authorization'] = 'Bearer ${storageForUpdate.accessToken}';
-      request.files.add(await http.MultipartFile.fromPath('file', file.path));
-      var response = await request.send();
-      if (response.statusCode == 200) {
-        print("Document updated ::: $response");
-        storageForUpdate. isLoading(false);
-        isReturnValue=true;
-        storageForUpdate. _inputClear();
-       storageForUpdate.toastMessage(false);
-        print(' Document update ::: File updated successfully');
-      } else {
-        isReturnValue=false;
-        storageForUpdate.toastMessage(true);
-        storageForUpdate.   isLoading(false);
-        print('Document update ::: Failed to upload file');
-      }
-      storageForUpdate. isLoading(false);
-      return  isReturnValue;
-
-    }
-    else if(permissionStatus.isPermanentlyDenied){
-      openAppSettings();
-    }else{
-      errorSnackBar(errorMessage: AppString.storage_permission);
-    }
-
-  }
-
-  _request(url) {
-    return http.MultipartRequest('POST', url);
+    storageForUpdate.isLoading(false);
+    return isReturnValue;
   }
 }
 
-class PickedFormUpdatedStorage{
+_request(url) {
+  return http.MultipartRequest('POST', url);
+}
+
+class PickedFormUpdatedStorage {
   final isLoading = false.obs;
   final _box = GetStorage();
   Rx<File?> selectedFile = Rx<File?>(null);
@@ -87,22 +68,38 @@ class PickedFormUpdatedStorage{
 
   Future<void> pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
-    if (result != null) {
-      File file = File(result.files.single.path!);
-      selectedFile.value = file;
-      _box.write("Doc", file.path);
-      filePath.value = result.files.single.path!;
+
+    PermissionStatus permissionStatus;
+    final deviceInfo = await DeviceInfoPlugin().androidInfo;
+
+    if (deviceInfo.version.sdkInt > 32) {
+      permissionStatus = await Permission.photos.request();
+    } else {
+      permissionStatus = await Permission.storage.request();
+    }
+
+    if (permissionStatus.isGranted) {
+      if (result != null) {
+        File file = File(result.files.single.path!);
+        selectedFile.value = file;
+        _box.write("Doc", file.path);
+        filePath.value = result.files.single.path!;
+      }
+    } else if (permissionStatus.isPermanentlyDenied) {
+      openAppSettings();
+    } else {
+      errorSnackBar(errorMessage: AppString.storage_permission);
     }
   }
 
   toastMessage(bool status) {
     return status == false
         ? showCustomSnackBar(
-        message: AppString.text_file_upload_update_successfully)
+            message: AppString.text_file_upload_update_successfully)
         : showCustomSnackBar(message: AppString.text_file_upload_file);
   }
+
   _inputClear() {
     return Get.find<InputTextFieldController>().docFileNameController.clear();
   }
-
 }
