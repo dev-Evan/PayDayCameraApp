@@ -19,26 +19,31 @@ Widget cardView({icon, dynamicText, titleText}) {
       children: [
         cardIconView(cardIcon: icon),
       customSpacerWidth(width: 8),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                capitalize(dynamicText),
-                style: AppStyle.small_text_black.copyWith(
-                    fontSize: Dimensions.fontSizeSmall + 3,
-                    color: AppColor.normalTextColor),
-              ),
-              Text(
-                titleText,
-                style: AppStyle.small_text.copyWith(
-                  color: AppColor.hintColor,
-                  fontSize: Dimensions.fontSizeDefault - 1,
-                ),
-              ),
-            ],
+        _boxLayout(dynamicText,titleText),
+
+      ],
+    ),
+  );
+}
+
+_boxLayout(dynamicText,titleText) {
+  return  Expanded(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          capitalize(dynamicText),
+          style: AppStyle.small_text_black.copyWith(
+              fontSize: Dimensions.fontSizeSmall + 3,
+              color: AppColor.normalTextColor),
+        ),
+        Text(
+          titleText,
+          style: AppStyle.small_text.copyWith(
+            color: AppColor.hintColor,
+            fontSize: Dimensions.fontSizeDefault - 1,
           ),
-        )
+        ),
       ],
     ),
   );
@@ -77,21 +82,25 @@ Widget circleAvatarStyle({final userImage}) {
         ),
       ),
 
-      Positioned(
-          right: 0,
-          bottom: 0,
-          child: CircleAvatar(
-              radius: 12,
-              backgroundColor: AppColor.primaryColor,
-              child: IconButton(
-                  padding: const EdgeInsets.all(0),
-                  onPressed: () => Get.find<PickImageController>().pickImage(ImageSource.gallery),
-                  icon: const Icon(
-                    Icons.add_a_photo_outlined,
-                    size: 14,
-                  ))))
+      _pickImageFormStorage()
     ],
   );
+}
+
+_pickImageFormStorage() {
+  return  Positioned(
+      right: 0,
+      bottom: 0,
+      child: CircleAvatar(
+          radius: 12,
+          backgroundColor: AppColor.primaryColor,
+          child: IconButton(
+              padding: const EdgeInsets.all(0),
+              onPressed: () => Get.find<PickImageController>().pickImage(ImageSource.gallery),
+              icon: const Icon(
+                Icons.add_a_photo_outlined,
+                size: 14,
+              ))));
 }
 
 AssetImage get placeholderImages {
@@ -115,10 +124,7 @@ Widget cardIconView({cardIcon}) {
       ));
 }
 
-Widget moveChangePassword({
-  context,
-  onAction,
-}) {
+Widget changePassword({context, onAction}) {
   return InkWell(
     onTap: () => onAction(),
     child: Row(
@@ -133,9 +139,7 @@ Widget moveChangePassword({
                 fontSize: Dimensions.fontSizeDefault + 1),
           ),
         ),
-        SizedBox(
-          width: AppLayout.getWidth(4),
-        ),
+        customSpacerWidth(width: 4),
         const Icon(
           Icons.arrow_forward,
           color: AppColor.primaryColor,

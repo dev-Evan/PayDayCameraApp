@@ -43,7 +43,7 @@ class AddDocument extends GetView<FileUploadController> {
                         Get.find<InputTextFieldController>()
                             .docFileNameController
                             .clear();
-                        Get.find<FileUploadController>().filePath.value = "";
+                        Get.find<FileUploadController>().storageForUpload.filePath.value = "";
                       }),
                   Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -82,15 +82,15 @@ class AddDocument extends GetView<FileUploadController> {
                                 child: InkWell(
                                     onTap: () {
                                       Get.find<FileUploadController>()
-                                          .pickFile();
+                                         .storageForUpload .pickFile();
                                     },
                                     child: Obx(() =>
 
                                     Get.find<FileUploadController>()
-                                                .filePath
+                                               .storageForUpload .filePath
                                                 .isNotEmpty
                                             ? Get.find<FileUploadController>()
-                                                    .filePath
+                                                   .storageForUpload .filePath
                                                     .endsWith(".pdf")
                                                 ? _fileBox()
                                                 : _imageBox()
@@ -122,7 +122,7 @@ class AddDocument extends GetView<FileUploadController> {
 
   _buttonLayout(BuildContext context) {
     return Obx(
-      () => Get.find<FileUploadController>().isLoading.isTrue
+      () => Get.find<FileUploadController>().storageForUpload.isLoading.isTrue
           ? _loadingLayout()
           : Padding(
               padding: const EdgeInsets.all(16.0),
@@ -132,7 +132,7 @@ class AddDocument extends GetView<FileUploadController> {
                         .docFileNameController
                         .clear();
                     Get.back();
-                    Get.find<FileUploadController>().filePath.value = "";
+                    Get.find<FileUploadController>().storageForUpload.filePath.value = "";
                   },
                   elevatedButtonAction: () {
                     if (_formKey.currentState!.validate()) {
@@ -143,7 +143,7 @@ class AddDocument extends GetView<FileUploadController> {
                           ? showCustomSnackBar(
                               message: AppString.text_document_name_is_required,
                             )
-                          : Get.find<FileUploadController>().filePath.isEmpty
+                          : Get.find<FileUploadController>().storageForUpload.filePath.isEmpty
                               ? showCustomSnackBar(
                                   message:
                                       AppString.text_please_selected_document,
@@ -197,7 +197,7 @@ class AddDocument extends GetView<FileUploadController> {
         color: AppColor.disableColor.withOpacity(0.4),
         image: DecorationImage(
             image: FileImage(
-                File(Get.find<FileUploadController>().filePath.value).absolute),
+                File(Get.find<FileUploadController>().storageForUpload.filePath.value).absolute),
             fit: BoxFit.cover,
         ),
       ),
@@ -240,14 +240,14 @@ class AddDocument extends GetView<FileUploadController> {
   }
 
   _fileIdentity() {
-    return Text(Get.find<FileUploadController>().filePath.value.split('/').last,
+    return Text(Get.find<FileUploadController>().storageForUpload.filePath.value.split('/').last,
         style: AppStyle.mid_large_text.copyWith(
             color: AppColor.hintColor,
             fontSize: Dimensions.fontSizeDefault - 2));
   }
 
   _loadingLayout() {
-    return Container(margin: const EdgeInsets.only(bottom: 30),
+    return Container(margin:  EdgeInsets.only(bottom: AppLayout.getHeight(30)),
       child: loadingIndicatorLayout(),);
   }
 }
