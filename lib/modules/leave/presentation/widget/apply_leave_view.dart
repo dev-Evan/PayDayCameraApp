@@ -46,7 +46,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
 
   bool isFilePicked = false;
 
-  void pickFile1() async {
+  void pickFileFormStorage() async {
     PermissionStatus permissionStatus;
     final deviceInfo = await DeviceInfoPlugin().androidInfo;
 
@@ -55,6 +55,8 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
     } else {
       permissionStatus = await Permission.storage.request();
     }
+
+
     if(permissionStatus.isGranted){
       try {
         result = await FilePicker.platform.pickFiles(
@@ -72,7 +74,8 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
       } catch (e) {
         LoggerHelper.errorLog(message: e.toString());
       }
-    }else if(permissionStatus.isPermanentlyDenied){
+    }
+    else if(permissionStatus.isPermanentlyDenied){
       openAppSettings();
     }else{
       errorSnackBar(errorMessage: AppString.storage_permission);
@@ -414,7 +417,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
       textFieldTitleText(
           titleText:
           '${AppString.text_attachments} ${AppString.text_if_any}'),
-      _dottedBorder(onAction: () => pickFile1()),
+      _dottedBorder(onAction: () => pickFileFormStorage()),
       customSpacerHeight(height: 8),
       Text(
         AppString.text_jpeg_jpg_png_etc,

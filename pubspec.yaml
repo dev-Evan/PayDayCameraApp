@@ -36,7 +36,7 @@ dependencies:
   google_maps_flutter: ^2.2.4
   geocoding: ^2.0.5
   geolocator: ^9.0.2
-  google_fonts: ^4.0.3
+  google_fonts:
   fluttertoast: 8.1.2
   dots_indicator: ^2.1.0
   get_storage: 2.0.3
