@@ -26,7 +26,6 @@ void showCustomSnackBar({required String message,color=AppColor.secondaryColor})
  //      description: Text("$message",style: const TextStyle(color: AppColor.cardColor),)
  //  ).show(context);
 
-
  toastMessage({context,message}) async =>
      showToast('$message',
        context: context,
