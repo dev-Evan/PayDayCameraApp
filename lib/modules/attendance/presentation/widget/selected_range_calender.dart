@@ -37,6 +37,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
     AppString.text_today,
     AppString.text_this_week,
     AppString.text_last_week,
+    AppString.text_this_month,
     AppString.text_last_month,
   ];
   List leave = [
@@ -48,9 +49,9 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-       initialChildSize: .9,
-       minChildSize: .9,
-       maxChildSize: .9,
+      initialChildSize: .9,
+      minChildSize: .9,
+      maxChildSize: .9,
       builder: (context, scrollController) => Container(
         decoration: const BoxDecoration(
             color: Colors.white,
@@ -97,8 +98,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                   _rangeStartDay = selectedDay;
                                   isStartDaySelected = true;
                                 }
-                                if (_rangeStartDay != null &&
-                                    isStartDaySelected == true) {
+                                if (_rangeStartDay != null && isStartDaySelected == true) {
                                   _rangeEndDate = selectedDay;
                                 }
                               });
@@ -116,9 +116,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                         // const Spacer(),
                         Padding(
                           padding: const EdgeInsets.only(top: 16.0, bottom: 16),
-                          child: customDivider(
-                              0.7, MediaQuery.of(context).size.width),
-                        ),
+                          child: customDivider(0.7, MediaQuery.of(context).size.width)),
 
                         SizedBox(
                           height: AppLayout.getHeight(56),
@@ -149,6 +147,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                               RangeCalendarMethodImp.LEAVE_RECORD
                                               ? leave[index]
                                               : dateTime[index],
+
                                           style: AppStyle.mid_large_text.copyWith(
                                               color: AppColor.normalTextColor,
                                               fontSize:
@@ -158,20 +157,19 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                 ),
                                 onTap: () {
                                   switch (index) {
+
                                     case 0:
                                       {
-                                        if (widget.rangeCalendarMethodImp ==
-                                            RangeCalendarMethodImp.LEAVE_RECORD) {
+                                        if (widget.rangeCalendarMethodImp == RangeCalendarMethodImp.LEAVE_RECORD) {
                                           setDateToController(
                                               rangeName:
                                               AppString.text_this_month,
                                               rangeStartDate: _rangeStartDay =
-                                                  DateTime.utc(
-                                                      today.year, today.month, 1),
+                                                  DateTime.utc(today.year, today.month, 1),
+
                                               rangeEndDate: DateTime.utc(
                                                   today.year,
-                                                  today.month + 1,
-                                                  0));
+                                                  today.month + 1, 0));
 
                                           setState(() {
                                             _rangeStartDay = DateTime.utc(
@@ -183,6 +181,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                           setState(() {
                                             _rangeStartDay = today;
                                             _rangeEndDate = today;
+
                                           });
                                         }
                                         break;
@@ -267,6 +266,35 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                       } else {
                                         setState(() {
                                           _rangeStartDay = DateTime.utc(
+                                              today.year, today.month , 1);
+                                          _rangeEndDate = DateTime.utc(
+                                              today.year, today.month+1,0);
+                                        });
+                                      }
+
+                                      break;
+                                    case 4:
+                                      if (widget.rangeCalendarMethodImp ==
+                                          RangeCalendarMethodImp.LEAVE_RECORD) {
+                                        setDateToController(
+                                            rangeStartDate:
+                                            DateTime.utc(today.year, 1),
+                                            rangeEndDate: DateTime.utc(
+                                                today.year + 1,
+                                                today.month - today.month + 1,
+                                                0),
+                                            rangeName: AppString.text_total);
+                                        setState(() {
+                                          _rangeStartDay =
+                                              DateTime.utc(today.year, 1);
+                                          _rangeEndDate = DateTime.utc(
+                                              today.year + 1,
+                                              today.month - today.month + 1,
+                                              0);
+                                        });
+                                      } else {
+                                        setState(() {
+                                          _rangeStartDay = DateTime.utc(
                                               today.year, today.month - 1, 1);
                                           _rangeEndDate = DateTime.utc(
                                               today.year, today.month, 0);
@@ -274,6 +302,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                       }
 
                                       break;
+
                                   }
                                 },
                               );
@@ -299,9 +328,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                 },
                                 elevatedBtnText: AppString.text_apply,
                                 elevatedButtonAction: () {
-                                  print(
-                                      "start ::: ${DateFormat("yyyy-MM-dd").format(_rangeStartDay!)} End ::: ${DateFormat("yyyy-MM-dd").format(_rangeEndDate!)}");
-
+                                  print("start ::: ${DateFormat("yyyy-MM-dd").format(_rangeStartDay!)} End ::: ${DateFormat("yyyy-MM-dd").format(_rangeEndDate!)}");
                                   switch (widget.rangeCalendarMethodImp) {
                                     case RangeCalendarMethodImp.ALL_LOG:
                                       print(RangeCalendarMethodImp.ALL_LOG);
@@ -377,7 +404,7 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
                                       Navigator.pop(Get.context!);
                                       break;
                                     case RangeCalendarMethodImp.VIEW_HOLIDAY:
-                                      // TODO: Handle this case.
+                                    // TODO: Handle this case.
                                       break;
                                   }
                                 }),
@@ -431,8 +458,8 @@ class _SelectRangeCalenderState extends State<SelectRangeCalender> {
 
   setDateToController(
       {required DateTime rangeStartDate,
-      required DateTime rangeEndDate,
-      required String rangeName}) {
+        required DateTime rangeEndDate,
+        required String rangeName}) {
     Get.find<LeaveController>().rangeName.value = rangeName;
     Get.find<LeaveController>().rangeStartDay.value = rangeStartDate;
     Get.find<LeaveController>().rangeEndDate.value = rangeEndDate;

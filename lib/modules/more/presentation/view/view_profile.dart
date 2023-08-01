@@ -87,12 +87,9 @@ class ViewProfile extends GetView<ProfileDataController> {
                             defaultNavigator(context: context,routeName: EditProfile());
                           }),
                       customSpacerHeight(height: 10),
-                      Obx(() => circleAvatarStyle(
-                            userImage: controller
-                                    .userProfile.data?.profilePictureUrl
-                                    .toString() ??
-                                "",
-                          )),
+
+                      Obx(() =>_profileImage()),
+
                       customSpacerHeight(height: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,10 +109,8 @@ class ViewProfile extends GetView<ProfileDataController> {
                                       .toString() ??
                                   ""),
                           customSpacerHeight(height: 20),
-                          moveChangePassword(
-                            context: context,
-                            onAction: () => Get.toNamed(Routes.CHANGE_PASSWORD),
-                          ),
+
+                          _changePasswordLayout(context),
                           Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Column(
@@ -261,6 +256,22 @@ class ViewProfile extends GetView<ProfileDataController> {
 
   Future<void> _refreshPage() async {
     await controller.getProfileData();
+  }
+
+  _profileImage() {
+    return  circleAvatarStyle(
+      userImage: controller
+          .userProfile.data?.profilePictureUrl
+          .toString() ??
+          "",
+    );
+  }
+
+  _changePasswordLayout(context) {
+    return  changePassword(
+      context: context,
+      onAction: () => Get.toNamed(Routes.CHANGE_PASSWORD),
+    );
   }
 
 

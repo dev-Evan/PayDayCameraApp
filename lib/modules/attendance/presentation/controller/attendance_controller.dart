@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
 import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
+import 'package:pay_day_mobile/common/widget/success_message.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attendance_data_repository.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_entry/log_entry_request.dart';
@@ -83,13 +83,14 @@ class AttendanceController extends GetxController with StateMixin {
     await _attendanceDataRepository
         .punchIn(punchInRequest: punchInRequest)
         .then((value) {
+
+
+
+
       isLoading(false);
       checkUserIsPunchedIn();
       getDailyLog();
-
       startTimer();
-      //showCustomSnackBar(message: value.message ?? "");
-      toastMessage(context:context,message:value.message ?? "");
       returnValue = true;
       LoggerHelper.infoLog(message: value.message ?? "");
     }, onError: (error) {
@@ -112,7 +113,7 @@ class AttendanceController extends GetxController with StateMixin {
         checkUserIsPunchedIn();
         getDailyLog();
         stopTimer();
-        toastMessage(context:context,message:value.message ?? "");
+        // toastMessage(context:context,message:value.message ?? "");
         // showCustomSnackBar(message: value.message ?? "");
         returnValue = true;
         LoggerHelper.infoLog(message: value.message ?? "");
@@ -297,4 +298,6 @@ class AttendanceController extends GetxController with StateMixin {
     await getDailyLog();
   }
 }
+
+
 

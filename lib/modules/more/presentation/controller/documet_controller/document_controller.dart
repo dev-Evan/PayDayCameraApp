@@ -5,7 +5,6 @@ import 'package:pay_day_mobile/modules/more/domain/document_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../../common/widget/error_alert_pop_up.dart';
-import '../logout_controller.dart';
 
 class DocumentController extends GetxController with StateMixin {
   final isLoading = false.obs;

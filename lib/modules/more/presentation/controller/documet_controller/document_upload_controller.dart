@@ -1,74 +1,52 @@
-import 'package:get/get.dart';
 import 'dart:io';
-import 'package:file_picker/file_picker.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/view/documents.dart';
-import 'package:pay_day_mobile/utils/app_color.dart';
-import 'package:pay_day_mobile/utils/api_endpoints.dart';
-import 'package:pay_day_mobile/utils/app_string.dart';
-import '../../../../../common/widget/custom_navigator.dart';
+import '../../../data/document_repository/picked_form_storage.dart';
 
 class FileUploadController extends GetxController {
-  Rx<File?> selectedFile = Rx<File?>(null);
-  RxString filePath = ''.obs;
-  final isLoading = false.obs;
+  PickedFileFormStorage storageForUpload = PickedFileFormStorage();
 
-  final _box = GetStorage();
-  Future<void> pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-    if (result != null) {
-      File file = File(result.files.single.path!);
-      selectedFile.value = file;
-      filePath.value = result.files.single.path!;
-      print(filePath.toString());
-    }
-  }
-
-
-
-  var baseUrl = Api.BASE_URL + Api.DOCUMENT_UPLOAD;
-  late var accessToken = _box.read(AppString.ACCESS_TOKEN);
-  late var accessId = _box.read(AppString.ID_STORE);
   Future<dynamic> uploadFile({required context}) async {
-    isLoading(true);
+    storageForUpload.isLoading(true);
     bool isReturnValue = false;
 
-
-    File? file = selectedFile.value;
+    File? file = storageForUpload.selectedFile.value;
     if (file == null) {
       return;
     }
-    final url = Uri.parse(baseUrl);
-    var request = http.MultipartRequest('POST', url);
+    final url = Uri.parse(storageForUpload.baseUrl);
+    var request = _request(url);
     request.fields['name'] = Get.find<InputTextFieldController>().docFileNameController.text;
     request.fields['file'] = file.path;
-    request.fields['user_id'] = accessId.toString();
-    request.headers['Authorization'] = 'Bearer $accessToken';
+    request.fields['user_id'] = storageForUpload.accessId.toString();
+    request.headers['Authorization'] = 'Bearer ${storageForUpload.accessToken}';
+
     request.files.add(await http.MultipartFile.fromPath('file', file.path));
+
     var response = await request.send();
+
     if (response.statusCode == 200) {
-      isLoading(false);
-      isReturnValue=true;
-      _toastMessage();
-      filePath.value = "";
-      Get.find<InputTextFieldController>().docFileNameController.clear();
+      storageForUpload.isLoading(false);
+      isReturnValue = true;
+      storageForUpload.toastMessage(false);
+      storageForUpload.filePath.value = "";
+      _inputClear();
     } else {
-      isLoading(false);
-      isReturnValue=false;
-      showCustomSnackBar(
-          message: AppString.text_file_upload_file,color: AppColor.errorColor);
-      print('Failed to upload file');
+      storageForUpload.isLoading(false);
+      isReturnValue = false;
+      storageForUpload.toastMessage(true);
     }
-    isLoading(false);
-    return  isReturnValue;
+
+    storageForUpload.isLoading(false);
+    return isReturnValue;
   }
 
-  _toastMessage() {
-    return showCustomSnackBar(message: AppString.text_file_upload_update_successfully);
-
+  _inputClear() {
+    return Get.find<InputTextFieldController>().docFileNameController.clear();
   }
 
+  _request(url) {
+    return http.MultipartRequest('POST', url);
+  }
 }
