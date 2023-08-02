@@ -1,12 +1,10 @@
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../../../../common/widget/error_message.dart';
-import '../../../../../common/widget/error_snackbar.dart';
 
 class PickImageController extends GetxController {
   var pickedImage = Rx<XFile?>(null);
@@ -27,7 +25,7 @@ class PickImageController extends GetxController {
       XFile? image = await ImagePicker().pickImage(source: source);
       if (image != null) {
         if (image.path.length > 500.toInt()) {
-          showCustomSnackBar(message: AppString.text_jpeg_format_not_support);
+          showErrorMessage(errorMessage: AppString.text_jpeg_format_not_support);
         } else {
           pickedImage.value = image;
           await _profileDataController.changeProfileImage(image);

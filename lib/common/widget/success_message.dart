@@ -5,7 +5,7 @@ import 'package:motion_toast/resources/arrays.dart';
 
 import '../../utils/app_style.dart';
 
-void showSuccessMessage({String? message,double marginForButton=0}) async => MotionToast.success(
+void showSuccessMessage({String? message,double marginForButton=10}) async => MotionToast.success(
   borderRadius: 4,
   position: MotionToastPosition.bottom,
   padding:  EdgeInsets.only(bottom:marginForButton, right: 20, left: 20),

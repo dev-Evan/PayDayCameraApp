@@ -8,12 +8,10 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pay_day_mobile/common/widget/error_message.dart';
-import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
+import 'package:pay_day_mobile/common/widget/success_message.dart';
 import 'package:pay_day_mobile/utils/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../utils/app_string.dart';
-import '../widget/success_message.dart';
 
 class DownloadHelper extends GetxController {
   @override
@@ -118,6 +116,7 @@ class DownloadHelper extends GetxController {
             name: extractFileNameFromUrl(url),
             onProgress: (fileName, progress) {
               showSuccessMessage(message: "Download Started");
+
             },
             onDownloadCompleted: (String path) {
               showSuccessMessage(message: "Download Completed");

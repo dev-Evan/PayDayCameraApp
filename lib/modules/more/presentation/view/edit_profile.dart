@@ -4,8 +4,8 @@ import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_appbar.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/input_note.dart';
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
+import 'package:pay_day_mobile/common/widget/warning_message.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/edit_profile_drop_dawon_cnt.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/defult_date_of_birth_field.dart';
@@ -13,7 +13,6 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/widget/loading_indicator.dart';
-import '../../../../common/widget/success_message.dart';
 import '../../../auth/presentation/view/sign_in.dart';
 import '../controller/common_controller/date_of_birth_controller.dart';
 import '../controller/user_profile_controller.dart';
@@ -58,7 +57,7 @@ class EditProfile extends GetView<ProfileDataController> {
                                     .firstNameController,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    showCustomSnackBar(message: AppString.the_first_name_field_is_required);
+                                    showWarningMessage(message: AppString.the_first_name_field_is_required);
                                     return AppString
                                         .fieldIsRequired;
                                   }

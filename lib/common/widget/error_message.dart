@@ -5,7 +5,7 @@ import 'package:motion_toast/resources/arrays.dart';
 
 import '../../utils/app_style.dart';
 
-showErrorMessage({String? errorMessage,double marginForButton=0}) async => MotionToast.error(
+showErrorMessage({String? errorMessage,double marginForButton=10}) async => MotionToast.error(
   borderRadius: 4,
   position: MotionToastPosition.bottom,
   padding:  EdgeInsets.only(bottom: marginForButton, right: 20, left: 20),

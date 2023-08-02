@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
+import 'package:pay_day_mobile/common/widget/warning_message.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/update_document_controller.dart';
@@ -17,7 +18,6 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:dotted_border/dotted_border.dart';
 import '../../../../common/widget/loading_indicator.dart';
-import '../../../../common/widget/success_snakbar.dart';
 import '../controller/documet_controller/document_controller.dart';
 import '../view/change_password.dart';
 
@@ -190,13 +190,14 @@ class UpdateDocument extends StatelessWidget {
               Get.find<UpdateDocumentController>().storageForUpdate
                   .filePath
                   .startsWith("https://")
-                  ? showCustomSnackBar(
+                  ? showWarningMessage(
                 message: AppString.text_please_selected_document,
               )
                   : Get.find<UpdateDocumentController>()
                   .updateDocFile(context: context).then((value){
                 Get.back(canPop: false);
                 Get.find<DocumentController>().getDocumentData();
+                Get.find<UpdateDocumentController>().storageForUpdate.toastMessage(false);
               });
             }
           },

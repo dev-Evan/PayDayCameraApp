@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
+import 'package:pay_day_mobile/common/widget/warning_message.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/document_upload_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
@@ -17,6 +17,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:dotted_border/dotted_border.dart';
 import '../../../../common/widget/loading_indicator.dart';
+import '../../data/document_repository/picked_form_storage.dart';
 import '../controller/documet_controller/document_controller.dart';
 import '../view/change_password.dart';
 
@@ -121,6 +122,7 @@ class AddDocument extends GetView<FileUploadController> {
   }
 
   _buttonLayout(BuildContext context) {
+
     return Obx(
       () => Get.find<FileUploadController>().storageForUpload.isLoading.isTrue
           ? _loadingLayout()
@@ -140,11 +142,11 @@ class AddDocument extends GetView<FileUploadController> {
                               .docFileNameController
                               .text
                               .isEmpty
-                          ? showCustomSnackBar(
+                          ? showWarningMessage(
                               message: AppString.text_document_name_is_required,
                             )
                           : Get.find<FileUploadController>().storageForUpload.filePath.isEmpty
-                              ? showCustomSnackBar(
+                              ? showWarningMessage(
                                   message:
                                       AppString.text_please_selected_document,
                                 )
@@ -154,6 +156,7 @@ class AddDocument extends GetView<FileUploadController> {
                                   Get.back(canPop: false);
                                   Get.find<DocumentController>()
                                       .getDocumentData();
+                                  Get.find<FileUploadController>().storageForUpload.toastMessage(false);
                                 });
                     }
                   },

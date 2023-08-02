@@ -371,6 +371,9 @@ class AppString {
   static String text_attendance_request_successfully =
       "Attendance request has been successfully";
 
+  static String text_leave_request_successfully =
+      "Leave request has been successfully";
+
 
 
 
@@ -392,6 +395,8 @@ class AppString {
       "Failed to upload file";
   static String text_bank_details_deleted_successfully =
       "Bank details has been deleted successfully";
+  static String text_bank_details_added_successfully =
+      "Bank details has been added successfully";
   static String text_bank_details_update_successfully =
       "Bank details has been update successfully";
   static String text_address_deleted_successfully =

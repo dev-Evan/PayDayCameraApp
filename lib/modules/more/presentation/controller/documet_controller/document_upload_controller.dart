@@ -29,7 +29,6 @@ class FileUploadController extends GetxController {
     if (response.statusCode == 200) {
       storageForUpload.isLoading(false);
       isReturnValue = true;
-      storageForUpload.toastMessage(false);
       storageForUpload.filePath.value = "";
       _inputClear();
     } else {

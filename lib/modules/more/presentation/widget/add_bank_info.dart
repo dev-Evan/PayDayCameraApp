@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
+import 'package:pay_day_mobile/common/widget/success_message.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
@@ -130,32 +131,37 @@ class AddBankInfo extends GetView<BankInfoController> {
               ),
               customSpacerHeight(height: 50),
 
-              Obx(() => Get.find<BankInfoController>().isLoading.isTrue?loadingIndicatorLayout():
-              customDoubleButton(
-                  context: context,
-                  elevatedBtnText:
-                  '${AppString.text_add}${AppString.text_details}',
-                  textBtnText: AppString.text_cancel,
-                  textButtonAction: () => Get.back(),
-                  elevatedButtonAction: () {
-                    FocusScope.of(context).requestFocus(FocusNode());
-                    if (_formKey.currentState!.validate()) {
-                      Get.find<BankInfoController>()
-                          .addBankInfo(context: context).then((value){
-                        if(value==true){
-                          Get.back(canPop: false);
-                          Get.find<BankInfoController>().getBankInfo();
-                        }
-                      });
-                    }
-                  }),
-              ),
+              Obx(() => _buttonLayout(context)),
+
               customSpacerHeight(height: 250)
             ],
           ),
         ),
       ),
     ),onLoading: const LoadingIndicator());
+  }
+
+  _buttonLayout(context) {
+    return Get.find<BankInfoController>().isLoading.isTrue?loadingIndicatorLayout():
+    customDoubleButton(
+        context: context,
+        elevatedBtnText:
+        '${AppString.text_add}${AppString.text_details}',
+        textBtnText: AppString.text_cancel,
+        textButtonAction: () => Get.back(),
+        elevatedButtonAction: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+          if (_formKey.currentState!.validate()) {
+            Get.find<BankInfoController>()
+                .addBankInfo(context: context).then((value){
+              if(value==true){
+                Get.back(canPop: false);
+                Get.find<BankInfoController>().getBankInfo();
+                showSuccessMessage(message: AppString.text_bank_details_added_successfully);
+              }
+            });
+          }
+        });
   }
 }
 

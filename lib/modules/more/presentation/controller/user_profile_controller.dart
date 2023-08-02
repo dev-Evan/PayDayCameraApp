@@ -8,7 +8,7 @@ import 'package:pay_day_mobile/modules/more/presentation/view/change_password.da
 import 'package:pay_day_mobile/network/network_client.dart';
 import '../../../../common/widget/error_alert_pop_up.dart';
 import '../../../../common/widget/error_message.dart';
-import '../../../../common/widget/success_snakbar.dart';
+import '../../../../common/widget/success_message.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../utils/app_string.dart';
 import '../../../auth/presentation/controller/auth_controller.dart';
@@ -38,7 +38,7 @@ class ProfileDataController extends GetxController with StateMixin {
   changeProfileImage(XFile image) async {
     change(null, status: RxStatus.loading());
     await profileDataRepository.changeImageRepo(image: image).then((value) {
-      showCustomSnackBar(
+      showSuccessMessage(
           message: AppString.text_profile_picture_update_successfully);
     }, onError: (error) {
       print("Change profile image ::: ${error.message}");
@@ -76,8 +76,7 @@ class ProfileDataController extends GetxController with StateMixin {
         GetStorage().remove(AppString.LOGIN_CHECK_KEY);
         isLoaded(false);
 
-        showCustomSnackBar(
-            message: AppString.text_password_update_successfully);
+        showSuccessMessage(message: AppString.text_password_update_successfully);
         Get.offNamed(Routes.SIGN_IN);
         cleanPassData();
         Get.put(AuthController());

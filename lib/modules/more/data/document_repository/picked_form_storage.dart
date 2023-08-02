@@ -3,8 +3,8 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
+import 'package:pay_day_mobile/common/widget/success_message.dart';
+import 'package:pay_day_mobile/common/widget/warning_message.dart';
 import 'package:pay_day_mobile/utils/api_endpoints.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../../../common/widget/error_message.dart';
@@ -35,7 +35,7 @@ class PickedFileFormStorage {
     if (permissionStatus.isGranted) {
       if (result != null) {
         if (result.files.single.path!.length > 500.toInt()) {
-          showCustomSnackBar(message: AppString.text_jpeg_format_not_support);
+          showWarningMessage(message: AppString.text_jpeg_format_not_support);
         } else {
           File file = File(result.files.single.path!);
           selectedFile.value = file;
@@ -45,14 +45,14 @@ class PickedFileFormStorage {
     } else if (permissionStatus.isPermanentlyDenied) {
       openAppSettings();
     } else {
-      showErrorMessage(errorMessage: AppString.storage_permission);
+      showWarningMessage(message: AppString.storage_permission);
     }
   }
 
   toastMessage(bool status) {
     return status == false
-        ? showCustomSnackBar(
-            message: AppString.text_file_upload_update_successfully)
-        : showCustomSnackBar(message: AppString.text_file_upload_file);
+        ? showSuccessMessage(
+            message: AppString.text_file_upload_update_successfully,marginForButton: 60)
+        : showErrorMessage(errorMessage: AppString.text_file_upload_file);
   }
 }
