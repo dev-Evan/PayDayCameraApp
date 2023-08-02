@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/more/data/address_repo_data.dart';
 import 'package:pay_day_mobile/modules/more/domain/deleted_address_model.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/utils.dart';
 import '../../../../common/widget/error_alert_pop_up.dart';
+import '../../../../common/widget/error_message.dart';
+import '../../../../common/widget/success_message.dart';
 import '../../../../network/network_client.dart';
 import '../../domain/address_details_model.dart';
 import 'common_controller/more_text_editing_controller.dart';
@@ -40,13 +40,13 @@ class AddressController extends GetxController with StateMixin {
           .then((value) {
         isReturnValue = true;
         isLoading(true);
-        FutureDelayed(onAction: () => showCustomSnackBar(message: message));
+        showSuccessMessage(message: message);
         FutureDelayed(onAction: () => _fieldClear());
         print("Address update called ::: $value");
       }, onError: (error) {
         isReturnValue = false;
         isLoading(false);
-        errorSnackBar(errorMessage: error.toString());
+        showErrorMessage(errorMessage: error.message);
       });
     } catch (ex) {
       isReturnValue = false;
@@ -61,11 +61,11 @@ class AddressController extends GetxController with StateMixin {
       await addressRepository.deletedAddressRepo(addressType.toString()).then(
           (DeletedAddressModel value) async {
         isDetReturnValue = true;
-        showCustomSnackBar(message: AppString.text_address_deleted_successfully);
+        showSuccessMessage(message: AppString.text_address_deleted_successfully);
       }, onError: (error) {
         isLoading(false);
         isDetReturnValue = false;
-        errorSnackBar(errorMessage: error.toString());
+        showErrorMessage(errorMessage: error.message);
         print("Deleted Address ::: ${error.toString()}");
       });
     isLoading(false);

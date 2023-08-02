@@ -3,7 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
+import 'package:pay_day_mobile/common/widget/error_message.dart';
+import 'package:pay_day_mobile/common/widget/success_message.dart';
 import 'package:pay_day_mobile/modules/leave/data/leave_repository.dart';
 import 'package:pay_day_mobile/modules/leave/domain/individual_date_leave.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_allowance.dart';
@@ -12,6 +13,8 @@ import 'package:pay_day_mobile/modules/leave/domain/leave_record.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_summary.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_type.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
+
+import '../../../../utils/app_string.dart';
 
 class LeaveController extends GetxController with StateMixin {
   final LeaveRepository _leaveRepository = LeaveRepository(NetworkClient());
@@ -148,7 +151,6 @@ class LeaveController extends GetxController with StateMixin {
         .then((value) async {
       isLoading(false);
       print("requestLeave ::: called");
-      showCustomSnackBar(message: value.message ?? "");
       Map<String, String> queryParams = {
         "start": DateFormat("yyyy-MM-dd").format(DateTime.now()),
         "end": DateFormat("yyyy-MM-dd").format(DateTime.now())
@@ -157,11 +159,12 @@ class LeaveController extends GetxController with StateMixin {
       await Get.find<LeaveController>()
           .getIndividualLeaveList(queryParams: "date_range=$dateValue");
       Get.back(canPop: false);
+      showSuccessMessage(message:AppString.text_leave_request_successfully,marginForButton: 60);
       //clear queries after api call
       Get.find<LeaveController>().requestLeaveQueries.clear();
     }, onError: (error) {
       isLoading(false);
-      showCustomSnackBar(message: "${error.message}");
+      showErrorMessage(errorMessage: "${error.message}");
       print("getILeaveDetails $error");
     });
     isLoading(false);

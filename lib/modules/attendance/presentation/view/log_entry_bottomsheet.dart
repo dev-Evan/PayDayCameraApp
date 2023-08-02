@@ -1,10 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/common/widget/success_message.dart';
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/common/widget/users_current_info_layout.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/map_layout.dart';
@@ -12,6 +10,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import '../../../../common/widget/custom_app_button.dart';
+import '../../../../common/widget/error_message.dart';
 import '../../../../common/widget/input_note.dart';
 import '../../../../utils/dimensions.dart';
 import '../../domain/log_entry/log_entry_request.dart';
@@ -226,6 +225,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
       if (value == true) {
         controller.editTextController.clear();
         Get.back(canPop: false);
+        showSuccessMessage(message: AppString.text_punch_out_successfully,marginForButton: 60);
       }
     });
   }
@@ -248,7 +248,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
       if (value == true) {
         controller.editTextController.clear();
         Get.back(canPop: false);
-        showSuccessMessage(message: "Punch in successfully 2");
+        showSuccessMessage(message: AppString.text_punch_in_successfully,marginForButton: 60);
       }
     });
   }

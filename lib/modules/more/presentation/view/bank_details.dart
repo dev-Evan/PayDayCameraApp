@@ -6,6 +6,7 @@ import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/no_data_found.dart';
+import 'package:pay_day_mobile/common/widget/success_message.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/add_bank_info.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/address_details_widget.dart';
@@ -171,6 +172,7 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
                         .then((value) {
                       Get.back(canPop: false);
                       Get.find<BankInfoController>().getBankInfo();
+                      showSuccessMessage(message: AppString.text_bank_details_deleted_successfully,marginForButton: 60);
                     });
                   });
             },

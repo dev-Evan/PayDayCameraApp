@@ -1,16 +1,14 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
+import 'package:pay_day_mobile/common/widget/error_message.dart';
 import 'package:pay_day_mobile/modules/auth/data/auth_data_repository.dart';
 import 'package:pay_day_mobile/modules/auth/domain/login_res.dart';
 import 'package:pay_day_mobile/modules/auth/domain/reset_password_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../routes/app_pages.dart';
-import 'package:pay_day_mobile/utils/app_color.dart';
 
 class AuthController extends GetxController with StateMixin {
   final AuthDataSource _authDataSource = AuthDataSource(NetworkClient());
@@ -34,7 +32,7 @@ class AuthController extends GetxController with StateMixin {
        Get.offAllNamed(Routes.HOME);
       }, onError: (error) {
         isLoading.value = false;
-        showCustomSnackBar( message: error.message);
+        showErrorMessage(errorMessage: error.message);
       });
 
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_double_button.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
+import 'package:pay_day_mobile/common/widget/success_message.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
@@ -144,6 +145,7 @@ class EditBankInfo extends GetView<BankInfoController> {
                         if (value == true) {
                           Get.back(canPop: false);
                           Get.find<BankInfoController>().getBankInfo();
+                          showSuccessMessage(message: AppString.text_bank_details_update_successfully);
                         }
                       });
                     }

@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/widget/custom_app_button.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/break_controller.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
+import '../../../../common/widget/warning_message.dart';
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/dimensions.dart';
 
@@ -262,8 +262,7 @@ _buttonLayout() {
                                     .id ??
                                 0);
                       } else {
-                        showCustomSnackBar(
-                            message: AppString.breaK_time_selection_text);
+                        showWarningMessage(message: AppString.breaK_time_selection_text);
                       }
                     } else {
                       //get log id from check punched in method from attendance controller

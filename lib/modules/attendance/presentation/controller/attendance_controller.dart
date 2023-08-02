@@ -6,8 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
-import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
-import 'package:pay_day_mobile/common/widget/success_message.dart';
+import 'package:pay_day_mobile/common/widget/error_message.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attendance_data_repository.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_entry/log_entry_request.dart';
@@ -84,9 +83,6 @@ class AttendanceController extends GetxController with StateMixin {
         .punchIn(punchInRequest: punchInRequest)
         .then((value) {
 
-
-
-
       isLoading(false);
       checkUserIsPunchedIn();
       getDailyLog();
@@ -95,7 +91,7 @@ class AttendanceController extends GetxController with StateMixin {
       LoggerHelper.infoLog(message: value.message ?? "");
     }, onError: (error) {
       isLoading(false);
-      errorSnackBar(errorMessage: error.message);
+      showErrorMessage(errorMessage: error.message,marginForButton: 60);
       returnValue = false;
       LoggerHelper.errorLog(message: error.message);
     });
@@ -113,15 +109,12 @@ class AttendanceController extends GetxController with StateMixin {
         checkUserIsPunchedIn();
         getDailyLog();
         stopTimer();
-        // toastMessage(context:context,message:value.message ?? "");
-        // showCustomSnackBar(message: value.message ?? "");
         returnValue = true;
         LoggerHelper.infoLog(message: value.message ?? "");
       },
       onError: (error) {
         isLoading(false);
-
-        errorSnackBar(errorMessage: error.message);
+        showErrorMessage(errorMessage: error.message,marginForButton: 60);
         returnValue = false;
         LoggerHelper.errorLog(message: error.message);
       },
@@ -164,7 +157,7 @@ class AttendanceController extends GetxController with StateMixin {
       logDetailsById = logDetails;
       LoggerHelper.infoLog(message: logDetails.message);
     }), onError: (error) {
-      errorSnackBar(errorMessage: error!.message);
+      showErrorMessage(errorMessage: error.message);
       LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());
@@ -187,7 +180,7 @@ class AttendanceController extends GetxController with StateMixin {
     }, onError: (error) {
       isLoading(false);
       LoggerHelper.errorLog(message: error.message);
-      errorSnackBar(errorMessage: error.message);
+      showErrorMessage(errorMessage: error.message);
       returnValue = false;
     });
     isLoading(false);
