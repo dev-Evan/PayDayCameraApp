@@ -5,10 +5,10 @@ import 'package:motion_toast/resources/arrays.dart';
 
 import '../../utils/app_style.dart';
 
-void showSuccessMessage({String? message}) async => MotionToast.success(
+void showSuccessMessage({String? message,double marginForButton=0}) async => MotionToast.success(
   borderRadius: 4,
   position: MotionToastPosition.bottom,
-  padding: const EdgeInsets.only(bottom: 60, right: 20, left: 20),
+  padding:  EdgeInsets.only(bottom:marginForButton, right: 20, left: 20),
   animationType: AnimationType.fromRight,
   height: 60,
   animationDuration: const Duration(

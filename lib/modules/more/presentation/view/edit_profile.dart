@@ -13,6 +13,7 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/documents_appbar
 import 'package:pay_day_mobile/modules/more/presentation/widget/text_title_text.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/widget/loading_indicator.dart';
+import '../../../../common/widget/success_message.dart';
 import '../../../auth/presentation/view/sign_in.dart';
 import '../controller/common_controller/date_of_birth_controller.dart';
 import '../controller/user_profile_controller.dart';

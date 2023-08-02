@@ -9,6 +9,7 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/add_bank_info.da
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/widget/error_alert_pop_up.dart';
+import '../../../../common/widget/error_message.dart';
 
 class BankInfoController extends GetxController with StateMixin {
   final box = GetStorage();
@@ -99,7 +100,7 @@ class BankInfoController extends GetxController with StateMixin {
     }, onError: (error) {
       isLoading(false);
       updatedBankInfoValue=false;
-      errorSnackBar(errorMessage: error);
+      showErrorMessage(errorMessage: error.message);
       print("BANK INFO UPDATED ::: $error");
     });
     isLoading(false);

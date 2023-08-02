@@ -5,12 +5,13 @@ import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../../../../../common/widget/error_message.dart';
 import '../../../../../common/widget/error_snackbar.dart';
 
 class PickImageController extends GetxController {
   var pickedImage = Rx<XFile?>(null);
-  final ProfileDataController _profileDataController = Get.put(ProfileDataController());
-
+  final ProfileDataController _profileDataController =
+      Get.put(ProfileDataController());
 
   Future<void> pickImage(ImageSource source) async {
     PermissionStatus permissionStatus;
@@ -25,17 +26,16 @@ class PickImageController extends GetxController {
     if (permissionStatus.isGranted) {
       XFile? image = await ImagePicker().pickImage(source: source);
       if (image != null) {
-        if (image.path.endsWith(".jpeg")) {
-          showCustomSnackBar(message: AppString.text_jpeg_format_not_supporte);
+        if (image.path.length > 500.toInt()) {
+          showCustomSnackBar(message: AppString.text_jpeg_format_not_support);
         } else {
           pickedImage.value = image;
           await _profileDataController.changeProfileImage(image);
         }
-      }
-      else if (permissionStatus.isPermanentlyDenied) {
+      } else if (permissionStatus.isPermanentlyDenied) {
         openAppSettings();
       } else {
-        errorSnackBar(errorMessage: AppString.storage_permission);
+        showErrorMessage(errorMessage: AppString.storage_permission);
       }
     }
   }

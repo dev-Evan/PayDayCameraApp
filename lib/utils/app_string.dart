@@ -29,7 +29,7 @@ class AppString {
   static String text_leave_status = "Leave Status";
   static String text_leave_duration = "Leave Duration";
   static String text_approved = "Approved";
-  static String text_jpeg_format_not_supporte = "The file is too big! Maximum allowed 5MB";
+  static String text_jpeg_format_not_support = "The file is too big! Maximum allowed 5MB";
   static String text_duration = "Duration";
   static String text_pending = "Pending";
   static String text_rejected = "Rejected";
@@ -205,6 +205,8 @@ class AppString {
   static const String text_tax = "Tax";
   static const String text_total_summary = "Total Summary";
   static const String text_download_payslip = "Download Payslip";
+  static const String text_punch_in_successfully = "Punch in successfully";
+  static const String text_punch_out_successfully = "Punch out successfully";
 
 
 
@@ -361,8 +363,18 @@ class AppString {
   static String text_enter_title = "Enter title";
   static String text_enter_id = "Enter ID";
   static String text_enter_massage = "Enter message";
+
+
   static String text_password_change_successfully =
       "Password has been changed successfully";
+
+  static String text_attendance_request_successfully =
+      "Attendance request has been successfully";
+
+
+
+
+
   static String text_deleted_address_successfully =
       "Deleted address successfully";
   static String text_deleted_document_successfully =

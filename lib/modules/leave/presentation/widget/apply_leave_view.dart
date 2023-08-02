@@ -22,6 +22,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../../../common/widget/custom_double_button.dart';
+import '../../../../common/widget/error_message.dart';
 import '../../../../common/widget/error_snackbar.dart';
 import '../../../../common/widget/input_note.dart';
 import '../../../../utils/logger.dart';
@@ -78,7 +79,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
     else if(permissionStatus.isPermanentlyDenied){
       openAppSettings();
     }else{
-      errorSnackBar(errorMessage: AppString.storage_permission);
+      showErrorMessage(errorMessage: AppString.storage_permission);
     }
   }
 

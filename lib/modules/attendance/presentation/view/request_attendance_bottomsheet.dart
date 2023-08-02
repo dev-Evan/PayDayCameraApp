@@ -9,6 +9,7 @@ import '../../../../common/widget/custom_app_button.dart';
 import '../../../../common/widget/custom_time_picker.dart';
 import '../../../../common/widget/loading_indicator.dart';
 import '../../../../common/widget/note_layout.dart';
+import '../../../../common/widget/success_message.dart';
 import '../../../../utils/app_color.dart';
 import '../../../../utils/app_layout.dart';
 import '../../../../utils/app_string.dart';
@@ -97,6 +98,7 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
               .then((value) {
             if (value == true) {
               Navigator.pop(Get.context!);
+              showSuccessMessage(message: AppString.text_attendance_request_successfully);
             }
           });
         } else {
