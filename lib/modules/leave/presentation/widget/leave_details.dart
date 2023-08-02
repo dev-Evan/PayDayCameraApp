@@ -20,6 +20,7 @@ import 'package:pay_day_mobile/utils/utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../common/widget/custom_app_button.dart';
+import '../../../../common/widget/success_message.dart';
 
 class LeaveDetails extends GetView<LeaveController> {
   const LeaveDetails({Key? key}) : super(key: key);
@@ -30,120 +31,114 @@ class LeaveDetails extends GetView<LeaveController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         bottomSheetAppbar(
-            appbarTitle: AppString.text_leave_details,
-            context: context),
-
-        controller.obx((state) =>   Expanded(child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          controller.leaveDetails.data?.leaveType ?? "",
-                          style: AppStyle.title_text.copyWith(
-                              color: AppColor.normalTextColor,
-                              fontSize: Dimensions.fontSizeMid),
-                        ),
-                      ],
-                    ),
+            appbarTitle: AppString.text_leave_details, context: context),
+        controller.obx(
+            (state) => Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  controller.leaveDetails.data?.leaveType ?? "",
+                                  style: AppStyle.title_text.copyWith(
+                                      color: AppColor.normalTextColor,
+                                      fontSize: Dimensions.fontSizeMid),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: AppLayout.getWidth(12),
+                          ),
+                          CustomStatusButton(
+                              textColor: Util.getChipTextColor(
+                                  status: controller.leaveDetails.data
+                                          ?.leaveStatusClass ??
+                                      ""),
+                              bgColor: Util.getChipBgColor(
+                                  status: controller.leaveDetails.data
+                                          ?.leaveStatusClass ??
+                                      ""),
+                              text: controller.leaveDetails.data?.leaveStatus ??
+                                  ""),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            controller.leaveDetails.data?.leaveDuration ?? "",
+                            style: AppStyle.normal_text.copyWith(
+                                color: AppColor.hintColor,
+                                fontSize: Dimensions.fontSizeDefault),
+                          ),
+                          customSpacerWidth(width: 16),
+                          controller.leaveDetails.data != null &&
+                                  controller.leaveDetails.data!.leaveDuration!
+                                      .contains("hrs")
+                              ? _hoursDuration()
+                              : Container(),
+                        ],
+                      ),
+                      SizedBox(
+                        height: AppLayout.getHeight(12),
+                      ),
+                      Text(
+                        "${controller.leaveDetails.data?.startAt ?? ""} - ${controller.leaveDetails.data?.endAt ?? ""}",
+                        style: AppStyle.title_text.copyWith(
+                            color: AppColor.normalTextColor,
+                            fontSize: Dimensions.fontSizeDefault),
+                      ),
+                      SizedBox(
+                        height: AppLayout.getHeight(4),
+                      ),
+                      Text(
+                        controller.leaveDetails.data?.reasonNote ?? '',
+                        style: AppStyle.normal_text.copyWith(
+                            color: AppColor.normalTextColor,
+                            fontSize: Dimensions.fontSizeDefault),
+                      ),
+                      SizedBox(
+                        height: AppLayout.getHeight(28),
+                      ),
+                      Text(
+                        "${controller.leaveDetails.data?.attachmentCount.toString() ?? ''} Attachments",
+                        style: AppStyle.title_text.copyWith(
+                            color: AppColor.hintColor,
+                            fontSize: Dimensions.fontSizeDefault - 1),
+                      ),
+                      SizedBox(
+                        height: AppLayout.getHeight(8),
+                      ),
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount:
+                            controller.leaveDetails.data?.attachments?.length ??
+                                0,
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent:
+                                AppLayout.getSize(context).width * .5,
+                            childAspectRatio: 3 / 2,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 20),
+                        itemBuilder: (context, index) => _attachmentCard(index),
+                      ),
+                      const Spacer(),
+                      _logResponseButtonLayOut()
+                    ],
                   ),
-                  SizedBox(
-                    width: AppLayout.getWidth(12),
-                  ),
-                  CustomStatusButton(
-                      textColor: Util.getChipTextColor(
-                          status: controller.leaveDetails.data
-                              ?.leaveStatusClass ??
-                              ""),
-                      bgColor: Util.getChipBgColor(
-                          status: controller.leaveDetails.data
-                              ?.leaveStatusClass ??
-                              ""),
-                      text: controller
-                          .leaveDetails.data?.leaveStatus ??
-                          ""),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    controller.leaveDetails.data?.leaveDuration ??
-                        "",
-                    style: AppStyle.normal_text.copyWith(
-                        color: AppColor.hintColor,
-                        fontSize: Dimensions.fontSizeDefault),
-                  ),
-                  customSpacerWidth(width: 16),
-                  controller.leaveDetails.data != null &&
-                      controller
-                          .leaveDetails.data!.leaveDuration!
-                          .contains("hrs")
-                      ? _hoursDuration()
-                      : Container(),
-                ],
-              ),
-              SizedBox(
-                height: AppLayout.getHeight(12),
-              ),
-              Text(
-                "${controller.leaveDetails.data?.startAt ?? ""} - ${controller.leaveDetails.data?.endAt ?? ""}",
-                style: AppStyle.title_text.copyWith(
-                    color: AppColor.normalTextColor,
-                    fontSize: Dimensions.fontSizeDefault),
-              ),
-              SizedBox(
-                height: AppLayout.getHeight(4),
-              ),
-              Text(
-                controller.leaveDetails.data?.reasonNote ?? '',
-                style: AppStyle.normal_text.copyWith(
-                    color: AppColor.normalTextColor,
-                    fontSize: Dimensions.fontSizeDefault),
-              ),
-              SizedBox(
-                height: AppLayout.getHeight(28),
-              ),
-              Text(
-                "${controller.leaveDetails.data?.attachmentCount.toString() ?? ''} Attachments",
-                style: AppStyle.title_text.copyWith(
-                    color: AppColor.hintColor,
-                    fontSize: Dimensions.fontSizeDefault - 1),
-              ),
-              SizedBox(
-                height: AppLayout.getHeight(8),
-              ),
-              GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: controller
-                    .leaveDetails.data?.attachments?.length ??
-                    0,
-                gridDelegate:
-                SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent:
-                    AppLayout.getSize(context).width * .5,
-                    childAspectRatio: 3 / 2,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20),
-                itemBuilder: (context, index) =>
-                    _attachmentCard(index),
-              ),
-              const Spacer(),
-              _logResponseButtonLayOut()
-            ],
-          ),
-        )),onLoading: const Expanded(child: Center(child: LoadingIndicator()))
-        )
+                )),
+            onLoading: const Expanded(child: Center(child: LoadingIndicator())))
       ],
     );
-
   }
 
   _buttonLayout() {
@@ -194,9 +189,11 @@ class LeaveDetails extends GetView<LeaveController> {
   _attachmentCard(int index) {
     return InkWell(
         child: Image.asset(Images.documents),
-        onTap: () => Get.find<DownloadHelper>().downloadFileForAndroid(
-            url: controller.leaveDetails.data?.attachments?[index].fullUrl ??
-                ""));
+        onTap: () {
+          Get.find<DownloadHelper>().downloadFileForAndroid(
+              url: controller.leaveDetails.data?.attachments?[index].fullUrl ??
+                  "");
+        });
   }
 
   _hoursDuration() {

@@ -110,23 +110,23 @@ class DownloadHelper extends GetxController {
       permissionStatus = await Permission.storage.request();
     }
     if (permissionStatus.isGranted) {
-      try {
-        FileDownloader.downloadFile(
-            url: url,
-            name: extractFileNameFromUrl(url),
-            onProgress: (fileName, progress) {
-              showSuccessMessage(message: "Download Started");
-
-            },
-            onDownloadCompleted: (String path) {
-              showSuccessMessage(message: "Download Completed");
-            },
-            onDownloadError: (String error) {
-              showErrorMessage(errorMessage: "Something went wrong! \n$error");
-            });
-      } catch (e) {
-        print(e.toString());
-      }
+      showSuccessMessage(message: "Download Started");
+      Future.delayed(const Duration(milliseconds: 2600),(){
+        try {
+          FileDownloader.downloadFile(
+              url: url,
+              name: extractFileNameFromUrl(url),
+              onProgress: (fileName, progress) {},
+              onDownloadCompleted: (String path) {
+                showSuccessMessage(message: "Download Completed");
+              },
+              onDownloadError: (String error) {
+                showErrorMessage(errorMessage: "Something went wrong! \n$error");
+              });
+        } catch (e) {
+          print(e.toString());
+        }
+      });
     }else if (permissionStatus.isPermanentlyDenied) {
       openAppSettings();
     } else {
