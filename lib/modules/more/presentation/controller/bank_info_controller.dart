@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
 import 'package:pay_day_mobile/modules/more/data/bank_info_repository.dart';
 import 'package:pay_day_mobile/modules/more/domain/bank_info_model.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
@@ -9,6 +7,8 @@ import 'package:pay_day_mobile/modules/more/presentation/widget/add_bank_info.da
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import '../../../../common/widget/error_alert_pop_up.dart';
+import '../../../../common/widget/error_message.dart';
+import '../../../../common/widget/success_message.dart';
 
 class BankInfoController extends GetxController with StateMixin {
   final box = GetStorage();
@@ -65,7 +65,6 @@ class BankInfoController extends GetxController with StateMixin {
     isLoading(true);
       await moreDataRepository.deletedBankInfoRepo().then((value) {
         deleteReturnValue=true;
-        showCustomSnackBar(message: AppString.text_bank_details_deleted_successfully);
         clearData();
       }, onError: (error) {
         isLoading(false);
@@ -94,12 +93,11 @@ class BankInfoController extends GetxController with StateMixin {
     ).then((value) {
       print("BANK INFO UPDATED ::: $value");
       updatedBankInfoValue=true;
-      showCustomSnackBar(message: AppString.text_bank_details_update_successfully);
       clearData();
     }, onError: (error) {
       isLoading(false);
       updatedBankInfoValue=false;
-      errorSnackBar(errorMessage: error);
+      showErrorMessage(errorMessage: error.message);
       print("BANK INFO UPDATED ::: $error");
     });
     isLoading(false);

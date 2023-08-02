@@ -73,24 +73,20 @@ class DocumentScreen extends GetView<DocumentController> {
                                       itemBuilder:
                                           (BuildContext context, int index) {
                                         return InkWell(
-                                          onTap: () => Navigator.push(
-                                              context,
-                                              CupertinoPageRoute(
-                                                builder: (context) => _selectedPage(
-                                                    fullUrl: controller
-                                                            .documentModel
-                                                            .data
-                                                            ?.documents?[index]
-                                                            .fullUrl ??
-                                                        "",
-                                                    docText: controller
-                                                            .documentModel
-                                                            .data
-                                                            ?.documents?[index]
-                                                            .name ??
-                                                        AppString
-                                                            .text_documents),
-                                              )),
+                                          onTap: () => Get.to(()=> _selectedPage(
+                                              fullUrl: controller
+                                                  .documentModel
+                                                  .data
+                                                  ?.documents?[index]
+                                                  .fullUrl ??
+                                                  "",
+                                              docText: controller
+                                                  .documentModel
+                                                  .data
+                                                  ?.documents?[index]
+                                                  .name ??
+                                                  AppString
+                                                      .text_documents)),
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Card(

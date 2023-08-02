@@ -7,8 +7,8 @@ import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pay_day_mobile/common/widget/error_snackbar.dart';
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
+import 'package:pay_day_mobile/common/widget/error_message.dart';
+import 'package:pay_day_mobile/common/widget/success_message.dart';
 import 'package:pay_day_mobile/utils/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../utils/app_string.dart';
@@ -70,7 +70,7 @@ class DownloadHelper extends GetxController {
     }else if (permissionStatus.isPermanentlyDenied) {
       openAppSettings();
     }else {
-      errorSnackBar(errorMessage: AppString.storage_permission);
+      showErrorMessage(errorMessage: AppString.storage_permission);
     }
   }
 
@@ -110,26 +110,27 @@ class DownloadHelper extends GetxController {
       permissionStatus = await Permission.storage.request();
     }
     if (permissionStatus.isGranted) {
-      try {
-        FileDownloader.downloadFile(
-            url: url,
-            name: extractFileNameFromUrl(url),
-            onProgress: (fileName, progress) {
-              showCustomSnackBar(message: "Download Started");
-            },
-            onDownloadCompleted: (String path) {
-              showCustomSnackBar(message: "Download Completed");
-            },
-            onDownloadError: (String error) {
-              showCustomSnackBar(message: "Something went wrong! \n$error");
-            });
-      } catch (e) {
-        print(e.toString());
-      }
+      showSuccessMessage(message: "Download Started");
+      Future.delayed(const Duration(milliseconds: 2600),(){
+        try {
+          FileDownloader.downloadFile(
+              url: url,
+              name: extractFileNameFromUrl(url),
+              onProgress: (fileName, progress) {},
+              onDownloadCompleted: (String path) {
+                showSuccessMessage(message: "Download Completed");
+              },
+              onDownloadError: (String error) {
+                showErrorMessage(errorMessage: "Something went wrong! \n$error");
+              });
+        } catch (e) {
+          print(e.toString());
+        }
+      });
     }else if (permissionStatus.isPermanentlyDenied) {
       openAppSettings();
     } else {
-      errorSnackBar(errorMessage: AppString.storage_permission);
+      showErrorMessage(errorMessage: AppString.storage_permission);
     }
   }
 }

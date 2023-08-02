@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
-import 'package:pay_day_mobile/common/widget/success_snakbar.dart';
+import 'package:pay_day_mobile/common/widget/warning_message.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_allowance.dart';
 import 'package:pay_day_mobile/modules/leave/presentation/controller/leave_controller.dart';
@@ -22,7 +22,7 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../../../common/widget/custom_double_button.dart';
-import '../../../../common/widget/error_snackbar.dart';
+import '../../../../common/widget/error_message.dart';
 import '../../../../common/widget/input_note.dart';
 import '../../../../utils/logger.dart';
 
@@ -78,7 +78,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
     else if(permissionStatus.isPermanentlyDenied){
       openAppSettings();
     }else{
-      errorSnackBar(errorMessage: AppString.storage_permission);
+      showErrorMessage(errorMessage: AppString.storage_permission);
     }
   }
 
@@ -508,7 +508,9 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
           },
           elevatedButtonAction: () {
             if (Get.find<LeaveController>().leaveNote.text.isEmpty) {
-              showCustomSnackBar(message: AppString.text_please_provite_a_leave_note);
+
+              showWarningMessage(message: AppString.text_please_provite_a_leave_note);
+
             } else {
               switch (Get.find<LeaveController>().leaveDurationIndex.value) {
                 case 0:

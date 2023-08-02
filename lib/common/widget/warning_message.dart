@@ -6,10 +6,10 @@ import 'package:motion_toast/resources/arrays.dart';
 import '../../utils/app_style.dart';
 
 
-showWarningMessage({String? message}) async => MotionToast.warning(
+showWarningMessage({String? message,double marginForButton=60}) async => MotionToast.warning(
   borderRadius: 4,
   position: MotionToastPosition.bottom,
-  padding: const EdgeInsets.only(bottom: 60, right: 20, left: 20),
+  padding:  EdgeInsets.only(bottom: marginForButton, right: 20, left: 20),
   animationType: AnimationType.fromRight,
   height: 60,
   animationDuration: const Duration(
