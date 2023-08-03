@@ -33,7 +33,7 @@ class PaySlipView extends GetView<PayslipViewController> {
               (state) => Expanded(
                   child: controller.payslipViewModel.data != null
                       ? Padding(
-                          padding: const EdgeInsets.all(20.0),
+                          padding: _paddingForMainView,
                           child: SingleChildScrollView(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,7 +81,7 @@ class PaySlipView extends GetView<PayslipViewController> {
                                 ),
                                 const Divider(height: 1),
                                 _netPayable(),
-                                _payslipButtonLayout(),
+
                               ],
                             ),
                           ),
@@ -89,7 +89,8 @@ class PaySlipView extends GetView<PayslipViewController> {
                       : noDataFound()),
               onLoading:
                   const Expanded(child: Center(child: LoadingIndicator()))),
-          customSpacerHeight(height: 26)
+
+          _payslipButtonLayout(),
         ],
       ),
     );
@@ -219,12 +220,9 @@ class PaySlipView extends GetView<PayslipViewController> {
   }
 
   _payslipButtonLayout() {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: _payslipDownloadBtn(
-        payslipDateRange:
-            '${controller.payslipViewModel.data?.payslip?.startDate ?? ""} - ${controller.payslipViewModel.data?.payslip?.endDate ?? ""}',
-      ),
+    return _payslipDownloadBtn(
+      payslipDateRange:
+          '${controller.payslipViewModel.data?.payslip?.startDate ?? ""} - ${controller.payslipViewModel.data?.payslip?.endDate ?? ""}',
     );
   }
 
@@ -239,7 +237,7 @@ _payslipDownloadBtn({required payslipDateRange}) {
   var id = box.read(AppString.STORE_PAYSLIP_LIST_ID);
   var baseUrl = "${Api.BASE_URL}${Api.PAYSLIP_DOWNLOAD}$id?download=true";
   return Padding(
-    padding: padding,
+    padding: _paddingForButton,
     child: CustomButton(AppString.text_download_payslip, () {
       showSuccessMessage(message: "Download Stared");
       Get.find<DownloadHelper>().downloadFile(
@@ -248,12 +246,19 @@ _payslipDownloadBtn({required payslipDateRange}) {
   );
 }
 
-EdgeInsets get padding {
+EdgeInsets get _paddingForButton {
   return EdgeInsets.only(
-      left: AppLayout.getWidth(0),
-      right: AppLayout.getWidth(0),
-      top: AppLayout.getHeight(30),
+      left: AppLayout.getWidth(15),
+      right: AppLayout.getWidth(15),
+      top: AppLayout.getHeight(0),
       bottom: AppLayout.getHeight(12));
+}
+EdgeInsets get _paddingForMainView {
+  return EdgeInsets.only(
+      left: AppLayout.getWidth(20),
+      right: AppLayout.getWidth(20),
+      top: AppLayout.getHeight(8),
+      bottom: AppLayout.getHeight(20));
 }
 
 Decoration get _openModelRadius {
