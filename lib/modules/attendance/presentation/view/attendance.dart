@@ -12,8 +12,6 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import '../../../../common/widget/loading_indicator.dart';
-import '../../../../common/widget/success_snakbar.dart';
-import '../../../../common/widget/warning_message.dart';
 import '../../../../utils/app_style.dart';
 import '../widget/break_pop_up.dart';
 import '../widget/dot_indicator.dart';
@@ -76,16 +74,6 @@ class Attendance extends GetView<AttendanceController> {
       ),
     ));
   }
-
-  // Future _openBottomSheet() {
-  //   return showModalBottomSheet(
-  //     isScrollControlled: true,
-  //     backgroundColor: Colors.transparent,
-  //     context: Get.context!,
-  //     builder: (context) => const LogEntryBottomSheet(),
-  //   );
-  // }
-
 
   _openBottomSheet() => customButtonSheet(
     context: Get.context,

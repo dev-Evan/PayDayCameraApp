@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
+import 'package:pay_day_mobile/common/widget/error_message.dart';
 import 'package:pay_day_mobile/common/widget/text_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/modules/auth/presentation/controller/auth_controller.dart';
@@ -161,9 +162,12 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   _launchURL() async {
-    var url = Get.find<AuthController>().resetPasswordModel.data?.url;
+    var url = Get.find<AuthController>().resetPasswordModel.data?.url ??"";
     // ignore: deprecated_member_use
-    if (await launch(url!)) {
+    if (url.isEmpty) {
+      showErrorMessage(errorMessage: AppString.error_text);
+    // ignore: deprecated_member_use
+    }else if(await launch(url)){
       // ignore: deprecated_member_use
       await canLaunch(url);
     } else {

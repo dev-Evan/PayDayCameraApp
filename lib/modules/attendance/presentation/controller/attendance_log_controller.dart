@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pay_day_mobile/utils/exception_handler.dart';
 import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
-import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attandance_logs_repository.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_summary/log_summary.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_summary/log_summary_overview.dart';
@@ -96,9 +96,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       this.logSummaryByMonth.value = logSummaryByMonth;
       LoggerHelper.infoLog(message: logSummaryByMonth.message);
     }, onError: (error) {
-      if (!Get.isDialogOpen!) {
-        errorAlertPopup(_reloadPage);
-      }
+      ExceptionHandler().errorChecker(error);
       LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());
@@ -111,9 +109,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       this.logSummaryByYear.value = logSummaryByYear;
       LoggerHelper.infoLog(message: logSummaryByYear.message);
     }, onError: (error) {
-      if (!Get.isDialogOpen!) {
-        errorAlertPopup(_reloadPage);
-      }
+      ExceptionHandler().errorChecker(error);
       LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());
@@ -134,9 +130,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
       LoggerHelper.errorLog(message: error.message);
-      if (!Get.isDialogOpen!) {
-        errorAlertPopup(_reloadPage);
-      }
+      ExceptionHandler().errorChecker(error);
     });
     change(null, status: RxStatus.success());
   }
@@ -150,9 +144,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
       LoggerHelper.errorLog(message: error.message);
-      if (!Get.isDialogOpen!) {
-        errorAlertPopup(_reloadPage);
-      }
+      ExceptionHandler().errorChecker(error);
     });
     change(null, status: RxStatus.success());
   }
@@ -200,12 +192,5 @@ class AttendanceLogsController extends GetxController with StateMixin {
       LoggerHelper.errorLog(message: error.message);
       isLoading.value = false;
     });
-  }
-
-  _reloadPage() async {
-    await getLogSummaryByMonth();
-    await getLogSummaryByYear();
-    await getAllFilteredLogSummary();
-    await getLogSummaryOverview();
   }
 }

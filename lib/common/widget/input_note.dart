@@ -13,7 +13,7 @@ class InputNote extends StatelessWidget {
       {super.key,
       required this.controller,
       this.hintText = AppString.text_add_note_here,
-      this.validator}); // const InputNote({super.key, required this.controller,required hintText});
+      this.validator});
 
   @override
   Widget build(BuildContext context) {

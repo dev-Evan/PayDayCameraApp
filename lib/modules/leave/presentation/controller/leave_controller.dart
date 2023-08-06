@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
+import 'package:pay_day_mobile/utils/exception_handler.dart';
 import 'package:pay_day_mobile/common/widget/error_message.dart';
 import 'package:pay_day_mobile/common/widget/success_message.dart';
 import 'package:pay_day_mobile/modules/leave/data/leave_repository.dart';
@@ -13,7 +13,6 @@ import 'package:pay_day_mobile/modules/leave/domain/leave_record.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_summary.dart';
 import 'package:pay_day_mobile/modules/leave/domain/leave_type.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-
 import '../../../../utils/app_string.dart';
 
 class LeaveController extends GetxController with StateMixin {
@@ -56,9 +55,7 @@ class LeaveController extends GetxController with StateMixin {
       print("getLeaveAllowance ::: called");
       leaveAllowance = value;
     }, onError: (error) {
-      if (!Get.isDialogOpen!) {
-        errorAlertPopup(_refreshPage);
-      }
+      //CheckForApi().checkForApi(error);
     });
 
     change(null, status: RxStatus.success());
@@ -70,9 +67,7 @@ class LeaveController extends GetxController with StateMixin {
       print("getLeaveSummary ::: called");
       leaveSummary = value;
     }, onError: (error) {
-      if (!Get.isDialogOpen!) {
-        errorAlertPopup(_refreshRecordPage);
-      }
+      ExceptionHandler().errorChecker(error);
     });
 
     change(null, status: RxStatus.success());
@@ -84,9 +79,7 @@ class LeaveController extends GetxController with StateMixin {
       print("getLeaveRecord ::: called");
       leaveRecord = value;
     }, onError: (error) {
-      if (!Get.isDialogOpen!) {
-        errorAlertPopup(_refreshRecordPage);
-      }
+      ExceptionHandler().errorChecker(error);
     });
 
     change(null, status: RxStatus.success());
@@ -159,12 +152,15 @@ class LeaveController extends GetxController with StateMixin {
       await Get.find<LeaveController>()
           .getIndividualLeaveList(queryParams: "date_range=$dateValue");
       Get.back(canPop: false);
-      showSuccessMessage(message:AppString.text_leave_request_successfully,marginForButton: 60);
+      showSuccessMessage(
+          message: AppString.text_leave_request_successfully,
+          marginForButton: 60);
       //clear queries after api call
       Get.find<LeaveController>().requestLeaveQueries.clear();
     }, onError: (error) {
       isLoading(false);
-      showErrorMessage(errorMessage: "${error.message}");
+
+      ExceptionHandler().errorChecker(error);
       print("getILeaveDetails $error");
     });
     isLoading(false);
@@ -184,4 +180,5 @@ class LeaveController extends GetxController with StateMixin {
     await getLeaveSummary();
     await getLeaveRecord(params: "&within=thisMonth");
   }
+
 }

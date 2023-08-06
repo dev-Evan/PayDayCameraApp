@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
+import 'package:pay_day_mobile/utils/exception_handler.dart';
 import 'package:pay_day_mobile/common/widget/error_message.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attendance_data_repository.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details.dart';
@@ -14,7 +13,6 @@ import 'package:pay_day_mobile/modules/attendance/domain/log_entry/log_entry_res
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/logger.dart';
 import '../../../../routes/app_pages.dart';
-import '../../../../utils/app_color.dart';
 import '../../domain/check_entry_status/check_entry_status.dart';
 import '../../domain/daily_log/daily_log.dart';
 import 'break_controller.dart';
@@ -22,7 +20,7 @@ import 'break_controller.dart';
 class AttendanceController extends GetxController with StateMixin {
   final AttendanceDataRepository _attendanceDataRepository =
       AttendanceDataRepository(NetworkClient());
-  final isLoading=false.obs;
+  final isLoading = false.obs;
 
   @override
   void onInit() async {
@@ -44,7 +42,7 @@ class AttendanceController extends GetxController with StateMixin {
   Rx<Duration> countdownDuration = const Duration().obs;
   Rx<Duration> balanceDuration = const Duration().obs;
   final currentIndex = 0.obs;
-  LogDetails logDetailsById=LogDetails();
+  LogDetails logDetailsById = LogDetails();
   List<BreakTimes> breakTimes = [];
   Rx<BreakDetails> breakDetails = BreakDetails().obs;
   int lastAttendanceId = 0;
@@ -56,6 +54,7 @@ class AttendanceController extends GetxController with StateMixin {
         isPunchIn.value = checkEntryStatus.data!.punchIn!;
         lastAttendanceId = checkEntryStatus.data!.lastAttendanceId ?? 0;
         breakTimes = checkEntryStatus.data!.breakTimes!;
+
         breakDetails.value =
             checkEntryStatus.data!.breakDetails ?? BreakDetails();
         LoggerHelper.infoLog(message: isPunchIn.value.toString());
@@ -68,21 +67,18 @@ class AttendanceController extends GetxController with StateMixin {
         Get.delete<AttendanceController>();
       } else {
         LoggerHelper.errorLog(message: error.message);
-        if (!Get.isDialogOpen!) {
-          errorAlertPopup(_reloadPage);
-        }
+        ExceptionHandler().errorChecker(error);
       }
     });
     change(null, status: RxStatus.success());
   }
 
-  Future<bool> punchIn(LogEntryRequest punchInRequest,context) async {
+  Future<bool> punchIn(LogEntryRequest punchInRequest, context) async {
     bool returnValue = false;
     isLoading(true);
     await _attendanceDataRepository
         .punchIn(punchInRequest: punchInRequest)
         .then((value) {
-
       isLoading(false);
       checkUserIsPunchedIn();
       getDailyLog();
@@ -91,7 +87,7 @@ class AttendanceController extends GetxController with StateMixin {
       LoggerHelper.infoLog(message: value.message ?? "");
     }, onError: (error) {
       isLoading(false);
-      showErrorMessage(errorMessage: error.message,marginForButton: 60);
+      showErrorMessage(errorMessage: error.message, marginForButton: 60);
       returnValue = false;
       LoggerHelper.errorLog(message: error.message);
     });
@@ -99,10 +95,12 @@ class AttendanceController extends GetxController with StateMixin {
     return returnValue;
   }
 
-  Future<bool> punchOut(LogEntryRequest punchOutRequest,context) async {
+  Future<bool> punchOut(LogEntryRequest punchOutRequest, context) async {
     bool returnValue = false;
     isLoading(true);
-    await _attendanceDataRepository.punchOut(punchOutRequest: punchOutRequest).then(
+    await _attendanceDataRepository
+        .punchOut(punchOutRequest: punchOutRequest)
+        .then(
       (LogEntryResponse value) {
         isLoading(false);
         _endBreak();
@@ -114,7 +112,7 @@ class AttendanceController extends GetxController with StateMixin {
       },
       onError: (error) {
         isLoading(false);
-        showErrorMessage(errorMessage: error.message,marginForButton: 60);
+        showErrorMessage(errorMessage: error.message, marginForButton: 60);
         returnValue = false;
         LoggerHelper.errorLog(message: error.message);
       },
@@ -141,11 +139,7 @@ class AttendanceController extends GetxController with StateMixin {
       }
       LoggerHelper.infoLog(message: dailyLogs.message);
     }, onError: (error) {
-      if (!error.message.startsWith("Unauthenticated")) {
-        if (!Get.isDialogOpen!) {
-          errorAlertPopup(_reloadPage);
-        }
-      }
+      ExceptionHandler().errorChecker(error);
       LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());
@@ -271,26 +265,11 @@ class AttendanceController extends GetxController with StateMixin {
         Duration(minutes: balanceDuration.value.inMinutes + 1);
   }
 
-  showToast(String message) => Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: AppColor.hintColor,
-      textColor: Colors.white,
-      fontSize: 16.0);
-
   void _endBreak() {
     if (Get.find<AttendanceController>().breakDetails.value.id != null) {
       Get.find<BreakController>().stopTimer();
     }
   }
 
-  _reloadPage() async {
-    await checkUserIsPunchedIn();
-    await getDailyLog();
-  }
+
 }
-
-
-

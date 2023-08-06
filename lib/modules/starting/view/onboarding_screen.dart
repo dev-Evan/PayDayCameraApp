@@ -12,7 +12,6 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:pay_day_mobile/utils/images.dart';
-import '../../../common/widget/success_snakbar.dart';
 import '../../../routes/app_pages.dart';
 
 class OnboardingScreen extends StatefulWidget {

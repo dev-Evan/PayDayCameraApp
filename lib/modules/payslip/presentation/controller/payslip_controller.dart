@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
+import 'package:pay_day_mobile/utils/exception_handler.dart';
 import 'package:pay_day_mobile/modules/payslip/data/payslip_data_repository.dart';
 import 'package:pay_day_mobile/modules/payslip/domain/payrun_badge_model.dart';
 import 'package:pay_day_mobile/modules/payslip/domain/payslip_list_model.dart';
@@ -31,9 +31,7 @@ class PayslipController extends GetxController with StateMixin {
         .then((payslipListData) {
       payslipListModel = payslipListData;
     }, onError: (error) {
-      if (!Get.isDialogOpen!) {
-        errorAlertPopup(_refreshPage);
-      }
+      ExceptionHandler().errorChecker(error);
     });
     change(null, status: RxStatus.success());
   }
@@ -44,8 +42,7 @@ class PayslipController extends GetxController with StateMixin {
       print(value);
       summaryModel = value;
     }, onError: (error) {
-      if (!Get.isDialogOpen!) {
-        errorAlertPopup(_refreshPage);      }
+      ExceptionHandler().errorChecker(error);
     });
     change(null, status: RxStatus.success());
   }
@@ -71,9 +68,7 @@ class PayslipController extends GetxController with StateMixin {
           .where((element) => element.beneficiary!.type == "deduction")
           .toList();
     }, onError: (error) {
-      if (!Get.isDialogOpen!) {
-        errorAlertPopup(getPayrunBadgeData);
-      }
+      ExceptionHandler().errorChecker(error);
       print(error.message);
     });
     change(null, status: RxStatus.success());

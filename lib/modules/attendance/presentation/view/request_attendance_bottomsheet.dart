@@ -30,9 +30,8 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
           borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
       child: Column(
         children: [
-          bottomSheetAppbar(
-              context: context, appbarTitle: AppString.text_request_attendance),
-          _contentLayout(context),
+          bottomSheetAppbar(context: context, appbarTitle: AppString.text_request_attendance),
+         _contentLayout(context),
           const Spacer(),
           _buttonLayout(context),
         ],
@@ -54,7 +53,7 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
             _timeLayout(),
             SizedBox(height: AppLayout.getHeight(24)),
             noteLayout(),
-            customSpacerHeight(height: 70)
+          customSpacerHeight(height: 70)
           ],
         ),
       ),
