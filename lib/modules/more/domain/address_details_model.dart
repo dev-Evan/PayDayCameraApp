@@ -61,13 +61,13 @@ class PresentAddress {
 
   PresentAddress(
       {this.details,
-        this.area,
-        this.city,
-        this.state,
-        this.zipCode,
-        this.country,
-        this.phoneNumber,
-        this.countryCode});
+      this.area,
+      this.city,
+      this.state,
+      this.zipCode,
+      this.country,
+      this.phoneNumber,
+      this.countryCode});
 
   PresentAddress.fromJson(Map<String, dynamic> json) {
     details = json['details'];
@@ -81,15 +81,15 @@ class PresentAddress {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['details'] = this.details;
-    data['area'] = this.area;
-    data['city'] = this.city;
-    data['state'] = this.state;
-    data['zip_code'] = this.zipCode;
-    data['country'] = this.country;
-    data['phone_number'] = this.phoneNumber;
-    data['country_code'] = this.countryCode;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['details'] = details;
+    data['area'] = area;
+    data['city'] = city;
+    data['state'] = state;
+    data['zip_code'] = zipCode;
+    data['country'] = country;
+    data['phone_number'] = phoneNumber;
+    data['country_code'] = countryCode;
     return data;
   }
 }

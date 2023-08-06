@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
@@ -18,9 +17,7 @@ import 'package:pay_day_mobile/common/controller/downloader_helper.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import 'package:pay_day_mobile/utils/utils.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import '../../../../common/widget/custom_app_button.dart';
-import '../../../../common/widget/success_message.dart';
 
 class LeaveDetails extends GetView<LeaveController> {
   const LeaveDetails({Key? key}) : super(key: key);
@@ -190,7 +187,7 @@ class LeaveDetails extends GetView<LeaveController> {
     return InkWell(
         child: Image.asset(Images.documents),
         onTap: () {
-          Get.find<DownloadHelper>().downloadFileForAndroid(
+          Get.find<DownloadHelper>().downloadFile(
               url: controller.leaveDetails.data?.attachments?[index].fullUrl ??
                   "");
         });
@@ -203,21 +200,5 @@ class LeaveDetails extends GetView<LeaveController> {
 
   _logResponseButtonLayOut() {
     return Align(alignment: Alignment.bottomCenter, child: _buttonLayout());
-  }
-}
-
-downloadFile({required String url}) async {
-  final status = await Permission.storage.request();
-  if (status.isGranted) {
-    final baseStorage = await getExternalStorageDirectory();
-    await FlutterDownloader.enqueue(
-      url: url,
-      savedDir: baseStorage!.path,
-      fileName: "File",
-    )
-        .then((value) => print(value))
-        .catchError((error) => print(error.toString()));
-  } else {
-    print("No Permission");
   }
 }

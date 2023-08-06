@@ -241,7 +241,6 @@ _payslipDownloadBtn({required payslipDateRange}) {
   return Padding(
     padding: padding,
     child: CustomButton(AppString.text_download_payslip, () {
-      showSuccessMessage(message: "Download Stared");
       Get.find<DownloadHelper>().downloadFile(
           url: baseUrl, fileInfo: "Payslip for $payslipDateRange");
     }),
