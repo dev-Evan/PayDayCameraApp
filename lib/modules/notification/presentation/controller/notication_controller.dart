@@ -108,29 +108,4 @@ class NotificationController extends GetxController with StateMixin {
 
     change(null, status: RxStatus.success());
   }
-
-  _reloadPage() async {
-    await getAllUnreadNotification();
-    await getAllNotification();
-  }
-
-  checkForApi( dynamic error) {
-    if (error.message.startsWith("'Null' is not a subtype of type 'Map<String, dynamic>'")) {
-      print(" Leave identify error handling");
-      showWarningMessage(message: "Some information might go missing. Refresh by pulling down the screen page for the application to run smoothly");
-    } else if (error.message.startsWith(
-        "TimeoutException after 0:00:10.000000: Future not completed")) {
-      showErrorMessage(errorMessage: "Something wrong, please check your internet connection");
-    }else if(error.message.contains('Null')){
-      showWarningMessage(message: "52645 :: Some information might go missing. Refresh by pulling down the screen page for the application to run smoothly");
-
-    }
-    else{
-      //  showErrorMessage(errorMessage: error.message);
-      print("else test");
-
-    }
-  }
-
-
 }
