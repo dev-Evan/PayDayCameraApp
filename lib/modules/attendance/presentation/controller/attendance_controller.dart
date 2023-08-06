@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:pay_day_mobile/common/controller/api_check_controller.dart';
+import 'package:pay_day_mobile/utils/exception_handler.dart';
 import 'package:pay_day_mobile/common/widget/error_message.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attendance_data_repository.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_details/log_details.dart';
@@ -67,7 +67,7 @@ class AttendanceController extends GetxController with StateMixin {
         Get.delete<AttendanceController>();
       } else {
         LoggerHelper.errorLog(message: error.message);
-        CheckForApi().checkForApi(error);
+        ExceptionHandler().errorChecker(error);
       }
     });
     change(null, status: RxStatus.success());
@@ -139,7 +139,7 @@ class AttendanceController extends GetxController with StateMixin {
       }
       LoggerHelper.infoLog(message: dailyLogs.message);
     }, onError: (error) {
-      CheckForApi().checkForApi(error);
+      ExceptionHandler().errorChecker(error);
       LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());

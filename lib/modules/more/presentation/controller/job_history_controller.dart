@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:pay_day_mobile/common/controller/api_check_controller.dart';
+import 'package:pay_day_mobile/utils/exception_handler.dart';
 import 'package:pay_day_mobile/modules/more/data/job_history_data_repo.dart';
 import 'package:pay_day_mobile/modules/more/domain/job_history_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
@@ -15,7 +15,7 @@ class JobHistoryController extends GetxController with StateMixin {
         print(value);
         jobHistoryModel = value;
       }, onError: (error) {
-        CheckForApi().checkForApi(error);
+        ExceptionHandler().errorChecker(error);
         print(error.message);
       });
     } catch (ex) {

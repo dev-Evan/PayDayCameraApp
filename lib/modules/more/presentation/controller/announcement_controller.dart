@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pay_day_mobile/common/controller/api_check_controller.dart';
+import 'package:pay_day_mobile/utils/exception_handler.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import '../../data/announcement_repo.dart';
 import '../../domain/announcement_model.dart';
@@ -57,7 +57,7 @@ class AnnouncementController extends GetxController with StateMixin {
           .toList(growable: true);
       change(null, status: RxStatus.success());
     }, onError: (error) {
-      CheckForApi().checkForApi(error);
+      ExceptionHandler().errorChecker(error);
       print("Get Announcement ::: ${error.message}");
     });
   }
@@ -94,7 +94,7 @@ class AnnouncementController extends GetxController with StateMixin {
       leaveAllowanceDetailsModel = value;
       change(null, status: RxStatus.success());
     }, onError: (error) {
-      CheckForApi().checkForApi(error);
+      ExceptionHandler().errorChecker(error);
       print("Get Leave allowance ::: $error");
     });
   }

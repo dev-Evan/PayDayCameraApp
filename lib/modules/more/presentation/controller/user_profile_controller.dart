@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pay_day_mobile/common/controller/api_check_controller.dart';
+import 'package:pay_day_mobile/utils/exception_handler.dart';
 import 'package:pay_day_mobile/modules/more/data/profile_data_repo.dart';
 import 'package:pay_day_mobile/modules/more/domain/change_password.dart';
 import 'package:pay_day_mobile/modules/more/domain/user_profile.dart';
@@ -27,7 +27,7 @@ class ProfileDataController extends GetxController with StateMixin {
       userProfile = value;
       print('User profile called ::: $value');
     }, onError: (error) {
-      CheckForApi().checkForApi(error);
+      ExceptionHandler().errorChecker(error);
       print('User profile called ::: ${error.message}');
     });
     change(null, status: RxStatus.success());
