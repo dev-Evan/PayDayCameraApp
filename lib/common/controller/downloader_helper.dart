@@ -1,9 +1,5 @@
 import 'dart:io';
-import 'dart:isolate';
-import 'dart:ui';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
@@ -12,23 +8,13 @@ import 'package:pay_day_mobile/common/widget/success_message.dart';
 import 'package:pay_day_mobile/utils/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../utils/app_string.dart';
+import 'package:http/http.dart';
 
 class DownloadHelper extends GetxController {
-  @override
-  void onInit() {
-    IsolateNameServer.registerPortWithName(
-        _port.sendPort, "downloader_send_port");
-    FlutterDownloader.registerCallback(downloadCallback);
-    super.onInit();
-  }
-
-  final ReceivePort _port = ReceivePort();
-
-  Future<String?> getDownloadPath() async {
+  Future<String?> _getDownloadPath() async {
     Directory? directory;
     try {
       if (Platform.isIOS) {
-        LoggerHelper.infoLog(message: "${Platform.isIOS}");
         directory = await getApplicationDocumentsDirectory();
       } else {
         directory = Directory('/storage/emulated/0/Download');
@@ -44,7 +30,7 @@ class DownloadHelper extends GetxController {
     return directory?.path;
   }
 
-  downloadFile({required String url, fileInfo}) async {
+  downloadFile({required String url, String? fileInfo}) async {
     PermissionStatus permissionStatus;
     final deviceInfo = await DeviceInfoPlugin().androidInfo;
 
@@ -53,23 +39,28 @@ class DownloadHelper extends GetxController {
     } else {
       permissionStatus = await Permission.storage.request();
     }
+
     if (permissionStatus.isGranted) {
-      final String? baseStorage = await getDownloadPath();
-      try {
-        await FlutterDownloader.enqueue(
-          url: url,
-          savedDir: baseStorage!,
-          fileName: fileInfo ?? "File",
-          headers: _setHeaders(),
-          showNotification: true,
-          openFileFromNotification: true,
-        );
-      } catch (e) {
-        print(e.toString());
-      }
-    }else if (permissionStatus.isPermanentlyDenied) {
+      showSuccessMessage(message: "Download Started");
+      Future.delayed(const Duration(milliseconds: 2600), () async {
+        final Request request = Request('GET', Uri.parse(url));
+        request.headers.addAll(_setHeaders());
+        final StreamedResponse response = await Client().send(request);
+        List<int> bytes = [];
+        String? pathName = await _getDownloadPath();
+        String fileName = await _extractFileNameFromUrl(url);
+        final file = await _getFile(pathName,fileInfo==null?fileName:"$fileInfo.pdf");
+        response.stream.listen((value) {
+          bytes.addAll(value);
+        }, onDone: () async {
+          await file
+              .writeAsBytes(bytes)
+              .then((value) => showSuccessMessage(message: "Download Completed"));
+        });
+      });
+    } else if (permissionStatus.isPermanentlyDenied) {
       openAppSettings();
-    }else {
+    } else {
       showErrorMessage(errorMessage: AppString.storage_permission);
     }
   }
@@ -82,57 +73,13 @@ class DownloadHelper extends GetxController {
       };
 
 
-  @override
-  void dispose() {
-    IsolateNameServer.removePortNameMapping('downloader_send_port');
-    super.dispose();
+  Future<File> _getFile(path, fileName) async {
+    print('$path/$fileName');
+    return File('$path/$fileName');
   }
 
-  @pragma('vm:entry-point')
-
-  static void downloadCallback(String id, int status, int progress) {
-    final SendPort? send =
-        IsolateNameServer.lookupPortByName('downloader_send_port');
-    send!.send([id, status, progress]);
-  }
-
-  String extractFileNameFromUrl(String url) {
+  Future<String> _extractFileNameFromUrl(String url) async {
     Uri uri = Uri.parse(url);
     return uri.pathSegments.last;
-  }
-
-  downloadFileForAndroid({required String url, fileInfo}) async {
-
-    PermissionStatus permissionStatus;
-    final deviceInfo = await DeviceInfoPlugin().androidInfo;
-
-    if (deviceInfo.version.sdkInt > 32) {
-      permissionStatus = await Permission.photos.request();
-    } else {
-      permissionStatus = await Permission.storage.request();
-    }
-    if (permissionStatus.isGranted) {
-      showSuccessMessage(message: "Download Started");
-      Future.delayed(const Duration(milliseconds: 2600),(){
-        try {
-          FileDownloader.downloadFile(
-              url: url,
-              name: extractFileNameFromUrl(url),
-              onProgress: (fileName, progress) {},
-              onDownloadCompleted: (String path) {
-                showSuccessMessage(message: "Download Completed");
-              },
-              onDownloadError: (String error) {
-                showErrorMessage(errorMessage: "Something went wrong! \n$error");
-              });
-        } catch (e) {
-          print(e.toString());
-        }
-      });
-    }else if (permissionStatus.isPermanentlyDenied) {
-      openAppSettings();
-    } else {
-      showErrorMessage(errorMessage: AppString.storage_permission);
-    }
   }
 }

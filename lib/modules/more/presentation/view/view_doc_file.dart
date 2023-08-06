@@ -43,7 +43,7 @@ Widget _defaultAppbar({required docName, required fullUrl}) {
     actions: [
       IconButton(
           onPressed: ()=>   Get.find<DownloadHelper>()
-              .downloadFileForAndroid(url: fullUrl, fileInfo: docName),
+              .downloadFile(url: fullUrl, fileInfo: docName),
           icon: svgIcon(
               url: Images.download,
               height: 23,

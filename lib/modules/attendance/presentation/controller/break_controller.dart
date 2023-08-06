@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:pay_day_mobile/utils/exception_handler.dart';
+import 'package:pay_day_mobile/common/widget/success_message.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attendance_data_repository.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import '../../../../common/widget/error_message.dart';
@@ -53,8 +53,10 @@ class BreakController extends GetxController with StateMixin {
 
       await Get.find<AttendanceController>().checkUserIsPunchedIn();
       LoggerHelper.infoLog(message: value.message);
+      showSuccessMessage(message: 'Break time started');
     }, onError: (error) {
       showErrorMessage(errorMessage: AppString.error_text);
+
       LoggerHelper.errorLog(message: error.message);
     });
     isLoading(false);
@@ -69,6 +71,7 @@ class BreakController extends GetxController with StateMixin {
       stopTimer();
       await Get.find<AttendanceController>().checkUserIsPunchedIn();
       LoggerHelper.infoLog(message: value.message);
+      showSuccessMessage(message: 'Break time ended');
     }, onError: (error) {
       returnValue = false;
       showErrorMessage(errorMessage: AppString.error_text);
