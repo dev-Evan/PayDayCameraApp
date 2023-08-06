@@ -95,10 +95,7 @@ _contentText() {
   );
 }
 
-_loadingButtonLayout() => SizedBox(
-  height: AppLayout.getHeight(50),
-  child: const LoadingIndicator(),
-);
+_loadingButtonLayout() => loadingIndicatorLayout();
 
 TextStyle get _titleTextStyle {
   return AppStyle.large_text.copyWith(

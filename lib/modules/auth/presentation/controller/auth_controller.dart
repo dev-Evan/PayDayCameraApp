@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pay_day_mobile/utils/exception_handler.dart';
 import 'package:pay_day_mobile/common/widget/error_message.dart';
-import 'package:pay_day_mobile/common/widget/warning_message.dart';
 import 'package:pay_day_mobile/modules/auth/data/auth_data_repository.dart';
 import 'package:pay_day_mobile/modules/auth/domain/login_res.dart';
 import 'package:pay_day_mobile/modules/auth/domain/reset_password_model.dart';
@@ -34,7 +32,7 @@ class AuthController extends GetxController with StateMixin {
        Get.offAllNamed(Routes.HOME);
       }, onError: (error) {
         isLoading.value = false;
-        ExceptionHandler().errorChecker(error);
+        showErrorMessage(errorMessage: error.message);
       });
   }
 

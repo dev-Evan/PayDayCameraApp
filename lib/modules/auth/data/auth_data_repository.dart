@@ -20,10 +20,10 @@ class AuthDataSource {
           "password": password,
         },
       );
+      print("Auth ::: ${response.body}");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
-        print("Auth ::: ${response.body}");
         return Login.fromJson(response.body);
       }
     } catch (ex) {
