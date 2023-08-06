@@ -79,17 +79,7 @@ class NotificationController extends GetxController with StateMixin {
       print("getAllUnreadNotification ::: called ${value.data!.data!.length}");
       length.value = value.data!.data!.length;
     }, onError: (error) {
-      // errorAlertPopup(_reloadPage);
-
-      // if(error.message.contains('Null')){
-      //
-      //   showWarningMessage(message: "Some information might go missing. Refresh by pulling down the screen page for the application to run smoothly");
-      // }else{
-      //   showErrorMessage(errorMessage: error.message);
-      // }
-    //  checkForApi(error);
-
-
+      CheckForApi().checkForApi(error);
     }
 
     );
