@@ -4,7 +4,6 @@ import 'package:pay_day_mobile/modules/more/data/address_repo_data.dart';
 import 'package:pay_day_mobile/modules/more/domain/deleted_address_model.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:pay_day_mobile/utils/utils.dart';
-import '../../../../common/widget/error_alert_pop_up.dart';
 import '../../../../common/widget/error_message.dart';
 import '../../../../common/widget/success_message.dart';
 import '../../../../network/network_client.dart';

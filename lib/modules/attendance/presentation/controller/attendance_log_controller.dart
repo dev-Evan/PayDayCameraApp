@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pay_day_mobile/common/controller/api_check_controller.dart';
 import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
-import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attandance_logs_repository.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_summary/log_summary.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_summary/log_summary_overview.dart';
@@ -10,7 +10,6 @@ import 'package:pay_day_mobile/modules/attendance/domain/request_attendance/requ
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/logger.dart';
 import '../../../../common/widget/error_message.dart';
-import '../../../../common/widget/warning_message.dart';
 import '../../domain/all_log_summary/all_log_summay.dart';
 
 class AttendanceLogsController extends GetxController with StateMixin {
@@ -97,17 +96,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       this.logSummaryByMonth.value = logSummaryByMonth;
       LoggerHelper.infoLog(message: logSummaryByMonth.message);
     }, onError: (error) {
-      // if (!Get.isDialogOpen!) {
-      //   errorAlertPopup(_reloadPage);
-      // }
-      // if(error.message.contains('Null')){
-      //
-      //   showWarningMessage(message: "Some information might go missing. Refresh by pulling down the screen page for the application to run smoothly");
-      // }else{
-      //   showErrorMessage(errorMessage: error.message);
-      // }
-
-
+      CheckForApi().checkForApi(error);
       LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());
@@ -120,15 +109,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       this.logSummaryByYear.value = logSummaryByYear;
       LoggerHelper.infoLog(message: logSummaryByYear.message);
     }, onError: (error) {
-      // if (!Get.isDialogOpen!) {
-      //   errorAlertPopup(_reloadPage);
-      // }
-      // if(error.message.contains('Null')){
-      //
-      //   showWarningMessage(message: "Some information might go missing. Refresh by pulling down the screen page for the application to run smoothly");
-      // }else{
-      //   showErrorMessage(errorMessage: error.message);
-      // }
+      CheckForApi().checkForApi(error);
       LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());
@@ -149,15 +130,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
       LoggerHelper.errorLog(message: error.message);
-      // if (!Get.isDialogOpen!) {
-      //   errorAlertPopup(_reloadPage);
-      // }
-      // if(error.message.contains('Null')){
-      //
-      //   showWarningMessage(message: "Some information might go missing. Refresh by pulling down the screen page for the application to run smoothly");
-      // }else{
-      //   showErrorMessage(errorMessage: error.message);
-      // }
+      CheckForApi().checkForApi(error);
     });
     change(null, status: RxStatus.success());
   }
@@ -171,15 +144,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
       LoggerHelper.errorLog(message: error.message);
-      // if (!Get.isDialogOpen!) {
-      //   errorAlertPopup(_reloadPage);
-      // }
-      // if(error.message.contains('Null')){
-      //
-      //   showWarningMessage(message: "Some information might go missing. Refresh by pulling down the screen page for the application to run smoothly");
-      // }else{
-      //   showErrorMessage(errorMessage: error.message);
-      // }
+      CheckForApi().checkForApi(error);
     });
     change(null, status: RxStatus.success());
   }
@@ -227,12 +192,5 @@ class AttendanceLogsController extends GetxController with StateMixin {
       LoggerHelper.errorLog(message: error.message);
       isLoading.value = false;
     });
-  }
-
-  _reloadPage() async {
-    await getLogSummaryByMonth();
-    await getLogSummaryByYear();
-    await getAllFilteredLogSummary();
-    await getLogSummaryOverview();
   }
 }

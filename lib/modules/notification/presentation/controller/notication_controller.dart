@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/controller/api_check_controller.dart';
-import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
 import 'package:pay_day_mobile/modules/notification/data/notification_repository.dart';
 import 'package:pay_day_mobile/modules/notification/domain/notifications.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-
 import '../../../../common/widget/error_message.dart';
 import '../../../../common/widget/warning_message.dart';
 

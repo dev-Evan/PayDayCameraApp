@@ -30,8 +30,6 @@ class SettingController extends GetxController with StateMixin {
       });
     change(null, status: RxStatus.success());
   }
-  Future<void> _refreshPage() async {
-    getCurrencyData();
-  }
+
 }
 
