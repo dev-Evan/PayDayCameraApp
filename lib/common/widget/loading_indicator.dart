@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
+import 'package:pay_day_mobile/utils/images.dart';
 
 class LoadingIndicator extends StatelessWidget {
   const LoadingIndicator({Key? key}) : super(key: key);
@@ -15,48 +17,50 @@ class LoadingIndicator extends StatelessWidget {
       child: Container(
         height: AppLayout.getSize(context).height,
         color: Colors.white,
-        child: Center(
-            child: SizedBox(
-          height: AppLayout.getHeight(50),
-          width: AppLayout.getWidth(50),
-          child: Platform.isIOS
-              ? const CupertinoActivityIndicator(
-                  color: AppColor.primaryBlue,
-                )
-              : const CircularProgressIndicator(
-                  color: AppColor.primaryColor,
-                ),
-        )),
+        child: Platform.isIOS ? _ios():_android() ,
       ),
     );
   }
+
+
 }
 
-bottomSheetLoader(){
+bottomSheetLoader() {
   return Center(
     child: Container(
-      height: Get.height*.8,
+      height: Get.height * .8,
       color: Colors.white,
-      child: Center(
-          child: SizedBox(
-            height: AppLayout.getHeight(50),
-            width: AppLayout.getWidth(50),
-            child: Platform.isIOS
-                ? const CupertinoActivityIndicator(
-              color: AppColor.primaryBlue,
-            )
-                : const CircularProgressIndicator(
-              color: AppColor.primaryColor,
-            ),
-          )),
+      child: Platform.isIOS
+      ? _ios()
+      :  _android(),
     ),
   );
 }
 
- loadingIndicatorLayout() {
-  return SizedBox(
-    height: AppLayout.getHeight(50),
-    child: const LoadingIndicator(),
+loadingIndicatorLayout() {
+  return Center(
+    child: SizedBox(
+      height: AppLayout.getHeight(120),
+      child: Lottie.asset(Images.loading),
+    ),
   );
 }
 
+_android() {
+  return Center(
+      child: SizedBox(
+        height: AppLayout.getHeight(150),
+        width: AppLayout.getWidth(150),
+        child: Lottie.asset(Images.loading),
+      ));
+}
+
+_ios() {
+  return Center(
+      child: SizedBox(
+          height: AppLayout.getHeight(60),
+          width: AppLayout.getWidth(60),
+          child: const CupertinoActivityIndicator(
+            color: AppColor.primaryBlue,
+          )));
+}
