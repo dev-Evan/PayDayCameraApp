@@ -49,7 +49,7 @@ class DownloadHelper extends GetxController {
         List<int> bytes = [];
         String? pathName = await _getDownloadPath();
         String fileName = await _extractFileNameFromUrl(url);
-        final file = await _getFile(pathName,fileInfo==null?fileName:"$fileInfo.pdf");
+        final file = await _getFile(pathName,fileInfo ?? fileName);
         response.stream.listen((value) {
           bytes.addAll(value);
         }, onDone: () async {

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -7,11 +6,14 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 
 class CustomTextField extends StatelessWidget {
   final String hintText;
+
   // ignore: prefer_typing_uninitialized_variables
   final inputType;
+
   // ignore: prefer_typing_uninitialized_variables
   final controller;
   final String? Function(String?)? validator;
+
   const CustomTextField({
     Key? key,
     required this.hintText,
@@ -19,12 +21,13 @@ class CustomTextField extends StatelessWidget {
     this.inputType,
     this.controller,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final focusedCtx = FocusManager.instance.primaryFocus!.context;
+    final focusedCtx = FocusManager.instance.primaryFocus?.context;
     Future.delayed(const Duration(milliseconds: 180))
         .then((value) => Scrollable.ensureVisible(
-              focusedCtx!,
+              focusedCtx ?? context,
               duration: const Duration(milliseconds: 80),
               curve: Curves.easeOut,
             ));
@@ -72,8 +75,10 @@ class CustomTextField extends StatelessWidget {
 
 class CustomPasswordTextField extends StatefulWidget {
   final String hintText;
+
   // ignore: prefer_typing_uninitialized_variables
   final inputType;
+
   // ignore: prefer_typing_uninitialized_variables
   final controller;
   final String? Function(String?)? validator;
@@ -98,10 +103,10 @@ class _CustomTextFeildState extends State<CustomPasswordTextField> {
     final focusedCtx = FocusManager.instance.primaryFocus!.context;
     Future.delayed(const Duration(milliseconds: 200))
         .then((value) => Scrollable.ensureVisible(
-      focusedCtx!,
-      duration: const Duration(milliseconds: 100),
-      curve: Curves.easeOut,
-    ));
+              focusedCtx??context,
+              duration: const Duration(milliseconds: 100),
+              curve: Curves.easeOut,
+            ));
 
     return TextFormField(
       controller: widget.controller,
