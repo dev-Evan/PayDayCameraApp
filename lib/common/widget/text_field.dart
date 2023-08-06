@@ -24,7 +24,7 @@ class CustomTextField extends StatelessWidget {
     final focusedCtx = FocusManager.instance.primaryFocus?.context;
     Future.delayed(const Duration(milliseconds: 180))
         .then((value) => Scrollable.ensureVisible(
-              focusedCtx!,
+              focusedCtx??context,
               duration: const Duration(milliseconds: 80),
               curve: Curves.easeOut,
             ));
@@ -98,7 +98,7 @@ class _CustomTextFeildState extends State<CustomPasswordTextField> {
     final focusedCtx = FocusManager.instance.primaryFocus!.context;
     Future.delayed(const Duration(milliseconds: 200))
         .then((value) => Scrollable.ensureVisible(
-      focusedCtx!,
+      focusedCtx??context,
       duration: const Duration(milliseconds: 100),
       curve: Curves.easeOut,
     ));
