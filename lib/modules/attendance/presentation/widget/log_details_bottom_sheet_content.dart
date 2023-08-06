@@ -52,16 +52,21 @@ _manualEntryLog() {
         overflow: TextOverflow.ellipsis,
       ),
       customSpacerHeight(height: 4),
-      Text(
-        Get.find<AttendanceController>()
-                .logDetailsById
-                .data
-                ?.comments
-                ?.first
-                .comment ??
-            "",
-        style: AppStyle.normal_text_black.copyWith(fontWeight: FontWeight.w400),
-        overflow: TextOverflow.ellipsis,
+      Row(
+        children: [
+          Expanded(
+            child: Text(
+              Get.find<AttendanceController>()
+                      .logDetailsById
+                      .data
+                      ?.comments
+                      ?.first
+                      .comment ??
+                  "",
+              style: AppStyle.normal_text_black.copyWith(fontWeight: FontWeight.w400),
+            ),
+          ),
+        ],
       )
     ],
   );

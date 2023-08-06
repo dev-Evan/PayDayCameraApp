@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
+import 'package:pay_day_mobile/common/controller/api_check_controller.dart';
 import 'package:pay_day_mobile/modules/more/data/salary_overview_rep.dart';
 import 'package:pay_day_mobile/modules/more/domain/salary_overview.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
@@ -14,10 +14,7 @@ class SalaryOverviewController extends GetxController with StateMixin {
       await salaryOverViewRepository.getSalaryOverViewData().then((SalaryOverViewModel value) {
         salaryOverView = value;
       }, onError: (error) {
-        if (!Get.isDialogOpen!) {
-          errorAlertPopup(getSalaryOveData);
-        }
-        print(error.message);
+        CheckForApi().checkForApi(error);
       });
     } catch (ex) {
       print(ex.toString());

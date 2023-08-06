@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/controller/api_check_controller.dart';
 import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
 import 'package:pay_day_mobile/modules/payslip/data/payslip_data_repository.dart';
 import 'package:pay_day_mobile/modules/payslip/domain/payslip_view_model.dart';
@@ -17,9 +18,7 @@ class PayslipViewController extends GetxController with StateMixin {
         print(payslipViewModel.data?.payslip?.considerOvertime?.toInt());
       }, onError: (error) {
         print(error.message);
-        if (!Get.isDialogOpen!) {
-          errorAlertPopup(getPayslipViewData);
-        }
+        CheckForApi().checkForApi(error);
       });
       change(null, status: RxStatus.success());
   }

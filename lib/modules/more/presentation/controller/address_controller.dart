@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/controller/api_check_controller.dart';
 import 'package:pay_day_mobile/modules/more/data/address_repo_data.dart';
 import 'package:pay_day_mobile/modules/more/domain/deleted_address_model.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -22,9 +23,7 @@ class AddressController extends GetxController with StateMixin {
       print("Address details called ::: $value");
       addressDetailsModel = value;
     }, onError: (error) {
-      if (!Get.isDialogOpen!) {
-        errorAlertPopup(getEmployeeAddressData);
-      }
+      CheckForApi().checkForApi(error);
       print(error.message);
     });
     change(null, status: RxStatus.success());

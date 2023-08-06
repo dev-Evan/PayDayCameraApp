@@ -4,6 +4,8 @@ import 'package:pay_day_mobile/utils/app_string.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
+String _getRequestUrl(String apiEndPoint) => Api.BASE_URL + apiEndPoint;
+
 class NetworkClient extends GetConnect {
   Future<Response> getRequest(String apiEndPoint) async {
     return await get(_getRequestUrl(apiEndPoint),
@@ -13,7 +15,7 @@ class NetworkClient extends GetConnect {
       "Authorization": GetStorage().read(AppString.ACCESS_TOKEN) != null
           ? "Bearer ${GetStorage().read(AppString.ACCESS_TOKEN)}"
           : ""
-    }).timeout(const Duration(seconds: 20));
+    }).timeout(const Duration(seconds:15));
   }
 
   Future<http.Response> getReq(String apiEndPoint) async {
@@ -23,7 +25,7 @@ class NetworkClient extends GetConnect {
       "Authorization": GetStorage().read(AppString.ACCESS_TOKEN) != null
           ? "Bearer ${GetStorage().read(AppString.ACCESS_TOKEN)}"
           : ""
-    }).timeout(const Duration(seconds: 20));
+    }).timeout(const Duration(seconds: 15));
   }
 
   Future<Response> postRequest(String apiEndPoint, dynamic body) async {
@@ -32,7 +34,7 @@ class NetworkClient extends GetConnect {
       "Authorization": GetStorage().read(AppString.ACCESS_TOKEN) != null
           ? "Bearer ${GetStorage().read(AppString.ACCESS_TOKEN)}"
           : ""
-    }).timeout(const Duration(seconds: 20));
+    }).timeout(const Duration(seconds: 15));
 
     return response;
   }
@@ -44,7 +46,7 @@ class NetworkClient extends GetConnect {
       "Authorization": GetStorage().read(AppString.ACCESS_TOKEN) != null
           ? "Bearer ${GetStorage().read(AppString.ACCESS_TOKEN)}"
           : ""
-    }).timeout(const Duration(seconds: 20));
+    }).timeout(const Duration(seconds: 15));
   }
 
   Future<Response> deletedRequest(String apiEndPoint) async {
@@ -54,7 +56,7 @@ class NetworkClient extends GetConnect {
       "Authorization": GetStorage().read(AppString.ACCESS_TOKEN) != null
           ? "Bearer ${GetStorage().read(AppString.ACCESS_TOKEN)}"
           : ""
-    }).timeout(const Duration(seconds: 20));
+    }).timeout(const Duration(seconds: 15));
 
     return response;
   }
@@ -68,12 +70,12 @@ class NetworkClient extends GetConnect {
       "Authorization": GetStorage().read(AppString.ACCESS_TOKEN) != null
           ? "Bearer ${GetStorage().read(AppString.ACCESS_TOKEN)}"
           : ""
-    }).timeout(const Duration(seconds: 20));
+    }).timeout(const Duration(seconds: 15));
 
     return response;
   }
 
-  static const int TIME_OUT_DURATION = 20;
+
 
 
 
@@ -89,7 +91,6 @@ class NetworkClient extends GetConnect {
   //     throw ApiNotRespondException("Api not respond in time", url.toString());
   //   }
   // }
-  //
 
 
 
@@ -98,5 +99,6 @@ class NetworkClient extends GetConnect {
 
 
 
-  String _getRequestUrl(String apiEndPoint) => Api.BASE_URL + apiEndPoint;
+
+
 }

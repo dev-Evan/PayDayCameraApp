@@ -6,9 +6,8 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/common_contr
 import 'package:pay_day_mobile/modules/more/presentation/widget/add_bank_info.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import '../../../../common/widget/error_alert_pop_up.dart';
+import '../../../../common/controller/api_check_controller.dart';
 import '../../../../common/widget/error_message.dart';
-import '../../../../common/widget/success_message.dart';
 
 class BankInfoController extends GetxController with StateMixin {
   final box = GetStorage();
@@ -28,9 +27,7 @@ class BankInfoController extends GetxController with StateMixin {
       _bankInfo(value);
     }, onError: (error) {
       print("Bank info called:::$error");
-      if (!Get.isDialogOpen!) {
-        errorAlertPopup(getBankInfo);
-      }
+      CheckForApi().checkForApi(error);
     });
     change(null, status: RxStatus.success());
   }

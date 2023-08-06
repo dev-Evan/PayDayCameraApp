@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/controller/api_check_controller.dart';
 import 'package:pay_day_mobile/common/widget/error_alert_pop_up.dart';
 import 'package:pay_day_mobile/modules/notification/data/notification_repository.dart';
 import 'package:pay_day_mobile/modules/notification/domain/notifications.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
+
+import '../../../../common/widget/error_message.dart';
+import '../../../../common/widget/warning_message.dart';
 
 class NotificationController extends GetxController with StateMixin {
   @override
@@ -65,7 +69,7 @@ class NotificationController extends GetxController with StateMixin {
       this.notifications = notifications;
       print(notifications.data!.meta!.total);
     }, onError: (error) {
-      errorAlertPopup(_reloadPage);
+      CheckForApi().checkForApi(error);
     });
 
     change(null, status: RxStatus.success());
@@ -77,8 +81,20 @@ class NotificationController extends GetxController with StateMixin {
       print("getAllUnreadNotification ::: called ${value.data!.data!.length}");
       length.value = value.data!.data!.length;
     }, onError: (error) {
-      errorAlertPopup(_reloadPage);
-    });
+      // errorAlertPopup(_reloadPage);
+
+      // if(error.message.contains('Null')){
+      //
+      //   showWarningMessage(message: "Some information might go missing. Refresh by pulling down the screen page for the application to run smoothly");
+      // }else{
+      //   showErrorMessage(errorMessage: error.message);
+      // }
+    //  checkForApi(error);
+
+
+    }
+
+    );
 
     change(null, status: RxStatus.success());
   }
@@ -109,4 +125,24 @@ class NotificationController extends GetxController with StateMixin {
     await getAllUnreadNotification();
     await getAllNotification();
   }
+
+  checkForApi( dynamic error) {
+    if (error.message.startsWith("'Null' is not a subtype of type 'Map<String, dynamic>'")) {
+      print(" Leave identify error handling");
+      showWarningMessage(message: "Some information might go missing. Refresh by pulling down the screen page for the application to run smoothly");
+    } else if (error.message.startsWith(
+        "TimeoutException after 0:00:10.000000: Future not completed")) {
+      showErrorMessage(errorMessage: "Something wrong, please check your internet connection");
+    }else if(error.message.contains('Null')){
+      showWarningMessage(message: "52645 :: Some information might go missing. Refresh by pulling down the screen page for the application to run smoothly");
+
+    }
+    else{
+      //  showErrorMessage(errorMessage: error.message);
+      print("else test");
+
+    }
+  }
+
+
 }

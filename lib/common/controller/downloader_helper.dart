@@ -81,6 +81,7 @@ class DownloadHelper extends GetxController {
         'Accept': '*/*',
       };
 
+
   @override
   void dispose() {
     IsolateNameServer.removePortNameMapping('downloader_send_port');
@@ -88,6 +89,7 @@ class DownloadHelper extends GetxController {
   }
 
   @pragma('vm:entry-point')
+
   static void downloadCallback(String id, int status, int progress) {
     final SendPort? send =
         IsolateNameServer.lookupPortByName('downloader_send_port');

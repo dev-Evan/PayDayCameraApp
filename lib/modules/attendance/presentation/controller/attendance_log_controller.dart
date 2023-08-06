@@ -10,6 +10,7 @@ import 'package:pay_day_mobile/modules/attendance/domain/request_attendance/requ
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/logger.dart';
 import '../../../../common/widget/error_message.dart';
+import '../../../../common/widget/warning_message.dart';
 import '../../domain/all_log_summary/all_log_summay.dart';
 
 class AttendanceLogsController extends GetxController with StateMixin {
@@ -96,9 +97,17 @@ class AttendanceLogsController extends GetxController with StateMixin {
       this.logSummaryByMonth.value = logSummaryByMonth;
       LoggerHelper.infoLog(message: logSummaryByMonth.message);
     }, onError: (error) {
-      if (!Get.isDialogOpen!) {
-        errorAlertPopup(_reloadPage);
-      }
+      // if (!Get.isDialogOpen!) {
+      //   errorAlertPopup(_reloadPage);
+      // }
+      // if(error.message.contains('Null')){
+      //
+      //   showWarningMessage(message: "Some information might go missing. Refresh by pulling down the screen page for the application to run smoothly");
+      // }else{
+      //   showErrorMessage(errorMessage: error.message);
+      // }
+
+
       LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());
@@ -111,9 +120,15 @@ class AttendanceLogsController extends GetxController with StateMixin {
       this.logSummaryByYear.value = logSummaryByYear;
       LoggerHelper.infoLog(message: logSummaryByYear.message);
     }, onError: (error) {
-      if (!Get.isDialogOpen!) {
-        errorAlertPopup(_reloadPage);
-      }
+      // if (!Get.isDialogOpen!) {
+      //   errorAlertPopup(_reloadPage);
+      // }
+      // if(error.message.contains('Null')){
+      //
+      //   showWarningMessage(message: "Some information might go missing. Refresh by pulling down the screen page for the application to run smoothly");
+      // }else{
+      //   showErrorMessage(errorMessage: error.message);
+      // }
       LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());
@@ -134,9 +149,15 @@ class AttendanceLogsController extends GetxController with StateMixin {
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
       LoggerHelper.errorLog(message: error.message);
-      if (!Get.isDialogOpen!) {
-        errorAlertPopup(_reloadPage);
-      }
+      // if (!Get.isDialogOpen!) {
+      //   errorAlertPopup(_reloadPage);
+      // }
+      // if(error.message.contains('Null')){
+      //
+      //   showWarningMessage(message: "Some information might go missing. Refresh by pulling down the screen page for the application to run smoothly");
+      // }else{
+      //   showErrorMessage(errorMessage: error.message);
+      // }
     });
     change(null, status: RxStatus.success());
   }
@@ -150,9 +171,15 @@ class AttendanceLogsController extends GetxController with StateMixin {
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
       LoggerHelper.errorLog(message: error.message);
-      if (!Get.isDialogOpen!) {
-        errorAlertPopup(_reloadPage);
-      }
+      // if (!Get.isDialogOpen!) {
+      //   errorAlertPopup(_reloadPage);
+      // }
+      // if(error.message.contains('Null')){
+      //
+      //   showWarningMessage(message: "Some information might go missing. Refresh by pulling down the screen page for the application to run smoothly");
+      // }else{
+      //   showErrorMessage(errorMessage: error.message);
+      // }
     });
     change(null, status: RxStatus.success());
   }

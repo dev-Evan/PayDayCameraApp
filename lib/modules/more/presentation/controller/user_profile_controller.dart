@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pay_day_mobile/common/controller/api_check_controller.dart';
 import 'package:pay_day_mobile/modules/more/data/profile_data_repo.dart';
 import 'package:pay_day_mobile/modules/more/domain/change_password.dart';
 import 'package:pay_day_mobile/modules/more/domain/user_profile.dart';
 import 'package:pay_day_mobile/modules/more/presentation/view/change_password.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-import '../../../../common/widget/error_alert_pop_up.dart';
 import '../../../../common/widget/error_message.dart';
 import '../../../../common/widget/success_message.dart';
 import '../../../../routes/app_pages.dart';
@@ -26,11 +26,9 @@ class ProfileDataController extends GetxController with StateMixin {
         (UserProfileModel value) {
       userProfile = value;
       print('User profile called ::: $value');
-    }, onError: (e) {
-      if (!Get.isDialogOpen!) {
-        errorAlertPopup(_refreshPage);
-      }
-      print('User profile called ::: ${e.message}');
+    }, onError: (error) {
+      CheckForApi().checkForApi(error);
+      print('User profile called ::: ${error.message}');
     });
     change(null, status: RxStatus.success());
   }

@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pay_day_mobile/common/controller/api_check_controller.dart';
 import 'package:pay_day_mobile/common/widget/error_message.dart';
+import 'package:pay_day_mobile/common/widget/warning_message.dart';
 import 'package:pay_day_mobile/modules/auth/data/auth_data_repository.dart';
 import 'package:pay_day_mobile/modules/auth/domain/login_res.dart';
 import 'package:pay_day_mobile/modules/auth/domain/reset_password_model.dart';
@@ -32,13 +34,9 @@ class AuthController extends GetxController with StateMixin {
        Get.offAllNamed(Routes.HOME);
       }, onError: (error) {
         isLoading.value = false;
-        showErrorMessage(errorMessage: error.message);
+        CheckForApi().checkForApi(error);
       });
-
   }
-
-
-
 
   void _writeUserInfo(Login? login) {
     box.write(AppString.ID_STORE, login?.data!.id);
@@ -47,17 +45,16 @@ class AuthController extends GetxController with StateMixin {
     box.write(AppString.LOGIN_CHECK_KEY, AppString.LOGIN_VALUE);
     box.write(AppString.STORE_CURRENT_PASSWORD, passwordController.text);
     box.write(AppString.STORE_CURRENT_EMAIL, emailController.text);
-    print("Login dynamic name ::: ${box.read(AppString.USER_NAME) }");
   }
 
 
   void restPassword() async {
     change(null, status: RxStatus.loading());
       await _authDataSource.restPasswordRepo().then((value) {
-        print(value);
+        print("Rest password ::: $value");
         resetPasswordModel = value;
       }, onError: (error) {
-        print(error.message);
+        print("Rest password ::: ${error.message}");
       });
       change(null, status: RxStatus.success());
   }

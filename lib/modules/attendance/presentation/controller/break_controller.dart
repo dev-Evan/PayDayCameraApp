@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:get/get.dart';
+import 'package:pay_day_mobile/common/controller/api_check_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attendance_data_repository.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import '../../../../common/widget/error_message.dart';
@@ -54,7 +55,6 @@ class BreakController extends GetxController with StateMixin {
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
       showErrorMessage(errorMessage: AppString.error_text);
-
       LoggerHelper.errorLog(message: error.message);
     });
     isLoading(false);

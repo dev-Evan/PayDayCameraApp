@@ -75,16 +75,6 @@ class Attendance extends GetView<AttendanceController> {
     ));
   }
 
-  // Future _openBottomSheet() {
-  //   return showModalBottomSheet(
-  //     isScrollControlled: true,
-  //     backgroundColor: Colors.transparent,
-  //     context: Get.context!,
-  //     builder: (context) => const LogEntryBottomSheet(),
-  //   );
-  // }
-
-
   _openBottomSheet() => customButtonSheet(
     context: Get.context,
     height: 0.9,
