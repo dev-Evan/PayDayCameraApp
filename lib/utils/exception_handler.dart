@@ -1,9 +1,9 @@
 import 'package:pay_day_mobile/common/widget/warning_message.dart';
 
-import '../widget/error_message.dart';
+import '../common/widget/error_message.dart';
 
-class CheckForApi{
-  checkForApi(dynamic error) {
+class ExceptionHandler{
+  errorChecker(dynamic error) {
     if (error.message.startsWith("type 'Null' is not a subtype of type 'Map<String, dynamic>'")) {
       showWarningMessage(message: "Some information might go missing. Refresh by pulling down the screen page for the application to run smoothly.", height: 100, maxLines: 4);
     } else if (error.message.startsWith("TimeoutException")) {

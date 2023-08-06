@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:pay_day_mobile/common/controller/api_check_controller.dart';
+import 'package:pay_day_mobile/utils/exception_handler.dart';
 import 'package:pay_day_mobile/common/widget/error_message.dart';
 import 'package:pay_day_mobile/common/widget/success_message.dart';
 import 'package:pay_day_mobile/modules/leave/data/leave_repository.dart';
@@ -67,7 +67,7 @@ class LeaveController extends GetxController with StateMixin {
       print("getLeaveSummary ::: called");
       leaveSummary = value;
     }, onError: (error) {
-      CheckForApi().checkForApi(error);
+      ExceptionHandler().errorChecker(error);
     });
 
     change(null, status: RxStatus.success());
@@ -79,7 +79,7 @@ class LeaveController extends GetxController with StateMixin {
       print("getLeaveRecord ::: called");
       leaveRecord = value;
     }, onError: (error) {
-      CheckForApi().checkForApi(error);
+      ExceptionHandler().errorChecker(error);
     });
 
     change(null, status: RxStatus.success());
@@ -160,7 +160,7 @@ class LeaveController extends GetxController with StateMixin {
     }, onError: (error) {
       isLoading(false);
 
-      CheckForApi().checkForApi(error);
+      ExceptionHandler().errorChecker(error);
       print("getILeaveDetails $error");
     });
     isLoading(false);

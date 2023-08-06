@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/common/controller/connectivity_controller.dart';
 import 'package:pay_day_mobile/common/controller/downloader_helper.dart';
@@ -34,7 +33,6 @@ import 'modules/setting/presentation/controller/setting_controller.dart';
 Future<void> initApp() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterDownloader.initialize(ignoreSsl: true);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark));

@@ -35,7 +35,6 @@ class AuthController extends GetxController with StateMixin {
       }, onError: (error) {
         isLoading.value = false;
         showErrorMessage(errorMessage: error.message);
-      //  CheckForApi().checkForApi(error);
       });
   }
 
