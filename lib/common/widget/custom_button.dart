@@ -2,10 +2,12 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pay_day_mobile/modules/auth/presentation/widget/login_view_widget.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
+import 'package:pay_day_mobile/utils/images.dart';
 
 // ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
@@ -89,16 +91,12 @@ class LoadingButtonLayout extends StatelessWidget {
 
   _loader({required loaderColor}) {
     return SizedBox(
-      height: AppLayout.getHeight(28),
-      width: AppLayout.getWidth(28),
+
       child: Platform.isIOS
           ? CupertinoActivityIndicator(
               color: loaderColor,
             )
-          : CircularProgressIndicator(
-              color: loaderColor,
-              strokeWidth: 3,
-            ),
+          : Lottie.asset(Images.loading_white),
     );
   }
 

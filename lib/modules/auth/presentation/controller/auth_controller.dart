@@ -34,7 +34,8 @@ class AuthController extends GetxController with StateMixin {
        Get.offAllNamed(Routes.HOME);
       }, onError: (error) {
         isLoading.value = false;
-        CheckForApi().checkForApi(error);
+        showErrorMessage(errorMessage: error.message);
+      //  CheckForApi().checkForApi(error);
       });
   }
 

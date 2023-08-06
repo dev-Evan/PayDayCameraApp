@@ -55,7 +55,7 @@ class LeaveController extends GetxController with StateMixin {
       print("getLeaveAllowance ::: called");
       leaveAllowance = value;
     }, onError: (error) {
-      //CheckForApi().checkForApi(error);
+      CheckForApi().checkForApi(error);
     });
 
     change(null, status: RxStatus.success());

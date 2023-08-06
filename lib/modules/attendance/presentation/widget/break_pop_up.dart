@@ -69,10 +69,7 @@ _breakInfoLayout() {
   );
 }
 
-_loadingButtonLayout() => SizedBox(
-      height: AppLayout.getHeight(50),
-      child: const LoadingIndicator(),
-    );
+_loadingButtonLayout() => loadingIndicatorLayout();
 
 _breakAppbar() {
   return Container(
