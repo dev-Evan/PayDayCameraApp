@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pay_day_mobile/utils/exception_handler.dart';
 import 'package:pay_day_mobile/modules/setting/data/setting_rep.dart';
 import 'package:pay_day_mobile/modules/setting/domain/setting_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
+
+import '../../../../utils/exception_handler.dart';
 
 class SettingController extends GetxController with StateMixin {
   final _box = GetStorage();
@@ -26,7 +27,7 @@ class SettingController extends GetxController with StateMixin {
         _box.write(AppString.STORE_CURRENCY,
             basicInfo?.data.currencySymbol.toString() ?? "");
       }, onError: (error) {
-        ExceptionHandler().errorChecker(error);
+        errorChecker(error.message);
       });
     change(null, status: RxStatus.success());
   }

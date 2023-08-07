@@ -6,8 +6,8 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/common_contr
 import 'package:pay_day_mobile/modules/more/presentation/widget/add_bank_info.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import '../../../../utils/exception_handler.dart';
 import '../../../../common/widget/error_message.dart';
+import '../../../../utils/exception_handler.dart';
 
 class BankInfoController extends GetxController with StateMixin {
   final box = GetStorage();
@@ -22,12 +22,9 @@ class BankInfoController extends GetxController with StateMixin {
     change(null, status: RxStatus.loading());
     await moreDataRepository.bankInfoRepo().then((value) {
       bankInfoModel = value;
-      print(bankInfoModel.data?.accountTitle);
-      print("Bank info called ::: $value");
       _bankInfo(value);
     }, onError: (error) {
-      print("Bank info called:::$error");
-      ExceptionHandler().errorChecker(error);
+      errorChecker(error.message);
     });
     change(null, status: RxStatus.success());
   }
@@ -50,7 +47,6 @@ class BankInfoController extends GetxController with StateMixin {
     }, onError: (error) {
       isLoading(false);
       returnValue=false;
-      print("Add BankInfo ::: $error");
     });
      isLoading(false);
      return returnValue;
@@ -95,7 +91,6 @@ class BankInfoController extends GetxController with StateMixin {
       isLoading(false);
       updatedBankInfoValue=false;
       showErrorMessage(errorMessage: error.message);
-      print("BANK INFO UPDATED ::: $error");
     });
     isLoading(false);
     return updatedBankInfoValue;

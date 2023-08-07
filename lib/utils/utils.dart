@@ -80,7 +80,7 @@ class Util {
     return "";
   }
 }
-Future<void> FutureDelayed({required onAction}) {
+Future<void> futureDelayed({required onAction}) {
   return Future.delayed(const Duration(seconds: 1), () => onAction());
 }
 

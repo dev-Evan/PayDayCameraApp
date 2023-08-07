@@ -5,7 +5,6 @@ import 'package:pay_day_mobile/modules/payslip/domain/payrun_badge_model.dart';
 import 'package:pay_day_mobile/modules/payslip/domain/payslip_list_model.dart';
 import 'package:pay_day_mobile/modules/payslip/domain/summary_model.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/controller/payslip_std_drop_dawon_controller.dart';
-import 'package:pay_day_mobile/modules/payslip/presentation/widget/drop_dawon_seleted_date.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 
 class PayslipController extends GetxController with StateMixin {
@@ -31,7 +30,7 @@ class PayslipController extends GetxController with StateMixin {
         .then((payslipListData) {
       payslipListModel = payslipListData;
     }, onError: (error) {
-      ExceptionHandler().errorChecker(error);
+      errorChecker(error.message);
     });
     change(null, status: RxStatus.success());
   }
@@ -42,7 +41,7 @@ class PayslipController extends GetxController with StateMixin {
       print(value);
       summaryModel = value;
     }, onError: (error) {
-      ExceptionHandler().errorChecker(error);
+      errorChecker(error.message);
     });
     change(null, status: RxStatus.success());
   }
@@ -68,14 +67,9 @@ class PayslipController extends GetxController with StateMixin {
           .where((element) => element.beneficiary!.type == "deduction")
           .toList();
     }, onError: (error) {
-      ExceptionHandler().errorChecker(error);
-      print(error.message);
+      errorChecker(error.message);
     });
     change(null, status: RxStatus.success());
   }
 
-  Future<void> _refreshPage() async {
-    await getPayslipListData(value: thisYarKey());
-    await getSummaryData();
-  }
 }
