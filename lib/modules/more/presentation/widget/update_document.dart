@@ -181,7 +181,7 @@ class UpdateDocument extends StatelessWidget {
   _buttonLayout(BuildContext context) {
     return   Obx(() =>  Get.find<UpdateDocumentController>(). storageForUpdate.isLoading.isTrue?
 
-    _loadingLayout():  Padding(
+    loadingIndicatorLayout():  Padding(
       padding: const EdgeInsets.all(16.0),
       child: customDoubleButton(
           textButtonAction: () => Get.back(),
@@ -208,10 +208,7 @@ class UpdateDocument extends StatelessWidget {
 
   }
 
-  _loadingLayout() {
-    return Container(margin:  EdgeInsets.only(bottom: AppLayout.getHeight(30)),
-      child: loadingIndicatorLayout(),);
-  }
+
 }
 
 Widget _fileTitle({required text}) {

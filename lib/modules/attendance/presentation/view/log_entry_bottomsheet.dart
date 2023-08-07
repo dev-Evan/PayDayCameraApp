@@ -179,7 +179,7 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
       ),
       child: Obx(
         () => Get.find<AttendanceController>().isLoading.isTrue
-            ? loadingIndicatorLayout()
+            ? loadingIndicatorLayout(height: 75)
             : Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

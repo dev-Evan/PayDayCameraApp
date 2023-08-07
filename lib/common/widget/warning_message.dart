@@ -12,10 +12,7 @@ showWarningMessage({String? message,double marginForButton=60,double height=60,i
   padding:  EdgeInsets.only(bottom: marginForButton, right: 20, left: 20),
   animationType: AnimationType.fromRight,
   height: height,
-  animationDuration: const Duration(
-    milliseconds: 1000,
-  ),
-  toastDuration: const Duration(milliseconds: 2500),
+  toastDuration: const Duration(milliseconds: 1500),
   width: double.infinity,
   displaySideBar: false,
   iconSize: 40,

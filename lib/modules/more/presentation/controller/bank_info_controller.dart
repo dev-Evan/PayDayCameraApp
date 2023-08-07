@@ -20,7 +20,7 @@ class BankInfoController extends GetxController with StateMixin {
 
   getBankInfo() async {
     change(null, status: RxStatus.loading());
-    await moreDataRepository.bankInfoRepo().then((value) {
+    await moreDataRepository.bankInfoRepo().then((BankInfoModel value) {
       bankInfoModel = value;
       _bankInfo(value);
     }, onError: (error) {

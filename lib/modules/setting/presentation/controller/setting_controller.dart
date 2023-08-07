@@ -5,7 +5,7 @@ import 'package:pay_day_mobile/modules/setting/domain/setting_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
 
-import '../../../../utils/exception_handler.dart';
+import '../../../../common/widget/warning_message.dart';
 
 class SettingController extends GetxController with StateMixin {
   final _box = GetStorage();
@@ -27,7 +27,7 @@ class SettingController extends GetxController with StateMixin {
         _box.write(AppString.STORE_CURRENCY,
             basicInfo?.data.currencySymbol.toString() ?? "");
       }, onError: (error) {
-        errorChecker(error.message);
+        showWarningMessage(message: "Some information not loaded properly. Please try again later");
       });
     change(null, status: RxStatus.success());
   }

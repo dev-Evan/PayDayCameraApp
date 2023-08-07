@@ -172,7 +172,7 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
                         .then((value) {
                       Get.back(canPop: false);
                       Get.find<BankInfoController>().getBankInfo();
-                      showSuccessMessage(message: AppString.text_bank_details_deleted_successfully,marginForButton: 60);
+                      showSuccessMessage(message: AppString.text_bank_details_deleted_successfully);
                     });
                   });
             },

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pay_day_mobile/common/widget/warning_message.dart';
 import 'package:pay_day_mobile/utils/exception_handler.dart';
 import 'package:pay_day_mobile/common/widget/success_message.dart';
 import 'package:pay_day_mobile/modules/leave/data/leave_repository.dart';
@@ -31,6 +32,7 @@ class LeaveController extends GetxController with StateMixin {
   LeaveDetails leaveDetails = LeaveDetails();
 
   final leaveDurationIndex = 0.obs;
+  final isFilePicked = false.obs;
 
   final leaveNote = TextEditingController();
 
@@ -87,9 +89,9 @@ class LeaveController extends GetxController with StateMixin {
       leaveType.clear();
       leaveType = {for (var e in value.data!) e.id: e.name ?? ''};
     }, onError: (error) {
-      errorChecker(error.message);
+      showWarningMessage(
+          message: "Leave type not loaded properly. Please try again later");
     });
-
     change(null, status: RxStatus.success());
   }
 
@@ -99,7 +101,7 @@ class LeaveController extends GetxController with StateMixin {
         .getIndividualDateLeave(queryParams: queryParams)
         .then((individualDateLeaveValue) {
       individualDateLeaveList.value = individualDateLeaveValue;
-    }, onError: (error){
+    }, onError: (error) {
       errorChecker(error.message);
     });
 
@@ -110,7 +112,7 @@ class LeaveController extends GetxController with StateMixin {
     change(null, status: RxStatus.loading());
     await _leaveRepository.getLeaveDetails(id: id).then((value) {
       leaveDetails = value;
-    }, onError: (error){
+    }, onError: (error) {
       errorChecker(error.message);
     });
 
@@ -153,7 +155,10 @@ class LeaveController extends GetxController with StateMixin {
           message: AppString.text_leave_request_successfully,
           marginForButton: 60);
       //clear queries after api call
-      Get.find<LeaveController>().requestLeaveQueries.clear();
+      requestLeaveQueries.clear();
+      //clear textField data
+      leaveNote.clear();
+      isFilePicked(false);
     }, onError: (error) {
       isLoading(false);
       errorChecker(error.message);
