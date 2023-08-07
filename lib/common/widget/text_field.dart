@@ -24,7 +24,7 @@ class CustomTextField extends StatelessWidget {
     final focusedCtx = FocusManager.instance.primaryFocus!.context;
     Future.delayed(const Duration(milliseconds: 180))
         .then((value) => Scrollable.ensureVisible(
-              focusedCtx!,
+              focusedCtx??context,
               duration: const Duration(milliseconds: 80),
               curve: Curves.easeOut,
             ));
