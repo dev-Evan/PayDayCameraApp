@@ -17,6 +17,7 @@ Future customDialogLayout({required controller, required onAction,    IconData? 
     context: Get.context!,
     builder: (context) {
       return Dialog(
+
         backgroundColor: Colors.transparent,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(16))),
@@ -50,7 +51,7 @@ Future customDialogLayout({required controller, required onAction,    IconData? 
                 _contentText(),
                 customSpacerHeight(height: 36),
                  Obx(() => controller.isLoading.value==true
-                     ? _loadingButtonLayout()
+                     ? loadingIndicatorLayout(height: 50)
                      : _buttonLayout(context: context,onAction: onAction),),
 
                 customSpacerHeight(height: 20)
@@ -95,7 +96,7 @@ _contentText() {
   );
 }
 
-_loadingButtonLayout() => loadingIndicatorLayout();
+
 
 TextStyle get _titleTextStyle {
   return AppStyle.large_text.copyWith(

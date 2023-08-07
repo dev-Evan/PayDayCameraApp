@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,14 +36,16 @@ bottomSheetLoader() {
   );
 }
 
-loadingIndicatorLayout() {
-  return Center(
-    child: SizedBox(
-      height: AppLayout.getHeight(120),
-      child: Lottie.asset(Images.loading),
+loadingIndicatorLayout({double height = 100}) {
+  return SizedBox(
+    height: AppLayout.getHeight(height),
+    child: Center(
+      child: Lottie.asset(Images.loading,
+        height: height,),
     ),
   );
 }
+
 
 _android() {
   return Center(

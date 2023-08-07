@@ -142,7 +142,7 @@ class AddBankInfo extends GetView<BankInfoController> {
   }
 
   _buttonLayout(context) {
-    return Get.find<BankInfoController>().isLoading.isTrue?loadingIndicatorLayout():
+    return Get.find<BankInfoController>().isLoading.isTrue? loadingIndicatorLayout():
     customDoubleButton(
         context: context,
         elevatedBtnText:

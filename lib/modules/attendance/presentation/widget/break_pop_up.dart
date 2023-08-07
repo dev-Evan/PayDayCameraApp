@@ -69,7 +69,7 @@ _breakInfoLayout() {
   );
 }
 
-_loadingButtonLayout() => loadingIndicatorLayout();
+_loadingButtonLayout() => loadingIndicatorLayout(height: 50);
 
 _breakAppbar() {
   return Container(

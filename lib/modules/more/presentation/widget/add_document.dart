@@ -125,7 +125,7 @@ class AddDocument extends GetView<FileUploadController> {
 
     return Obx(
       () => Get.find<FileUploadController>().storageForUpload.isLoading.isTrue
-          ? _loadingLayout()
+          ? loadingIndicatorLayout()
           : Padding(
               padding: const EdgeInsets.all(16.0),
               child: customDoubleButton(
@@ -249,10 +249,6 @@ class AddDocument extends GetView<FileUploadController> {
             fontSize: Dimensions.fontSizeDefault - 2));
   }
 
-  _loadingLayout() {
-    return Container(margin:  EdgeInsets.only(bottom: AppLayout.getHeight(30)),
-      child: loadingIndicatorLayout(),);
-  }
 }
 
 Widget _dottedBorder({required child}) {
