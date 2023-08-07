@@ -5,8 +5,8 @@ import 'package:pay_day_mobile/modules/more/data/log_out_repo.dart';
 import 'package:pay_day_mobile/modules/more/domain/logout_model.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
-import '../../../../utils/exception_handler.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../../utils/exception_handler.dart';
 
 class LogoutController extends GetxController with StateMixin {
   LogoutRepository logoutRepository = LogoutRepository(NetworkClient());
@@ -25,7 +25,7 @@ class LogoutController extends GetxController with StateMixin {
         Get.put(AuthController());
       }, onError: (error) {
         isLoading(false);
-        ExceptionHandler().errorChecker(error);
+        errorChecker(error.message);
       });
     isLoading(false);
   }

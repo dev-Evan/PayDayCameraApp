@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/utils/exception_handler.dart';
-import 'package:pay_day_mobile/common/widget/error_message.dart';
 import 'package:pay_day_mobile/common/widget/success_message.dart';
 import 'package:pay_day_mobile/modules/leave/data/leave_repository.dart';
 import 'package:pay_day_mobile/modules/leave/domain/individual_date_leave.dart';
@@ -52,10 +51,9 @@ class LeaveController extends GetxController with StateMixin {
   getLeaveAllowance() async {
     change(null, status: RxStatus.loading());
     await _leaveRepository.getLeaveAllowance().then((value) {
-      print("getLeaveAllowance ::: called");
       leaveAllowance = value;
     }, onError: (error) {
-      ExceptionHandler().errorChecker(error);
+      errorChecker(error.message);
     });
 
     change(null, status: RxStatus.success());
@@ -64,10 +62,9 @@ class LeaveController extends GetxController with StateMixin {
   getLeaveSummary() async {
     change(null, status: RxStatus.loading());
     await _leaveRepository.getLeaveSummary().then((value) {
-      print("getLeaveSummary ::: called");
       leaveSummary = value;
     }, onError: (error) {
-      ExceptionHandler().errorChecker(error);
+      errorChecker(error.message);
     });
 
     change(null, status: RxStatus.success());
@@ -76,10 +73,9 @@ class LeaveController extends GetxController with StateMixin {
   getLeaveRecord({required String params}) async {
     change(null, status: RxStatus.loading());
     await _leaveRepository.getLeaveRecord(params).then((LeaveRecord value) {
-      print("getLeaveRecord ::: called");
       leaveRecord = value;
     }, onError: (error) {
-      ExceptionHandler().errorChecker(error);
+      errorChecker(error.message);
     });
 
     change(null, status: RxStatus.success());
@@ -88,11 +84,11 @@ class LeaveController extends GetxController with StateMixin {
   getLeaveType() async {
     change(null, status: RxStatus.loading());
     await _leaveRepository.getLeaveType().then((LeaveType value) {
-      print("getLeaveType ::: called");
       leaveType.clear();
       leaveType = {for (var e in value.data!) e.id: e.name ?? ''};
-      print("list data::: $leaveType");
-    }, onError: (error) => print("getLeaveType ${error.message}"));
+    }, onError: (error) {
+      errorChecker(error.message);
+    });
 
     change(null, status: RxStatus.success());
   }
@@ -102,9 +98,10 @@ class LeaveController extends GetxController with StateMixin {
     await _leaveRepository
         .getIndividualDateLeave(queryParams: queryParams)
         .then((individualDateLeaveValue) {
-      print("getIndividualLeaveList ::: called $individualDateLeaveValue");
       individualDateLeaveList.value = individualDateLeaveValue;
-    }, onError: (error) => print("getIndividualLeaveList ${error.message}"));
+    }, onError: (error){
+      errorChecker(error.message);
+    });
 
     isValueLoading.value = false;
   }
@@ -112,9 +109,10 @@ class LeaveController extends GetxController with StateMixin {
   getILeaveDetails({required int id}) async {
     change(null, status: RxStatus.loading());
     await _leaveRepository.getLeaveDetails(id: id).then((value) {
-      print("getILeaveDetails ::: called");
       leaveDetails = value;
-    }, onError: (error) => print("getILeaveDetails ${error.message}"));
+    }, onError: (error){
+      errorChecker(error.message);
+    });
 
     change(null, status: RxStatus.success());
   }
@@ -122,7 +120,6 @@ class LeaveController extends GetxController with StateMixin {
   cancelLeave({required int id}) async {
     change(null, status: RxStatus.loading());
     await _leaveRepository.cancelLeave(id: id).then((value) async {
-      print("getILeaveDetails ::: called");
       Get.back(canPop: false);
       getLeaveRecord(params: "&within=thisYear");
       Map<String, String> queryParams = {
@@ -132,8 +129,9 @@ class LeaveController extends GetxController with StateMixin {
       String dateValue = json.encode(queryParams);
       await Get.find<LeaveController>()
           .getIndividualLeaveList(queryParams: "date_range=$dateValue");
-    }, onError: (error) => print("getILeaveDetails ${error.message}"));
-
+    }, onError: (error) {
+      errorChecker(error.message);
+    });
     change(null, status: RxStatus.success());
   }
 
@@ -143,7 +141,6 @@ class LeaveController extends GetxController with StateMixin {
         .requestLeave(leaveQueries: leaveARequestQueries)
         .then((value) async {
       isLoading(false);
-      print("requestLeave ::: called");
       Map<String, String> queryParams = {
         "start": DateFormat("yyyy-MM-dd").format(DateTime.now()),
         "end": DateFormat("yyyy-MM-dd").format(DateTime.now())
@@ -159,26 +156,8 @@ class LeaveController extends GetxController with StateMixin {
       Get.find<LeaveController>().requestLeaveQueries.clear();
     }, onError: (error) {
       isLoading(false);
-
-      ExceptionHandler().errorChecker(error);
-      print("getILeaveDetails $error");
+      errorChecker(error.message);
     });
     isLoading(false);
   }
-
-  _refreshPage() async {
-    getLeaveAllowance();
-    Map<String, String> queryParams = {
-      "start": DateFormat("yyyy-MM-dd").format(DateTime.now()),
-      "end": DateFormat("yyyy-MM-dd").format(DateTime.now())
-    };
-    String value = json.encode(queryParams);
-    getIndividualLeaveList(queryParams: "date_range=$value");
-  }
-
-  _refreshRecordPage() async {
-    await getLeaveSummary();
-    await getLeaveRecord(params: "&within=thisMonth");
-  }
-
 }

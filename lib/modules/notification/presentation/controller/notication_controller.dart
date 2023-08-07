@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pay_day_mobile/utils/exception_handler.dart';
 import 'package:pay_day_mobile/modules/notification/data/notification_repository.dart';
 import 'package:pay_day_mobile/modules/notification/domain/notifications.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
-import '../../../../common/widget/error_message.dart';
-import '../../../../common/widget/warning_message.dart';
+
+import '../../../../utils/exception_handler.dart';
 
 class NotificationController extends GetxController with StateMixin {
   @override
@@ -57,17 +56,14 @@ class NotificationController extends GetxController with StateMixin {
   getAllNotification() async {
     change(null, status: RxStatus.loading());
     await _notificationRepository.getAllNotification().then((notifications) {
-      print("getAllNotification ::: called");
       allNotifications.clear();
       notifications.data!.data!
           .map((NotificationData notificationData) =>
               allNotifications.add(notificationData))
           .toList(growable: true);
-      print(allNotifications.length);
       this.notifications = notifications;
-      print(notifications.data!.meta!.total);
     }, onError: (error) {
-      ExceptionHandler().errorChecker(error);
+      errorChecker(error.message);
     });
 
     change(null, status: RxStatus.success());
@@ -76,24 +72,22 @@ class NotificationController extends GetxController with StateMixin {
   getAllUnreadNotification() async {
     change(null, status: RxStatus.loading());
     await _notificationRepository.getAllUnreadNotification().then((value) {
-      print("getAllUnreadNotification ::: called ${value.data!.data!.length}");
       length.value = value.data!.data!.length;
     }, onError: (error) {
-      ExceptionHandler().errorChecker(error);
+      errorChecker(error.message);
     }
-
     );
-
     change(null, status: RxStatus.success());
   }
 
   notificationAsRead(String id) async {
     change(null, status: RxStatus.loading());
     await _notificationRepository.notificationAsRead(id).then((value) {
-      print("notificationAsRead ::: called");
       getAllNotification();
       getAllUnreadNotification();
-    }, onError: (error) => print("notificationAsRead ${error.message}"));
+    }, onError: (error) {
+      errorChecker(error.message);
+    });
 
     change(null, status: RxStatus.success());
   }
@@ -101,10 +95,11 @@ class NotificationController extends GetxController with StateMixin {
   notificationAaALLRead() async {
     change(null, status: RxStatus.loading());
     await _notificationRepository.notificationAaALLRead().then((value) {
-      print("notificationAaALLRead ::: called");
       getAllNotification();
       getAllUnreadNotification();
-    }, onError: (error) => print("notificationAaALLRead ${error.message}"));
+    }, onError: (error) {
+      errorChecker(error.message);
+    });
 
     change(null, status: RxStatus.success());
   }

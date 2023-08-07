@@ -10,15 +10,11 @@ class SalaryOverviewController extends GetxController with StateMixin {
       SalaryOverViewRepository(NetworkClient());
   getSalaryOveData() async {
     change(null, status: RxStatus.loading());
-    try {
       await salaryOverViewRepository.getSalaryOverViewData().then((SalaryOverViewModel value) {
         salaryOverView = value;
       }, onError: (error) {
-        ExceptionHandler().errorChecker(error);
+        errorChecker(error.message);
       });
-    } catch (ex) {
-      print(ex.toString());
-    }
     change(null, status: RxStatus.success());
   }
 }

@@ -19,11 +19,9 @@ class AddressController extends GetxController with StateMixin {
   getEmployeeAddressData() async {
     change(null, status: RxStatus.loading());
     await addressRepository.getAddressDetailsData().then((value) {
-      print("Address details called ::: $value");
       addressDetailsModel = value;
     }, onError: (error) {
-      ExceptionHandler().errorChecker(error);
-      print(error.message);
+      errorChecker(error.message);
     });
     change(null, status: RxStatus.success());
   }
@@ -39,8 +37,7 @@ class AddressController extends GetxController with StateMixin {
         isReturnValue = true;
         isLoading(true);
         showSuccessMessage(message: message);
-        FutureDelayed(onAction: () => _fieldClear());
-        print("Address update called ::: $value");
+        futureDelayed(onAction: () => _fieldClear());
       }, onError: (error) {
         isReturnValue = false;
         isLoading(false);
@@ -64,7 +61,6 @@ class AddressController extends GetxController with StateMixin {
         isLoading(false);
         isDetReturnValue = false;
         showErrorMessage(errorMessage: error.message);
-        print("Deleted Address ::: ${error.toString()}");
       });
     isLoading(false);
     return isDetReturnValue;

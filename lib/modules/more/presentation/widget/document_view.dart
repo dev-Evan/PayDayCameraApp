@@ -8,8 +8,8 @@ import '../../../../common/controller/downloader_helper.dart';
 import '../../../../utils/dimensions.dart';
 
 class DocumentView extends StatelessWidget {
-  final imageUrl;
-  final docName;
+  final String? imageUrl;
+  final String? docName;
   const DocumentView({Key? key, this.imageUrl, this.docName}) : super(key: key);
 
   @override

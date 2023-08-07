@@ -67,7 +67,7 @@ class AttendanceController extends GetxController with StateMixin {
         Get.delete<AttendanceController>();
       } else {
         LoggerHelper.errorLog(message: error.message);
-        ExceptionHandler().errorChecker(error);
+        errorChecker(error.message);
       }
     });
     change(null, status: RxStatus.success());
@@ -139,7 +139,7 @@ class AttendanceController extends GetxController with StateMixin {
       }
       LoggerHelper.infoLog(message: dailyLogs.message);
     }, onError: (error) {
-      ExceptionHandler().errorChecker(error);
+      errorChecker(error.message);
       LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());

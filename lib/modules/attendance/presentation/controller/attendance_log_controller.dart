@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:pay_day_mobile/utils/exception_handler.dart';
 import 'package:pay_day_mobile/common/controller/date_time_helper_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/data/attandance_logs_repository.dart';
 import 'package:pay_day_mobile/modules/attendance/domain/log_summary/log_summary.dart';
@@ -10,6 +9,7 @@ import 'package:pay_day_mobile/modules/attendance/domain/request_attendance/requ
 import 'package:pay_day_mobile/network/network_client.dart';
 import 'package:pay_day_mobile/utils/logger.dart';
 import '../../../../common/widget/error_message.dart';
+import '../../../../utils/exception_handler.dart';
 import '../../domain/all_log_summary/all_log_summay.dart';
 
 class AttendanceLogsController extends GetxController with StateMixin {
@@ -96,7 +96,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       this.logSummaryByMonth.value = logSummaryByMonth;
       LoggerHelper.infoLog(message: logSummaryByMonth.message);
     }, onError: (error) {
-      ExceptionHandler().errorChecker(error);
+      errorChecker(error.message);
       LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());
@@ -109,7 +109,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       this.logSummaryByYear.value = logSummaryByYear;
       LoggerHelper.infoLog(message: logSummaryByYear.message);
     }, onError: (error) {
-      ExceptionHandler().errorChecker(error);
+      errorChecker(error.message);
       LoggerHelper.errorLog(message: error.message);
     });
     change(null, status: RxStatus.success());
@@ -130,7 +130,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
       LoggerHelper.errorLog(message: error.message);
-      ExceptionHandler().errorChecker(error);
+      errorChecker(error.message);
     });
     change(null, status: RxStatus.success());
   }
@@ -144,7 +144,7 @@ class AttendanceLogsController extends GetxController with StateMixin {
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
       LoggerHelper.errorLog(message: error.message);
-      ExceptionHandler().errorChecker(error);
+      errorChecker(error.message);
     });
     change(null, status: RxStatus.success());
   }

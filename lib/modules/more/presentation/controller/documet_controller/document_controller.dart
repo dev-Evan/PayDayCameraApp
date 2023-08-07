@@ -13,16 +13,11 @@ class DocumentController extends GetxController with StateMixin {
 
   getDocumentData() async {
     change(null, status: RxStatus.loading());
-    try {
       await documentRepository.getDocumentRepoData().then((value) {
         documentModel = value;
       }, onError: (error) {
-        ExceptionHandler().errorChecker(error);
-        print( "Document Called ::: ${error.toString()}");
+        errorChecker(error.message);
       });
-    } catch (ex) {
-      print("Document Called ex ::: ${ex.toString()}");
-    }
     change(null, status: RxStatus.success());
   }
 
@@ -37,16 +32,10 @@ class DocumentController extends GetxController with StateMixin {
       }, onError: (error) {
         isLoading(false);
         isReturnValue=false;
-        print("Deleted document ::: $error");
       });
     isLoading(false);
     return isReturnValue;
   }
-
-  Future<void> _refreshPage() async{
-    await getDocumentData();
-  }
-
 }
 
 
