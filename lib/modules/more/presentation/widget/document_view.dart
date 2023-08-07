@@ -5,7 +5,6 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/images.dart';
 import '../../../../common/controller/downloader_helper.dart';
-import '../../../../common/widget/success_message.dart';
 import '../../../../utils/dimensions.dart';
 
 class DocumentView extends StatelessWidget {
@@ -43,7 +42,7 @@ Widget _defaultAppbar({required docName, required fullUrl}) {
     actions: [
       IconButton(
           onPressed: ()=>  Get.find<DownloadHelper>()
-              .downloadFile(url: fullUrl, fileInfo: docName),
+              .downloadFile(url: fullUrl),
           icon: svgIcon(
               url: Images.download,
               height: 23,
