@@ -21,7 +21,7 @@ class CustomTextField extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final focusedCtx = FocusManager.instance.primaryFocus!.context;
+    final focusedCtx = FocusManager.instance.primaryFocus?.context;
     Future.delayed(const Duration(milliseconds: 180))
         .then((value) => Scrollable.ensureVisible(
               focusedCtx??context,
@@ -95,7 +95,7 @@ class _CustomTextFeildState extends State<CustomPasswordTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final focusedCtx = FocusManager.instance.primaryFocus!.context;
+    final focusedCtx = FocusManager.instance.primaryFocus?.context;
     Future.delayed(const Duration(milliseconds: 200))
         .then((value) => Scrollable.ensureVisible(
       focusedCtx??context,

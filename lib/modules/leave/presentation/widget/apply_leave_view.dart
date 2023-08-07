@@ -65,9 +65,10 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
         );
 
         if (result != null) {
-          setState(() {
-            isFilePicked = true;
-          });
+          // setState(() {
+          //   isFilePicked = true;
+          // });
+          Get.find<LeaveController>().isFilePicked.value=true;
         }
         Get.find<LeaveController>().requestLeaveQueries["attachments[]"] =
             result!.files.first.path.toString();
@@ -208,7 +209,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
       strokeWidth: 2,
       child: InkWell(
         onTap: () => onAction(),
-        child: isFilePicked == true
+        child: Get.find<LeaveController>().isFilePicked.value == true
             ? Container(
           padding: EdgeInsets.symmetric(
               horizontal: AppLayout.getWidth(20),
@@ -417,7 +418,7 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
       textFieldTitleText(
           titleText:
           '${AppString.text_attachments} ${AppString.text_if_any}'),
-      _dottedBorder(onAction: () => pickFileFormStorage()),
+     Obx(() =>  _dottedBorder(onAction: () => pickFileFormStorage())),
       customSpacerHeight(height: 8),
       Text(
         AppString.text_jpeg_jpg_png_etc,
@@ -534,10 +535,6 @@ class _ApplyLeaveViewState extends State<ApplyLeaveView> {
                   }
                   break;
               }
-              Get.find<LeaveController>().leaveNote.clear();
-              setState(() {
-                isFilePicked=false;
-              });
             }
           }),
     );
