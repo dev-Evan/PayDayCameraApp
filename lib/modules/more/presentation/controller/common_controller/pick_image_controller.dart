@@ -11,16 +11,19 @@ class PickImageController extends GetxController {
   final ProfileDataController _profileDataController =
       Get.put(ProfileDataController());
 
+  //picked file form storage here
   Future<void> pickImage(ImageSource source) async {
     PermissionStatus permissionStatus;
     final deviceInfo = await DeviceInfoPlugin().androidInfo;
 
+    //device sdk version check here
     if (deviceInfo.version.sdkInt > 32) {
       permissionStatus = await Permission.photos.request();
     } else {
       permissionStatus = await Permission.storage.request();
     }
 
+    // permission check for device form storage
     if (permissionStatus.isGranted) {
       XFile? image = await ImagePicker().pickImage(source: source);
       if (image != null) {

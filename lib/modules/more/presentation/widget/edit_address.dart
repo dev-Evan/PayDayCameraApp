@@ -164,7 +164,7 @@ class EditAddress extends GetView<AddressController> {
                   elevatedButtonAction: () {
                     FocusScope.of(context).requestFocus(FocusNode());
                     if (_formKey.currentState!.validate()) {
-                      Get.find<AddressController>().addressUpdate(
+                      Get.find<AddressController>().updateEmployeeAddress(
                           typeKey: typeText.toString(),
                           context: context,
                           area: Get.find<InputTextFieldController>()
@@ -201,7 +201,7 @@ class EditAddress extends GetView<AddressController> {
                               .toString(),
                           message: AppString.text_address_update_successfully).then((value){
                         if(value==true){
-                          controller.getEmployeeAddressData();
+                          controller.getEmployeeAddress();
                         }
                       });
                     }

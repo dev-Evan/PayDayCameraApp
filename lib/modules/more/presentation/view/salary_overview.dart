@@ -64,7 +64,7 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
   }
 
   Future<void> _refreshPage() async {
-    controller.getSalaryOveData();
+    controller.getSalaryOverview();
   }
 }
 

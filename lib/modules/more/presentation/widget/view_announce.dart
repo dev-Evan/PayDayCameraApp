@@ -35,80 +35,11 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            customMoreAppbar(
-                                titleText: AppString.text_announcement),
-                            Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Obx(() => ListView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount:
-                                          controller.announcementIndex.length,
-                                      itemBuilder: (context, index) {
-                                        String plainText = htmlParser
-                                                .parse(controller
-                                                        .announcementIndex[
-                                                            index]
-                                                        .description ??
-                                                    "")
-                                                .documentElement
-                                                ?.text ??
-                                            "";
-                                        final drc = controller
-                                                .announcementIndex[index]
-                                                .description ??
-                                            "";
-                                        final wordCount = drc.split(' ').length;
-                                        if (wordCount > 20) {
-                                          return Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: announceLargeCard(
-                                                context: context,
-                                                child: ExpandedText(
-                                                    text: plainText),
-                                                titleText: controller
-                                                        .announcementIndex[
-                                                            index]
-                                                        .name ??
-                                                    "",
-                                                startDate: controller
-                                                        .announcementIndex[
-                                                            index]
-                                                        .startDate ??
-                                                    "",
-                                                endDate: controller
-                                                        .announcementIndex[
-                                                            index]
-                                                        .endDate ??
-                                                    ""),
-                                          );
-                                        } else {
-                                          return Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: announceCard(
-                                                context: context,
-                                                desText: plainText,
-                                                length: 152,
-                                                titleText: controller
-                                                        .announcementIndex[
-                                                            index]
-                                                        .name ??
-                                                    "",
-                                                startDate: controller
-                                                        .announcementIndex[
-                                                            index]
-                                                        .startDate ??
-                                                    "",
-                                                endDate: controller
-                                                        .announcementIndex[
-                                                            index]
-                                                        .endDate ??
-                                                    ""),
-                                          );
-                                        }
-                                      },
-                                    ))),
+                            //announcement appbar here
+                            _announcementAppbar(),
+                            //announcement body layout here
+                            Obx(() => _announcementBodyLayout()),
+                            //announcement button progress here
                             Obx(() => _progressBar()),
                             customSpacerHeight(height: 52)
                           ],
@@ -127,23 +58,15 @@ class ViewAnnounce extends GetView<AnnouncementController> {
                 ? const CupertinoActivityIndicator(
                     color: AppColor.primaryBlue,
                   )
-                : const CircularProgressIndicator(color: AppColor.primaryColor, strokeWidth: 3,),
+                : const CircularProgressIndicator(
+                    color: AppColor.primaryColor,
+                    strokeWidth: 3,
+                  ),
           )
         : Container();
   }
 
-  Widget newText({required text}) {
-    return jobDeskTitle(text: text);
-  }
-
-  Container announceCard(
-      {required context,
-      double? length,
-      required desText,
-      readMoreText,
-      required titleText,
-      required startDate,
-      endDate}) {
+  Container announceCard({required context,double? length, required desText, readMoreText, required titleText, required startDate, endDate}) {
     return Container(
       height: length,
       width: MediaQuery.of(context).size.width,
@@ -154,14 +77,7 @@ class ViewAnnounce extends GetView<AnnouncementController> {
             right: AppLayout.getWidth(10),
             top: AppLayout.getHeight(10),
             bottom: AppLayout.getHeight(10)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _cardTitleText(titleText: titleText),
-            _dateText(startDate: startDate, endDate: endDate),
-            _cardDisText(desText: desText, readMoreText: readMoreText),
-          ],
-        ),
+        child: _announcementCardBody(titleText: titleText,desText: desText,endDate: endDate,startDate: startDate,readMoreText: readMoreText),
       ),
     );
   }
@@ -240,5 +156,64 @@ class ViewAnnounce extends GetView<AnnouncementController> {
 
   Future<void> _refreshPage() async {
     controller.getAnnouncement();
+  }
+
+  _announcementAppbar() {
+    return customMoreAppbar(titleText: AppString.text_announcement);
+  }
+
+  _announcementBodyLayout() {
+    return Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: controller.announcementIndex.length,
+          itemBuilder: (context, index) {
+            String plainText = htmlParser
+                    .parse(
+                        controller.announcementIndex[index].description ?? "")
+                    .documentElement
+                    ?.text ??
+                "";
+            final drc = controller.announcementIndex[index].description ?? "";
+            final wordCount = drc.split(' ').length;
+            if (wordCount > 20) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: announceLargeCard(
+                    context: context,
+                    child: ExpandedText(text: plainText),
+                    titleText: controller.announcementIndex[index].name ?? "",
+                    startDate:
+                        controller.announcementIndex[index].startDate ?? "",
+                    endDate: controller.announcementIndex[index].endDate ?? ""),
+              );
+            } else {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: announceCard(
+                    context: context,
+                    desText: plainText,
+                    length: 152,
+                    titleText: controller.announcementIndex[index].name ?? "",
+                    startDate:
+                        controller.announcementIndex[index].startDate ?? "",
+                    endDate: controller.announcementIndex[index].endDate ?? ""),
+              );
+            }
+          },
+        ));
+  }
+
+  _announcementCardBody({titleText,startDate,endDate,desText,readMoreText}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _cardTitleText(titleText: titleText),
+        _dateText(startDate: startDate, endDate: endDate),
+        _cardDisText(desText: desText, readMoreText: readMoreText),
+      ],
+    );
   }
 }

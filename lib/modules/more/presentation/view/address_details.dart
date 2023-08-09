@@ -397,7 +397,7 @@ class AddressDetails extends GetView<AddressController> {
   }
 
   Future<void> _refreshPage() async {
-    controller.getEmployeeAddressData();
+    controller.getEmployeeAddress();
   }
 }
 
@@ -406,9 +406,9 @@ Future _deletedAlert({required context,required addressType }) {
       controller: Get.find<AddressController>(),
       onAction: () {
         Get.find<AddressController>()
-            .deletedAddressApi(addressType: addressType, context: context)
+            .deletedEmployeeAddress(addressType: addressType, context: context)
             .then((value) {
-          Get.find<AddressController>().getEmployeeAddressData();
+          Get.find<AddressController>().getEmployeeAddress();
         });
       }
   );

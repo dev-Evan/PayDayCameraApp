@@ -153,10 +153,10 @@ class AddBankInfo extends GetView<BankInfoController> {
           FocusScope.of(context).requestFocus(FocusNode());
           if (_formKey.currentState!.validate()) {
             Get.find<BankInfoController>()
-                .addBankInfo(context: context).then((value){
+                .addBankInformation(context: context).then((value){
               if(value==true){
                 Get.back(canPop: false);
-                Get.find<BankInfoController>().getBankInfo();
+                Get.find<BankInfoController>().getBankInformation();
                 showSuccessMessage(message: AppString.text_bank_details_added_successfully);
               }
             });

@@ -40,112 +40,11 @@ class MoreScreen extends GetView<ProfileDataController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          profileCardLayOut(
-                              context: context,
-                              userImage: controller
-                                      .userProfile.data?.profilePictureUrl
-                                      .toString() ??
-                                  "",
-                              userName: controller.userProfile.data?.fullName
-                                      .toString() ??
-                                  AppString.text_not_added_yet,
-                              userEmail:
-                                  controller.userProfile.data?.email.toString() ??
-                                      AppString.text_not_added_yet,
-                              statusText: controller.userProfile.data?.userStatus
-                                      .toString() ??
-                                  ""),
-                          Expanded(
-                              flex: 14,
-                              child: Container(
-                                color: AppColor.backgroundColor,
-                                margin: const EdgeInsets.only(
-                                    left: 20, right: 20, bottom: 20, top: 20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    jobDeskTitle(text: AppString.text_job_desk),
-                                    jobDeskCard(
-                                        cardIcon: Images.announce,
-                                        cardText: AppString.text_announcement,
-                                        onAction: () async {
-                                           Get.toNamed(Routes.ANNOUNCE_SCREEN);
-                                          await Get.find<AnnouncementController>()
-                                               .getAnnouncement();
-                                        }),
-                                    jobDeskCard(
-                                        cardIcon: Images.folder,
-                                        cardText: AppString.text_documents,
-                                        onAction: () async {
-                                          Get.toNamed(Routes.DOCUMENT_SCREEN);
-                                          await Get.find<DocumentController>()
-                                              .getDocumentData();
-                                        }),
-                                    jobDeskCard(
-                                        cardIcon: Images.leave_allowance,
-                                        cardText: AppString.text_leave_allowance,
-                                        onAction: () async {
-                                          Get.toNamed(
-                                              Routes.LEAVE_ALLOWANCE_SCREEN);
-                                          await Get.find<AnnouncementController>()
-                                             .getLeaveAllowanceDetails();
-                                        }),
-                                    jobDeskCard(
-                                        cardIcon: Images.clock,
-                                        cardText: AppString.text_job_history,
-                                        onAction: () async {
-                                          Get.toNamed(Routes.JOB_HISTORY);
-                                          await Get.find<JobHistoryController>()
-                                              .getJobHistoryData();
-                                        }),
-                                    jobDeskCard(
-                                      cardIcon: Images.credit_card,
-                                      cardText: AppString.text_salary_overview,
-                                      onAction: () async {
-                                        Get.toNamed(Routes.SALARY_OVERVIEW);
-                                        await Get.find<SalaryOverviewController>()
-                                            .getSalaryOveData();
-                                      },
-                                    ),
-                                    jobDeskCard(
-                                      cardIcon: Images.department,
-                                      cardText: AppString.text_bank_details,
-                                      onAction: () async {
-                                        Get.toNamed(Routes.BANK_DETAILS);
-                                        await Get.find<BankInfoController>()
-                                            .getBankInfo();
-                                      },
-                                    ),
-                                    jobDeskCard(
-                                        cardIcon: Images.location,
-                                        cardText: AppString.text_address_details,
-                                        onAction: () async {
-                                          Get.toNamed(Routes.ADDRESS_DETAILS);
-                                          await Get.find<AddressController>()
-                                              .getEmployeeAddressData();
-                                        }),
-                                    customSpacerHeight(height: 16),
-                                    jobDeskTitle(text: AppString.text_other),
-                                    jobDeskCard(
-                                      cardIcon: Images.note,
-                                      cardText: AppString.text_about_this_app,
-                                      onAction: () =>
-                                          Get.toNamed(Routes.ABOUT_PAGE),
-                                    ),
-                                    jobDeskCard(
-                                      cardIcon: Images.log_out,
-                                      cardText: AppString.text_log_out,
-                                      onAction: (){
-                                        customDialogLayout(onAction: ()=>Get.find<LogoutController>()
-                                            .logOut(),
-                                        icon: Icons.logout_outlined,controller:Get.find<LogoutController>());
-                                      }
-                                    ),
-                                    _languageDropDown(),
-                                    customSpacerHeight(height: 30),
-                                  ],
-                                ),
-                              )),
+                          // user info layout here
+                          _userInfoLayout(context),
+                          // here is the job desk body layout
+                          _jobDeskLayout()
+
                         ],
                       ),
                     )
@@ -162,6 +61,133 @@ class MoreScreen extends GetView<ProfileDataController> {
 
   Future<void> _refreshPage() async{
     await controller.getProfileData();
+  }
+
+  _marginForBody() {
+    return const EdgeInsets.only(
+        left: 20, right: 20, bottom: 20, top: 20);
+  }
+
+  _userInfoLayout(context) {
+    return profileCardLayOut(
+        context: context,
+        userImage: controller
+            .userProfile.data?.profilePictureUrl
+            .toString() ??
+            "",
+        userName: controller.userProfile.data?.fullName
+            .toString() ??
+            AppString.text_not_added_yet,
+        userEmail:
+        controller.userProfile.data?.email.toString() ??
+            AppString.text_not_added_yet,
+        statusText: controller.userProfile.data?.userStatus
+            .toString() ??
+            "");
+  }
+
+  _jobDeskLayout() {
+    return Expanded(
+        flex: 14,
+        child: Container(
+          color: AppColor.backgroundColor,
+          margin: _marginForBody(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //job desk title text here
+              jobDeskTitle(text: AppString.text_job_desk),
+              // announcement route here
+              jobDeskCard(
+                  cardIcon: Images.announce,
+                  cardText: AppString.text_announcement,
+                  onAction: () async {
+                    Get.toNamed(Routes.ANNOUNCE_SCREEN);
+                    await Get.find<AnnouncementController>()
+                        .getAnnouncement();
+                  }),
+              // document route here
+              jobDeskCard(
+                  cardIcon: Images.folder,
+                  cardText: AppString.text_documents,
+                  onAction: () async {
+                    Get.toNamed(Routes.DOCUMENT_SCREEN);
+                    await Get.find<DocumentController>()
+                        .getDocumentIndex();
+                  }),
+              // leave allowance route here
+              jobDeskCard(
+                  cardIcon: Images.leave_allowance,
+                  cardText: AppString.text_leave_allowance,
+                  onAction: () async {
+                    Get.toNamed(
+                        Routes.LEAVE_ALLOWANCE_SCREEN);
+                    await Get.find<AnnouncementController>()
+                        .getLeaveAllowanceDetails();
+                  }),
+              // job history route here
+              jobDeskCard(
+                  cardIcon: Images.clock,
+                  cardText: AppString.text_job_history,
+                  onAction: () async {
+                    Get.toNamed(Routes.JOB_HISTORY);
+                    await Get.find<JobHistoryController>()
+                        .getJobHistoryData();
+                  }),
+              // salary overview route here
+              jobDeskCard(
+                cardIcon: Images.credit_card,
+                cardText: AppString.text_salary_overview,
+                onAction: () async {
+                  Get.toNamed(Routes.SALARY_OVERVIEW);
+                  await Get.find<SalaryOverviewController>()
+                      .getSalaryOverview();
+                },
+              ),
+              // bank details route here
+              jobDeskCard(
+                cardIcon: Images.department,
+                cardText: AppString.text_bank_details,
+                onAction: () async {
+                  Get.toNamed(Routes.BANK_DETAILS);
+                  await Get.find<BankInfoController>()
+                      .getBankInformation();
+                },
+              ),
+              // address details route here
+              jobDeskCard(
+                  cardIcon: Images.location,
+                  cardText: AppString.text_address_details,
+                  onAction: () async {
+                    Get.toNamed(Routes.ADDRESS_DETAILS);
+                    await Get.find<AddressController>()
+                        .getEmployeeAddress();
+                  }),
+              customSpacerHeight(height: 16),
+              jobDeskTitle(text: AppString.text_other),
+              // about route here
+              jobDeskCard(
+                cardIcon: Images.note,
+                cardText: AppString.text_about_this_app,
+                onAction: () =>
+                    Get.toNamed(Routes.ABOUT_PAGE),
+              ),
+              // logout popup here
+              jobDeskCard(
+                  cardIcon: Images.log_out,
+                  cardText: AppString.text_log_out,
+                  onAction: (){
+                    customDialogLayout(onAction: ()=>Get.find<LogoutController>()
+                        .logOut(),
+                        icon: Icons.logout_outlined,controller:Get.find<LogoutController>());
+                  }
+              ),
+              // selected language dropdown here
+              _languageDropDown(),
+              customSpacerHeight(height: 30),
+            ],
+          ),
+        ));
   }
 }
 
@@ -192,11 +218,9 @@ class _LanguageDropDownState extends State<LanguageDropDown> {
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(children: [
-        Expanded(
-            child: Text(
-          "text_language".tr,
-          style: AppStyle.normal_text_black,
-        )),
+        // here is the language default text
+       _languageDefaultText(),
+        // selected language here
         DropdownButton(
           underline: Container(),
           isDense: true,
@@ -244,5 +268,13 @@ class _LanguageDropDownState extends State<LanguageDropDown> {
           initValue = "English";
       }
     }
+  }
+
+  _languageDefaultText() {
+    return  Expanded(
+        child: Text(
+          "text_language".tr,
+          style: AppStyle.normal_text_black,
+        ));
   }
 }

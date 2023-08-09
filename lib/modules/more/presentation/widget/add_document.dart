@@ -151,11 +151,11 @@ class AddDocument extends GetView<FileUploadController> {
                                       AppString.text_please_selected_document,
                                 )
                               : Get.find<FileUploadController>()
-                                  .uploadFile(context: context)
+                                  .uploadDocument(context: context)
                                   .then((value) {
                                   Get.back(canPop: false);
                                   Get.find<DocumentController>()
-                                      .getDocumentData();
+                                      .getDocumentIndex();
                                   Get.find<FileUploadController>().storageForUpload.toastMessage(false);
                                 });
                     }

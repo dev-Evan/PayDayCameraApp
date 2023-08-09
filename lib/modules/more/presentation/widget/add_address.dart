@@ -172,7 +172,7 @@ class AddAddress extends GetView<AddressController> {
                                 FocusScope.of(context).requestFocus(FocusNode());
                                 if (_formKey.currentState!.validate()) {
                                   Get.find<AddressController>()
-                                      .addressUpdate(
+                                      .updateEmployeeAddress(
                                     typeKey: typeText.toString(),
                                     context: context,
                                     area: Get.find<InputTextFieldController>()
@@ -215,7 +215,7 @@ class AddAddress extends GetView<AddressController> {
                                   )
                                       .then((value) {
                                     if (value == true) {
-                                      controller.getEmployeeAddressData();
+                                      controller.getEmployeeAddress();
                                     }
                                   });
                                 }

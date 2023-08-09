@@ -13,9 +13,11 @@ import '../../../../../common/widget/success_message.dart';
 import '../common_controller/more_text_editing_controller.dart';
 
 class UpdateDocumentController extends GetxController {
+  //picked document path here
   PickedFormUpdatedStorage storageForUpdate = PickedFormUpdatedStorage();
 
-  Future<dynamic> updateDocFile({required context}) async {
+  //document upload for server
+  Future<dynamic> updateDocumentFile({required context}) async {
     storageForUpdate.isLoading(true);
     bool isReturnValue = false;
 
@@ -35,18 +37,19 @@ class UpdateDocumentController extends GetxController {
         storageForUpdate._box.read(AppString.ID_STORE).toString();
     request.headers['Authorization'] = 'Bearer ${storageForUpdate.accessToken}';
     request.files.add(await http.MultipartFile.fromPath('file', file.path));
+
     var response = await request.send();
+
     if (response.statusCode == 200) {
-      print("Document updated ::: $response");
       storageForUpdate.isLoading(false);
       isReturnValue = true;
+
+      //document update than input field clear here
       storageForUpdate._inputClear();
-      print(' Document update ::: File updated successfully');
     } else {
       isReturnValue = false;
       storageForUpdate.toastMessage(true);
       storageForUpdate.isLoading(false);
-      print('Document update ::: Failed to upload file');
     }
     storageForUpdate.isLoading(false);
     return isReturnValue;
@@ -66,18 +69,21 @@ class PickedFormUpdatedStorage {
   RxString filePath = ''.obs;
   var newValue = "";
 
+ //picked file form storage here
   Future<void> pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     PermissionStatus permissionStatus;
     final deviceInfo = await DeviceInfoPlugin().androidInfo;
 
+  //device sdk version check here
     if (deviceInfo.version.sdkInt > 32) {
       permissionStatus = await Permission.photos.request();
     } else {
       permissionStatus = await Permission.storage.request();
     }
 
+  // permission check for device form storage
     if (permissionStatus.isGranted) {
       if (result != null) {
         if (result.files.single.path!.length > 500.toInt()) {

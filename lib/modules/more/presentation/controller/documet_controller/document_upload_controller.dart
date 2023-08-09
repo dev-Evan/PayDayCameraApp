@@ -5,9 +5,11 @@ import 'package:pay_day_mobile/modules/more/presentation/controller/common_contr
 import '../../../data/document_repository/picked_form_storage.dart';
 
 class FileUploadController extends GetxController {
+  //picked document path here
   PickedFileFormStorage storageForUpload = PickedFileFormStorage();
 
-  Future<dynamic> uploadFile({required context}) async {
+ //document upload form server
+  Future<dynamic> uploadDocument({required context}) async {
     storageForUpload.isLoading(true);
     bool isReturnValue = false;
 
@@ -30,6 +32,7 @@ class FileUploadController extends GetxController {
       storageForUpload.isLoading(false);
       isReturnValue = true;
       storageForUpload.filePath.value = "";
+      //document upload than input field clear here
       _inputClear();
     } else {
       storageForUpload.isLoading(false);

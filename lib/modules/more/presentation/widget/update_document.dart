@@ -194,9 +194,9 @@ class UpdateDocument extends StatelessWidget {
                 message: AppString.text_please_selected_document,
               )
                   : Get.find<UpdateDocumentController>()
-                  .updateDocFile(context: context).then((value){
+                  .updateDocumentFile(context: context).then((value){
                 Get.back(canPop: false);
-                Get.find<DocumentController>().getDocumentData();
+                Get.find<DocumentController>().getDocumentIndex();
                 Get.find<UpdateDocumentController>().storageForUpdate.toastMessage(false);
               });
             }

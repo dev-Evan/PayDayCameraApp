@@ -17,6 +17,7 @@ class AnnounceScreen extends GetView<AnnouncementController> {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: CustomAppbar(),
+      // here is the announcement body layout
       body: ViewAnnounce(),
     );
   }
@@ -25,7 +26,6 @@ class AnnounceScreen extends GetView<AnnouncementController> {
 
 class ExpandedText extends StatefulWidget {
   final String text;
-
   const ExpandedText({Key? key, required this.text}) : super(key: key);
 
   @override
@@ -65,10 +65,8 @@ class _ExpandedTextState extends State<ExpandedText> {
         : RichText(
       text: TextSpan(
         children: [
-          TextSpan(
-            text: isExpanded ? widget.text : firstHalf,
-            style: disTextStyle,
-          ),
+         // half text layout here
+          _halfText(),
           TextSpan(
             text: isExpanded ? " ${AppString.text_read_less}" : " ...${AppString.text_read_more}",
             style: AppStyle.normal_text_black.copyWith(color: Colors.blue),
@@ -83,6 +81,13 @@ class _ExpandedTextState extends State<ExpandedText> {
           ),
         ],
       ),
+    );
+  }
+
+  _halfText() {
+    return  TextSpan(
+      text: isExpanded ? widget.text : firstHalf,
+      style: disTextStyle,
     );
   }
 }

@@ -147,7 +147,7 @@ class BankDetails extends GetView<BankInfoController> {
   }
 
   Future<void> _refreshPage() async {
-    controller.getBankInfo();
+    controller.getBankInformation();
   }
 }
 
@@ -168,10 +168,10 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
                   controller: Get.find<BankInfoController>(),
                   onAction: () {
                     Get.find<BankInfoController>()
-                        .deletedBankInfoApi()
+                        .deletedBankInformation()
                         .then((value) {
                       Get.back(canPop: false);
-                      Get.find<BankInfoController>().getBankInfo();
+                      Get.find<BankInfoController>().getBankInformation();
                       showSuccessMessage(message: AppString.text_bank_details_deleted_successfully);
                     });
                   });

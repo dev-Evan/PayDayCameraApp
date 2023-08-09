@@ -140,11 +140,11 @@ class EditBankInfo extends GetView<BankInfoController> {
                     FocusScope.of(context).requestFocus(FocusNode());
                     if (_formKey.currentState!.validate()) {
                       Get.find<BankInfoController>()
-                          .updateBankInfo(context: context)
+                          .updateBankInformation(context: context)
                           .then((value) {
                         if (value == true) {
                           Get.back(canPop: false);
-                          Get.find<BankInfoController>().getBankInfo();
+                          Get.find<BankInfoController>().getBankInformation();
                           showSuccessMessage(message: AppString.text_bank_details_update_successfully);
                         }
                       });
