@@ -20,10 +20,12 @@ class PickedFileFormStorage {
   RxString filePath = ''.obs;
   final isLoading = false.obs;
 
+  //picked file form storage here
   Future<void> pickFile() async {
     PermissionStatus permissionStatus;
     final deviceInfo = await DeviceInfoPlugin().androidInfo;
 
+    //device sdk version check here
     if (deviceInfo.version.sdkInt > 32) {
       permissionStatus = await Permission.photos.request();
     } else {
@@ -32,6 +34,7 @@ class PickedFileFormStorage {
 
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
+  // permission check for device form storage
     if (permissionStatus.isGranted) {
       if (result != null) {
         if (result.files.single.path!.length > 500.toInt()) {

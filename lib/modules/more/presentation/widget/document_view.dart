@@ -20,15 +20,20 @@ class DocumentView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _defaultAppbar(docName: docName, fullUrl: imageUrl),
-          Expanded(
-              child: Column(
-            children: [
-              _fileView(url: imageUrl),
-            ],
-          )),
+          _documentViewLayout()
+
         ],
       ),
     );
+  }
+
+  _documentViewLayout() {
+    return Expanded(
+        child: Column(
+          children: [
+            _fileView(url: imageUrl),
+          ],
+        ));
   }
 }
 

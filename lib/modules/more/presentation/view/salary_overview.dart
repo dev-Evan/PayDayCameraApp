@@ -26,13 +26,14 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
         appBar: const CustomAppbar(),
         body: controller.obx(
             (state) => RefreshIndicator(
-              onRefresh: _refreshPage,
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
+                  onRefresh: _refreshPage,
+                  child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        customMoreAppbar(titleText: AppString.text_salary_overview),
+                        customMoreAppbar(
+                            titleText: AppString.text_salary_overview),
                         controller.salaryOverView.data != null &&
                                 controller.salaryOverView.data!.isNotEmpty
                             ? Padding(
@@ -43,31 +44,43 @@ class SalaryOverView extends GetView<SalaryOverviewController> {
                                     bottom: AppLayout.getHeight(20)),
                                 child: SingleChildScrollView(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       basicSalaryText,
-                                      controller.salaryOverView.data!.first.basicSalary == true?
-                                      Text("${Get.find<SettingController>().basicInfo?.data.currencySymbol ?? ""} ${controller.salaryOverView.data!.first.basicSalary == true ? controller.salaryOverView.data?.first.amount.toString() ?? "" : controller.salaryOverView.data!.last.basicSalary == true ? controller.salaryOverView.data?.last.amount.toString() ?? "" : ""}", style: basicSalaryStyle):controller.salaryOverView.data!.last.basicSalary == true?                                      Text("${Get.find<SettingController>().basicInfo?.data.currencySymbol ?? ""} ${controller.salaryOverView.data!.first.basicSalary == true ? controller.salaryOverView.data?.first.amount.toString() ?? "" : controller.salaryOverView.data!.last.basicSalary == true ? controller.salaryOverView.data?.last.amount.toString() ?? "" : ""}", style: basicSalaryStyle):Container(),
+                                      //basic salary view here
+                                      _basicSalaryDynamicText(),
                                       customSpacerHeight(height: 30),
-
+                                      //job history view here
                                       _jobHisTitleView()
                                     ],
                                   ),
                                 ),
                               )
-                            :noDataFound(),
+                            : noDataFound(),
                       ],
                     ),
                   ),
-            ),
+                ),
             onLoading: const LoadingIndicator()));
   }
 
   Future<void> _refreshPage() async {
-    controller.getSalaryOveData();
+    controller.getSalaryOverview();
+  }
+
+  _basicSalaryDynamicText() {
+    return controller.salaryOverView.data!.first.basicSalary == true
+        ? Text(
+            "${Get.find<SettingController>().basicInfo?.data.currencySymbol ?? ""} ${controller.salaryOverView.data!.first.basicSalary == true ? controller.salaryOverView.data?.first.amount.toString() ?? "" : controller.salaryOverView.data!.last.basicSalary == true ? controller.salaryOverView.data?.last.amount.toString() ?? "" : ""}",
+            style: basicSalaryStyle)
+        : controller.salaryOverView.data!.last.basicSalary == true
+            ? Text(
+                "${Get.find<SettingController>().basicInfo?.data.currencySymbol ?? ""} ${controller.salaryOverView.data!.first.basicSalary == true ? controller.salaryOverView.data?.first.amount.toString() ?? "" : controller.salaryOverView.data!.last.basicSalary == true ? controller.salaryOverView.data?.last.amount.toString() ?? "" : ""}",
+                style: basicSalaryStyle)
+            : Container();
   }
 }
-
 
 Widget _jobHisTitleView() {
   return Padding(
@@ -98,92 +111,95 @@ Widget _jobHisTitleView() {
                             .isNotEmpty)
                     ? 200
                     : 90),
-            Positioned(
-                top: 0,
-                left: AppLayout.getWidth(23),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _salaryCardTitleView(
-                            titleText: Get.find<SalaryOverviewController>()
-                                    .salaryOverView
-                                    .data?[index]
-                                    .level ??
-                                "",
-                            dotIconColor: (Get.find<SalaryOverviewController>()
-                                            .salaryOverView
-                                            .data
-                                            ?.first
-                                            .level !=
-                                        null &&
-                                    Get.find<SalaryOverviewController>()
-                                        .salaryOverView
-                                        .data!
-                                        .first
-                                        .level!
-                                        .isNotEmpty)
-                                ? AppColor.primaryColor
-                                : AppColor.disableColor,
-                            firstIndex: itemColor),
+            _salaryInfoLayout(index,itemColor)
 
-                        customSpacerHeight(height: 6),
-                        _salaryRow(
-                            salaryText: Get.find<SalaryOverviewController>()
-                                    .salaryOverView
-                                    .data?[index]
-                                    .amount
-                                    .toString() ??
-                                ""),
-
-                        (Get.find<SalaryOverviewController>().salaryOverView.data?[index].message != null &&
-                                Get.find<SalaryOverviewController>()
-                                    .salaryOverView
-                                    .data![index]
-                                    .message!
-                                    .isNotEmpty)
-                            ? _salaryCardView(
-                                effectiveDate: Get.find<SalaryOverviewController>()
-                                        .salaryOverView
-                                        .data?[index]
-                                        .effectiveDate
-                                        .toString() ??
-                                    "",
-                                drcText: Get.find<SalaryOverviewController>()
-                                        .salaryOverView
-                                        .data?[index]
-                                        .message
-                                        .toString() ??
-                                    "",
-                                createdDate: Get.find<SalaryOverviewController>()
-                                        .salaryOverView
-                                        .data?[index]
-                                        .createdDate
-                                        .toString() ??
-                                    "",
-                                currentSalary:
-                                    Get.find<SalaryOverviewController>()
-                                            .salaryOverView
-                                            .data?[index]
-                                            .currentSalary
-                                            .toString() ??
-                                        "",
-                                previousSalary:
-                                    Get.find<SalaryOverviewController>().salaryOverView.data?[index].previousSalary.toString() ?? "",
-                                addedBy: Get.find<SalaryOverviewController>().salaryOverView.data?[index].addedBy.toString() ?? "",
-                                symbol: Get.find<SettingController>().basicInfo?.data.currencySymbol ?? "")
-                            : Container(),
-                      ],
-                    ),
-                  ],
-                )),
           ],
         );
       },
     ),
   );
+}
+
+_salaryInfoLayout(index,itemColor) {
+  return   Positioned(
+      top: 0,
+      left: AppLayout.getWidth(23),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _salaryCardTitleView(
+                  titleText: Get.find<SalaryOverviewController>()
+                      .salaryOverView
+                      .data?[index]
+                      .level ??
+                      "",
+                  dotIconColor: (Get.find<SalaryOverviewController>()
+                      .salaryOverView
+                      .data
+                      ?.first
+                      .level !=
+                      null &&
+                      Get.find<SalaryOverviewController>()
+                          .salaryOverView
+                          .data!
+                          .first
+                          .level!
+                          .isNotEmpty)
+                      ? AppColor.primaryColor
+                      : AppColor.disableColor,
+                  firstIndex: itemColor),
+              customSpacerHeight(height: 6),
+              _salaryRow(
+                  salaryText: Get.find<SalaryOverviewController>()
+                      .salaryOverView
+                      .data?[index]
+                      .amount
+                      .toString() ??
+                      ""),
+              (Get.find<SalaryOverviewController>().salaryOverView.data?[index].message != null &&
+                  Get.find<SalaryOverviewController>()
+                      .salaryOverView
+                      .data![index]
+                      .message!
+                      .isNotEmpty)
+                  ? _salaryCardView(
+                  effectiveDate: Get.find<SalaryOverviewController>()
+                      .salaryOverView
+                      .data?[index]
+                      .effectiveDate
+                      .toString() ??
+                      "",
+                  drcText: Get.find<SalaryOverviewController>()
+                      .salaryOverView
+                      .data?[index]
+                      .message
+                      .toString() ??
+                      "",
+                  createdDate: Get.find<SalaryOverviewController>()
+                      .salaryOverView
+                      .data?[index]
+                      .createdDate
+                      .toString() ??
+                      "",
+                  currentSalary:
+                  Get.find<SalaryOverviewController>()
+                      .salaryOverView
+                      .data?[index]
+                      .currentSalary
+                      .toString() ??
+                      "",
+                  previousSalary:
+                  Get.find<SalaryOverviewController>().salaryOverView.data?[index].previousSalary.toString() ?? "",
+                  addedBy: Get.find<SalaryOverviewController>().salaryOverView.data?[index].addedBy.toString() ?? "",
+                  symbol: Get.find<SettingController>().basicInfo?.data.currencySymbol ?? "")
+                  : Container(),
+            ],
+          ),
+        ],
+      ));
 }
 
 Widget _salaryRow({salaryText}) {
@@ -332,7 +348,10 @@ TextStyle get cardSubTextStyle {
 }
 
 TextStyle get cardDynamicTextStyle {
-  return TextStyle(color: AppColor.primaryColor,fontWeight: FontWeight.w500,    fontSize: AppLayout.getWidth(12));
+  return TextStyle(
+      color: AppColor.primaryColor,
+      fontWeight: FontWeight.w500,
+      fontSize: AppLayout.getWidth(12));
 }
 
 BorderRadius get borderRadius {
@@ -347,7 +366,10 @@ TextStyle get currencyStyle {
 }
 
 TextStyle get basicSalaryStyle {
-  return TextStyle(color: AppColor.normalTextColor.withOpacity(0.5),fontWeight: FontWeight.w500,    fontSize: Dimensions.fontSizeMid - 4);
+  return TextStyle(
+      color: AppColor.normalTextColor.withOpacity(0.5),
+      fontWeight: FontWeight.w500,
+      fontSize: Dimensions.fontSizeMid - 4);
 }
 
 Text get basicSalaryText {

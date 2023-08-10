@@ -49,7 +49,7 @@ Widget _applyLeaveEndTime({context, fieldTitleText}) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       textFieldTitleText(titleText: fieldTitleText),
-      Obx(() => CustomTextFieldDob(
+      Obx(() => customDateOfBirthField(
             hintText: Get.find<DateTimeController>().pickedOutTime.isEmpty
                 ? AppString.text_select_time
                 : Get.find<DateTimeController>().pickedOutTime.value,
@@ -67,7 +67,7 @@ Widget _applyLeaveStartTime({context, fieldTitleText}) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       textFieldTitleText(titleText: fieldTitleText),
-      Obx(() => CustomTextFieldDob(
+      Obx(() => customDateOfBirthField(
             hintText: Get.find<DateTimeController>().pickedInTime.isEmpty
                 ? AppString.text_select_time
                 : Get.find<DateTimeController>().pickedInTime.value,

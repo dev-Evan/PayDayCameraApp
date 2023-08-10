@@ -64,7 +64,6 @@ class AddressRepository {
           "type":addressType,
         },
       );
-      print(response.body);
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

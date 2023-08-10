@@ -31,12 +31,7 @@ class ChangePassword extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              customMoreAppbar(
-                  titleText: AppString.text_change_password,
-                  onAction: () {
-                    Get.back();
-                    cleanPassData();
-                  }),
+              _changePasswordAppbar(),
               Padding(
                 padding: const EdgeInsets.only(
                     top: 12.0, bottom: 8, left: 20, right: 20),
@@ -44,80 +39,21 @@ class ChangePassword extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _fieldTitleText(AppString.text_old_password),
-                    CustomPasswordTextField(
-                      hintText: AppString.text_enter_your_old_password,
-                      inputType: TextInputType.text,
-                      controller: Get.find<InputTextFieldController>()
-                          .oldPassController,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return AppString.the_old_password_field_is_required;
-                        } else if (value.length < 6) {
-                          return AppString
-                              .the_old_password_must_be_at_least_6_character;
-                        } else if (value !=
-                            GetStorage()
-                                .read(AppString.STORE_CURRENT_PASSWORD)) {
-                          return AppString.old_password_incorrect;
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
+                    //old password text field here
+                    _oldPassword(),
                     _fieldTitleText(AppString.text_new_password),
-                    CustomPasswordTextField(
-                      hintText: AppString.text_enter_new_password,
-                      inputType: TextInputType.text,
-                      controller: Get.find<InputTextFieldController>()
-                          .newPasswordController,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return AppString.the_new_password_field_is_required;
-                        } else if (value.length < 8) {
-                          return AppString
-                              .the_password_must_be_at_least_8_character;
-                        } else if (value.isEmpty ||
-                            !RegExp(passwordExp())
-                                .hasMatch(value)) {
-                          return AppString
-                              .cant_not_be_correct_please_follow_this;
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    alertBox(
-                        context: context,
-                        alertText: AppString.text_password_alert_text),
+                    //new password text field here
+                    _newPassword(),
+                    //alert box here
+                    _alertBoxLayout(context),
                     _fieldTitleText(AppString.text_confirm_password),
-                    CustomPasswordTextField(
-                      hintText: AppString.text_confirm_your_new_password,
-                      inputType: TextInputType.text,
-                      controller: Get.find<InputTextFieldController>()
-                          .confirmPasswordController,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return AppString
-                              .the_confirm_password_field_is_required;
-                        } else if (value.length < 8) {
-                          return AppString
-                              .the_password_must_be_at_least_8_character;
-                        } else if (value !=
-                            Get.find<InputTextFieldController>()
-                                .newPasswordController
-                                .text) {
-                          return AppString
-                              .the_password_confirmation_does_not_match;
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
+                    //confirm password text field here
+                    _confirmPassword(),
                   ],
                 ),
               ),
               customSpacerHeight(height: 30),
-              Obx(() =>_save(context)),
+              Obx(() => _save(context)),
               customSpacerHeight(height: 14),
             ],
           ),
@@ -127,23 +63,97 @@ class ChangePassword extends StatelessWidget {
   }
 
   _save(context) {
-      return Get.find<ProfileDataController>().isLoaded.value
-          ? const LoadingButtonLayout() // Show loading indicator
-          : logInButton(onAction: () {
-        FocusScope.of(context).requestFocus(FocusNode());
-        if (_formKey.currentState!.validate()) {
-          Get.find<ProfileDataController>().changePassword(
-              oldPassword: Get.find<InputTextFieldController>()
-                  .oldPassController
-                  .text,
-              newPassword: Get.find<InputTextFieldController>()
-                  .newPasswordController
-                  .text,
-              confirmPass: Get.find<InputTextFieldController>()
-                  .confirmPasswordController
-                  .text);}
-      });
+    return Get.find<ProfileDataController>().isLoaded.value
+        ? const LoadingButtonLayout() // Show loading indicator
+        : logInButton(onAction: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+            if (_formKey.currentState!.validate()) {
+              Get.find<ProfileDataController>().changePassword(
+                  oldPassword: Get.find<InputTextFieldController>()
+                      .oldPassController
+                      .text,
+                  newPassword: Get.find<InputTextFieldController>()
+                      .newPasswordController
+                      .text,
+                  confirmPass: Get.find<InputTextFieldController>()
+                      .confirmPasswordController
+                      .text);
+            }
+          });
+  }
 
+  _confirmPassword() {
+    return CustomPasswordTextField(
+      hintText: AppString.text_confirm_your_new_password,
+      inputType: TextInputType.text,
+      controller:
+          Get.find<InputTextFieldController>().confirmPasswordController,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return AppString.the_confirm_password_field_is_required;
+        } else if (value.length < 8) {
+          return AppString.the_password_must_be_at_least_8_character;
+        } else if (value !=
+            Get.find<InputTextFieldController>().newPasswordController.text) {
+          return AppString.the_password_confirmation_does_not_match;
+        } else {
+          return null;
+        }
+      },
+    );
+  }
+
+  _alertBoxLayout(context) {
+    return alertBox(
+        context: context, alertText: AppString.text_password_alert_text);
+  }
+
+  _newPassword() {
+    return CustomPasswordTextField(
+      hintText: AppString.text_enter_new_password,
+      inputType: TextInputType.text,
+      controller: Get.find<InputTextFieldController>().newPasswordController,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return AppString.the_new_password_field_is_required;
+        } else if (value.length < 8) {
+          return AppString.the_password_must_be_at_least_8_character;
+        } else if (value.isEmpty || !RegExp(passwordExp()).hasMatch(value)) {
+          return AppString.cant_not_be_correct_please_follow_this;
+        } else {
+          return null;
+        }
+      },
+    );
+  }
+
+  _oldPassword() {
+    return CustomPasswordTextField(
+      hintText: AppString.text_enter_your_old_password,
+      inputType: TextInputType.text,
+      controller: Get.find<InputTextFieldController>().oldPassController,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return AppString.the_old_password_field_is_required;
+        } else if (value.length < 6) {
+          return AppString.the_old_password_must_be_at_least_6_character;
+        } else if (value !=
+            GetStorage().read(AppString.STORE_CURRENT_PASSWORD)) {
+          return AppString.old_password_incorrect;
+        } else {
+          return null;
+        }
+      },
+    );
+  }
+
+  _changePasswordAppbar() {
+    return customMoreAppbar(
+        titleText: AppString.text_change_password,
+        onAction: () {
+          Get.back();
+          cleanPassData();
+        });
   }
 }
 
@@ -155,7 +165,8 @@ cleanPassData() {
 
 Widget alertBox({required context, required alertText}) {
   return Container(
-    margin: EdgeInsets.only(top: AppLayout.getHeight(Dimensions.fontSizeDefault)),
+    margin:
+        EdgeInsets.only(top: AppLayout.getHeight(Dimensions.fontSizeDefault)),
     width: MediaQuery.of(context).size.width,
     decoration: _boxDecoration,
     child: Column(

@@ -80,6 +80,6 @@ class AppStyle {
       fontWeight: FontWeight.w500,
       fontFamily: "Poppins");
   static BoxDecoration ContainerStyle = BoxDecoration(
-  borderRadius: BorderRadius.circular(Dimensions.radiusMid),);
+  borderRadius: BorderRadius.circular(Dimensions.radiusMid,),);
 
 }

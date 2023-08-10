@@ -7,7 +7,6 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../../../common/controller/downloader_helper.dart';
 import '../../../../common/widget/custom_spacer.dart';
-import '../../../../common/widget/success_message.dart';
 import '../../../../utils/images.dart';
 
 class ViewDocFile extends StatelessWidget {

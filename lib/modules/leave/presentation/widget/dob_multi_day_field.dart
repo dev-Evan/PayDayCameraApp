@@ -42,7 +42,7 @@ Widget _dobField(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       textFieldTitleText(titleText: fieldTitleText),
-      CustomTextFieldDob(
+      customDateOfBirthField(
           hintText: hintText,
           dobIcon: Icons.calendar_month,
           dobIconAction: () => popUpDialog(

@@ -89,7 +89,6 @@ class BankInfoRepository {
           "tax_payer_id": taxPayerId,
         },
       );
-      print("UPDATE BANK INFO REPO :::: ${response.body.toString()}");
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {

@@ -56,7 +56,6 @@ class BreakController extends GetxController with StateMixin {
       showSuccessMessage(message: 'Break time started');
     }, onError: (error) {
       showErrorMessage(errorMessage: AppString.error_text);
-
       LoggerHelper.errorLog(message: error.message);
     });
     isLoading(false);

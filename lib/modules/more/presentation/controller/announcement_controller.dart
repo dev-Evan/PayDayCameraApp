@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pay_day_mobile/network/network_client.dart';
+import 'package:pay_day_mobile/utils/logger.dart';
 import '../../../../utils/exception_handler.dart';
 import '../../data/announcement_repo.dart';
 import '../../domain/announcement_model.dart';
@@ -8,16 +9,16 @@ import '../../domain/leave_allowance_model.dart';
 
 class AnnouncementController extends GetxController with StateMixin {
   AnnouncementModel announcementModel = AnnouncementModel();
-  LeaveAllowanceDetailsModel leaveAllowanceDetailsModel =
-      LeaveAllowanceDetailsModel();
-  AnnouncementRepository announcementRepo =
-      AnnouncementRepository(NetworkClient());
+  LeaveAllowanceDetailsModel leaveAllowanceDetailsModel = LeaveAllowanceDetailsModel();
+  AnnouncementRepository announcementRepo = AnnouncementRepository(NetworkClient());
   late ScrollController announceScrollController;
   final RxBool isFloatingActionVisible = false.obs;
   RxList announcementIndex = [].obs;
 
-
+ //paid leave announcement index here
   List<LeaveAllowanceElement> paidLeave = [];
+
+  //unpaidPaid leave announcement index here
   List<LeaveAllowanceElement> unpaidLeave = [];
 
   @override
@@ -46,6 +47,8 @@ class AnnouncementController extends GetxController with StateMixin {
     super.onInit();
   }
 
+
+//get announcement here
   getAnnouncement() {
     change(null, status: RxStatus.loading());
     announcementRepo.getAnnouncement(pageInt: 1).then(
@@ -58,6 +61,7 @@ class AnnouncementController extends GetxController with StateMixin {
       change(null, status: RxStatus.success());
     }, onError: (error) {
       errorChecker(error.message);
+      LoggerHelper.errorLog(message: error.message);
     });
   }
 
@@ -75,18 +79,17 @@ class AnnouncementController extends GetxController with StateMixin {
             .toList();
         isFloatingActionVisible.value = false;
       }, onError: (error) {
-        print("Get More Announcement ::: ${error.message}");
         isFloatingActionVisible.value = false;
       });
     }
   }
 
+//get leave allowance here
   getLeaveAllowanceDetails() {
     change(null, status: RxStatus.loading());
     announcementRepo.getLeaveAllowance().then(
         (LeaveAllowanceDetailsModel value) {
-      paidLeave =
-          value.data!.where((element) => element.leaveType == "Paid").toList();
+      paidLeave = value.data!.where((element) => element.leaveType == "Paid").toList();
       unpaidLeave = value.data!
           .where((element) => element.leaveType == "Unpaid")
           .toList();
@@ -94,7 +97,7 @@ class AnnouncementController extends GetxController with StateMixin {
       change(null, status: RxStatus.success());
     }, onError: (error) {
       errorChecker(error.message);
+      LoggerHelper.errorLog(message: error.message);
     });
   }
-  
 }

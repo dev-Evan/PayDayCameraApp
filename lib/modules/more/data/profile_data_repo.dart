@@ -44,11 +44,9 @@ class ProfileDataRepository {
           "password_confirmation":confirmPassword
         },
       );
-      print(response.body.toString());
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
-        print(response.body.toString());
         return ChangePasswordModel.fromJson(response.body);
       }
     } catch (ex) {

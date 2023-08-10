@@ -18,150 +18,196 @@ class AddBankInfo extends GetView<BankInfoController> {
   AddBankInfo({super.key});
   @override
   Widget build(BuildContext context) {
-    return controller.obx((state) => Form(
-      key: _formKey,
-      child: Padding(
-        padding: EdgeInsets.only(
-            left: AppLayout.getWidth(20), right: AppLayout.getWidth(20)),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              bottomSheetAppbar(
-                context: context,
-                appbarTitle: AppString.text_add_bank_details,
-              ),
-              customSpacerHeight(height: 8),
-              textFieldTitleText(titleText: AppString.text_bank_name),
-              CustomTextField(
-                hintText: AppString.text_enter_bank_name,
-                controller:
-                Get.find<InputTextFieldController>().bankNameController,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return AppString.fieldIsRequired;
-                  }
-                  return null;
-                },
-              ),
-              customSpacerHeight(height: 8),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        textFieldTitleText(titleText: AppString.text_branch),
-                        CustomTextField(
-                          hintText: AppString.text_enter_branch,
-                          controller: Get.find<InputTextFieldController>()
-                              .branchNameController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return AppString.fieldIsRequired;
-                            }
-                            return null;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  customSpacerWidth(width: 18),
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        textFieldTitleText(titleText: AppString.text_bank_code),
-                        CustomTextField(
-                          hintText: AppString.text_enter_bank_code,
-                          controller: Get.find<InputTextFieldController>()
-                              .bankCodeController,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              customSpacerHeight(height: 8),
-              textFieldTitleText(titleText: AppString.text_account_holder),
-              CustomTextField(
-                hintText: AppString.text_enter_name,
-                controller: Get.find<InputTextFieldController>()
-                    .accountHolderNameController,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return AppString.fieldIsRequired;
-                  }
-                  return null;
-                },
-              ),
-              customSpacerHeight(height: 8),
-              textFieldTitleText(titleText: AppString.text_account_number),
-              CustomTextField(
-                hintText: AppString.text_enter_account_number,
-                controller: Get.find<InputTextFieldController>()
-                    .accountNumberController,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return AppString.fieldIsRequired;
-                  }
-                  return null;
-                },
-              ),
-              customSpacerHeight(height: 8),
-              textFieldTitleText(titleText: AppString.text_account_title),
-              CustomTextField(
-                hintText: AppString.text_enter_title,
-                controller: Get.find<InputTextFieldController>()
-                    .accountTitleController,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return AppString.fieldIsRequired;
-                  }
-                  return null;
-                },
-              ),
-              customSpacerHeight(height: 8),
-              textFieldTitleText(titleText: AppString.text_tax_payer_id),
-              CustomTextField(
-                hintText: AppString.text_enter_id,
-                controller: Get.find<InputTextFieldController>()
-                    .taxPayerIdController,
-              ),
-              customSpacerHeight(height: 50),
+    return controller.obx(
+        (state) => Form(
+              key: _formKey,
+              child: Padding(
+                padding: EdgeInsets.only(
+                    left: AppLayout.getWidth(20),
+                    right: AppLayout.getWidth(20)),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _addBankInfoAppbar(context),
+                      customSpacerHeight(height: 8),
+                      textFieldTitleText(titleText: AppString.text_bank_name),
+                      //add bank name text field here
+                      _addBankNameLayout(),
 
-              Obx(() => _buttonLayout(context)),
+                      customSpacerHeight(height: 8),
+                      //add bank branch text field here
+                      _addBankBranchAndCode(),
 
-              customSpacerHeight(height: 250)
-            ],
-          ),
-        ),
-      ),
-    ),onLoading: const LoadingIndicator());
+                      customSpacerHeight(height: 8),
+                      textFieldTitleText(
+                          titleText: AppString.text_account_holder),
+                      //add bank account holder text field here
+                      _addBankAccountHolderLayout(),
+
+                      customSpacerHeight(height: 8),
+                      textFieldTitleText(
+                          titleText: AppString.text_account_number),
+                      //add bank user account text field here
+                      _addBankUserAccountLayout(),
+
+                      customSpacerHeight(height: 8),
+                      textFieldTitleText(
+                          titleText: AppString.text_account_title),
+                      //add bank account title text field here
+                      _addBankAccountTitleLayout(),
+
+                      customSpacerHeight(height: 8),
+                      textFieldTitleText(
+                          titleText: AppString.text_tax_payer_id),
+                      //add bank tex id text field here
+                      _addBankTaxIdLayout(),
+
+                      customSpacerHeight(height: 50),
+
+                      Obx(() => _buttonLayout(context)),
+
+                      customSpacerHeight(height: 250)
+                    ],
+                  ),
+                ),
+              ),
+            ),
+        onLoading: const LoadingIndicator());
   }
 
   _buttonLayout(context) {
-    return Get.find<BankInfoController>().isLoading.isTrue? loadingIndicatorLayout():
-    customDoubleButton(
-        context: context,
-        elevatedBtnText:
-        '${AppString.text_add}${AppString.text_details}',
-        textBtnText: AppString.text_cancel,
-        textButtonAction: () => Get.back(),
-        elevatedButtonAction: () {
-          FocusScope.of(context).requestFocus(FocusNode());
-          if (_formKey.currentState!.validate()) {
-            Get.find<BankInfoController>()
-                .addBankInfo(context: context).then((value){
-              if(value==true){
-                Get.back(canPop: false);
-                Get.find<BankInfoController>().getBankInfo();
-                showSuccessMessage(message: AppString.text_bank_details_added_successfully);
+    return Get.find<BankInfoController>().isLoading.isTrue
+        ? loadingIndicatorLayout()
+        : customDoubleButton(
+            context: context,
+            elevatedBtnText: '${AppString.text_add}${AppString.text_details}',
+            textBtnText: AppString.text_cancel,
+            textButtonAction: () => Get.back(),
+            elevatedButtonAction: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+              if (_formKey.currentState!.validate()) {
+                Get.find<BankInfoController>()
+                    .addBankInformation(context: context)
+                    .then((value) {
+                  if (value == true) {
+                    Get.back(canPop: false);
+                    Get.find<BankInfoController>().getBankInformation();
+                    showSuccessMessage(
+                        message:
+                            AppString.text_bank_details_added_successfully);
+                  }
+                });
               }
             });
-          }
-        });
+  }
+
+  _addBankInfoAppbar(context) {
+    return bottomSheetAppbar(
+      context: context,
+      appbarTitle: AppString.text_add_bank_details,
+    );
+  }
+
+  _addBankNameLayout() {
+    return CustomTextField(
+      hintText: AppString.text_enter_bank_name,
+      controller: Get.find<InputTextFieldController>().bankNameController,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return AppString.fieldIsRequired;
+        }
+        return null;
+      },
+    );
+  }
+
+  _addBankBranchAndCode() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              textFieldTitleText(titleText: AppString.text_branch),
+              CustomTextField(
+                hintText: AppString.text_enter_branch,
+                controller:
+                    Get.find<InputTextFieldController>().branchNameController,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return AppString.fieldIsRequired;
+                  }
+                  return null;
+                },
+              ),
+            ],
+          ),
+        ),
+        customSpacerWidth(width: 18),
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              textFieldTitleText(titleText: AppString.text_bank_code),
+              CustomTextField(
+                hintText: AppString.text_enter_bank_code,
+                controller:
+                    Get.find<InputTextFieldController>().bankCodeController,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  _addBankAccountHolderLayout() {
+    return CustomTextField(
+      hintText: AppString.text_enter_name,
+      controller:
+          Get.find<InputTextFieldController>().accountHolderNameController,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return AppString.fieldIsRequired;
+        }
+        return null;
+      },
+    );
+  }
+
+  _addBankUserAccountLayout() {
+    return CustomTextField(
+      hintText: AppString.text_enter_account_number,
+      controller: Get.find<InputTextFieldController>().accountNumberController,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return AppString.fieldIsRequired;
+        }
+        return null;
+      },
+    );
+  }
+
+  _addBankAccountTitleLayout() {
+    return CustomTextField(
+      hintText: AppString.text_enter_title,
+      controller: Get.find<InputTextFieldController>().accountTitleController,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return AppString.fieldIsRequired;
+        }
+        return null;
+      },
+    );
+  }
+
+  _addBankTaxIdLayout() {
+    return CustomTextField(
+      hintText: AppString.text_enter_id,
+      controller: Get.find<InputTextFieldController>().taxPayerIdController,
+    );
   }
 }
 

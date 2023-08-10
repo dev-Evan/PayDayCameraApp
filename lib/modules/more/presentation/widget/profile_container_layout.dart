@@ -1,13 +1,10 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/pick_image_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/user_status.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/view_profile_widget.dart';
-import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
 import 'package:pay_day_mobile/utils/app_string.dart';
@@ -151,14 +148,6 @@ Widget _viewProfileText() {
   );
 }
 
-// Future navigatorForViewProfile({context}) {
-//   return Navigator.pushReplacement(
-//     context,
-//     MaterialPageRoute(
-//       builder: (BuildContext context) => const ViewProfile(),
-//     ),
-//   );
-// }
 Future navigatorForViewProfile({context}) {
   return  defaultOffNavigator(routeName: const ViewProfile(),context: context);
 

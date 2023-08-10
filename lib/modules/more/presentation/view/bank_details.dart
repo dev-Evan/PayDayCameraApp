@@ -35,109 +35,12 @@ class BankDetails extends GetView<BankInfoController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      customMoreAppbar(
-                          titleText: controller.bankInfoModel.data?.name != null
-                              ? AppString.text_bank_details
-                              : ""),
+                      _bankInfoAppbarLayout(),
                       (controller.bankInfoModel.data?.accountTitle != null &&
                               controller
                                   .bankInfoModel.data!.accountTitle!.isNotEmpty)
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                _bankTitleRow(
-                                    bankTitleText: controller
-                                            .bankInfoModel.data?.name
-                                            ?.toString() ??
-                                        "",
-                                    context: context),
-                                controller.bankInfoModel.data
-                                            ?.accountHolderName !=
-                                        null
-                                    ? _bankUserInfo(
-                                        infoTitleText:
-                                            AppString.text_account_holder,
-                                        infoDetailsText: controller
-                                                .bankInfoModel
-                                                .data
-                                                ?.accountHolderName
-                                                ?.toString() ??
-                                            "")
-                                    : Container(),
-                                controller.bankInfoModel.data?.accountNumber !=
-                                        null
-                                    ? _bankUserInfo(
-                                        infoTitleText:
-                                            AppString.text_account_number,
-                                        infoDetailsText: controller
-                                                .bankInfoModel
-                                                .data
-                                                ?.accountNumber
-                                                ?.toString() ??
-                                            "")
-                                    : Container(),
-                                controller.bankInfoModel.data?.accountTitle !=
-                                        null
-                                    ? _bankUserInfo(
-                                        infoTitleText:
-                                            AppString.text_account_title,
-                                        infoDetailsText: controller
-                                                .bankInfoModel
-                                                .data
-                                                ?.accountTitle
-                                                ?.toString() ??
-                                            "")
-                                    : Container(),
-                                controller.bankInfoModel.data?.branchName !=
-                                        null
-                                    ? _bankUserInfo(
-                                        infoTitleText: AppString.text_branch,
-                                        infoDetailsText: controller
-                                                .bankInfoModel.data?.branchName
-                                                ?.toString() ??
-                                            "")
-                                    : Container(),
-                                controller.bankInfoModel.data?.code != null
-                                    ? _bankUserInfo(
-                                        infoTitleText: controller
-                                                    .bankInfoModel.data?.code !=
-                                                null
-                                            ? AppString.text_bank_code
-                                            : "",
-                                        infoDetailsText: controller
-                                                .bankInfoModel.data?.code
-                                                ?.toString() ??
-                                            "")
-                                    : Container(),
-                                controller.bankInfoModel.data?.taxPayerId !=
-                                        null
-                                    ? _bankUserInfo(
-                                        infoTitleText:
-                                            AppString.text_tax_payer_id,
-                                        infoDetailsText: controller
-                                                .bankInfoModel.data?.taxPayerId
-                                                ?.toString() ??
-                                            "")
-                                    : Container()
-                              ],
-                            )
-                          : SizedBox(
-                              height: MediaQuery.of(context).size.height,
-                              child: Column(
-                                children: [
-                                  noDataFound(height: 136),
-                                  const Spacer(),
-                                  _addBankInfo(onAction: () {
-                                    customButtonSheet(
-                                        context: context,
-                                        height: 0.9,
-                                        child: AddBankInfo());
-                                  }),
-                                  customSpacerHeight(height: 172),
-
-                                ],
-                              ),
-                            ),
+                          ? _bankInfoLayout(context)
+                          : _noAddedBankInfo(context),
                     ],
                   ),
                 ),
@@ -146,8 +49,104 @@ class BankDetails extends GetView<BankInfoController> {
     );
   }
 
+
+  _accountHolderLayout() {
+    return _bankUserInfo(
+        infoTitleText: AppString.text_account_holder,
+        infoDetailsText:
+            controller.bankInfoModel.data?.accountHolderName?.toString() ?? "");
+  }
+
+  _accountNumberLayout() {
+    return _bankUserInfo(
+        infoTitleText: AppString.text_account_number,
+        infoDetailsText:
+            controller.bankInfoModel.data?.accountNumber?.toString() ?? "");
+  }
+
+  _accountTitleLayout() {
+    return _bankUserInfo(
+        infoTitleText: AppString.text_account_title,
+        infoDetailsText:
+            controller.bankInfoModel.data?.accountTitle?.toString() ?? "");
+  }
+
+  _branchNameLayout() {
+    return _bankUserInfo(
+        infoTitleText: AppString.text_branch,
+        infoDetailsText:
+            controller.bankInfoModel.data?.branchName?.toString() ?? "");
+  }
+
+  _bankCodeLayout() {
+    return _bankUserInfo(
+        infoTitleText: controller.bankInfoModel.data?.code != null
+            ? AppString.text_bank_code
+            : "",
+        infoDetailsText: controller.bankInfoModel.data?.code?.toString() ?? "");
+  }
+
+  _taxPayerIdLayout() {
+    return _bankUserInfo(
+        infoTitleText: AppString.text_tax_payer_id,
+        infoDetailsText:
+            controller.bankInfoModel.data?.taxPayerId?.toString() ?? "");
+  }
+
+  _bankInfoLayout(context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _bankTitleRow(
+            bankTitleText:
+                controller.bankInfoModel.data?.name?.toString() ?? "",
+            context: context),
+        controller.bankInfoModel.data?.accountHolderName != null
+            ? _accountHolderLayout()
+            : Container(),
+        controller.bankInfoModel.data?.accountNumber != null
+            ? _accountNumberLayout()
+            : Container(),
+        controller.bankInfoModel.data?.accountTitle != null
+            ? _accountTitleLayout()
+            : Container(),
+        controller.bankInfoModel.data?.branchName != null
+            ? _branchNameLayout()
+            : Container(),
+        controller.bankInfoModel.data?.code != null
+            ? _bankCodeLayout()
+            : Container(),
+        controller.bankInfoModel.data?.taxPayerId != null
+            ? _taxPayerIdLayout()
+            : Container()
+      ],
+    );
+  }
   Future<void> _refreshPage() async {
-    controller.getBankInfo();
+    controller.getBankInformation();
+  }
+
+  _noAddedBankInfo(context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        children: [
+          noDataFound(height: 136),
+          const Spacer(),
+          _addBankInfo(onAction: () {
+            customButtonSheet(context: context, height: 0.9, child: AddBankInfo());
+          }),
+          customSpacerHeight(height: 172),
+        ],
+      ),
+    );
+  }
+
+  _bankInfoAppbarLayout() {
+    return customMoreAppbar(
+        titleText: controller.bankInfoModel.data?.name != null
+            ? AppString.text_bank_details
+            : "");
   }
 }
 
@@ -163,25 +162,9 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
       children: [
         Expanded(child: _bankTitleText(bankText: bankTitleText)),
         _editDeleteBtn(
-            onAction: () {
-              customDialogLayout(
-                  controller: Get.find<BankInfoController>(),
-                  onAction: () {
-                    Get.find<BankInfoController>()
-                        .deletedBankInfoApi()
-                        .then((value) {
-                      Get.back(canPop: false);
-                      Get.find<BankInfoController>().getBankInfo();
-                      showSuccessMessage(message: AppString.text_bank_details_deleted_successfully);
-                    });
-                  });
-            },
+            onAction: ()=>_bankInfoDialog(),
             editAction: () {
-              customButtonSheet(
-                context: context,
-                height: 0.9,
-                child: EditBankInfo(),
-              );
+             _routeForEditBankInfo(context);
               Get.find<InputTextFieldController>().bankNameController.text =
                   Get.find<BankInfoController>()
                           .bankInfoModel
@@ -243,6 +226,30 @@ Widget _bankTitleRow({required bankTitleText, required context}) {
   );
 }
 
+ _routeForEditBankInfo(context) {
+  return  customButtonSheet(
+    context: context,
+    height: 0.9,
+    child: EditBankInfo(),
+  );
+}
+
+_bankInfoDialog() {
+  return   customDialogLayout(
+      controller: Get.find<BankInfoController>(),
+      onAction: () {
+        Get.find<BankInfoController>()
+            .deletedBankInformation()
+            .then((value) {
+          Get.back(canPop: false);
+          Get.find<BankInfoController>().getBankInformation();
+          showSuccessMessage(
+              message:
+              AppString.text_bank_details_deleted_successfully);
+        });
+      });
+}
+
 Widget _editDeleteBtn({required context, onAction, required editAction}) {
   return Row(
     children: [
@@ -262,7 +269,7 @@ Widget _editDeleteBtn({required context, onAction, required editAction}) {
 
 Widget _bankTitleText({required bankText}) {
   return Padding(
-    padding:  EdgeInsets.only(right: AppLayout.getWidth(16)),
+    padding: EdgeInsets.only(right: AppLayout.getWidth(16)),
     child: Text(
       bankText,
       style: AppStyle.title_text.copyWith(
