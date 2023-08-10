@@ -73,14 +73,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double bodyH = MediaQuery.of(context).size.height;
-    double bodyW = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
       body: SafeArea(
         child: SizedBox(
-          width: bodyW,
-          height: bodyH,
           child: Stack(
             children: [
               _containerLayout(height: _height, width: _width, isLoad: _isLoad)

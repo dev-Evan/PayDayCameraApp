@@ -29,7 +29,6 @@ class UpdateDocument extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(docUrl.toString());
-    final _box = GetStorage();
 
     return Form(
       key: _formKey,
@@ -42,136 +41,15 @@ class UpdateDocument extends StatelessWidget {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  bottomSheetAppbar(
-                      context: context,
-                      appbarTitle:
-                      "${AppString.text_edit} ${AppString.text_documents}",
-                      onAction: () => Get.find<InputTextFieldController>()
-                          .docFileNameController
-                          .clear()),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            textFieldTitleText(titleText: AppString.text_name),
-                            CustomTextField(
-                              hintText: AppString.text_enter_document_name,
-                              inputType: TextInputType.text,
-                              controller: Get.find<InputTextFieldController>()
-                                  .docFileNameController,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return AppString.the_document_field_is_required;
-                                }
-                                return null;
-                              },
-                            ),
-                          ],
-                        ),
-                        customSpacerHeight(height: 20),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            textFieldTitleText(
-                              titleText: AppString.text_documents,
-                            ),
-                            customSpacerHeight(height: 20),
-                            _dottedBorder(
-                                child: Obx(() => InkWell(
-                                    onTap: () => Get.find<UpdateDocumentController>().storageForUpdate
-                                        .pickFile(),
-                                    child: Get.find<UpdateDocumentController>().storageForUpdate
-                                        .filePath
-                                        .endsWith(".pdf")
-                                        ? Container(
-                                      height: AppLayout.getHeight(100),
-                                      color: AppColor.disableColor
-                                          .withOpacity(0.7),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          _fileTitle(
-                                            text: _box.read(AppString
-                                                .STORE_DOC_NAME_TEXT) ??
-                                                "",
-                                          ),
-                                          customSpacerHeight(height: 16),
-                                          _changeFile()
-                                        ],
-                                      ),
-                                    )
-                                        : Get.find<UpdateDocumentController>().storageForUpdate
-                                        .filePath
-                                        .startsWith("https://")
-                                        ? Container(
-                                      height: AppLayout.getHeight(100),
-                                      decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        image: DecorationImage(
-                                            image: networkImage(
-                                                path: Get.find<
-                                                    UpdateDocumentController>().storageForUpdate
-                                                    .filePath
-                                                    .value),
-                                            fit: BoxFit.cover),
-                                      ),
-                                    )
-                                        : Container(
-                                      height: AppLayout.getHeight(100),
-                                      decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        image: DecorationImage(
-                                            image: FileImage(File(Get.find<
-                                                UpdateDocumentController>().storageForUpdate
-                                                .filePath
-                                                .value
-                                                .toString())
-                                                .absolute),
-                                            fit: BoxFit.cover),
-                                      ),
-                                    )))),
-                            customSpacerHeight(height: 8),
-                            Obx(() => Get.find<UpdateDocumentController>().storageForUpdate
-                                .filePath
-                                .value
-                                .isNotEmpty
-                                ? Text(
-                              Get.find<UpdateDocumentController>().storageForUpdate
-                                  .filePath
-                                  .value
-                                  .toString()
-                                  .split('/')
-                                  .last,
-                              style: AppStyle.mid_large_text.copyWith(
-                                  color: AppColor.hintColor,
-                                  fontSize: Dimensions.fontSizeDefault - 2),
-                            )
-                                : const Text("")),
-                            customSpacerHeight(height: 8),
-                            alertBox(
-                                context: context,
-                                alertText:
-                                AppString.text_document_size_allowed_5_md_etc),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                  _updateDocumentAppbar(context),
+                  //update document body layout here
+                  _updateDocumentBodyLayout(context),
+
                   customSpacerHeight(height: 78)
                 ],
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: _buttonLayout(context),
-            ),
-
+            _saveButtonLayout(context)
           ],
         ),
       ),
@@ -179,36 +57,202 @@ class UpdateDocument extends StatelessWidget {
   }
 
   _buttonLayout(BuildContext context) {
-    return   Obx(() =>  Get.find<UpdateDocumentController>(). storageForUpdate.isLoading.isTrue?
+    return Obx(() =>
+        Get.find<UpdateDocumentController>().storageForUpdate.isLoading.isTrue
+            ? loadingIndicatorLayout()
+            : _uploadFileLayout(context));
+  }
 
-    loadingIndicatorLayout():  Padding(
+  _updateDocumentAppbar(context) {
+    return bottomSheetAppbar(
+        context: context,
+        appbarTitle: "${AppString.text_edit} ${AppString.text_documents}",
+        onAction: () =>
+            Get.find<InputTextFieldController>().docFileNameController.clear());
+  }
+
+  _updateDocumentBodyLayout(context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        children: [
+          _documentNameInputField(),
+          customSpacerHeight(height: 20),
+          _documentViewLayout(context),
+        ],
+      ),
+    );
+  }
+
+  _saveButtonLayout(context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: _buttonLayout(context),
+    );
+  }
+
+  _documentNameInputField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        textFieldTitleText(titleText: AppString.text_name),
+        CustomTextField(
+          hintText: AppString.text_enter_document_name,
+          inputType: TextInputType.text,
+          controller:
+              Get.find<InputTextFieldController>().docFileNameController,
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppString.the_document_field_is_required;
+            }
+            return null;
+          },
+        ),
+      ],
+    );
+  }
+
+  _documentViewLayout(context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        textFieldTitleText(
+          titleText: AppString.text_documents,
+        ),
+        customSpacerHeight(height: 20),
+        _documentBoxLayout(),
+        customSpacerHeight(height: 8),
+        Obx(() => Get.find<UpdateDocumentController>()
+                .storageForUpdate
+                .filePath
+                .value
+                .isNotEmpty
+            ? Text(
+                Get.find<UpdateDocumentController>()
+                    .storageForUpdate
+                    .filePath
+                    .value
+                    .toString()
+                    .split('/')
+                    .last,
+                style: AppStyle.mid_large_text.copyWith(
+                    color: AppColor.hintColor,
+                    fontSize: Dimensions.fontSizeDefault - 2),
+              )
+            : const Text("")),
+        customSpacerHeight(height: 8),
+        _alertBoxLayout(context),
+      ],
+    );
+  }
+
+  _pdfFile() {
+    return Container(
+      height: AppLayout.getHeight(100),
+      color: AppColor.disableColor.withOpacity(0.7),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _fileTitle(
+            text: GetStorage().read(AppString.STORE_DOC_NAME_TEXT) ?? "",
+          ),
+          customSpacerHeight(height: 16),
+          _changeFile()
+        ],
+      ),
+    );
+  }
+
+  _netWorkFile() {
+    return Container(
+      height: AppLayout.getHeight(100),
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        image: DecorationImage(
+            image: networkImage(
+                path: Get.find<UpdateDocumentController>()
+                    .storageForUpdate
+                    .filePath
+                    .value),
+            fit: BoxFit.cover),
+      ),
+    );
+  }
+
+  _defaultFile() {
+    return Container(
+      height: AppLayout.getHeight(100),
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        image: DecorationImage(
+            image: FileImage(File(Get.find<UpdateDocumentController>()
+                    .storageForUpdate
+                    .filePath
+                    .value
+                    .toString())
+                .absolute),
+            fit: BoxFit.cover),
+      ),
+    );
+  }
+
+  _documentBoxLayout() {
+    return _dottedBorder(
+        child: Obx(() => InkWell(
+              onTap: () => Get.find<UpdateDocumentController>()
+                  .storageForUpdate
+                  .pickFile(),
+              child: Get.find<UpdateDocumentController>()
+                      .storageForUpdate
+                      .filePath
+                      .endsWith(".pdf")
+                  ? _pdfFile()
+                  : Get.find<UpdateDocumentController>()
+                          .storageForUpdate
+                          .filePath
+                          .startsWith("https://")
+                      ? _netWorkFile()
+                      : _defaultFile(),
+            )));
+  }
+
+  _alertBoxLayout(context) {
+    return alertBox(
+        context: context,
+        alertText: AppString.text_document_size_allowed_5_md_etc);
+  }
+
+  _uploadFileLayout(context) {
+    return Padding(
       padding: const EdgeInsets.all(16.0),
       child: customDoubleButton(
           textButtonAction: () => Get.back(),
           elevatedButtonAction: () {
             if (_formKey.currentState!.validate()) {
-              Get.find<UpdateDocumentController>().storageForUpdate
-                  .filePath
-                  .startsWith("https://")
+              Get.find<UpdateDocumentController>()
+                      .storageForUpdate
+                      .filePath
+                      .startsWith("https://")
                   ? showWarningMessage(
-                message: AppString.text_please_selected_document,
-              )
+                      message: AppString.text_please_selected_document,
+                    )
                   : Get.find<UpdateDocumentController>()
-                  .updateDocumentFile(context: context).then((value){
-                Get.back(canPop: false);
-                Get.find<DocumentController>().getDocumentIndex();
-                Get.find<UpdateDocumentController>().storageForUpdate.toastMessage(false);
-              });
+                      .updateDocumentFile(context: context)
+                      .then((value) {
+                      Get.back(canPop: false);
+                      Get.find<DocumentController>().getDocumentIndex();
+                      Get.find<UpdateDocumentController>()
+                          .storageForUpdate
+                          .toastMessage(false);
+                    });
             }
           },
           textBtnText: AppString.text_cancel,
           elevatedBtnText: AppString.text_save,
           context: context),
-    ));
-
+    );
   }
-
-
 }
 
 Widget _fileTitle({required text}) {

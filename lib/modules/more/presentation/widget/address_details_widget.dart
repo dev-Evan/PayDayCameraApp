@@ -1,8 +1,6 @@
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
@@ -53,38 +51,36 @@ Widget textSubTitle({required subTitleText}) {
 
 Widget detailsTextLayout(
     {required leftTitleText,
-      required leftSubtext,
-      required rightTitleText,
-      required rightSubtext}) {
+    required leftSubtext,
+    required rightTitleText,
+    required rightSubtext}) {
   return Container(
-    margin: EdgeInsets.only(top: AppLayout.getHeight(12)),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                textTitle(titleText: leftTitleText),
-                customSpacerHeight(height: 3),
-                textSubTitle(subTitleText: leftSubtext)
-              ],
-            )),
-        customSpacerWidth(width: 20),
-
-        Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                textTitle(titleText: rightTitleText),
-                customSpacerHeight(height: 3),
-                textSubTitle(subTitleText: rightSubtext)
-              ],
-            )),
-      ],
-    )
-  );
+      margin: EdgeInsets.only(top: AppLayout.getHeight(12)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              textTitle(titleText: leftTitleText),
+              customSpacerHeight(height: 3),
+              textSubTitle(subTitleText: leftSubtext)
+            ],
+          )),
+          customSpacerWidth(width: 20),
+          Expanded(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              textTitle(titleText: rightTitleText),
+              customSpacerHeight(height: 3),
+              textSubTitle(subTitleText: rightSubtext)
+            ],
+          )),
+        ],
+      ));
 }
 
 Widget addButton({onAction}) {
@@ -113,295 +109,271 @@ Widget editDetBtn(
   return Row(
     children: [
       InkWell(
-
           onTap: () {
             customButtonSheet(context: context, height: 0.9, child: editAction);
 
             Get.find<InputTextFieldController>().areaController.text =
-            type == "permanent_address"
-                ? Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.permanentAddress
-                ?.area !=null?
-
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.permanentAddress
-                ?.area
-                .toString() ??
-                "":AppString.text_not_added_yet
-
-
-                :Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.presentAddress
-                ?.area !=null?
-
-
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.presentAddress
-                ?.area
-                .toString() ??
-                "":AppString.text_not_added_yet;
+                type == "permanent_address"
+                    ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.permanentAddress
+                                ?.area !=
+                            null
+                        ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.permanentAddress
+                                ?.area
+                                .toString() ??
+                            ""
+                        : AppString.text_not_added_yet
+                    : Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.presentAddress
+                                ?.area !=
+                            null
+                        ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.presentAddress
+                                ?.area
+                                .toString() ??
+                            ""
+                        : AppString.text_not_added_yet;
 
             Get.find<InputTextFieldController>().cityController.text =
-            type == "permanent_address"
-                ?
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.permanentAddress
-                ?.city !=null?
-
-
-
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.permanentAddress
-
-                ?.city
-                .toString() ??
-                "":AppString.text_not_added_yet
-                :
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.presentAddress
-
-                ?.city !=null?
-
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.presentAddress
-
-                ?.city
-                .toString() ??
-                "":AppString.text_not_added_yet;
+                type == "permanent_address"
+                    ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.permanentAddress
+                                ?.city !=
+                            null
+                        ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.permanentAddress
+                                ?.city
+                                .toString() ??
+                            ""
+                        : AppString.text_not_added_yet
+                    : Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.presentAddress
+                                ?.city !=
+                            null
+                        ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.presentAddress
+                                ?.city
+                                .toString() ??
+                            ""
+                        : AppString.text_not_added_yet;
 
             Get.find<InputTextFieldController>().detailsController.text =
-            type == "permanent_address"
-                ?Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.permanentAddress
-
-                ?.details !=null?
-
-
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.permanentAddress
-
-                ?.details
-                .toString() ??
-                "":AppString.text_not_added_yet
-                : Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.presentAddress
-
-                ?.details !=null?
-
-
-
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.presentAddress
-
-                ?.details
-                .toString() ??
-                "":AppString.text_not_added_yet;
+                type == "permanent_address"
+                    ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.permanentAddress
+                                ?.details !=
+                            null
+                        ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.permanentAddress
+                                ?.details
+                                .toString() ??
+                            ""
+                        : AppString.text_not_added_yet
+                    : Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.presentAddress
+                                ?.details !=
+                            null
+                        ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.presentAddress
+                                ?.details
+                                .toString() ??
+                            ""
+                        : AppString.text_not_added_yet;
 
             Get.find<InputTextFieldController>().phoneNumberController.text =
-            type == "permanent_address"
-                ?Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.permanentAddress
-
-                ?.phoneNumber !=null?
-
-
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.permanentAddress
-
-                ?.phoneNumber
-                .toString() ??
-                "":AppString.text_not_added_yet
-                : Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.presentAddress
-
-                ?.phoneNumber !=null?
-
-
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.presentAddress
-
-                ?.phoneNumber
-                .toString() ??
-                "":AppString.text_not_added_yet;
+                type == "permanent_address"
+                    ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.permanentAddress
+                                ?.phoneNumber !=
+                            null
+                        ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.permanentAddress
+                                ?.phoneNumber
+                                .toString() ??
+                            ""
+                        : AppString.text_not_added_yet
+                    : Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.presentAddress
+                                ?.phoneNumber !=
+                            null
+                        ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.presentAddress
+                                ?.phoneNumber
+                                .toString() ??
+                            ""
+                        : AppString.text_not_added_yet;
 
             Get.find<InputTextFieldController>().stateController.text =
-            type == "permanent_address"
-                ?Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.permanentAddress
-
-                ?.state !=null?
-
-
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.permanentAddress
-
-                ?.state
-                .toString() ??
-                "":AppString.text_not_added_yet
-                :
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.presentAddress
-
-                ?.state !=null?
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.presentAddress
-
-                ?.state
-                .toString() ??
-                "":AppString.text_not_added_yet;
+                type == "permanent_address"
+                    ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.permanentAddress
+                                ?.state !=
+                            null
+                        ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.permanentAddress
+                                ?.state
+                                .toString() ??
+                            ""
+                        : AppString.text_not_added_yet
+                    : Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.presentAddress
+                                ?.state !=
+                            null
+                        ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.presentAddress
+                                ?.state
+                                .toString() ??
+                            ""
+                        : AppString.text_not_added_yet;
 
             Get.find<InputTextFieldController>().zipCodeController.text =
-            type == "permanent_address"
-                ?Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.permanentAddress
-
-                ?.zipCode !=null?
-
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.permanentAddress
-
-                ?.zipCode
-                .toString() ??
-                "":AppString.text_not_added_yet
-                :
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.presentAddress
-
-                ?.zipCode !=null?
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.presentAddress
-
-                ?.zipCode
-                .toString() ??
-                "":AppString.text_not_added_yet;
-
+                type == "permanent_address"
+                    ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.permanentAddress
+                                ?.zipCode !=
+                            null
+                        ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.permanentAddress
+                                ?.zipCode
+                                .toString() ??
+                            ""
+                        : AppString.text_not_added_yet
+                    : Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.presentAddress
+                                ?.zipCode !=
+                            null
+                        ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.presentAddress
+                                ?.zipCode
+                                .toString() ??
+                            ""
+                        : AppString.text_not_added_yet;
 
             Get.find<InputTextFieldController>().countyTextController.text =
-            type == "permanent_address"
-                ?
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.permanentAddress
-
-                ?.country !=null?
-
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.permanentAddress
-
-                ?.country
-                .toString() ??
-                "":AppString.text_not_added_yet
-                : Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.presentAddress
-
-                ?.country !=null?
-
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.presentAddress
-
-                ?.country
-                .toString() ??
-                "":AppString.text_not_added_yet;
+                type == "permanent_address"
+                    ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.permanentAddress
+                                ?.country !=
+                            null
+                        ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.permanentAddress
+                                ?.country
+                                .toString() ??
+                            ""
+                        : AppString.text_not_added_yet
+                    : Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.presentAddress
+                                ?.country !=
+                            null
+                        ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.presentAddress
+                                ?.country
+                                .toString() ??
+                            ""
+                        : AppString.text_not_added_yet;
             Get.find<InputTextFieldController>().phoneNumberController.text =
-            type == "permanent_address"
-                ?
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.permanentAddress
-
-                ?.phoneNumber !=null?
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.permanentAddress
-
-                ?.phoneNumber
-                .toString() ??
-                "":AppString.text_not_added_yet
-                :
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.presentAddress
-
-                ?.phoneNumber !=null?
-
-            Get.find<AddressController>()
-                .addressDetailsModel
-                .data
-                ?.presentAddress
-
-                ?.phoneNumber
-                .toString() ??
-                "":AppString.text_not_added_yet;
+                type == "permanent_address"
+                    ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.permanentAddress
+                                ?.phoneNumber !=
+                            null
+                        ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.permanentAddress
+                                ?.phoneNumber
+                                .toString() ??
+                            ""
+                        : AppString.text_not_added_yet
+                    : Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.presentAddress
+                                ?.phoneNumber !=
+                            null
+                        ? Get.find<AddressController>()
+                                .addressDetailsModel
+                                .data
+                                ?.presentAddress
+                                ?.phoneNumber
+                                .toString() ??
+                            ""
+                        : AppString.text_not_added_yet;
           },
           child: editIcon()),
       customSpacerWidth(width: 28),
-      InkWell(
-        onTap: () => onAction(),
-        child: const Icon(
-          CupertinoIcons.delete,
-          color: AppColor.hintColor,
-          size: 20,
-        ),
-      ),
+      _deletedAction(onAction),
     ],
+  );
+}
+
+_deletedAction(onAction) {
+  return InkWell(
+    onTap: () => onAction(),
+    child: const Icon(
+      CupertinoIcons.delete,
+      color: AppColor.hintColor,
+      size: 20,
+    ),
   );
 }
 
@@ -428,12 +400,15 @@ Widget currTitleText() {
   );
 }
 
-Widget countyField({context, onAction, String? Function(String?)? validator,required TextEditingController controller}) {
+Widget countyField(
+    {context,
+    onAction,
+    String? Function(String?)? validator,
+    required TextEditingController controller}) {
   return Center(
     child: TextFormField(
       validator: validator,
-
-      controller:controller,
+      controller: controller,
       readOnly: true,
       onTap: () => onAction(),
       decoration: InputDecoration(
@@ -448,15 +423,19 @@ Widget countyField({context, onAction, String? Function(String?)? validator,requ
             color: AppColor.hintColor,
             fontSize: Dimensions.fontSizeDefault + 1),
         filled: false,
-        suffixIcon: Icon(Icons.keyboard_arrow_down,color: controller.text.isNotEmpty?AppColor.normalTextColor:AppColor.hintColor,),
-
+        suffixIcon: Icon(
+          Icons.keyboard_arrow_down,
+          color: controller.text.isNotEmpty
+              ? AppColor.normalTextColor
+              : AppColor.hintColor,
+        ),
         fillColor: AppColor.backgroundColor,
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault + 2),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide:
-          const BorderSide(width: 0.0, color: AppColor.primaryColor),
+              const BorderSide(width: 0.0, color: AppColor.primaryColor),
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault + 2),
         ),
         enabledBorder: OutlineInputBorder(
@@ -464,7 +443,7 @@ Widget countyField({context, onAction, String? Function(String?)? validator,requ
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
         border: OutlineInputBorder(
           borderSide:
-          const BorderSide(width: 0.0, color: AppColor.primaryColor),
+              const BorderSide(width: 0.0, color: AppColor.primaryColor),
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault + 2),
         ),
       ),
@@ -472,33 +451,40 @@ Widget countyField({context, onAction, String? Function(String?)? validator,requ
   );
 }
 
-Widget phoneAndCountyField({required TextEditingController controller,final String? Function(String?)? validator}) {
+Widget phoneAndCountyField(
+    {required TextEditingController controller,
+    final String? Function(String?)? validator}) {
   return IntlPhoneField(
-    disableLengthCheck: true,
+      disableLengthCheck: true,
       onChanged: (phoneNumber) {
-        Get.find<CountryPickerController>().onPhoneNumberChanged(phoneNumber.number);
-        Get.find<CountryPickerController>().isoCodeChanged(phoneNumber.countryISOCode);
+        Get.find<CountryPickerController>()
+            .onPhoneNumberChanged(phoneNumber.number);
+        Get.find<CountryPickerController>()
+            .isoCodeChanged(phoneNumber.countryISOCode);
       },
-      decoration:inputDecoration,
-      controller:controller
-  );
+      decoration: inputDecoration,
+      controller: controller);
 }
-Widget editPhoneAndCountyField({required TextEditingController controller,final String? Function(String?)? validator,required isoCode}) {
+
+Widget editPhoneAndCountyField(
+    {required TextEditingController controller,
+    final String? Function(String?)? validator,
+    required isoCode}) {
   return IntlPhoneField(
-    disableLengthCheck: true,
+      disableLengthCheck: true,
       initialCountryCode: '$isoCode',
       onChanged: (phoneNumber) {
-        Get.find<CountryPickerController>().onPhoneNumberChanged(phoneNumber.number);
-        Get.find<CountryPickerController>().isoCodeChanged(phoneNumber.countryISOCode);
+        Get.find<CountryPickerController>()
+            .onPhoneNumberChanged(phoneNumber.number);
+        Get.find<CountryPickerController>()
+            .isoCodeChanged(phoneNumber.countryISOCode);
       },
-      decoration:inputDecoration,
-      controller:controller
-  );
+      decoration: inputDecoration,
+      controller: controller);
 }
 
-
-InputDecoration get inputDecoration{
-  return  InputDecoration(
+InputDecoration get inputDecoration {
+  return InputDecoration(
     labelText: AppString.text_not_added_yet,
     enabledBorder: OutlineInputBorder(
         borderSide: const BorderSide(color: AppColor.solidGray),
@@ -508,36 +494,35 @@ InputDecoration get inputDecoration{
         borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
   );
 }
-Widget phoneAndCountyFieldTest({required TextEditingController controller,final String? Function(String?)? validator}) {
 
+Widget phoneAndCountyFieldTest(
+    {required TextEditingController controller,
+    final String? Function(String?)? validator}) {
   return IntlPhoneField(
     disableLengthCheck: true,
-      initialCountryCode: 'BD',
+    initialCountryCode: 'BD',
     onChanged: (phoneNumber) {
-      Get.find<CountryPickerController>().onPhoneNumberChanged(phoneNumber.completeNumber);
+      Get.find<CountryPickerController>()
+          .onPhoneNumberChanged(phoneNumber.completeNumber);
     },
-
   );
 }
-
-
-
-
 
 TextStyle get countyTextStyle {
   return const TextStyle(fontSize: 16, color: AppColor.normalTextColor);
 }
+
 InputDecoration get countryDecoration {
   return InputDecoration(
       hintText: AppString.text_search,
       isDense: true,
       focusedBorder:
-      const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+          const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
       enabledBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: Colors.grey),
       ),
       border:
-      const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)));
+          const OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)));
 }
 
 BorderRadius get countyFieldRadius {

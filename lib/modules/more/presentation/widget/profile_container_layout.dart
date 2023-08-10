@@ -148,14 +148,6 @@ Widget _viewProfileText() {
   );
 }
 
-// Future navigatorForViewProfile({context}) {
-//   return Navigator.pushReplacement(
-//     context,
-//     MaterialPageRoute(
-//       builder: (BuildContext context) => const ViewProfile(),
-//     ),
-//   );
-// }
 Future navigatorForViewProfile({context}) {
   return  defaultOffNavigator(routeName: const ViewProfile(),context: context);
 

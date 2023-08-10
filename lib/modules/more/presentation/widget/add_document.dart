@@ -17,7 +17,6 @@ import 'package:pay_day_mobile/utils/app_style.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:dotted_border/dotted_border.dart';
 import '../../../../common/widget/loading_indicator.dart';
-import '../../data/document_repository/picked_form_storage.dart';
 import '../controller/documet_controller/document_controller.dart';
 import '../view/change_password.dart';
 
@@ -37,84 +36,13 @@ class AddDocument extends GetView<FileUploadController> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  bottomSheetAppbar(
-                      context: context,
-                      appbarTitle: AppString.text_add_documents,
-                      onAction: () {
-                        Get.find<InputTextFieldController>()
-                            .docFileNameController
-                            .clear();
-                        Get.find<FileUploadController>().storageForUpload.filePath.value = "";
-                      }),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            textFieldTitleText(titleText: AppString.text_name),
-                            customSpacerHeight(height: 8),
-                            CustomTextField(
-                              hintText: AppString.text_enter_document_name,
-                              inputType: TextInputType.text,
-                              controller: Get.find<InputTextFieldController>()
-                                  .docFileNameController,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return AppString
-                                      .the_document_field_is_required;
-                                }
-                                return null;
-                              },
-                            ),
-                          ],
-                        ),
-                        customSpacerHeight(height: 8),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            textFieldTitleText(
-                              titleText: AppString.text_documents,
-                            ),
-                            customSpacerHeight(height: 8),
-
-                            _dottedBorder(
-                                child: InkWell(
-                                    onTap: () {
-                                      Get.find<FileUploadController>()
-                                         .storageForUpload .pickFile();
-                                    },
-                                    child: Obx(() =>
-
-                                    Get.find<FileUploadController>()
-                                               .storageForUpload .filePath
-                                                .isNotEmpty
-                                            ? Get.find<FileUploadController>()
-                                                   .storageForUpload .filePath
-                                                    .endsWith(".pdf")
-                                                ? _fileBox()
-                                                : _imageBox()
-                                            : _emptyBox()))), //),
-
-                            customSpacerHeight(height: 8),
-                            Obx(() => _fileIdentity()),
-
-                            _alertBox(context)
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                  _addDocumentAppbarLayout(context),
+                  _documentFieldLayout(context),
                   customSpacerHeight(height: 60)
                 ],
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: _buttonLayout(context),
-            ),
-
+            _addButtonLayout(context),
           ],
         ),
       ),
@@ -122,7 +50,6 @@ class AddDocument extends GetView<FileUploadController> {
   }
 
   _buttonLayout(BuildContext context) {
-
     return Obx(
       () => Get.find<FileUploadController>().storageForUpload.isLoading.isTrue
           ? loadingIndicatorLayout()
@@ -134,7 +61,10 @@ class AddDocument extends GetView<FileUploadController> {
                         .docFileNameController
                         .clear();
                     Get.back();
-                    Get.find<FileUploadController>().storageForUpload.filePath.value = "";
+                    Get.find<FileUploadController>()
+                        .storageForUpload
+                        .filePath
+                        .value = "";
                   },
                   elevatedButtonAction: () {
                     if (_formKey.currentState!.validate()) {
@@ -145,7 +75,10 @@ class AddDocument extends GetView<FileUploadController> {
                           ? showWarningMessage(
                               message: AppString.text_document_name_is_required,
                             )
-                          : Get.find<FileUploadController>().storageForUpload.filePath.isEmpty
+                          : Get.find<FileUploadController>()
+                                  .storageForUpload
+                                  .filePath
+                                  .isEmpty
                               ? showWarningMessage(
                                   message:
                                       AppString.text_please_selected_document,
@@ -156,7 +89,9 @@ class AddDocument extends GetView<FileUploadController> {
                                   Get.back(canPop: false);
                                   Get.find<DocumentController>()
                                       .getDocumentIndex();
-                                  Get.find<FileUploadController>().storageForUpload.toastMessage(false);
+                                  Get.find<FileUploadController>()
+                                      .storageForUpload
+                                      .toastMessage(false);
                                 });
                     }
                   },
@@ -199,9 +134,12 @@ class AddDocument extends GetView<FileUploadController> {
       decoration: BoxDecoration(
         color: AppColor.disableColor.withOpacity(0.4),
         image: DecorationImage(
-            image: FileImage(
-                File(Get.find<FileUploadController>().storageForUpload.filePath.value).absolute),
-            fit: BoxFit.cover,
+          image: FileImage(File(Get.find<FileUploadController>()
+                  .storageForUpload
+                  .filePath
+                  .value)
+              .absolute),
+          fit: BoxFit.cover,
         ),
       ),
     );
@@ -243,12 +181,102 @@ class AddDocument extends GetView<FileUploadController> {
   }
 
   _fileIdentity() {
-    return Text(Get.find<FileUploadController>().storageForUpload.filePath.value.split('/').last,
+    return Text(
+        Get.find<FileUploadController>()
+            .storageForUpload
+            .filePath
+            .value
+            .split('/')
+            .last,
         style: AppStyle.mid_large_text.copyWith(
             color: AppColor.hintColor,
             fontSize: Dimensions.fontSizeDefault - 2));
   }
 
+  _addDocumentAppbarLayout(context) {
+    return bottomSheetAppbar(
+        context: context,
+        appbarTitle: AppString.text_add_documents,
+        onAction: () {
+          Get.find<InputTextFieldController>().docFileNameController.clear();
+          Get.find<FileUploadController>().storageForUpload.filePath.value = "";
+        });
+  }
+
+  _documentFieldLayout(context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        children: [
+          _documentNameFieldLayout(),
+          customSpacerHeight(height: 8),
+          _documentLayout(context),
+        ],
+      ),
+    );
+  }
+
+  _addButtonLayout(context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: _buttonLayout(context),
+    );
+  }
+
+  _documentNameFieldLayout() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        textFieldTitleText(titleText: AppString.text_name),
+        customSpacerHeight(height: 8),
+        CustomTextField(
+          hintText: AppString.text_enter_document_name,
+          inputType: TextInputType.text,
+          controller:
+              Get.find<InputTextFieldController>().docFileNameController,
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppString.the_document_field_is_required;
+            }
+            return null;
+          },
+        ),
+      ],
+    );
+  }
+
+  _documentLayout(context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        textFieldTitleText(
+          titleText: AppString.text_documents,
+        ),
+        customSpacerHeight(height: 8),
+        _dottedBorder(
+            child: InkWell(
+                onTap: () {
+                  Get.find<FileUploadController>().storageForUpload.pickFile();
+                },
+                child: Obx(() => Get.find<FileUploadController>()
+                        .storageForUpload
+                        .filePath
+                        .isNotEmpty
+                    ? Get.find<FileUploadController>()
+                            .storageForUpload
+                            .filePath
+                            .endsWith(".pdf")
+                        ? _fileBox()
+                        : _imageBox()
+                    : _emptyBox()))), //),
+
+        customSpacerHeight(height: 8),
+        Obx(() => _fileIdentity()),
+
+        _alertBox(context)
+      ],
+    );
+  }
 }
 
 Widget _dottedBorder({required child}) {

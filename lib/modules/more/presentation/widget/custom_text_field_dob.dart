@@ -3,7 +3,7 @@ import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/dimensions.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget CustomTextFieldDob(
+Widget customDateOfBirthField(
     {required String hintText,  required IconData dobIcon ,dobIconAction}) {
   return Container(
     decoration: BoxDecoration(
@@ -32,7 +32,7 @@ Widget CustomTextFieldDob(
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
         ),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColor.solidGray, width: 1.0),
+            borderSide: const BorderSide(color: AppColor.solidGray, width: 1.0),
             borderRadius: BorderRadius.circular(Dimensions.radiusDefault)
         ),
 
