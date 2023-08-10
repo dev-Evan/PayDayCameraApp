@@ -30,19 +30,10 @@ class _JobHistoryViewState extends State<JobHistoryView> {
         children: [
           customSpacerHeight(height: 12),
           Theme(
-            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+            data: _defaultDividerColor(),
             child: ExpansionTile(
               trailing: _statusIcon(value: _designationIcon),
-              title: InkWell(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _cardIconTitleText(
-                        icon: Images.designation,
-                        titleText: AppString.text_designation),
-                  ],
-                ),
-              ),
+              title: _designationTitleLayout(),
               onExpansionChanged: (bool expanded) {
                 setState(() => _designationIcon = expanded);
               },
@@ -51,19 +42,10 @@ class _JobHistoryViewState extends State<JobHistoryView> {
           ),
           divider,
           Theme(
-            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+            data: _defaultDividerColor(),
             child: ExpansionTile(
               trailing: _statusIcon(value: _departmentIcon),
-              title: InkWell(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _cardIconTitleText(
-                        icon: Images.department,
-                        titleText: AppString.text_department),
-                  ],
-                ),
-              ),
+              title: _departmentTitleLayout(),
               onExpansionChanged: (bool expanded) {
                 setState(() => _departmentIcon = expanded);
               },
@@ -72,18 +54,10 @@ class _JobHistoryViewState extends State<JobHistoryView> {
           ),
           divider,
           Theme(
-            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+            data: _defaultDividerColor(),
             child: ExpansionTile(
               trailing: _statusIcon(value: _roleIcon),
-              title: InkWell(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _cardIconTitleText(
-                        icon: Images.flag, titleText: AppString.text_role)
-                  ],
-                ),
-              ),
+              title: _rollTitleLayout(),
               onExpansionChanged: (bool expanded) {
                 setState(() => _roleIcon = expanded);
               },
@@ -92,19 +66,10 @@ class _JobHistoryViewState extends State<JobHistoryView> {
           ),
           divider,
           Theme(
-            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+            data: _defaultDividerColor(),
             child: ExpansionTile(
               trailing: _statusIcon(value: _workShiftIcon),
-              title: InkWell(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _cardIconTitleText(
-                        icon: Images.clock,
-                        titleText: AppString.text_work_shift),
-                  ],
-                ),
-              ),
+              title: _workShiftTitleLayout(),
               onExpansionChanged: (bool expanded) {
                 setState(() => _workShiftIcon = expanded);
               },
@@ -113,19 +78,10 @@ class _JobHistoryViewState extends State<JobHistoryView> {
           ),
           divider,
           Theme(
-            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+            data: _defaultDividerColor(),
             child: ExpansionTile(
               trailing: _statusIcon(value: _employmentIcon),
-              title: InkWell(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _cardIconTitleText(
-                        icon: Images.user_status,
-                        titleText: AppString.text_employment),
-                  ],
-                ),
-              ),
+              title: _userStatusTitleLayout(),
               onExpansionChanged: (bool expanded) {
                 setState(() => _employmentIcon = expanded);
               },
@@ -137,6 +93,68 @@ class _JobHistoryViewState extends State<JobHistoryView> {
       ),
     );
   }
+
+  _designationTitleLayout() {
+    return InkWell(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _boxLayout(
+              icon: Images.designation, titleText: AppString.text_designation),
+        ],
+      ),
+    );
+  }
+
+  _departmentTitleLayout() {
+    return InkWell(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _boxLayout(
+              icon: Images.department, titleText: AppString.text_department),
+        ],
+      ),
+    );
+  }
+
+  _rollTitleLayout() {
+    return InkWell(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _boxLayout(icon: Images.flag, titleText: AppString.text_role)
+        ],
+      ),
+    );
+  }
+
+  _workShiftTitleLayout() {
+    return InkWell(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _boxLayout(icon: Images.clock, titleText: AppString.text_work_shift),
+        ],
+      ),
+    );
+  }
+
+  _userStatusTitleLayout() {
+    return InkWell(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _boxLayout(
+              icon: Images.user_status, titleText: AppString.text_employment),
+        ],
+      ),
+    );
+  }
+
+  _defaultDividerColor() {
+    return Theme.of(context).copyWith(dividerColor: Colors.transparent);
+  }
 }
 
 Divider get divider {
@@ -146,25 +164,10 @@ Divider get divider {
   );
 }
 
-Widget _cardIconTitleText({icon, titleText}) {
+Widget _boxLayout({icon, titleText}) {
   return Row(
     children: [
-      Card(
-          elevation: 0,
-          color: AppColor.primaryColor.withOpacity(0.1),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(Dimensions.radiusDefault)),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: SvgPicture.asset(
-                icon.toString(),
-                width: AppLayout.getWidth(20),
-                height: AppLayout.getWidth(20),
-                color: AppColor.primaryColor.withOpacity(0.8),
-              ),
-            ),
-          )),
+      _boxInfoLayout(icon),
       customSpacerWidth(width: 12),
       Text(
         titleText,
@@ -176,21 +179,50 @@ Widget _cardIconTitleText({icon, titleText}) {
   );
 }
 
+_boxInfoLayout(icon) {
+  return Card(
+      elevation: 0,
+      color: AppColor.primaryColor.withOpacity(0.1),
+      shape: _roundedRectangleBorder,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: SvgPicture.asset(
+            icon.toString(),
+            width: AppLayout.getWidth(20),
+            height: AppLayout.getWidth(20),
+            color: AppColor.primaryColor.withOpacity(0.8),
+          ),
+        ),
+      ));
+}
+
 Widget _statusIcon({value}) {
   return CircleAvatar(
       radius: 15,
       backgroundColor: AppColor.hintColor.withOpacity(0.1),
-      child: value
-          ? SvgPicture.asset(
-              Images.close_arrow,
-              width: AppLayout.getWidth(18),
-              height: AppLayout.getWidth(18),
-              color: AppColor.primaryColor.withOpacity(0.8),
-            )
-          : SvgPicture.asset(
-              Images.open_arrow,
-              width: AppLayout.getWidth(18),
-              height: AppLayout.getWidth(18),
-              color: AppColor.primaryColor.withOpacity(0.8),
-            ));
+      child: value ? _closeArrow() : _openArrow());
+}
+
+_closeArrow() {
+  return SvgPicture.asset(
+    Images.close_arrow,
+    width: AppLayout.getWidth(18),
+    height: AppLayout.getWidth(18),
+    color: AppColor.primaryColor.withOpacity(0.8),
+  );
+}
+
+_openArrow() {
+  return SvgPicture.asset(
+    Images.open_arrow,
+    width: AppLayout.getWidth(18),
+    height: AppLayout.getWidth(18),
+    color: AppColor.primaryColor.withOpacity(0.8),
+  );
+}
+
+RoundedRectangleBorder get _roundedRectangleBorder {
+  return RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(Dimensions.radiusDefault));
 }

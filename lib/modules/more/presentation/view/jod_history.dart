@@ -28,42 +28,9 @@ class JodHistory extends GetView<JobHistoryController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   customMoreAppbar(titleText: AppString.text_job_history),
-                  controller.jobHistoryModel.data !=null?
-
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: AppLayout.getHeight(Dimensions.paddingLarge),
-                          horizontal: AppLayout.getWidth(Dimensions.paddingLarge),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _joiningDateText(),
-                            _joiningDateSubText(
-                                text: controller.jobHistoryModel.data?.joiningDate
-                                        .toString() ??
-                                    ""),
-                          ],
-                        ),
-                      ),
-                      const JobHistoryView(),
-                    ],
-                  ):Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        customSpacerHeight(height: 158),
-                        svgIcon(
-                          height: 130,
-                          width: 130,
-                          url: Images.error_404,
-                        ),
-                      ],
-                    ),
-                  )
+                  controller.jobHistoryModel.data != null
+                      ? _jobHistoryViewLayout()
+                      : _noAddedJobHistory()
                 ],
               ),
             ),
@@ -74,6 +41,47 @@ class JodHistory extends GetView<JobHistoryController> {
 
   Future<void> _refreshPage() async {
     controller.getJobHistoryData();
+  }
+
+  _noAddedJobHistory() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          customSpacerHeight(height: 158),
+          svgIcon(
+            height: 130,
+            width: 130,
+            url: Images.error_404,
+          ),
+        ],
+      ),
+    );
+  }
+
+  _jobHistoryViewLayout() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: AppLayout.getHeight(Dimensions.paddingLarge),
+            horizontal: AppLayout.getWidth(Dimensions.paddingLarge),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _joiningDateText(),
+              _joiningDateSubText(
+                  text:
+                      controller.jobHistoryModel.data?.joiningDate.toString() ??
+                          ""),
+            ],
+          ),
+        ),
+        const JobHistoryView(),
+      ],
+    );
   }
 }
 

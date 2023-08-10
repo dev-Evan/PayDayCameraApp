@@ -10,7 +10,7 @@ import 'package:pay_day_mobile/common/widget/no_data_found.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/document_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/common_controller/more_text_editing_controller.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/documet_controller/update_document_controller.dart';
-import 'package:pay_day_mobile/modules/more/presentation/view/view_doc_file.dart';
+import 'package:pay_day_mobile/modules/more/presentation/view/view_document_file.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/update_document.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';

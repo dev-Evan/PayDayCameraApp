@@ -17,10 +17,10 @@ class InputNote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final focusedCtx = FocusManager.instance.primaryFocus!.context;
+    final focusedCtx = FocusManager.instance.primaryFocus?.context;
     Future.delayed(const Duration(milliseconds: 200))
         .then((value) => Scrollable.ensureVisible(
-              focusedCtx!,
+              focusedCtx??context,
               duration: const Duration(milliseconds: 100),
               curve: Curves.bounceInOut,
             ));

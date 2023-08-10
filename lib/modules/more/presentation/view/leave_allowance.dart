@@ -24,51 +24,22 @@ class LeaveAllowanceScreen extends GetView<AnnouncementController> {
                 child: SingleChildScrollView(
                   physics: const ScrollPhysics(),
                   child: (controller.leaveAllowanceDetailsModel.data != null &&
-                          controller.leaveAllowanceDetailsModel.data!.isNotEmpty)
+                          controller
+                              .leaveAllowanceDetailsModel.data!.isNotEmpty)
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             _subAppbar(),
-                            controller.paidLeave.isEmpty ? Container()
-                                : Container(
-                                    margin: edgeInsets,
-                                    child:
-                                        _titleText(text: AppString.text_paid)),
-                            ListView.builder(
-                                itemCount: controller.paidLeave.length,
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return _cardBox(
-                                    context: context,
-                                    type: controller.paidLeave[index].type ?? "",
-                                    earned: controller.paidLeave[index].earned ?? "",
-                                    allowance: controller.paidLeave[index].allowance ?? "",
-                                    taken: controller.paidLeave[index].taken ?? "",
-                                    availability: controller.paidLeave[index].availability ??
-                                        "",
-                                  );
-                                }),
+                            controller.paidLeave.isEmpty
+                                ? Container()
+                                : _paidTextLayout(),
+                            //paid leave allowance view layout here
+                            _paidLeaveAllowanceLayout(),
                             controller.unpaidLeave.isEmpty
                                 ? Container()
-                                : Container(
-                                    margin: edgeInsets,
-                                    child: _titleText(
-                                        text: AppString.text_unpaid)),
-                            ListView.builder(
-                                itemCount: controller.unpaidLeave.length,
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return _cardBox(
-                                    context: context,
-                                    type: controller.unpaidLeave[index].type ??"",
-                                    earned: controller.unpaidLeave[index].earned ?? "",
-                                    allowance: controller.unpaidLeave[index].allowance ??"",
-                                    taken: controller.unpaidLeave[index].taken ?? "",
-                                    availability: controller.unpaidLeave[index].availability ??"",
-                                  );
-                                }),
+                                : unpaidTextLayout(),
+                            //unpaid leave allowance view layout here
+                            _unpaidLeaveAllowanceLayout(),
                           ],
                         )
                       : noDataFound(),
@@ -81,9 +52,59 @@ class LeaveAllowanceScreen extends GetView<AnnouncementController> {
   Future<void> _refreshPage() async {
     controller.getLeaveAllowanceDetails();
   }
+
+  _paidLeaveAllowanceLayout() {
+    return ListView.builder(
+        itemCount: controller.paidLeave.length,
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return _cardBox(
+            context: context,
+            type: controller.paidLeave[index].type ?? "",
+            earned: controller.paidLeave[index].earned ?? "",
+            allowance: controller.paidLeave[index].allowance ?? "",
+            taken: controller.paidLeave[index].taken ?? "",
+            availability: controller.paidLeave[index].availability ?? "",
+          );
+        });
+  }
+
+  _unpaidLeaveAllowanceLayout() {
+    return ListView.builder(
+        itemCount: controller.unpaidLeave.length,
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return _cardBox(
+            context: context,
+            type: controller.unpaidLeave[index].type ?? "",
+            earned: controller.unpaidLeave[index].earned ?? "",
+            allowance: controller.unpaidLeave[index].allowance ?? "",
+            taken: controller.unpaidLeave[index].taken ?? "",
+            availability: controller.unpaidLeave[index].availability ?? "",
+          );
+        });
+  }
+
+  _paidTextLayout() {
+    return Container(
+        margin: edgeInsets, child: _titleText(text: AppString.text_paid));
+  }
+
+  unpaidTextLayout() {
+    return Container(
+        margin: edgeInsets, child: _titleText(text: AppString.text_unpaid));
+  }
 }
 
-Widget _cardBox({required context, required type, required allowance, required earned, required taken, required availability}) {
+Widget _cardBox(
+    {required context,
+    required type,
+    required allowance,
+    required earned,
+    required taken,
+    required availability}) {
   return Container(
     margin: cardEdgeInsets,
     width: MediaQuery.of(context).size.width,

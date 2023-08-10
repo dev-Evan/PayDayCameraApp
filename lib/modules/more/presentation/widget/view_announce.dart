@@ -179,28 +179,9 @@ class ViewAnnounce extends GetView<AnnouncementController> {
             final drc = controller.announcementIndex[index].description ?? "";
             final wordCount = drc.split(' ').length;
             if (wordCount > 20) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: announceLargeCard(
-                    context: context,
-                    child: ExpandedText(text: plainText),
-                    titleText: controller.announcementIndex[index].name ?? "",
-                    startDate:
-                        controller.announcementIndex[index].startDate ?? "",
-                    endDate: controller.announcementIndex[index].endDate ?? ""),
-              );
+              return _expendedText(index,plainText,context);
             } else {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: announceCard(
-                    context: context,
-                    desText: plainText,
-                    length: 152,
-                    titleText: controller.announcementIndex[index].name ?? "",
-                    startDate:
-                        controller.announcementIndex[index].startDate ?? "",
-                    endDate: controller.announcementIndex[index].endDate ?? ""),
-              );
+              return _normalHalfText(index,plainText,context);
             }
           },
         ));
@@ -214,6 +195,33 @@ class ViewAnnounce extends GetView<AnnouncementController> {
         _dateText(startDate: startDate, endDate: endDate),
         _cardDisText(desText: desText, readMoreText: readMoreText),
       ],
+    );
+  }
+
+  _normalHalfText(index,plainText,context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: announceCard(
+          context: context,
+          desText: plainText,
+          length: 152,
+          titleText: controller.announcementIndex[index].name ?? "",
+          startDate:
+          controller.announcementIndex[index].startDate ?? "",
+          endDate: controller.announcementIndex[index].endDate ?? ""),
+    );
+  }
+
+  _expendedText(index,plainText,context) {
+    return  Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: announceLargeCard(
+          context: context,
+          child: ExpandedText(text: plainText),
+          titleText: controller.announcementIndex[index].name ?? "",
+          startDate:
+          controller.announcementIndex[index].startDate ?? "",
+          endDate: controller.announcementIndex[index].endDate ?? ""),
     );
   }
 }
