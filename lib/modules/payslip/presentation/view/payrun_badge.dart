@@ -23,8 +23,8 @@ class PayRunBadge extends GetView<PayslipController> {
                   physics: const AlwaysScrollableScrollPhysics(),
                   child: Column(
                     children: [
-                      _subAppbarTitleText(),
-                      _payrunBadView(),
+                      _payRunBadgeAppbarLayout(),
+                      _payRunBadView(),
                     ],
                   ),
                 ),
@@ -38,20 +38,20 @@ class PayRunBadge extends GetView<PayslipController> {
   }
 }
 
-Widget _subAppbarTitleText() {
+ _payRunBadgeAppbarLayout() {
   return customMoreAppbar(
     titleText: AppString.text_payrun_badge,
   );
 }
 
-Widget _payrunBadView() {
+ _payRunBadView() {
   return Padding(
     padding: EdgeInsets.only(
         left: AppLayout.getWidth(20),
         right: AppLayout.getWidth(20),
         top: AppLayout.getHeight(20),
         bottom: AppLayout.getHeight(20)),
-    child: Column(
+    child: const Column(
       children: [
         PayRunBadgeView(),
       ],

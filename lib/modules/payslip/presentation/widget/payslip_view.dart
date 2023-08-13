@@ -5,7 +5,6 @@ import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_button.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/common/widget/no_data_found.dart';
-import 'package:pay_day_mobile/common/widget/success_message.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/widget/bottom_sheet_appbar.dart';
 import 'package:pay_day_mobile/modules/more/presentation/controller/user_profile_controller.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/payslip_view_sub_widget.dart';
@@ -18,7 +17,6 @@ import '../controller/payslip_view_controller.dart';
 
 class PaySlipView extends GetView<PayslipViewController> {
   final indexVal;
-
   const PaySlipView({super.key, this.indexVal});
 
   @override
@@ -81,15 +79,13 @@ class PaySlipView extends GetView<PayslipViewController> {
                                 ),
                                 const Divider(height: 1),
                                 _netPayable(),
-
                               ],
                             ),
                           ),
                         )
-                      : noDataFound()),
+                      : noDataFound(svgHeight: 100,svgWidth: 100)),
               onLoading:
                   const Expanded(child: Center(child: LoadingIndicator()))),
-
           _payslipButtonLayout(),
         ],
       ),
@@ -252,6 +248,7 @@ EdgeInsets get _paddingForButton {
       top: AppLayout.getHeight(0),
       bottom: AppLayout.getHeight(12));
 }
+
 EdgeInsets get _paddingForMainView {
   return EdgeInsets.only(
       left: AppLayout.getWidth(20),
