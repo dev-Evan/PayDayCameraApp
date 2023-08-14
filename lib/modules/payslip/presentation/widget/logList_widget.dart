@@ -4,7 +4,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pay_day_mobile/common/widget/custom_spacer.dart';
 import 'package:pay_day_mobile/common/widget/custom_buttom_sheet.dart';
 import 'package:pay_day_mobile/common/widget/custom_divider.dart';
-import 'package:pay_day_mobile/common/widget/custom_status_button.dart';
 import 'package:pay_day_mobile/modules/more/presentation/widget/arrow_style.dart';
 import 'package:pay_day_mobile/modules/payslip/presentation/widget/payslip_view.dart';
 import 'package:pay_day_mobile/utils/app_color.dart';
@@ -15,7 +14,6 @@ import 'package:pay_day_mobile/utils/dimensions.dart';
 
 import '../../../more/presentation/view/salary_overview.dart';
 import '../../../setting/presentation/controller/setting_controller.dart';
-import '../controller/payslip_controller.dart';
 
 Widget logsList({
   required titleDate,

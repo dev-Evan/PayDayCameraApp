@@ -127,14 +127,12 @@ class DocumentScreen extends GetView<DocumentController> {
         return Container(
           height: AppLayout.getHeight(66),
           decoration: AppStyle.ContainerStyle.copyWith(
-          color: AppColor.disableColor,
+              color: AppColor.disableColor,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(Dimensions.radiusDefault),
                   bottomLeft: Radius.circular(Dimensions.radiusDefault)),
               image: DecorationImage(
-                  image: AssetImage(Images.placeholder),
-
-                  fit: BoxFit.cover)),
+                  image: AssetImage(Images.placeholder), fit: BoxFit.cover)),
         );
       },
       fit: BoxFit.cover,
@@ -234,7 +232,7 @@ Widget _fileIcon() {
   );
 }
 
- _boxTitleTextView(
+_boxTitleTextView(
     {required titleText,
     required sizeText,
     required id,

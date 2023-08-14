@@ -189,6 +189,7 @@ Widget _onboardTitleText({text}) {
         color: AppColor.normalTextColor),
   );
 }
+
 class ExitAppController extends GetxController {
   Future<bool> willPop() async{
     if (Platform.isAndroid) {
