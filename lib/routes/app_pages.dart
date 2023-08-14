@@ -30,7 +30,7 @@ class AppPages {
   static final routes = [
     GetPage(
       name: _Paths.SPLASH_SCREEN,
-      page: () => const SplashScreen(),
+      page: () =>  SplashScreen(),
     ),
     GetPage(
         name: _Paths.SIGN_IN,
