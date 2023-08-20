@@ -55,7 +55,7 @@ class DownloadHelper extends GetxController {
         }, onDone: () async {
           await file
               .writeAsBytes(bytes)
-              .then((value) => showSuccessMessage(message: "Download Completed"));
+              .then((value) => showSuccessMessage(message: "Download Completed.Check your phone downloads folder to view this file"));
         });
       });
     } else if (permissionStatus.isPermanentlyDenied) {
