@@ -8,14 +8,13 @@ String _getRequestUrl(String apiEndPoint) => Api.BASE_URL + apiEndPoint;
 
 class NetworkClient extends GetConnect {
   Future<Response> getRequest(String apiEndPoint) async {
-    return await get(_getRequestUrl(apiEndPoint),
-        headers: {
+    return await get(_getRequestUrl(apiEndPoint), headers: {
       "Content-Type": "application/json",
       "Accept": "application/json",
       "Authorization": GetStorage().read(AppString.ACCESS_TOKEN) != null
           ? "Bearer ${GetStorage().read(AppString.ACCESS_TOKEN)}"
           : ""
-    }).timeout(const Duration(seconds:15));
+    }).timeout(const Duration(seconds: 15));
   }
 
   Future<http.Response> getReq(String apiEndPoint) async {
@@ -57,10 +56,8 @@ class NetworkClient extends GetConnect {
           ? "Bearer ${GetStorage().read(AppString.ACCESS_TOKEN)}"
           : ""
     }).timeout(const Duration(seconds: 15));
-
     return response;
   }
-
 
   Future<Response> patchRequest(String apiEndPoint, dynamic body) async {
     Response response =
@@ -74,31 +71,4 @@ class NetworkClient extends GetConnect {
 
     return response;
   }
-
-
-
-
-
-  // Future<dynamic> getRequest1(String baseUrl, String apiEndPoint1) async {
-  //   // var url = Uri.parse(baseUrl + apiEndPoint);
-  //
-  //   try {
-  //     var response = await get(_getRequestUrl(apiEndPoint1)).timeout( const Duration(seconds: TIME_OUT_DURATION));
-  //     return _processResponse(response);
-  //   } on SocketException {
-  //     throw FetchDataException("Not Internet connection", url.toString());
-  //   } on TimeoutException {
-  //     throw ApiNotRespondException("Api not respond in time", url.toString());
-  //   }
-  // }
-
-
-
-
-
-
-
-
-
-
 }
