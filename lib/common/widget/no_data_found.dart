@@ -5,7 +5,7 @@ import '../../utils/images.dart';
 import 'custom_appbar.dart';
 import 'custom_spacer.dart';
 
-Center  noDataFound({double height=158,double svgHeight =160,double svgWidth=160}){
+Widget  noDataFound({double height=158,double svgHeight =160,double svgWidth=160}){
   return Center(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,

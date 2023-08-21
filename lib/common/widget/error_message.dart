@@ -11,7 +11,7 @@ showErrorMessage({String? errorMessage,double marginForButton=10}) async => Moti
   padding:  EdgeInsets.only(bottom: marginForButton, right: 20, left: 20),
   animationType: AnimationType.fromRight,
   height: 60,
-  toastDuration: const Duration(milliseconds: 1500),
+  toastDuration: const Duration(milliseconds: 2500),
   width: double.infinity,
   displaySideBar: false,
   iconSize: 40,
