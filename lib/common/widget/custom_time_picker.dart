@@ -33,7 +33,7 @@ class CustomOutTimePicker extends GetView<DateTimeController> {
                     style: controller.pickedOutTime.value.isNotEmpty
                         ? AppStyle.normal_text_black
                         : AppStyle.normal_text_grey),
-                const Icon(Icons.access_time)
+                const Icon(Icons.access_time,size: 16,)
               ],
             )),
       ),
