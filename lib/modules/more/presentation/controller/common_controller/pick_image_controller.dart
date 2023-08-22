@@ -33,11 +33,12 @@ class PickImageController extends GetxController {
           pickedImage.value = image;
           await _profileDataController.changeProfileImage(image);
         }
-      } else if (permissionStatus.isPermanentlyDenied) {
-        openAppSettings();
-      } else {
-        showErrorMessage(errorMessage: AppString.storage_permission);
       }
+    }
+    else if (permissionStatus.isPermanentlyDenied) {
+      openAppSettings();
+    } else {
+      showErrorMessage(errorMessage: AppString.storage_permission);
     }
   }
 }

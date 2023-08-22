@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:motion_toast/resources/arrays.dart';
-
 import '../../utils/app_style.dart';
 
 void showSuccessMessage({String? message,double marginForButton=10}) async => MotionToast.success(
@@ -11,7 +10,7 @@ void showSuccessMessage({String? message,double marginForButton=10}) async => Mo
   padding:  EdgeInsets.only(bottom:marginForButton, right: 20, left: 20),
   animationType: AnimationType.fromRight,
   height: 60,
-  toastDuration: const Duration(milliseconds: 1500),
+  toastDuration: const Duration(milliseconds: 2000),
   width: double.infinity,
   displaySideBar: false,
   iconSize: 40,
