@@ -22,7 +22,6 @@ class LogDetailsBottomSheet extends GetView<AttendanceController> {
 
   @override
   Widget build(BuildContext context) {
-    print(pendingText);
     return Container(
         decoration: const BoxDecoration(
             color: Colors.white,

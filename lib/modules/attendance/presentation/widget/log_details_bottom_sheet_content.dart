@@ -56,14 +56,21 @@ _manualEntryLog() {
         children: [
           Expanded(
             child: Text(
-              Get.find<AttendanceController>()
+              Get.find<AttendanceController>().logDetailsById.data != null &&
+                      Get.find<AttendanceController>()
+                          .logDetailsById
+                          .data!
+                          .comments!
+                          .isNotEmpty
+                  ? Get.find<AttendanceController>()
                       .logDetailsById
-                      .data
-                      ?.comments
-                      ?.first
-                      .comment ??
-                  "",
-              style: AppStyle.normal_text_black.copyWith(fontWeight: FontWeight.w400),
+                      .data!
+                      .comments!
+                      .first
+                      .comment!
+                  : "",
+              style: AppStyle.normal_text_black
+                  .copyWith(fontWeight: FontWeight.w400),
             ),
           ),
         ],
@@ -222,11 +229,11 @@ _punchInDetails() {
     children: [
       punchDetails(
           title: AppString.text_punch_in,
-          note:(logDetails.data?.comments != null &&
-              logDetails.data!.comments!.isNotEmpty)
-              ? (logDetails.data!.comments!.last.type!
-              .startsWith("in-note")
-              ? logDetails.data?.comments?.last.comment : "")
+          note: (logDetails.data?.comments != null &&
+                  logDetails.data!.comments!.isNotEmpty)
+              ? (logDetails.data!.comments!.last.type!.startsWith("in-note")
+                  ? logDetails.data?.comments?.last.comment
+                  : "")
               : ""),
       SizedBox(height: AppLayout.getHeight(Dimensions.paddingExtraLarge)),
       UsersCurrentInfoLayout(

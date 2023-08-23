@@ -16,22 +16,22 @@ import '../../../../utils/app_string.dart';
 import '../../../../utils/dimensions.dart';
 import '../widget/bottom_sheet_appbar.dart';
 import '../widget/single_date_picker_calendar.dart';
+import 'attendance_eidt_bottomsheet.dart';
 
 class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
   const RequestAttendanceBottomSheet({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Get.delete<DateTimeController>();
-    Get.put(DateTimeController());
     return Container(
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
       child: Column(
         children: [
-          bottomSheetAppbar(context: context, appbarTitle: AppString.text_request_attendance),
-         _contentLayout(context),
+          bottomSheetAppbar(
+              context: context, appbarTitle: AppString.text_request_attendance),
+          _contentLayout(context),
           const Spacer(),
           _buttonLayout(context),
         ],
@@ -48,15 +48,133 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _dateEntry(),
-            SizedBox(height: AppLayout.getHeight(24)),
-            _timeLayout(),
-            SizedBox(height: AppLayout.getHeight(24)),
+            _inTimeDetails(),
+            customSpacerHeight(height: 20),
+            _outTimeDetails(),
+            customSpacerHeight(height: 20),
             noteLayout(),
-          customSpacerHeight(height: 70)
+            customSpacerHeight(height: 70)
           ],
         ),
       ),
+    );
+  }
+
+  _inTimeDetails() {
+    return Row(
+      children: [
+        Expanded(child: _dateEntry("In Time Date")),
+        customSpacerWidth(width: 10),
+        Expanded(child: _inTimeEntry())
+      ],
+    );
+  }
+
+  _outTimeDetails() {
+    return Row(
+      children: [
+        Expanded(child: _dateEntry("Out Time Date")),
+        customSpacerWidth(width: 10),
+        Expanded(child: _outTimeEntry())
+      ],
+    );
+  }
+
+  _inTimeEntry() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(AppString.text_in_time,
+            style: AppStyle.normal_text
+                .copyWith(color: Colors.grey, fontWeight: FontWeight.w600)),
+        SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
+        const CustomTimeInTimePicker(),
+      ],
+    );
+  }
+
+  _outTimeEntry() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(AppString.text_out_time,
+            style: AppStyle.normal_text
+                .copyWith(color: Colors.grey, fontWeight: FontWeight.w600)),
+        SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
+        const CustomOutTimePicker(),
+      ],
+    );
+  }
+
+  _dateEntry(String title) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: AppStyle.normal_text_grey,
+        ),
+        SizedBox(
+          height: AppLayout.getHeight(Dimensions.radiusDefault),
+        ),
+        Obx(() => _dateInputField(
+            Get.context!, title.startsWith("In Time Date") ? true : false))
+      ],
+    );
+  }
+
+  _dateInputField(BuildContext context, bool inInDate) {
+    DateTimeController controller = Get.find<DateTimeController>();
+    return InkWell(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+          border: Border.all(color: AppColor.lightGrey, width: 1),
+        ),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppLayout.getWidth(Dimensions.paddingDefaultExtra),
+          vertical: AppLayout.getHeight(Dimensions.paddingDefault),
+        ),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                inInDate == true
+                    ? (controller.requestedInDate.value.isEmpty
+                        ? AppString.text_select_date
+                        : controller.requestedInDate.value)
+                    : (controller.requestedOutDate.value.isEmpty
+                        ? AppString.text_select_date
+                        : controller.requestedOutDate.value),
+                style: controller.requestedDate.value.isNotEmpty
+                    ? AppStyle.normal_text_black
+                        .copyWith(fontWeight: FontWeight.w400)
+                    : AppStyle.normal_text_grey
+                        .copyWith(fontWeight: FontWeight.w400),
+              ),
+              Icon(
+                Icons.calendar_today_outlined,
+                size: AppLayout.getWidth(16),
+              )
+            ]),
+      ),
+      onTap: () => _showCalendar(inInDate),
+    );
+  }
+
+  Future _showCalendar(bool isInDatePicker) {
+    return showDialog(
+      context: Get.context!,
+      builder: (context) {
+        return Dialog(
+            backgroundColor: Colors.transparent,
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(16))),
+            insetPadding: EdgeInsets.zero,
+            child:
+                EditAttendanceSingleDatePicker(isInDatePicker: isInDatePicker));
+      },
     );
   }
 
@@ -97,7 +215,8 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
               .then((value) {
             if (value == true) {
               Navigator.pop(Get.context!);
-              showSuccessMessage(message: AppString.text_attendance_request_successfully);
+              showSuccessMessage(
+                  message: AppString.text_attendance_request_successfully);
             }
           });
         } else {
@@ -120,113 +239,6 @@ class RequestAttendanceBottomSheet extends GetView<AttendanceLogsController> {
       hasOutline: true,
       borderColor: Colors.black,
       textColor: Colors.black,
-    );
-  }
-
-  _dateEntry() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          AppString.text_date,
-          style: AppStyle.normal_text_grey,
-        ),
-        SizedBox(
-          height: AppLayout.getHeight(Dimensions.radiusDefault),
-        ),
-        Obx(() => _dateInputField(Get.context!))
-      ],
-    );
-  }
-
-  _dateInputField(BuildContext context) {
-    DateTimeController controller = Get.find<DateTimeController>();
-    return InkWell(
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-          border: Border.all(color: AppColor.lightGrey, width: 1),
-        ),
-        padding: EdgeInsets.symmetric(
-          horizontal: AppLayout.getWidth(Dimensions.paddingDefaultExtra),
-          vertical: AppLayout.getHeight(Dimensions.paddingDefault),
-        ),
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                controller.requestedDate.value.isEmpty
-                    ? AppString.text_select_date
-                    : controller.requestedDate.value,
-                style: controller.requestedDate.value.isNotEmpty
-                    ? AppStyle.normal_text_black
-                        .copyWith(fontWeight: FontWeight.w400)
-                    : AppStyle.normal_text_grey
-                        .copyWith(fontWeight: FontWeight.w400),
-              ),
-              Icon(
-                Icons.calendar_today_outlined,
-                size: AppLayout.getWidth(16),
-              )
-            ]),
-      ),
-      onTap: () => _showCalendar(),
-    );
-  }
-
-  Future _showCalendar() {
-    return showDialog(
-      context: Get.context!,
-      builder: (context) {
-        return const Dialog(
-            backgroundColor: Colors.transparent,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(16))),
-            insetPadding: EdgeInsets.zero,
-            child: SingleDatePicker());
-      },
-    );
-  }
-
-  _timeLayout() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        _inTimeEntry(),
-        SizedBox(width: AppLayout.getWidth(Dimensions.paddingDefaultMid)),
-        _outTimeEntry(),
-      ],
-    );
-  }
-
-  _inTimeEntry() {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(AppString.text_in_time,
-              style: AppStyle.normal_text
-                  .copyWith(color: Colors.grey, fontWeight: FontWeight.w600)),
-          SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
-          const CustomTimeInTimePicker(),
-        ],
-      ),
-    );
-  }
-
-  _outTimeEntry() {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(AppString.text_out_time,
-              style: AppStyle.normal_text
-                  .copyWith(color: Colors.grey, fontWeight: FontWeight.w600)),
-          SizedBox(height: AppLayout.getHeight(Dimensions.paddingDefault)),
-          const CustomOutTimePicker(),
-        ],
-      ),
     );
   }
 }

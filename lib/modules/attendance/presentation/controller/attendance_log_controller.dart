@@ -156,22 +156,20 @@ class AttendanceLogsController extends GetxController with StateMixin {
     await _attendanceLogsRepository
         .requestAttendance(RequestAttendanceChangeReq(
       note: textEditingController.text,
-      inDate: controller.requestedDate.value,
+      inDate: controller.requestedInDate.value,
       inTime:
-          "${DateFormat("yyyy-MM-dd hh:mm a").parse("${controller.requestedDate.value} ${controller.pickedInTime.value}")}",
+          "${DateFormat("yyyy-MM-dd hh:mm a").parse("${controller.requestedInDate.value} ${controller.pickedInTime.value}")}",
       outTime:
-          "${DateFormat("yyyy-MM-dd hh:mm a").parse("${controller.requestedDate.value} ${controller.pickedOutTime.value}")}",
+          "${DateFormat("yyyy-MM-dd hh:mm a").parse("${controller.requestedOutDate.value} ${controller.pickedOutTime.value}")}",
     ))
         .then((value) {
       isLoading(false);
       textEditingController.clear();
       returnValue = true;
-      //showSuccessMessage(message: value.message ?? "");
       getAllFilteredLogSummary();
       LoggerHelper.infoLog(message: value.message);
     }, onError: (error) {
       isLoading(false);
-      textEditingController.clear();
       showErrorMessage(errorMessage: error.message);
       returnValue = false;
       LoggerHelper.errorLog(message: error.message);

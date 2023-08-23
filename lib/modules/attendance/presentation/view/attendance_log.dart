@@ -7,6 +7,7 @@ import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/view/request_attendance_bottomsheet.dart';
 import 'package:pay_day_mobile/utils/app_layout.dart';
+import '../../../../common/controller/date_time_helper_controller.dart';
 import '../../../../common/widget/custom_appbar.dart';
 import '../../../../common/widget/custom_button.dart';
 import '../../../../common/widget/custom_divider.dart';
@@ -531,6 +532,10 @@ class AttendanceLog extends GetView<AttendanceLogsController> {
   }
 
   Future _openRequestAttendanceBottomSheet() {
+    if (Get.isRegistered<DateTimeController>()) {
+      Get.delete<DateTimeController>();
+    }
+    Get.put(DateTimeController());
     return customButtonSheet(
         child: const RequestAttendanceBottomSheet(),
         context: Get.context!,
