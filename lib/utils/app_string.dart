@@ -207,6 +207,7 @@ class AppString {
   static const String text_download_payslip = "Download Payslip";
   static const String text_punch_in_successfully = "Punch in successfully";
   static const String text_punch_out_successfully = "Punch out successfully";
+  static const String text_edit_attendance_successfully = "Attendance updated successfully";
 
 
 

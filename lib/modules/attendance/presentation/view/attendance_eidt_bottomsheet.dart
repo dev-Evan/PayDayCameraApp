@@ -9,6 +9,7 @@ import 'package:pay_day_mobile/modules/attendance/presentation/controller/attend
 import 'package:table_calendar/table_calendar.dart';
 import '../../../../common/controller/date_time_helper_controller.dart';
 import '../../../../common/widget/custom_time_picker.dart';
+import '../../../../common/widget/success_message.dart';
 import '../../../../utils/time_counter_helper.dart';
 import '../../domain/log_details/log_details.dart';
 import '../widget/bottom_sheet_appbar.dart';
@@ -285,6 +286,7 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
             .then((value) {
           if (value == true) {
             Navigator.of(Get.context!).pop();
+            showSuccessMessage(message: AppString.text_edit_attendance_successfully,marginForButton: 60);
           }
         });
       },

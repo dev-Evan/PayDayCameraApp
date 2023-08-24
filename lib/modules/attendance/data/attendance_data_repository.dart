@@ -90,7 +90,7 @@ class AttendanceDataRepository {
     }
   }
 
-  Future<ChangeRequestResponseModel> changeAttendanceRequest(
+  Future<SuccessModel> changeAttendanceRequest(
       {required int logId,
       required String inTime,
       required String outTime,
@@ -104,7 +104,7 @@ class AttendanceDataRepository {
       if (response.status.hasError) {
         return Future.error(ErrorModel.fromJson(response.body));
       } else {
-        return ChangeRequestResponseModel.fromJson(response.body);
+        return SuccessModel.fromJson(response.body);
       }
     } catch (ex) {
       return Future.error(ErrorModel(message: ex.toString()));
