@@ -26,7 +26,7 @@ Widget contentLayout() {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _topLayout(),
-            customSpacerHeight(height: 20),
+            customSpacerHeight(height: 16),
             _logTimeLayout(),
             Get.find<AttendanceController>().logDetailsById.data != null &&
                     Get.find<AttendanceController>()
@@ -45,7 +45,7 @@ _manualEntryLog() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      customSpacerHeight(height: 20),
+      customSpacerHeight(height: 16),
       Text(
         AppString.test_reason_note,
         style: AppStyle.large_text_black.copyWith(fontWeight: FontWeight.bold),
@@ -82,7 +82,7 @@ _manualEntryLog() {
 _autoEntryLayout() {
   return Column(
     children: [
-      customSpacerHeight(height: 20),
+      customSpacerHeight(height: 16),
       _punchInDetails(),
       _punchOutDetails(),
     ],
@@ -128,7 +128,8 @@ _logDate() {
 }
 
 _showBreakTime() {
-  return Get.find<AttendanceController>().logDetailsById.data?.breakTime > 0
+  return Get.find<AttendanceController>().logDetailsById.data != null &&
+          Get.find<AttendanceController>().logDetailsById.data?.breakTime > 0
       ? Row(
           children: [
             const Icon(Icons.local_cafe_outlined, color: Colors.grey, size: 16),

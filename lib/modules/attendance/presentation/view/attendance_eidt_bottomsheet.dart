@@ -6,6 +6,7 @@ import 'package:pay_day_mobile/common/widget/custom_time_in_time_picker.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_controller.dart';
 import 'package:pay_day_mobile/modules/attendance/presentation/controller/attendance_log_controller.dart';
+import 'package:pay_day_mobile/routes/app_pages.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../../common/controller/date_time_helper_controller.dart';
 import '../../../../common/widget/custom_time_picker.dart';
@@ -188,7 +189,8 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(16))),
             insetPadding: EdgeInsets.zero,
-            child: EditAttendanceSingleDatePicker(isInDatePicker: isInDatePicker));
+            child:
+                EditAttendanceSingleDatePicker(isInDatePicker: isInDatePicker));
       },
     );
   }
@@ -285,8 +287,10 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
                 note: inputValue)
             .then((value) {
           if (value == true) {
-            Navigator.of(Get.context!).pop();
-            showSuccessMessage(message: AppString.text_edit_attendance_successfully,marginForButton: 60);
+            Get.back(canPop: false);
+            showSuccessMessage(
+                message: AppString.text_edit_attendance_successfully,
+                marginForButton: 60);
           }
         });
       },
@@ -309,7 +313,6 @@ class _EditAttendanceBottomSheetState extends State<EditAttendanceBottomSheet> {
     try {
       DateFormat inputFormat = DateFormat('dd MMM yyyy');
       DateFormat outputFormat = DateFormat('yyyy-MM-dd');
-
       DateTime dateTime = inputFormat.parse(inDate);
       String convertedDate = outputFormat.format(dateTime);
       return convertedDate;

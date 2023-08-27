@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "811759668685",
+    "project_id": "payday-mobile",
+    "storage_bucket": "payday-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:811759668685:android:5352b976aa49a9f2c60884",
+        "android_client_info": {
+          "package_name": "com.solutions.gain.pay_day_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "811759668685-psorrtrvggth93kr5ooh1is1po3u01bl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.solutions.gain.pay_day_mobile",
+            "certificate_hash": "2e77fd0b70a92ac5c7938cecedc62bba22efe34c"
+          }
+        },
+        {
+          "client_id": "811759668685-4101mq5imgia05710j2olf57fpj0lofb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOmSajau1X6TDhEsycwj4iilPx7HXsBXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "811759668685-4101mq5imgia05710j2olf57fpj0lofb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "811759668685-to4ddl2aj1atapulknsi2m89f8afbft6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.solutions.gain.payDayMobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

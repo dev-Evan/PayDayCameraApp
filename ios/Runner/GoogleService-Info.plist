@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>811759668685-to4ddl2aj1atapulknsi2m89f8afbft6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.811759668685-to4ddl2aj1atapulknsi2m89f8afbft6</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>811759668685-psorrtrvggth93kr5ooh1is1po3u01bl.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDCLQbh5nn0HEjQTfz_p_7Ck9z1C9B89nA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>811759668685</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.solutions.gain.payDayMobile</string>
+	<key>PROJECT_ID</key>
+	<string>payday-mobile</string>
+	<key>STORAGE_BUCKET</key>
+	<string>payday-mobile.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:811759668685:ios:a8e4df78f98b8669c60884</string>
+</dict>
+</plist>
