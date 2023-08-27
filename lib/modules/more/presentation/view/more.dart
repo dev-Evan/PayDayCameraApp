@@ -27,7 +27,7 @@ class MoreScreen extends GetView<ProfileDataController> {
   const MoreScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-      controller.getProfileData();
+    controller.getProfileData();
     return controller.obx(
         (state) => Scaffold(
               body: RefreshIndicator(
@@ -44,46 +44,38 @@ class MoreScreen extends GetView<ProfileDataController> {
                           _userInfoLayout(context),
                           // here is the job desk body layout
                           _jobDeskLayout()
-
                         ],
                       ),
                     )
                   ],
                 ),
-
               ),
             ),
         onLoading: const LoadingIndicator());
   }
+
   _languageDropDown() {
     return const LanguageDropDown();
   }
 
-  Future<void> _refreshPage() async{
+  Future<void> _refreshPage() async {
     await controller.getProfileData();
   }
 
   _marginForBody() {
-    return const EdgeInsets.only(
-        left: 20, right: 20, bottom: 20, top: 20);
+    return const EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 20);
   }
 
   _userInfoLayout(context) {
     return profileCardLayOut(
         context: context,
-        userImage: controller
-            .userProfile.data?.profilePictureUrl
-            .toString() ??
-            "",
-        userName: controller.userProfile.data?.fullName
-            .toString() ??
+        userImage:
+            controller.userProfile.data?.profilePictureUrl.toString() ?? "",
+        userName: controller.userProfile.data?.fullName.toString() ??
             AppString.text_not_added_yet,
-        userEmail:
-        controller.userProfile.data?.email.toString() ??
+        userEmail: controller.userProfile.data?.email.toString() ??
             AppString.text_not_added_yet,
-        statusText: controller.userProfile.data?.userStatus
-            .toString() ??
-            "");
+        statusText: controller.userProfile.data?.userStatus.toString() ?? "");
   }
 
   _jobDeskLayout() {
@@ -103,8 +95,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                   cardText: AppString.text_announcement,
                   onAction: () async {
                     Get.toNamed(Routes.ANNOUNCE_SCREEN);
-                    await Get.find<AnnouncementController>()
-                        .getAnnouncement();
+                    await Get.find<AnnouncementController>().getAnnouncement();
                   }),
               // document route here
               jobDeskCard(
@@ -112,16 +103,14 @@ class MoreScreen extends GetView<ProfileDataController> {
                   cardText: AppString.text_documents,
                   onAction: () async {
                     Get.toNamed(Routes.DOCUMENT_SCREEN);
-                    await Get.find<DocumentController>()
-                        .getDocumentIndex();
+                    await Get.find<DocumentController>().getDocumentIndex();
                   }),
               // leave allowance route here
               jobDeskCard(
                   cardIcon: Images.leave_allowance,
                   cardText: AppString.text_leave_allowance,
                   onAction: () async {
-                    Get.toNamed(
-                        Routes.LEAVE_ALLOWANCE_SCREEN);
+                    Get.toNamed(Routes.LEAVE_ALLOWANCE_SCREEN);
                     await Get.find<AnnouncementController>()
                         .getLeaveAllowanceDetails();
                   }),
@@ -131,8 +120,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                   cardText: AppString.text_job_history,
                   onAction: () async {
                     Get.toNamed(Routes.JOB_HISTORY);
-                    await Get.find<JobHistoryController>()
-                        .getJobHistoryData();
+                    await Get.find<JobHistoryController>().getJobHistoryData();
                   }),
               // salary overview route here
               jobDeskCard(
@@ -150,8 +138,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                 cardText: AppString.text_bank_details,
                 onAction: () async {
                   Get.toNamed(Routes.BANK_DETAILS);
-                  await Get.find<BankInfoController>()
-                      .getBankInformation();
+                  await Get.find<BankInfoController>().getBankInformation();
                 },
               ),
               // address details route here
@@ -160,8 +147,7 @@ class MoreScreen extends GetView<ProfileDataController> {
                   cardText: AppString.text_address_details,
                   onAction: () async {
                     Get.toNamed(Routes.ADDRESS_DETAILS);
-                    await Get.find<AddressController>()
-                        .getEmployeeAddress();
+                    await Get.find<AddressController>().getEmployeeAddress();
                   }),
               customSpacerHeight(height: 16),
               jobDeskTitle(text: AppString.text_other),
@@ -169,19 +155,18 @@ class MoreScreen extends GetView<ProfileDataController> {
               jobDeskCard(
                 cardIcon: Images.note,
                 cardText: AppString.text_about_this_app,
-                onAction: () =>
-                    Get.toNamed(Routes.ABOUT_PAGE),
+                onAction: () => Get.toNamed(Routes.ABOUT_PAGE),
               ),
               // logout popup here
               jobDeskCard(
                   cardIcon: Images.log_out,
                   cardText: AppString.text_log_out,
-                  onAction: (){
-                    customDialogLayout(onAction: ()=>Get.find<LogoutController>()
-                        .logOut(),
-                        icon: Icons.logout_outlined,controller:Get.find<LogoutController>());
-                  }
-              ),
+                  onAction: () {
+                    customDialogLayout(
+                        onAction: () => Get.find<LogoutController>().logOut(),
+                        icon: Icons.logout_outlined,
+                        controller: Get.find<LogoutController>());
+                  }),
               // selected language dropdown here
               _languageDropDown(),
               customSpacerHeight(height: 30),
@@ -199,7 +184,11 @@ class LanguageDropDown extends StatefulWidget {
 }
 
 class _LanguageDropDownState extends State<LanguageDropDown> {
-  final items = ['English', 'Bangla'];
+  final items = [
+    'English',
+    'Bangla',
+    'Spain',
+  ];
   String? initValue;
 
   @override
@@ -219,7 +208,7 @@ class _LanguageDropDownState extends State<LanguageDropDown> {
       ),
       child: Row(children: [
         // here is the language default text
-       _languageDefaultText(),
+        _languageDefaultText(),
         // selected language here
         DropdownButton(
           underline: Container(),
@@ -241,12 +230,14 @@ class _LanguageDropDownState extends State<LanguageDropDown> {
         value: item,
         child: Text(item),
       );
-  
+
   void _changeLang({required String value}) {
     if (value.toLowerCase() == Language.english.name) {
       Get.find<LanguageController>().changeLanguage("en", "US");
     } else if (value.toLowerCase() == Language.bangla.name) {
       Get.find<LanguageController>().changeLanguage("bn", "BD");
+    } else if (value.toLowerCase() == Language.spain.name) {
+      Get.find<LanguageController>().changeLanguage("es", "ES");
     } else {}
   }
 
@@ -264,6 +255,11 @@ class _LanguageDropDownState extends State<LanguageDropDown> {
             initValue = "Bangla";
             break;
           }
+        case "es":
+          {
+            initValue = "Spain";
+            break;
+          }
         default:
           initValue = "English";
       }
@@ -271,10 +267,10 @@ class _LanguageDropDownState extends State<LanguageDropDown> {
   }
 
   _languageDefaultText() {
-    return  Expanded(
+    return Expanded(
         child: Text(
-          "text_language".tr,
-          style: AppStyle.normal_text_black,
-        ));
+      "text_language".tr,
+      style: AppStyle.normal_text_black,
+    ));
   }
 }
