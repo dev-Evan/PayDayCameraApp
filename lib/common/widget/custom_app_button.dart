@@ -41,7 +41,7 @@ class AppButton extends StatelessWidget {
                   onPressed();
                 },
                 label: Text(
-                  buttonText,
+                  buttonText,overflow: TextOverflow.ellipsis,
                   style: textColor != null
                       ? AppStyle.normal_text.copyWith(
                           color: textColor,

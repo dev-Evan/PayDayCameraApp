@@ -21,3 +21,6 @@ Map<String, String> ban = {
   "text_language":"ভাষা",
   AppString.text_take_break:"বিরতি নাও"
 };
+
+
+
