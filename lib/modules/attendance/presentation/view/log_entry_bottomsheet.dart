@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:pay_day_mobile/common/widget/loading_indicator.dart';
 import 'package:pay_day_mobile/common/widget/success_message.dart';
@@ -25,30 +29,31 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
-        child: Column(
-          children: [
-            bottomSheetAppbar(
-                context: context,
-                appbarTitle: Get.find<AttendanceController>().isPunchIn.value
-                    ? AppString.text_punch_out
-                    : AppString.text_punch_in),
-            Expanded(
-              flex: 5,
-              child: controller.obx(
-                (state) => _contentLayout(),
-                onLoading: _loadingIndicator(),
-              ),
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+      child: Column(
+        children: [
+          bottomSheetAppbar(
+              context: context,
+              appbarTitle: Get.find<AttendanceController>().isPunchIn.value
+                  ? AppString.text_punch_out
+                  : AppString.text_punch_in),
+          Expanded(
+            flex: 5,
+            child: controller.obx(
+              (state) => _contentLayout(),
+              onLoading: _loadingIndicator(),
             ),
-            controller.obx((state) =>  Align(
-              alignment: Alignment.bottomCenter,
-              child: _buttonLayout(context),
-            ),onLoading: Container())
-          ],
-        ),
-
+          ),
+          controller.obx(
+              (state) => Align(
+                    alignment: Alignment.bottomCenter,
+                    child: _buttonLayout(context),
+                  ),
+              onLoading: Container())
+        ],
+      ),
     );
   }
 
@@ -77,7 +82,6 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
                   title: AppString.text_ip_address,
                   data: Get.find<AttendanceController>().ipAddress.value),
             ),
-            
           ],
         ),
       ),
@@ -173,8 +177,8 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
   _buttonLayout(context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: AppLayout.getWidth(Dimensions.paddingLarge-2),
-        right: AppLayout.getWidth(Dimensions.paddingLarge-2),
+        left: AppLayout.getWidth(Dimensions.paddingLarge - 2),
+        right: AppLayout.getWidth(Dimensions.paddingLarge - 2),
         bottom: AppLayout.getHeight(Dimensions.paddingLarge),
       ),
       child: Obx(
@@ -196,59 +200,62 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
     Get.find<AttendanceController>().editTextController.clear();
     final controller = Get.find<AttendanceController>();
     return Obx(() => AppButton(
-          buttonColor: controller.isPunchIn.value
-              ? AppColor.primaryOrange
-              : AppColor.primaryGreen,
-          buttonText: controller.isPunchIn.value
-              ? AppString.text_punch_out
-              : AppString.text_punch_in,
-          onPressed: () => controller.isPunchIn.value
-              ? _punchOut(controller,context)
-              : _punchIn(controller,context),
-        ));
+        buttonColor: controller.isPunchIn.value
+            ? AppColor.primaryOrange
+            : AppColor.primaryGreen,
+        buttonText: controller.isPunchIn.value
+            ? AppString.text_punch_out
+            : AppString.text_punch_in,
+        onPressed: () => pickImage()));
   }
 
-  _punchOut(AttendanceController controller,context) async {
+  _punchOut(AttendanceController controller, context) async {
     await controller
-        .punchOut(LogEntryRequest(
-            ipData: IpData(
-                ip: controller.ipAddress.value,
-                coordinate: Coordinate(
-                  lat: controller.lat.value.toString(),
-                  lng: controller.long.value.toString(),
-                ),
-                location: controller.address.value,
-                workFromHome: false),
-            note: controller.editTextController.value.text,
-            today: DateFormat('y-M-d').format(DateTime.now())),context)
+        .punchOut(
+            LogEntryRequest(
+                ipData: IpData(
+                    ip: controller.ipAddress.value,
+                    coordinate: Coordinate(
+                      lat: controller.lat.value.toString(),
+                      lng: controller.long.value.toString(),
+                    ),
+                    location: controller.address.value,
+                    workFromHome: false),
+                note: controller.editTextController.value.text,
+                today: DateFormat('y-M-d').format(DateTime.now())),
+            context)
         .then((value) {
       if (value == true) {
         controller.editTextController.clear();
         Get.back(canPop: false);
-        showSuccessMessage(message: AppString.text_punch_out_successfully,marginForButton: 60);
+        showSuccessMessage(
+            message: AppString.text_punch_out_successfully,
+            marginForButton: 60);
       }
     });
   }
 
-  _punchIn(AttendanceController controller,context) {
+  _punchIn(AttendanceController controller, context) {
     controller
         .punchIn(
-        LogEntryRequest(
-            ipData: IpData(
-                ip: controller.ipAddress.value,
-                coordinate: Coordinate(
-                  lat: controller.lat.value.toString(),
-                  lng: controller.long.value.toString(),
-                ),
-                location: controller.address.value,
-                workFromHome: false),
-            note: controller.editTextController.value.text,
-            today: DateFormat('y-M-d').format(DateTime.now())),context)
+            LogEntryRequest(
+                ipData: IpData(
+                    ip: controller.ipAddress.value,
+                    coordinate: Coordinate(
+                      lat: controller.lat.value.toString(),
+                      lng: controller.long.value.toString(),
+                    ),
+                    location: controller.address.value,
+                    workFromHome: false),
+                note: controller.editTextController.value.text,
+                today: DateFormat('y-M-d').format(DateTime.now())),
+            context)
         .then((value) {
       if (value == true) {
         controller.editTextController.clear();
         Get.back(canPop: false);
-        showSuccessMessage(message: AppString.text_punch_in_successfully,marginForButton: 60);
+        showSuccessMessage(
+            message: AppString.text_punch_in_successfully, marginForButton: 60);
       }
     });
   }
@@ -266,5 +273,19 @@ class LogEntryBottomSheet extends GetView<AttendanceController> {
 
   _loadingIndicator() {
     return const LoadingIndicator();
+  }
+
+  pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      if (image == null) return;
+      final tempImage = File(image.path);
+      controller.isPunchIn.value
+          ? _punchOut(controller, Get.context!)
+          : _punchIn(controller, Get.context!);
+      print(image.path);
+    } on PlatformException catch (ex) {
+      print(ex.toString());
+    }
   }
 }

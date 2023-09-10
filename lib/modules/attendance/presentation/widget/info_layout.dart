@@ -11,8 +11,7 @@ import '../../../../utils/utils.dart';
 
 Widget infoLayout() {
   var controller = Get.find<AttendanceController>();
-  return Obx(
-    () => Row(
+  return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -26,21 +25,20 @@ Widget infoLayout() {
             ],
           ),
         ),
-        controller.isPunchIn.isTrue &&
-                controller.logs.value.data != null &&
-                controller.logs.value.data!.dailyLogs!.isNotEmpty
-            ? CustomStatusButton(
-                bgColor: Util.getBtnBgColor(
-                    behaviour: controller.logs.value.data!.behavior.toString(),
-                    isBgColorWhite: true),
-                text: controller.logs.value.data!.behavior.toString(),
-                textColor: Util.getBtnTextColor(
-                    behaviour: controller.logs.value.data!.behavior.toString(),
-                    isBgColorWhite: true),
-              )
-            : Container()
+        // controller.isPunchIn.isTrue &&
+        //         controller.logs.value.data != null &&
+        //         controller.logs.value.data!.dailyLogs!.isNotEmpty
+        //     ? CustomStatusButton(
+        //         bgColor: Util.getBtnBgColor(
+        //             behaviour: controller.logs.value.data!.behavior.toString(),
+        //             isBgColorWhite: true),
+        //         text: controller.logs.value.data!.behavior.toString(),
+        //         textColor: Util.getBtnTextColor(
+        //             behaviour: controller.logs.value.data!.behavior.toString(),
+        //             isBgColorWhite: true),
+        //       )
+        //     : Container()
       ],
-    ),
   );
 }
 

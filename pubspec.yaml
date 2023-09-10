@@ -59,8 +59,6 @@ dependencies:
   motion_toast: ^2.7.8
   lottie:
   device_info_plus: ^9.0.2
-  firebase_core:
-  firebase_crashlytics: ^3.3.5
 
 
 dev_dependencies:

@@ -30,7 +30,8 @@ class CustomAppbar extends GetView<NotificationController>
                 IconButton(
                   padding: iconButtonEdgeInsets,
                   onPressed: () async {
-                    Get.toNamed(Routes.NOTIFICATION_SCREEN);
+                    // Get.toNamed(Routes.NOTIFICATION_SCREEN);
+
                   },
                   icon: icon,
                 ),

@@ -31,8 +31,6 @@ class Attendance extends GetView<AttendanceController> {
     if (Get.isRegistered<AttendanceController>()) {
       Get.lazyPut(() => AttendanceController(), fenix: true);
     }
-    // controller.checkUserIsPunchedIn();
-    // controller.getDailyLog();
     return controller.obx(
         (state) => Scaffold(body: _body(context)),
         onLoading: const LoadingIndicator());
@@ -118,22 +116,21 @@ class Attendance extends GetView<AttendanceController> {
                     ? punchInLayout()
                     : punchOutLayout(),
                 customSpacerHeight(height: 20),
-                Obx(() => dotIndicator(controller.currentIndex.value)),
-                attendanceLogText(
-                    text: "text_attendance_log".tr,
-                    onAction: () {
-                      Get.find<AttendanceLogsController>()
-                          .getLogSummaryByMonth();
-                      Get.find<AttendanceLogsController>()
-                          .getLogSummaryByYear();
-                      Get.find<AttendanceLogsController>()
-                          .getAllFilteredLogSummary();
-                      Get.find<AttendanceLogsController>()
-                          .getLogSummaryOverview();
-                      customNavigator(
-                          context: Get.context!,
-                          pageName: const AttendanceLog());
-                    }),
+                // attendanceLogText(
+                //     text: "text_attendance_log".tr,
+                //     onAction: () {
+                //       Get.find<AttendanceLogsController>()
+                //           .getLogSummaryByMonth();
+                //       Get.find<AttendanceLogsController>()
+                //           .getLogSummaryByYear();
+                //       Get.find<AttendanceLogsController>()
+                //           .getAllFilteredLogSummary();
+                //       Get.find<AttendanceLogsController>()
+                //           .getLogSummaryOverview();
+                //       customNavigator(
+                //           context: Get.context!,
+                //           pageName: const AttendanceLog());
+                //     }),
               ]),
         ),
       ));
@@ -182,19 +179,6 @@ class Attendance extends GetView<AttendanceController> {
           iconsData: Icons.logout,
           textColor: Colors.white,
         ),
-        customSpacerWidth(width: 8),
-        Obx(() => AppButton(
-            buttonText: Get.find<AttendanceController>()
-                        .breakDetails
-                        .value
-                        .breakTimeId ==
-                    null
-                ? "text_take_break".tr
-                : "text_on_break".tr,
-            onPressed: () => breakPopUp(),
-            buttonColor: Colors.transparent,
-            borderColor: Colors.white,
-            iconsData: Icons.local_cafe_outlined)),
       ],
     );
   }

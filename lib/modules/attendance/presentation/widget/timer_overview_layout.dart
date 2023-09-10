@@ -17,25 +17,11 @@ Widget timerOverviewLayout() {
   return SizedBox(
     width: double.infinity,
     height: AppLayout.getHeight(60),
-    child: PageView(
-      onPageChanged: (currentIndex) =>
-          Get.find<AttendanceController>().currentIndex.value = currentIndex,
-      children: [
-        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          Expanded(flex: 1, child: inTimeLog()),
-          Expanded(flex: 2, child: outTimeLog()),
-          Expanded(flex: 1, child: balanceTimeLog()),
-        ]),
-        Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(flex: 1, child: scheduledTimeLog()),
-              Expanded(flex: 2, child: remainingTimeLog()),
-              Expanded(flex: 1, child: overtimeTimeLog()),
-            ]),
-      ],
-    ),
+    child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      Expanded(child: inTimeLog()),
+      verticalDivider(),
+      Expanded(child: outTimeLog()),
+    ]),
   );
 }
 
@@ -122,7 +108,7 @@ outTimeLog() {
   AttendanceController controller = Get.find<AttendanceController>();
   Data? data = controller.logs.value.data;
   return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
       customSpacerWidth(width: 16),
       scheduledLogInfo(
@@ -132,7 +118,6 @@ outTimeLog() {
                   data.dailyLogs!.isNotEmpty
               ? data.dailyLogs?.first.outTime
               : ''),
-      verticalDivider(),
     ],
   );
 }
@@ -140,14 +125,13 @@ outTimeLog() {
 inTimeLog() {
   Data? data = Get.find<AttendanceController>().logs.value.data;
   return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
       scheduledLogInfo(
           title: "text_in".tr,
           time: data != null && data.dailyLogs!.isNotEmpty
               ? data.dailyLogs?.last.inTime
               : ''),
-      verticalDivider(),
     ],
   );
 }
