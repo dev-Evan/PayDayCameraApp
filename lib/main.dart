@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
     );
+    ///
   }
 }
 
