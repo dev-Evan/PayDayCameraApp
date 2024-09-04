@@ -27,18 +27,18 @@ jobs:
     - run: flutter pub get
     - run: flutter build apk --release
 
-    - name: Send APK via email
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: smtp.gmail.com
-        server_port: 465
-        username: perposetest7@gmail.com
-        password: uutddotdfzuavoqy
-        subject: "New APK Build"
-        body: "Please find the attached APK file from the latest build."
-        to: evan@gain.media
-        from: perposetest7@gmail.com
-        attachments: build/app/outputs/flutter-apk/app-release.apk
+    # - name: Send APK via email
+    #   uses: dawidd6/action-send-mail@v3
+    #   with:
+    #     server_address: smtp.gmail.com
+    #     server_port: 465
+    #     username: perposetest7@gmail.com
+    #     password: uutddotdfzuavoqy
+    #     subject: "New APK Build"
+    #     body: "Please find the attached APK file from the latest build."
+    #     to: evan@gain.media
+    #     from: perposetest7@gmail.com
+    #     attachments: build/app/outputs/flutter-apk/app-release.apk
 
 
 
